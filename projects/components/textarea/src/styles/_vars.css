@@ -1,0 +1,20 @@
+:root {
+  --frame-textarea-root-min-height: 5rem;
+  --frame-textarea-root-radius: var(--frame-radius-md);
+  --frame-textarea-root-bg: var(--frame-surface);
+  --frame-textarea-root-color: var(--frame-surface-foreground);
+  --frame-textarea-root-border: var(--frame-border);
+  --frame-textarea-root-font-size: 0.875rem;
+  --frame-textarea-root-padding-block: 0.625rem;
+  --frame-textarea-root-padding-inline: 0.875rem;
+  --frame-textarea-root-placeholder-color: var(--frame-muted-foreground);
+  --frame-textarea-root-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
+  --frame-textarea-root-focus-border: color-mix(in srgb, var(--frame-ring) 70%, var(--frame-border));
+  --frame-textarea-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 22%, transparent);
+  --frame-textarea-root-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
+  --frame-textarea-root-invalid-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-destructive) 14%, transparent);
+  --frame-textarea-root-disabled-opacity: 0.55;
+  --frame-textarea-root-readonly-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
+  --frame-textarea-root-transition-duration: 150ms;
+  --frame-textarea-root-resize: vertical;
+}

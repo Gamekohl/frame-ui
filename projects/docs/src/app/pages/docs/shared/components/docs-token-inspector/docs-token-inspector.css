@@ -1,0 +1,189 @@
+@reference "tailwindcss";
+
+.docs-token-inspector {
+    display: grid;
+    gap: 1rem;
+}
+
+.docs-token-inspector--side-panel {
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .docs-token-inspector--side-panel {
+        grid-template-columns: minmax(0, 1fr) 20rem;
+    }
+}
+
+.docs-token-inspector__hotspot,
+.docs-token-inspector__outline {
+    position: absolute;
+    border-radius: 0.75rem;
+    transition:
+            left 180ms ease,
+            top 180ms ease,
+            width 180ms ease,
+            height 180ms ease,
+            opacity 180ms ease,
+            transform 180ms ease;
+}
+
+.docs-token-inspector__hotspot {
+    border: 1px dashed transparent;
+    background: transparent;
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+            left 180ms ease,
+            top 180ms ease,
+            width 180ms ease,
+            height 180ms ease,
+            background-color 140ms ease,
+            border-color 140ms ease,
+            box-shadow 140ms ease,
+            opacity 180ms ease,
+            transform 180ms ease;
+}
+
+.docs-token-inspector__hotspot:hover,
+.docs-token-inspector__hotspot:focus-visible,
+.docs-token-inspector__hotspot--active {
+    border-color: color-mix(in srgb, var(--frame-primary) 55%, transparent);
+    background: color-mix(in srgb, var(--frame-primary) 10%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-primary) 18%, transparent);
+    opacity: 1;
+    transform: scale(1);
+    outline: none;
+}
+
+.docs-token-inspector__outline {
+    pointer-events: none;
+    border: 2px solid color-mix(in srgb, var(--frame-primary) 85%, white 8%);
+    box-shadow:
+            0 0 0 4px color-mix(in srgb, var(--frame-primary) 10%, transparent),
+            inset 0 0 0 1px color-mix(in srgb, white 30%, transparent);
+}
+
+.docs-token-inspector__overlay-origin {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.docs-token-inspector__popover {
+    @apply shadow-sm;
+    max-inline-size: 32rem;
+    max-block-size: min(32rem, calc(100vh - 2rem));
+    overflow: auto;
+    border: 1px solid var(--frame-border);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--frame-surface) 94%, white 6%);
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.docs-token-inspector__panel {
+    @apply shadow-sm;
+    position: sticky;
+    top: 6rem;
+    max-block-size: min(36rem, calc(100vh - 7rem));
+    overflow: auto;
+    border: 1px solid var(--frame-border);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--frame-surface) 94%, white 6%);
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.docs-token-inspector__code {
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+
+.docs-token-inspector__code :is(pre, code) {
+    margin: 0;
+    background: transparent !important;
+    font-family:
+            ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+            monospace;
+}
+
+.docs-token-inspector__code pre {
+    overflow-x: auto;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.docs-token-inspector__code code {
+    display: block;
+    min-width: max-content;
+}
+
+:where(.dark, [data-theme='dark']) .docs-token-inspector__code .shiki,
+:where(.dark, [data-theme='dark']) .docs-token-inspector__code .shiki span {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+}
+
+.docs-token-inspector-popover-enter {
+    animation: docs-token-inspector-popover-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.docs-token-inspector-popover-leave {
+    animation: docs-token-inspector-popover-out 140ms ease both;
+}
+
+.docs-token-inspector-fade-in {
+    animation: docs-token-inspector-outline-in 180ms ease both;
+}
+
+.docs-token-inspector-fade-out {
+    animation: docs-token-inspector-outline-out 140ms ease both;
+}
+
+@keyframes docs-token-inspector-popover-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes docs-token-inspector-popover-out {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(6px) scale(0.985);
+    }
+}
+
+@keyframes docs-token-inspector-outline-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes docs-token-inspector-outline-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

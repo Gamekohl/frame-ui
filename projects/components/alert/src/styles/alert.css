@@ -1,0 +1,77 @@
+@import './_vars.css';
+
+[frAlert] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--frame-alert-root-gap, 0.75rem);
+  align-items: start;
+  border: 1px solid var(--frame-alert-root-border, var(--frame-border));
+  border-radius: var(--frame-alert-root-radius);
+  background: var(--frame-alert-root-bg, var(--frame-surface));
+  /* box-shadow: var(--frame-alert-root-shadow, none); */
+  color: var(--frame-alert-root-color, var(--frame-surface-foreground));
+  padding-block: var(--frame-alert-root-padding-y, 1rem);
+  padding-inline: var(--frame-alert-root-padding-x, 1rem);
+}
+
+[frAlertIcon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1;
+  grid-row: 1;
+  inline-size: var(--frame-alert-root-icon-size, 1rem);
+  block-size: var(--frame-alert-root-icon-size, 1rem);
+  margin-block-start: 0.125rem;
+  flex: 0 0 auto;
+  margin-right: 0.125rem;
+}
+
+[frAlert] > :not([frAlertIcon]) {
+  grid-column: 2;
+  min-width: 0;
+}
+
+[frAlert][data-variant='destructive'] {
+  background: var(--frame-alert-root-destructive-bg, color-mix(in srgb, var(--frame-destructive) 10%, var(--frame-surface)));
+  border-color: var(--frame-alert-root-destructive-border, color-mix(in srgb, var(--frame-destructive) 28%, var(--frame-border)));
+  color: var(--frame-alert-root-destructive-color, var(--frame-surface-foreground));
+}
+
+[frAlert][data-variant='success'] {
+  background: var(--frame-alert-root-success-bg, color-mix(in srgb, #16a34a 10%, var(--frame-surface)));
+  border-color: var(--frame-alert-root-success-border, color-mix(in srgb, #16a34a 28%, var(--frame-border)));
+  color: var(--frame-alert-root-success-color, var(--frame-surface-foreground));
+}
+
+[frAlert][data-variant='danger'] {
+  background: var(--frame-alert-root-danger-bg, color-mix(in srgb, #d97706 10%, var(--frame-surface)));
+  border-color: var(--frame-alert-root-danger-border, color-mix(in srgb, #d97706 30%, var(--frame-border)));
+  color: var(--frame-alert-root-danger-color, var(--frame-surface-foreground));
+}
+
+[frAlert][data-variant='info'] {
+  background: var(--frame-alert-root-info-bg, color-mix(in srgb, #2563eb 10%, var(--frame-surface)));
+  border-color: var(--frame-alert-root-info-border, color-mix(in srgb, #2563eb 28%, var(--frame-border)));
+  color: var(--frame-alert-root-info-color, var(--frame-surface-foreground));
+}
+
+[frAlertTitle] {
+  margin: 0;
+  font-size: var(--frame-alert-title-font-size, 0.9375rem);
+  font-weight: var(--frame-alert-title-font-weight, 600);
+  line-height: 1.2;
+}
+
+[frAlertDescription] {
+  color: var(--frame-alert-description-color, var(--frame-muted-foreground));
+  font-size: var(--frame-alert-description-font-size, 0.875rem);
+  line-height: var(--frame-alert-description-line-height, 1.5);
+}
+
+[frAlert][data-variant='destructive'] [frAlertDescription],
+[frAlert][data-variant='success'] [frAlertDescription],
+[frAlert][data-variant='danger'] [frAlertDescription],
+[frAlert][data-variant='info'] [frAlertDescription] {
+  color: color-mix(in srgb, currentColor 72%, var(--frame-muted-foreground));
+}

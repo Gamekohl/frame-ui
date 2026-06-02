@@ -1,0 +1,3 @@
+[frButtonLabel] {
+    font-weight: var(--frame-button-label-weight, inherit);
+}

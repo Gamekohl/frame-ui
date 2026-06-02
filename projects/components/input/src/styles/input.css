@@ -1,0 +1,163 @@
+@import './_vars.css';
+
+[frInputField],
+frame-input-field {
+  display: grid;
+  gap: var(--frame-input-field-gap);
+  width: 100%;
+}
+
+[frInputHeader],
+frame-input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--frame-input-header-gap);
+}
+
+[frInputControl],
+frame-input-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+[frInputFieldGroup],
+frame-input-field-group {
+  display: grid;
+  gap: var(--frame-input-field-group-gap);
+}
+
+[frInputLabel],
+frame-input-label {
+  font-size: var(--frame-input-label-font-size);
+  font-weight: var(--frame-input-label-font-weight);
+  line-height: 1.3;
+}
+
+[frInputDescription],
+frame-input-description {
+  color: var(--frame-input-description-color);
+  font-size: var(--frame-input-description-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[frInputError],
+frame-input-error {
+  color: var(--frame-input-error-color);
+  font-size: var(--frame-input-error-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[frInput] {
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-width: 0;
+  height: var(--frame-input-root-height);
+  border: 1px solid var(--frame-input-root-border);
+  border-radius: var(--frame-input-root-radius);
+  background: var(--frame-input-root-bg);
+  color: var(--frame-input-root-color);
+  box-shadow: none;
+  cursor: text;
+  font: inherit;
+  font-size: var(--frame-input-root-font-size);
+  line-height: 1.4;
+  margin: 0;
+  outline: none;
+  padding-block: 0;
+  padding-inline: var(--frame-input-root-padding-inline);
+  text-overflow: ellipsis;
+  transition:
+    background-color var(--frame-input-root-transition-duration) ease,
+    border-color var(--frame-input-root-transition-duration) ease,
+    box-shadow var(--frame-input-root-transition-duration) ease,
+    color var(--frame-input-root-transition-duration) ease,
+    opacity var(--frame-input-root-transition-duration) ease;
+}
+
+[frInput]::placeholder {
+  color: var(--frame-input-root-placeholder-color);
+}
+
+[frInput]:where(:not(:disabled)):hover {
+  border-color: var(--frame-input-root-hover-border);
+}
+
+[frInput]:focus-visible {
+  border-color: var(--frame-input-root-focus-border);
+  box-shadow: var(--frame-input-root-focus-shadow);
+}
+
+[frInput][aria-invalid='true'],
+[frInput].ng-invalid.ng-touched,
+[frInput].ng-invalid.ng-dirty {
+  border-color: var(--frame-input-root-invalid-border);
+  box-shadow: var(--frame-input-root-invalid-shadow);
+}
+
+[frInput]:disabled {
+  cursor: not-allowed;
+  background: var(--frame-input-root-disabled-bg);
+  border-color: var(--frame-input-root-disabled-border);
+  color: var(--frame-input-root-disabled-color);
+  opacity: var(--frame-input-root-disabled-opacity);
+}
+
+[frInput]:disabled::placeholder {
+  color: var(--frame-input-root-disabled-color);
+}
+
+[frInput]:read-only {
+  background: var(--frame-input-root-readonly-bg);
+}
+
+[frInput][type='file'] {
+  cursor: pointer;
+  padding-block: var(--frame-input-file-padding-block);
+}
+
+[frInput][type='file']::file-selector-button {
+  border: 1px solid var(--frame-border);
+  border-radius: var(--frame-input-file-button-radius);
+  background: var(--frame-input-file-button-bg);
+  color: var(--frame-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-input-file-button-font-size);
+  font-weight: var(--frame-input-file-button-font-weight);
+  margin-inline-end: var(--frame-input-file-button-margin-inline-end);
+  padding: var(--frame-input-file-button-padding);
+  transition:
+    background-color var(--frame-input-file-button-transition-duration) ease,
+    border-color var(--frame-input-file-button-transition-duration) ease,
+    color var(--frame-input-file-button-transition-duration) ease;
+}
+
+[frInput][type='file']:where(:not(:disabled))::file-selector-button:hover {
+  background: var(--frame-input-file-button-hover-bg);
+  border-color: var(--frame-input-root-hover-border);
+}
+
+[frInputBadge],
+frame-input-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /*min-inline-size: 2.5rem;*/
+  padding-inline: var(--frame-input-badge-padding-inline);
+  block-size: var(--frame-input-badge-height);
+  border-radius: var(--frame-input-badge-radius);
+  border: 1px solid var(--frame-input-badge-border);
+  background: var(--frame-input-badge-bg);
+  color: var(--frame-input-badge-color);
+  font-size: var(--frame-input-badge-font-size);
+  font-weight: var(--frame-input-badge-font-weight);
+  line-height: 1;
+  white-space: nowrap;
+}

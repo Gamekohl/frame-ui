@@ -1,0 +1,209 @@
+@import './_vars.css';
+
+[frAvatar] {
+  --frame-avatar-badge-size-current: var(
+    --frame-avatar-badge-size,
+    calc(var(--frame-avatar-size-current, var(--frame-avatar-root-size, 2.5rem)) * 0.35)
+  );
+  --frame-avatar-badge-font-size-current: var(
+    --frame-avatar-badge-font-size,
+    calc(var(--frame-avatar-font-size-current, var(--frame-avatar-root-font-size, 0.875rem)) * 0.72)
+  );
+  position: relative;
+  inline-size: var(--frame-avatar-size-current, var(--frame-avatar-root-size, 2.5rem));
+  block-size: var(--frame-avatar-size-current, var(--frame-avatar-root-size, 2.5rem));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex: 0 0 auto;
+  border: 1px solid var(--frame-avatar-root-border, transparent);
+  border-radius: var(--frame-avatar-root-radius, 999px);
+  background: var(--frame-avatar-root-bg, var(--frame-muted));
+  box-shadow: var(--frame-avatar-root-shadow, none);
+  color: var(--frame-avatar-root-color, var(--frame-muted-foreground));
+  font-size: var(--frame-avatar-font-size-current, var(--frame-avatar-root-font-size, 0.875rem));
+  font-weight: var(--frame-avatar-root-font-weight, 600);
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
+  vertical-align: middle;
+}
+
+[frAvatar][data-size='xs'] {
+  --frame-avatar-size-current: var(--frame-avatar-size-xs, 1rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-xs, 0.5rem);
+}
+
+[frAvatar][data-size='sm'] {
+  --frame-avatar-size-current: var(--frame-avatar-size-sm, 2rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-sm, 0.75rem);
+}
+
+[frAvatar][data-size='md'] {
+  --frame-avatar-size-current: var(--frame-avatar-size-md, 2.5rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-md, 0.875rem);
+}
+
+[frAvatar][data-size='lg'] {
+  --frame-avatar-size-current: var(--frame-avatar-size-lg, 3.5rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-lg, 1rem);
+}
+
+[frAvatarImage],
+[frAvatarFallback],
+[frAvatarIcon] {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+}
+
+[frAvatarImage] {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: var(--frame-avatar-image-fit, cover);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+[frAvatar][data-status='loaded'] [frAvatarImage] {
+  opacity: 1;
+}
+
+[frAvatarFallback] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  padding: var(--frame-avatar-fallback-padding, 0.25rem);
+  line-height: inherit;
+  text-align: center;
+  transition: opacity 160ms ease;
+}
+
+[frAvatarIcon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  font-size: var(--frame-avatar-icon-size, 1rem);
+  line-height: inherit;
+  transition: opacity 160ms ease;
+}
+
+[frAvatarIcon] > * {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+[frAvatarFallback][data-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[frAvatarIcon][data-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[frAvatarBadge] {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+  z-index: 2;
+  min-inline-size: var(--frame-avatar-badge-size-current);
+  block-size: var(--frame-avatar-badge-size-current);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.25rem;
+  border: 2px solid var(--frame-avatar-badge-border, var(--frame-surface));
+  border-radius: var(--frame-avatar-badge-radius, 999px);
+  background: var(--frame-avatar-badge-bg, var(--frame-primary));
+  color: var(--frame-avatar-badge-color, var(--frame-primary-foreground));
+  font-size: var(--frame-avatar-badge-font-size-current);
+  font-weight: var(--frame-avatar-badge-font-weight, 700);
+  line-height: 1;
+  transform: translate(18%, 18%);
+}
+
+[frAvatarGroup] {
+  display: inline-flex;
+  align-items: center;
+}
+
+[frAvatarGroup] > [frAvatar],
+[frAvatarGroup] > [frAvatarGroupCount] {
+  margin-inline-start: calc(var(--frame-avatar-group-overlap) * -1);
+  box-shadow: var(--frame-shadow-sm);
+  transition:
+    margin-inline-start var(--frame-avatar-group-transition-duration, 180ms)
+      var(--frame-avatar-group-transition-timing, ease),
+    transform var(--frame-avatar-group-transition-duration, 180ms)
+      var(--frame-avatar-group-transition-timing, ease);
+}
+
+[frAvatarGroup] > :first-child {
+  margin-inline-start: 0;
+}
+
+[frAvatarGroup] > [frAvatar],
+[frAvatarGroup] > [frAvatarGroupCount] {
+  position: relative;
+}
+
+[frAvatarGroup][data-expand-on-hover='true']:where(:hover, :focus-within)
+  > [frAvatar]:not(:first-child),
+[frAvatarGroup][data-expand-on-hover='true']:where(:hover, :focus-within)
+  > [frAvatarGroupCount]:not(:first-child) {
+  margin-inline-start: 0;
+}
+
+[frAvatarGroup][data-size='sm'] > [frAvatarGroupCount] {
+  inline-size: var(--frame-avatar-size-sm, 2rem);
+  block-size: var(--frame-avatar-size-sm, 2rem);
+  font-size: var(--frame-avatar-font-size-sm, 0.75rem);
+}
+
+[frAvatarGroup][data-size='md'] > [frAvatarGroupCount] {
+  inline-size: var(--frame-avatar-size-md, 2.5rem);
+  block-size: var(--frame-avatar-size-md, 2.5rem);
+  font-size: var(--frame-avatar-font-size-md, 0.875rem);
+}
+
+[frAvatarGroup][data-size='lg'] > [frAvatarGroupCount] {
+  inline-size: var(--frame-avatar-size-lg, 3.5rem);
+  block-size: var(--frame-avatar-size-lg, 3.5rem);
+  font-size: var(--frame-avatar-font-size-lg, 1rem);
+}
+
+[frAvatarGroup][data-size='sm'] > [frAvatar] {
+  --frame-avatar-size-current: var(--frame-avatar-size-sm, 2rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-sm, 0.75rem);
+}
+
+[frAvatarGroup][data-size='md'] > [frAvatar] {
+  --frame-avatar-size-current: var(--frame-avatar-size-md, 2.5rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-md, 0.875rem);
+}
+
+[frAvatarGroup][data-size='lg'] > [frAvatar] {
+  --frame-avatar-size-current: var(--frame-avatar-size-lg, 3.5rem);
+  --frame-avatar-font-size-current: var(--frame-avatar-font-size-lg, 1rem);
+}
+
+[frAvatarGroupCount] {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--frame-avatar-group-count-border, var(--frame-border));
+  border-radius: var(--frame-avatar-root-radius, 999px);
+  background: var(--frame-avatar-group-count-bg, var(--frame-surface));
+  color: var(--frame-avatar-group-count-color, var(--frame-muted-foreground));
+  font-weight: var(--frame-avatar-root-font-weight, 600);
+  box-shadow: var(--frame-avatar-root-shadow, none);
+}

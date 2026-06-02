@@ -1,0 +1,138 @@
+@import './_vars.css';
+
+[frPagination],
+nav[frPagination] {
+  display: flex;
+  justify-content: center;
+  color: var(--frame-pagination-color);
+}
+
+[frPaginationContent] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-pagination-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[frPaginationItem] {
+  display: inline-flex;
+  align-items: center;
+}
+
+[frPaginationLink],
+[frPaginationPrevious],
+[frPaginationNext],
+.frame-pagination__link {
+  box-sizing: border-box;
+  display: inline-flex;
+  min-inline-size: var(--frame-pagination-link-min-width);
+  min-block-size: var(--frame-pagination-link-size);
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-pagination-link-gap);
+  border: 1px solid var(--frame-pagination-link-border);
+  border-radius: var(--frame-pagination-link-radius);
+  background: var(--frame-pagination-link-bg);
+  color: var(--frame-pagination-link-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-pagination-font-size);
+  font-weight: var(--frame-pagination-font-weight);
+  line-height: 1;
+  padding-inline: var(--frame-pagination-link-padding-x);
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    color 140ms ease,
+    opacity 140ms ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+[frPaginationLink]:where(button),
+[frPaginationPrevious]:where(button),
+[frPaginationNext]:where(button) {
+  padding-block: 0;
+}
+
+[frPaginationLink]:where(:not([data-disabled])):hover,
+[frPaginationPrevious]:where(:not([data-disabled])):hover,
+[frPaginationNext]:where(:not([data-disabled])):hover,
+.frame-pagination__link:where(:not([data-disabled])):hover {
+  background: var(--frame-pagination-link-hover-bg);
+  color: var(--frame-pagination-link-hover-color);
+}
+
+[frPaginationLink]:focus-visible,
+[frPaginationPrevious]:focus-visible,
+[frPaginationNext]:focus-visible,
+.frame-pagination__link:focus-visible {
+  outline: none;
+  box-shadow: var(--frame-pagination-link-focus-shadow);
+}
+
+[frPaginationLink][data-active],
+.frame-pagination__link[data-active] {
+  border-color: var(--frame-pagination-link-active-border);
+  background: var(--frame-pagination-link-active-bg);
+  color: var(--frame-pagination-link-active-color);
+}
+
+[frPaginationLink][data-disabled],
+[frPaginationPrevious][data-disabled],
+[frPaginationNext][data-disabled],
+.frame-pagination__link[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-pagination-link-disabled-opacity);
+  pointer-events: none;
+}
+
+[frPaginationPrevious][data-icon-only],
+[frPaginationNext][data-icon-only] {
+  inline-size: var(--frame-pagination-link-size);
+  min-inline-size: var(--frame-pagination-link-size);
+  padding-inline: 0;
+}
+
+.frame-pagination__control-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25em;
+  line-height: 0.75;
+}
+
+[dir='rtl'] .frame-pagination__previous .frame-pagination__control-icon,
+[dir='rtl'] .frame-pagination__next .frame-pagination__control-icon {
+  transform: scaleX(-1);
+}
+
+[frPaginationEllipsis],
+frame-pagination-ellipsis {
+  display: inline-flex;
+  min-inline-size: var(--frame-pagination-link-size);
+  min-block-size: var(--frame-pagination-link-size);
+  align-items: center;
+  justify-content: center;
+  color: var(--frame-pagination-ellipsis-color);
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
+.frame-pagination__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

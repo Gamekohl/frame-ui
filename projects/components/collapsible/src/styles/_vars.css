@@ -1,0 +1,13 @@
+:root {
+  --frame-collapsible-trigger-gap: 0.5rem;
+  --frame-collapsible-trigger-color: var(--frame-foreground);
+  --frame-collapsible-trigger-disabled-opacity: 0.55;
+  --frame-collapsible-content-color: var(--frame-muted-foreground);
+  --frame-collapsible-content-font-size: 0.875rem;
+  --frame-collapsible-content-line-height: 1.6;
+  --frame-collapsible-content-padding-block-start: 0.75rem;
+  --frame-collapsible-content-opacity-closed: 0;
+  --frame-collapsible-content-opacity-open: 1;
+  --frame-collapsible-content-transition-duration: 220ms;
+  --frame-collapsible-content-transition-timing: ease;
+}

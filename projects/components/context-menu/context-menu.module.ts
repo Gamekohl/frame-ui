@@ -1,0 +1,53 @@
+import { NgModule } from '@angular/core';
+import {
+  FrContextMenu,
+  FrContextMenuCheckboxItem,
+  FrContextMenuContent,
+  FrContextMenuItem,
+  FrContextMenuItemIndicator,
+  FrContextMenuLabel,
+  FrContextMenuPanel,
+  FrContextMenuRadioGroup,
+  FrContextMenuRadioItem,
+  FrContextMenuSeparator,
+  FrContextMenuShortcut,
+  FrContextMenuSub,
+  FrContextMenuSubTrigger,
+  FrContextMenuTrigger,
+} from './src/context-menu';
+
+@NgModule({
+  imports: [
+    FrContextMenu,
+    FrContextMenuCheckboxItem,
+    FrContextMenuContent,
+    FrContextMenuItem,
+    FrContextMenuItemIndicator,
+    FrContextMenuLabel,
+    FrContextMenuPanel,
+    FrContextMenuRadioGroup,
+    FrContextMenuRadioItem,
+    FrContextMenuSeparator,
+    FrContextMenuShortcut,
+    FrContextMenuSub,
+    FrContextMenuSubTrigger,
+    FrContextMenuTrigger,
+  ],
+  exports: [
+    FrContextMenu,
+    FrContextMenuCheckboxItem,
+    FrContextMenuContent,
+    FrContextMenuItem,
+    FrContextMenuItemIndicator,
+    FrContextMenuLabel,
+    FrContextMenuPanel,
+    FrContextMenuRadioGroup,
+    FrContextMenuRadioItem,
+    FrContextMenuSeparator,
+    FrContextMenuShortcut,
+    FrContextMenuSub,
+    FrContextMenuSubTrigger,
+    FrContextMenuTrigger,
+  ],
+})
+export class FrContextMenuModule {}

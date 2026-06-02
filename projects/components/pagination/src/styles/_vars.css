@@ -1,0 +1,22 @@
+:root {
+  --frame-pagination-gap: 0.25rem;
+  --frame-pagination-color: var(--frame-foreground);
+  --frame-pagination-link-size: 2.25rem;
+  --frame-pagination-link-min-width: 2.25rem;
+  --frame-pagination-link-padding-x: 0.75rem;
+  --frame-pagination-link-gap: 0.375rem;
+  --frame-pagination-link-radius: var(--frame-radius-md);
+  --frame-pagination-link-bg: transparent;
+  --frame-pagination-link-color: var(--frame-muted-foreground);
+  --frame-pagination-link-border: transparent;
+  --frame-pagination-link-hover-bg: var(--frame-accent);
+  --frame-pagination-link-hover-color: var(--frame-accent-foreground);
+  --frame-pagination-link-active-bg: var(--frame-surface);
+  --frame-pagination-link-active-color: var(--frame-foreground);
+  --frame-pagination-link-active-border: var(--frame-border);
+  --frame-pagination-link-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-pagination-link-disabled-opacity: 0.5;
+  --frame-pagination-font-size: 0.875rem;
+  --frame-pagination-font-weight: 500;
+  --frame-pagination-ellipsis-color: var(--frame-muted-foreground);
+}

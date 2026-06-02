@@ -1,0 +1,18 @@
+:root {
+  --frame-modal-backdrop-blur: 3px;
+  --frame-modal-backdrop-bg: rgb(0 0 0 / 0.52);
+  --frame-modal-bg: var(--frame-background, #fff);
+  --frame-modal-border: var(--frame-border, #e5e7eb);
+  --frame-modal-color: var(--frame-foreground, #09090b);
+  --frame-modal-muted-color: var(--frame-muted-foreground, #71717a);
+  --frame-modal-radius: var(--frame-radius-lg, 0.75rem);
+  --frame-modal-shadow: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
+  --frame-modal-padding: 1.5rem;
+  --frame-modal-gap: 1rem;
+  --frame-modal-scrollable-height: min(calc(100dvh - 2rem), 28rem);
+  --frame-modal-close-bg: transparent;
+  --frame-modal-close-color: var(--frame-muted-foreground, #71717a);
+  --frame-modal-close-hover-bg: var(--frame-muted, #f4f4f5);
+  --frame-modal-close-hover-color: var(--frame-foreground, #09090b);
+  --frame-modal-z-index: 1000;
+}

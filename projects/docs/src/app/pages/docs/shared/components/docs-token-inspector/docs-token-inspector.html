@@ -1,0 +1,134 @@
+<div class="docs-token-inspector" [class.docs-token-inspector--side-panel]="layout() === 'side-panel'">
+  <div
+    #canvas
+    cdkOverlayOrigin
+    #overlayOrigin="cdkOverlayOrigin"
+    class="docs-token-inspector__canvas relative overflow-hidden rounded-2xl border border-border bg-background/70 p-4 sm:p-5"
+    (mouseleave)="clearActive()"
+  >
+    <div #previewHost [class]="containerClass() ?? 'flex min-h-75 items-center justify-center'">
+      <ng-container [ngComponentOutlet]="component()" [ngComponentOutletInputs]="inputs()" />
+    </div>
+
+    @for (target of measuredTargets(); track target.id) {
+      <button
+        type="button"
+        class="docs-token-inspector__hotspot"
+        [class.docs-token-inspector__hotspot--active]="visibleTarget()?.id === target.id"
+        [style.left.px]="target.rect.left"
+        [style.top.px]="target.rect.top"
+        [style.width.px]="target.rect.width"
+        [style.height.px]="target.rect.height"
+        [style.z-index]="10 + $index"
+        [attr.aria-label]="'Inspect ' + target.label"
+        (mouseenter)="setActive(target.id)"
+        (mouseleave)="clearActive()"
+        (click)="togglePinned(target.id)"
+        (focus)="setActive(target.id)"
+      ></button>
+    }
+
+    @if (visibleTarget(); as active) {
+      <div
+        animate.enter="docs-token-inspector-fade-in"
+        animate.leave="docs-token-inspector-fade-out"
+        class="docs-token-inspector__outline"
+        [style.left.px]="active.rect.left"
+        [style.top.px]="active.rect.top"
+        [style.width.px]="active.rect.width"
+        [style.height.px]="active.rect.height"
+      ></div>
+
+      @if (layout() === 'popover') {
+        <div
+          class="docs-token-inspector__overlay-origin"
+          [style.left.px]="canvasWidth()"
+          [style.top.px]="active.rect.top + active.rect.height / 2"
+        ></div>
+      }
+    }
+  </div>
+
+  @if (visibleTarget(); as active) {
+    @if (layout() === 'side-panel') {
+      <aside
+        animate.enter="docs-token-inspector-popover-enter"
+        animate.leave="docs-token-inspector-popover-leave"
+        class="docs-token-inspector__panel"
+      >
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Token Inspector
+            </p>
+            <h3 class="mt-1 text-base font-semibold tracking-tight text-foreground">
+              {{ active.label }}
+            </h3>
+          </div>
+
+          @if (pinnedTargetId()) {
+            <button frButton size="sm" appearance="outline" type="button" (click)="clearPinned()">
+              Clear
+            </button>
+          }
+        </div>
+
+        @if (active.description) {
+          <p class="mt-3 text-sm leading-6 text-muted-foreground">
+            {{ active.description }}
+          </p>
+        }
+
+        <div class="mt-4 flex flex-col gap-2">
+          @for (token of active.tokenValues; track token.name) {
+            <docs-code-block title="Token" [code]="token.name + ': ' + token.value" language="scss" rounded />
+          }
+        </div>
+      </aside>
+    } @else {
+      <ng-template
+        cdkConnectedOverlay
+        [cdkConnectedOverlayOpen]="true"
+        [cdkConnectedOverlayOrigin]="overlayOrigin"
+        [cdkConnectedOverlayPositions]="overlayPositions"
+        [cdkConnectedOverlayPush]="true"
+        [cdkConnectedOverlayViewportMargin]="12"
+      >
+        <div
+          animate.enter="docs-token-inspector-popover-enter"
+          animate.leave="docs-token-inspector-popover-leave"
+          class="docs-token-inspector__popover"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Token Inspector
+              </p>
+              <h3 class="mt-1 text-base font-semibold tracking-tight text-foreground">
+                {{ active.label }}
+              </h3>
+            </div>
+
+            @if (pinnedTargetId()) {
+              <button frButton size="sm" appearance="outline" type="button" (click)="clearPinned()">
+                Clear
+              </button>
+            }
+          </div>
+
+          @if (active.description) {
+            <p class="mt-3 text-sm leading-6 text-muted-foreground">
+              {{ active.description }}
+            </p>
+          }
+
+          <div class="mt-4 flex flex-col gap-2">
+            @for (token of active.tokenValues; track token.name) {
+              <docs-code-block title="Token" [code]="token.name + ': ' + token.value" language="scss" rounded />
+            }
+          </div>
+        </div>
+      </ng-template>
+    }
+  }
+</div>

@@ -1,0 +1,18 @@
+[frButtonIcon] {
+    display: inline-flex;
+    inline-size: var(--frame-button-icon-size, 1rem);
+    block-size: var(--frame-button-icon-size, 1rem);
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.frame-button[data-size='sm'] [frButtonIcon] {
+    inline-size: var(--frame-button-icon-size, 0.875rem);
+    block-size: var(--frame-button-icon-size, 0.875rem);
+}
+
+.frame-button[data-size='lg'] [frButtonIcon] {
+    inline-size: var(--frame-button-icon-size, 1.125rem);
+    block-size: var(--frame-button-icon-size, 1.125rem);
+}

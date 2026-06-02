@@ -1,0 +1,53 @@
+import { NgModule } from '@angular/core';
+import {
+  FrNavigationLinkSeparator,
+  FrNavigationMenu,
+  FrNavigationMenuContent,
+  FrNavigationMenuFeature,
+  FrNavigationMenuGrid,
+  FrNavigationMenuIndicator,
+  FrNavigationMenuItem,
+  FrNavigationMenuLink,
+  FrNavigationMenuLinkDescription,
+  FrNavigationMenuLinkTitle,
+  FrNavigationMenuList,
+  FrNavigationMenuPanel,
+  FrNavigationMenuTrigger,
+  FrNavigationMenuViewport,
+} from './src/navigation-menu';
+
+@NgModule({
+  imports: [
+    FrNavigationLinkSeparator,
+    FrNavigationMenu,
+    FrNavigationMenuContent,
+    FrNavigationMenuFeature,
+    FrNavigationMenuGrid,
+    FrNavigationMenuIndicator,
+    FrNavigationMenuItem,
+    FrNavigationMenuLink,
+    FrNavigationMenuLinkDescription,
+    FrNavigationMenuLinkTitle,
+    FrNavigationMenuList,
+    FrNavigationMenuPanel,
+    FrNavigationMenuTrigger,
+    FrNavigationMenuViewport,
+  ],
+  exports: [
+    FrNavigationLinkSeparator,
+    FrNavigationMenu,
+    FrNavigationMenuContent,
+    FrNavigationMenuFeature,
+    FrNavigationMenuGrid,
+    FrNavigationMenuIndicator,
+    FrNavigationMenuItem,
+    FrNavigationMenuLink,
+    FrNavigationMenuLinkDescription,
+    FrNavigationMenuLinkTitle,
+    FrNavigationMenuList,
+    FrNavigationMenuPanel,
+    FrNavigationMenuTrigger,
+    FrNavigationMenuViewport,
+  ],
+})
+export class FrNavigationMenuModule {}

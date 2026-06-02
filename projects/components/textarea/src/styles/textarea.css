@@ -1,0 +1,60 @@
+@import './_vars.css';
+
+[frTextarea] {
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--frame-textarea-root-min-height);
+  border: 1px solid var(--frame-textarea-root-border);
+  border-radius: var(--frame-textarea-root-radius);
+  background: var(--frame-textarea-root-bg);
+  color: var(--frame-textarea-root-color);
+  box-shadow: none;
+  cursor: text;
+  font: inherit;
+  font-size: var(--frame-textarea-root-font-size);
+  line-height: 1.5;
+  margin: 0;
+  outline: none;
+  padding-block: var(--frame-textarea-root-padding-block);
+  padding-inline: var(--frame-textarea-root-padding-inline);
+  resize: var(--frame-textarea-root-resize);
+  transition:
+    background-color var(--frame-textarea-root-transition-duration) ease,
+    border-color var(--frame-textarea-root-transition-duration) ease,
+    box-shadow var(--frame-textarea-root-transition-duration) ease,
+    color var(--frame-textarea-root-transition-duration) ease,
+    opacity var(--frame-textarea-root-transition-duration) ease;
+}
+
+[frTextarea]::placeholder {
+  color: var(--frame-textarea-root-placeholder-color);
+}
+
+[frTextarea]:where(:not(:disabled)):hover {
+  border-color: var(--frame-textarea-root-hover-border);
+}
+
+[frTextarea]:focus-visible {
+  border-color: var(--frame-textarea-root-focus-border);
+  box-shadow: var(--frame-textarea-root-focus-shadow);
+}
+
+[frTextarea][aria-invalid='true'],
+[frTextarea].ng-invalid.ng-touched,
+[frTextarea].ng-invalid.ng-dirty {
+  border-color: var(--frame-textarea-root-invalid-border);
+  box-shadow: var(--frame-textarea-root-invalid-shadow);
+}
+
+[frTextarea]:disabled {
+  cursor: not-allowed;
+  opacity: var(--frame-textarea-root-disabled-opacity);
+}
+
+[frTextarea]:read-only {
+  background: var(--frame-textarea-root-readonly-bg);
+}

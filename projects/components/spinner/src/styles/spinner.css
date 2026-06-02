@@ -1,0 +1,62 @@
+@import './_vars.css';
+
+[frSpinner],
+frame-spinner,
+.frame-spinner {
+  box-sizing: border-box;
+  display: inline-flex;
+  inline-size: var(--frame-spinner-size);
+  block-size: var(--frame-spinner-size);
+  flex: 0 0 auto;
+  border: var(--frame-spinner-stroke) solid var(--frame-spinner-track-color);
+  border-block-start-color: var(--frame-spinner-indicator-color);
+  border-radius: var(--frame-spinner-radius);
+  color: currentColor;
+  animation: frame-spinner-spin var(--frame-spinner-duration) linear infinite;
+}
+
+[frSpinner][data-size='xs'],
+frame-spinner[data-size='xs'],
+.frame-spinner[data-size='xs'] {
+  --frame-spinner-size: 0.75rem;
+  --frame-spinner-stroke: 1.5px;
+}
+
+[frSpinner][data-size='sm'],
+frame-spinner[data-size='sm'],
+.frame-spinner[data-size='sm'] {
+  --frame-spinner-size: 0.875rem;
+}
+
+[frSpinner][data-size='md'],
+frame-spinner[data-size='md'],
+.frame-spinner[data-size='md'] {
+  --frame-spinner-size: 1rem;
+}
+
+[frSpinner][data-size='lg'],
+frame-spinner[data-size='lg'],
+.frame-spinner[data-size='lg'] {
+  --frame-spinner-size: 1.25rem;
+}
+
+[frSpinner][data-size='xl'],
+frame-spinner[data-size='xl'],
+.frame-spinner[data-size='xl'] {
+  --frame-spinner-size: 1.75rem;
+  --frame-spinner-stroke: 2.5px;
+}
+
+@keyframes frame-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frSpinner],
+  frame-spinner,
+  .frame-spinner {
+    animation-duration: 1.4s;
+  }
+}

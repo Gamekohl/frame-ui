@@ -1,0 +1,20 @@
+:root {
+    --frame-button-root-gap: 0.5rem;
+    --frame-button-root-height: 2.25rem;
+    --frame-button-root-padding-x: 1rem;
+    --frame-button-root-radius: var(--frame-radius-md);
+    --frame-button-root-shadow: var(--frame-shadow-sm);
+    --frame-button-root-font-size: 0.875rem;
+    --frame-button-root-font-weight: 600;
+    --frame-button-root-ring-color: var(--frame-ring);
+    --frame-button-root-focus-shadow: var(--frame-button-root-shadow), 0 0 0 3px color-mix(in srgb, var(--frame-button-root-ring-color) 35%, transparent);
+    --frame-button-root-hover-filter: brightness(0.98);
+    --frame-button-root-active-filter: brightness(0.96);
+    --frame-button-root-disabled-opacity: 0.55;
+    --frame-button-root-disabled-shadow: none;
+    --frame-button-loading-size: 1rem;
+    --frame-button-loading-stroke: 2px;
+    --frame-button-loading-track: color-mix(in srgb, white 24%, transparent);
+    --frame-button-icon-size: 1rem;
+    --frame-button-label-weight: inherit;
+}

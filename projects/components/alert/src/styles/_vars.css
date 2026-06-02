@@ -1,0 +1,28 @@
+:root {
+  --frame-alert-root-bg: var(--frame-surface);
+  --frame-alert-root-border: var(--frame-border);
+  --frame-alert-root-color: var(--frame-surface-foreground);
+  --frame-alert-root-radius: var(--frame-radius-md);
+  --frame-alert-root-padding-y: 1rem;
+  --frame-alert-root-padding-x: 1rem;
+  --frame-alert-root-gap: 0.25rem;
+  --frame-alert-root-icon-size: 1rem;
+  --frame-alert-root-shadow: none;
+  --frame-alert-root-destructive-bg: color-mix(in srgb, var(--frame-destructive) 10%, var(--frame-surface));
+  --frame-alert-root-destructive-border: color-mix(in srgb, var(--frame-destructive) 28%, var(--frame-border));
+  --frame-alert-root-destructive-color: var(--frame-surface-foreground);
+  --frame-alert-root-success-bg: color-mix(in srgb, #16a34a 10%, var(--frame-surface));
+  --frame-alert-root-success-border: color-mix(in srgb, #16a34a 28%, var(--frame-border));
+  --frame-alert-root-success-color: var(--frame-surface-foreground);
+  --frame-alert-root-danger-bg: color-mix(in srgb, #d97706 10%, var(--frame-surface));
+  --frame-alert-root-danger-border: color-mix(in srgb, #d97706 30%, var(--frame-border));
+  --frame-alert-root-danger-color: var(--frame-surface-foreground);
+  --frame-alert-root-info-bg: color-mix(in srgb, #2563eb 10%, var(--frame-surface));
+  --frame-alert-root-info-border: color-mix(in srgb, #2563eb 28%, var(--frame-border));
+  --frame-alert-root-info-color: var(--frame-surface-foreground);
+  --frame-alert-title-font-size: 0.9375rem;
+  --frame-alert-title-font-weight: 600;
+  --frame-alert-description-color: var(--frame-muted-foreground);
+  --frame-alert-description-font-size: 0.875rem;
+  --frame-alert-description-line-height: 1.5;
+}

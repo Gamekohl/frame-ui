@@ -1,0 +1,42 @@
+.frame-dropdown-menu__content {
+  transform-origin: var(--frame-dropdown-menu-origin, top left);
+  animation: frame-dropdown-menu-enter var(--frame-dropdown-menu-motion-duration) var(--frame-dropdown-menu-motion-easing);
+  will-change: opacity, transform;
+}
+
+.frame-dropdown-menu__content[data-side='bottom'] {
+  --frame-dropdown-menu-enter-x: 0;
+  --frame-dropdown-menu-enter-y: calc(var(--frame-dropdown-menu-motion-distance) * -1);
+  --frame-dropdown-menu-origin: top left;
+}
+
+.frame-dropdown-menu__content[data-side='top'] {
+  --frame-dropdown-menu-enter-x: 0;
+  --frame-dropdown-menu-enter-y: var(--frame-dropdown-menu-motion-distance);
+  --frame-dropdown-menu-origin: bottom left;
+}
+
+.frame-dropdown-menu__content[data-side='right'] {
+  --frame-dropdown-menu-enter-x: calc(var(--frame-dropdown-menu-motion-distance) * -1);
+  --frame-dropdown-menu-enter-y: 0;
+  --frame-dropdown-menu-origin: left top;
+}
+
+.frame-dropdown-menu__content[data-side='left'] {
+  --frame-dropdown-menu-enter-x: var(--frame-dropdown-menu-motion-distance);
+  --frame-dropdown-menu-enter-y: 0;
+  --frame-dropdown-menu-origin: right top;
+}
+
+@keyframes frame-dropdown-menu-enter {
+  from {
+    opacity: 0;
+    transform: translate(var(--frame-dropdown-menu-enter-x, 0), var(--frame-dropdown-menu-enter-y, calc(var(--frame-dropdown-menu-motion-distance) * -1)))
+      scale(var(--frame-dropdown-menu-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

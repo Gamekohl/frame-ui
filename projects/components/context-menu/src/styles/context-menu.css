@@ -1,0 +1,5 @@
+@import '../../../dropdown-menu/src/styles/dropdown-menu.css';
+
+[frContextMenuTrigger] {
+  touch-action: manipulation;
+}

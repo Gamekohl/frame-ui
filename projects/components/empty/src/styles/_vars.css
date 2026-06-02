@@ -1,0 +1,23 @@
+:root {
+  --frame-empty-padding: 3rem 1.5rem;
+  --frame-empty-gap: 1.5rem;
+  --frame-empty-radius: var(--frame-radius-lg);
+  --frame-empty-border: transparent;
+  --frame-empty-bg: transparent;
+  --frame-empty-color: var(--frame-foreground);
+  --frame-empty-outline-border: var(--frame-border);
+  --frame-empty-soft-bg: var(--frame-muted);
+  --frame-empty-header-gap: 0.75rem;
+  --frame-empty-content-gap: 0.75rem;
+  --frame-empty-media-size: 3rem;
+  --frame-empty-media-radius: var(--frame-radius-lg);
+  --frame-empty-media-bg: var(--frame-muted);
+  --frame-empty-media-color: var(--frame-muted-foreground);
+  --frame-empty-media-icon-size: 1.5rem;
+  --frame-empty-title-color: var(--frame-foreground);
+  --frame-empty-title-font-size: 1rem;
+  --frame-empty-title-font-weight: 600;
+  --frame-empty-description-color: var(--frame-muted-foreground);
+  --frame-empty-description-font-size: 0.875rem;
+  --frame-empty-description-max-width: 32rem;
+}

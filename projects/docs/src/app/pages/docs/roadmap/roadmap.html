@@ -1,0 +1,91 @@
+<article class="docs-article min-w-0 space-y-10 py-2">
+  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-5">
+    <div class="flex flex-wrap items-center gap-3">
+      <p class="text-sm font-medium text-foreground">Planning</p>
+      <span frBadge variant="secondary">Work in progress</span>
+    </div>
+
+    <div class="space-y-4">
+      <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-foreground">
+        Roadmap
+      </h1>
+      <p class="max-w-3xl text-base leading-8 text-muted-foreground">
+        This page shows what is currently being worked on and what is planned next. It is not a
+        release promise. It is a practical view of direction, priorities, and open work.
+      </p>
+    </div>
+  </header>
+
+  <section class="relative space-y-14">
+    <div class="absolute bottom-0 left-1/2 top-2 hidden w-px -translate-x-1/2 bg-border md:block"></div>
+
+    @for (group of groups; track group.title; let groupIndex = $index) {
+      <section
+        animate.enter="slide-in-enter"
+        class="relative grid gap-5 md:grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)] md:items-start"
+        [style.--docs-enter-delay]="150 + groupIndex * 90 + 'ms'"
+      >
+        <div class="hidden md:col-start-2 md:row-start-1 md:flex md:justify-center">
+          <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground shadow-sm">
+            {{ groupIndex + 1 }}
+          </span>
+        </div>
+
+        <div
+          class="space-y-5 md:row-start-1"
+          [ngClass]="{
+            'md:col-start-1 md:col-end-2 md:pr-6': groupIndex % 2 === 0,
+            'md:col-start-3 md:col-end-4 md:pl-6': groupIndex % 2 !== 0
+          }"
+        >
+          <div
+            class="rounded-2xl border border-border bg-surface p-5"
+            [ngClass]="{
+              'md:text-right': groupIndex % 2 === 0
+            }"
+          >
+            <div
+              class="flex flex-wrap items-center gap-3"
+              [ngClass]="{
+                'md:justify-end': groupIndex % 2 === 0
+              }"
+            >
+              <span class="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground md:hidden">
+                {{ groupIndex + 1 }}
+              </span>
+              <h2 class="text-2xl font-semibold tracking-tight text-foreground">{{ group.title }}</h2>
+            </div>
+            <p class="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">
+              {{ group.description }}
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            @for (item of group.items; track item.title) {
+              <section frCard class="relative min-w-0 overflow-hidden">
+                <div
+                  class="absolute bottom-0 top-0 w-1 bg-primary/70"
+                  [class.left-0]="groupIndex % 2 !== 0"
+                  [class.right-0]="groupIndex % 2 === 0"
+                ></div>
+
+                <div frCardHeader class="flex! justify-between items-center">
+                  <h3 frCardTitle>{{ item.title }}</h3>
+                  @if (item.status !== 'Exploring') {
+                    <span frBadge>{{ item.status }}</span>
+                  }
+                </div>
+
+                <div frCardContent class="space-y-5">
+                  <p class="text-sm leading-5 text-muted-foreground">
+                    {{ item.description }}
+                  </p>
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+      </section>
+    }
+  </section>
+</article>

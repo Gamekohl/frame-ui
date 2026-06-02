@@ -1,0 +1,98 @@
+@import './_vars.css';
+
+[frBreadcrumb],
+nav[frBreadcrumb] {
+  display: block;
+  color: var(--frame-breadcrumb-root-color);
+  font-size: var(--frame-breadcrumb-root-font-size);
+  line-height: var(--frame-breadcrumb-root-line-height);
+}
+
+[frBreadcrumbList] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--frame-breadcrumb-list-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[frBreadcrumbItem] {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--frame-breadcrumb-list-gap);
+}
+
+[frBreadcrumbLink] {
+  min-width: 0;
+  border-radius: var(--frame-radius-sm);
+  color: var(--frame-breadcrumb-link-color);
+  text-decoration: none;
+  text-underline-offset: 0.25rem;
+  transition:
+    color var(--frame-breadcrumb-transition-duration) ease,
+    box-shadow var(--frame-breadcrumb-transition-duration) ease;
+}
+
+[frBreadcrumbLink]:hover {
+  color: var(--frame-breadcrumb-link-hover-color);
+  text-decoration: underline;
+}
+
+[frBreadcrumbLink]:focus-visible {
+  outline: none;
+  box-shadow: var(--frame-breadcrumb-link-focus-shadow);
+}
+
+[frBreadcrumbPage] {
+  min-width: 0;
+  color: var(--frame-breadcrumb-page-color);
+  font-weight: 500;
+}
+
+[frBreadcrumbSeparator] {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--frame-breadcrumb-separator-color);
+  font-size: var(--frame-breadcrumb-separator-size);
+  line-height: 1;
+  user-select: none;
+}
+
+[frBreadcrumbSeparator]:empty::before {
+  content: "/";
+}
+
+[frBreadcrumbEllipsis],
+frame-breadcrumb-ellipsis {
+  display: inline-flex;
+  inline-size: var(--frame-breadcrumb-ellipsis-size);
+  block-size: var(--frame-breadcrumb-ellipsis-size);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--frame-breadcrumb-ellipsis-radius);
+  color: var(--frame-breadcrumb-root-color);
+  letter-spacing: 0.08em;
+  transition: background-color var(--frame-breadcrumb-transition-duration) ease;
+}
+
+[frBreadcrumbEllipsis]:hover,
+frame-breadcrumb-ellipsis:hover {
+  background: var(--frame-breadcrumb-ellipsis-hover-bg);
+}
+
+.frame-breadcrumb__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

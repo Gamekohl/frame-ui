@@ -1,0 +1,42 @@
+@import './_vars.css';
+
+[frCollapsible],
+frame-collapsible {
+  display: block;
+}
+
+[frCollapsibleTrigger] {
+  gap: var(--frame-collapsible-trigger-gap, 0.5rem);
+  color: var(--frame-collapsible-trigger-color, var(--frame-foreground));
+}
+
+[frCollapsibleTrigger]:where(:disabled, [data-disabled]) {
+  cursor: not-allowed;
+  opacity: var(--frame-collapsible-trigger-disabled-opacity, 0.55);
+}
+
+[frCollapsibleContent] {
+  color: var(--frame-collapsible-content-color, var(--frame-muted-foreground));
+  font-size: var(--frame-collapsible-content-font-size, 0.875rem);
+  line-height: var(--frame-collapsible-content-line-height, 1.6);
+  overflow: clip;
+  padding-block-start: 0;
+  transition:
+    height var(--frame-collapsible-content-transition-duration, 220ms)
+      var(--frame-collapsible-content-transition-timing, ease),
+    opacity var(--frame-collapsible-content-transition-duration, 220ms)
+      var(--frame-collapsible-content-transition-timing, ease),
+    padding-block-start var(--frame-collapsible-content-transition-duration, 220ms)
+      var(--frame-collapsible-content-transition-timing, ease);
+  will-change: height, opacity;
+}
+
+[frCollapsibleContent][data-state='closed'] {
+  opacity: var(--frame-collapsible-content-opacity-closed, 0);
+  padding-block-start: 0;
+}
+
+[frCollapsibleContent][data-state='open'] {
+  opacity: var(--frame-collapsible-content-opacity-open, 1);
+  padding-block-start: var(--frame-collapsible-content-padding-block-start, 0.75rem);
+}

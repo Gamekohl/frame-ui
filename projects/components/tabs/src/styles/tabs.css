@@ -1,0 +1,164 @@
+@import './_vars.css';
+
+[frTabs],
+frame-tabs {
+  display: grid;
+  gap: var(--frame-tabs-gap);
+}
+
+[frTabs][data-orientation='vertical'],
+frame-tabs[data-orientation='vertical'] {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+}
+
+[frTabsList],
+frame-tabs-list {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--frame-tabs-list-gap);
+  width: fit-content;
+  padding: var(--frame-tabs-list-padding);
+  border: 1px solid var(--frame-tabs-list-border);
+  border-radius: var(--frame-tabs-list-radius);
+  background: var(--frame-tabs-list-bg);
+}
+
+[frTabsList][data-orientation='vertical'],
+frame-tabs-list[data-orientation='vertical'] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+[frTabsList][data-variant='line'],
+frame-tabs-list[data-variant='line'] {
+  gap: 1rem;
+  padding: 0;
+  border-block-end: 1px solid var(--frame-tabs-line-color);
+  border-radius: 0;
+  background: transparent;
+}
+
+[frTabsTrigger],
+frame-tabs-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--frame-tabs-trigger-height);
+  gap: 0.5rem;
+  padding-inline: var(--frame-tabs-trigger-padding-x);
+  border: 0;
+  border-radius: var(--frame-tabs-trigger-radius);
+  background: var(--frame-tabs-trigger-bg);
+  color: var(--frame-tabs-trigger-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    box-shadow 180ms ease,
+    color 160ms ease,
+    transform 180ms ease;
+  white-space: nowrap;
+}
+
+[frTabsTrigger]:hover,
+frame-tabs-trigger:hover {
+  background: var(--frame-tabs-trigger-hover-bg);
+  color: var(--frame-tabs-trigger-hover-color);
+}
+
+[frTabsTrigger][data-active],
+[frTabsTrigger].active,
+[frTabsTrigger].router-link-active,
+frame-tabs-trigger[data-active] {
+  background: var(--frame-tabs-trigger-active-bg);
+  color: var(--frame-tabs-trigger-active-color);
+  box-shadow: var(--frame-tabs-trigger-active-shadow);
+  transform: translateY(-1px);
+}
+
+[frTabsTrigger]:focus-visible,
+frame-tabs-trigger:focus-visible {
+  outline: 0;
+  box-shadow: var(--frame-tabs-trigger-focus-shadow);
+}
+
+[frTabsTrigger][data-disabled],
+frame-tabs-trigger[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-tabs-trigger-disabled-opacity);
+}
+
+[frTabsList][data-variant='line'] [frTabsTrigger],
+frame-tabs-list[data-variant='line'] frame-tabs-trigger {
+  min-height: calc(var(--frame-tabs-trigger-height) + 0.125rem);
+  padding-inline: 0;
+  border-radius: 0;
+  transform: none;
+}
+
+[frTabsList][data-variant='line'] [frTabsTrigger]::after,
+frame-tabs-list[data-variant='line'] frame-tabs-trigger::after {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--frame-tabs-line-active-color);
+  content: '';
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition:
+    opacity 160ms ease,
+    transform 180ms ease;
+}
+
+[frTabsList][data-variant='line'] [frTabsTrigger][data-active],
+[frTabsList][data-variant='line'] [frTabsTrigger].active,
+[frTabsList][data-variant='line'] [frTabsTrigger].router-link-active,
+frame-tabs-list[data-variant='line'] frame-tabs-trigger[data-active] {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+[frTabsList][data-variant='line'] [frTabsTrigger][data-active]::after,
+[frTabsList][data-variant='line'] [frTabsTrigger].active::after,
+[frTabsList][data-variant='line'] [frTabsTrigger].router-link-active::after,
+frame-tabs-list[data-variant='line'] frame-tabs-trigger[data-active]::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frTabsTrigger],
+  frame-tabs-trigger,
+  [frTabsList][data-variant='line'] [frTabsTrigger]::after,
+  frame-tabs-list[data-variant='line'] frame-tabs-trigger::after {
+    transition: none;
+  }
+
+  [frTabsTrigger][data-active],
+  [frTabsTrigger].active,
+  [frTabsTrigger].router-link-active,
+  frame-tabs-trigger[data-active] {
+    transform: none;
+  }
+}
+
+[frTabsContent],
+frame-tabs-content {
+  display: block;
+  min-width: 0;
+  padding: var(--frame-tabs-content-padding);
+}
+
+[frTabsContent][hidden],
+frame-tabs-content[hidden] {
+  display: none;
+}

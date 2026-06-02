@@ -1,0 +1,139 @@
+<article class="docs-article min-w-0 space-y-8 py-2">
+  <section animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" frAlert variant="info">
+    <ng-icon name="tablerFlask" frAlertIcon class="text-blue-600!" />
+    <h5 frAlertTitle>Experimental early preview</h5>
+    <span frAlertDescription>
+      AI Composer is still experimental and in an early stage. Generated snippets may be incorrect.
+    </span>
+  </section>
+
+  <header  animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+    <p class="text-sm font-medium text-foreground">Tools</p>
+    <div class="space-y-3">
+      <h1 class="text-4xl font-semibold tracking-tight text-foreground">AI Composer</h1>
+      <p class="max-w-3xl text-base leading-8 text-foreground">
+        Describe an interface and generate Angular snippets that are based on the component library primitives.
+      </p>
+    </div>
+  </header>
+
+  <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="ai-composer-panel space-y-5 rounded-xl border border-border bg-surface p-5">
+    <div frField>
+      <label frFieldLabel for="request">Request</label>
+
+      <div frFieldContent>
+        <textarea
+          id="request"
+          frTextarea
+          [formControl]="prompt"
+          rows="5"
+        ></textarea>
+        <div class="flex justify-between">
+           <span frFieldDescription>
+            <b>Note:</b> Review generated code.
+          </span>
+
+          <span class="text-xs text-muted-foreground">{{ prompt.value.length }}/150</span>
+        </div>
+      </div>
+    </div>
+
+    @let promptEmpty = prompt.value === '';
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button [disabled]="promptEmpty || prompt.invalid" frButton type="button" [loading]="loading()" loadingDisplay="inline" (click)="generate()">
+        <span frButtonLabel>{{ loading() ? 'Generating' : 'Generate Snippet' }}</span>
+      </button>
+      <button [disabled]="promptEmpty" frButton type="button" appearance="outline" (click)="prompt.patchValue('')">
+        <span frButtonLabel>Clear</span>
+      </button>
+    </div>
+  </section>
+
+  @if (error(); as message) {
+    <section animate.enter="slide-in-enter" animate.leave="slide-out-leave" frAlert variant="destructive">
+      <ng-icon frAlertIcon name="tablerX" />
+      <div>
+        <h5 frAlertTitle>There was an error creating the snippet.</h5>
+        <span frAlertDescription>{{ message }}</span>
+      </div>
+    </section>
+  } @else if (result(); as snippet) {
+    <section animate.enter="slide-in-enter" class="min-w-0 space-y-5">
+      <div class="grid gap-4 md:grid-cols-[minmax(0,1fr)_18rem]">
+        <div class="space-y-2">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground">Generated snippets</h2>
+          <p class="text-sm leading-6 text-muted-foreground">
+            Review the code before using it in product flows. The generator is optimized for documented component-library composition.
+          </p>
+        </div>
+      </div>
+
+      <div frAccordion type="multiple" collapsible defaultValue="ts" class="docs-accordion-preview ai-composer-snippets">
+        <section frAccordionItem value="ts" class="min-w-0">
+          <button frAccordionTrigger type="button">
+            <span>TypeScript</span>
+            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+          </button>
+
+          <div frAccordionContent class="min-w-0">
+            <docs-code-block title="generated.ts" language="ts" [code]="snippet.typescript" rounded />
+          </div>
+        </section>
+        <section frAccordionItem value="html" class="min-w-0">
+          <button frAccordionTrigger type="button">
+            <span>HTML</span>
+            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+          </button>
+
+          <div frAccordionContent class="min-w-0">
+            <docs-code-block title="generated.html" language="html" [code]="snippet.template" rounded />
+          </div>
+        </section>
+        <section frAccordionItem value="css" class="min-w-0">
+          <button frAccordionTrigger type="button">
+            <span>CSS</span>
+            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+          </button>
+
+          <div frAccordionContent class="min-w-0">
+            <docs-code-block title="generated.css" language="scss" [code]="snippet.styles" rounded />
+          </div>
+        </section>
+      </div>
+    </section>
+
+    @if (snippet.notes.length) {
+      <section class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Notes</h2>
+        <ul class="grid gap-2 text-sm leading-6 text-muted-foreground">
+          @for (note of snippet.notes; track note) {
+            <li class="rounded-lg border border-border bg-surface px-4 py-3">{{ note }}</li>
+          }
+        </ul>
+      </section>
+    }
+  } @else {
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" class="space-y-4">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Try an example</h2>
+        <p class="max-w-3xl text-sm leading-6 text-muted-foreground">
+          Use one of these prompts as a starting point, or adapt it to explore forms, composed layouts, and multi-component workflows.
+        </p>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-3">
+        @for (example of promptExamples; track example.title) {
+          <button
+            class="ai-composer-example cursor-pointer rounded-xl border border-border bg-surface p-4 text-left transition hover:border-foreground/30 hover:bg-muted/40"
+            type="button"
+            (click)="useExample(example.prompt)"
+          >
+            <span class="block text-sm font-semibold text-foreground">{{ example.title }}</span>
+            <span class="mt-2 block text-sm leading-6 text-muted-foreground">{{ example.prompt }}</span>
+          </button>
+        }
+      </div>
+    </section>
+  }
+</article>

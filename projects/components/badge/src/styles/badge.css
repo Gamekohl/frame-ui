@@ -1,0 +1,125 @@
+@import './_vars.css';
+
+[frBadge],
+frame-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-badge-root-gap);
+  width: fit-content;
+  min-block-size: var(--frame-badge-root-min-height);
+  border: 1px solid transparent;
+  border-radius: var(--frame-badge-root-radius);
+  background: var(--frame-badge-root-bg);
+  color: var(--frame-badge-root-color);
+  box-sizing: border-box;
+  font-size: var(--frame-badge-root-font-size);
+  font-weight: var(--frame-badge-root-font-weight);
+  line-height: 1;
+  padding-block: var(--frame-badge-root-padding-block);
+  padding-inline: var(--frame-badge-root-padding-inline);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition:
+    background-color var(--frame-badge-root-transition-duration) ease,
+    border-color var(--frame-badge-root-transition-duration) ease,
+    color var(--frame-badge-root-transition-duration) ease,
+    box-shadow var(--frame-badge-root-transition-duration) ease;
+}
+
+[frBadge][href],
+frame-badge[href] {
+  cursor: pointer;
+}
+
+[frBadge][href]:hover,
+frame-badge[href]:hover {
+  text-decoration: none;
+}
+
+[frBadge]:focus-visible,
+frame-badge:focus-visible {
+  outline: none;
+  box-shadow: var(--frame-badge-root-focus-shadow);
+}
+
+[frBadge][data-variant='secondary'],
+frame-badge[data-variant='secondary'] {
+  background: var(--frame-muted);
+  color: var(--frame-foreground);
+}
+
+[frBadge][data-variant='destructive'],
+frame-badge[data-variant='destructive'] {
+  background: var(--frame-destructive);
+  color: var(--frame-destructive-foreground);
+}
+
+[frBadge][data-variant='outline'],
+frame-badge[data-variant='outline'] {
+  border-color: var(--frame-border);
+  background: transparent;
+  color: var(--frame-foreground);
+}
+
+[frBadge][data-variant='ghost'],
+frame-badge[data-variant='ghost'] {
+  background: transparent;
+  color: var(--frame-foreground);
+}
+
+[frBadge][data-variant='link'],
+frame-badge[data-variant='link'] {
+  background: transparent;
+  color: var(--frame-primary);
+  padding-inline: 0;
+}
+
+[frBadge][data-variant='link'][href]:hover,
+frame-badge[data-variant='link'][href]:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--frame-badge-link-underline-offset);
+}
+
+[frBadgeIcon],
+[frBadgeSpinner],
+[frBadge] > [frSpinner],
+frame-badge > [frSpinner],
+frame-badge > .frame-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: var(--frame-badge-icon-size);
+  block-size: var(--frame-badge-icon-size);
+}
+
+[frBadgeIcon][data-icon='inline-start'],
+[frBadgeSpinner][data-icon='inline-start'],
+[frBadge] > [frSpinner]:first-child,
+frame-badge > [frSpinner]:first-child,
+frame-badge > .frame-spinner:first-child {
+  margin-inline-start: var(--frame-badge-icon-offset);
+}
+
+[frBadgeIcon][data-icon='inline-end'],
+[frBadgeSpinner][data-icon='inline-end'],
+[frBadge] > [frSpinner]:last-child,
+frame-badge > [frSpinner]:last-child,
+frame-badge > .frame-spinner:last-child {
+  margin-inline-end: var(--frame-badge-icon-offset);
+}
+
+[frBadgeSpinner],
+[frBadge] > [frSpinner],
+frame-badge > [frSpinner],
+frame-badge > .frame-spinner {
+  --frame-spinner-size: var(--frame-badge-icon-size);
+  --frame-spinner-stroke: 0.125rem;
+}
+
+[frBadgeLabel] {
+  min-width: 0;
+}

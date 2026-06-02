@@ -1,0 +1,16 @@
+:root {
+  --frame-badge-root-gap: 0.25rem;
+  --frame-badge-root-min-height: 1.375rem;
+  --frame-badge-root-radius: 999px;
+  --frame-badge-root-font-size: 0.75rem;
+  --frame-badge-root-font-weight: 600;
+  --frame-badge-root-bg: var(--frame-primary);
+  --frame-badge-root-color: var(--frame-primary-foreground);
+  --frame-badge-root-padding-block: 0.1875rem;
+  --frame-badge-root-padding-inline: 0.625rem;
+  --frame-badge-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-badge-root-transition-duration: 150ms;
+  --frame-badge-link-underline-offset: 0.1875rem;
+  --frame-badge-icon-size: 0.475rem;
+  --frame-badge-icon-offset: -0.125rem;
+}

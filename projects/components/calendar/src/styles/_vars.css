@@ -1,0 +1,29 @@
+:root {
+  --frame-calendar-bg: var(--frame-surface);
+  --frame-calendar-color: var(--frame-surface-foreground);
+  --frame-calendar-border: var(--frame-border);
+  --frame-calendar-radius: var(--frame-radius-lg);
+  --frame-calendar-padding: 0.875rem;
+  --frame-calendar-gap: 1rem;
+  --frame-calendar-cell-size: 2.25rem;
+  --frame-calendar-cell-radius: var(--frame-radius-md);
+  --frame-calendar-muted-color: var(--frame-muted-foreground);
+  --frame-calendar-day-hover-bg: var(--frame-muted);
+  --frame-calendar-day-hover-color: var(--frame-foreground);
+  --frame-calendar-day-selected-bg: var(--frame-primary);
+  --frame-calendar-day-selected-color: var(--frame-primary-foreground);
+  --frame-calendar-day-range-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);
+  --frame-calendar-day-range-outline: var(--frame-background);
+  --frame-calendar-day-today-border: color-mix(in srgb, var(--frame-primary) 55%, var(--frame-border));
+  --frame-calendar-day-disabled-date-decoration: var(--frame-destructive);
+  --frame-calendar-day-disabled-opacity: 0.38;
+  --frame-calendar-nav-size: 2rem;
+  --frame-calendar-nav-radius: var(--frame-radius-md);
+  --frame-calendar-nav-hover-bg: var(--frame-muted);
+  --frame-calendar-select-height: 2rem;
+  --frame-calendar-select-radius: var(--frame-radius-md);
+  --frame-calendar-select-border: var(--frame-border);
+  --frame-calendar-select-bg: var(--frame-background);
+  --frame-calendar-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 26%, transparent);
+  --frame-calendar-transition-duration: 150ms;
+}

@@ -1,0 +1,76 @@
+@import "./_vars.css";
+
+frame-hover-card {
+  display: inline-block;
+}
+
+.frame-hover-card__anchor {
+  display: inline-flex;
+}
+
+[frHoverCardTrigger] {
+  cursor: default;
+}
+
+.frame-hover-card__content {
+  display: grid;
+  gap: var(--frame-hover-card-content-gap);
+  width: var(--frame-hover-card-content-width);
+  max-width: min(var(--frame-hover-card-content-width), calc(100vw - 2rem));
+  border: 1px solid var(--frame-hover-card-content-border);
+  border-radius: var(--frame-hover-card-content-radius);
+  background: var(--frame-hover-card-content-bg);
+  box-shadow: var(--frame-hover-card-content-shadow);
+  color: var(--frame-hover-card-content-color);
+  padding: var(--frame-hover-card-content-padding);
+  outline: none;
+  transform-origin: var(--frame-hover-card-transform-origin, center);
+  animation: frame-hover-card-in var(--frame-hover-card-motion-duration) var(--frame-hover-card-motion-easing);
+}
+
+.frame-hover-card-overlay--top .frame-hover-card__content {
+  --frame-hover-card-transform-origin: bottom;
+}
+
+.frame-hover-card-overlay--right .frame-hover-card__content {
+  --frame-hover-card-transform-origin: left;
+}
+
+.frame-hover-card-overlay--bottom .frame-hover-card__content {
+  --frame-hover-card-transform-origin: top;
+}
+
+.frame-hover-card-overlay--left .frame-hover-card__content {
+  --frame-hover-card-transform-origin: right;
+}
+
+.frame-hover-card__title {
+  color: var(--frame-hover-card-title-color);
+  font-size: var(--frame-hover-card-title-font-size);
+  font-weight: var(--frame-hover-card-title-font-weight);
+  line-height: 1.2;
+}
+
+.frame-hover-card__description {
+  color: var(--frame-hover-card-description-color);
+  font-size: var(--frame-hover-card-description-font-size);
+  line-height: 1.45;
+}
+
+.frame-hover-card__meta {
+  color: var(--frame-hover-card-meta-color);
+  font-size: var(--frame-hover-card-meta-font-size);
+  line-height: 1.35;
+}
+
+@keyframes frame-hover-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--frame-hover-card-motion-distance)) scale(var(--frame-hover-card-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

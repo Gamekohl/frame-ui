@@ -1,0 +1,21 @@
+:root {
+  --frame-input-otp-gap: 0.5rem;
+  --frame-input-otp-group-gap: 0;
+  --frame-input-otp-slot-size: 2.5rem;
+  --frame-input-otp-slot-radius: var(--frame-input-root-radius);
+  --frame-input-otp-slot-bg: var(--frame-input-root-bg);
+  --frame-input-otp-slot-color: var(--frame-input-root-color);
+  --frame-input-otp-slot-border: var(--frame-input-root-border);
+  --frame-input-otp-slot-font-size: 1rem;
+  --frame-input-otp-slot-font-weight: 500;
+  --frame-input-otp-slot-focus-border: var(--frame-input-root-focus-border);
+  --frame-input-otp-slot-focus-shadow: var(--frame-input-root-focus-shadow);
+  --frame-input-otp-slot-invalid-border: var(--frame-input-root-invalid-border);
+  --frame-input-otp-slot-invalid-shadow: var(--frame-input-root-invalid-shadow);
+  --frame-input-otp-slot-disabled-bg: var(--frame-input-root-disabled-bg);
+  --frame-input-otp-slot-disabled-color: var(--frame-input-root-disabled-color);
+  --frame-input-otp-slot-disabled-opacity: var(--frame-input-root-disabled-opacity);
+  --frame-input-otp-slot-placeholder-color: var(--frame-input-root-placeholder-color);
+  --frame-input-otp-separator-color: var(--frame-muted-foreground);
+  --frame-input-otp-separator-size: 0.375rem;
+}

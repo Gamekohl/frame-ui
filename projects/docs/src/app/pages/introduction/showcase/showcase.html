@@ -1,0 +1,355 @@
+<div
+  frSidebarProvider
+  class="relative max-h-192 origin-center scale-[0.72] transform-[rotateX(20deg)rotateZ(-18deg)skewY(8deg)]"
+>
+  <aside
+    frSidebar
+    variant="floating"
+    [collapsible]="false"
+  >
+    <div frSidebarHeader>
+      <a frSidebarMenuButton size="lg" href="#">
+        <img [ngSrc]="themeService.isDark() ? '/logo/128x128_dark.webp' : '/logo/128x128.webp'" width="20" height="20"  alt="Logo"/>
+        <span>FrameUI</span>
+      </a>
+    </div>
+
+    <div frSidebarContent>
+      <div frSidebarGroup>
+        <div frSidebarGroupLabel>Workspace</div>
+        <button frSidebarGroupAction type="button" aria-label="Create project">
+          <ng-icon name="tablerPlus" size="15" />
+        </button>
+        <div frSidebarGroupContent>
+          <ul frSidebarMenu>
+            @for (item of navItems; track item.label) {
+              <li frSidebarMenuItem>
+                <a
+                  frSidebarMenuButton
+                  [active]="item.active"
+                  [href]="item.href"
+                >
+                  <ng-icon [name]="item.icon" size="17" />
+                  <span>{{ item.label }}</span>
+                </a>
+                @if (item.badge) {
+                  <span frSidebarMenuBadge>{{ item.badge }}</span>
+                }
+                @if (item.action) {
+                  <button frSidebarMenuAction showOnHover type="button" aria-label="More options">
+                    <ng-icon name="tablerDots" size="15" />
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div frSidebarFooter>
+      <a frSidebarMenuButton variant="outline" href="#">
+        <ng-icon name="tablerSettings" size="17" />
+        <span>Settings</span>
+      </a>
+    </div>
+
+    <div frSidebarRail></div>
+  </aside>
+
+  <main frSidebarInset class="m-2 columns-2 gap-4 relative overflow-hidden!">
+    <div
+      class="z-10 pointer-events-none absolute -bottom-2 inset-x-0 h-48 bg-linear-to-t from-background to-transparent"></div>
+
+    <section frCard class="shadow-sm [column-span:all] break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Buttons</span>
+      </div>
+      <div frCardContent class="flex items-center gap-2">
+        <button frButton size="sm">Small</button>
+        <button frButton size="md">Medium</button>
+        <button frButton size="lg">Large</button>
+        <div frSeparator orientation="vertical"></div>
+        <button frButton size="lg" loading loadingDisplay="inline">
+          <span frButtonLabel>Loading</span>
+        </button>
+        <button frButton size="lg" loading></button>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Badges</span>
+      </div>
+      <div frCardContent class="flex items-center gap-2">
+        <span frBadge>Badge</span>
+        <span frBadge variant="secondary">Badge</span>
+        <span frBadge variant="destructive">Badge</span>
+        <span frBadge variant="outline">Badge</span>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Avatar</span>
+      </div>
+      <div frCardContent class="flex items-center gap-2">
+          <span frAvatar size="sm">
+            <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+            <span frAvatarFallback>AT</span>
+          </span>
+        <span frAvatar size="md">
+            <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+            <span frAvatarFallback>AT</span>
+          </span>
+        <span frAvatar size="lg">
+            <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+            <span frAvatarFallback>AT</span>
+          </span>
+        <div frSeparator orientation="vertical"></div>
+        <div frAvatarGroup>
+            <span frAvatar size="lg">
+              <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+              <span frAvatarFallback>AT</span>
+            </span>
+          <span frAvatar size="lg">
+              <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+              <span frAvatarFallback>AT</span>
+            </span>
+          <span frAvatar size="lg">
+              <img frAvatarImage src="/avatar.jpg" alt="Avatar Image" />
+              <span frAvatarFallback>AT</span>
+            </span>
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Dropdown</span>
+      </div>
+      <div frCardContent>
+        <div frDropdownMenu>
+          <button frButton appearance="outline" class="w-full" type="button" [frDropdownMenuTrigger]="menu">
+            <ng-icon frButtonIcon name="tablerDots"></ng-icon>
+            <span frButtonLabel>Open actions</span>
+          </button>
+
+          <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent>
+            <div frDropdownMenuPanel>
+              <span frDropdownMenuLabel>Actions</span>
+
+              <button frDropdownMenuItem type="button">
+                <ng-icon name="tablerUser" size="14" />
+                <span>Open profile</span>
+              </button>
+
+              <button frDropdownMenuCheckboxItem [checked]="true" type="button">
+                  <span frDropdownMenuItemIndicator>
+                    <ng-icon name="tablerPin" size="14" />
+                  </span>
+                <span>Pin in sidebar</span>
+                <span frDropdownMenuShortcut>Ctrl + P</span>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Select/Combobox</span>
+      </div>
+      <div frCardContent class="flex flex-col gap-2">
+        <button [frSelect]="frameworkMenu" [formControl]="frameworkControl" indicatorPosition="end" type="button">
+          <frame-select-value placeholder="Choose a framework"></frame-select-value>
+          <span frSelectIcon>
+              <ng-icon name="tablerChevronDown" size="16" />
+            </span>
+        </button>
+
+        <ng-template #frameworkMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              <button frSelectItem value="angular" label="Angular">
+                <span>Angular</span>
+              </button>
+              <button frSelectItem value="react" label="React">
+                <span>React</span>
+              </button>
+              <button frSelectItem value="vue" label="Vue">
+                <span>Vue</span>
+              </button>
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+
+        <div frCombobox autoHighlight showClear>
+          <input frComboboxInput placeholder="Search frameworks" />
+          <button frComboboxClear aria-label="Clear selection">
+            <ng-icon name="tablerX" size="14" />
+          </button>
+
+          <ng-template frComboboxContent>
+            <div frComboboxPanel>
+              <p frComboboxEmpty>No frameworks found.</p>
+              <div frComboboxList>
+                <button frComboboxItem value="angular">Angular</button>
+                <button frComboboxItem value="next">Next.js</button>
+                <button frComboboxItem value="svelte">SvelteKit</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Hover Card/Popover</span>
+      </div>
+      <div frCardContent class="flex justify-center items-center gap-2">
+        <frame-hover-card>
+          <button frButton appearance="ghost" [frHoverCardTrigger]="card" type="button">
+            Hover
+          </button>
+
+          <ng-template #card="frHoverCardContent" frHoverCardContent side="bottom" align="center">
+            <div frHoverCardPanel>
+              <div class="flex gap-3">
+                  <span frAvatar>
+                    <span frAvatarFallback>NG</span>
+                  </span>
+                <div>
+                  <p class="frame-hover-card__title">&#64;angular</p>
+                  <p class="frame-hover-card__description">
+                    The web development framework for building modern applications.
+                  </p>
+                  <p class="frame-hover-card__meta">Joined January 2010</p>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </frame-hover-card>
+
+        <div frSeparator orientation="vertical"></div>
+
+        <frame-popover>
+          <button frButton appearance="ghost" [frPopoverTrigger]="panel" type="button">
+            Click
+          </button>
+
+          <ng-template #panel="frPopoverContent" frPopoverContent side="bottom" align="center">
+            <div frPopoverPanel>
+              <div frPopoverHeader>
+                <h3 frPopoverTitle>Review reminder</h3>
+                <p frPopoverDescription>
+                  Capture the next thing your team should check before publishing.
+                </p>
+              </div>
+              <div frPopoverFooter>
+                <button frButton appearance="outline" frPopoverClose type="button">Later</button>
+                <button frButton frPopoverClose type="button">Mark done</button>
+              </div>
+            </div>
+          </ng-template>
+        </frame-popover>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Radio Group</span>
+      </div>
+      <div frCardContent>
+        <div frRadioGroup aria-label="Review cadence">
+          <label frRadioGroupField>
+            <input frRadioGroupItem type="radio" name="cadence" value="daily" />
+            <span frFieldContent>
+                <span frFieldLabel>Daily review</span>
+                <span frFieldDescription>Check activity every morning before standup.</span>
+              </span>
+          </label>
+
+          <label frRadioGroupField>
+            <input frRadioGroupItem type="radio" name="cadence" value="weekly" checked />
+            <span frFieldContent>
+                <span frFieldLabel>Weekly review</span>
+                <span frFieldDescription>Bundle updates into one predictable team pass.</span>
+              </span>
+          </label>
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Progress</span>
+      </div>
+      <div frCardContent>
+        <div frField>
+          <div frFieldContent>
+            <label frFieldLabel for="deploy-progress">Deployment progress</label>
+            <p frFieldDescription>Seven of ten release checks have completed.</p>
+          </div>
+
+          <div id="deploy-progress" frProgress aria-label="Deployment progress" [value]="70">
+            <div frProgressIndicator></div>
+          </div>
+
+          <span>70%</span>
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Slider</span>
+      </div>
+      <div frCardContent>
+        <div frField>
+          <div frFieldContent>
+            <label frFieldLabel for="volume">Volume</label>
+            <p frFieldDescription>Set a comfortable playback level for preview audio.</p>
+          </div>
+
+          <frame-slider id="volume" [defaultValue]="42" aria-label="Volume" />
+        </div>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Switch</span>
+      </div>
+      <div frCardContent>
+        <label frSwitchField>
+          <input frSwitch type="checkbox" [formControl]="notificationsControl" />
+
+          <span frSwitchContent>
+              <span frSwitchLabel>Enable release notifications</span>
+              <span frSwitchDescription>Notify workspace members when a rollout completes.</span>
+            </span>
+        </label>
+      </div>
+    </section>
+    <section frCard class="shadow-sm break-inside-avoid mb-4">
+      <div frCardHeader>
+        <span frCardTitle>Tooltip</span>
+      </div>
+      <div frCardContent class="flex items-center gap-2">
+        <frame-tooltip>
+          <button frButton [frTooltipTrigger]="tip" type="button">
+            Tooltip
+          </button>
+
+          <ng-template #tip="frTooltipContent" frTooltipContent>
+            <div frTooltipPanel>Helpful details.</div>
+          </ng-template>
+        </frame-tooltip>
+
+        <frame-tooltip>
+          <button frButton [frTooltipTrigger]="tipArrow" type="button">
+            With arrow
+          </button>
+
+          <ng-template #tipArrow="frTooltipContent" frTooltipContent arrow>
+            <div frTooltipPanel>Helpful details.</div>
+          </ng-template>
+        </frame-tooltip>
+      </div>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,25 @@
+:root {
+  --frame-accordion-item-border: var(--frame-border);
+  --frame-accordion-item-radius: var(--frame-radius-md);
+  --frame-accordion-item-padding-x: 0;
+  --frame-accordion-trigger-min-height: 3rem;
+  --frame-accordion-trigger-padding-y: 1rem;
+  --frame-accordion-trigger-padding-x: 0;
+  --frame-accordion-trigger-gap: 1rem;
+  --frame-accordion-trigger-color: var(--frame-foreground);
+  --frame-accordion-trigger-font-size: 0.9375rem;
+  --frame-accordion-trigger-font-weight: 500;
+  --frame-accordion-trigger-hover-color: var(--frame-foreground);
+  --frame-accordion-trigger-disabled-opacity: 0.55;
+  --frame-accordion-content-padding-bottom: 1rem;
+  --frame-accordion-content-padding-inline: 0;
+  --frame-accordion-content-color: var(--frame-muted-foreground);
+  --frame-accordion-content-font-size: 0.875rem;
+  --frame-accordion-content-line-height: 1.6;
+  --frame-accordion-content-opacity-closed: 0;
+  --frame-accordion-content-opacity-open: 1;
+  --frame-accordion-content-transition-duration: 220ms;
+  --frame-accordion-content-transition-timing: ease;
+  --frame-accordion-icon-size: 1rem;
+  --frame-accordion-icon-rotation: 180deg;
+}

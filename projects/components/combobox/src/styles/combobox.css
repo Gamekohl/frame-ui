@@ -1,0 +1,285 @@
+@import './_vars.css';
+
+[frCombobox],
+frame-combobox,
+.frame-combobox__anchor{
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.frame-combobox__input,
+.frame-combobox__trigger,
+.frame-combobox__chips {
+  box-sizing: border-box;
+  width: 100%;
+  min-block-size: var(--frame-combobox-control-height);
+  border: 1px solid var(--frame-combobox-control-border);
+  border-radius: var(--frame-combobox-control-radius);
+  background: var(--frame-combobox-control-bg);
+  color: var(--frame-combobox-control-color);
+  font: inherit;
+  font-size: var(--frame-combobox-control-font-size);
+  outline: none;
+  transition:
+    background-color var(--frame-combobox-control-transition-duration) ease,
+    border-color var(--frame-combobox-control-transition-duration) ease,
+    box-shadow var(--frame-combobox-control-transition-duration) ease,
+    color var(--frame-combobox-control-transition-duration) ease;
+}
+
+[frCombobox][data-disabled],
+frame-combobox[data-disabled] {
+  cursor: not-allowed;
+}
+
+[frCombobox][data-disabled] .frame-combobox__input,
+[frCombobox][data-disabled] .frame-combobox__trigger,
+[frCombobox][data-disabled] .frame-combobox__chips,
+frame-combobox[data-disabled] .frame-combobox__input,
+frame-combobox[data-disabled] .frame-combobox__trigger,
+frame-combobox[data-disabled] .frame-combobox__chips {
+  background: var(--frame-combobox-control-disabled-bg);
+  color: var(--frame-combobox-control-disabled-color);
+  cursor: not-allowed;
+  opacity: var(--frame-combobox-control-disabled-opacity);
+}
+
+.frame-combobox__input,
+.frame-combobox__trigger {
+  padding-inline: var(--frame-combobox-control-padding-inline);
+}
+
+.frame-combobox__input:focus-visible,
+.frame-combobox__trigger:focus-visible,
+.frame-combobox__chips:focus-within {
+  border-color: var(--frame-combobox-control-focus-border);
+  box-shadow: var(--frame-combobox-control-focus-shadow);
+}
+
+.frame-combobox__input[aria-invalid='true'],
+.frame-combobox__chips[data-invalid],
+[frCombobox][data-invalid] .frame-combobox__trigger {
+  border-color: var(--frame-combobox-control-invalid-border);
+  box-shadow: var(--frame-combobox-control-invalid-shadow);
+}
+
+.frame-combobox__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: start;
+}
+
+.frame-combobox__clear {
+  position: absolute;
+  right: var(--frame-combobox-clear-offset);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--frame-radius-sm);
+  background: transparent;
+  color: var(--frame-muted-foreground);
+  cursor: pointer;
+  font: inherit;
+}
+
+[frComboboxInput][data-has-value='false'] ~ .frame-combobox__clear {
+  opacity: 0;
+}
+
+.frame-combobox__panel {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-block-size: var(--frame-combobox-panel-max-height);
+  overflow: auto;
+  border: 1px solid var(--frame-combobox-panel-border);
+  border-radius: var(--frame-combobox-panel-radius);
+  background: var(--frame-combobox-panel-bg);
+  color: var(--frame-combobox-panel-color);
+  box-shadow: var(--frame-combobox-panel-shadow);
+  padding: var(--frame-combobox-panel-padding);
+  transform-origin: var(--frame-combobox-origin, top left);
+  animation: frame-combobox-enter var(--frame-combobox-motion-duration) var(--frame-combobox-motion-easing);
+  will-change: opacity, transform;
+}
+
+.frame-combobox-overlay--bottom .frame-combobox__panel {
+  --frame-combobox-enter-x: 0;
+  --frame-combobox-enter-y: calc(var(--frame-combobox-motion-distance) * -1);
+  --frame-combobox-origin: top left;
+}
+
+.frame-combobox-overlay--top .frame-combobox__panel {
+  --frame-combobox-enter-x: 0;
+  --frame-combobox-enter-y: var(--frame-combobox-motion-distance);
+  --frame-combobox-origin: bottom left;
+}
+
+.frame-combobox__list,
+.frame-combobox__collection,
+.frame-combobox__group {
+  display: grid;
+  gap: var(--frame-combobox-list-gap);
+}
+
+.frame-combobox__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--frame-combobox-item-gap);
+  width: 100%;
+  min-block-size: var(--frame-combobox-item-height);
+  border: 0;
+  border-radius: var(--frame-combobox-item-radius);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-combobox-item-font-size);
+  line-height: 1;
+  padding: var(--frame-combobox-item-padding);
+  text-align: start;
+}
+
+.frame-combobox__item[data-hidden] {
+  display: none;
+}
+
+.frame-combobox__item[data-highlighted],
+.frame-combobox__item:hover {
+  background: var(--frame-accent);
+  color: var(--frame-accent-foreground);
+}
+
+.frame-combobox__item[disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-combobox-item-disabled-opacity);
+}
+
+.frame-combobox__item:not(:has([frComboboxItemIndicator], .frame-combobox__item-indicator))::before {
+  content: '✓';
+  position: absolute;
+  inset-inline-start: var(--frame-combobox-item-indicator-offset);
+  opacity: 0;
+}
+
+.frame-combobox__item:not(:has([frComboboxItemIndicator], .frame-combobox__item-indicator))[data-selected]::before {
+  opacity: 1;
+}
+
+.frame-combobox__item-indicator {
+  position: absolute;
+  inset-inline-start: var(--frame-combobox-item-indicator-offset);
+}
+
+.frame-combobox__item:not([data-selected]) .frame-combobox__item-indicator {
+  opacity: 0;
+}
+
+.frame-combobox__empty,
+.frame-combobox__label {
+  color: var(--frame-muted-foreground);
+  font-size: var(--frame-combobox-muted-font-size);
+  padding: var(--frame-combobox-muted-padding);
+}
+
+.frame-combobox__label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.frame-combobox__separator {
+  block-size: 1px;
+  margin: var(--frame-combobox-separator-margin);
+  background: var(--frame-combobox-separator-bg);
+}
+
+.frame-combobox__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--frame-combobox-chips-gap);
+  padding: var(--frame-combobox-chips-padding);
+}
+
+.frame-combobox__value {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--frame-combobox-chips-gap);
+}
+
+.frame-combobox__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-combobox-chip-gap);
+  min-block-size: var(--frame-combobox-chip-height);
+  border: 1px solid transparent;
+  border-radius: var(--frame-combobox-chip-radius);
+  background: var(--frame-combobox-chip-bg);
+  color: var(--frame-combobox-chip-color);
+  box-sizing: border-box;
+  font-size: var(--frame-combobox-chip-font-size);
+  font-weight: var(--frame-combobox-chip-font-weight);
+  line-height: 1;
+  padding-block: var(--frame-combobox-chip-padding-block);
+  padding-inline: var(--frame-combobox-chip-padding-inline);
+  white-space: nowrap;
+}
+
+.frame-combobox__chip button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--frame-combobox-chip-remove-size);
+  block-size: var(--frame-combobox-chip-remove-size);
+  border: 0;
+  border-radius: var(--frame-combobox-chip-remove-radius);
+  background: var(--frame-combobox-chip-remove-bg);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  padding: 0;
+}
+
+.frame-combobox__chip button:hover {
+  background: var(--frame-combobox-chip-remove-hover-bg);
+}
+
+.frame-combobox__chips-input {
+  flex: 1 1 var(--frame-combobox-chips-input-min-width);
+  min-inline-size: var(--frame-combobox-chips-input-min-width);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: var(--frame-combobox-chips-input-padding);
+}
+
+.frame-combobox__error {
+  color: var(--frame-combobox-error-color);
+  font-size: var(--frame-combobox-error-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+@keyframes frame-combobox-enter {
+  from {
+    opacity: 0;
+    transform: translate(var(--frame-combobox-enter-x, 0), var(--frame-combobox-enter-y, calc(var(--frame-combobox-motion-distance) * -1))) scale(var(--frame-combobox-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

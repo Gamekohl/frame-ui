@@ -1,0 +1,324 @@
+[
+  {
+    "slug": "accordion",
+    "name": "Accordion",
+    "status": "Stable",
+    "summary": "Composable disclosure primitives for progressive reveal content.",
+    "category": "Disclosure"
+  },
+  {
+    "slug": "alert",
+    "name": "Alert",
+    "status": "Stable",
+    "summary": "Contextual feedback blocks for status, caution, and system messaging.",
+    "category": "Feedback"
+  },
+  {
+    "slug": "avatar",
+    "name": "Avatar",
+    "status": "Stable",
+    "summary": "Identity visuals with image, fallback, badge, and grouping patterns.",
+    "category": "Data display"
+  },
+  {
+    "slug": "badge",
+    "name": "Badge",
+    "status": "Stable",
+    "summary": "Small metadata labels for state, tags, and secondary status.",
+    "category": "Data display"
+  },
+  {
+    "slug": "button",
+    "name": "Button",
+    "status": "Stable",
+    "summary": "Action primitives with variants, loading, icon support, and sizing options.",
+    "category": "Actions"
+  },
+  {
+    "slug": "button-group",
+    "name": "Button Group",
+    "status": "Stable",
+    "summary": "Grouped actions with shared borders and compact horizontal layouts.",
+    "category": "Actions"
+  },
+  {
+    "slug": "breadcrumb",
+    "name": "Breadcrumb",
+    "status": "Stable",
+    "summary": "Semantic navigation trails with links, current page, separators, ellipsis, and RTL support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "calendar",
+    "name": "Calendar",
+    "status": "Stable",
+    "summary": "Date and range selection with dropdown captions, week numbers, disabled dates, timezone formatting, and RTL support.",
+    "category": "Forms"
+  },
+  {
+    "slug": "card",
+    "name": "Card",
+    "status": "Stable",
+    "summary": "Composable content surfaces with header, content, footer, actions, media, sizing, and spacing tokens.",
+    "category": "Data display"
+  },
+  {
+    "slug": "carousel",
+    "name": "Carousel",
+    "status": "Preview",
+    "summary": "Composable scroll-snap carousel primitives with sizing, spacing, orientation, API, plugins, and RTL support.",
+    "category": "Data display"
+  },
+  {
+    "slug": "checkbox",
+    "name": "Checkbox",
+    "status": "Stable",
+    "summary": "Native form-compatible boolean input with token-based styling.",
+    "category": "Forms"
+  },
+  {
+    "slug": "collapsible",
+    "name": "Collapsible",
+    "status": "Stable",
+    "summary": "Single-panel disclosure primitive for toggling additional content.",
+    "category": "Disclosure"
+  },
+  {
+    "slug": "command",
+    "name": "Command",
+    "status": "Stable",
+    "summary": "Searchable command menus and command palettes for quick actions.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "combobox",
+    "name": "Combobox",
+    "status": "Stable",
+    "summary": "Searchable single and multi-value selection with composable slots.",
+    "category": "Forms"
+  },
+  {
+    "slug": "context-menu",
+    "name": "Context Menu",
+    "status": "Stable",
+    "summary": "Right-click and long-press menus with actions, groups, submenus, shortcuts, checkbox and radio items.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "date-picker",
+    "name": "Date Picker",
+    "status": "Stable",
+    "summary": "Calendar-backed date and range picker with presets, editable input, time selection, RTL, and reactive forms support.",
+    "category": "Forms"
+  },
+  {
+    "slug": "dropdown-menu",
+    "name": "Dropdown Menu",
+    "status": "Stable",
+    "summary": "Menus with hover and click triggers, submenus, and keyboard support.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "empty",
+    "name": "Empty",
+    "status": "Stable",
+    "summary": "Composable empty states with media, title, description, actions, inputs, avatars, and RTL support.",
+    "category": "Data display"
+  },
+  {
+    "slug": "hover-card",
+    "name": "Hover Card",
+    "status": "Stable",
+    "summary": "Delayed hover previews for links and actions with configurable timing, positioning, styling, and RTL support.",
+    "category": "Overlay"
+  },
+  {
+    "slug": "field",
+    "name": "Field",
+    "status": "Stable",
+    "summary": "Layout composition primitives for labels, descriptions, and errors.",
+    "category": "Forms"
+  },
+  {
+    "slug": "input",
+    "name": "Input",
+    "status": "Stable",
+    "summary": "Native text input primitives with labeling and feedback patterns.",
+    "category": "Forms"
+  },
+  {
+    "slug": "input-otp",
+    "name": "Input OTP",
+    "status": "Stable",
+    "summary": "One-time password input with grouped slots, separators, paste support, patterns, and reactive forms compatibility.",
+    "category": "Forms"
+  },
+  {
+    "slug": "item",
+    "name": "Item",
+    "status": "Stable",
+    "summary": "Composable row primitive with media, content, descriptions, actions, grouping, links, sizing, and RTL support.",
+    "category": "Data display"
+  },
+  {
+    "slug": "menubar",
+    "name": "Menubar",
+    "status": "Stable",
+    "summary": "Persistent application menu built on dropdown-menu primitives with groups, checkbox and radio items, submenus, shortcuts, icons, and RTL support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "navigation-menu",
+    "name": "Navigation Menu",
+    "status": "Stable",
+    "summary": "Website navigation primitive with dropdown-backed panels, rich links, indicators, viewport styling, direct links, and RTL support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "pagination",
+    "name": "Pagination",
+    "status": "Stable",
+    "summary": "Page navigation primitives with previous, next, active links, ellipsis, disabled states, dropdown pairing, and RTL support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "popover",
+    "name": "Popover",
+    "status": "Stable",
+    "summary": "Anchored overlay content with trigger, close controls, alignment, controlled state, forms, custom styling, and RTL support.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "progress",
+    "name": "Progress",
+    "status": "Stable",
+    "summary": "Accessible progress indicators with determinate, indeterminate, labeled, controlled, custom styling, and RTL patterns.",
+    "category": "Feedback"
+  },
+  {
+    "slug": "radio-group",
+    "name": "Radio Group",
+    "status": "Stable",
+    "summary": "Native radio group primitives with descriptions, choice cards, fieldset grouping, reactive forms validation, custom styling, and RTL support.",
+    "category": "Forms"
+  },
+  {
+    "slug": "resizable",
+    "name": "Resizable",
+    "status": "Stable",
+    "summary": "Accessible resizable panel groups with horizontal and vertical layouts, handles, nested groups, constraints, keyboard resizing, and RTL support.",
+    "category": "Layout"
+  },
+  {
+    "slug": "separator",
+    "name": "Separator",
+    "status": "Stable",
+    "summary": "Visual and semantic dividers with horizontal, vertical, decorative, custom styling, and RTL support.",
+    "category": "Layout"
+  },
+  {
+    "slug": "sheet",
+    "name": "Sheet",
+    "status": "Stable",
+    "summary": "Edge-mounted dialog panels with sides, headers, descriptions, footers, scrollable content, programmatic opening, and RTL support.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "sidebar",
+    "name": "Sidebar",
+    "status": "Stable",
+    "summary": "Composable application sidebars with provider state, variants, collapsible modes, menu primitives, rail, trigger, skeletons, and RTL support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "skeleton",
+    "name": "Skeleton",
+    "status": "Stable",
+    "summary": "Composable loading placeholders with sizing inputs, shimmer animation, token styling, and RTL-friendly layouts.",
+    "category": "Feedback"
+  },
+  {
+    "slug": "spinner",
+    "name": "Spinner",
+    "status": "Stable",
+    "summary": "Portable loading indicator primitive with accessible status, decorative mode, size presets, token styling, and composition examples.",
+    "category": "Feedback"
+  },
+  {
+    "slug": "slider",
+    "name": "Slider",
+    "status": "Stable",
+    "summary": "Range input primitive with single, range, multiple thumb, vertical, controlled, RTL, and reactive forms support.",
+    "category": "Forms"
+  },
+  {
+    "slug": "modal",
+    "name": "Modal",
+    "status": "Stable",
+    "summary": "Dialog primitives powered by Angular CDK with trigger, close, layout, and programmatic opening support.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "select",
+    "name": "Select",
+    "status": "Stable",
+    "summary": "Button-triggered listbox selection built with composable primitives.",
+    "category": "Forms"
+  },
+  {
+    "slug": "switch",
+    "name": "Switch",
+    "status": "Stable",
+    "summary": "Native checkbox-based toggle control for boolean settings.",
+    "category": "Forms"
+  },
+  {
+    "slug": "table",
+    "name": "Table",
+    "status": "Stable",
+    "summary": "CDK-backed table primitives with captions, headers, rows, footers, sticky columns, empty states, actions, and virtual scrolling support.",
+    "category": "Data display"
+  },
+  {
+    "slug": "tabs",
+    "name": "Tabs",
+    "status": "Stable",
+    "summary": "Composable tab panels with list, trigger, content, variants, icons, vertical layout, RTL, and router-link support.",
+    "category": "Navigation"
+  },
+  {
+    "slug": "textarea",
+    "name": "Textarea",
+    "status": "Stable",
+    "summary": "Native multi-line text input with invalid, disabled, RTL, and Field composition support.",
+    "category": "Forms"
+  },
+  {
+    "slug": "toggle",
+    "name": "Toggle",
+    "status": "Stable",
+    "summary": "Two-state button primitive with pressed state, variants, sizing, icons, labels, and reactive forms support.",
+    "category": "Actions"
+  },
+  {
+    "slug": "tooltip",
+    "name": "Tooltip",
+    "status": "Stable",
+    "summary": "Hover and focus hints with side, alignment, delay, keyboard dismissal, arrow variants, and RTL support.",
+    "category": "Overlays"
+  },
+  {
+    "slug": "toast",
+    "name": "Toast",
+    "status": "Stable",
+    "summary": "Stackable notifications with variants, actions, loading states, dismissal controls, positions, and RTL support.",
+    "category": "Feedback"
+  },
+  {
+    "slug": "virtual-scroll",
+    "name": "Virtual Scroll",
+    "status": "Preview",
+    "summary": "Reusable fixed-row virtualization primitives for large data sets.",
+    "category": "Data display"
+  }
+]

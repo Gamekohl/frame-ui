@@ -1,0 +1,20 @@
+:root {
+  --frame-field-set-gap: 1.5rem;
+  --frame-field-group-gap: 1rem;
+  --frame-field-gap: 0.5rem;
+  --frame-field-content-gap: 0.375rem;
+  --frame-field-legend-color: var(--frame-foreground);
+  --frame-field-legend-font-size: 1rem;
+  --frame-field-legend-font-weight: 700;
+  --frame-field-label-font-size: 0.875rem;
+  --frame-field-label-font-weight: 600;
+  --frame-field-label-color: var(--frame-foreground);
+  --frame-field-description-color: var(--frame-muted-foreground);
+  --frame-field-description-font-size: 0.8125rem;
+  --frame-field-error-color: var(--frame-destructive);
+  --frame-field-error-font-size: 0.6125rem;
+  --frame-field-separator-gap: 0.75rem;
+  --frame-field-separator-color: var(--frame-muted-foreground);
+  --frame-field-separator-bg: var(--frame-border);
+  --frame-field-separator-font-size: 0.75rem;
+}

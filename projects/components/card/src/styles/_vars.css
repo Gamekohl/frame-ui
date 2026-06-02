@@ -1,0 +1,17 @@
+:root {
+  --frame-card-bg: var(--frame-surface);
+  --frame-card-color: var(--frame-surface-foreground);
+  --frame-card-border: var(--frame-border);
+  --frame-card-radius: var(--frame-radius-md);
+  --frame-card-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  --frame-card-font-size: 0.875rem;
+  --frame-card-title-color: var(--frame-foreground);
+  --frame-card-title-font-size: 1rem;
+  --frame-card-title-font-weight: 600;
+  --frame-card-title-line-height: 1.25;
+  --frame-card-description-color: var(--frame-muted-foreground);
+  --frame-card-description-font-size: 0.875rem;
+  --frame-card-description-line-height: 1.45;
+  --frame-card-footer-bg: color-mix(in srgb, var(--frame-muted) 48%, transparent);
+  --frame-card-footer-border: var(--frame-border);
+}

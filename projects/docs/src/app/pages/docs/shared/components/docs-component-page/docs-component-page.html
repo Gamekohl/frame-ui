@@ -1,0 +1,184 @@
+<div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
+  @if (component() === undefined) {
+    <main class="min-w-0">
+      <section class="rounded-2xl border border-border bg-muted/10 px-6 py-12 sm:px-8">
+        <p class="text-sm font-medium text-muted-foreground">Loading component metadata</p>
+      </section>
+    </main>
+  } @else if (component(); as component) {
+    <main class="min-w-0 space-y-12">
+      <section frAlert variant="info">
+        <ng-icon frAlertIcon name="tablerAlertTriangle" class="text-blue-600!" />
+        <h5 frAlertTitle>Icons</h5>
+        <p frAlertDescription>Icons by <a href="https://ng-icons.github.io/ng-icons/#/browse-icons?iconset=Tabler%20Icons" target="_blank"><code>&#64;ng-icons/tabler-icons</code></a></p>
+        <p class="text-sm mt-2 text-muted-foreground">The component library does not provide icons.</p>
+      </section>
+
+      <header class="border-b border-border pb-8">
+        <nav frBreadcrumb aria-label="Breadcrumb">
+          <ol frBreadcrumbList>
+            <li frBreadcrumbItem>
+              <a frBreadcrumbLink routerLink="/docs/components">Components</a>
+            </li>
+            <li frBreadcrumbSeparator></li>
+            <li frBreadcrumbItem>
+              <span frBreadcrumbPage>{{ component.name }}</span>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="mt-3 flex items-center gap-2">
+          <h1 class="text-3xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            {{ component.name }}
+          </h1>
+          @if (component.status !== 'Stable') {
+            <span class="mt-1" frBadge>{{ component.status }}</span>
+          }
+        </div>
+
+        <p class="mt-3 max-w-3xl text-md leading-8 text-muted-foreground">
+          {{ component.summary }}
+        </p>
+
+        @if (doc().hero; as hero) {
+          <div class="mt-8">
+            <docs-preview-card [example]="hero" [initialCodeOpen]="false" label="Preview" />
+          </div>
+        }
+      </header>
+
+      <!--@if (doc().installation; as installation) {
+        <section id="installation" class="scroll-mt-24 space-y-5">
+          <h2 class="text-2xl font-semibold tracking-tight">Installation</h2>
+
+          <docs-installation [installation]="installation" />
+        </section>
+      }-->
+
+      @if (doc().usage?.length) {
+        <section id="usage" class="scroll-mt-24 space-y-5">
+          <h2 class="text-2xl font-semibold tracking-tight">Usage</h2>
+
+          <div class="overflow-hidden rounded-xl">
+            @for (block of doc().usage; track block.code) {
+              <docs-code-block [code]="block.code" [language]="block.language" />
+            }
+          </div>
+        </section>
+      }
+
+      @if (doc().examples?.length) {
+        <section id="examples" class="scroll-mt-24 space-y-8">
+          <h2 class="text-2xl font-semibold tracking-tight">Examples</h2>
+
+          @for (example of doc().examples; track example.id) {
+            <article [id]="'example-' + example.id" class="scroll-mt-24 space-y-4">
+              <div>
+                <h3 class="text-xl font-semibold tracking-tight">
+                  {{ example.title }}
+                </h3>
+
+                @if (example.description) {
+                  <p class="my-4 text-muted-foreground">
+                    {{ example.description }}
+                  </p>
+                }
+              </div>
+
+              <docs-preview-card [example]="example" />
+            </article>
+          }
+        </section>
+      }
+
+      @if (doc().styling; as styling) {
+        <section id="styling" class="scroll-mt-24 space-y-5">
+          <h2 class="text-2xl font-semibold tracking-tight">Custom Styling</h2>
+
+          @if (styling.description) {
+            <p class="max-w-3xl text-md leading-8 text-muted-foreground">
+              {{ styling.description }}
+            </p>
+          }
+
+          @if (styling.preview; as preview) {
+            <docs-preview-card [example]="preview" [initialCodeOpen]="false" />
+          }
+        </section>
+      }
+
+      @if (doc().tokenInspector; as tokenInspector) {
+        <section id="token-inspector" class="scroll-mt-24 space-y-5">
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight">Token Inspector</h2>
+
+            @if (tokenInspector.description) {
+              <p class="mt-3 max-w-3xl text-md leading-8 text-muted-foreground">
+                {{ tokenInspector.description }}
+              </p>
+            }
+          </div>
+
+          @if (tokenInspector.preview; as preview) {
+            <docs-token-inspector
+              [component]="preview.component"
+              [inputs]="preview.inputs ?? {}"
+              [containerClass]="preview.containerClass"
+              [targets]="preview.inspectorTargets!"
+              [layout]="preview.inspectorLayout ?? 'popover'"
+            />
+          }
+        </section>
+      }
+
+      @if (doc().tokensTitle || doc().tokensDescription || doc().tokens) {
+        <section id="tokens" class="scroll-mt-24 space-y-5">
+          <h2 class="text-2xl font-semibold tracking-tight">
+            {{ doc().tokensTitle ?? 'Tokens' }}
+          </h2>
+
+          @if (doc().tokensDescription) {
+            <p class="max-w-3xl text-md leading-8 text-muted-foreground">
+              {{ doc().tokensDescription }}
+            </p>
+          }
+
+          @if (doc().tokens) {
+            <docs-code-block [code]="doc().tokens!" language="scss" rounded />
+          }
+        </section>
+      }
+    </main>
+
+    <docs-toc [items]="toc()" />
+  } @else {
+    <main class="min-w-0">
+      <section
+        class="rounded-2xl border border-dashed border-border bg-muted/20 px-6 py-12 sm:px-8"
+      >
+        <nav frBreadcrumb aria-label="Breadcrumb">
+          <ol frBreadcrumbList>
+            <li frBreadcrumbItem>
+              <a frBreadcrumbLink routerLink="/docs/components">Components</a>
+            </li>
+            <li frBreadcrumbSeparator></li>
+            <li frBreadcrumbItem>
+              <span frBreadcrumbPage>Missing</span>
+            </li>
+          </ol>
+        </nav>
+
+        <h1 class="mt-3 text-3xl font-semibold tracking-tight text-foreground">
+          Component data not found
+        </h1>
+
+        <p class="mt-3 max-w-2xl text-md leading-8 text-muted-foreground">
+          We found the docs page for
+          <span class="font-medium text-foreground">{{ doc().slug }}</span
+          >, but there is no matching entry in <code>components.json</code>. Add the component
+          metadata there to restore the title and summary for this page.
+        </p>
+      </section>
+    </main>
+  }
+</div>

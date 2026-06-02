@@ -1,0 +1,243 @@
+@import './_vars.css';
+
+@import './button-label.css';
+@import './button-icon.css';
+
+.frame-button {
+  --frame-button-root-bg: var(--frame-primary);
+  --frame-button-root-border: transparent;
+  --frame-button-root-color: var(--frame-primary-foreground);
+  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-primary) 92%, white);
+  --frame-button-root-hover-border: var(--frame-button-root-border);
+  --frame-button-root-hover-color: var(--frame-button-root-color);
+  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, black);
+  --frame-button-root-active-border: var(--frame-button-root-hover-border);
+  --frame-button-root-active-color: var(--frame-button-root-hover-color);
+  --frame-spinner-size: var(--frame-button-loading-size, 1rem);
+  --frame-spinner-stroke: var(--frame-button-loading-stroke, 2px);
+  --frame-spinner-track-color: var(
+    --frame-button-loading-track,
+    color-mix(in srgb, currentColor 24%, transparent)
+  );
+  --frame-spinner-indicator-color: currentColor;
+  position: relative;
+  display: inline-flex;
+  min-width: 2rem;
+  min-height: var(--frame-button-root-height, 2.5rem);
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-button-root-gap, 0.5rem);
+  border: 1px solid var(--frame-button-root-border);
+  border-radius: var(--frame-button-root-radius, var(--frame-radius-md));
+  background: var(--frame-button-root-bg);
+  /* box-shadow: var(--frame-button-root-shadow, var(--frame-shadow-sm)); */
+  color: var(--frame-button-root-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-button-root-font-size, 0.875rem);
+  font-weight: var(--frame-button-root-font-weight, 600);
+  line-height: 1;
+  padding-inline: var(--frame-button-root-padding-x, 1rem);
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    color 150ms ease,
+    filter 150ms ease,
+    transform 150ms ease,
+    opacity 150ms ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.frame-icon-button {
+  inline-size: var(--frame-button-root-height, 2.5rem);
+  padding-inline: 0;
+  flex: 0 0 auto;
+}
+
+.frame-button:where([data-loading])::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: var(--frame-spinner-size);
+  block-size: var(--frame-spinner-size);
+  border: var(--frame-spinner-stroke) solid var(--frame-spinner-track-color);
+  border-radius: 999px;
+  border-top-color: var(--frame-spinner-indicator-color);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.frame-button:where(button) {
+  padding-block: 0;
+}
+
+.frame-button:where(:not(:disabled, [data-disabled])):hover {
+  background: var(--frame-button-root-hover-bg);
+  border-color: var(--frame-button-root-hover-border);
+  color: var(--frame-button-root-hover-color);
+  filter: var(--frame-button-root-hover-filter, brightness(0.98));
+}
+
+.frame-button:where(:not(:disabled, [data-disabled])):active {
+  background: var(--frame-button-root-active-bg);
+  border-color: var(--frame-button-root-active-border);
+  /* box-shadow: var(--frame-button-root-active-shadow, inset 0 1px 2px rgb(0 0 0 / 0.12)); */
+  color: var(--frame-button-root-active-color);
+  filter: var(--frame-button-root-active-filter, brightness(0.96));
+  transform: translateY(1px);
+}
+
+.frame-button:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  /* box-shadow: var(--frame-button-root-focus-shadow, var(--frame-button-root-shadow, var(--frame-shadow-sm)), 0 0 0 3px color-mix(in srgb, var(--frame-button-root-ring-color, var(--frame-ring)) 35%, transparent)); */
+}
+
+.frame-button[data-loading]::after {
+  animation: frame-button-spin 0.7s linear infinite;
+  opacity: 1;
+}
+
+.frame-button[data-has-custom-loading]::after {
+  display: none;
+}
+
+.frame-button[data-loading][data-loading-display='replace'] .frame-button__icon,
+.frame-button[data-loading][data-loading-display='replace'] .frame-button__label {
+  display: none;
+}
+
+.frame-button[data-loading][data-loading-display='inline'] .frame-button__icon {
+  display: none;
+}
+
+.frame-button[data-loading][data-loading-display='inline']::after {
+  animation-name: frame-button-spin-inline;
+  position: static;
+  flex: 0 0 auto;
+  opacity: 1;
+  transform: none;
+}
+
+.frame-button:where(:disabled, [data-disabled]) {
+  cursor: not-allowed;
+  opacity: var(--frame-button-root-disabled-opacity, 0.55);
+  /* box-shadow: var(--frame-button-root-disabled-shadow, none); */
+}
+
+.frame-button[data-appearance='outline'] {
+  --frame-button-root-bg: var(--frame-surface);
+  --frame-button-root-border: var(--frame-border);
+  --frame-button-root-color: var(--frame-surface-foreground);
+  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
+  --frame-button-root-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
+  --frame-button-root-hover-color: var(--frame-button-root-color);
+  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
+  --frame-button-root-active-border: var(--frame-button-root-hover-border);
+  --frame-button-root-active-color: var(--frame-button-root-hover-color);
+}
+
+.frame-button[data-appearance='ghost'] {
+  --frame-button-root-bg: transparent;
+  --frame-button-root-border: transparent;
+  --frame-button-root-color: var(--frame-foreground);
+  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-muted) 60%, transparent);
+  --frame-button-root-hover-border: var(--frame-button-root-border);
+  --frame-button-root-hover-color: var(--frame-button-root-color);
+  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-muted) 80%, transparent);
+  --frame-button-root-active-border: var(--frame-button-root-hover-border);
+  --frame-button-root-active-color: var(--frame-button-root-hover-color);
+  /* box-shadow: var(--frame-button-root-shadow, none); */
+}
+
+.frame-button[data-size='sm'] {
+  min-height: 2rem;
+  padding-inline: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.frame-button[data-size='lg'] {
+  min-height: 2.75rem;
+  padding-inline: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.frame-button[data-radius='none'] {
+  border-radius: 0;
+}
+
+.frame-button[data-radius='sm'] {
+  border-radius: var(--frame-radius-sm);
+}
+
+.frame-button[data-radius='md'] {
+  border-radius: var(--frame-radius-md);
+}
+
+.frame-button[data-radius='lg'] {
+  border-radius: var(--frame-radius-lg);
+}
+
+.frame-button[data-radius='full'] {
+  border-radius: var(--frame-radius-full);
+}
+
+[frButtonLoading] {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.frame-button > [frSpinner],
+.frame-button > frame-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frame-button[data-loading] [frButtonLoading] {
+  opacity: 1;
+}
+
+.frame-button[data-loading] > [frSpinner],
+.frame-button[data-loading] > frame-spinner {
+  opacity: 1;
+}
+
+.frame-button[data-loading][data-loading-display='inline'] [frButtonLoading] {
+  position: static;
+  flex: 0 0 auto;
+  transform: none;
+}
+
+.frame-button[data-loading][data-loading-display='inline'] > [frSpinner],
+.frame-button[data-loading][data-loading-display='inline'] > frame-spinner {
+  position: static;
+  margin: 0;
+}
+
+@keyframes frame-button-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes frame-button-spin-inline {
+  to {
+    transform: rotate(360deg);
+  }
+}

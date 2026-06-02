@@ -1,0 +1,131 @@
+@import './_vars.css';
+
+[frSwitchField],
+frame-switch-field {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--frame-switch-field-gap);
+  width: 100%;
+  color: var(--frame-switch-field-color);
+}
+
+[frSwitchField]:has([frSwitch]:disabled),
+frame-switch-field:has([frSwitch]:disabled) {
+  color: var(--frame-switch-field-disabled-color);
+}
+
+[frSwitchContent],
+frame-switch-content {
+  display: grid;
+  gap: var(--frame-switch-content-gap);
+  min-width: 0;
+}
+
+[frSwitchLabel],
+frame-switch-label {
+  font-size: var(--frame-switch-label-font-size);
+  font-weight: var(--frame-switch-label-font-weight);
+  line-height: 1.3;
+}
+
+[frSwitchDescription],
+frame-switch-description {
+  color: var(--frame-switch-description-color);
+  font-size: var(--frame-switch-description-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[frSwitchError],
+frame-switch-error {
+  color: var(--frame-switch-error-color);
+  font-size: var(--frame-switch-error-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[frSwitch] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  inline-size: var(--frame-switch-width);
+  block-size: var(--frame-switch-height);
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: var(--frame-switch-radius);
+  background: var(--frame-switch-bg);
+  box-shadow: var(--frame-switch-border-shadow);
+  cursor: pointer;
+  outline: none;
+  vertical-align: middle;
+  transition:
+    background-color var(--frame-switch-transition-duration) ease,
+    border-color var(--frame-switch-transition-duration) ease,
+    box-shadow var(--frame-switch-transition-duration) ease,
+    opacity var(--frame-switch-transition-duration) ease;
+}
+
+[frSwitch][data-size='sm'] {
+  --frame-switch-width: var(--frame-switch-sm-width);
+  --frame-switch-height: var(--frame-switch-sm-height);
+  --frame-switch-thumb-size: var(--frame-switch-sm-thumb-size);
+}
+
+[frSwitch]::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--frame-switch-padding);
+  inline-size: var(--frame-switch-thumb-size);
+  block-size: var(--frame-switch-thumb-size);
+  border-radius: var(--frame-switch-radius);
+  background: var(--frame-switch-thumb-bg);
+  box-shadow: var(--frame-switch-thumb-shadow);
+  transform: translateY(-50%);
+  transition:
+    inset-inline-start var(--frame-switch-transition-duration) var(--frame-switch-transition-easing),
+    transform var(--frame-switch-transition-duration) var(--frame-switch-transition-easing);
+}
+
+[frSwitch]:checked {
+  background: var(--frame-switch-checked-bg);
+  box-shadow: var(--frame-switch-checked-border-shadow);
+}
+
+[frSwitch]:checked::before {
+  inset-inline-start: calc(100% - var(--frame-switch-thumb-size) - var(--frame-switch-padding));
+}
+
+[frSwitch]:where(:not(:disabled)):hover {
+  background: var(--frame-switch-hover-bg);
+}
+
+[frSwitch]:where(:not(:disabled)):checked:hover {
+  background: var(--frame-switch-checked-hover-bg);
+}
+
+[frSwitch]:focus-visible {
+  box-shadow:
+    var(--frame-switch-border-shadow),
+    var(--frame-switch-focus-shadow);
+}
+
+[frSwitch]:checked:focus-visible {
+  box-shadow:
+    var(--frame-switch-checked-border-shadow),
+    var(--frame-switch-focus-shadow);
+}
+
+[frSwitch]:disabled {
+  cursor: not-allowed;
+  opacity: var(--frame-switch-disabled-opacity);
+}
+
+[frSwitch][aria-invalid='true'],
+[frSwitch].ng-invalid.ng-touched,
+[frSwitch].ng-invalid.ng-dirty {
+  border-color: var(--frame-switch-invalid-border);
+  box-shadow: var(--frame-switch-invalid-shadow);
+}

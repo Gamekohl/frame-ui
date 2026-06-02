@@ -1,0 +1,22 @@
+:root {
+  --frame-menubar-bg: var(--frame-surface);
+  --frame-menubar-color: var(--frame-surface-foreground);
+  --frame-menubar-border: var(--frame-border);
+  --frame-menubar-radius: var(--frame-radius-md);
+  --frame-menubar-padding: 0.25rem;
+  --frame-menubar-gap: 0.25rem;
+  --frame-menubar-shadow: none;
+  --frame-menubar-trigger-height: 2rem;
+  --frame-menubar-trigger-padding-x: 0.75rem;
+  --frame-menubar-trigger-gap: 0.375rem;
+  --frame-menubar-trigger-radius: calc(var(--frame-menubar-radius) - 0.125rem);
+  --frame-menubar-trigger-font-size: 0.875rem;
+  --frame-menubar-trigger-font-weight: 500;
+  --frame-menubar-trigger-bg: transparent;
+  --frame-menubar-trigger-color: var(--frame-menubar-color);
+  --frame-menubar-trigger-hover-bg: color-mix(in srgb, var(--frame-accent) 48%, transparent);
+  --frame-menubar-trigger-hover-color: var(--frame-menubar-color);
+  --frame-menubar-trigger-open-bg: var(--frame-accent);
+  --frame-menubar-trigger-open-color: var(--frame-accent-foreground);
+  --frame-menubar-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+}

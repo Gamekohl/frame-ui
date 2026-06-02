@@ -1,0 +1,54 @@
+[frVirtualViewport],
+frame-virtual-viewport {
+  display: block;
+  overflow: auto;
+  position: relative;
+}
+
+[frVirtualList],
+frame-virtual-list {
+  display: block;
+  border: 1px solid var(--frame-border);
+  border-radius: var(--frame-radius-lg);
+  background: color-mix(in srgb, var(--frame-surface) 92%, transparent);
+  overflow: hidden;
+}
+
+[frVirtualPanel],
+frame-virtual-panel {
+  overflow: hidden;
+}
+
+[frVirtualContent],
+frame-virtual-content {
+  display: block;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+[frVirtualItem],
+frame-virtual-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  min-block-size: 2.75rem;
+  padding: 0.625rem 0.875rem;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--frame-border) 72%, transparent);
+  background: transparent;
+  color: var(--frame-foreground);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+[frVirtualItem]:hover,
+frame-virtual-item:hover {
+  background: color-mix(in srgb, var(--frame-accent) 80%, transparent);
+}
+
+[frVirtualItemMeta],
+frame-virtual-item-meta {
+  color: var(--frame-muted-foreground);
+  font-size: 0.75rem;
+}

@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Geist", "Aptos", "Segoe UI", sans-serif;
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.145 0 0);
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: oklch(0.45 0 0);
+  --color-border: oklch(0.922 0 0);
+  --color-surface: oklch(1 0 0);
+  --color-surface-foreground: oklch(0.145 0 0);
+  --color-primary: #161b27;
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-accent: oklch(0.97 0 0);
+  --color-accent-foreground: oklch(0.205 0 0);
+  --color-destructive: oklch(55.205% 0.18114 25.384);
+  --color-destructive-foreground: oklch(100% 0.00011 271.152);
+  --color-input: oklch(0.922 0 0);
+  --color-ring: oklch(0.708 0 0);
+}
+
+html {
+  color-scheme: light;
+  min-height: 100%;
+  scroll-behavior: smooth;
+
+  --frame-background: var(--color-background);
+  --frame-foreground: var(--color-foreground);
+  --frame-muted: var(--color-muted);
+  --frame-muted-foreground: var(--color-muted-foreground);
+  --frame-border: var(--color-border);
+  --frame-surface: var(--color-surface);
+  --frame-surface-foreground: var(--color-surface-foreground);
+  --frame-primary: var(--color-primary);
+  --frame-primary-foreground: var(--color-primary-foreground);
+  --frame-accent: var(--color-accent);
+  --frame-accent-foreground: var(--color-accent-foreground);
+  --frame-destructive: var(--color-destructive);
+  --frame-destructive-foreground: var(--color-destructive-foreground);
+  --frame-input: var(--color-input);
+  --frame-ring: var(--color-ring);
+
+  --orange-red: oklch(63.32% .24 31.68);
+  --vivid-pink: oklch(69.02% .277 332.77);
+  --electric-violet: oklch(53.18% .28 296.97);
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
+  --color-muted: oklch(0.269 0 0);
+  --color-muted-foreground: oklch(0.708 0 0);
+  --color-border: oklch(1 0 0 / 0.1);
+  --color-surface: oklch(0.205 0 0);
+  --color-surface-foreground: oklch(0.985 0 0);
+  --color-primary: oklch(0.922 0 0);
+  --color-primary-foreground: oklch(0.205 0 0);
+  --color-accent: oklch(0.269 0 0);
+  --color-accent-foreground: oklch(0.985 0 0);
+  --color-destructive: oklch(0.704 0.191 22.216);
+  --color-destructive-foreground: oklch(0.985 0 0);
+  --color-input: oklch(1 0 0 / 0.15);
+  --color-ring: oklch(0.556 0 0);
+  --orange-red: color-mix(in srgb, oklch(63.32% .24 31.68), white 60%);
+  --vivid-pink: color-mix(in srgb, oklch(69.02% .277 332.77), white 70%);
+  --electric-violet: color-mix(in srgb, oklch(53.18% .28 296.97), white 70%);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--frame-primary) 9%, transparent), transparent 34rem),
+    linear-gradient(180deg, color-mix(in srgb, var(--frame-muted) 32%, var(--frame-background)), var(--frame-background) 24rem);
+  color: var(--frame-foreground);
+  font-family: var(--font-sans), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.angular-color-gradient {
+  --red-to-pink-to-purple-horizontal-gradient: linear-gradient( 90deg, var(--orange-red) 0%, var(--vivid-pink) 50%, var(--electric-violet) 100% );
+  background-image: var(--red-to-pink-to-purple-horizontal-gradient);
+  background-clip: text;
+  color: transparent;
+}
+
+.slide-in-enter {
+  animation: docs-slide-in 680ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--docs-enter-delay, 0ms);
+}
+
+.slide-out-leave {
+  animation: docs-slide-out 680ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--docs-leave-delay, 0ms);
+}
+
+@keyframes docs-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes docs-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-in-enter {
+    animation: none;
+  }
+
+  .slide-out-enter {
+    animation: none;
+  }
+}

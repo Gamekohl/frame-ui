@@ -1,0 +1,87 @@
+@import './_vars.css';
+
+[frAccordion] {
+  display: grid;
+}
+
+[frAccordion][data-border='true'] {
+  border: 1px solid var(--frame-border);
+  border-radius: var(--frame-radius-md);
+  padding-inline: var(--frame-spacing-md);
+}
+
+[frAccordionItem] {
+  border-bottom: 1px solid var(--frame-accordion-item-border, var(--frame-border));
+  padding-inline: var(--frame-accordion-item-padding-x, 0);
+}
+
+[frAccordionItem]:last-child {
+  border-bottom: 0;
+}
+
+[frAccordionTrigger] {
+  inline-size: 100%;
+  min-block-size: var(--frame-accordion-trigger-min-height, 3rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--frame-accordion-trigger-gap, 1rem);
+  border: 0;
+  background: transparent;
+  color: var(--frame-accordion-trigger-color, var(--frame-foreground));
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-accordion-trigger-font-size, 0.9375rem);
+  font-weight: var(--frame-accordion-trigger-font-weight, 500);
+  line-height: 1.4;
+  padding-block: var(--frame-accordion-trigger-padding-y, 1rem);
+  padding-inline: var(--frame-accordion-trigger-padding-x, 0);
+  text-align: start;
+}
+
+[frAccordionTrigger]:where(:not([data-disabled])):hover {
+  color: var(--frame-accordion-trigger-hover-color, var(--frame-foreground));
+}
+
+[frAccordionTrigger]:where(:disabled, [data-disabled]) {
+  cursor: not-allowed;
+  opacity: var(--frame-accordion-trigger-disabled-opacity, 0.55);
+}
+
+[frAccordionContent] {
+  color: var(--frame-accordion-content-color, var(--frame-muted-foreground));
+  font-size: var(--frame-accordion-content-font-size, 0.875rem);
+  line-height: var(--frame-accordion-content-line-height, 1.6);
+  overflow: clip;
+  padding-bottom: 0;
+  padding-inline: var(--frame-accordion-content-padding-inline, 0);
+  transition:
+    height var(--frame-accordion-content-transition-duration, 220ms)
+      var(--frame-accordion-content-transition-timing, ease),
+    opacity var(--frame-accordion-content-transition-duration, 220ms)
+      var(--frame-accordion-content-transition-timing, ease),
+    padding-bottom var(--frame-accordion-content-transition-duration, 220ms)
+      var(--frame-accordion-content-transition-timing, ease);
+  will-change: height, opacity;
+}
+
+[frAccordionContent][data-state='closed'] {
+  opacity: var(--frame-accordion-content-opacity-closed, 0);
+  padding-bottom: 0;
+}
+
+[frAccordionContent][data-state='open'] {
+  opacity: var(--frame-accordion-content-opacity-open, 1);
+  padding-bottom: var(--frame-accordion-content-padding-bottom, 1rem);
+}
+
+[frAccordionIcon] {
+  inline-size: var(--frame-accordion-icon-size, 1rem);
+  block-size: var(--frame-accordion-icon-size, 1rem);
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+/*[frAccordionTrigger][data-state='open'] [frAccordionIcon] {
+  transform: rotate(var(--frame-accordion-icon-rotation, 180deg));
+}*/

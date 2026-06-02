@@ -1,0 +1,79 @@
+<div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
+  <article class="docs-article min-w-0 space-y-12 py-2">
+    <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+      <p class="text-sm font-medium text-foreground">Getting Started</p>
+      <div class="space-y-3">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Installation</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          Install the packages, add the shared styles once, and import only the primitives you use.
+          Most components work without extra setup. Forms and icons are the two common additions.
+        </p>
+      </div>
+    </header>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" id="packages" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Install packages</h2>
+        <p class="text-base leading-8 text-foreground">
+          Install the component package and the foundation package together. The foundation layer
+          provides the shared token contract and base styles.
+        </p>
+      </div>
+
+      <docs-code-block [code]="installCode" language="bash" title="npm" rounded />
+    </section>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" id="styles" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Add styles</h2>
+        <p class="text-base leading-8 text-foreground">
+          Import the foundation styles before the component styles. Do this once in your global
+          stylesheet.
+        </p>
+      </div>
+
+      <docs-code-block [code]="stylesCode" language="css" title="styles.css" rounded />
+    </section>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 290ms" id="imports" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Import primitives</h2>
+        <p class="text-base leading-8 text-foreground">
+          Each component package supports both a module import and separate primitive imports when you want more explicit control in a
+          standalone component. The component pages show the exact imports for each primitive.
+        </p>
+      </div>
+
+      <docs-code-block [code]="codeImportSnippet" language="ts" title="Module Import" rounded />
+      <docs-code-block [code]="codePrimitiveImportSnippet" language="ts" title="Primitive Import" rounded />
+    </section>
+
+    <section id="what-next" class="scroll-mt-24 space-y-4">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">What next</h2>
+        <p class="text-base leading-8 text-foreground">
+          After installation, choose how the tokens should integrate with your app and then move to
+          the component pages for usage details.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 text-sm">
+        <a
+          frButton
+          appearance="outline"
+          routerLink="/docs/theming"
+        >
+          Go to Theming
+        </a>
+        <a
+          frButton
+          routerLink="/docs/components"
+        >
+          Browse Components
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <docs-toc [items]="toc" />
+</div>

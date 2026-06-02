@@ -1,0 +1,245 @@
+@import './_vars.css';
+
+[frTableContainer],
+frame-table-container {
+  display: block;
+  max-inline-size: 100%;
+  overflow: auto;
+  border-radius: var(--frame-table-radius);
+}
+
+[frTable],
+frame-table,
+.frame-table {
+  inline-size: 100%;
+  min-inline-size: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--frame-table-bg);
+  color: var(--frame-table-color);
+  font-size: var(--frame-table-cell-font-size);
+  line-height: var(--frame-table-cell-line-height);
+  text-align: start;
+}
+
+[frTable][data-variant='outline'],
+frame-table[data-variant='outline'],
+.frame-table[data-variant='outline'] {
+  border: 1px solid var(--frame-table-border);
+  border-radius: var(--frame-table-radius);
+}
+
+[frTable][data-variant='card'],
+frame-table[data-variant='card'],
+.frame-table[data-variant='card'] {
+  border: 1px solid var(--frame-table-border);
+  border-radius: var(--frame-table-radius);
+  box-shadow: var(--frame-table-shadow);
+}
+
+[frTableCaption],
+frame-table-caption,
+caption[frTableCaption],
+.frame-table__caption {
+  caption-side: bottom;
+  padding-block: 0.75rem;
+  color: var(--frame-table-caption-color);
+  font-size: var(--frame-table-caption-font-size);
+  text-align: start;
+}
+
+[frTableHeader],
+frame-table-header,
+thead[frTableHeader],
+.frame-table__header {
+  background: var(--frame-table-header-bg);
+}
+
+[frTableFooter],
+frame-table-footer,
+tfoot[frTableFooter],
+.frame-table__footer {
+  background: var(--frame-table-footer-bg);
+  font-weight: var(--frame-table-footer-font-weight);
+}
+
+tr[frHeaderRow],
+tr[frRow],
+tr[frFooterRow],
+frame-header-row,
+frame-row,
+frame-footer-row,
+.frame-table__row {
+  transition: background-color var(--frame-table-transition-duration) ease;
+}
+
+tr[frHeaderRow] > *,
+tr[frRow] > *,
+tr[frFooterRow] > *,
+.frame-table__row > * {
+  border-block-end: 1px solid var(--frame-table-row-border);
+}
+
+tbody[frTableBody] tr:last-child > *,
+[frTableBody] .frame-table__row:last-child > *,
+frame-table-body .frame-table__row:last-child > * {
+  border-block-end: 0;
+}
+
+[frTable][data-hover='true'] tr[frRow]:hover,
+frame-table[data-hover='true'] frame-row:hover,
+.frame-table[data-hover='true'] .frame-table__row:hover {
+  background: var(--frame-table-row-hover-bg);
+}
+
+[frTable][data-striped='true'] tbody tr:nth-child(even),
+frame-table[data-striped='true'] frame-row:nth-child(even),
+.frame-table[data-striped='true'] .frame-table__body .frame-table__row:nth-child(even) {
+  background: var(--frame-table-row-striped-bg);
+}
+
+tr[frRow][data-selected='true'],
+frame-row[data-selected='true'],
+.frame-table__row[data-selected='true'] {
+  background: var(--frame-table-row-selected-bg);
+}
+
+th[frHeaderCell],
+td[frCell],
+td[frFooterCell],
+frame-header-cell,
+frame-cell,
+frame-footer-cell,
+.frame-table__head,
+.frame-table__cell {
+  padding-block: var(--frame-table-cell-padding-block);
+  padding-inline: var(--frame-table-cell-padding-inline);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+th[frHeaderCell],
+frame-header-cell,
+.frame-table__head {
+  color: var(--frame-table-header-color);
+  font-size: var(--frame-table-header-font-size);
+  font-weight: var(--frame-table-header-font-weight);
+  text-align: start;
+  text-transform: none;
+}
+
+td[frFooterCell],
+frame-footer-cell,
+.frame-table__footer-cell {
+  font-weight: var(--frame-table-footer-font-weight);
+}
+
+[frTable][data-density='sm'],
+frame-table[data-density='sm'],
+.frame-table[data-density='sm'] {
+  --frame-table-cell-padding-block: 0.5rem;
+  --frame-table-cell-padding-inline: 0.75rem;
+  --frame-table-cell-font-size: 0.8125rem;
+}
+
+[frTable][data-density='lg'],
+frame-table[data-density='lg'],
+.frame-table[data-density='lg'] {
+  --frame-table-cell-padding-block: 1rem;
+  --frame-table-cell-padding-inline: 1.125rem;
+  --frame-table-cell-font-size: 0.9375rem;
+}
+
+[frTableNumeric],
+.frame-table__numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.frame-table__muted {
+  color: var(--frame-muted-foreground);
+}
+
+.frame-table__sticky,
+.cdk-table-sticky {
+  z-index: 2;
+  background: var(--frame-table-bg);
+  background-clip: padding-box;
+  box-shadow: var(--frame-table-sticky-shadow);
+}
+
+thead .cdk-table-sticky,
+tfoot .cdk-table-sticky,
+tr[frHeaderRow].cdk-table-sticky,
+tr[frFooterRow].cdk-table-sticky,
+.frame-table__header-row .cdk-table-sticky,
+.frame-table__footer-row .cdk-table-sticky {
+  z-index: 3;
+  background: var(--frame-table-header-bg);
+}
+
+thead .cdk-table-sticky.cdk-table-sticky-border-elem-left,
+thead .cdk-table-sticky.cdk-table-sticky-border-elem-right {
+  z-index: 4;
+}
+
+tfoot .cdk-table-sticky,
+tr[frFooterRow].cdk-table-sticky,
+.frame-table__footer-row .cdk-table-sticky {
+  background: var(--frame-table-footer-bg);
+}
+
+[frTable][data-hover='true'] tr[frRow]:hover .cdk-table-sticky,
+.frame-table[data-hover='true'] .frame-table__row:hover .cdk-table-sticky {
+  background: var(--frame-table-row-hover-bg);
+}
+
+[frTableVirtual],
+.frame-table-virtual {
+  display: grid;
+  min-inline-size: 100%;
+  border: 1px solid var(--frame-table-border);
+  border-radius: var(--frame-table-radius);
+  background: var(--frame-table-bg);
+  color: var(--frame-table-color);
+  overflow: hidden;
+}
+
+[frTableVirtualHeader],
+[frTableVirtualRow],
+.frame-table-virtual__header,
+.frame-table-virtual__row {
+  display: grid;
+  grid-template-columns: var(--frame-table-virtual-columns, repeat(4, minmax(8rem, 1fr)));
+  align-items: center;
+  min-inline-size: max-content;
+}
+
+[frTableVirtualHeader],
+.frame-table-virtual__header {
+  background: var(--frame-table-header-bg);
+  color: var(--frame-table-header-color);
+  font-size: var(--frame-table-header-font-size);
+  font-weight: var(--frame-table-header-font-weight);
+}
+
+[frTableVirtualRow],
+.frame-table-virtual__row {
+  border-block-end: 1px solid var(--frame-table-row-border);
+  transition: background-color var(--frame-table-transition-duration) ease;
+}
+
+[frTableVirtualRow]:hover,
+.frame-table-virtual__row:hover {
+  background: var(--frame-table-row-hover-bg);
+}
+
+[frTableVirtualCell],
+.frame-table-virtual__cell {
+  min-inline-size: 0;
+  padding-block: var(--frame-table-cell-padding-block);
+  padding-inline: var(--frame-table-cell-padding-inline);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

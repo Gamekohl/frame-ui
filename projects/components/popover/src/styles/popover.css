@@ -1,0 +1,101 @@
+@import './_vars.css';
+
+frame-popover {
+  display: inline-block;
+}
+
+.frame-popover__anchor {
+  display: inline-flex;
+}
+
+[frPopoverTrigger] {
+  cursor: pointer;
+}
+
+.frame-popover__backdrop {
+  background: transparent;
+}
+
+.frame-popover__content {
+  display: grid;
+  gap: var(--frame-popover-content-gap);
+  width: var(--frame-popover-content-width);
+  max-width: min(var(--frame-popover-content-width), calc(100vw - 2rem));
+  border: 1px solid var(--frame-popover-content-border);
+  border-radius: var(--frame-popover-content-radius);
+  background: var(--frame-popover-content-bg);
+  box-shadow: var(--frame-popover-content-shadow);
+  color: var(--frame-popover-content-color);
+  padding: var(--frame-popover-content-padding);
+  outline: none;
+  transform-origin: var(--frame-popover-transform-origin, center);
+  animation: frame-popover-in var(--frame-popover-motion-duration) var(--frame-popover-motion-easing);
+}
+
+.frame-popover-overlay--top .frame-popover__content {
+  --frame-popover-transform-origin: bottom;
+}
+
+.frame-popover-overlay--right .frame-popover__content {
+  --frame-popover-transform-origin: left;
+}
+
+.frame-popover-overlay--bottom .frame-popover__content {
+  --frame-popover-transform-origin: top;
+}
+
+.frame-popover-overlay--left .frame-popover__content {
+  --frame-popover-transform-origin: right;
+}
+
+[frPopoverHeader] {
+  display: grid;
+  gap: var(--frame-popover-header-gap);
+}
+
+[frPopoverTitle] {
+  margin: 0;
+  color: var(--frame-popover-title-color);
+  font-size: var(--frame-popover-title-font-size);
+  font-weight: var(--frame-popover-title-font-weight);
+  line-height: 1.2;
+}
+
+[frPopoverDescription] {
+  margin: 0;
+  color: var(--frame-popover-description-color);
+  font-size: var(--frame-popover-description-font-size);
+  line-height: 1.45;
+}
+
+[frPopoverBody] {
+  display: grid;
+  gap: var(--frame-popover-body-gap);
+}
+
+[frPopoverFooter] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--frame-popover-footer-gap);
+}
+
+[frPopoverClose] {
+  border-radius: var(--frame-popover-close-radius);
+}
+
+[frPopoverClose]:where(:hover, :focus-visible) {
+  background: var(--frame-popover-close-hover-bg);
+}
+
+@keyframes frame-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--frame-popover-motion-distance)) scale(var(--frame-popover-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

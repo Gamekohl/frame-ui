@@ -1,0 +1,34 @@
+:root {
+  --frame-avatar-root-size: 2.5rem;
+  --frame-avatar-root-radius: 999px;
+  --frame-avatar-root-bg: var(--frame-muted);
+  --frame-avatar-root-border: transparent;
+  --frame-avatar-root-color: var(--frame-muted-foreground);
+  --frame-avatar-root-font-size: 0.875rem;
+  --frame-avatar-root-font-weight: 600;
+  --frame-avatar-root-shadow: none;
+  --frame-avatar-size-xs: 1.5rem;
+  --frame-avatar-size-sm: 2rem;
+  --frame-avatar-size-md: 2.5rem;
+  --frame-avatar-size-lg: 3.5rem;
+  --frame-avatar-font-size-xs: 0.5rem;
+  --frame-avatar-font-size-sm: 0.75rem;
+  --frame-avatar-font-size-md: 0.875rem;
+  --frame-avatar-font-size-lg: 1rem;
+  --frame-avatar-image-fit: cover;
+  --frame-avatar-fallback-padding: 0.25rem;
+  --frame-avatar-icon-size: 1rem;
+  --frame-avatar-badge-size: 1.25rem;
+  --frame-avatar-badge-radius: 999px;
+  --frame-avatar-badge-bg: var(--frame-primary);
+  --frame-avatar-badge-border: var(--frame-surface);
+  --frame-avatar-badge-color: var(--frame-primary-foreground);
+  --frame-avatar-badge-font-size: 0.675rem;
+  --frame-avatar-badge-font-weight: 700;
+  --frame-avatar-group-overlap: 0.625rem;
+  --frame-avatar-group-transition-duration: 180ms;
+  --frame-avatar-group-transition-timing: ease;
+  --frame-avatar-group-count-bg: var(--frame-surface);
+  --frame-avatar-group-count-border: var(--frame-border);
+  --frame-avatar-group-count-color: var(--frame-muted-foreground);
+}

@@ -1,0 +1,64 @@
+@import './_vars.css';
+
+[frProgress],
+frame-progress {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  inline-size: var(--frame-progress-width);
+  block-size: var(--frame-progress-height);
+  border: 1px solid var(--frame-progress-border);
+  border-radius: var(--frame-progress-radius);
+  background: var(--frame-progress-bg);
+  box-shadow: var(--frame-progress-shadow);
+}
+
+[frProgressIndicator],
+frame-progress-indicator {
+  display: block;
+  inline-size: var(--frame-progress-percent, 0%);
+  block-size: 100%;
+  margin-inline-start: 0;
+  margin-inline-end: auto;
+  border-radius: var(--frame-progress-indicator-radius);
+  background: var(--frame-progress-indicator-bg);
+  box-shadow: var(--frame-progress-indicator-shadow);
+  transition:
+    inline-size var(--frame-progress-transition-duration) var(--frame-progress-transition-easing),
+    background-color var(--frame-progress-transition-duration) ease;
+}
+
+[frProgress][data-state='complete'] [frProgressIndicator],
+frame-progress[data-state='complete'] frame-progress-indicator {
+  inline-size: 100%;
+}
+
+[frProgress][data-state='indeterminate'] [frProgressIndicator],
+frame-progress[data-state='indeterminate'] frame-progress-indicator {
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--frame-progress-indeterminate-size);
+  animation: frame-progress-indeterminate var(--frame-progress-indeterminate-duration) infinite linear;
+}
+
+@keyframes frame-progress-indeterminate {
+  from {
+    inset-inline-start: calc(-1 * var(--frame-progress-indeterminate-size));
+  }
+
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frProgressIndicator],
+  frame-progress-indicator {
+    transition-duration: 1ms;
+  }
+
+  [frProgress][data-state='indeterminate'] [frProgressIndicator],
+  frame-progress[data-state='indeterminate'] frame-progress-indicator {
+    animation-duration: 3s;
+  }
+}

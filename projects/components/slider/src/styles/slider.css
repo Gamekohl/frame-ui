@@ -1,0 +1,147 @@
+@import './_vars.css';
+
+frame-slider {
+  position: relative;
+  display: grid;
+  align-items: center;
+  inline-size: var(--frame-slider-width);
+  block-size: var(--frame-slider-height);
+  touch-action: none;
+  user-select: none;
+}
+
+frame-slider[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-slider-disabled-opacity);
+}
+
+frame-slider[data-orientation='vertical'] {
+  inline-size: var(--frame-slider-vertical-width);
+  block-size: var(--frame-slider-vertical-height);
+  justify-items: center;
+}
+
+.frame-slider__track {
+  position: absolute;
+  border-radius: var(--frame-slider-radius);
+  background: var(--frame-slider-track-bg);
+  pointer-events: none;
+}
+
+frame-slider[data-orientation='horizontal'] .frame-slider__track {
+  inset-inline: 0;
+  inset-block-start: 50%;
+  block-size: var(--frame-slider-track-size);
+  transform: translateY(-50%);
+}
+
+frame-slider[data-orientation='vertical'] .frame-slider__track {
+  inset-block: 0;
+  inset-inline-start: 50%;
+  inline-size: var(--frame-slider-track-size);
+  transform: translateX(-50%);
+}
+
+.frame-slider__range {
+  position: absolute;
+  border-radius: inherit;
+  background: var(--frame-slider-range-bg);
+}
+
+frame-slider[data-orientation='horizontal'] .frame-slider__range {
+  inset-block: 0;
+  inset-inline-start: var(--frame-slider-start-percent);
+  inline-size: calc(var(--frame-slider-end-percent) - var(--frame-slider-start-percent));
+}
+
+frame-slider[data-orientation='horizontal'][data-inverted='true'] .frame-slider__range {
+  inset-inline-start: auto;
+  inset-inline-end: var(--frame-slider-start-percent);
+}
+
+frame-slider[data-orientation='vertical'] .frame-slider__range {
+  inset-inline: 0;
+  inset-block-end: var(--frame-slider-start-percent);
+  block-size: calc(var(--frame-slider-end-percent) - var(--frame-slider-start-percent));
+}
+
+frame-slider[data-orientation='vertical'][data-inverted='true'] .frame-slider__range {
+  inset-block-start: var(--frame-slider-start-percent);
+  inset-block-end: auto;
+}
+
+.frame-slider__native {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frame-slider__native:disabled {
+  cursor: not-allowed;
+}
+
+frame-slider[data-orientation='vertical'] .frame-slider__native {
+  writing-mode: vertical-lr;
+}
+
+.frame-slider__thumb {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  inline-size: var(--frame-slider-thumb-size);
+  block-size: var(--frame-slider-thumb-size);
+  border: var(--frame-slider-thumb-border-width) solid var(--frame-slider-thumb-border);
+  border-radius: 999px;
+  background: var(--frame-slider-thumb-bg);
+  box-shadow: var(--frame-slider-thumb-shadow);
+  cursor: grab;
+}
+
+frame-slider[data-disabled] .frame-slider__thumb {
+  cursor: not-allowed;
+}
+
+.frame-slider__thumb[data-active] {
+  cursor: grabbing;
+}
+
+frame-slider[data-orientation='horizontal'] .frame-slider__thumb {
+  inset-inline-start: var(--frame-slider-thumb-percent);
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+}
+
+frame-slider[data-orientation='horizontal']:dir(rtl) .frame-slider__thumb {
+  transform: translate(50%, -50%);
+}
+
+frame-slider[data-orientation='vertical'] .frame-slider__thumb {
+  inset-inline-start: 50%;
+  inset-block-end: var(--frame-slider-thumb-percent);
+  transform: translate(-50%, 50%);
+}
+
+frame-slider[data-orientation='horizontal'][data-inverted='true'] .frame-slider__thumb {
+  inset-inline-start: auto;
+  inset-inline-end: var(--frame-slider-thumb-percent);
+}
+
+frame-slider[data-orientation='vertical'][data-inverted='true'] .frame-slider__thumb {
+  inset-block-start: var(--frame-slider-thumb-percent);
+  inset-block-end: auto;
+  transform: translate(-50%, -50%);
+}
+
+.frame-slider__native:focus-visible + .frame-slider__thumb,
+.frame-slider__thumb[data-active] {
+  box-shadow: var(--frame-slider-thumb-shadow), var(--frame-slider-thumb-focus-shadow);
+}
+
+frame-slider[data-invalid] {
+  --frame-slider-range-bg: var(--frame-destructive, #dc2626);
+  --frame-slider-thumb-border: var(--frame-destructive, #dc2626);
+}

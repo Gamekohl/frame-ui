@@ -1,0 +1,165 @@
+@import './_vars.css';
+
+.frame-field-set,
+[frFieldSet],
+fieldset[frFieldSet] {
+  display: grid;
+  gap: var(--frame-field-set-gap);
+  min-inline-size: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.frame-field-legend,
+[frFieldLegend],
+legend[frFieldLegend] {
+  color: var(--frame-field-legend-color);
+  font-size: var(--frame-field-legend-font-size);
+  font-weight: var(--frame-field-legend-font-weight);
+  line-height: 1.25;
+  margin: 0;
+  padding: 0;
+}
+
+.frame-field-legend[data-variant='label'],
+[frFieldLegend][data-variant='label'],
+legend[frFieldLegend][data-variant='label'] {
+  font-size: var(--frame-field-label-font-size);
+  font-weight: var(--frame-field-label-font-weight);
+}
+
+.frame-field-group,
+[frFieldGroup],
+frame-field-group {
+  display: grid;
+  gap: var(--frame-field-group-gap);
+  min-inline-size: 0;
+}
+
+.frame-field,
+[frField],
+frame-field {
+  display: grid;
+  gap: var(--frame-field-gap);
+  min-inline-size: 0;
+}
+
+.frame-field[data-orientation='horizontal'],
+[frField][data-orientation='horizontal'],
+frame-field[data-orientation='horizontal'] {
+  display: flex;
+  align-items: flex-start;
+}
+
+.frame-field-content,
+[frFieldContent],
+frame-field-content {
+  display: grid;
+  gap: var(--frame-field-content-gap);
+  min-inline-size: 0;
+}
+
+.frame-field-label,
+[frFieldLabel],
+label[frFieldLabel] {
+  color: var(--frame-field-label-color);
+  font-size: var(--frame-field-label-font-size);
+  font-weight: var(--frame-field-label-font-weight);
+  line-height: 1.3;
+}
+
+.frame-field-description,
+[frFieldDescription],
+frame-field-description {
+  color: var(--frame-field-description-color);
+  font-size: var(--frame-field-description-font-size);
+  line-height: 1.45;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.frame-field-error,
+[frFieldError],
+frame-field-error {
+  color: var(--frame-field-error-color);
+  font-size: var(--frame-field-error-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.frame-field[data-invalid],
+[frField][data-invalid],
+frame-field[data-invalid] {
+  color: var(--frame-field-error-color);
+}
+
+.frame-field[data-invalid] .frame-field-label,
+.frame-field[data-invalid] [frFieldLabel],
+.frame-field[data-invalid] label[frFieldLabel],
+[frField][data-invalid] .frame-field-label,
+[frField][data-invalid] [frFieldLabel],
+[frField][data-invalid] label[frFieldLabel],
+frame-field[data-invalid] .frame-field-label,
+frame-field[data-invalid] [frFieldLabel],
+frame-field[data-invalid] label[frFieldLabel] {
+  color: var(--frame-field-error-color);
+}
+
+.frame-field[data-disabled],
+[frField][data-disabled],
+frame-field[data-disabled] {
+  opacity: 0.72;
+}
+
+.frame-field[data-disabled] .frame-field-label,
+.frame-field[data-disabled] [frFieldLabel],
+.frame-field[data-disabled] label[frFieldLabel],
+[frField][data-disabled] .frame-field-label,
+[frField][data-disabled] [frFieldLabel],
+[frField][data-disabled] label[frFieldLabel],
+frame-field[data-disabled] .frame-field-label,
+frame-field[data-disabled] [frFieldLabel],
+frame-field[data-disabled] label[frFieldLabel] {
+  cursor: not-allowed;
+}
+
+.frame-field-separator,
+[frFieldSeparator],
+frame-field-separator {
+  display: flex;
+  align-items: center;
+  gap: var(--frame-field-separator-gap);
+  color: var(--frame-field-separator-color);
+  font-size: var(--frame-field-separator-font-size);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.frame-field-separator::before,
+.frame-field-separator::after,
+[frFieldSeparator]::before,
+[frFieldSeparator]::after,
+frame-field-separator::before,
+frame-field-separator::after {
+  content: '';
+  flex: 1 1 auto;
+  block-size: 1px;
+  background: var(--frame-field-separator-bg);
+}
+
+.frame-field-separator:empty,
+[frFieldSeparator]:empty,
+frame-field-separator:empty {
+  block-size: 1px;
+  background: var(--frame-field-separator-bg);
+}
+
+.frame-field-separator:empty::before,
+.frame-field-separator:empty::after,
+[frFieldSeparator]:empty::before,
+[frFieldSeparator]:empty::after,
+frame-field-separator:empty::before,
+frame-field-separator:empty::after {
+  content: none;
+}

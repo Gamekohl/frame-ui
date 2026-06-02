@@ -1,0 +1,187 @@
+@import './_vars.css';
+
+[frItem],
+frame-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--frame-item-gap);
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--frame-item-border);
+  border-radius: var(--frame-item-radius);
+  background: var(--frame-item-bg);
+  color: var(--frame-item-color);
+  padding: var(--frame-item-padding);
+  text-align: start;
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    color 140ms ease,
+    opacity 140ms ease;
+}
+
+[frItem][data-variant='outline'],
+frame-item[data-variant='outline'] {
+  --frame-item-border: var(--frame-item-outline-border);
+}
+
+[frItem][data-variant='muted'],
+frame-item[data-variant='muted'] {
+  --frame-item-bg: var(--frame-item-muted-bg);
+}
+
+[frItem][data-size='sm'],
+frame-item[data-size='sm'] {
+  --frame-item-padding: var(--frame-item-sm-padding);
+  --frame-item-media-size: var(--frame-item-sm-media-size);
+  --frame-item-title-font-size: var(--frame-item-sm-title-font-size);
+}
+
+[frItem][data-size='xs'],
+frame-item[data-size='xs'] {
+  --frame-item-padding: var(--frame-item-xs-padding);
+  --frame-item-media-size: var(--frame-item-xs-media-size);
+  --frame-item-title-font-size: var(--frame-item-xs-title-font-size);
+}
+
+[frItem][data-interactive]:where(:not([data-disabled])):hover,
+frame-item[data-interactive]:where(:not([data-disabled])):hover {
+  background: var(--frame-item-hover-bg);
+  color: var(--frame-item-hover-color);
+}
+
+[frItem][data-interactive]:where(:not([data-disabled])):focus-visible,
+frame-item[data-interactive]:where(:not([data-disabled])):focus-visible {
+  outline: none;
+  box-shadow: var(--frame-item-focus-shadow);
+}
+
+[frItem][data-disabled],
+frame-item[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-item-disabled-opacity);
+}
+
+.frame-item-group,
+[frItemGroup],
+frame-item-group {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  border: 1px solid var(--frame-item-outline-border);
+  border-radius: var(--frame-item-radius);
+  overflow: hidden;
+}
+
+.frame-item-group > [frItem],
+.frame-item-group > frame-item,
+[frItemGroup] > [frItem],
+[frItemGroup] > frame-item,
+frame-item-group > [frItem],
+frame-item-group > frame-item {
+  border: 0;
+  border-radius: 0;
+}
+
+[frItemSeparator],
+frame-item-separator {
+  display: block;
+  height: 1px;
+  margin-inline: var(--frame-item-padding);
+  background: var(--frame-item-outline-border);
+}
+
+[frItemHeader],
+frame-item-header,
+[frItemFooter],
+frame-item-footer {
+  display: grid;
+  min-width: 0;
+}
+
+[frItemHeader],
+frame-item-header {
+  gap: var(--frame-item-header-gap);
+}
+
+[frItemFooter],
+frame-item-footer {
+  gap: var(--frame-item-footer-gap);
+}
+
+[frItemMedia],
+frame-item-media {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--frame-item-media-size);
+  block-size: var(--frame-item-media-size);
+  border-radius: var(--frame-item-media-radius);
+  color: var(--frame-item-media-color);
+  overflow: hidden;
+}
+
+[frItemMedia][data-variant='icon'],
+frame-item-media[data-variant='icon'] {
+  background: var(--frame-item-media-bg);
+}
+
+[frItemMedia][data-variant='image'],
+frame-item-media[data-variant='image'],
+[frItemMedia][data-variant='avatar'],
+frame-item-media[data-variant='avatar'] {
+  background: transparent;
+}
+
+[frItemMedia] > ng-icon,
+frame-item-media > ng-icon,
+[frItemMedia] > svg,
+frame-item-media > svg {
+  inline-size: var(--frame-item-media-icon-size);
+  block-size: var(--frame-item-media-icon-size);
+}
+
+[frItemMedia] img,
+frame-item-media img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+[frItemContent],
+frame-item-content {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--frame-item-content-gap);
+  min-width: 0;
+}
+
+[frItemTitle],
+frame-item-title {
+  color: var(--frame-item-title-color);
+  font-size: var(--frame-item-title-font-size);
+  font-weight: var(--frame-item-title-font-weight);
+  line-height: 1.25;
+  margin: 0;
+}
+
+[frItemDescription],
+frame-item-description {
+  color: var(--frame-item-description-color);
+  font-size: var(--frame-item-description-font-size);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[frItemActions],
+frame-item-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--frame-item-actions-gap);
+  margin-inline-start: auto;
+}

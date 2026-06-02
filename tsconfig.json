@@ -1,0 +1,112 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@frame-ui/foundation": [
+        "./projects/foundation/src/public-api.ts",
+        "./dist/foundation"
+      ],
+      "@frame-ui/components": [
+        "./projects/components/public-api.ts",
+        "./dist/components"
+      ]
+      ,"@frame-ui/components/accordion": [         "./projects/components/accordion/public-api.ts",         "./dist/components/accordion"       ]
+      ,"@frame-ui/components/alert": [         "./projects/components/alert/public-api.ts",         "./dist/components/alert"       ]
+      ,"@frame-ui/components/avatar": [         "./projects/components/avatar/public-api.ts",         "./dist/components/avatar"       ]
+      ,"@frame-ui/components/badge": [         "./projects/components/badge/public-api.ts",         "./dist/components/badge"       ]
+      ,"@frame-ui/components/breadcrumb": [         "./projects/components/breadcrumb/public-api.ts",         "./dist/components/breadcrumb"       ]
+      ,"@frame-ui/components/button": [         "./projects/components/button/public-api.ts",         "./dist/components/button"       ]
+      ,"@frame-ui/components/button-group": [         "./projects/components/button-group/public-api.ts",         "./dist/components/button-group"       ]
+      ,"@frame-ui/components/calendar": [         "./projects/components/calendar/public-api.ts",         "./dist/components/calendar"       ]
+      ,"@frame-ui/components/card": [         "./projects/components/card/public-api.ts",         "./dist/components/card"       ]
+      ,"@frame-ui/components/carousel": [         "./projects/components/carousel/public-api.ts",         "./dist/components/carousel"       ]
+      ,"@frame-ui/components/checkbox": [         "./projects/components/checkbox/public-api.ts",         "./dist/components/checkbox"       ]
+      ,"@frame-ui/components/collapsible": [         "./projects/components/collapsible/public-api.ts",         "./dist/components/collapsible"       ]
+      ,"@frame-ui/components/combobox": [         "./projects/components/combobox/public-api.ts",         "./dist/components/combobox"       ]
+      ,"@frame-ui/components/command": [         "./projects/components/command/public-api.ts",         "./dist/components/command"       ]
+      ,"@frame-ui/components/context-menu": [         "./projects/components/context-menu/public-api.ts",         "./dist/components/context-menu"       ]
+      ,"@frame-ui/components/date-picker": [         "./projects/components/date-picker/public-api.ts",         "./dist/components/date-picker"       ]
+      ,"@frame-ui/components/dropdown-menu": [         "./projects/components/dropdown-menu/public-api.ts",         "./dist/components/dropdown-menu"       ]
+      ,"@frame-ui/components/empty": [         "./projects/components/empty/public-api.ts",         "./dist/components/empty"       ]
+      ,"@frame-ui/components/field": [         "./projects/components/field/public-api.ts",         "./dist/components/field"       ]
+      ,"@frame-ui/components/forms": [         "./projects/components/forms/public-api.ts",         "./dist/components/forms"       ]
+      ,"@frame-ui/components/hover-card": [         "./projects/components/hover-card/public-api.ts",         "./dist/components/hover-card"       ]
+      ,"@frame-ui/components/input": [         "./projects/components/input/public-api.ts",         "./dist/components/input"       ]
+      ,"@frame-ui/components/input-otp": [         "./projects/components/input-otp/public-api.ts",         "./dist/components/input-otp"       ]
+      ,"@frame-ui/components/item": [         "./projects/components/item/public-api.ts",         "./dist/components/item"       ]
+      ,"@frame-ui/components/menubar": [         "./projects/components/menubar/public-api.ts",         "./dist/components/menubar"       ]
+      ,"@frame-ui/components/modal": [         "./projects/components/modal/public-api.ts",         "./dist/components/modal"       ]
+      ,"@frame-ui/components/navigation-menu": [         "./projects/components/navigation-menu/public-api.ts",         "./dist/components/navigation-menu"       ]
+      ,"@frame-ui/components/pagination": [         "./projects/components/pagination/public-api.ts",         "./dist/components/pagination"       ]
+      ,"@frame-ui/components/popover": [         "./projects/components/popover/public-api.ts",         "./dist/components/popover"       ]
+      ,"@frame-ui/components/progress": [         "./projects/components/progress/public-api.ts",         "./dist/components/progress"       ]
+      ,"@frame-ui/components/radio-group": [         "./projects/components/radio-group/public-api.ts",         "./dist/components/radio-group"       ]
+      ,"@frame-ui/components/resizable": [         "./projects/components/resizable/public-api.ts",         "./dist/components/resizable"       ]
+      ,"@frame-ui/components/select": [         "./projects/components/select/public-api.ts",         "./dist/components/select"       ]
+      ,"@frame-ui/components/separator": [         "./projects/components/separator/public-api.ts",         "./dist/components/separator"       ]
+      ,"@frame-ui/components/sheet": [         "./projects/components/sheet/public-api.ts",         "./dist/components/sheet"       ]
+      ,"@frame-ui/components/sidebar": [         "./projects/components/sidebar/public-api.ts",         "./dist/components/sidebar"       ]
+      ,"@frame-ui/components/skeleton": [         "./projects/components/skeleton/public-api.ts",         "./dist/components/skeleton"       ]
+      ,"@frame-ui/components/spinner": [         "./projects/components/spinner/public-api.ts",         "./dist/components/spinner"       ]
+      ,"@frame-ui/components/slider": [         "./projects/components/slider/public-api.ts",         "./dist/components/slider"       ]
+      ,"@frame-ui/components/switch": [         "./projects/components/switch/public-api.ts",         "./dist/components/switch"       ]
+      ,"@frame-ui/components/tabs": [         "./projects/components/tabs/public-api.ts",         "./dist/components/tabs"       ]
+      ,"@frame-ui/components/table": [         "./projects/components/table/public-api.ts",         "./dist/components/table"       ]
+      ,"@frame-ui/components/textarea": [         "./projects/components/textarea/public-api.ts",         "./dist/components/textarea"       ]
+      ,"@frame-ui/components/toggle": [         "./projects/components/toggle/public-api.ts",         "./dist/components/toggle"       ]
+      ,"@frame-ui/components/tooltip": [         "./projects/components/tooltip/public-api.ts",         "./dist/components/tooltip"       ]
+      ,"@frame-ui/components/toast": [         "./projects/components/toast/public-api.ts",         "./dist/components/toast"       ]
+      ,"@frame-ui/components/virtual-scroll": [         "./projects/components/virtual-scroll/public-api.ts",         "./dist/components/virtual-scroll"       ]
+    },
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/foundation/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/foundation/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/playground/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/playground/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/components/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/components/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/docs/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/docs/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ai-composer-eval/tsconfig.app.json"
+    }
+  ]
+}
+

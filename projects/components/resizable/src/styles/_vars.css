@@ -1,0 +1,20 @@
+:root {
+  --frame-resizable-border: var(--frame-border);
+  --frame-resizable-radius: var(--frame-radius-lg);
+  --frame-resizable-bg: var(--frame-surface);
+  --frame-resizable-color: var(--frame-foreground);
+  --frame-resizable-panel-padding: 1rem;
+  --frame-resizable-panel-min-size: 0;
+  --frame-resizable-handle-size: 0.625rem;
+  --frame-resizable-handle-hit-size: 1rem;
+  --frame-resizable-handle-bg: transparent;
+  --frame-resizable-handle-hover-bg: color-mix(in srgb, var(--frame-primary) 16%, transparent);
+  --frame-resizable-handle-active-bg: color-mix(in srgb, var(--frame-primary) 24%, transparent);
+  --frame-resizable-handle-border: var(--frame-border);
+  --frame-resizable-handle-indicator-size: 2rem;
+  --frame-resizable-handle-indicator-thickness: 0.25rem;
+  --frame-resizable-handle-indicator-bg: var(--frame-border);
+  --frame-resizable-handle-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 28%, transparent);
+  --frame-resizable-transition-duration: 150ms;
+  --frame-resizable-transition-easing: ease;
+}

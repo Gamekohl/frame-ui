@@ -1,0 +1,130 @@
+@import './_vars.css';
+
+[frResizablePanelGroup],
+frame-resizable-panel-group {
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+  min-inline-size: var(--frame-resizable-panel-min-size);
+  min-block-size: var(--frame-resizable-panel-min-size);
+  border: 1px solid var(--frame-resizable-border);
+  border-radius: var(--frame-resizable-radius);
+  background: var(--frame-resizable-bg);
+  color: var(--frame-resizable-color);
+}
+
+[frResizablePanelGroup][data-orientation='vertical'],
+frame-resizable-panel-group[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+[frResizablePanel],
+frame-resizable-panel {
+  box-sizing: border-box;
+  position: relative;
+  overflow: auto;
+  min-inline-size: var(--frame-resizable-panel-min-size);
+  min-block-size: var(--frame-resizable-panel-min-size);
+}
+
+[frResizablePanel]:not([data-no-padding]),
+frame-resizable-panel:not([data-no-padding]) {
+  padding: var(--frame-resizable-panel-padding);
+}
+
+[frResizablePanel][data-collapsed],
+frame-resizable-panel[data-collapsed] {
+  overflow: hidden;
+}
+
+[frResizablePanel][data-collapsed]:not([data-no-padding]),
+frame-resizable-panel[data-collapsed]:not([data-no-padding]) {
+  padding: 0;
+}
+
+[frResizableHandle],
+frame-resizable-handle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 var(--frame-resizable-handle-size);
+  align-self: stretch;
+  border: 0;
+  background: var(--frame-resizable-handle-bg);
+  cursor: col-resize;
+  outline: none;
+  touch-action: none;
+  transition:
+    background-color var(--frame-resizable-transition-duration) var(--frame-resizable-transition-easing),
+    box-shadow var(--frame-resizable-transition-duration) var(--frame-resizable-transition-easing);
+}
+
+[frResizableHandle]::before,
+frame-resizable-handle::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--frame-resizable-handle-hit-size);
+}
+
+[frResizableHandle][data-orientation='vertical'],
+frame-resizable-handle[data-orientation='vertical'] {
+  flex-basis: var(--frame-resizable-handle-size);
+  inline-size: auto;
+  block-size: var(--frame-resizable-handle-size);
+  cursor: row-resize;
+}
+
+[frResizableHandle][data-orientation='vertical']::before,
+frame-resizable-handle[data-orientation='vertical']::before {
+  inset-inline: 0;
+  inset-block: auto;
+  block-size: var(--frame-resizable-handle-hit-size);
+  inline-size: auto;
+}
+
+[frResizableHandle]::after,
+frame-resizable-handle::after {
+  content: '';
+  display: block;
+  inline-size: var(--frame-resizable-handle-indicator-thickness);
+  block-size: var(--frame-resizable-handle-indicator-size);
+  border-radius: 999px;
+  background: var(--frame-resizable-handle-indicator-bg);
+  opacity: 0;
+  transition:
+    opacity var(--frame-resizable-transition-duration) var(--frame-resizable-transition-easing),
+    background-color var(--frame-resizable-transition-duration) var(--frame-resizable-transition-easing);
+}
+
+[frResizableHandle][data-orientation='vertical']::after,
+frame-resizable-handle[data-orientation='vertical']::after {
+  inline-size: var(--frame-resizable-handle-indicator-size);
+  block-size: var(--frame-resizable-handle-indicator-thickness);
+}
+
+[frResizableHandle][data-handle]::after,
+frame-resizable-handle[data-handle]::after {
+  opacity: 1;
+}
+
+[frResizableHandle]:where(:hover, [data-dragging]),
+frame-resizable-handle:where(:hover, [data-dragging]) {
+  background: var(--frame-resizable-handle-hover-bg);
+}
+
+[frResizableHandle][data-dragging],
+frame-resizable-handle[data-dragging] {
+  background: var(--frame-resizable-handle-active-bg);
+}
+
+[frResizableHandle]:focus-visible,
+frame-resizable-handle:focus-visible {
+  box-shadow: var(--frame-resizable-handle-focus-shadow);
+}
+
+[frResizableHandle][data-disabled],
+frame-resizable-handle[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

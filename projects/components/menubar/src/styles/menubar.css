@@ -1,0 +1,70 @@
+@import './_vars.css';
+
+[frMenuBar],
+frame-menubar {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--frame-menubar-gap);
+  border: 1px solid var(--frame-menubar-border);
+  border-radius: var(--frame-menubar-radius);
+  background: var(--frame-menubar-bg);
+  color: var(--frame-menubar-color);
+  padding: var(--frame-menubar-padding);
+  box-shadow: var(--frame-menubar-shadow);
+}
+
+[frMenuBarMenu],
+frame-menubar-menu {
+  display: contents;
+}
+
+[frMenuBarTrigger],
+.frame-menubar__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-menubar-trigger-gap);
+  min-block-size: var(--frame-menubar-trigger-height);
+  border: 0;
+  border-radius: var(--frame-menubar-trigger-radius);
+  background: var(--frame-menubar-trigger-bg);
+  color: var(--frame-menubar-trigger-color);
+  padding-inline: var(--frame-menubar-trigger-padding-x);
+  font: inherit;
+  font-size: var(--frame-menubar-trigger-font-size);
+  font-weight: var(--frame-menubar-trigger-font-weight);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: default;
+  transition:
+    background-color 140ms ease,
+    box-shadow 140ms ease,
+    color 140ms ease;
+}
+
+[frMenuBarTrigger]:where(:not(:disabled)):hover,
+.frame-menubar__trigger:where(:not(:disabled)):hover,
+[frMenuBarTrigger][data-state='open'],
+.frame-menubar__trigger[data-state='open'] {
+  background: var(--frame-menubar-trigger-hover-bg);
+  color: var(--frame-menubar-trigger-hover-color);
+}
+
+[frMenuBarTrigger][data-state='open'],
+.frame-menubar__trigger[data-state='open'] {
+  background: var(--frame-menubar-trigger-open-bg);
+  color: var(--frame-menubar-trigger-open-color);
+}
+
+[frMenuBarTrigger]:focus-visible,
+.frame-menubar__trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--frame-menubar-trigger-focus-shadow);
+}
+
+[frMenuBarTrigger]:disabled,
+.frame-menubar__trigger:disabled {
+  cursor: not-allowed;
+  opacity: var(--frame-dropdown-menu-item-disabled-opacity, 0.5);
+}

@@ -1,0 +1,40 @@
+@import './_vars.css';
+
+[frSkeleton],
+frame-skeleton {
+  position: relative;
+  display: block;
+  inline-size: var(--frame-skeleton-width);
+  block-size: var(--frame-skeleton-height);
+  overflow: hidden;
+  border-radius: var(--frame-skeleton-radius);
+  background: var(--frame-skeleton-bg);
+}
+
+[frSkeleton][data-animated='true']::after,
+frame-skeleton[data-animated='true']::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--frame-skeleton-highlight),
+    transparent
+  );
+  content: '';
+  transform: translateX(-100%);
+  animation: frame-skeleton-shimmer var(--frame-skeleton-animation-duration) ease-in-out infinite;
+}
+
+@keyframes frame-skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frSkeleton]::after,
+  frame-skeleton::after {
+    animation: none;
+  }
+}

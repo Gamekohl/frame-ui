@@ -1,0 +1,53 @@
+import { NgModule } from '@angular/core';
+import {
+  FrDropdownMenu,
+  FrDropdownMenuCheckboxItem,
+  FrDropdownMenuContent,
+  FrDropdownMenuItem,
+  FrDropdownMenuItemIndicator,
+  FrDropdownMenuLabel,
+  FrDropdownMenuPanel,
+  FrDropdownMenuRadioGroup,
+  FrDropdownMenuRadioItem,
+  FrDropdownMenuSeparator,
+  FrDropdownMenuShortcut,
+  FrDropdownMenuSub,
+  FrDropdownMenuSubTrigger,
+  FrDropdownMenuTrigger,
+} from './src/dropdown-menu';
+
+@NgModule({
+  imports: [
+    FrDropdownMenu,
+    FrDropdownMenuCheckboxItem,
+    FrDropdownMenuContent,
+    FrDropdownMenuItem,
+    FrDropdownMenuItemIndicator,
+    FrDropdownMenuLabel,
+    FrDropdownMenuPanel,
+    FrDropdownMenuRadioGroup,
+    FrDropdownMenuRadioItem,
+    FrDropdownMenuSeparator,
+    FrDropdownMenuShortcut,
+    FrDropdownMenuSub,
+    FrDropdownMenuSubTrigger,
+    FrDropdownMenuTrigger,
+  ],
+  exports: [
+    FrDropdownMenu,
+    FrDropdownMenuCheckboxItem,
+    FrDropdownMenuContent,
+    FrDropdownMenuItem,
+    FrDropdownMenuItemIndicator,
+    FrDropdownMenuLabel,
+    FrDropdownMenuPanel,
+    FrDropdownMenuRadioGroup,
+    FrDropdownMenuRadioItem,
+    FrDropdownMenuSeparator,
+    FrDropdownMenuShortcut,
+    FrDropdownMenuSub,
+    FrDropdownMenuSubTrigger,
+    FrDropdownMenuTrigger,
+  ],
+})
+export class FrDropdownMenuModule {}

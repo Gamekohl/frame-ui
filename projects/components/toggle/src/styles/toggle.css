@@ -1,0 +1,110 @@
+@import './_vars.css';
+
+[frToggle] {
+  appearance: none;
+  display: inline-flex;
+  min-block-size: var(--frame-toggle-height);
+  align-items: center;
+  justify-content: center;
+  gap: var(--frame-toggle-gap);
+  border: 1px solid var(--frame-toggle-border);
+  border-radius: var(--frame-toggle-radius);
+  background: var(--frame-toggle-bg);
+  color: var(--frame-toggle-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--frame-toggle-font-size);
+  font-weight: var(--frame-toggle-font-weight);
+  line-height: 1;
+  padding-block: 0;
+  padding-inline: var(--frame-toggle-padding-x);
+  text-decoration: none;
+  transition:
+    background-color var(--frame-toggle-transition-duration) ease,
+    border-color var(--frame-toggle-transition-duration) ease,
+    box-shadow var(--frame-toggle-transition-duration) ease,
+    color var(--frame-toggle-transition-duration) ease,
+    opacity var(--frame-toggle-transition-duration) ease,
+    transform var(--frame-toggle-transition-duration) ease;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+[frToggle]:where(:not(:disabled, [data-disabled])):hover {
+  background: var(--frame-toggle-hover-bg);
+  color: var(--frame-toggle-hover-color);
+}
+
+[frToggle]:where(:not(:disabled, [data-disabled])):active {
+  transform: translateY(1px);
+}
+
+[frToggle]:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--frame-toggle-focus-shadow);
+}
+
+[frToggle][data-state='on'] {
+  background: var(--frame-toggle-pressed-bg);
+  color: var(--frame-toggle-pressed-color);
+  box-shadow: var(--frame-toggle-pressed-shadow);
+}
+
+[frToggle][data-variant='outline'] {
+  --frame-toggle-bg: var(--frame-toggle-outline-bg);
+  --frame-toggle-border: var(--frame-toggle-outline-border);
+  --frame-toggle-hover-bg: var(--frame-toggle-outline-hover-bg);
+  --frame-toggle-pressed-bg: var(--frame-toggle-outline-pressed-bg);
+}
+
+[frToggle][data-size='sm'] {
+  --frame-toggle-height: 2rem;
+  --frame-toggle-padding-x: 0.625rem;
+  --frame-toggle-font-size: 0.8125rem;
+  --frame-toggle-icon-size: 0.9375rem;
+}
+
+[frToggle][data-size='lg'] {
+  --frame-toggle-height: 2.75rem;
+  --frame-toggle-padding-x: 1rem;
+  --frame-toggle-font-size: 0.9375rem;
+  --frame-toggle-icon-size: 1.125rem;
+}
+
+[frToggle]:where(:disabled, [data-disabled]) {
+  cursor: not-allowed;
+  opacity: var(--frame-toggle-disabled-opacity);
+}
+
+[frToggleIcon],
+.frame-toggle__icon {
+  display: inline-flex;
+  inline-size: var(--frame-toggle-icon-size);
+  block-size: var(--frame-toggle-icon-size);
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+[frToggleIcon] ng-icon,
+.frame-toggle__icon ng-icon {
+  inline-size: var(--frame-toggle-icon-size);
+  block-size: var(--frame-toggle-icon-size);
+}
+
+[frToggleLabel],
+.frame-toggle__label {
+  min-inline-size: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frToggle] {
+    transition: none;
+  }
+
+  [frToggle]:where(:not(:disabled, [data-disabled])):active {
+    transform: none;
+  }
+}

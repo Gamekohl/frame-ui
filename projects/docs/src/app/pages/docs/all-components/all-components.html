@@ -1,0 +1,36 @@
+<div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
+  <article class="docs-article min-w-0 space-y-12 py-2">
+    <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+      <p class="text-sm font-medium text-foreground">Getting Started</p>
+      <div class="space-y-3">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Components</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          Here you can find all components available in the library. Click on a component to learn more about it.
+        </p>
+      </div>
+    </header>
+
+    <section id="components" class="scroll-mt-24 space-y-5">
+      <div animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="grid gap-10 sm:grid-cols-2">
+        @for (item of components(); track item.name) {
+          <a
+            animate.enter="slide-in-enter"
+            [style]="'--docs-enter-delay:' + (15 * $index) + 'ms'"
+            class="group"
+            routerLink="/docs/components/{{ item.slug }}"
+          >
+            <div class="flex items-start justify-between">
+              <h3 class="font-semibold group-hover:underline">{{ item.name }}</h3>
+              @if (item.status !== 'Stable') {
+                <span frBadge>{{ item.status }}</span>
+              }
+            </div>
+            <p class="text-sm leading-6 text-muted-foreground">{{ item.summary }}</p>
+          </a>
+        }
+      </div>
+    </section>
+  </article>
+
+  <docs-toc [items]="toc" />
+</div>

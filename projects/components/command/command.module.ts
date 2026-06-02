@@ -1,0 +1,47 @@
+import { NgModule } from '@angular/core';
+import {
+  FrCommand,
+  FrCommandDialog,
+  FrCommandDialogTrigger,
+  FrCommandEmpty,
+  FrCommandGroup,
+  FrCommandGroupHeading,
+  FrCommandInput,
+  FrCommandItem,
+  FrCommandItemIcon,
+  FrCommandList,
+  FrCommandSeparator,
+  FrCommandShortcut,
+} from './src/command';
+
+@NgModule({
+  imports: [
+    FrCommand,
+    FrCommandDialog,
+    FrCommandDialogTrigger,
+    FrCommandEmpty,
+    FrCommandGroup,
+    FrCommandGroupHeading,
+    FrCommandInput,
+    FrCommandItem,
+    FrCommandItemIcon,
+    FrCommandList,
+    FrCommandSeparator,
+    FrCommandShortcut,
+  ],
+  exports: [
+    FrCommand,
+    FrCommandDialog,
+    FrCommandDialogTrigger,
+    FrCommandEmpty,
+    FrCommandGroup,
+    FrCommandGroupHeading,
+    FrCommandInput,
+    FrCommandItem,
+    FrCommandItemIcon,
+    FrCommandList,
+    FrCommandSeparator,
+    FrCommandShortcut,
+  ],
+})
+export class FrCommandModule {}

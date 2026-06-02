@@ -1,0 +1,16 @@
+:root {
+  --frame-breadcrumb-root-color: var(--frame-muted-foreground);
+  --frame-breadcrumb-root-font-size: 0.875rem;
+  --frame-breadcrumb-root-line-height: 1.25rem;
+  --frame-breadcrumb-list-gap: 0.375rem;
+  --frame-breadcrumb-link-color: var(--frame-muted-foreground);
+  --frame-breadcrumb-link-hover-color: var(--frame-foreground);
+  --frame-breadcrumb-link-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-breadcrumb-page-color: var(--frame-foreground);
+  --frame-breadcrumb-separator-color: var(--frame-muted-foreground);
+  --frame-breadcrumb-separator-size: 0.875rem;
+  --frame-breadcrumb-ellipsis-size: 1.5rem;
+  --frame-breadcrumb-ellipsis-radius: var(--frame-radius-sm);
+  --frame-breadcrumb-ellipsis-hover-bg: var(--frame-muted);
+  --frame-breadcrumb-transition-duration: 150ms;
+}

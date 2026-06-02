@@ -1,0 +1,112 @@
+@import './_vars.css';
+
+.frame-input-group,
+[frInputGroup],
+frame-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-block-size: var(--frame-input-group-height);
+  border: 1px solid var(--frame-input-group-border);
+  border-radius: var(--frame-input-group-radius);
+  background: var(--frame-input-group-bg);
+  overflow: hidden;
+  transition:
+    border-color var(--frame-input-group-transition-duration) ease,
+    box-shadow var(--frame-input-group-transition-duration) ease,
+    background-color var(--frame-input-group-transition-duration) ease;
+}
+
+.frame-input-group:where(:focus-within),
+[frInputGroup]:where(:focus-within),
+frame-input-group:where(:focus-within) {
+  border-color: var(--frame-input-group-focus-border);
+  box-shadow: var(--frame-input-group-focus-shadow);
+}
+
+.frame-input-group:has([frInputGroupInput]:disabled),
+[frInputGroup]:has([frInputGroupInput]:disabled),
+frame-input-group:has([frInputGroupInput]:disabled) {
+  background: var(--frame-input-group-disabled-bg);
+  border-color: var(--frame-input-group-disabled-border);
+  opacity: var(--frame-input-root-disabled-opacity);
+}
+
+.frame-input-group__input,
+[frInputGroupInput] {
+  box-sizing: border-box;
+  flex: 1 1 0%;
+  width: auto;
+  min-width: 0;
+  min-block-size: 100%;
+  border: 0;
+  font-size: var(--frame-input-root-font-size);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding-inline: var(--frame-input-group-input-padding-inline);
+  outline: none;
+}
+
+.frame-input-group__input:disabled,
+[frInputGroupInput]:disabled {
+  cursor: not-allowed;
+  color: var(--frame-input-group-disabled-color);
+}
+
+.frame-input-group__input:disabled::placeholder,
+[frInputGroupInput]:disabled::placeholder {
+  color: var(--frame-input-group-disabled-color);
+}
+
+.frame-input-group__input:focus-visible,
+[frInputGroupInput]:focus-visible {
+  border: 0;
+  box-shadow: none;
+}
+
+.frame-input-group__addon,
+[frInputGroupAddon],
+frame-input-group-addon {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-block-size: 100%;
+  min-inline-size: var(--frame-input-group-addon-min-width);
+  background: var(--frame-input-group-addon-bg);
+  color: var(--frame-input-group-addon-color);
+  padding-inline: var(--frame-input-group-addon-padding-inline);
+  white-space: nowrap;
+}
+
+.frame-input-group:has([frInputGroupInput]:disabled) .frame-input-group__addon,
+.frame-input-group:has([frInputGroupInput]:disabled) [frInputGroupAddon],
+[frInputGroup]:has([frInputGroupInput]:disabled) .frame-input-group__addon,
+[frInputGroup]:has([frInputGroupInput]:disabled) [frInputGroupAddon],
+frame-input-group:has([frInputGroupInput]:disabled) .frame-input-group__addon,
+frame-input-group:has([frInputGroupInput]:disabled) [frInputGroupAddon] {
+  color: var(--frame-input-group-disabled-color);
+}
+
+.frame-input-group__addon[data-align='inline-start'],
+[frInputGroupAddon][data-align='inline-start'],
+frame-input-group-addon[data-align='inline-start'] {
+  border-inline-end: 1px solid var(--frame-input-group-addon-border);
+}
+
+.frame-input-group__addon[data-align='inline-end'],
+[frInputGroupAddon][data-align='inline-end'],
+frame-input-group-addon[data-align='inline-end'] {
+  border-inline-start: 1px solid var(--frame-input-group-addon-border);
+}
+
+.frame-input-group__text,
+[frInputGroupText],
+frame-input-group-text {
+  font-size: var(--frame-input-group-text-font-size);
+  font-weight: var(--frame-input-group-text-font-weight);
+  line-height: 1;
+  white-space: nowrap;
+}

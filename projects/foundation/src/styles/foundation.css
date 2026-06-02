@@ -1,0 +1,82 @@
+:root,
+[data-theme='light'] {
+  /* Theme metadata */
+  color-scheme: light;
+
+  /* Surfaces */
+  --frame-background: oklch(1 0 0);
+  --frame-foreground: oklch(0.145 0 0);
+  --frame-surface: oklch(1 0 0);
+  --frame-surface-foreground: oklch(0.145 0 0);
+
+  /* Supporting surfaces */
+  --frame-muted: oklch(0.97 0 0);
+  --frame-muted-foreground: oklch(0.45 0 0);
+
+  /* Actions */
+  --frame-primary: #161b27; /*oklch(0.205 0 0);*/
+  --frame-primary-foreground: oklch(0.985 0 0);
+  --frame-accent: oklch(0.97 0 0);
+  --frame-accent-foreground: oklch(0.205 0 0);
+  --frame-destructive: oklch(55.205% 0.18114 25.384);
+  --frame-destructive-foreground: oklch(100% 0.00011 271.152);
+
+  /* Structure and focus */
+  --frame-border: oklch(0.922 0 0);
+  --frame-input: oklch(0.922 0 0);
+  --frame-ring: oklch(0.708 0 0);
+
+  /* Spacing */
+  --frame-spacing-xs: 0.25rem;
+  --frame-spacing-sm: 0.5rem;
+  --frame-spacing-md: 0.75rem;
+  --frame-spacing-lg: 1rem;
+  --frame-spacing-xl: 1.25rem;
+
+  /* Shape */
+  --frame-radius-xs: 0.125rem;
+  --frame-radius-sm: 0.375rem;
+  --frame-radius-md: 0.5rem;
+  --frame-radius-lg: 0.75rem;
+  --frame-radius-full: 9999px;
+
+  /* Elevation */
+  --frame-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+[data-theme='dark'],
+.dark {
+  /* Theme metadata */
+  color-scheme: dark;
+
+  /* Surfaces */
+  --frame-background: oklch(0.145 0 0);
+  --frame-foreground: oklch(0.985 0 0);
+  --frame-surface: oklch(0.205 0 0);
+  --frame-surface-foreground: oklch(0.985 0 0);
+
+  /* Supporting surfaces */
+  --frame-muted: oklch(0.269 0 0);
+  --frame-muted-foreground: oklch(0.708 0 0);
+
+  /* Actions */
+  --frame-primary: oklch(0.922 0 0);
+  --frame-primary-foreground: oklch(0.205 0 0);
+  --frame-accent: oklch(0.269 0 0);
+  --frame-accent-foreground: oklch(0.985 0 0);
+
+  /* Structure and focus */
+  --frame-border: oklch(1 0 0 / 0.1);
+  --frame-input: oklch(1 0 0 / 0.15);
+  --frame-ring: oklch(0.556 0 0);
+
+  /* Shape */
+  --frame-radius-sm: 0.375rem;
+  --frame-radius-md: 0.5rem;
+  --frame-radius-lg: 0.75rem;
+
+  /* Elevation */
+  --frame-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
+}

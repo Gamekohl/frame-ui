@@ -1,0 +1,149 @@
+<div class="grid grid-cols-1 gap-12">
+  <article class="docs-article min-w-0 space-y-12 py-2">
+    <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+      <p class="text-sm font-medium text-foreground">Getting Started</p>
+      <div class="space-y-3">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Clear about the job this library is meant to
+          do</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          The goal is not to be everything. It is to be a strong Angular-native component library with a
+          clear boundary around where it helps most.
+        </p>
+      </div>
+    </header>
+
+    <div class="grid my-8 gap-4 xl:grid-cols-2">
+      <article
+        animate.enter="slide-in-enter"
+        class="relative overflow-hidden"
+        style="--docs-enter-delay: 150ms"
+      >
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-24"></div>
+        <div class="relative">
+          <div class="flex items-center gap-3">
+              <span
+                class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-green-500/20 text-foreground shadow-sm">
+                <ng-icon name="tablerCheck" size="18" />
+              </span>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">What this library
+                is</p>
+              <h3 class="text-xl font-semibold tracking-tight">A component foundation for Angular apps</h3>
+            </div>
+          </div>
+
+          <ul class="mt-6 grid gap-3">
+            @for (item of whatItIs; track item; let index = $index) {
+              <li
+                class="grid grid-cols-[auto_minmax(0,1fr)] gap-3 rounded-2xl border border-border/80 bg-background/80 px-4 py-4">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                    0{{ index + 1 }}
+                  </span>
+                <span class="text-sm leading-6 text-primary">{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </article>
+
+      <article
+        animate.enter="slide-in-enter"
+        class="relative overflow-hidden"
+        style="--docs-enter-delay: 220ms"
+      >
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-24"></div>
+        <div class="relative">
+          <div class="flex items-center gap-3">
+              <span
+                class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-red-500/20 shadow-sm">
+                <ng-icon name="tablerX" size="18" />
+              </span>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">What this library is
+                not</p>
+              <h3 class="text-xl font-semibold tracking-tight">Complete FrameUI</h3>
+            </div>
+          </div>
+
+          <ul class="mt-6 grid gap-3">
+            @for (item of whatItIsNot; track item; let index = $index) {
+              <li
+                class="grid grid-cols-[auto_minmax(0,1fr)] gap-3 rounded-2xl border border-border/80 bg-background/80 px-4 py-4">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                    0{{ index + 1 }}
+                  </span>
+                <span class="text-sm leading-6 text-primary">{{ item }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <section animate.enter="slide-in-enter" class="mt-6" style="--docs-enter-delay: 260ms">
+      <article>
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Project status</h2>
+        <div class="mt-4 grid gap-4">
+          @for (item of status; track item.title) {
+            <div class="rounded-2xl border border-border bg-background px-4 py-4">
+              <div class="flex items-center gap-2">
+                <ng-icon [name]="item.icon" />
+                <h2 class="font-semibold">{{ item.title }}</h2>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-muted-foreground">{{ item.description }}</p>
+            </div>
+          }
+        </div>
+      </article>
+    </section>
+
+    <section animate.enter="slide-in-enter" class="mt-14" style="--docs-enter-delay: 330ms">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Organized around practical building blocks</h1>
+        <p class="mt-3 text-muted-foreground">
+          These themes capture the current direction of the project and where it is strongest today.
+        </p>
+      </div>
+
+      <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        @for (pillar of pillars; track pillar.title) {
+          <article
+            class="rounded-3xl border border-border bg-surface p-5 transition hover:-translate-y-1 duration-200 hover:shadow-sm">
+            <div class="flex items-center gap-3">
+              <span
+                class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-background text-foreground">
+                <ng-icon [name]="pillar.icon" size="18" />
+              </span>
+              <h3 class="text-base font-semibold">{{ pillar.title }}</h3>
+            </div>
+            <p class="mt-4 text-sm leading-6 text-muted-foreground">{{ pillar.description }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section
+      animate.enter="slide-in-enter"
+      class="mt-14"
+      style="--docs-enter-delay: 410ms"
+    >
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="max-w-2xl">
+          <p class="text-sm font-medium text-muted-foreground">Next step</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight">Explore the component catalog</h2>
+          <p class="mt-3 text-muted-foreground">
+            The docs already include a growing component overview and usage examples. That is the best place
+            to continue once you have the high-level picture.
+          </p>
+        </div>
+
+        <a frButton routerLink="/docs/components">
+          <span frButtonLabel>Open components</span>
+          <ng-icon name="tablerArrowRight" size="18" frButtonIcon />
+        </a>
+      </div>
+    </section>
+  </article>
+</div>

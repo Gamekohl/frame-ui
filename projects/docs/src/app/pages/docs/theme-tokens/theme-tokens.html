@@ -1,0 +1,99 @@
+<div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
+  <article class="docs-article min-w-0 space-y-12 py-2">
+    <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+      <p class="text-sm font-medium text-foreground">Getting Started</p>
+      <div class="space-y-3">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Theme Tokens</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          Theme tokens are the CSS variables the components read. In Tailwind projects, define the
+          Tailwind color tokens first, then map FrameUI tokens to those values.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          Use this page as a reference for how token-based styling is structured. Shared tokens define
+          the base palette and surface system. Component pages list the component-specific tokens on
+          top of that.
+        </p>
+      </div>
+    </header>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" id="shared-tokens" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Shared tokens</h2>
+        <p class="text-base leading-8 text-foreground">
+          Shared tokens cover the values many components reuse. In the preferred Tailwind setup,
+          <code>--color-*</code> owns the palette and <code>--frame-*</code> follows it.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="sharedTokensCode"
+        language="css"
+        title="App-level shared tokens"
+        rounded
+      />
+    </section>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" id="component-tokens" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Component tokens</h2>
+        <p class="text-base leading-8 text-foreground">
+          Component tokens refine a specific primitive. Use them when a component needs local spacing,
+          typography, border, or state adjustments without changing the whole system.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="componentTokensCode"
+        language="css"
+        title="Component-specific override"
+        rounded
+      />
+    </section>
+
+    <section id="where-to-look" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Where to look</h2>
+        <p class="text-base leading-8 text-foreground">
+          Start with shared tokens when the whole app should change. Go to a component page when only
+          one primitive needs a local adjustment. Each component page includes its own token list in
+          the <span class="font-medium text-foreground">Design Tokens</span> section.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 text-sm">
+        <a
+          frButton
+          appearance="outline"
+          routerLink="/docs/theming"
+        >
+          Go to Theming
+        </a>
+        <a
+          frButton
+          routerLink="/docs/components"
+        >
+          Browse Components
+        </a>
+      </div>
+    </section>
+
+    <section id="override-scope" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Override scope</h2>
+        <p class="text-base leading-8 text-foreground">
+          Put tokens on <code>:root</code> when the change should be global. Put them on a wrapper
+          when the change should affect only one section, page, or component group.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="localOverrideCode"
+        language="css"
+        title="Scoped override"
+        rounded
+      />
+    </section>
+  </article>
+
+  <docs-toc [items]="toc" />
+</div>

@@ -1,0 +1,244 @@
+<div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
+  <article class="docs-article min-w-0 space-y-12 py-2">
+    <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
+      <p class="text-sm font-medium text-foreground">Getting Started</p>
+      <div class="space-y-3">
+        <h1 class="text-4xl font-semibold tracking-tight text-foreground">Theming</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          The FrameUI is token-driven. Components do not hardcode light or dark colors. They
+          read semantic CSS variables such as <code>--frame-background</code>,
+          <code>--frame-foreground</code>, and <code>--frame-primary</code>, so you can decide where theme
+          state lives and how it should integrate with the rest of your app. In most cases, the host
+          app should remain the single source of truth and the component library should align with that
+          existing styling system.
+        </p>
+      </div>
+    </header>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" id="how-it-works" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">How it works</h2>
+        <p class="text-base leading-8 text-foreground">
+          The foundation package defines the token contract. Light and dark fill that contract with
+          different values. The component package then consumes those tokens. That split is what makes
+          the library work well with Tailwind CSS, Bootstrap, app-specific utility classes, and plain
+          CSS without trying to replace them.
+        </p>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:items-stretch">
+        <section class="rounded-xl border border-border bg-surface p-5">
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">1. Source of truth</p>
+          <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Host app</h3>
+          <p class="mt-3 text-sm leading-7 text-foreground">
+            Owns the main token system, brand palette, and dark mode strategy that the components
+            should align with.
+          </p>
+        </section>
+
+        <div class="hidden items-center justify-center text-muted-foreground md:flex" aria-hidden="true">
+          <ng-icon name="tablerArrowRight" size="16" />
+        </div>
+
+        <section class="rounded-xl border border-border bg-surface p-5">
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">2. Bridge layer</p>
+          <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Foundation</h3>
+          <p class="mt-3 text-sm leading-7 text-foreground">
+            Maps the host app tokens into the FrameUI contract and optionally provides Angular
+            light/dark helpers.
+          </p>
+        </section>
+
+        <div class="hidden items-center justify-center text-muted-foreground md:flex" aria-hidden="true">
+          <ng-icon name="tablerArrowRight" size="16" />
+        </div>
+
+        <section class="rounded-xl border border-border bg-surface p-5">
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">3. Consumption</p>
+          <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Components</h3>
+          <p class="mt-3 text-sm leading-7 text-foreground">
+            Read token values and stay visually consistent without needing to know who owns dark mode.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" id="setup" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Setup</h2>
+        <p class="text-base leading-8 text-foreground">
+          Import the foundation styles before the component styles so the token contract is available
+          when primitives render.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="installFoundationCode"
+        language="json"
+        title="angular.json"
+        rounded
+      />
+    </section>
+
+    <section id="source-of-truth" class="scroll-mt-24 space-y-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Choose a source of truth</h2>
+        <p class="text-base leading-8 text-foreground">
+          The recommended mental model is simple: your app's existing styling system should own the
+          tokens and theme switch, and the component library should follow that source of truth. If a
+          team prefers, the component library can also become the single source of truth, but that is
+          typically the secondary option rather than the default recommendation.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <section class="rounded-xl border border-emerald-500/30 bg-emerald-500/8 p-5">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">
+            Preferred
+          </p>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Host app owns the theme</h3>
+          <p class="mt-2 text-sm leading-7 text-foreground">
+            Tailwind, Bootstrap, or your app-level token system remains the single source of truth.
+            The component library consumes that palette through <code>--frame-*</code> tokens.
+          </p>
+        </section>
+
+        <section class="rounded-xl border border-amber-500/30 bg-amber-500/8 p-5">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">
+            Supported
+          </p>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Library owns the theme</h3>
+          <p class="mt-2 text-sm leading-7 text-foreground">
+            The component library can also manage theme state directly. This is useful when a team
+            wants the library to coordinate theming, but it is usually not the first choice for
+            existing applications.
+          </p>
+        </section>
+      </div>
+
+      <section id="library-managed-via-data-theme" class="space-y-4">
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via <code>data-theme</code></h3>
+          <p class="text-sm leading-7 text-foreground">
+            Use this when your Angular app wants the FrameUI to manage light/dark state directly. The
+            service writes an attribute such as <code>html[data-theme="dark"]</code>. This is fully
+            supported, but in apps that already use Tailwind, Bootstrap, or another token system, it
+            is usually preferable to keep the host app in charge instead.
+          </p>
+        </div>
+
+        <docs-code-block
+          [code]="managedAttributeCode"
+          language="ts"
+          title="App config"
+          rounded
+        />
+      </section>
+
+      <section id="library-managed-via-shared-dark-class" class="space-y-4">
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via a shared <code>.dark</code> class</h3>
+          <p class="text-sm leading-7 text-foreground">
+            Use this when you want <code>ThemeService</code> to stay in charge, but Tailwind utilities
+            should react to the same switch. This works well when a team intentionally wants the
+            component library to drive theming, even though the preferred setup is usually for Tailwind
+            itself to remain the source of truth.
+          </p>
+        </div>
+
+        <docs-code-block
+          [code]="managedClassCode"
+          language="ts"
+          title="App config"
+          rounded
+        />
+      </section>
+
+      <section id="externally-managed-and-observed-by-the-library" class="space-y-4">
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">Externally managed and observed by the library</h3>
+          <p class="text-sm leading-7 text-foreground">
+            Use this when a shell, CMS, Tailwind-based app, or another design layer already owns dark
+            mode. In observe mode the FrameUI reads the DOM and does not write light/dark state. This
+            is the preferred setup for most existing applications because it keeps ownership with the
+            host app.
+          </p>
+        </div>
+
+        <docs-code-block
+          [code]="observedClassCode"
+          language="ts"
+          title="App config"
+          rounded
+        />
+      </section>
+    </section>
+
+    <section id="tailwind-css" class="scroll-mt-24 space-y-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Tailwind CSS</h2>
+        <p class="text-base leading-8 text-foreground">
+          Tailwind works best as the primary token system. In an existing app, map the FrameUI
+          tokens to your Tailwind tokens so custom layouts and library components stay visually aligned
+          instead of drifting apart.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="tailwindCode"
+        language="css"
+        title="Tailwind token bridge"
+        rounded
+      />
+
+      <p class="text-sm leading-7 text-foreground">
+        In this setup, Tailwind owns the palette and the <code>.dark</code> selector, while the
+        component library simply reads the same semantic values through its own token contract. If you
+        want the library to drive the same selector instead, the shared class strategy is still
+        available, but host-app-first remains the recommended baseline.
+      </p>
+    </section>
+
+    <section id="bootstrap-and-other-css-frameworks" class="scroll-mt-24 space-y-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Bootstrap and other CSS frameworks</h2>
+        <p class="text-base leading-8 text-foreground">
+          The same principle applies outside Tailwind: let the framework or app-level token system stay
+          in charge, and map the FrameUI tokens to that existing palette instead of maintaining a
+          second one.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="bootstrapCode"
+        language="css"
+        title="Bootstrap variable bridge"
+        rounded
+      />
+
+      <p class="text-sm leading-7 text-foreground">
+        The important part is to bridge the component library into the host app's semantic token layer
+        rather than duplicating light and dark values in multiple places.
+      </p>
+    </section>
+
+    <section id="local-overrides" class="scroll-mt-24 space-y-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Local overrides</h2>
+        <p class="text-base leading-8 text-foreground">
+          Use scoped token overrides for brand, campaign, or product-specific moments. They stay
+          inside the current light or dark mode instead of becoming additional registered themes.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="scopedOverrideCode"
+        language="css"
+        title="Scoped token override"
+        rounded
+      />
+    </section>
+  </article>
+
+  <docs-toc [items]="toc" />
+</div>

@@ -1,0 +1,177 @@
+@import './_vars.css';
+
+.frame-date-picker {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.frame-date-picker__anchor {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.frame-date-picker__trigger,
+.frame-date-picker__input-wrap {
+  box-sizing: border-box;
+  display: inline-flex;
+  min-block-size: var(--frame-date-picker-trigger-height);
+  inline-size: var(--frame-date-picker-trigger-width);
+  max-inline-size: 100%;
+  align-items: center;
+  gap: var(--frame-date-picker-trigger-gap);
+  border: 1px solid var(--frame-date-picker-trigger-border);
+  border-radius: var(--frame-date-picker-trigger-radius);
+  background: var(--frame-date-picker-trigger-bg);
+  color: var(--frame-date-picker-trigger-color);
+  padding: var(--frame-date-picker-trigger-padding);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease;
+}
+
+.frame-date-picker__trigger {
+  cursor: pointer;
+  font: inherit;
+  text-align: start;
+}
+
+.frame-date-picker__input-wrap {
+  cursor: text;
+}
+
+.frame-date-picker__input {
+  min-width: 0;
+  flex: 1 1 auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+
+.frame-date-picker__input::placeholder,
+.frame-date-picker__trigger-label[data-placeholder] {
+  color: var(--frame-date-picker-trigger-placeholder-color);
+}
+
+.frame-date-picker__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--frame-date-picker-trigger-placeholder-color);
+  line-height: 1;
+}
+
+.frame-date-picker__trigger-label {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.frame-date-picker__trigger:hover:not(:disabled),
+.frame-date-picker__input-wrap:focus-within,
+.frame-date-picker__input-wrap:hover {
+  border-color: var(--frame-date-picker-trigger-hover-border);
+}
+
+.frame-date-picker__trigger:focus-visible,
+.frame-date-picker__input-wrap:focus-within {
+  outline: none;
+  box-shadow: var(--frame-date-picker-trigger-focus-shadow);
+}
+
+.frame-date-picker[data-invalid] .frame-date-picker__trigger,
+.frame-date-picker[data-invalid] .frame-date-picker__input-wrap {
+  border-color: var(--frame-date-picker-trigger-invalid-border);
+}
+
+.frame-date-picker[data-disabled] {
+  opacity: var(--frame-date-picker-trigger-disabled-opacity);
+}
+
+.frame-date-picker[data-disabled] .frame-date-picker__trigger,
+.frame-date-picker[data-disabled] .frame-date-picker__input-wrap {
+  cursor: not-allowed;
+}
+
+.frame-date-picker__content {
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid var(--frame-date-picker-content-border);
+  border-radius: var(--frame-date-picker-content-radius);
+  background: var(--frame-date-picker-content-bg);
+  color: var(--frame-date-picker-content-color);
+  box-shadow: var(--frame-date-picker-content-shadow);
+  padding: var(--frame-date-picker-content-padding);
+  animation: frame-date-picker-enter var(--frame-date-picker-motion-duration) var(--frame-date-picker-motion-easing);
+}
+
+.frame-date-picker__content .frame-calendar {
+  border: 0;
+  box-shadow: none;
+}
+
+.frame-date-picker__presets {
+  display: grid;
+  gap: 0.125rem;
+  border-block-end: 1px solid var(--frame-date-picker-presets-border);
+  padding: 0.25rem;
+}
+
+.frame-date-picker__preset {
+  min-block-size: var(--frame-date-picker-preset-height);
+  border: 0;
+  border-radius: var(--frame-date-picker-preset-radius);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding-inline: 0.5rem;
+  text-align: start;
+}
+
+.frame-date-picker__preset:hover,
+.frame-date-picker__preset:focus-visible {
+  background: var(--frame-date-picker-preset-hover-bg);
+  outline: none;
+}
+
+.frame-date-picker__time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-block-start: 1px solid var(--frame-date-picker-time-border);
+  padding: var(--frame-date-picker-time-padding);
+}
+
+.frame-date-picker__time-label {
+  color: var(--frame-muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.frame-date-picker__time-input {
+  min-block-size: 2rem;
+  border: 1px solid var(--frame-border);
+  border-radius: var(--frame-radius-md);
+  background: var(--frame-background);
+  color: var(--frame-foreground);
+  font: inherit;
+  padding-inline: 0.5rem;
+}
+
+@keyframes frame-date-picker-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

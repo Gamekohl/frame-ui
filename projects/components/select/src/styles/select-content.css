@@ -1,0 +1,19 @@
+.frame-select__content,
+[frSelectPanel],
+frame-select-panel {
+  min-width: var(--frame-select-content-min-width);
+  max-height: var(--frame-select-content-max-height);
+  overflow: auto;
+}
+
+.frame-select__content[data-position='item-aligned'],
+[frSelectPanel][data-position='item-aligned'],
+frame-select-panel[data-position='item-aligned'] {
+  min-width: var(--frame-select-content-min-width);
+}
+
+.frame-select__content[data-position='popper'],
+[frSelectPanel][data-position='popper'],
+frame-select-panel[data-position='popper'] {
+  box-shadow: var(--frame-select-content-popper-shadow);
+}

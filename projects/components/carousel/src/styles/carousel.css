@@ -1,0 +1,89 @@
+@import './_vars.css';
+
+[frCarousel],
+frame-carousel {
+  position: relative;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[frCarouselContent] {
+  display: flex;
+  gap: var(--frame-carousel-gap);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--frame-carousel-viewport-radius);
+}
+
+[frCarouselContent]::-webkit-scrollbar {
+  display: none;
+}
+
+[frCarouselContent][data-orientation='vertical'] {
+  max-block-size: var(--frame-carousel-vertical-size, 20rem);
+  flex-direction: column;
+  scroll-snap-type: y mandatory;
+}
+
+[frCarouselItem],
+[data-frame-carousel-clone] {
+  flex: 0 0 var(--frame-carousel-item-size);
+  min-width: 0;
+  min-height: 0;
+  scroll-snap-align: var(--frame-carousel-snap-align, start);
+}
+
+[frCarousel][data-align='center'] [frCarouselItem],
+[frCarousel][data-align='center'] [data-frame-carousel-clone],
+frame-carousel[data-align='center'] [frCarouselItem],
+frame-carousel[data-align='center'] [data-frame-carousel-clone] {
+  --frame-carousel-snap-align: center;
+}
+
+[frCarousel][data-align='end'] [frCarouselItem],
+[frCarousel][data-align='end'] [data-frame-carousel-clone],
+frame-carousel[data-align='end'] [frCarouselItem],
+frame-carousel[data-align='end'] [data-frame-carousel-clone] {
+  --frame-carousel-snap-align: end;
+}
+
+[frCarouselPrevious],
+[frCarouselNext] {
+  position: absolute;
+  z-index: 1;
+  inline-size: var(--frame-carousel-control-size);
+  block-size: var(--frame-carousel-control-size);
+  padding: 0;
+}
+
+[frCarousel][data-orientation='horizontal'] [frCarouselPrevious],
+frame-carousel[data-orientation='horizontal'] [frCarouselPrevious] {
+  inset-block-start: 50%;
+  inset-inline-start: var(--frame-carousel-control-offset);
+  transform: translateY(-50%);
+}
+
+[frCarousel][data-orientation='horizontal'] [frCarouselNext],
+frame-carousel[data-orientation='horizontal'] [frCarouselNext] {
+  inset-block-start: 50%;
+  inset-inline-end: var(--frame-carousel-control-offset);
+  transform: translateY(-50%);
+}
+
+[frCarousel][data-orientation='vertical'] [frCarouselPrevious],
+frame-carousel[data-orientation='vertical'] [frCarouselPrevious] {
+  inset-block-start: var(--frame-carousel-control-offset);
+  inset-inline-start: 50%;
+  transform: translateX(-50%) rotate(90deg);
+}
+
+[frCarousel][data-orientation='vertical'] [frCarouselNext],
+frame-carousel[data-orientation='vertical'] [frCarouselNext] {
+  inset-block-end: var(--frame-carousel-control-offset);
+  inset-inline-start: 50%;
+  transform: translateX(-50%) rotate(90deg);
+}

@@ -1,0 +1,6 @@
+.frame-select__error {
+  margin: 0;
+  color: var(--frame-select-error-color);
+  font-size: var(--frame-select-error-font-size);
+  line-height: 1.4;
+}

@@ -1,0 +1,95 @@
+.frame-select__trigger {
+  --frame-select-trigger-bg: var(--frame-surface);
+  --frame-select-trigger-border: var(--frame-border);
+  --frame-select-trigger-color: var(--frame-surface-foreground);
+  --frame-select-trigger-hover-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
+  --frame-select-trigger-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
+  --frame-select-trigger-hover-color: var(--frame-select-trigger-color);
+  --frame-select-trigger-active-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
+  --frame-select-trigger-active-border: var(--frame-select-trigger-hover-border);
+  --frame-select-trigger-active-color: var(--frame-select-trigger-hover-color);
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  justify-self: start;
+  align-self: start;
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--frame-select-trigger-height);
+  min-width: var(--frame-select-trigger-min-width);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--frame-select-trigger-gap);
+  border: 1px solid var(--frame-select-trigger-border);
+  border-radius: var(--frame-select-trigger-radius);
+  background: var(--frame-select-trigger-bg);
+  color: var(--frame-select-trigger-color);
+  cursor: pointer;
+  margin: 0;
+  padding-inline: var(--frame-select-trigger-padding-inline);
+  padding-block: 0;
+  font: inherit;
+  font-size: var(--frame-select-trigger-font-size);
+  font-weight: var(--frame-select-trigger-font-weight);
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: none;
+  transition:
+    border-color var(--frame-select-trigger-transition-duration) ease,
+    box-shadow var(--frame-select-trigger-transition-duration) ease,
+    background-color var(--frame-select-trigger-transition-duration) ease,
+    color var(--frame-select-trigger-transition-duration) ease,
+    opacity var(--frame-select-trigger-transition-duration) ease;
+}
+
+.frame-select__trigger:where(:not([data-disabled])):hover {
+  background: var(--frame-select-trigger-hover-bg);
+  border-color: var(--frame-select-trigger-hover-border);
+  color: var(--frame-select-trigger-hover-color);
+  filter: var(--frame-select-trigger-hover-filter);
+}
+
+.frame-select__trigger:where(:not([data-disabled])):active {
+  background: var(--frame-select-trigger-active-bg);
+  border-color: var(--frame-select-trigger-active-border);
+  color: var(--frame-select-trigger-active-color);
+  filter: var(--frame-select-trigger-active-filter);
+}
+
+.frame-select__trigger:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--frame-select-trigger-focus-shadow);
+}
+
+.frame-select__trigger[data-invalid] {
+  border-color: var(--frame-select-trigger-invalid-border);
+  box-shadow: var(--frame-select-trigger-invalid-shadow);
+}
+
+.frame-select__trigger[data-disabled] {
+  opacity: var(--frame-select-trigger-disabled-opacity);
+  pointer-events: none;
+}
+
+.frame-select__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.frame-select__value[data-placeholder] {
+  color: var(--frame-muted-foreground);
+}
+
+.frame-select__icon {
+  display: flex;
+  flex: 0 0 auto;
+  color: var(--frame-muted-foreground);
+}
+
+.frame-select__trigger[data-state='open'] .frame-select__icon {
+  transform: rotate(180deg);
+}

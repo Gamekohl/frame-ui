@@ -1,0 +1,25 @@
+@import './_vars.css';
+
+[frSeparator],
+frame-separator {
+  display: block;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: var(--frame-separator-radius);
+  background: var(--frame-separator-color);
+}
+
+[frSeparator][data-orientation='horizontal'],
+frame-separator[data-orientation='horizontal'] {
+  inline-size: var(--frame-separator-horizontal-width);
+  block-size: var(--frame-separator-thickness);
+  margin-block: var(--frame-separator-horizontal-margin-block);
+}
+
+[frSeparator][data-orientation='vertical'],
+frame-separator[data-orientation='vertical'] {
+  inline-size: var(--frame-separator-thickness);
+  block-size: var(--frame-separator-vertical-height);
+  min-block-size: 1em;
+  margin-inline: var(--frame-separator-vertical-margin-inline);
+}

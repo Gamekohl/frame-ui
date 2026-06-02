@@ -1,0 +1,12 @@
+.ai-composer-example:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 3px;
+}
+
+.ai-composer-panel,
+.ai-composer-snippets,
+.ai-composer-snippets [frAccordionItem],
+.ai-composer-snippets [frAccordionContent] {
+  max-width: 100%;
+  min-width: 0;
+}

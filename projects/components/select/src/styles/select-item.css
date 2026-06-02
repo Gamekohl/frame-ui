@@ -1,0 +1,69 @@
+.frame-select__group,
+[frSelectGroup],
+frame-select-group {
+  display: grid;
+  gap: var(--frame-select-group-gap);
+}
+
+.frame-select__item {
+  position: relative;
+  padding-inline-start: var(--frame-select-item-padding-start);
+}
+
+.frame-select__item[data-indicator-position='end'] {
+  padding-inline-start: var(--frame-select-item-padding-inline);
+  padding-inline-end: var(--frame-select-item-padding-end);
+}
+
+.frame-select__item::before,
+.frame-select__item::after {
+  position: absolute;
+  inset-block-start: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--frame-select-item-indicator-size);
+  block-size: var(--frame-select-item-indicator-size);
+  color: currentColor;
+  font-size: var(--frame-select-item-indicator-font-size);
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.frame-select__item[data-state='checked']:not([data-has-custom-indicator])[data-indicator-position='start']::before {
+  content: '✓';
+  inset-inline-start: var(--frame-select-item-indicator-offset);
+  opacity: 1;
+}
+
+.frame-select__item[data-state='checked']:not([data-has-custom-indicator])[data-indicator-position='end']::after {
+  content: '✓';
+  inset-inline-end: var(--frame-select-item-indicator-offset);
+  opacity: 1;
+}
+
+.frame-select__item-indicator {
+  position: absolute;
+  inset-block-start: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--frame-select-item-indicator-size);
+  height: var(--frame-select-item-indicator-size);
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.frame-select__item[data-indicator-position='start'] .frame-select__item-indicator {
+  inset-inline-start: var(--frame-select-item-indicator-offset);
+}
+
+.frame-select__item[data-indicator-position='end'] .frame-select__item-indicator {
+  inset-inline-end: var(--frame-select-item-indicator-offset);
+}
+
+.frame-select__item[data-state='checked'] .frame-select__item-indicator {
+  opacity: 1;
+}

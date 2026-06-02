@@ -1,0 +1,23 @@
+:host [frCard] {
+  transform: translateY(0) scale(1);
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease,
+    filter 220ms ease;
+  will-change: transform;
+}
+
+:host [frCard]:hover {
+  box-shadow:
+    0 18px 45px color-mix(in srgb, var(--frame-foreground) 12%, transparent),
+    var(--frame-card-shadow, var(--frame-shadow-sm));
+  filter: brightness(1.015);
+  transform: translateY(-0.5rem) scale(1.005);
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host [frCard] {
+    transition: none;
+  }
+}

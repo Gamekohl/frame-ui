@@ -1,0 +1,15 @@
+:root {
+  --frame-progress-height: 0.5rem;
+  --frame-progress-width: 100%;
+  --frame-progress-radius: 999px;
+  --frame-progress-bg: var(--frame-accent);
+  --frame-progress-border: transparent;
+  --frame-progress-shadow: none;
+  --frame-progress-indicator-bg: var(--frame-primary);
+  --frame-progress-indicator-radius: inherit;
+  --frame-progress-indicator-shadow: none;
+  --frame-progress-transition-duration: 300ms;
+  --frame-progress-transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --frame-progress-indeterminate-size: 35%;
+  --frame-progress-indeterminate-duration: 1.25s;
+}

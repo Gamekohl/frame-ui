@@ -1,0 +1,67 @@
+import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
+
+import {
+  FrCell,
+  FrCellDef,
+  FrColumnDef,
+  FrFooterCell,
+  FrFooterCellDef,
+  FrFooterRow,
+  FrFooterRowDef,
+  FrHeaderCell,
+  FrHeaderCellDef,
+  FrHeaderRow,
+  FrHeaderRowDef,
+  FrNoDataRow,
+  FrRow,
+  FrRowDef,
+  FrTable,
+  FrTableBody,
+  FrTableCaption,
+  FrTableContainer,
+  FrTableFooter,
+  FrTableHeader,
+  FrTableMuted,
+  FrTableNumeric,
+  FrTableVirtual,
+  FrTableVirtualCell,
+  FrTableVirtualHeader,
+  FrTableVirtualRow,
+} from './src/table';
+
+const TABLE_PRIMITIVES = [
+  CdkTableModule,
+  FrCell,
+  FrCellDef,
+  FrColumnDef,
+  FrFooterCell,
+  FrFooterCellDef,
+  FrFooterRow,
+  FrFooterRowDef,
+  FrHeaderCell,
+  FrHeaderCellDef,
+  FrHeaderRow,
+  FrHeaderRowDef,
+  FrNoDataRow,
+  FrRow,
+  FrRowDef,
+  FrTable,
+  FrTableBody,
+  FrTableCaption,
+  FrTableContainer,
+  FrTableFooter,
+  FrTableHeader,
+  FrTableMuted,
+  FrTableNumeric,
+  FrTableVirtual,
+  FrTableVirtualCell,
+  FrTableVirtualHeader,
+  FrTableVirtualRow,
+];
+
+@NgModule({
+  imports: TABLE_PRIMITIVES,
+  exports: TABLE_PRIMITIVES,
+})
+export class FrTableModule {}

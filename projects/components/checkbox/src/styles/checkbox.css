@@ -1,0 +1,95 @@
+@import './_vars.css';
+
+[frCheckboxField] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--frame-checkbox-field-gap, 0.75rem);
+  width: fit-content;
+  color: var(--frame-checkbox-label-color, var(--frame-foreground));
+}
+
+[frCheckboxField]:has([frCheckbox]:disabled) {
+  color: var(--frame-checkbox-label-disabled-color, var(--frame-muted-foreground));
+}
+
+[frCheckboxLabel] {
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+[frCheckbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  inline-size: var(--frame-checkbox-root-size, 1rem);
+  block-size: var(--frame-checkbox-root-size, 1rem);
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 auto;
+  vertical-align: middle;
+  border: 1px solid var(--frame-checkbox-root-border, var(--frame-border));
+  border-radius: var(--frame-checkbox-root-radius);
+  background: var(--frame-checkbox-root-bg, var(--frame-surface));
+  color: var(--frame-checkbox-root-color, var(--frame-primary-foreground));
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+[frCheckbox]::before {
+  content: '';
+  inline-size: var(--frame-checkbox-indicator-size, 0.625rem);
+  block-size: var(--frame-checkbox-indicator-size, 0.625rem);
+  transform: scale(0);
+  transition: transform 120ms ease;
+  clip-path: polygon(14% 44%, 0 59%, 43% 100%, 100% 18%, 84% 4%, 43% 62%);
+  box-shadow: inset 1rem 1rem currentColor;
+}
+
+[frCheckbox]:where(:not(:disabled)):hover {
+  background: var(--frame-checkbox-root-hover-bg, var(--frame-checkbox-root-bg, var(--frame-surface)));
+  border-color: var(--frame-checkbox-root-hover-border, var(--frame-checkbox-root-border, var(--frame-border)));
+}
+
+[frCheckbox]:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(
+    --frame-checkbox-root-focus-shadow,
+    0 0 0 3px color-mix(in srgb, var(--frame-checkbox-root-ring-color, var(--frame-ring)) 35%, transparent)
+  );
+}
+
+[frCheckbox]:checked,
+[frCheckbox]:indeterminate {
+  background: var(--frame-checkbox-root-checked-bg, var(--frame-primary));
+  border-color: var(--frame-checkbox-root-checked-border, var(--frame-primary));
+  color: var(--frame-checkbox-root-checked-color, var(--frame-primary-foreground));
+}
+
+[frCheckbox]:checked::before {
+  transform: scale(1);
+}
+
+[frCheckbox]:indeterminate::before {
+  inline-size: var(--frame-checkbox-indeterminate-width, 0.5rem);
+  block-size: var(--frame-checkbox-indeterminate-height, 0.125rem);
+  transform: scale(1);
+  border-radius: 999px;
+  clip-path: none;
+  box-shadow: none;
+  background: currentColor;
+}
+
+[frCheckbox]:disabled {
+  cursor: not-allowed;
+  opacity: var(--frame-checkbox-root-disabled-opacity, 0.55);
+}
+
+[frCheckbox][aria-invalid='true'] {
+  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border)));
+}

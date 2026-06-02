@@ -1,0 +1,50 @@
+import { NgModule } from '@angular/core';
+import {
+  FrInput,
+  FrInputBadge,
+  FrInputControl,
+  FrInputDescription,
+  FrInputError,
+  FrInputField,
+  FrInputFieldGroup,
+  FrInputGroup,
+  FrInputGroupAddon,
+  FrInputGroupInput,
+  FrInputGroupText,
+  FrInputHeader,
+  FrInputLabel,
+} from './src/input';
+
+@NgModule({
+  imports: [
+    FrInput,
+    FrInputBadge,
+    FrInputControl,
+    FrInputDescription,
+    FrInputError,
+    FrInputField,
+    FrInputFieldGroup,
+    FrInputGroup,
+    FrInputGroupAddon,
+    FrInputGroupInput,
+    FrInputGroupText,
+    FrInputHeader,
+    FrInputLabel,
+  ],
+  exports: [
+    FrInput,
+    FrInputBadge,
+    FrInputControl,
+    FrInputDescription,
+    FrInputError,
+    FrInputField,
+    FrInputFieldGroup,
+    FrInputGroup,
+    FrInputGroupAddon,
+    FrInputGroupInput,
+    FrInputGroupText,
+    FrInputHeader,
+    FrInputLabel,
+  ],
+})
+export class FrInputModule {}
