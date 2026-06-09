@@ -39,11 +39,6 @@ export class Theming {
     { id: 'local-overrides', title: 'Local overrides' },
   ];
 
-  protected readonly installFoundationCode = `"styles": [
-    "node_modules/@frame-ui-ng/components/styles.css",
-    ...
-  ]`;
-
   protected readonly managedAttributeCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {

@@ -5,7 +5,7 @@
       <div class="space-y-3">
         <h1 class="text-4xl font-semibold tracking-tight text-foreground">Theming</h1>
         <p class="max-w-3xl text-base leading-8 text-foreground">
-          The FrameUI is token-driven. Components do not hardcode light or dark colors. They
+          FrameUI is token-driven. Components do not hardcode light or dark colors. They
           read semantic CSS variables such as <code>--frame-background</code>,
           <code>--frame-foreground</code>, and <code>--frame-primary</code>, so you can decide where theme
           state lives and how it should integrate with the rest of your app. In most cases, the host
@@ -63,23 +63,6 @@
       </div>
     </section>
 
-    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" id="setup" class="scroll-mt-24 space-y-5">
-      <div class="space-y-3">
-        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Setup</h2>
-        <p class="text-base leading-8 text-foreground">
-          Import the foundation styles before the component styles so the token contract is available
-          when primitives render.
-        </p>
-      </div>
-
-      <docs-code-block
-        [code]="installFoundationCode"
-        language="json"
-        title="angular.json"
-        rounded
-      />
-    </section>
-
     <section id="source-of-truth" class="scroll-mt-24 space-y-6">
       <div class="space-y-3">
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Choose a source of truth</h2>
@@ -120,7 +103,7 @@
         <div class="space-y-2">
           <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via <code>data-theme</code></h3>
           <p class="text-sm leading-7 text-foreground">
-            Use this when your Angular app wants the FrameUI to manage light/dark state directly. The
+            Use this when your Angular app wants FrameUI to manage light/dark state directly. The
             service writes an attribute such as <code>html[data-theme="dark"]</code>. This is fully
             supported, but in apps that already use Tailwind, Bootstrap, or another token system, it
             is usually preferable to keep the host app in charge instead.
@@ -159,7 +142,7 @@
           <h3 class="text-xl font-semibold tracking-tight text-foreground">Externally managed and observed by the library</h3>
           <p class="text-sm leading-7 text-foreground">
             Use this when a shell, CMS, Tailwind-based app, or another design layer already owns dark
-            mode. In observe mode the FrameUI reads the DOM and does not write light/dark state. This
+            mode. In observe mode FrameUI reads the DOM and does not write light/dark state. This
             is the preferred setup for most existing applications because it keeps ownership with the
             host app.
           </p>
