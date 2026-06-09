@@ -20,9 +20,11 @@ import {
   FrCommandShortcut,
   FrIconButton,
 } from '@frame-ui-ng/components';
+import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+    tablerBrandGithub,
   tablerComponents,
   tablerFileText,
   tablerSearch,
@@ -108,13 +110,21 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     FrCommandSeparator,
     FrCommandShortcut,
     NgOptimizedImage,
+    FrSeparator,
   ],
   templateUrl: './docs-header.component.html',
   host: {
     '(document:keydown)': 'handleDocumentKeydown($event)',
   },
   viewProviders: [
-    provideIcons({ tablerComponents, tablerFileText, tablerSearch, tablerSunMoon, tablerTools }),
+    provideIcons({
+      tablerComponents,
+      tablerFileText,
+      tablerSearch,
+      tablerSunMoon,
+      tablerTools,
+      tablerBrandGithub,
+    }),
   ],
 })
 export class DocsHeaderComponent {
