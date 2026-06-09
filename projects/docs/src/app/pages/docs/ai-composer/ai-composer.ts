@@ -7,7 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import {
   FrAccordion,
   FrAccordionContent, FrAccordionIcon, FrAccordionItem, FrAccordionTrigger, FrAlert, FrAlertDescription, FrAlertIcon,
-  FrAlertTitle, FrButton, FrButtonLabel, FrField, FrFieldContent, FrFieldDescription, FrFieldLabel, FrTextarea } from '@frame-ui/components';
+  FrAlertTitle, FrButton, FrButtonLabel, FrField, FrFieldContent, FrFieldDescription, FrFieldLabel, FrTextarea } from '@frame-ui-ng/components';
 import { AiComposerSnippet } from '../../../../types';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';

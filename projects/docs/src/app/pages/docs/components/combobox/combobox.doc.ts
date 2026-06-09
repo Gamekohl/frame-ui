@@ -4,7 +4,7 @@ import {
   DocsComboboxPreviewComponent,
 } from './previews/combobox-preview';
 
-const comboboxImportsCode = `import { FrComboboxModule } from '@frame-ui/components/combobox';`;
+const comboboxImportsCode = `import { FrComboboxModule } from '@frame-ui-ng/components/combobox';`;
 
 const frameworkGroups = [
   {
@@ -518,7 +518,7 @@ ${customStylingConfig.style}
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrComboboxModule } from '@frame-ui/components/combobox';
+import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
 
 frameworkControl = new FormControl<string | null>(null, {
   validators: [Validators.required],

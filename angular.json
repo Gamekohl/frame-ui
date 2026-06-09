@@ -51,8 +51,7 @@
               }
             ],
             "styles": [
-              "projects/foundation/src/styles/foundation.css",
-              "projects/components/src/styles/components.css",
+              "projects/frame-ui-local.css",
               "projects/playground/src/styles.css"
             ]
           },
@@ -147,8 +146,7 @@
               }
             ],
             "styles": [
-              "projects/foundation/src/styles/foundation.css",
-              "projects/components/src/styles/components.css",
+              "projects/frame-ui-local.css",
               "projects/docs/src/styles.css"
             ],
             "server": "projects/docs/src/main.server.ts",
@@ -245,8 +243,7 @@
               }
             ],
             "styles": [
-              "projects/foundation/src/styles/foundation.css",
-              "projects/components/src/styles/components.css",
+              "projects/frame-ui-local.css",
               "projects/ai-composer-eval/src/styles.css"
             ]
           },

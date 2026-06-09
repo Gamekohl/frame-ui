@@ -1,5 +1,5 @@
 import { Directive, input } from '@angular/core';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 
 export const FR_BADGE_VARIANTS = [
   'default',

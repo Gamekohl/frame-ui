@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { FrCard, FrCardContent } from '@frame-ui/components/card';
-import { FrTabsModule } from '@frame-ui/components/tabs';
+import { FrCard, FrCardContent } from '@frame-ui-ng/components/card';
+import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChartBar, tablerCode, tablerEye, tablerSettings } from '@ng-icons/tabler-icons';
 

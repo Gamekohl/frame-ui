@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrDropdownMenuModule, FrDropdownMenuTriggerMode } from '@frame-ui/components/dropdown-menu';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrDropdownMenuModule, FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCheck,

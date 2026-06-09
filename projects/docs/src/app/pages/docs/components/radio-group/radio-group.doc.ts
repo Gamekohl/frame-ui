@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsRadioGroupPreviewComponent } from './previews/radio-group-preview';
 
-const importsCode = `import { FrFieldModule } from '@frame-ui/components/field';
-import { FrRadioGroupModule } from '@frame-ui/components/radio-group';`;
+const importsCode = `import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrRadioGroupModule } from '@frame-ui-ng/components/radio-group';`;
 
 const usageHtml = `<div frRadioGroup aria-label="Notification channel">
   <label frRadioGroupField>

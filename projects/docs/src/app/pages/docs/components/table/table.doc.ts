@@ -2,7 +2,7 @@ import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTablePreviewComponent } from './previews/table-preview';
 
 const importsCode = `import { CurrencyPipe } from '@angular/common';
-import { FrTableModule } from '@frame-ui/components/table';`;
+import { FrTableModule } from '@frame-ui-ng/components/table';`;
 
 const basicTs = `${importsCode}
 
@@ -103,7 +103,7 @@ const actionsHtml = `<div frTableContainer>
 </div>`;
 
 const dynamicTs = `import { computed, signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${basicTs}
 
 showOwner = signal(true);
@@ -229,7 +229,7 @@ const stickyHeaderHtml = `<div frTableContainer style="max-block-size: 18rem;">
 </div>`;
 
 const virtualTs = `${importsCode}
-import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';
+import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';
 
 largeDeployments = Array.from({ length: 240 }, (_, index) => ({
   id: \`DEP-\${3000 + index}\`,
@@ -353,7 +353,7 @@ export const TABLE_DOC: ComponentDoc = {
           title: 'Import virtual scrolling when rendering large table-like lists.',
           code: {
             language: 'ts',
-            code: `import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';`,
+            code: `import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';`,
           },
         },
       ],
@@ -530,7 +530,7 @@ export const TABLE_DOC: ComponentDoc = {
       code: [
         {
           language: 'ts',
-          code: `import { FrButtonModule } from '@frame-ui/components/button';
+          code: `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${basicTs}`,
         },
         {

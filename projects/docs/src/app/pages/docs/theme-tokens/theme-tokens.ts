@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton } from '@frame-ui/components';
+import { FrButton } from '@frame-ui-ng/components';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';
 import { DocsTocComponent } from '../shared/components/docs-toc/docs-toc';

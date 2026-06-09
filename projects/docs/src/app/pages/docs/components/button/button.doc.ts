@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { ButtonPreviewConfig, DocsButtonPreviewComponent } from './previews/button-preview';
 
-const buttonImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrSpinnerModule } from '@frame-ui/components/spinner';`;
+const buttonImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';`;
 
 const heroConfig: ButtonPreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
@@ -140,8 +140,8 @@ export const BUTTON_DOC: ComponentDoc = {
           code: {
             language: 'ts',
             code: `import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrSpinnerModule } from '@frame-ui/components/spinner';`,
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';`,
           },
         },
         {

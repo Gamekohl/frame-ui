@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrProgressModule } from '@frame-ui/components/progress';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrProgressModule } from '@frame-ui-ng/components/progress';
 
 export type ProgressPreviewMode =
   | 'basic'

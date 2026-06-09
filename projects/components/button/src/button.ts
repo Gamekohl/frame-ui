@@ -1,5 +1,5 @@
 import { Directive, booleanAttribute, computed, contentChild, input } from '@angular/core';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 
 export const FR_BUTTON_APPEARANCES = [
   'ghost',

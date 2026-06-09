@@ -1,6 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButton } from '@frame-ui/components';
+import { FrButton } from '@frame-ui-ng/components';
 import { DocsExample } from '../models/component-doc.model';
 import { DocsCodeBlockComponent } from './docs-code-block/docs-code-block';
 

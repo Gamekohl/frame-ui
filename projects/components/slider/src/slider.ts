@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 
 export const FR_SLIDER_ORIENTATIONS = ['horizontal', 'vertical'] as const;
 

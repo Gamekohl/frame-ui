@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { AlertPreviewConfig, DocsAlertPreviewComponent } from './previews/alert-preview';
 
-const alertImportsCode = `import { FrAlertModule } from '@frame-ui/components/alert';`;
+const alertImportsCode = `import { FrAlertModule } from '@frame-ui-ng/components/alert';`;
 
 const heroConfig: AlertPreviewConfig = {
   className: 'grid w-full max-w-2xl gap-4',
@@ -137,7 +137,7 @@ export const ALERT_DOC: ComponentDoc = {
           title: 'Import the alert primitives into your component.',
           code: {
             language: 'ts',
-            code: `import { FrAlertModule } from '@frame-ui/components/alert';`,
+            code: `import { FrAlertModule } from '@frame-ui-ng/components/alert';`,
           },
         },
       ],

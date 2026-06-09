@@ -1,13 +1,13 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsEmptyPreviewComponent } from './previews/empty-preview';
 
-const importsCode = `import { FrEmptyModule } from '@frame-ui/components/empty';`;
+const importsCode = `import { FrEmptyModule } from '@frame-ui-ng/components/empty';`;
 const actionImportsCode = `${importsCode}
-import { FrButtonModule } from '@frame-ui/components/button';`;
+import { FrButtonModule } from '@frame-ui-ng/components/button';`;
 const avatarImportsCode = `${actionImportsCode}
-import { FrAvatarModule } from '@frame-ui/components/avatar';`;
+import { FrAvatarModule } from '@frame-ui-ng/components/avatar';`;
 const inputImportsCode = `${importsCode}
-import { FrInputModule } from '@frame-ui/components/input';`;
+import { FrInputModule } from '@frame-ui-ng/components/input';`;
 
 const basicHtml = `<div frEmpty>
   <div frEmptyHeader>

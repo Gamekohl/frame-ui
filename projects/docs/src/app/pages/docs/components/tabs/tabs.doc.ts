@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTabsPreviewComponent } from './previews/tabs-preview';
 
-const importsCode = `import { FrTabsModule } from '@frame-ui/components/tabs';`;
+const importsCode = `import { FrTabsModule } from '@frame-ui-ng/components/tabs';`;
 
 const usageHtml = `<div frTabs defaultValue="account">
   <div frTabsList>

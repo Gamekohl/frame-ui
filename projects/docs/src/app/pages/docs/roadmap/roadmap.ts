@@ -6,7 +6,7 @@ import {
   FrCardContent,
   FrCardHeader,
   FrCardTitle,
-} from '@frame-ui/components';
+} from '@frame-ui-ng/components';
 import { provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

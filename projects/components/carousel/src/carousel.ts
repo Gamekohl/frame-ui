@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
-import { FrButton } from '@frame-ui/components/button';
+import { FrButton } from '@frame-ui-ng/components/button';
 
 export const FR_CAROUSEL_ORIENTATIONS = ['horizontal', 'vertical'] as const;
 export const FR_CAROUSEL_ALIGNS = ['start', 'center', 'end'] as const;

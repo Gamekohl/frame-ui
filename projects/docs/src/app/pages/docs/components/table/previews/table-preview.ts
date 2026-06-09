@@ -1,9 +1,9 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrTableModule } from '@frame-ui/components/table';
-import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrTableModule } from '@frame-ui-ng/components/table';
+import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';
 
 export type TablePreviewMode =
   | 'actions'

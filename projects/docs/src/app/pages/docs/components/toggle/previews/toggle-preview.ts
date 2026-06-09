@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrField, FrFieldContent, FrFieldDescription, FrFieldLabel } from '@frame-ui/components/field';
-import { FrToggleModule } from '@frame-ui/components/toggle';
+import { FrField, FrFieldContent, FrFieldDescription, FrFieldLabel } from '@frame-ui-ng/components/field';
+import { FrToggleModule } from '@frame-ui-ng/components/toggle';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBell,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrSeparatorModule } from '@frame-ui/components/separator';
+import { FrSeparatorModule } from '@frame-ui-ng/components/separator';
 
 export type SeparatorPreviewMode =
   | 'basic'

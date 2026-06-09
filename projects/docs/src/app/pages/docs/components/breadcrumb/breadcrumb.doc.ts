@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { BreadcrumbPreviewConfig, DocsBreadcrumbPreviewComponent } from './previews/breadcrumb-preview';
 
-const breadcrumbImportsCode = `import { FrBreadcrumbModule } from '@frame-ui/components/breadcrumb';`;
+const breadcrumbImportsCode = `import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';`;
 
 const customStylingConfig: BreadcrumbPreviewConfig = {
   className: 'w-full rounded-3xl border p-6',

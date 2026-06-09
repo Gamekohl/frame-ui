@@ -9,19 +9,19 @@ import {
   input,
 } from '@angular/core';
 
-import { buildConnectedPositions } from '@frame-ui/components/dropdown-menu';
+import { buildConnectedPositions } from '@frame-ui-ng/components/dropdown-menu';
 import {
   FR_DROPDOWN_MENU_CONTENT,
   FrDropdownMenuContent,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 import {
   FR_DROPDOWN_MENU_PARENT,
   FrDropdownMenuTree,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 import {
   FrDropdownMenuAlignment,
   FrDropdownMenuSide,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 
 export const FR_CONTEXT_MENU_CONTENT = new InjectionToken<FrContextMenuContent>(
   'FrContextMenuContent',

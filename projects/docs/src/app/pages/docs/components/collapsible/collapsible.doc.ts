@@ -1,10 +1,10 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsCollapsiblePreviewComponent } from './previews/collapsible-preview';
 
-const collapsibleImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrCollapsibleModule } from '@frame-ui/components/collapsible';
-import { FrInputModule } from '@frame-ui/components/input';`;
+const collapsibleImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
+import { FrInputModule } from '@frame-ui-ng/components/input';`;
 
 export const COLLAPSIBLE_DOC: ComponentDoc = {
   slug: 'collapsible',
@@ -209,9 +209,9 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
         {
           language: 'ts',
           code: `import { signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrCollapsibleModule } from '@frame-ui/components/collapsible';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
 
 readonly detailsOpen = signal(false);`,
         },

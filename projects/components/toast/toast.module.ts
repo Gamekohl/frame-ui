@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 
 import { FrToastViewport } from './src/toast';
 

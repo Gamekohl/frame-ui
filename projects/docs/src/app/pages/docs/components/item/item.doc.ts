@@ -1,12 +1,12 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsItemPreviewComponent } from './previews/item-preview';
 
-const importsCode = `import { FrItemModule } from '@frame-ui/components/item';`;
+const importsCode = `import { FrItemModule } from '@frame-ui-ng/components/item';`;
 const actionImportsCode = `${importsCode}
-import { FrButtonModule } from '@frame-ui/components/button';`;
+import { FrButtonModule } from '@frame-ui-ng/components/button';`;
 const avatarImportsCode = `${importsCode}
-import { FrAvatarModule } from '@frame-ui/components/avatar';
-import { FrBadgeModule } from '@frame-ui/components/badge';`;
+import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';`;
 
 const basicHtml = `<div frItem variant="outline">
   <span frItemMedia variant="icon">

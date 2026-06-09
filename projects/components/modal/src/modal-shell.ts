@@ -2,7 +2,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { Component, Injector, Type, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 
-import { FrButton, FrButtonAppearance, FrButtonLabel } from '@frame-ui/components/button';
+import { FrButton, FrButtonAppearance, FrButtonLabel } from '@frame-ui-ng/components/button';
 import {
   FrModalBody,
   FrModalDescription,

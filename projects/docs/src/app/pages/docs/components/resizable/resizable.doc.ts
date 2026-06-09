@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsResizablePreviewComponent } from './previews/resizable-preview';
 
-const importsCode = `import { FrResizableModule } from '@frame-ui/components/resizable';`;
+const importsCode = `import { FrResizableModule } from '@frame-ui-ng/components/resizable';`;
 
 const basicHtml = `<div frResizablePanelGroup aria-label="Inbox split view">
   <section frResizablePanel [defaultSize]="32" [minSize]="20">Inbox</section>

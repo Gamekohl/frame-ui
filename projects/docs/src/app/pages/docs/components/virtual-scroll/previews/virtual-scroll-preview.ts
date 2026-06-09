@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, effect, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrComboboxModule } from '@frame-ui/components/combobox';
-import { FrSelectModule } from '@frame-ui/components/select';
-import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
+import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowDown,

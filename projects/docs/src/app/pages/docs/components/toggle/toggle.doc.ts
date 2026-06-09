@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTogglePreviewComponent } from './previews/toggle-preview';
 
-const importsCode = `import { FrToggleModule } from '@frame-ui/components/toggle';`;
+const importsCode = `import { FrToggleModule } from '@frame-ui-ng/components/toggle';`;
 const formImportsCode = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
 ${importsCode}`;
 

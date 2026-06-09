@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrAvatarModule, FrAvatarSize } from '@frame-ui/components/avatar';
+import { FrAvatarModule, FrAvatarSize } from '@frame-ui-ng/components/avatar';
 
 export type AvatarPreviewAvatar = {
   alt?: string;

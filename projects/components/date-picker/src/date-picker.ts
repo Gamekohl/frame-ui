@@ -23,8 +23,8 @@ import {
   FrCalendarDateRange,
   FrCalendarDisabledMatcher,
   FrCalendarMode,
-} from '@frame-ui/components/calendar';
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
+} from '@frame-ui-ng/components/calendar';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 
 export type FrDatePickerValue = Date | FrCalendarDateRange | null;
 

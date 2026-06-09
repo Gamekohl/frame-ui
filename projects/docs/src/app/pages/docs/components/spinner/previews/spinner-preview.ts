@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrEmptyModule } from '@frame-ui/components/empty';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrEmptyModule } from '@frame-ui-ng/components/empty';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerClock, tablerCloudUpload } from '@ng-icons/tabler-icons';
 

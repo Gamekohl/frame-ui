@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { FrBadge } from '@frame-ui/components';
+import { FrBadge } from '@frame-ui-ng/components';
 import { DocsTocComponent } from '../shared/components/docs-toc/docs-toc';
 import { DocsTocItem } from '../shared/components/docs-toc/docs-toc.types';
 import { ComponentsCatalogService } from '../shared/services/components-catalog.service';

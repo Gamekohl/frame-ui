@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FrSelectModule, FrSelectIndicatorPosition, FrSelectPosition } from '@frame-ui/components/select';
+import { FrSelectModule, FrSelectIndicatorPosition, FrSelectPosition } from '@frame-ui-ng/components/select';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

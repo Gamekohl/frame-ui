@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrMenubarModule } from '@frame-ui/components/menubar';
+import { FrMenubarModule } from '@frame-ui-ng/components/menubar';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCheck,

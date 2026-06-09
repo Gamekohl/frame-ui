@@ -1,20 +1,45 @@
 {
-  "name": "@frame-ui/foundation",
+  "name": "@frame-ui-ng/foundation",
   "version": "0.1.0-beta.0",
   "description": "Foundation utilities, tokens, and providers for FrameUI.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gamekohl/frame-ui"
+    "url": "git+https://github.com/gamekohl/frame-ui.git"
+  },
+  "homepage": "https://frame-ui.com",
+  "bugs": {
+    "url": "https://github.com/gamekohl/frame-ui/issues"
+  },
+  "keywords": [
+    "angular",
+    "design-tokens",
+    "theme",
+    "design-system",
+    "frame-ui"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/common": ">=21.0.0 <22.0.0",
+    "@angular/core": ">=21.0.0 <22.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "exports": {
+    "./styles.css": {
+      "style": "./styles.css",
+      "default": "./styles.css"
+    },
+    "./styles/foundation.css": {
+      "style": "./styles/foundation.css",
+      "default": "./styles/foundation.css"
+    }
+  },
   "sideEffects": [
+    "./styles.css",
     "./styles/foundation.css"
   ]
 }

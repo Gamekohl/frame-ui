@@ -21,7 +21,7 @@ import {
   signal,
 } from '@angular/core';
 
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 import { FrComboboxContent, FrComboboxRootLookup } from './combobox.content';
 import { FrComboboxItem } from './combobox.items';
 

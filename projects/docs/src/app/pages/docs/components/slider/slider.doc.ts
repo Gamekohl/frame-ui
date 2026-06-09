@@ -1,9 +1,9 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSliderPreviewComponent } from './previews/slider-preview';
 
-const importsCode = `import { FrSliderModule } from '@frame-ui/components/slider';`;
+const importsCode = `import { FrSliderModule } from '@frame-ui-ng/components/slider';`;
 const formImportsCode = `import { ReactiveFormsModule } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
 ${importsCode}`;
 
 const basicHtml = `<frame-slider [defaultValue]="42" aria-label="Volume" />`;

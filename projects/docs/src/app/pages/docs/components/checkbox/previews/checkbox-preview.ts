@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrCheckboxModule } from '@frame-ui/components/checkbox';
+import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 
 export type CheckboxPreviewItem = {
   label: string;

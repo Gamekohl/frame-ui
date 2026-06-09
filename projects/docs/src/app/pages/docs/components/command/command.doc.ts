@@ -3,7 +3,7 @@ import {
   DocsCommandPreviewComponent
 } from './previews/command-preview';
 
-const commandImports = `import { FrCommandModule, FrCommandService } from '@frame-ui/components/command';`;
+const commandImports = `import { FrCommandModule, FrCommandService } from '@frame-ui-ng/components/command';`;
 
 const inlineCommandHtml = `<section frCommand class="command-demo">
   <input frCommandInput placeholder="Type a command or search..." />
@@ -363,7 +363,7 @@ export const COMMAND_DOC: ComponentDoc = {
         {
           language: 'ts',
           code: `import { Component, inject } from '@angular/core';
-import { FrCommandService } from '@frame-ui/components/command';
+import { FrCommandService } from '@frame-ui-ng/components/command';
 
 @Component({
   selector: 'app-example',

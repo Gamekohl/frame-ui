@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrNavigationMenuModule } from '@frame-ui/components/navigation-menu';
+import { FrNavigationMenuModule } from '@frame-ui-ng/components/navigation-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBook,

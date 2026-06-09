@@ -5,7 +5,7 @@ import {
   DocsContextMenuPreviewComponent,
 } from './previews/context-menu-preview';
 
-const importsCode = `import { FrContextMenuModule } from '@frame-ui/components/context-menu';`;
+const importsCode = `import { FrContextMenuModule } from '@frame-ui-ng/components/context-menu';`;
 const signalImportsCode = `import { signal } from '@angular/core';
 ${importsCode}`;
 

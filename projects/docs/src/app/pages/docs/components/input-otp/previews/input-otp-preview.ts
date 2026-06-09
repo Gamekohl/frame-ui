@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS, FrInputOtpModule } from '@frame-ui/components/input-otp';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS, FrInputOtpModule } from '@frame-ui-ng/components/input-otp';
 
 export type InputOtpPreviewMode =
   | 'alphanumeric'

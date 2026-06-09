@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCollapsibleModule } from '@frame-ui/components/collapsible';
-import { FrSidebarModule } from '@frame-ui/components/sidebar';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
+import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBell,

@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsNavigationMenuPreviewComponent } from './previews/navigation-menu-preview';
 
-const importsCode = `import { FrNavigationMenuModule } from '@frame-ui/components/navigation-menu';`;
+const importsCode = `import { FrNavigationMenuModule } from '@frame-ui-ng/components/navigation-menu';`;
 
 const basicHtml = `<nav frNavigationMenu>
   <ul frNavigationMenuList>

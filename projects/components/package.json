@@ -1,17 +1,45 @@
 {
-  "name": "@frame-ui/components",
+  "name": "@frame-ui-ng/components",
   "version": "0.1.0-beta.0",
   "description": "Angular components for FrameUI.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamekohl/frame-ui.git"
+  },
+  "homepage": "https://frame-ui.com",
+  "bugs": {
+    "url": "https://github.com/gamekohl/frame-ui/issues"
+  },
+  "keywords": [
+    "angular",
+    "components",
+    "design-system",
+    "ui",
+    "frame-ui"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0",
-    "@frame-ui/foundation": "0.1.0-beta.0"
+    "@angular/cdk": ">=21.0.0 <22.0.0",
+    "@angular/common": ">=21.0.0 <22.0.0",
+    "@angular/core": ">=21.0.0 <22.0.0",
+    "@angular/forms": ">=21.0.0 <22.0.0",
+    "@frame-ui-ng/foundation": "0.1.0-beta.0",
+    "rxjs": "^7.8.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "exports": {
+    "./styles.css": {
+      "style": "./styles.css",
+      "default": "./styles.css"
+    }
+  },
   "sideEffects": [
+    "./styles.css",
     "./styles/components.css"
   ]
 }

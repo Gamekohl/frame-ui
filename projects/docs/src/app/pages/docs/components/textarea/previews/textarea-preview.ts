@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrTextareaModule } from '@frame-ui/components/textarea';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBell,

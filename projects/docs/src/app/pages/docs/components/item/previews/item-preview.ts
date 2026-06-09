@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrAvatarModule } from '@frame-ui/components/avatar';
-import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrItemModule } from '@frame-ui/components/item';
+import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrItemModule } from '@frame-ui-ng/components/item';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

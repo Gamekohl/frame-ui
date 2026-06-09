@@ -1,9 +1,9 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsHoverCardPreviewComponent } from './previews/hover-card-preview';
 
-const importsCode = `import { FrAvatarModule } from '@frame-ui/components/avatar';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrHoverCardModule } from '@frame-ui/components/hover-card';`;
+const importsCode = `import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';`;
 
 const basicHtml = `<frame-hover-card>
   <button frButton appearance="ghost" [frHoverCardTrigger]="card" type="button">

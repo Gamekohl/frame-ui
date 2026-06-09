@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSkeletonPreviewComponent } from './previews/skeleton-preview';
 
-const importsCode = `import { FrSkeletonModule } from '@frame-ui/components/skeleton';`;
-const fieldImportsCode = `import { FrFieldModule } from '@frame-ui/components/field';
+const importsCode = `import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';`;
+const fieldImportsCode = `import { FrFieldModule } from '@frame-ui-ng/components/field';
 ${importsCode}`;
 
 const basicHtml = `<div class="loading-user">

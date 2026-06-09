@@ -5,8 +5,8 @@ import {
   FrButton,
   FrButtonIcon,
   FrButtonLabel,
-} from '@frame-ui/components';
-import { ThemeService } from '@frame-ui/foundation';
+} from '@frame-ui-ng/components';
+import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

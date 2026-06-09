@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { FrCalendarDateRange } from '@frame-ui/components/calendar';
+import { FrCalendarDateRange } from '@frame-ui-ng/components/calendar';
 import { FrDatePicker } from '../date-picker';
 
 @Component({

@@ -1,14 +1,14 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSpinnerPreviewComponent } from './previews/spinner-preview';
 
-const importsCode = `import { FrSpinnerModule } from '@frame-ui/components/spinner';`;
-const buttonImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
+const importsCode = `import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';`;
+const buttonImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}`;
-const badgeImportsCode = `import { FrBadgeModule } from '@frame-ui/components/badge';
+const badgeImportsCode = `import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 ${importsCode}`;
-const inputImportsCode = `import { FrInputModule } from '@frame-ui/components/input';
+const inputImportsCode = `import { FrInputModule } from '@frame-ui-ng/components/input';
 ${importsCode}`;
-const emptyImportsCode = `import { FrEmptyModule } from '@frame-ui/components/empty';
+const emptyImportsCode = `import { FrEmptyModule } from '@frame-ui-ng/components/empty';
 ${importsCode}`;
 
 const basicHtml = `<span frSpinner label="Loading project data"></span>`;

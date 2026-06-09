@@ -14,15 +14,15 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FrContextMenuContent } from './context-menu.content';
-import { defaultPositions } from '@frame-ui/components/dropdown-menu';
+import { defaultPositions } from '@frame-ui-ng/components/dropdown-menu';
 import {
   FR_DROPDOWN_MENU_PARENT,
   FrDropdownMenuTree,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 import {
   FrDropdownMenuItemVariant,
   FrDropdownMenuTriggerMode,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 
 @Directive({
   selector: '[frContextMenuSubTrigger]',

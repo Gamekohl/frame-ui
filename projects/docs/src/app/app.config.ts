@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
-import { provideFrameUI } from '@frame-ui/foundation';
+import { provideFrameUI } from '@frame-ui-ng/foundation';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';

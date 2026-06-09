@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrBreadcrumbModule } from '@frame-ui/components/breadcrumb';
+import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
 
 export type BreadcrumbPreviewMode = 'basic' | 'collapsed' | 'custom-separator' | 'responsive' | 'rtl';
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrCarouselModule, FrCarouselApi, FrCarouselPlugin } from '@frame-ui/components/carousel';
+import { FrCarouselModule, FrCarouselApi, FrCarouselPlugin } from '@frame-ui-ng/components/carousel';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronLeft, tablerChevronRight } from '@ng-icons/tabler-icons';
 

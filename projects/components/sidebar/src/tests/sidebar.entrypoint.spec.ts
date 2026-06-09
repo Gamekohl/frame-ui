@@ -9,7 +9,7 @@ import {
   FrSidebarMenuItem,
   FrSidebarModule,
   FrSidebarProvider,
-} from '@frame-ui/components/sidebar';
+} from '@frame-ui-ng/components/sidebar';
 
 @Component({
   imports: [

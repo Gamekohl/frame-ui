@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrModalModule, FrModalService } from '@frame-ui/components/modal';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrModalModule, FrModalService } from '@frame-ui-ng/components/modal';
 
 export type ModalPreviewConfig = {
   className?: string;

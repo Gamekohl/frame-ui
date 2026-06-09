@@ -5,7 +5,7 @@ import {
   FrBadgeLabel,
   FrBadgeSpinner,
 } from './src/badge';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 
 @NgModule({
   imports: [

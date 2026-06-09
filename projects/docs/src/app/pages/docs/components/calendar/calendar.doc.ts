@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsCalendarPreviewComponent } from './previews/calendar-preview';
 
-const calendarImportsCode = `import { FrCalendarModule } from '@frame-ui/components/calendar';`;
+const calendarImportsCode = `import { FrCalendarModule } from '@frame-ui-ng/components/calendar';`;
 
 export const CALENDAR_DOC: ComponentDoc = {
   slug: 'calendar',
@@ -37,7 +37,7 @@ export const CALENDAR_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrCalendarModule } from '@frame-ui/components/calendar';
+import { FrCalendarModule } from '@frame-ui-ng/components/calendar';
 
 date = new FormControl<Date | null>(new Date());`,
     },
@@ -212,7 +212,7 @@ date: Date | null = new Date(2026, 5, 10);`,
       code: [
         {
           language: 'ts',
-          code: `import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui/components/calendar';
+          code: `import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui-ng/components/calendar';
 
 month = new Date(2026, 5, 1);
 range: FrCalendarDateRange = {
@@ -270,8 +270,8 @@ month = new Date(2026, 5, 1);`,
       code: [
         {
           language: 'ts',
-          code: `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCalendarModule } from '@frame-ui/components/calendar';
+          code: `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCalendarModule } from '@frame-ui-ng/components/calendar';
 
 date: Date | null = new Date(2026, 5, 10);
 tomorrow = new Date(2026, 5, 7);`,
@@ -298,7 +298,7 @@ tomorrow = new Date(2026, 5, 7);`,
         {
           language: 'ts',
           code: `import { FormsModule } from '@angular/forms';
-import { FrCalendarModule } from '@frame-ui/components/calendar';
+import { FrCalendarModule } from '@frame-ui-ng/components/calendar';
 
 date: Date | null = new Date(2026, 5, 10);
 startTime = '09:00';
@@ -380,8 +380,8 @@ dateLabels = {
         {
           language: 'ts',
           code: `import { computed, signal } from '@angular/core';
-import { FrCalendarModule } from '@frame-ui/components/calendar';
-import { FrSelectModule } from '@frame-ui/components/select';
+import { FrCalendarModule } from '@frame-ui-ng/components/calendar';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 
 date = signal<Date | null>(new Date(2026, 5, 10));
 dateLabel = computed(() =>

@@ -2,7 +2,7 @@ import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsDatePickerPreviewComponent } from './previews/date-picker-preview';
 
 const importsCode = `import { ReactiveFormsModule } from '@angular/forms';
-import { FrDatePickerModule } from '@frame-ui/components/date-picker';`;
+import { FrDatePickerModule } from '@frame-ui-ng/components/date-picker';`;
 
 const formCode = `import { FormControl } from '@angular/forms';
 
@@ -11,7 +11,7 @@ readonly date = new FormControl<Date | null>(new Date());`;
 const basicHtml = `<frame-date-picker [formControl]="date" />`;
 
 const rangeTs = `import { FormControl } from '@angular/forms';
-import { FrCalendarDateRange } from '@frame-ui/components/calendar';
+import { FrCalendarDateRange } from '@frame-ui-ng/components/calendar';
 
 readonly range = new FormControl<frCalendarDateRange>({
   from: new Date(2026, 0, 20),
@@ -103,7 +103,7 @@ const presetsHtml = `<frame-date-picker
 />`;
 
 const presetsTs = `import { FormControl } from '@angular/forms';
-import { FrDatePickerPreset } from '@frame-ui/components/date-picker';
+import { FrDatePickerPreset } from '@frame-ui-ng/components/date-picker';
 
 readonly date = new FormControl<Date | null>(new Date());
 

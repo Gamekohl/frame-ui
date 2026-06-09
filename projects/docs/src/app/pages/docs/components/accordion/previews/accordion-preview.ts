@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrAccordionModule } from '@frame-ui/components/accordion';
+import { FrAccordionModule } from '@frame-ui-ng/components/accordion';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown } from '@ng-icons/tabler-icons';
 

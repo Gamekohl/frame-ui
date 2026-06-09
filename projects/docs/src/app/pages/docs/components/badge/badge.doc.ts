@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { BadgePreviewConfig, DocsBadgePreviewComponent } from './previews/badge-preview';
 
-const badgeImportsCode = `import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrSpinnerModule } from '@frame-ui/components/spinner';`;
+const badgeImportsCode = `import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';`;
 
 const heroConfig: BadgePreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
@@ -113,7 +113,7 @@ export const BADGE_DOC: ComponentDoc = {
           title: 'Import the badge primitives your template needs.',
           code: {
             language: 'ts',
-            code: `import { FrBadgeModule } from '@frame-ui/components/badge';`,
+            code: `import { FrBadgeModule } from '@frame-ui-ng/components/badge';`,
           },
         },
       ],

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrButtonModule, FrButtonAppearance, FrButtonSize } from '@frame-ui/components/button';
-import { FrButtonGroupModule, FrButtonGroupOrientation } from '@frame-ui/components/button-group';
+import { FrButtonModule, FrButtonAppearance, FrButtonSize } from '@frame-ui-ng/components/button';
+import { FrButtonGroupModule, FrButtonGroupOrientation } from '@frame-ui-ng/components/button-group';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';
 

@@ -4,9 +4,9 @@ import {
   FR_DROPDOWN_MENU_CONTENT,
   FrDropdownMenuContent,
   FrDropdownMenuPanel,
-} from '@frame-ui/components/dropdown-menu';
-import { buildConnectedPositions } from '@frame-ui/components/dropdown-menu';
-import { FR_DROPDOWN_MENU_PARENT, FrDropdownMenuTree } from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
+import { buildConnectedPositions } from '@frame-ui-ng/components/dropdown-menu';
+import { FR_DROPDOWN_MENU_PARENT, FrDropdownMenuTree } from '@frame-ui-ng/components/dropdown-menu';
 import { FrSelect } from './select.root';
 
 export const FR_SELECT_POSITIONS = ['item-aligned', 'popper'] as const;

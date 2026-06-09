@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSwitchPreviewComponent, SwitchPreviewConfig } from './previews/switch-preview';
 
-const importsCode = `import { FrSwitchModule } from '@frame-ui/components/switch';`;
+const importsCode = `import { FrSwitchModule } from '@frame-ui-ng/components/switch';`;
 const formImportsCode = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
 ${importsCode}`;
 
@@ -163,7 +163,7 @@ export const SWITCH_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrSwitchModule } from '@frame-ui/components/switch';
+import { FrSwitchModule } from '@frame-ui-ng/components/switch';
 
 notificationsControl = new FormControl(true, { nonNullable: true });`,
     },
@@ -416,7 +416,7 @@ securityControl = new FormControl({ value: true, disabled: true }, { nonNullable
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrSwitchModule } from '@frame-ui/components/switch';
+import { FrSwitchModule } from '@frame-ui-ng/components/switch';
 
 confirmationControl = new FormControl(true, {
   nonNullable: true,

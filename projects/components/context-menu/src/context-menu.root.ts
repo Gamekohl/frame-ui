@@ -1,11 +1,11 @@
 import { Directive, effect, inject, input, signal } from '@angular/core';
 
-import { FrDropdownMenuTriggerMode } from '@frame-ui/components/dropdown-menu';
+import { FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu';
 import {
   FR_DROPDOWN_MENU_PARENT,
   FrDropdownMenuParent,
   FrDropdownMenuTree,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 
 @Directive({
   selector: '[frContextMenu]',

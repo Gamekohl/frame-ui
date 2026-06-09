@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui/components';
+import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

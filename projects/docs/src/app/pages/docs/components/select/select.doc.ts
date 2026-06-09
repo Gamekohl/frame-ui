@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSelectPreviewComponent, SelectPreviewConfig } from './previews/select-preview';
 
-const importsCode = `import { FrSelectModule } from '@frame-ui/components/select';`;
+const importsCode = `import { FrSelectModule } from '@frame-ui-ng/components/select';`;
 const formImportsCode = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
 ${importsCode}`;
 
@@ -195,7 +195,7 @@ export const SELECT_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrSelectModule } from '@frame-ui/components/select';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 
 frameworkControl = new FormControl<string | null>('angular');`,
     },
@@ -500,7 +500,7 @@ surfaceControl = new FormControl<string | null>('marketing');`,
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrSelectModule } from '@frame-ui/components/select';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 
 channelControl = new FormControl<string | null>(null, {
   validators: [Validators.required],

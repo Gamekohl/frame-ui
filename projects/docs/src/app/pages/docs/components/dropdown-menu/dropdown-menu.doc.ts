@@ -5,7 +5,7 @@ import {
   DropdownMenuPreviewItem,
 } from './previews/dropdown-menu-preview';
 
-const importsCode = `import { FrDropdownMenuModule } from '@frame-ui/components/dropdown-menu';`;
+const importsCode = `import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';`;
 
 const basicItems: DropdownMenuPreviewItem[] = [
   { kind: 'label', label: 'Actions' },
@@ -129,7 +129,7 @@ export const DROPDOWN_MENU_DOC: ComponentDoc = {
           code: {
             language: 'ts',
             code: `import { NgIcon, provideIcons } from '@ng-icons/core';
-import { FrDropdownMenuModule } from '@frame-ui/components/dropdown-menu';`,
+import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';`,
           },
         },
         {
@@ -157,7 +157,7 @@ viewProviders: [provideIcons({ tablerCheck, tablerCopy, tablerExternalLink, tabl
   usage: [
     {
       language: 'ts',
-      code: `import { FrDropdownMenuModule } from '@frame-ui/components/dropdown-menu';`,
+      code: `import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';`,
     },
     {
       language: 'html',

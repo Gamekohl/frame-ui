@@ -5,7 +5,7 @@ import {
   DocsAvatarPreviewComponent,
 } from './previews/avatar-preview';
 
-const avatarImportsCode = `import { FrAvatarModule } from '@frame-ui/components/avatar';`;
+const avatarImportsCode = `import { FrAvatarModule } from '@frame-ui-ng/components/avatar';`;
 
 const heroConfig: AvatarPreviewConfig = {
   className: 'grid w-full max-w-2xl gap-6',
@@ -239,7 +239,7 @@ export const AVATAR_DOC: ComponentDoc = {
           title: 'Import the avatar primitives your view needs.',
           code: {
             language: 'ts',
-            code: `import { FrAvatarModule } from '@frame-ui/components/avatar';`,
+            code: `import { FrAvatarModule } from '@frame-ui-ng/components/avatar';`,
           },
         },
       ],

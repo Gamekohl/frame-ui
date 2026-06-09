@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrField, FrFieldLabel } from '@frame-ui/components/field';
-import { FrSkeletonModule } from '@frame-ui/components/skeleton';
+import { FrField, FrFieldLabel } from '@frame-ui-ng/components/field';
+import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
 
 export type SkeletonPreviewMode =
   | 'avatar'

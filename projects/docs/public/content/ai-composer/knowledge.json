@@ -6,7 +6,7 @@
     "status": "Stable",
     "summary": "Composable disclosure primitives for progressive reveal content.",
     "publicExport": "./lib/accordion/accordion",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrAccordion",
       "FrAccordionContent",
@@ -100,7 +100,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -114,7 +114,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -124,11 +124,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -138,7 +138,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAccordion,\n  FrAccordionItem,\n  FrAccordionTrigger,\n  FrAccordionContent,\n  FrAccordionIcon,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -255,7 +255,7 @@
     "status": "Stable",
     "summary": "Contextual feedback blocks for status, caution, and system messaging.",
     "publicExport": "./lib/alert/alert",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrAlert",
       "FrAlertDescription",
@@ -312,7 +312,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -326,7 +326,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui/components';"
+            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -336,11 +336,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui/components';"
+            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui/components';"
+            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -350,7 +350,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui/components';"
+            "code": "import { FrAlert, FrAlertIcon, FrAlertTitle, FrAlertDescription } from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -482,7 +482,7 @@
     "status": "Stable",
     "summary": "Identity visuals with image, fallback, badge, and grouping patterns.",
     "publicExport": "./lib/avatar/avatar",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrAvatar",
       "FrAvatarBadge",
@@ -581,7 +581,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -596,7 +596,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n  FrAvatarIcon,\n  FrAvatarBadge,\n  FrAvatarGroup,\n  FrAvatarGroupCount,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n  FrAvatarIcon,\n  FrAvatarBadge,\n  FrAvatarGroup,\n  FrAvatarGroupCount,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -606,11 +606,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n  FrAvatarIcon,\n  FrAvatarBadge,\n  FrAvatarGroup,\n  FrAvatarGroupCount,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n  FrAvatarIcon,\n  FrAvatarBadge,\n  FrAvatarGroup,\n  FrAvatarGroupCount,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -620,7 +620,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrAvatar,\n  FrAvatarImage,\n  FrAvatarFallback,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -761,7 +761,7 @@
     "status": "Stable",
     "summary": "Small metadata labels for state, tags, and secondary status.",
     "publicExport": "./lib/badge/badge",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrBadge",
       "FrBadgeIcon",
@@ -828,7 +828,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -843,7 +843,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui/components';"
+            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -853,11 +853,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui/components';"
+            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui/components';"
+            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -867,7 +867,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui/components';"
+            "code": "import { FrBadge, FrBadgeIcon, FrBadgeLabel, FrBadgeSpinner } from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -991,7 +991,7 @@
     "status": "Stable",
     "summary": "Action primitives with variants, loading, icon support, and sizing options.",
     "publicExport": "./lib/button/button",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrButton",
       "FrButtonIcon",
@@ -1086,7 +1086,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -1101,7 +1101,7 @@
           },
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport {\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n  FrButtonLoading,\n} from '@frame-ui/components';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport {\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n  FrButtonLoading,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1111,7 +1111,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport {\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n  FrButtonLoading,\n} from '@frame-ui/components';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport {\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n  FrButtonLoading,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -1129,7 +1129,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1139,7 +1139,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -1295,7 +1295,7 @@
     "status": "Stable",
     "summary": "Grouped actions with shared borders and compact horizontal layouts.",
     "publicExport": "./lib/button-group/button-group",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrButtonGroup"
     ],
@@ -1329,7 +1329,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -1344,7 +1344,7 @@
           },
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\nimport {\n  FrButtonGroup,\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\nimport {\n  FrButtonGroup,\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1354,7 +1354,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\nimport {\n  FrButtonGroup,\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\nimport {\n  FrButtonGroup,\n  FrButton,\n  FrIconButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -1372,7 +1372,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrButtonGroup,\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrButtonGroup,\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1382,7 +1382,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrButtonGroup,\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrButtonGroup,\n  FrButton,\n  FrButtonIcon,\n  FrButtonLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -1480,7 +1480,7 @@
     "status": "Stable",
     "summary": "Semantic navigation trails with links, current page, separators, ellipsis, and RTL support.",
     "publicExport": "./lib/breadcrumb/breadcrumb",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrBreadcrumb",
       "FrBreadcrumbEllipsis",
@@ -1575,7 +1575,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -1590,7 +1590,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrBreadcrumb,\n  FrBreadcrumbEllipsis,\n  FrBreadcrumbItem,\n  FrBreadcrumbLink,\n  FrBreadcrumbList,\n  FrBreadcrumbPage,\n  FrBreadcrumbSeparator,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrBreadcrumb,\n  FrBreadcrumbEllipsis,\n  FrBreadcrumbItem,\n  FrBreadcrumbLink,\n  FrBreadcrumbList,\n  FrBreadcrumbPage,\n  FrBreadcrumbSeparator,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1600,7 +1600,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrBreadcrumb,\n  FrBreadcrumbEllipsis,\n  FrBreadcrumbItem,\n  FrBreadcrumbLink,\n  FrBreadcrumbList,\n  FrBreadcrumbPage,\n  FrBreadcrumbSeparator,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrBreadcrumb,\n  FrBreadcrumbEllipsis,\n  FrBreadcrumbItem,\n  FrBreadcrumbLink,\n  FrBreadcrumbList,\n  FrBreadcrumbPage,\n  FrBreadcrumbSeparator,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -1737,7 +1737,7 @@
     "status": "Stable",
     "summary": "Date and range selection with dropdown captions, week numbers, disabled dates, timezone formatting, and RTL support.",
     "publicExport": "./lib/calendar/calendar",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCalendar"
     ],
@@ -1846,7 +1846,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -1860,7 +1860,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrCalendar } from '@frame-ui/components';"
+            "code": "import { FrCalendar } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -1870,7 +1870,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrCalendar } from '@frame-ui/components';"
+            "code": "import { FrCalendar } from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -2102,7 +2102,7 @@
     "status": "Stable",
     "summary": "Composable content surfaces with header, content, footer, actions, media, sizing, and spacing tokens.",
     "publicExport": "./lib/card/card",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCard",
       "FrCardAction",
@@ -2202,7 +2202,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -2217,7 +2217,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2227,11 +2227,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2241,7 +2241,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCard,\n  FrCardAction,\n  FrCardContent,\n  FrCardDescription,\n  FrCardFooter,\n  FrCardHeader,\n  FrCardTitle,\n  FrInput,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -2397,7 +2397,7 @@
     "status": "Preview",
     "summary": "Composable scroll-snap carousel primitives with sizing, spacing, orientation, API, plugins, and RTL support.",
     "publicExport": "./lib/carousel/carousel",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCarousel",
       "FrCarouselContent",
@@ -2500,7 +2500,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -2515,7 +2515,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2525,11 +2525,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2539,7 +2539,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCarousel,\n  FrCarouselContent,\n  FrCarouselItem,\n  FrCarouselNext,\n  FrCarouselPrevious,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -2692,7 +2692,7 @@
     "status": "Stable",
     "summary": "Native form-compatible boolean input with token-based styling.",
     "publicExport": "./lib/checkbox/checkbox",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCheckbox",
       "FrCheckboxField",
@@ -2738,7 +2738,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -2752,7 +2752,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui/components';"
+            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2762,11 +2762,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui/components';"
+            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui/components';"
+            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2776,7 +2776,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui/components';"
+            "code": "import { FrCheckbox, FrCheckboxField, FrCheckboxLabel } from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -2908,7 +2908,7 @@
     "status": "Stable",
     "summary": "Single-panel disclosure primitive for toggling additional content.",
     "publicExport": "./lib/collapsible/collapsible",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCollapsible",
       "FrCollapsibleContent",
@@ -2967,7 +2967,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -2982,7 +2982,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -2992,11 +2992,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -3006,7 +3006,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrCollapsible,\n  FrCollapsibleContent,\n  FrCollapsibleTrigger,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -3120,7 +3120,7 @@
     "status": "Stable",
     "summary": "Searchable command menus and command palettes for quick actions.",
     "publicExport": "./lib/command/command",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCommand",
       "FrCommandDialog",
@@ -3392,7 +3392,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -3435,7 +3435,7 @@
           },
           {
             "language": "html",
-            "code": "import { Component, inject } from '@angular/core';\nimport { FrCommandService } from '@frame-ui/components';\n\n@Component({\n  selector: 'app-example',\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\nimport { FrCommandService } from '@frame-ui-ng/components';\n\n@Component({\n  selector: 'app-example',\n  template: \\"
           }
         ]
       },
@@ -3445,7 +3445,7 @@
         "code": [
           {
             "language": "html",
-            "code": "import { Component, inject } from '@angular/core';\nimport { FrCommandService } from '@frame-ui/components';\n\n@Component({\n  selector: 'app-example',\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\nimport { FrCommandService } from '@frame-ui-ng/components';\n\n@Component({\n  selector: 'app-example',\n  template: \\"
           },
           {
             "language": "html",
@@ -3536,7 +3536,7 @@
     "status": "Stable",
     "summary": "Searchable single and multi-value selection with composable slots.",
     "publicExport": "./lib/combobox/combobox",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrCombobox",
       "FrComboboxChip",
@@ -3807,7 +3807,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -3822,7 +3822,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui/components';"
+            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -3832,11 +3832,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui/components';"
+            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui/components';"
+            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -3846,7 +3846,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui/components';"
+            "code": "import {\r\n  FrCombobox,\r\n  FrComboboxClear,\r\n  FrComboboxCollection,\r\n  FrComboboxContent,\r\n  FrComboboxEmpty,\r\n  FrComboboxGroup,\r\n  FrComboboxInput,\r\n  FrComboboxItem,\r\n  FrComboboxItemIndicator,\r\n  FrComboboxLabel,\r\n  FrComboboxList,\r\n  FrComboboxPanel,\r\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -4018,7 +4018,7 @@
     "status": "Stable",
     "summary": "Right-click and long-press menus with actions, groups, submenus, shortcuts, checkbox and radio items.",
     "publicExport": "./lib/context-menu/context-menu",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrContextMenu",
       "FrContextMenuCheckboxItem",
@@ -4279,7 +4279,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -4348,7 +4348,7 @@
     "status": "Stable",
     "summary": "Calendar-backed date and range picker with presets, editable input, time selection, RTL, and reactive forms support.",
     "publicExport": "./lib/date-picker/date-picker",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrDatePicker"
     ],
@@ -4507,7 +4507,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -4574,7 +4574,7 @@
     "status": "Stable",
     "summary": "Menus with hover and click triggers, submenus, and keyboard support.",
     "publicExport": "./lib/dropdown-menu/dropdown-menu",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrDropdownMenu",
       "FrDropdownMenuCheckboxItem",
@@ -4841,7 +4841,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -4856,7 +4856,7 @@
           },
           {
             "language": "ts",
-            "code": "import { NgIcon, provideIcons } from '@ng-icons/core';\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuLabel,\n  FrDropdownMenuPanel,\n  FrDropdownMenuSeparator,\n  FrDropdownMenuShortcut,\n  FrDropdownMenuSub,\n  FrDropdownMenuSubTrigger,\n  FrDropdownMenuTrigger,\n  FrDropdownMenuCheckboxItem,\n} from '@frame-ui/components';"
+            "code": "import { NgIcon, provideIcons } from '@ng-icons/core';\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuLabel,\n  FrDropdownMenuPanel,\n  FrDropdownMenuSeparator,\n  FrDropdownMenuShortcut,\n  FrDropdownMenuSub,\n  FrDropdownMenuSubTrigger,\n  FrDropdownMenuTrigger,\n  FrDropdownMenuCheckboxItem,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -4866,7 +4866,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { NgIcon, provideIcons } from '@ng-icons/core';\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuLabel,\n  FrDropdownMenuPanel,\n  FrDropdownMenuSeparator,\n  FrDropdownMenuShortcut,\n  FrDropdownMenuSub,\n  FrDropdownMenuSubTrigger,\n  FrDropdownMenuTrigger,\n  FrDropdownMenuCheckboxItem,\n} from '@frame-ui/components';"
+            "code": "import { NgIcon, provideIcons } from '@ng-icons/core';\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuLabel,\n  FrDropdownMenuPanel,\n  FrDropdownMenuSeparator,\n  FrDropdownMenuShortcut,\n  FrDropdownMenuSub,\n  FrDropdownMenuSubTrigger,\n  FrDropdownMenuTrigger,\n  FrDropdownMenuCheckboxItem,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -4884,7 +4884,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -4894,7 +4894,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuItemIndicator,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -5034,7 +5034,7 @@
     "status": "Stable",
     "summary": "Composable empty states with media, title, description, actions, inputs, avatars, and RTL support.",
     "publicExport": "./lib/empty/empty",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrEmpty",
       "FrEmptyContent",
@@ -5115,7 +5115,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -5168,7 +5168,7 @@
     "status": "Stable",
     "summary": "Delayed hover previews for links and actions with configurable timing, positioning, styling, and RTL support.",
     "publicExport": "./lib/hover-card/hover-card",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrHoverCardContent",
       "FrHoverCardPanel",
@@ -5263,7 +5263,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -5315,7 +5315,7 @@
     "status": "Stable",
     "summary": "Layout composition primitives for labels, descriptions, and errors.",
     "publicExport": "./lib/field/field",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrField",
       "FrFieldContent",
@@ -5442,7 +5442,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -5457,7 +5457,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldGroup,\n  FrInput,\n  FrFieldLabel,\n  FrFieldLegend,\n  FrFieldSeparator,\n  FrFieldSet,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldGroup,\n  FrInput,\n  FrFieldLabel,\n  FrFieldLegend,\n  FrFieldSeparator,\n  FrFieldSet,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -5467,11 +5467,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldGroup,\n  FrInput,\n  FrFieldLabel,\n  FrFieldLegend,\n  FrFieldSeparator,\n  FrFieldSet,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldGroup,\n  FrInput,\n  FrFieldLabel,\n  FrFieldLegend,\n  FrFieldSeparator,\n  FrFieldSet,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrInput,\n  FrFieldLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrInput,\n  FrFieldLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -5481,7 +5481,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrInput,\n  FrFieldLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrInput,\n  FrFieldLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -5579,7 +5579,7 @@
     "status": "Stable",
     "summary": "Native text input primitives with labeling and feedback patterns.",
     "publicExport": "./lib/input/input",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrInput",
       "FrInputBadge",
@@ -5735,7 +5735,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -5750,7 +5750,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrInput,\n  FrInputBadge,\n  FrInputControl,\n  FrInputDescription,\n  FrInputError,\n  FrInputField,\n  FrInputFieldGroup,\n  FrInputGroup,\n  FrInputGroupAddon,\n  FrInputGroupInput,\n  FrInputGroupText,\n  FrInputHeader,\n  FrInputLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrInput,\n  FrInputBadge,\n  FrInputControl,\n  FrInputDescription,\n  FrInputError,\n  FrInputField,\n  FrInputFieldGroup,\n  FrInputGroup,\n  FrInputGroupAddon,\n  FrInputGroupInput,\n  FrInputGroupText,\n  FrInputHeader,\n  FrInputLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -5760,7 +5760,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrInput,\n  FrInputBadge,\n  FrInputControl,\n  FrInputDescription,\n  FrInputError,\n  FrInputField,\n  FrInputFieldGroup,\n  FrInputGroup,\n  FrInputGroupAddon,\n  FrInputGroupInput,\n  FrInputGroupText,\n  FrInputHeader,\n  FrInputLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrInput,\n  FrInputBadge,\n  FrInputControl,\n  FrInputDescription,\n  FrInputError,\n  FrInputField,\n  FrInputFieldGroup,\n  FrInputGroup,\n  FrInputGroupAddon,\n  FrInputGroupInput,\n  FrInputGroupText,\n  FrInputHeader,\n  FrInputLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -5930,7 +5930,7 @@
     "status": "Stable",
     "summary": "One-time password input with grouped slots, separators, paste support, patterns, and reactive forms compatibility.",
     "publicExport": "./lib/input-otp/input-otp",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrInputOtp",
       "FrInputOtpGroup",
@@ -6016,7 +6016,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -6088,7 +6088,7 @@
     "status": "Stable",
     "summary": "Composable row primitive with media, content, descriptions, actions, grouping, links, sizing, and RTL support.",
     "publicExport": "./lib/item/item",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrItem",
       "FrItemActions",
@@ -6217,7 +6217,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -6287,7 +6287,7 @@
     "status": "Stable",
     "summary": "Persistent application menu built on dropdown-menu primitives with groups, checkbox and radio items, submenus, shortcuts, icons, and RTL support.",
     "publicExport": "./lib/menubar/menubar",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrMenuBar",
       "FrMenuBarCheckboxItem",
@@ -6453,7 +6453,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -6547,7 +6547,7 @@
     "status": "Stable",
     "summary": "Website navigation primitive with dropdown-backed panels, rich links, indicators, viewport styling, direct links, and RTL support.",
     "publicExport": "./lib/navigation-menu/navigation-menu",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrNavigationLinkSeparator",
       "FrNavigationMenu",
@@ -6713,7 +6713,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -6824,7 +6824,7 @@
     "status": "Stable",
     "summary": "Page navigation primitives with previous, next, active links, ellipsis, disabled states, dropdown pairing, and RTL support.",
     "publicExport": "./lib/pagination/pagination",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrPagination",
       "FrPaginationContent",
@@ -6980,7 +6980,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -7009,7 +7009,7 @@
           },
           {
             "language": "css",
-            "code": "${importsCode}\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui/components';"
+            "code": "${importsCode}\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -7019,7 +7019,7 @@
         "code": [
           {
             "language": "css",
-            "code": "${importsCode}\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui/components';"
+            "code": "${importsCode}\nimport {\n  FrDropdownMenu,\n  FrDropdownMenuContent,\n  FrDropdownMenuItem,\n  FrDropdownMenuPanel,\n  FrDropdownMenuTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       }
@@ -7061,7 +7061,7 @@
     "status": "Stable",
     "summary": "Anchored overlay content with trigger, close controls, alignment, controlled state, forms, custom styling, and RTL support.",
     "publicExport": "./lib/popover/popover",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrPopoverBody",
       "FrPopoverClose",
@@ -7203,7 +7203,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -7274,7 +7274,7 @@
     "status": "Stable",
     "summary": "Accessible progress indicators with determinate, indeterminate, labeled, controlled, custom styling, and RTL patterns.",
     "publicExport": "./lib/progress/progress",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrProgress",
       "FrProgressIndicator"
@@ -7313,7 +7313,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -7328,7 +7328,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrProgress, FrProgressIndicator } from '@frame-ui/components';"
+            "code": "import { FrProgress, FrProgressIndicator } from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -7338,7 +7338,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrProgress, FrProgressIndicator } from '@frame-ui/components';"
+            "code": "import { FrProgress, FrProgressIndicator } from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -7406,7 +7406,7 @@
     "status": "Stable",
     "summary": "Dialog primitives powered by Angular CDK with trigger, close, layout, and programmatic opening support.",
     "publicExport": "./lib/modal/modal",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrModalBody",
       "FrModalClose",
@@ -7629,7 +7629,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -7644,7 +7644,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrModalBody,\n  FrModalClose,\n  FrModalContent,\n  FrModalDescription,\n  FrModalFooter,\n  FrModalHeader,\n  FrModalPanel,\n  FrModalService,\n  FrModalTitle,\n  FrModalTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrModalBody,\n  FrModalClose,\n  FrModalContent,\n  FrModalDescription,\n  FrModalFooter,\n  FrModalHeader,\n  FrModalPanel,\n  FrModalService,\n  FrModalTitle,\n  FrModalTrigger,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -7654,7 +7654,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrModalBody,\n  FrModalClose,\n  FrModalContent,\n  FrModalDescription,\n  FrModalFooter,\n  FrModalHeader,\n  FrModalPanel,\n  FrModalService,\n  FrModalTitle,\n  FrModalTrigger,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrModalBody,\n  FrModalClose,\n  FrModalContent,\n  FrModalDescription,\n  FrModalFooter,\n  FrModalHeader,\n  FrModalPanel,\n  FrModalService,\n  FrModalTitle,\n  FrModalTrigger,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "html",
@@ -7822,7 +7822,7 @@
     "status": "Stable",
     "summary": "Button-triggered listbox selection built with composable primitives.",
     "publicExport": "./lib/select/select",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrSelect",
       "FrSelectContent",
@@ -7987,7 +7987,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -8002,7 +8002,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrSelect,\n  FrSelectContent,\n  FrSelectError,\n  FrSelectGroup,\n  FrSelectIcon,\n  FrSelectItem,\n  FrSelectItemIndicator,\n  FrSelectLabel,\n  FrSelectPanel,\n  FrSelectSeparator,\n  FrSelectValue,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrSelect,\n  FrSelectContent,\n  FrSelectError,\n  FrSelectGroup,\n  FrSelectIcon,\n  FrSelectItem,\n  FrSelectItemIndicator,\n  FrSelectLabel,\n  FrSelectPanel,\n  FrSelectSeparator,\n  FrSelectValue,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -8012,7 +8012,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrSelect,\n  FrSelectContent,\n  FrSelectError,\n  FrSelectGroup,\n  FrSelectIcon,\n  FrSelectItem,\n  FrSelectItemIndicator,\n  FrSelectLabel,\n  FrSelectPanel,\n  FrSelectSeparator,\n  FrSelectValue,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrSelect,\n  FrSelectContent,\n  FrSelectError,\n  FrSelectGroup,\n  FrSelectIcon,\n  FrSelectItem,\n  FrSelectItemIndicator,\n  FrSelectLabel,\n  FrSelectPanel,\n  FrSelectSeparator,\n  FrSelectValue,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -8147,7 +8147,7 @@
     "status": "Stable",
     "summary": "Native checkbox-based toggle control for boolean settings.",
     "publicExport": "./lib/switch/switch",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrSwitch",
       "FrSwitchContent",
@@ -8226,7 +8226,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -8241,7 +8241,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrSwitch,\n  FrSwitchContent,\n  FrSwitchDescription,\n  FrSwitchError,\n  FrSwitchField,\n  FrSwitchLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrSwitch,\n  FrSwitchContent,\n  FrSwitchDescription,\n  FrSwitchError,\n  FrSwitchField,\n  FrSwitchLabel,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -8251,7 +8251,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrSwitch,\n  FrSwitchContent,\n  FrSwitchDescription,\n  FrSwitchError,\n  FrSwitchField,\n  FrSwitchLabel,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrSwitch,\n  FrSwitchContent,\n  FrSwitchDescription,\n  FrSwitchError,\n  FrSwitchField,\n  FrSwitchLabel,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -8396,7 +8396,7 @@
     "status": "Stable",
     "summary": "Native multi-line text input with invalid, disabled, RTL, and Field composition support.",
     "publicExport": "./lib/textarea/textarea",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrTextarea"
     ],
@@ -8420,7 +8420,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive."
     ],
     "examples": [
@@ -8434,7 +8434,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldLabel,\n  FrTextarea,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldLabel,\n  FrTextarea,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -8444,7 +8444,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldLabel,\n  FrTextarea,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrField,\n  FrFieldContent,\n  FrFieldDescription,\n  FrFieldError,\n  FrFieldLabel,\n  FrTextarea,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",
@@ -8576,7 +8576,7 @@
     "status": "Preview",
     "summary": "Reusable fixed-row virtualization primitives for large data sets.",
     "publicExport": "./lib/virtual-scroll/virtual-scroll",
-    "importPath": "@frame-ui/components",
+    "importPath": "@frame-ui-ng/components",
     "imports": [
       "FrVirtualContent",
       "FrVirtualFor",
@@ -8679,7 +8679,7 @@
       }
     ],
     "usageGuidance": [
-      "Import used primitives from @frame-ui/components.",
+      "Import used primitives from @frame-ui-ng/components.",
       "Prefer the preferredSelector value for each primitive.",
       "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
     ],
@@ -8694,7 +8694,7 @@
           },
           {
             "language": "ts",
-            "code": "import {\n  FrVirtualContent,\n  FrVirtualFor,\n  FrVirtualItem,\n  FrVirtualItemMeta,\n  FrVirtualList,\n  FrVirtualPanel,\n  FrVirtualViewport,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrVirtualContent,\n  FrVirtualFor,\n  FrVirtualItem,\n  FrVirtualItemMeta,\n  FrVirtualList,\n  FrVirtualPanel,\n  FrVirtualViewport,\n} from '@frame-ui-ng/components';"
           }
         ]
       },
@@ -8704,7 +8704,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import {\n  FrVirtualContent,\n  FrVirtualFor,\n  FrVirtualItem,\n  FrVirtualItemMeta,\n  FrVirtualList,\n  FrVirtualPanel,\n  FrVirtualViewport,\n} from '@frame-ui/components';"
+            "code": "import {\n  FrVirtualContent,\n  FrVirtualFor,\n  FrVirtualItem,\n  FrVirtualItemMeta,\n  FrVirtualList,\n  FrVirtualPanel,\n  FrVirtualViewport,\n} from '@frame-ui-ng/components';"
           },
           {
             "language": "ts",

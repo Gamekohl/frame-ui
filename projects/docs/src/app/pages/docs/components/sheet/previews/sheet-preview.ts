@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrCheckboxModule } from '@frame-ui/components/checkbox';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrSheetModule, FrSheetService, FrSheetSide } from '@frame-ui/components/sheet';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrSheetModule, FrSheetService, FrSheetSide } from '@frame-ui-ng/components/sheet';
 
 export type SheetPreviewMode =
   | 'basic'

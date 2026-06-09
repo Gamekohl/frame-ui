@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown } from '@ng-icons/tabler-icons';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCalendarModule, FrCalendarDateRange } from '@frame-ui/components/calendar';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrSelectModule } from '@frame-ui/components/select';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCalendarModule, FrCalendarDateRange } from '@frame-ui-ng/components/calendar';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 
 export type CalendarPreviewMode =
   | 'basic'

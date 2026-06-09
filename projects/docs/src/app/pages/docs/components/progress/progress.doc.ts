@@ -1,12 +1,12 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsProgressPreviewComponent } from './previews/progress-preview';
 
-const importsCode = `import { FrProgressModule } from '@frame-ui/components/progress';`;
+const importsCode = `import { FrProgressModule } from '@frame-ui-ng/components/progress';`;
 const fieldImportsCode = `${importsCode}
-import { FrFieldModule } from '@frame-ui/components/field';`;
+import { FrFieldModule } from '@frame-ui-ng/components/field';`;
 const controlledImportsCode = `import { signal } from '@angular/core';
 ${importsCode}
-import { FrButtonModule } from '@frame-ui/components/button';`;
+import { FrButtonModule } from '@frame-ui-ng/components/button';`;
 
 const basicHtml = `<div frProgress aria-label="Sync progress" [value]="42">
   <div frProgressIndicator></div>

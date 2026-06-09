@@ -5,7 +5,7 @@ import {
   VirtualScrollPreviewConfig,
 } from './previews/virtual-scroll-preview';
 
-const importsCode = `import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';`;
+const importsCode = `import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';`;
 
 const itemsTs = `${importsCode}
 
@@ -313,7 +313,7 @@ ${customStylingConfig.style}
       code: [
         {
           language: 'ts',
-          code: `import { FrButtonModule } from '@frame-ui/components/button';
+          code: `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${itemsTs}`,
         },
         {
@@ -355,7 +355,7 @@ ${itemsTs}`,
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrSelectModule } from '@frame-ui/components/select';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 ${importsCode}
 
 surfaceControl = new FormControl<string | null>(null);
@@ -412,7 +412,7 @@ trackOption = (_index: number, option: { value: string }) => option.value;`,
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrComboboxModule } from '@frame-ui/components/combobox';
+import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
 ${importsCode}
 
 resultControl = new FormControl<string | null>(null);

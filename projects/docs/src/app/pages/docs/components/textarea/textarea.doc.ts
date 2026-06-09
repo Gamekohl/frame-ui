@@ -1,12 +1,12 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTextareaPreviewComponent, TextareaPreviewConfig } from './previews/textarea-preview';
 
-const importsCode = `import { FrFieldModule } from '@frame-ui/components/field';
-import { FrTextareaModule } from '@frame-ui/components/textarea';`;
+const importsCode = `import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrTextareaModule } from '@frame-ui-ng/components/textarea';`;
 const formImportsCode = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
 ${importsCode}`;
 const stylingImportsCode = `${importsCode}
-import { FrInputModule } from '@frame-ui/components/input';`;
+import { FrInputModule } from '@frame-ui-ng/components/input';`;
 
 const heroConfig: TextareaPreviewConfig = {
   items: [
@@ -146,8 +146,8 @@ export const TEXTAREA_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrTextareaModule } from '@frame-ui/components/textarea';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
 
 summaryControl = new FormControl(
   'Northwind now supports shared rollout planning and reusable release notes.',
@@ -369,8 +369,8 @@ notesControl = new FormControl(
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrTextareaModule } from '@frame-ui/components/textarea';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
 
 messageControl = new FormControl('The release is scheduled for Tuesday at 10:00 CET.', {
   nonNullable: true,

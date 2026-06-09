@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsModalPreviewComponent } from './previews/modal-preview';
 
-const importsCode = `import { FrModalModule, FrModalService } from '@frame-ui/components/modal';`;
-const triggerImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
+const importsCode = `import { FrModalModule, FrModalService } from '@frame-ui-ng/components/modal';`;
+const triggerImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}`;
 
 const customStylingConfig = {
@@ -265,7 +265,7 @@ ${customStylingConfig.style}
         {
           language: 'ts',
           code: `import { TemplateRef, inject, viewChild } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}
 
 private readonly modal = inject(FrModalService);

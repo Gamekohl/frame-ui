@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTooltipPreviewComponent } from './previews/tooltip-preview';
 
-const importsCode = `import { FrTooltipModule } from '@frame-ui/components/tooltip';`;
-const buttonImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
+const importsCode = `import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';`;
+const buttonImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}`;
 
 const usageHtml = `<frame-tooltip>

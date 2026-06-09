@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSeparatorPreviewComponent } from './previews/separator-preview';
 
-const importsCode = `import { FrSeparatorModule } from '@frame-ui/components/separator';`;
+const importsCode = `import { FrSeparatorModule } from '@frame-ui-ng/components/separator';`;
 
 const basicHtml = `<section aria-labelledby="release-notes-title">
   <div>

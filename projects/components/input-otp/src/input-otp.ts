@@ -15,8 +15,8 @@ import {
   signal,
 } from '@angular/core';
 
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
-import { FrInput } from '@frame-ui/components/input';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
+import { FrInput } from '@frame-ui-ng/components/input';
 
 export const FR_INPUT_OTP_PATTERN_DIGITS = /^[0-9]$/;
 export const FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS = /^[a-zA-Z0-9]$/;

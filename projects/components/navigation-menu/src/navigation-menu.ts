@@ -7,9 +7,9 @@ import {
   FrDropdownMenuPanel,
   FrDropdownMenuTree,
   FrDropdownMenuTrigger,
-} from '@frame-ui/components/dropdown-menu';
-import { FrDropdownMenuParent } from '@frame-ui/components/dropdown-menu';
-import { FrDropdownMenuTriggerMode } from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
+import { FrDropdownMenuParent } from '@frame-ui-ng/components/dropdown-menu';
+import { FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu';
 
 export const FR_NAVIGATION_MENU_PARENT = new InjectionToken<FrNavigationMenu>(
   'FrNavigationMenuParent',

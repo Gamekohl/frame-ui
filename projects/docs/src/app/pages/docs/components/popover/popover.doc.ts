@@ -1,9 +1,9 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsPopoverPreviewComponent } from './previews/popover-preview';
 
-const importsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrPopoverModule } from '@frame-ui/components/popover';`;
+const importsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrPopoverModule } from '@frame-ui-ng/components/popover';`;
 
 const basicHtml = `<frame-popover>
   <button frButton appearance="outline" [frPopoverTrigger]="panel" type="button">

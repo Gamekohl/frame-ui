@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCommandModule, FrCommandService } from '@frame-ui/components/command';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCommandModule, FrCommandService } from '@frame-ui-ng/components/command';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCalendar,

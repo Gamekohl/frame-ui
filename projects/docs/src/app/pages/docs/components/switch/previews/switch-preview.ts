@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrSwitchModule, FrSwitchSize } from '@frame-ui/components/switch';
+import { FrSwitchModule, FrSwitchSize } from '@frame-ui-ng/components/switch';
 import { merge } from 'rxjs';
 
 export type SwitchPreviewItem = {

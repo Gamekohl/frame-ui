@@ -4,7 +4,7 @@ import {
   FrDropdownMenuItem,
   FrDropdownMenuLabel,
   FrDropdownMenuSeparator,
-} from '@frame-ui/components/dropdown-menu';
+} from '@frame-ui-ng/components/dropdown-menu';
 import { FrSelectContent } from './select.content';
 import { FrSelectItemIndicator } from './select.value';
 

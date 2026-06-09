@@ -16,7 +16,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { FrButton } from '@frame-ui/components';
+import { FrButton } from '@frame-ui-ng/components';
 
 import { DocsTokenInspectorTarget } from '../../models/component-doc.model';
 import { CodeHighlightService } from '../../services/code-highlight.service';

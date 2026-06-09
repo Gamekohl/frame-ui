@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrComboboxModule } from '@frame-ui/components/combobox';
+import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerCheck, tablerChevronDown, tablerX } from '@ng-icons/tabler-icons';
 

@@ -10,7 +10,7 @@ import {
   signal,
 } from '@angular/core';
 
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 
 export const FR_TOGGLE_VARIANTS = ['default', 'outline'] as const;
 export const FR_TOGGLE_SIZES = ['sm', 'default', 'lg'] as const;

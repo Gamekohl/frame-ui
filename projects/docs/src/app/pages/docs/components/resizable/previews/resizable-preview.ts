@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrResizableModule } from '@frame-ui/components/resizable';
+import { FrResizableModule } from '@frame-ui-ng/components/resizable';
 
 export type ResizablePreviewMode =
   | 'basic'

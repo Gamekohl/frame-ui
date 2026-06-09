@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, TemplateRef, computed, inject, input } from '@angular/core';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 
 import { FrToastService } from './toast.service';
 import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.types';

@@ -4,8 +4,8 @@ import {
   DocsButtonGroupPreviewComponent,
 } from './previews/button-group-preview';
 
-const buttonGroupImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrButtonGroupModule } from '@frame-ui/components/button-group';`;
+const buttonGroupImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';`;
 
 const heroConfig: ButtonGroupPreviewConfig = {
   className: 'w-full max-w-xl',
@@ -114,8 +114,8 @@ export const BUTTON_GROUP_DOC: ComponentDoc = {
             language: 'ts',
             code: `import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrButtonGroupModule } from '@frame-ui/components/button-group';`,
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';`,
           },
         },
         {

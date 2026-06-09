@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { FrContextMenuModule } from '@frame-ui/components/context-menu';
+import { FrContextMenuModule } from '@frame-ui-ng/components/context-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCheck,

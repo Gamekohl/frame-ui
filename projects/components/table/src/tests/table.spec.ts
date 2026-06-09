@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { FrTableModule } from '../../table.module';
-import { FrVirtualScrollModule } from '@frame-ui/components/virtual-scroll';
+import { FrVirtualScrollModule } from '@frame-ui-ng/components/virtual-scroll';
 
 type Invoice = {
   id: string;

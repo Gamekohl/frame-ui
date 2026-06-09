@@ -14,7 +14,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FrContextMenuContent } from './context-menu.content';
-import { defaultPositions } from '@frame-ui/components/dropdown-menu';
+import { defaultPositions } from '@frame-ui-ng/components/dropdown-menu';
 
 type ContextMenuCoordinates = {
   readonly x: number;

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrAlertModule, FrAlertVariant } from '@frame-ui/components/alert';
+import { FrAlertModule, FrAlertVariant } from '@frame-ui-ng/components/alert';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCheck,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrBadgeModule, FrBadgeIconPosition, FrBadgeVariant } from '@frame-ui/components/badge';
-import { FrSpinner } from '@frame-ui/components/spinner';
+import { FrBadgeModule, FrBadgeIconPosition, FrBadgeVariant } from '@frame-ui-ng/components/badge';
+import { FrSpinner } from '@frame-ui-ng/components/spinner';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,

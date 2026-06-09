@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FrBadge } from '@frame-ui/components';
+import { FrBadge } from '@frame-ui-ng/components';
 
 type McpBenefit = {
   readonly title: string;

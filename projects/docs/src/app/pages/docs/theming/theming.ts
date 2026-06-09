@@ -40,12 +40,11 @@ export class Theming {
   ];
 
   protected readonly installFoundationCode = `"styles": [
-    "node_modules/@frame-ui/styles/foundation.css",
-    "node_modules/@frame-ui/styles/components.css",
+    "node_modules/@frame-ui-ng/components/styles.css",
     ...
   ]`;
 
-  protected readonly managedAttributeCode = `import { provideFrameUI } from '@frame-ui/foundation';
+  protected readonly managedAttributeCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [
@@ -55,7 +54,7 @@ export const appConfig = {
   ],
 };`;
 
-  protected readonly managedClassCode = `import { provideFrameUI } from '@frame-ui/foundation';
+  protected readonly managedClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [
@@ -66,7 +65,7 @@ export const appConfig = {
   ],
 };`;
 
-  protected readonly observedClassCode = `import { provideFrameUI } from '@frame-ui/foundation';
+  protected readonly observedClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [

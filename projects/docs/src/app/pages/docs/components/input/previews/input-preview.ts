@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerLink,

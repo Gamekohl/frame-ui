@@ -1,7 +1,7 @@
 import { CdkMenuGroup, CdkMenuItem, CdkMenuItemCheckbox, CdkMenuItemRadio } from '@angular/cdk/menu';
 import { Directive, booleanAttribute, effect, inject, input } from '@angular/core';
 
-import { FrDropdownMenuItemVariant } from '@frame-ui/components/dropdown-menu';
+import { FrDropdownMenuItemVariant } from '@frame-ui-ng/components/dropdown-menu';
 
 @Directive({
   selector: '[frContextMenuItem]',

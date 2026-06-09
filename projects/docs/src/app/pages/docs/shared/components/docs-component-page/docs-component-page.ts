@@ -12,7 +12,7 @@ import {
   FrBreadcrumbList,
   FrBreadcrumbPage,
   FrBreadcrumbSeparator,
-} from '@frame-ui/components';
+} from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerAlertTriangle } from '@ng-icons/tabler-icons';
 import { ComponentCatalogEntry } from '../../models/component-catalog-entry.model';

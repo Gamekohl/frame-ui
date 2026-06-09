@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsPaginationPreviewComponent } from './previews/pagination-preview';
 
-const importsCode = `import { FrPaginationModule } from '@frame-ui/components/pagination';`;
+const importsCode = `import { FrPaginationModule } from '@frame-ui-ng/components/pagination';`;
 
 const basicHtml = `<p>Showing page {{ currentPage() }} of {{ totalPages }}</p>
 
@@ -348,8 +348,8 @@ export const PAGINATION_DOC: ComponentDoc = {
         {
           language: 'ts',
           code: `${importsCode}
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrDropdownMenuModule } from '@frame-ui/components/dropdown-menu';`,
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';`,
         },
         { language: 'html', code: dropdownHtml },
       ],

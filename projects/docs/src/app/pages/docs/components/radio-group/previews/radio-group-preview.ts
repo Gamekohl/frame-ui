@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrRadioGroupModule } from '@frame-ui/components/radio-group';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrRadioGroupModule } from '@frame-ui-ng/components/radio-group';
 
 export type RadioGroupPreviewMode =
   | 'basic'

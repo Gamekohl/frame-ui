@@ -1,15 +1,15 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSheetPreviewComponent } from './previews/sheet-preview';
 
-const importsCode = `import { FrSheetModule } from '@frame-ui/components/sheet';`;
-const basicImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrInputModule } from '@frame-ui/components/input';
+const importsCode = `import { FrSheetModule } from '@frame-ui-ng/components/sheet';`;
+const basicImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 ${importsCode}`;
-const actionImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
+const actionImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}`;
-const scrollableImportsCode = `import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrCheckboxModule } from '@frame-ui/components/checkbox';
+const scrollableImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 ${importsCode}`;
 
 const basicHtml = `<button frButton type="button" [frSheetTrigger]="sheet">
@@ -116,8 +116,8 @@ const scrollableHtml = `<ng-template #sheet="frSheetContent" frSheetContent aria
 </ng-template>`;
 
 const programmaticTs = `import { TemplateRef, inject, viewChild } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrSheetService } from '@frame-ui/components/sheet';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrSheetService } from '@frame-ui-ng/components/sheet';
 ${importsCode}
 
 private readonly sheet = inject(FrSheetService);

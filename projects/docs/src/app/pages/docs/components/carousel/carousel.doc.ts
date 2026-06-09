@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsCarouselPreviewComponent } from './previews/carousel-preview';
 
-const carouselImportsCode = `import { FrCarouselModule } from '@frame-ui/components/carousel';`;
+const carouselImportsCode = `import { FrCarouselModule } from '@frame-ui-ng/components/carousel';`;
 
 export const CAROUSEL_DOC: ComponentDoc = {
   slug: 'carousel',
@@ -277,7 +277,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
       code: [
         {
           language: 'ts',
-          code: `import { FrCarouselModule, FrCarouselOptions } from '@frame-ui/components/carousel';
+          code: `import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';
 
 readonly carouselOptions = {
   align: 'center',
@@ -305,7 +305,7 @@ readonly carouselOptions = {
         {
           language: 'ts',
           code: `import { signal } from '@angular/core';
-import { FrCarouselApi, FrCarouselModule } from '@frame-ui/components/carousel';
+import { FrCarouselApi, FrCarouselModule } from '@frame-ui-ng/components/carousel';
 
 readonly selected = signal(0);
 
@@ -339,7 +339,7 @@ handleApiReady(api: FrCarouselApi) {
       code: [
         {
           language: 'ts',
-          code: `import { FrCarouselModule, FrCarouselPlugin } from '@frame-ui/components/carousel';
+          code: `import { FrCarouselModule, FrCarouselPlugin } from '@frame-ui-ng/components/carousel';
 
 readonly autoplayPlugin: FrCarouselPlugin = (api) => {
   const timer = window.setInterval(() => api.scrollNext(), 2400);
@@ -366,7 +366,7 @@ readonly autoplayPlugin: FrCarouselPlugin = (api) => {
       code: [
         {
           language: 'ts',
-          code: `import { FrCarouselModule, FrCarouselOptions } from '@frame-ui/components/carousel';
+          code: `import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';
 
 readonly rtlOptions = {
   direction: 'rtl',

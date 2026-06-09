@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { FrButton, FrButtonLabel } from '@frame-ui/components/button';
-import { FrField, FrFieldDescription, FrFieldLabel } from '@frame-ui/components/field';
-import { FrInputDescription, FrInputField, FrInputLabel } from '@frame-ui/components/input';
+import { FrButton, FrButtonLabel } from '@frame-ui-ng/components/button';
+import { FrField, FrFieldDescription, FrFieldLabel } from '@frame-ui-ng/components/field';
+import { FrInputDescription, FrInputField, FrInputLabel } from '@frame-ui-ng/components/input';
 import { FrTextarea } from '../textarea';
 
 @Component({

@@ -11,9 +11,9 @@ import {
   signal,
 } from '@angular/core';
 
-import { FrDropdownMenu } from '@frame-ui/components/dropdown-menu';
-import { FrDropdownMenuTrigger } from '@frame-ui/components/dropdown-menu';
-import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui/components/forms';
+import { FrDropdownMenu } from '@frame-ui-ng/components/dropdown-menu';
+import { FrDropdownMenuTrigger } from '@frame-ui-ng/components/dropdown-menu';
+import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 import { FrSelectContent } from './select.content';
 
 export const FR_SELECT_INDICATOR_POSITIONS = ['start', 'end'] as const;

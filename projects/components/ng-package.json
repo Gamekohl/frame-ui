@@ -11,7 +11,8 @@
       "glob": "**/*.css",
       "input": ".",
       "output": "."
-    }
+    },
+    "LICENSE.md"
   ],
   "lib": {
     "entryFile": "public-api.ts"

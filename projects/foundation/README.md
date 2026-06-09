@@ -1,6 +1,8 @@
 # Foundation
 
-`@frame-ui/foundation` is the stable base layer for the FrameUI.
+`@frame-ui-ng/foundation` is the stable base layer for FrameUI.
+
+Documentation: https://frame-ui.com
 
 Current scope:
 
@@ -142,6 +144,5 @@ Use scoped overrides for local brand moments:
 ## Commands
 
 ```bash
-npm run build
-npm test
+npm install @frame-ui-ng/foundation
 ```

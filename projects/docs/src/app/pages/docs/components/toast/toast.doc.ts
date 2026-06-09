@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsToastPreviewComponent } from './previews/toast-preview';
 
-const importsCode = `import { FrToastModule, FrToastService } from '@frame-ui/components/toast';`;
+const importsCode = `import { FrToastModule, FrToastService } from '@frame-ui-ng/components/toast';`;
 
 const basicTs = `import { inject } from '@angular/core';
 ${importsCode}

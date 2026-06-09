@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrPopoverModule } from '@frame-ui/components/popover';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrPopoverModule } from '@frame-ui-ng/components/popover';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerCheck, tablerSettings, tablerX } from '@ng-icons/tabler-icons';
 

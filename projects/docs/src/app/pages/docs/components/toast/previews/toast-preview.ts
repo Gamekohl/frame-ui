@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
-import { FrButton, FrButtonLabel } from '@frame-ui/components/button';
-import { FrToastModule, FrToastPosition, FrToastService } from '@frame-ui/components/toast';
+import { FrButton, FrButtonLabel } from '@frame-ui-ng/components/button';
+import { FrToastModule, FrToastPosition, FrToastService } from '@frame-ui-ng/components/toast';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerX } from '@ng-icons/tabler-icons';
 

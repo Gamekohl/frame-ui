@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsSidebarPreviewComponent } from './previews/sidebar-preview';
 
-const importsCode = `import { FrSidebarModule } from '@frame-ui/components/sidebar';`;
+const importsCode = `import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';`;
 
 const basicHtml = `<div frSidebarProvider>
   <aside frSidebar>

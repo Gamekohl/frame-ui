@@ -1,10 +1,10 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsCardPreviewComponent } from './previews/card-preview';
 
-const cardImportsCode = `import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrInputModule } from '@frame-ui/components/input';`;
+const cardImportsCode = `import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrInputModule } from '@frame-ui-ng/components/input';`;
 
 export const CARD_DOC: ComponentDoc = {
   slug: 'card',

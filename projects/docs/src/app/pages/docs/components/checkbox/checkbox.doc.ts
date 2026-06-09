@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { CheckboxPreviewConfig, DocsCheckboxPreviewComponent } from './previews/checkbox-preview';
 
-const checkboxImportsCode = `import { FrCheckboxModule } from '@frame-ui/components/checkbox';`;
+const checkboxImportsCode = `import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';`;
 
 const heroConfig: CheckboxPreviewConfig = {
   items: [

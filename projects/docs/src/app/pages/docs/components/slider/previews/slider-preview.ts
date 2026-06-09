@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrField, FrFieldDescription, FrFieldError, FrFieldLabel } from '@frame-ui/components/field';
-import { FrSliderModule, FrSliderValue } from '@frame-ui/components/slider';
+import { FrField, FrFieldDescription, FrFieldError, FrFieldLabel } from '@frame-ui-ng/components/field';
+import { FrSliderModule, FrSliderValue } from '@frame-ui-ng/components/slider';
 
 export type SliderPreviewMode =
   | 'basic'

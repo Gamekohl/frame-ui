@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrBadgeModule } from '@frame-ui/components/badge';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule, FrCardSpacing } from '@frame-ui/components/card';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule, FrCardSpacing } from '@frame-ui-ng/components/card';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
 export type CardPreviewMode =
   | 'basic'

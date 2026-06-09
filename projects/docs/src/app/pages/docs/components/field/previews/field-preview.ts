@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrInputModule } from '@frame-ui/components/input';
-import { FrTextareaModule } from '@frame-ui/components/textarea';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerInfoCircle } from '@ng-icons/tabler-icons';
 import { merge } from 'rxjs';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui/components/button';
-import { FrTooltipModule } from '@frame-ui/components/tooltip';
+import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components/button';
+import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCopy,

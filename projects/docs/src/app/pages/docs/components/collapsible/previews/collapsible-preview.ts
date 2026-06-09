@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCardModule } from '@frame-ui/components/card';
-import { FrCollapsibleModule } from '@frame-ui/components/collapsible';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown, tablerChevronRight } from '@ng-icons/tabler-icons';
 

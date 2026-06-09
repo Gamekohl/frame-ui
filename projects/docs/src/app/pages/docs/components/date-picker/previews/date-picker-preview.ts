@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrCalendarModule, FrCalendarDateRange } from '@frame-ui/components/calendar';
-import { FrDatePickerModule, FrDatePickerPreset } from '@frame-ui/components/date-picker';
-import { FrFieldModule } from '@frame-ui/components/field';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCalendarModule, FrCalendarDateRange } from '@frame-ui-ng/components/calendar';
+import { FrDatePickerModule, FrDatePickerPreset } from '@frame-ui-ng/components/date-picker';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
 
 export type DatePickerPreviewMode =
   | 'basic'

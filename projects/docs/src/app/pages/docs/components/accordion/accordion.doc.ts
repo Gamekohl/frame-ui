@@ -4,7 +4,7 @@ import {
   DocsAccordionPreviewComponent,
 } from './previews/accordion-preview';
 
-const accordionImportsCode = `import { FrAccordionModule } from '@frame-ui/components/accordion';`;
+const accordionImportsCode = `import { FrAccordionModule } from '@frame-ui-ng/components/accordion';`;
 
 const heroConfig: AccordionPreviewConfig = {
   type: 'single',
@@ -185,7 +185,7 @@ export const ACCORDION_DOC: ComponentDoc = {
           title: 'Import the accordion primitives into your component.',
           code: {
             language: 'ts',
-            code: `import { FrAccordionModule } from '@frame-ui/components/accordion';`,
+            code: `import { FrAccordionModule } from '@frame-ui-ng/components/accordion';`,
           },
         },
         {

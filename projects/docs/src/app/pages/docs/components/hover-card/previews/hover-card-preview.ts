@@ -4,9 +4,9 @@ import { provideIcons } from '@ng-icons/core';
 import { tablerCalendar, tablerChevronRight, tablerUsers } from '@ng-icons/tabler-icons';
 import { NgIcon } from '@ng-icons/core';
 
-import { FrAvatarModule } from '@frame-ui/components/avatar';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrHoverCardModule } from '@frame-ui/components/hover-card';
+import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 
 export type HoverCardPreviewMode = 'basic' | 'custom-delay' | 'custom-styling' | 'inspector' | 'rtl' | 'sides';
 

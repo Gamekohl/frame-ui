@@ -1,11 +1,11 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsInputOtpPreviewComponent } from './previews/input-otp-preview';
 
-const importsCode = `import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS, FrInputOtpModule } from '@frame-ui/components/input-otp';`;
+const importsCode = `import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS, FrInputOtpModule } from '@frame-ui-ng/components/input-otp';`;
 
 const formImportsCode = `import { FormControl, Validators } from '@angular/forms';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrFieldModule } from '@frame-ui/components/field';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
 
 readonly code = new FormControl('', {
   validators: [Validators.required, Validators.minLength(6)],
@@ -86,7 +86,7 @@ const fourDigitsHtml = `<frame-input-otp [formControl]="pin" [maxLength]="4">
   </div>
 </frame-input-otp>`;
 
-const alphanumericTs = `import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS } from '@frame-ui/components/input-otp';
+const alphanumericTs = `import { FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS } from '@frame-ui-ng/components/input-otp';
 
 readonly inviteCode = new FormControl('');
 readonly pattern = FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS;`;

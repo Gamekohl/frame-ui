@@ -1,8 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsFieldPreviewComponent, FieldPreviewConfig } from './previews/field-preview';
 
-const importsCode = `import { FrFieldModule } from '@frame-ui/components/field';
-import { FrInputModule } from '@frame-ui/components/input';`;
+const importsCode = `import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrInputModule } from '@frame-ui-ng/components/input';`;
 
 const heroConfig: FieldPreviewConfig = {
   legend: 'Profile',
@@ -317,8 +317,8 @@ ${customStylingConfig.style}
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrFieldModule } from '@frame-ui/components/field';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
 summaryControl = new FormControl('Spring campaign launch', {
   validators: [Validators.required],

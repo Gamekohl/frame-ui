@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsInputPreviewComponent, InputPreviewConfig } from './previews/input-preview';
 
-const importsCode = `import { FrInputModule } from '@frame-ui/components/input';`;
+const importsCode = `import { FrInputModule } from '@frame-ui-ng/components/input';`;
 const formImportsCode = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
 ${importsCode}`;
 
@@ -183,7 +183,7 @@ export const INPUT_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
 emailControl = new FormControl('team@northwind.dev');`,
     },
@@ -330,7 +330,7 @@ emailControl = new FormControl('team@northwind.dev');`,
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
 ownerControl = new FormControl('julia@northwind.dev');`,
         },
@@ -417,7 +417,7 @@ emailControl = new FormControl('team@northwind.dev');`,
         {
           language: 'ts',
           code: `import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrInputModule } from '@frame-ui/components/input';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
 accountNameControl = new FormControl('Northwind', {
   validators: [Validators.required],

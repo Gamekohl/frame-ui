@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton } from '@frame-ui/components';
+import { FrButton } from '@frame-ui-ng/components';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';
 import { DocsTocComponent } from '../shared/components/docs-toc/docs-toc';
@@ -21,13 +21,12 @@ export class Installation {
     { id: 'what-next', title: 'What next' },
   ];
 
-  protected readonly installCode = `npm install @frame-ui/components @frame-ui/foundation`;
+  protected readonly installCode = `npm install @frame-ui-ng/components @frame-ui-ng/foundation`;
 
   protected readonly stylesCode = `/* styles.css */
-@import '@frame-ui/foundation/styles.css';
-@import '@frame-ui/components/styles.css';`;
+@import '@frame-ui-ng/components/styles.css';`;
 
-  readonly codeImportSnippet = `import { FrSidebarModule } from '@frame-ui/components/sidebar';`;
+  readonly codeImportSnippet = `import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';`;
 
-  readonly codePrimitiveImportSnippet = `import { FrSidebar, FrSidebarContent, FrSidebarHeader } from '@frame-ui/components/sidebar';`;
+  readonly codePrimitiveImportSnippet = `import { FrSidebar, FrSidebarContent, FrSidebarHeader } from '@frame-ui-ng/components/sidebar';`;
 }

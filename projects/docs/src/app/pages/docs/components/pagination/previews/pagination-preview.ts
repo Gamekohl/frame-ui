@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButtonModule } from '@frame-ui/components/button';
-import { FrDropdownMenuModule } from '@frame-ui/components/dropdown-menu';
-import { FrPaginationModule } from '@frame-ui/components/pagination';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronLeft, tablerChevronRight } from '@ng-icons/tabler-icons';
 

@@ -1,7 +1,7 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsMenubarPreviewComponent } from './previews/menubar-preview';
 
-const importsCode = `import { FrMenubarModule } from '@frame-ui/components/menubar';`;
+const importsCode = `import { FrMenubarModule } from '@frame-ui-ng/components/menubar';`;
 const signalImportsCode = `import { signal } from '@angular/core';
 ${importsCode}`;
 
