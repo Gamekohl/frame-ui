@@ -1,9 +1,12 @@
 {
   "name": "@frame-ui/components",
-  "version": "0.0.1",
+  "version": "0.1.0-beta.0",
+  "description": "Angular components for FrameUI.",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@frame-ui/foundation": "0.1.0-beta.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
