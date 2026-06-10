@@ -469,7 +469,7 @@ body {
     animation: none;
   }
 
-  .slide-out-enter {
+  .slide-out-leave {
     animation: none;
   }
 }

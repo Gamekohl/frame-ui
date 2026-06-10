@@ -104,7 +104,6 @@
   frame-virtual-list,
   frame-input-otp,
   .frame-combobox__panel,
-  .frame-command__dialog,
   .frame-date-picker__content,
   .frame-dropdown-menu__content,
   .frame-hover-card__content,
@@ -173,8 +172,7 @@
 }
 
 :where(
-  [frCommand],
-  .frame-command__dialog
+  [frCommand]
 ) {
   --frame-blueprint-radius: var(--frame-command-radius);
 }
@@ -350,7 +348,6 @@
   frame-virtual-list,
   frame-input-otp,
   .frame-combobox__panel,
-  .frame-command__dialog,
   .frame-date-picker__content,
   .frame-dropdown-menu__content,
   .frame-hover-card__content,
@@ -445,7 +442,6 @@
 
 :where(
   .frame-combobox__panel,
-  .frame-command__dialog,
   .frame-date-picker__content,
   .frame-dropdown-menu__content,
   .frame-hover-card__content,
@@ -519,7 +515,7 @@
 }
 
 [frRadioGroupItem]::before {
-  border-radius: 0;
+  border-radius: 999px;
 }
 
 .frame-input-otp__separator::before {
@@ -529,7 +525,6 @@
 :where(
   [frCardHeader],
   [frCardFooter],
-  .frame-command__input-wrapper,
   .frame-date-picker__presets,
   .frame-date-picker__time,
   .frame-dropdown-menu__separator,

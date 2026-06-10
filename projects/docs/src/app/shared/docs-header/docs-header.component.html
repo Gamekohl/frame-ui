@@ -81,66 +81,70 @@
 </header>
 
 <ng-template #searchDialog="frCommandDialog" frCommandDialog aria-label="Search documentation">
-  <section frCommand closeOnSelect (itemSelected)="navigateTo($event)" aria-label="Search documentation">
-    <input frCommandInput placeholder="Search pages and components..." />
+  @defer (on idle) {
+    <section frCommand closeOnSelect (itemSelected)="navigateTo($event)" aria-label="Search documentation">
+      <input frCommandInput placeholder="Search pages and components..." />
 
-    <div frCommandList>
-      <p frCommandEmpty>No matching page or component found.</p>
+      <div frCommandList>
+        <p frCommandEmpty>No matching page or component found.</p>
 
-      <div frCommandGroup heading="Pages">
-        <p frCommandGroupHeading>Pages</p>
+        <div frCommandGroup heading="Pages">
+          <p frCommandGroupHeading>Pages</p>
 
-        @for (page of pages; track page.path) {
-          <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
-            <ng-icon name="tablerFileText" size="17" frCommandItemIcon />
-            <span>{{ page.title }}</span>
-            <span frCommandShortcut>{{ page.section }}</span>
-          </button>
-        }
+          @for (page of pages; track page.path) {
+            <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
+              <ng-icon name="tablerFileText" size="17" frCommandItemIcon />
+              <span>{{ page.title }}</span>
+              <span frCommandShortcut>{{ page.section }}</span>
+            </button>
+          }
+        </div>
+
+        <div frCommandSeparator></div>
+
+        <div frCommandGroup heading="Tools">
+          <p frCommandGroupHeading>Tools</p>
+
+          @for (page of tools; track page.path) {
+            <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
+              <ng-icon name="tablerTools" size="17" frCommandItemIcon />
+              <span>{{ page.title }}</span>
+              <span frCommandShortcut>{{ page.section }}</span>
+            </button>
+          }
+        </div>
+
+        <div frCommandSeparator></div>
+
+        <div frCommandGroup heading="Components">
+          <p frCommandGroupHeading>Components</p>
+
+          @for (component of components(); track component.slug) {
+            <button
+              frCommandItem
+              [value]="'/docs/components/' + component.slug"
+              [label]="component.name"
+              [keywords]="componentKeywords(component)"
+            >
+              <ng-icon name="tablerComponents" size="17" frCommandItemIcon />
+              <span>{{ component.name }}</span>
+              <span frCommandShortcut>{{ component.category }}</span>
+            </button>
+          }
+        </div>
       </div>
 
-      <div frCommandSeparator></div>
+      <div frCommandFooter>
 
-      <div frCommandGroup heading="Tools">
-        <p frCommandGroupHeading>Tools</p>
+        <span><kbd>↑↓</kbd> to navigate</span>
 
-        @for (page of tools; track page.path) {
-          <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
-            <ng-icon name="tablerTools" size="17" frCommandItemIcon />
-            <span>{{ page.title }}</span>
-            <span frCommandShortcut>{{ page.section }}</span>
-          </button>
-        }
+        <span><kbd>↵</kbd> to select</span>
+
+        <span><kbd>esc</kbd> to close</span>
+
       </div>
-
-      <div frCommandSeparator></div>
-
-      <div frCommandGroup heading="Components">
-        <p frCommandGroupHeading>Components</p>
-
-        @for (component of components(); track component.slug) {
-          <button
-            frCommandItem
-            [value]="'/docs/components/' + component.slug"
-            [label]="component.name"
-            [keywords]="componentKeywords(component)"
-          >
-            <ng-icon name="tablerComponents" size="17" frCommandItemIcon />
-            <span>{{ component.name }}</span>
-            <span frCommandShortcut>{{ component.category }}</span>
-          </button>
-        }
-      </div>
-    </div>
-
-    <div frCommandFooter>
-
-      <span><kbd>↑↓</kbd> to navigate</span>
-
-      <span><kbd>↵</kbd> to select</span>
-
-      <span><kbd>esc</kbd> to close</span>
-
-    </div>
-  </section>
+    </section>
+  } @placeholder {
+    <div></div>
+  }
 </ng-template>

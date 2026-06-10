@@ -36,10 +36,19 @@
     "./styles.css": {
       "style": "./styles.css",
       "default": "./styles.css"
+    },
+    "./styles/components.css": {
+      "style": "./styles/components.css",
+      "default": "./styles/components.css"
+    },
+    "./styles/blueprint.css": {
+      "style": "./styles/blueprint.css",
+      "default": "./styles/blueprint.css"
     }
   },
   "sideEffects": [
     "./styles.css",
-    "./styles/components.css"
+    "./styles/components.css",
+    "./styles/blueprint.css"
   ]
 }
