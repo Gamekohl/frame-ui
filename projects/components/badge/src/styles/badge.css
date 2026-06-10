@@ -51,6 +51,13 @@ frame-badge[data-variant='secondary'] {
   color: var(--frame-foreground);
 }
 
+[frBadge][data-variant='success'],
+frame-badge[data-variant='success'] {
+  border-color: var(--frame-badge-success-border);
+  background: var(--frame-badge-success-bg);
+  color: var(--frame-badge-success-color);
+}
+
 [frBadge][data-variant='destructive'],
 frame-badge[data-variant='destructive'] {
   background: var(--frame-destructive);

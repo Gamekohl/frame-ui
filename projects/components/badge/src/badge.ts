@@ -4,6 +4,7 @@ import { FrSpinner } from '@frame-ui-ng/components/spinner';
 export const FR_BADGE_VARIANTS = [
   'default',
   'secondary',
+  'success',
   'destructive',
   'outline',
   'ghost',

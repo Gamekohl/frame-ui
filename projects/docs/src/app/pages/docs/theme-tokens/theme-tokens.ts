@@ -17,8 +17,8 @@ export class ThemeTokens {
     { id: 'what-this-page-is', title: 'What this page is' },
     { id: 'shared-tokens', title: 'Shared tokens' },
     { id: 'component-tokens', title: 'Component tokens' },
-    { id: 'where-to-look', title: 'Where to look' },
     { id: 'override-scope', title: 'Override scope' },
+    { id: 'where-to-look', title: 'Where to look' },
   ];
 
   protected readonly sharedTokensCode = `@theme {

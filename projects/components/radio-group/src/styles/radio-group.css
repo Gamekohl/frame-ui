@@ -35,7 +35,7 @@ frame-radio-group[data-variant='cards'] {
   block-size: var(--frame-radio-group-item-size);
   margin: 0;
   border: 1px solid var(--frame-radio-group-item-border);
-  border-radius: 0;
+  border-radius: 999px;
   background: var(--frame-radio-group-item-bg);
   color: var(--frame-radio-group-item-color);
   cursor: pointer;
@@ -53,8 +53,10 @@ frame-radio-group[data-variant='cards'] {
   content: '';
   inline-size: var(--frame-radio-group-item-dot-size);
   block-size: var(--frame-radio-group-item-dot-size);
-  border-radius: 0;
+  aspect-ratio: 1;
+  border-radius: 999px;
   background: currentColor;
+  clip-path: circle(50%);
   transform: scale(0);
   transition: transform 120ms ease;
 }
