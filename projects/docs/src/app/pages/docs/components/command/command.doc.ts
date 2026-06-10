@@ -30,6 +30,11 @@ const inlineCommandHtml = `<section frCommand class="command-demo">
       </button>
     </div>
   </div>
+  <div frCommandFooter>
+    <span><kbd>↑↓</kbd> to navigate</span>
+    <span><kbd>↵</kbd> to select</span>
+    <span><kbd>esc</kbd> to close</span>
+  </div>
 </section>`;
 
 const dialogCommandHtml = `<button frButton [frCommandDialogTrigger]="commandDialog" type="button">
@@ -186,13 +191,14 @@ export const COMMAND_DOC: ComponentDoc = {
     |   +-- FrCommandItem
     |   +-- FrCommandShortcut
     +-- FrCommandSeparator
-    +-- FrCommandGroup`,
+    +-- FrCommandGroup
++-- FrCommandFooter`,
 
   tokenInspector: {
     id: 'token-inspector',
     title: 'Token inspector',
     description:
-      'Inspect the command shell, input, list, group, item, separator, and shortcut tokens.',
+      'Inspect the command shell, input, list, group, item, footer, and shortcut tokens.',
     preview: {
       component: DocsCommandPreviewComponent,
       inputs: {
@@ -272,6 +278,24 @@ export const COMMAND_DOC: ComponentDoc = {
           description: 'Shortcut tokens style display-only keyboard hints.',
           tokens: ['--frame-command-shortcut-color', '--frame-command-shortcut-font-size'],
         },
+        {
+          id: 'footer',
+          label: 'Footer',
+          selector: '[data-token-target="command-footer"]',
+          description: 'Footer tokens style persistent navigation or close hints below the list.',
+          tokens: [
+            '--frame-command-footer-border',
+            '--frame-command-footer-color',
+            '--frame-command-footer-font-size',
+            '--frame-command-footer-gap',
+            '--frame-command-footer-padding',
+            '--frame-command-footer-margin',
+            '--frame-command-footer-key-bg',
+            '--frame-command-footer-key-border',
+            '--frame-command-footer-key-color',
+            '--frame-command-footer-key-font-size',
+          ],
+        },
       ],
     },
   },
@@ -306,6 +330,11 @@ export const COMMAND_DOC: ComponentDoc = {
       <button frCommandItem value="calendar" label="Calendar">Calendar</button>
       <button frCommandItem value="emoji" label="Search Emoji">Search Emoji</button>
     </div>
+  </div>
+  <div frCommandFooter>
+    <span><kbd>↑↓</kbd> to navigate</span>
+    <span><kbd>↵</kbd> to select</span>
+    <span><kbd>esc</kbd> to close</span>
   </div>
 </section>`,
         },

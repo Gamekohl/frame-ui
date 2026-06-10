@@ -15,7 +15,6 @@ import {
   tablerArrowRight,
   tablerInfoCircle,
 } from '@ng-icons/tabler-icons';
-import { Showcase } from './showcase/showcase';
 
 @Component({
   host: {
@@ -32,7 +31,6 @@ import { Showcase } from './showcase/showcase';
     FrButtonLabel,
     NgIcon,
     RouterLink,
-    Showcase,
   ],
   templateUrl: './introduction.html',
   styleUrl: './introduction.css',

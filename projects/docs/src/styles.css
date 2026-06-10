@@ -48,8 +48,8 @@ html {
   --frame-frame-accent: #d71920;
   --frame-frame-tick-size: 0.375rem;
 
-  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 10%, transparent);
-  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 16%, transparent);
+  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 6%, transparent);
+  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 10%, transparent);
   --docs-blueprint-red: #d71920;
   --docs-blueprint-ink: #111827;
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
@@ -82,8 +82,8 @@ html.dark {
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
   --frame-frame-accent: #ff4a4f;
-  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 14%, transparent);
-  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 18%, transparent);
+  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 8%, transparent);
+  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 12%, transparent);
   --docs-blueprint-red: #ff4a4f;
   --docs-blueprint-ink: var(--frame-foreground);
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 96%, transparent);
@@ -139,8 +139,8 @@ body {
 
 .docs-blueprint-sheet[data-grid='true'] {
   background:
-    linear-gradient(color-mix(in srgb, var(--docs-blueprint-grid) 34%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--docs-blueprint-grid) 34%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
     var(--docs-blueprint-sheet);
   background-size: 32px 32px;
   background-size: 32px 32px, 32px 32px, auto;

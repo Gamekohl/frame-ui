@@ -7,9 +7,11 @@ import {
   tablerCalendar,
   tablerCalculator,
   tablerCreditCard,
+  tablerFile,
   tablerMoodSearch,
   tablerSearch,
   tablerSettings,
+  tablerTerminal2,
   tablerUser,
 } from '@ng-icons/tabler-icons';
 
@@ -33,9 +35,11 @@ const commandIcons = {
   tablerCalendar,
   tablerCalculator,
   tablerCreditCard,
+  tablerFile,
   tablerMoodSearch,
   tablerSearch,
   tablerSettings,
+  tablerTerminal2,
   tablerUser,
 };
 
@@ -82,7 +86,7 @@ export class DocsProgrammaticCommandBodyComponent {}
   viewProviders: [provideIcons(commandIcons)],
   template: `
     <div
-      [class]="config().className ?? 'w-full flex justify-center py-2'"
+      [class]="config().className ?? 'min-w-screen flex justify-center py-2'"
       [style]="config().style ?? null"
     >
       @switch (config().mode ?? 'inline') {
@@ -162,6 +166,11 @@ export class DocsProgrammaticCommandBodyComponent {}
                 </button>
               </div>
             </div>
+            <div frCommandFooter data-token-target="command-footer">
+              <span><kbd>↑↓</kbd> to navigate</span>
+              <span><kbd>↵</kbd> to select</span>
+              <span><kbd>esc</kbd> to close</span>
+            </div>
           </section>
         }
 
@@ -205,38 +214,44 @@ export class DocsProgrammaticCommandBodyComponent {}
 
         @default {
           <section frCommand class="docs-command">
-            <input frCommandInput placeholder="Type a command or search..." />
+            <div class="docs-command__input-wrap">
+              <ng-icon class="docs-command__search-icon" name="tablerSearch" size="17" />
+              <input frCommandInput placeholder="Type a command or search..." />
+              <span class="docs-command__keys">
+                <span frCommandShortcut>⌘</span>
+                <span frCommandShortcut>K</span>
+              </span>
+            </div>
             <div frCommandList>
               <p frCommandEmpty>No results found.</p>
               <div frCommandGroup heading="Suggestions">
-                <p frCommandGroupHeading>Suggestions</p>
-                <button frCommandItem value="calendar" label="Calendar">
-                  <ng-icon frCommandItemIcon name="tablerCalendar" size="16" />
-                  <span>Calendar</span>
+                <p frCommandGroupHeading>Suggested</p>
+                <button frCommandItem value="file" label="Go to File">
+                  <ng-icon frCommandItemIcon name="tablerFile" size="16" />
+                  <span>Go to File</span>
+                  <span frCommandShortcut>⌘ P</span>
                 </button>
-                <button frCommandItem value="emoji" label="Search Emoji">
-                  <ng-icon frCommandItemIcon name="tablerMoodSearch" size="16" />
-                  <span>Search Emoji</span>
+                <button frCommandItem value="symbol" label="Go to Symbol">
+                  <ng-icon frCommandItemIcon name="tablerSearch" size="16" />
+                  <span>Go to Symbol</span>
+                  <span frCommandShortcut>⌘ ⇧ O</span>
                 </button>
-                <button frCommandItem value="calculator" label="Calculator" keywords="math,numbers">
-                  <ng-icon frCommandItemIcon name="tablerCalculator" size="16" />
-                  <span>Calculator</span>
+                <button frCommandItem value="commands" label="Show All Commands">
+                  <ng-icon frCommandItemIcon name="tablerTerminal2" size="16" />
+                  <span>Show All Commands</span>
+                  <span frCommandShortcut>⌘ ⇧ P</span>
                 </button>
-              </div>
-              <div frCommandSeparator></div>
-              <div frCommandGroup heading="Settings">
-                <p frCommandGroupHeading>Settings</p>
-                <button frCommandItem value="profile" label="Profile">
-                  <ng-icon frCommandItemIcon name="tablerUser" size="16" />
-                  <span>Profile</span>
-                  <span frCommandShortcut>⌘P</span>
-                </button>
-                <button frCommandItem value="billing" label="Billing">
-                  <ng-icon frCommandItemIcon name="tablerCreditCard" size="16" />
-                  <span>Billing</span>
-                  <span frCommandShortcut>⌘B</span>
+                <button frCommandItem value="settings" label="Preferences: Open Settings">
+                  <ng-icon frCommandItemIcon name="tablerSettings" size="16" />
+                  <span>Preferences: Open Settings</span>
+                  <span frCommandShortcut>⌘ ,</span>
                 </button>
               </div>
+            </div>
+            <div frCommandFooter>
+              <span><kbd>↑↓</kbd> to navigate</span>
+              <span><kbd>↵</kbd> to select</span>
+              <span><kbd>esc</kbd> to close</span>
             </div>
           </section>
         }
@@ -328,8 +343,36 @@ export class DocsProgrammaticCommandBodyComponent {}
   `,
   styles: `
     .docs-command {
-      width: 28rem;
+      width: min(100%, 36rem);
     }
+
+    .docs-command__input-wrap {
+      position: relative;
+      display: grid;
+      align-items: center;
+    }
+
+    .docs-command__input-wrap [frCommandInput] {
+      padding-inline: 2.5rem 4.75rem;
+    }
+
+    .docs-command__search-icon {
+      position: absolute;
+      z-index: 1;
+      inset-inline-start: 0.875rem;
+      color: var(--frame-muted-foreground);
+      pointer-events: none;
+    }
+
+    .docs-command__keys {
+      position: absolute;
+      z-index: 1;
+      inset-inline-end: 0.5rem;
+      display: inline-flex;
+      gap: 0.25rem;
+      pointer-events: none;
+    }
+
   `,
 })
 export class DocsCommandPreviewComponent {

@@ -7,6 +7,7 @@ import {
   FrCommandDialog,
   FrCommandDialogTrigger,
   FrCommandEmpty,
+  FrCommandFooter,
   FrCommandGroup,
   FrCommandGroupHeading,
   FrCommandInput,
@@ -23,6 +24,7 @@ import {
     FrCommandInput,
     FrCommandList,
     FrCommandEmpty,
+    FrCommandFooter,
     FrCommandGroup,
     FrCommandGroupHeading,
     FrCommandItem,
@@ -54,6 +56,10 @@ import {
             Billing
           </button>
         </div>
+      </div>
+      <div frCommandFooter>
+        <span><kbd>↑↓</kbd> to navigate</span>
+        <span><kbd>↵</kbd> to select</span>
       </div>
     </section>
   `,

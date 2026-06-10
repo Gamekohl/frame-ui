@@ -12,7 +12,7 @@ frame-command {
   background: var(--frame-command-bg, var(--frame-surface));
   box-shadow: var(--frame-command-shadow, none);
   color: var(--frame-command-color, var(--frame-surface-foreground));
-  padding: 0.75rem;
+  padding: 0.5rem;
 }
 
 [frCommandInput] {
@@ -23,6 +23,7 @@ frame-command {
   background: transparent;
   color: var(--frame-command-input-color, var(--frame-foreground));
   font: inherit;
+  font-size: var(--frame-command-input-font-size, 0.875rem);
   outline: none;
   padding-inline: var(--frame-command-input-padding-inline, 0.875rem);
   transition:
@@ -32,7 +33,7 @@ frame-command {
 
 [frCommandInput]:focus-visible {
   border-color: var(--frame-frame-accent, var(--frame-ring));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-frame-accent, var(--frame-ring)) 24%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-frame-accent, var(--frame-ring)) 22%, transparent);
 }
 
 [frCommandInput]::placeholder {
@@ -51,8 +52,6 @@ frame-command {
   min-block-size: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  border-block-start: 1px solid var(--frame-frame-line-muted, var(--frame-border));
-  margin-block-start: 0.75rem;
   padding: var(--frame-command-list-padding, 0.625rem 0 0);
 }
 
@@ -78,10 +77,10 @@ frame-command {
   align-items: center;
   gap: 0.5rem;
   color: var(--frame-command-group-heading-color, var(--frame-muted-foreground));
-  font-family: var(--frame-font-mono, ui-monospace, SFMono-Regular, Consolas, monospace);
+  font-family: var(--frame-font-mono, ui-monospace, SFMono-Regular, Consolas, monospace), sans-serif;
   font-size: var(--frame-command-group-heading-font-size, 0.75rem);
   font-weight: var(--frame-command-group-heading-font-weight, 650);
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   padding: var(--frame-command-group-heading-padding, 0.5rem 0 0.375rem);
   text-transform: uppercase;
 }
@@ -124,7 +123,7 @@ frame-command {
   background: var(--frame-command-item-highlighted-bg, var(--frame-accent));
   border-color: var(--frame-frame-line-muted, var(--frame-border));
   color: var(--frame-command-item-highlighted-color, var(--frame-accent-foreground));
-  transform: translateX(0.25rem);
+  transform: translate(-1px, -1px);
   box-shadow: none;
 }
 
@@ -147,8 +146,9 @@ frame-command {
   border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
   background: var(--frame-muted);
   color: var(--frame-command-shortcut-color, var(--frame-muted-foreground));
+  font-family: var(--frame-font-mono, ui-monospace, SFMono-Regular, Consolas, monospace);
   font-size: var(--frame-command-shortcut-font-size, 0.75rem);
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   line-height: 1;
   padding: 0.1875rem 0.3125rem;
 }
@@ -157,6 +157,35 @@ frame-command {
   block-size: 1px;
   margin: var(--frame-command-separator-margin, 0.5rem 0);
   background: var(--frame-command-separator-bg, var(--frame-border));
+}
+
+[frCommandFooter] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--frame-command-footer-gap, 0.75rem);
+  border-block-start: 1px solid var(--frame-command-footer-border, var(--frame-border));
+  color: var(--frame-command-footer-color, var(--frame-muted-foreground));
+  font-size: var(--frame-command-footer-font-size, 0.8125rem);
+  margin: var(--frame-command-footer-margin, 0.625rem 0 0);
+  padding: var(--frame-command-footer-padding, 0.625rem 0 0);
+}
+
+[frCommandFooter] span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+[frCommandFooter] kbd {
+  border: 1px solid var(--frame-command-footer-key-border, var(--frame-border));
+  background: var(--frame-command-footer-key-bg, var(--frame-muted));
+  color: var(--frame-command-footer-key-color, var(--frame-foreground));
+  font-family: var(--frame-font-mono, ui-monospace, SFMono-Regular, Consolas, monospace);
+  font-size: var(--frame-command-footer-key-font-size, 0.75rem);
+  line-height: 1;
+  padding: 0.1875rem 0.3125rem;
 }
 
 .cdk-overlay-backdrop.frame-command-dialog__backdrop {

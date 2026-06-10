@@ -1,4 +1,5 @@
 export * from './command.dialog';
+export * from './command.footer';
 export * from './command.group';
 export * from './command.input';
 export * from './command.item';

@@ -5,21 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 import {
   FrButton,
   FrButtonIcon,
-  FrCommand,
   FrCommandDialog,
   FrCommandDialogRef,
-  FrCommandEmpty,
-  FrCommandGroup,
-  FrCommandGroupHeading,
-  FrCommandInput,
-  FrCommandItem,
-  FrCommandItemIcon,
-  FrCommandList,
-  FrCommandSeparator,
   FrCommandService,
-  FrCommandShortcut,
   FrIconButton,
 } from '@frame-ui-ng/components';
+import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -98,17 +89,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     FrButton,
     FrButtonIcon,
     NgIcon,
-    FrCommand,
-    FrCommandDialog,
-    FrCommandEmpty,
-    FrCommandGroup,
-    FrCommandGroupHeading,
-    FrCommandInput,
-    FrCommandItem,
-    FrCommandItemIcon,
-    FrCommandList,
-    FrCommandSeparator,
-    FrCommandShortcut,
+    FrCommandModule,
     NgOptimizedImage,
     FrSeparator,
   ],
