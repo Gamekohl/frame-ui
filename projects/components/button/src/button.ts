@@ -41,7 +41,7 @@ export class FrButton {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly loading = input(false, { transform: booleanAttribute });
   readonly loadingDisplay = input<FrButtonLoadingDisplay>('replace');
-  readonly radius = input<FrButtonRadius>('md');
+  readonly radius = input<FrButtonRadius>('none');
   readonly size = input<FrButtonSize>('md');
   protected readonly hasCustomLoadingIndicator = computed(
     () => !!this.loadingIndicator() || !!this.spinnerIndicator(),

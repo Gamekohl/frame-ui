@@ -3,11 +3,26 @@
 [frCollapsible],
 frame-collapsible {
   display: block;
+  border-block: 1px solid var(--frame-frame-line-muted, var(--frame-border));
+  background: transparent;
+  padding-block: 0.75rem;
 }
 
 [frCollapsibleTrigger] {
   gap: var(--frame-collapsible-trigger-gap, 0.5rem);
   color: var(--frame-collapsible-trigger-color, var(--frame-foreground));
+  transition:
+    color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+[frCollapsibleTrigger]:where(:not(:disabled, [data-disabled])):hover,
+[frCollapsibleTrigger]:focus-visible,
+[frCollapsibleTrigger][data-state='open'] {
+  outline: none;
+  transform: translateX(0.25rem);
+  box-shadow: none;
 }
 
 [frCollapsibleTrigger]:where(:disabled, [data-disabled]) {

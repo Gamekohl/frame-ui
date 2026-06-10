@@ -2,13 +2,13 @@
   --frame-select-trigger-height: 2.5rem;
   --frame-select-trigger-min-width: 12rem;
   --frame-select-trigger-gap: 0.5rem;
-  --frame-select-trigger-radius: var(--frame-radius-md);
+  --frame-select-trigger-radius: 0px;
   --frame-select-trigger-padding-inline: 1rem;
   --frame-select-trigger-font-size: 0.875rem;
   --frame-select-trigger-font-weight: 600;
-  --frame-select-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 28%, transparent);
+  --frame-select-trigger-focus-shadow: none;
   --frame-select-trigger-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
-  --frame-select-trigger-invalid-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-destructive) 14%, transparent);
+  --frame-select-trigger-invalid-shadow: none;
   --frame-select-trigger-disabled-opacity: 0.55;
   --frame-select-trigger-hover-filter: brightness(0.98);
   --frame-select-trigger-active-filter: brightness(0.96);

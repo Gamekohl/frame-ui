@@ -1,18 +1,22 @@
+:host {
+  display: block;
+}
+
+:host [frSidebarProvider] {
+  border: 1px solid var(--frame-frame-line);
+  background: var(--docs-blueprint-sheet);
+}
+
 :host [frCard] {
-  transform: translateY(0) scale(1);
-  transition:
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 220ms ease,
-    filter 220ms ease;
-  will-change: transform;
+  border-color: var(--frame-frame-line-muted);
+  background: color-mix(in srgb, var(--frame-surface) 88%, transparent);
+  transform: none;
+  transition: border-color 160ms ease, filter 160ms ease;
 }
 
 :host [frCard]:hover {
-  box-shadow:
-    0 18px 45px color-mix(in srgb, var(--frame-foreground) 12%, transparent),
-    var(--frame-card-shadow, var(--frame-shadow-sm));
-  filter: brightness(1.015);
-  transform: translateY(-0.5rem) scale(1.005);
+  border-color: color-mix(in srgb, var(--docs-blueprint-red) 45%, var(--frame-frame-line-muted));
+  filter: brightness(1.01);
   z-index: 2;
 }
 

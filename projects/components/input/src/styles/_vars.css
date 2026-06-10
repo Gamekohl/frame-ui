@@ -18,9 +18,9 @@
   --frame-input-root-placeholder-color: var(--frame-muted-foreground);
   --frame-input-root-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
   --frame-input-root-focus-border: color-mix(in srgb, var(--frame-ring) 70%, var(--frame-border));
-  --frame-input-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 22%, transparent);
+  --frame-input-root-focus-shadow: none;
   --frame-input-root-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
-  --frame-input-root-invalid-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-destructive) 14%, transparent);
+  --frame-input-root-invalid-shadow: none;
   --frame-input-root-disabled-opacity: 0.55;
   --frame-input-root-disabled-bg: color-mix(in srgb, var(--frame-surface) 55%, var(--frame-muted));
   --frame-input-root-disabled-border: color-mix(in srgb, var(--frame-border) 82%, var(--frame-muted));
@@ -28,7 +28,7 @@
   --frame-input-root-readonly-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
   --frame-input-root-transition-duration: 150ms;
   --frame-input-file-padding-block: 0.375rem;
-  --frame-input-file-button-radius: calc(var(--frame-radius-md) - 2px);
+  --frame-input-file-button-radius: 0;
   --frame-input-file-button-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
   --frame-input-file-button-hover-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
   --frame-input-file-button-font-size: 0.8125rem;
@@ -38,7 +38,7 @@
   --frame-input-file-button-transition-duration: var(--frame-input-root-transition-duration);
   --frame-input-badge-height: 1.5rem;
   --frame-input-badge-padding-inline: 0.5rem;
-  --frame-input-badge-radius: 999px;
+  --frame-input-badge-radius: 0;
   --frame-input-badge-border: color-mix(in srgb, var(--frame-primary) 24%, transparent);
   --frame-input-badge-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-input-badge-color: var(--frame-primary);
@@ -49,7 +49,7 @@
   --frame-input-group-bg: var(--frame-input-root-bg);
   --frame-input-group-border: var(--frame-input-root-border);
   --frame-input-group-focus-border: var(--frame-input-root-focus-border);
-  --frame-input-group-focus-shadow: var(--frame-input-root-focus-shadow);
+  --frame-input-group-focus-shadow: none;
   --frame-input-group-transition-duration: var(--frame-input-root-transition-duration);
   --frame-input-group-disabled-bg: var(--frame-input-root-disabled-bg);
   --frame-input-group-disabled-border: var(--frame-input-root-disabled-border);

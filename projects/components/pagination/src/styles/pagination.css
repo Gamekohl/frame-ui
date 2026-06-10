@@ -28,6 +28,7 @@ nav[frPagination] {
 [frPaginationNext],
 .frame-pagination__link {
   box-sizing: border-box;
+  position: relative;
   display: inline-flex;
   min-inline-size: var(--frame-pagination-link-min-width);
   min-block-size: var(--frame-pagination-link-size);
@@ -50,7 +51,8 @@ nav[frPagination] {
     border-color 140ms ease,
     box-shadow 140ms ease,
     color 140ms ease,
-    opacity 140ms ease;
+    opacity 140ms ease,
+    transform 140ms ease;
   user-select: none;
   white-space: nowrap;
 }
@@ -66,7 +68,10 @@ nav[frPagination] {
 [frPaginationNext]:where(:not([data-disabled])):hover,
 .frame-pagination__link:where(:not([data-disabled])):hover {
   background: var(--frame-pagination-link-hover-bg);
+  border-color: var(--frame-frame-accent, var(--frame-primary));
   color: var(--frame-pagination-link-hover-color);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frPaginationLink]:focus-visible,
@@ -74,7 +79,9 @@ nav[frPagination] {
 [frPaginationNext]:focus-visible,
 .frame-pagination__link:focus-visible {
   outline: none;
+  border-color: var(--frame-frame-accent, var(--frame-ring));
   box-shadow: var(--frame-pagination-link-focus-shadow);
+  transform: translate(-1px, -1px);
 }
 
 [frPaginationLink][data-active],
@@ -82,6 +89,19 @@ nav[frPagination] {
   border-color: var(--frame-pagination-link-active-border);
   background: var(--frame-pagination-link-active-bg);
   color: var(--frame-pagination-link-active-color);
+}
+
+[frPaginationLink][data-active]::before,
+.frame-pagination__link[data-active]::before {
+  position: absolute;
+  inset-block-start: 0.1875rem;
+  inset-inline-start: 0.1875rem;
+  inline-size: 0.3125rem;
+  block-size: 0.3125rem;
+  border-block-start: 1px solid currentColor;
+  border-inline-start: 1px solid currentColor;
+  content: "";
+  pointer-events: none;
 }
 
 [frPaginationLink][data-disabled],

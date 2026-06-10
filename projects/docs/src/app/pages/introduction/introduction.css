@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+.intro-hero {
+  position: relative;
+  display: flex;
+  min-block-size: calc(100svh - 32rem);
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  justify-content: center;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  overflow: hidden;
+}
+
+.intro-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.intro-showcase-panel {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 50%;
+  inset-inline-end: clamp(1.25rem, 4vw, 4rem);
+  inline-size: min(42vw, 40rem);
+  block-size: min(62svh, 35rem);
+  overflow: hidden;
+  opacity: 0.92;
+  transform: translateY(-44%) scale(0.92);
+  transform-origin: right center;
+}
+
+.intro-showcase {
+  position: absolute;
+}
+
+@media (max-width: 1023px) {
+  .intro-hero {
+    min-block-size: auto;
+  }
+
+  .intro-copy {
+    padding-block-start: 5rem;
+    padding-inline: 0.5rem;
+    max-inline-size: none;
+  }
+}

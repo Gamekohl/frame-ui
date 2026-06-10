@@ -363,7 +363,7 @@ ${customStylingConfig.style}
       id: 'radii',
       title: 'Radius options',
       description:
-        'Use radius presets when a button should feel more squared, softly rounded, or fully pill-shaped.',
+        'Use radius presets when a button should feel squared, softly rounded, or fully pill-shaped. Blueprint corner handles are only shown when the radius is `none` / `0`.',
       preview: {
         component: DocsButtonPreviewComponent,
         inputs: {

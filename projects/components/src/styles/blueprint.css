@@ -1,0 +1,673 @@
+/*
+ * Blueprint surface layer.
+ * Loaded after component styles to give the library its technical frame language.
+ */
+
+:root {
+  --frame-alert-root-radius: 0px;
+  --frame-breadcrumb-ellipsis-radius: 0px;
+  --frame-breadcrumb-link-radius: 0px;
+  --frame-button-root-radius: 0px;
+  --frame-calendar-radius: 0px;
+  --frame-calendar-cell-radius: 0px;
+  --frame-calendar-nav-radius: 0px;
+  --frame-calendar-select-radius: 0px;
+  --frame-card-radius: 0px;
+  --frame-carousel-viewport-radius: 0px;
+  --frame-checkbox-root-radius: 0px;
+  --frame-combobox-clear-radius: 0px;
+  --frame-combobox-control-radius: 0px;
+  --frame-combobox-item-radius: 0px;
+  --frame-combobox-panel-radius: 0px;
+  --frame-command-item-radius: 0px;
+  --frame-command-radius: 0px;
+  --frame-date-picker-content-radius: 0px;
+  --frame-date-picker-preset-radius: 0px;
+  --frame-date-picker-time-input-radius: 0px;
+  --frame-date-picker-trigger-radius: 0px;
+  --frame-dropdown-menu-item-radius: 0px;
+  --frame-dropdown-menu-panel-radius: 0px;
+  --frame-empty-media-radius: 0px;
+  --frame-empty-radius: 0px;
+  --frame-hover-card-content-radius: 0px;
+  --frame-input-group-radius: 0px;
+  --frame-input-otp-slot-radius: 0px;
+  --frame-input-root-radius: 0px;
+  --frame-item-media-radius: 0px;
+  --frame-item-radius: 0px;
+  --frame-menubar-radius: 0px;
+  --frame-menubar-trigger-radius: 0px;
+  --frame-modal-close-radius: 0px;
+  --frame-modal-radius: 0px;
+  --frame-navigation-menu-link-radius: 0px;
+  --frame-navigation-menu-radius: 0px;
+  --frame-navigation-menu-trigger-radius: 0px;
+  --frame-navigation-menu-viewport-radius: 0px;
+  --frame-pagination-link-radius: 0px;
+  --frame-popover-close-radius: 0px;
+  --frame-popover-content-radius: 0px;
+  --frame-radio-group-card-radius: 0px;
+  --frame-resizable-radius: 0px;
+  --frame-select-trigger-radius: 0px;
+  --frame-select-content-radius: 0px;
+  --frame-sheet-close-radius: 0px;
+  --frame-sheet-radius: 0px;
+  --frame-sidebar-menu-button-radius: 0px;
+  --frame-sidebar-radius: 0px;
+  --frame-skeleton-radius: 0px;
+  --frame-table-radius: 0px;
+  --frame-tabs-list-radius: 0px;
+  --frame-tabs-trigger-radius: 0px;
+  --frame-textarea-root-radius: 0px;
+  --frame-toast-action-radius: 0px;
+  --frame-toast-radius: 0px;
+  --frame-toggle-radius: 0px;
+  --frame-tooltip-content-radius: 0px;
+  --frame-virtual-list-radius: 0px;
+}
+
+:where(
+  [frAccordion],
+  [frAlert],
+  [frCard],
+  frame-card,
+  [frCarousel],
+  frame-carousel,
+  [frCollapsible],
+  frame-collapsible,
+  .frame-calendar,
+  [frCommand],
+  [frEmpty],
+  frame-empty,
+  [frItem],
+  frame-item,
+  [frMenuBar],
+  frame-menubar,
+  [frNavigationMenu],
+  frame-navigation-menu,
+  [frRadioGroupCard],
+  [frResizablePanelGroup],
+  frame-resizable-panel-group,
+  [frTableContainer],
+  frame-table-container,
+  [frTable][data-variant='outline'],
+  [frTable][data-variant='card'],
+  frame-table[data-variant='outline'],
+  frame-table[data-variant='card'],
+  [frTableVirtual],
+  frame-table-virtual,
+  [frTabsList],
+  frame-tabs-list,
+  [frVirtualViewport],
+  frame-virtual-viewport,
+  [frVirtualList],
+  frame-virtual-list,
+  frame-input-otp,
+  .frame-combobox__panel,
+  .frame-command__dialog,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-select__content,
+  .frame-sheet__panel,
+  .frame-toast,
+  .frame-tooltip__content,
+  [frSidebar],
+  frame-sidebar,
+  [frSidebarInset],
+  frame-sidebar-inset
+) {
+  position: relative;
+  border-color: var(--frame-frame-line-muted, var(--frame-border));
+  box-shadow: none;
+}
+
+:where(
+  [frAccordion],
+  [frCarousel],
+  frame-carousel,
+  [frCollapsible],
+  frame-collapsible,
+  .frame-calendar,
+  [frCommand],
+  [frEmpty],
+  frame-empty,
+  [frMenuBar],
+  frame-menubar,
+  [frNavigationMenu],
+  frame-navigation-menu,
+  [frResizablePanelGroup],
+  frame-resizable-panel-group,
+  [frTableVirtual],
+  frame-table-virtual,
+  [frTabsList],
+  frame-tabs-list,
+  [frVirtualViewport],
+  frame-virtual-viewport,
+  [frVirtualList],
+  frame-virtual-list
+) {
+  border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
+}
+
+:where(
+  [frAlert]
+) {
+  --frame-blueprint-radius: var(--frame-alert-root-radius);
+}
+
+:where(
+  [frCard],
+  frame-card
+) {
+  --frame-blueprint-radius: var(--frame-card-radius);
+}
+
+:where(
+  .frame-calendar
+) {
+  --frame-blueprint-radius: var(--frame-calendar-radius);
+}
+
+:where(
+  [frCommand],
+  .frame-command__dialog
+) {
+  --frame-blueprint-radius: var(--frame-command-radius);
+}
+
+:where(
+  [frEmpty],
+  frame-empty
+) {
+  --frame-blueprint-radius: var(--frame-empty-radius);
+}
+
+:where(
+  [frItem],
+  frame-item
+) {
+  --frame-blueprint-radius: var(--frame-item-radius);
+}
+
+:where(
+  [frMenuBar],
+  frame-menubar
+) {
+  --frame-blueprint-radius: var(--frame-menubar-radius);
+}
+
+:where(
+  [frNavigationMenu],
+  frame-navigation-menu
+) {
+  --frame-blueprint-radius: var(--frame-navigation-menu-radius);
+}
+
+:where(
+  .frame-navigation-menu__viewport
+) {
+  --frame-blueprint-radius: var(--frame-navigation-menu-viewport-radius);
+}
+
+:where(
+  [frRadioGroupCard]
+) {
+  --frame-blueprint-radius: var(--frame-radio-group-card-radius);
+}
+
+:where(
+  [frResizablePanelGroup],
+  frame-resizable-panel-group
+) {
+  --frame-blueprint-radius: var(--frame-resizable-radius);
+}
+
+:where(
+  [frTableContainer],
+  frame-table-container,
+  [frTable][data-variant='outline'],
+  [frTable][data-variant='card'],
+  frame-table[data-variant='outline'],
+  frame-table[data-variant='card'],
+  [frTableVirtual],
+  frame-table-virtual
+) {
+  --frame-blueprint-radius: var(--frame-table-radius);
+}
+
+:where(
+  [frTabsList],
+  frame-tabs-list
+) {
+  --frame-blueprint-radius: var(--frame-tabs-list-radius);
+}
+
+:where(
+  [frVirtualList],
+  frame-virtual-list
+) {
+  --frame-blueprint-radius: var(--frame-virtual-list-radius);
+}
+
+:where(
+  .frame-combobox__panel
+) {
+  --frame-blueprint-radius: var(--frame-combobox-panel-radius);
+}
+
+:where(
+  .frame-date-picker__content
+) {
+  --frame-blueprint-radius: var(--frame-date-picker-content-radius);
+}
+
+:where(
+  .frame-dropdown-menu__content
+) {
+  --frame-blueprint-radius: var(--frame-dropdown-menu-panel-radius);
+}
+
+:where(
+  .frame-hover-card__content
+) {
+  --frame-blueprint-radius: var(--frame-hover-card-content-radius);
+}
+
+:where(
+  .frame-modal__panel
+) {
+  --frame-blueprint-radius: var(--frame-modal-radius);
+}
+
+:where(
+  .frame-popover__content
+) {
+  --frame-blueprint-radius: var(--frame-popover-content-radius);
+}
+
+:where(
+  .frame-select__content
+) {
+  --frame-blueprint-radius: var(--frame-select-content-radius);
+}
+
+:where(
+  .frame-sheet__panel
+) {
+  --frame-blueprint-radius: var(--frame-sheet-radius);
+}
+
+:where(
+  .frame-toast
+) {
+  --frame-blueprint-radius: var(--frame-toast-radius);
+}
+
+:where(
+  .frame-tooltip__content
+) {
+  --frame-blueprint-radius: var(--frame-tooltip-content-radius);
+}
+
+:where(
+  [frAlert],
+  [frCard],
+  frame-card,
+  [frCarousel],
+  frame-carousel,
+  [frCollapsible],
+  frame-collapsible,
+  .frame-calendar,
+  [frCommand],
+  [frEmpty],
+  frame-empty,
+  [frItem],
+  frame-item,
+  [frMenuBar],
+  frame-menubar,
+  [frNavigationMenu],
+  frame-navigation-menu,
+  [frRadioGroupCard],
+  [frResizablePanelGroup],
+  frame-resizable-panel-group,
+  [frTableContainer],
+  frame-table-container,
+  [frTable][data-variant='outline'],
+  [frTable][data-variant='card'],
+  frame-table[data-variant='outline'],
+  frame-table[data-variant='card'],
+  [frTableVirtual],
+  frame-table-virtual,
+  [frTabsList],
+  frame-tabs-list,
+  [frVirtualViewport],
+  frame-virtual-viewport,
+  [frVirtualList],
+  frame-virtual-list,
+  frame-input-otp,
+  .frame-combobox__panel,
+  .frame-command__dialog,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-select__content,
+  .frame-sheet__panel,
+  .frame-toast,
+  .frame-tooltip__content,
+  [frSidebar],
+  frame-sidebar,
+  [frSidebarInset],
+  frame-sidebar-inset
+)::before {
+  --frame-blueprint-corner-offset: var(--frame-blueprint-corner-inset, 0px);
+  --frame-blueprint-corner-size: clamp(
+    0px,
+    calc((1px - var(--frame-blueprint-radius, 0px)) * 9999),
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+  position: absolute;
+  inset: var(--frame-blueprint-corner-offset);
+  z-index: 1;
+  border-radius: inherit;
+  background:
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      left top / var(--frame-blueprint-corner-size) 1px no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      left top / 1px var(--frame-blueprint-corner-size) no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      right bottom / var(--frame-blueprint-corner-size) 1px no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      right bottom / 1px var(--frame-blueprint-corner-size) no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+:where(
+  [frTableContainer],
+  frame-table-container,
+  [frTableVirtual],
+  frame-table-virtual,
+  [frVirtualViewport],
+  frame-virtual-viewport,
+  [frVirtualList],
+  frame-virtual-list,
+  .frame-combobox__panel,
+  .frame-navigation-menu__viewport,
+  .frame-select__content
+)::before {
+  content: none;
+}
+
+:where(
+  [frTableContainer],
+  frame-table-container,
+  [frTableVirtual],
+  frame-table-virtual,
+  [frVirtualViewport],
+  frame-virtual-viewport,
+  [frVirtualList],
+  frame-virtual-list,
+  .frame-combobox__panel,
+  .frame-navigation-menu__viewport,
+  .frame-select__content
+) {
+  background-image:
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)));
+  --frame-blueprint-corner-offset: var(--frame-blueprint-corner-inset, 0px);
+  --frame-blueprint-corner-size: clamp(
+    0px,
+    calc((1px - var(--frame-blueprint-radius, 0px)) * 9999),
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+  background-position:
+    left var(--frame-blueprint-corner-offset) top var(--frame-blueprint-corner-offset),
+    left var(--frame-blueprint-corner-offset) top var(--frame-blueprint-corner-offset),
+    right var(--frame-blueprint-corner-offset) bottom var(--frame-blueprint-corner-offset),
+    right var(--frame-blueprint-corner-offset) bottom var(--frame-blueprint-corner-offset);
+  background-size:
+    var(--frame-blueprint-corner-size) 1px,
+    1px var(--frame-blueprint-corner-size),
+    var(--frame-blueprint-corner-size) 1px,
+    1px var(--frame-blueprint-corner-size);
+  background-repeat: no-repeat;
+  background-attachment: local;
+}
+
+:where(
+  .frame-combobox__panel,
+  .frame-command__dialog,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-select__content,
+  .frame-sheet__panel,
+  .frame-toast,
+  .frame-tooltip__content
+) {
+  --frame-blueprint-corner-inset: 0.5rem;
+  box-shadow: var(--frame-shadow-md, 0 16px 32px -18px rgb(0 0 0 / 0.28));
+}
+
+:where(
+  [frBadge],
+  frame-badge,
+  [frBreadcrumbLink],
+  [frBreadcrumbEllipsis],
+  frame-breadcrumb-ellipsis,
+  [frCheckbox],
+  [frCombobox],
+  [frComboboxInput],
+  [frDatePickerTrigger],
+  .frame-date-picker__trigger,
+  .frame-date-picker__input-wrap,
+  [frDropdownMenuItem],
+  [frDropdownMenuCheckboxItem],
+  [frDropdownMenuRadioItem],
+  [frInput],
+  [frInputBadge],
+  frame-input-badge,
+  [frInputControl],
+  frame-input-control,
+  [frInputGroup],
+  frame-input-group,
+  .frame-input-group,
+  .frame-input-otp__slot,
+  [frMenuBarTrigger],
+  .frame-menubar__trigger,
+  [frPaginationLink],
+  [frPaginationPrevious],
+  [frPaginationNext],
+  .frame-pagination__link,
+  [frPopoverClose],
+  [frProgress],
+  frame-progress,
+  [frProgressIndicator],
+  frame-progress-indicator,
+  [frRadioGroupItem],
+  [frSelectItem],
+  .frame-select__trigger,
+  [frSkeleton],
+  frame-skeleton,
+  [frSwitch],
+  [frTabsTrigger],
+  frame-tabs-trigger,
+  [frTextarea],
+  [frToggle],
+  [frTooltipShortcut],
+  [frSeparator],
+  frame-separator,
+  .frame-slider__track,
+  .frame-slider__range,
+  .frame-toast__status,
+  .frame-toast__close
+) {
+  border-color: var(--frame-frame-line-muted, var(--frame-border));
+  box-shadow: none;
+}
+
+[frRadioGroupItem]::before {
+  border-radius: 0;
+}
+
+.frame-input-otp__separator::before {
+  border-radius: 0;
+}
+
+:where(
+  [frCardHeader],
+  [frCardFooter],
+  .frame-command__input-wrapper,
+  .frame-date-picker__presets,
+  .frame-date-picker__time,
+  .frame-dropdown-menu__separator,
+  [frHeaderCell],
+  [frCell],
+  [frFooterCell],
+  [frTableVirtualRow],
+  .frame-table__head,
+  .frame-table__cell,
+  .frame-table-virtual__row
+) {
+  border-color: var(--frame-frame-line-muted, var(--frame-border));
+}
+
+:where(
+  [frAvatar],
+  frame-avatar,
+  [frAvatarBadge],
+  [frAvatarGroupCount],
+  [frSpinner],
+  frame-spinner,
+  .frame-slider__thumb
+) {
+  border-radius: 999px;
+}
+
+:where(
+  .frame-button,
+  [frBreadcrumbLink],
+  [frBreadcrumbEllipsis],
+  [frCheckbox],
+  [frCombobox],
+  [frDatePickerTrigger],
+  .frame-date-picker__trigger,
+  [frDropdownMenuItem],
+  [frDropdownMenuCheckboxItem],
+  [frDropdownMenuRadioItem],
+  [frMenuBarTrigger],
+  .frame-menubar__trigger,
+  [frPaginationLink],
+  [frPaginationPrevious],
+  [frPaginationNext],
+  .frame-pagination__link,
+  [frPopoverClose],
+  [frRadioGroupCard],
+  [frSelectItem],
+  .frame-select__trigger,
+  [frTabsTrigger],
+  frame-tabs-trigger,
+  [frToggle],
+  .frame-calendar__day,
+  .frame-calendar__nav-button,
+  .frame-date-picker__preset,
+  [frCommandItem]
+) {
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease,
+    box-shadow 140ms ease;
+}
+
+:where(
+  .frame-button,
+  [frBreadcrumbLink],
+  [frBreadcrumbEllipsis],
+  [frCheckbox],
+  [frCombobox],
+  [frDatePickerTrigger],
+  .frame-date-picker__trigger,
+  [frMenuBarTrigger],
+  .frame-menubar__trigger,
+  [frPaginationLink],
+  [frPaginationPrevious],
+  [frPaginationNext],
+  .frame-pagination__link,
+  [frPopoverClose],
+  [frRadioGroupCard],
+  .frame-select__trigger,
+  [frTabsTrigger],
+  frame-tabs-trigger,
+  [frToggle],
+  .frame-calendar__day,
+  .frame-calendar__nav-button,
+  .frame-date-picker__preset
+):where(:hover, :focus-visible, [data-state='open'], [data-active='true'], [aria-current='page']) {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
+}
+
+:where(
+  .frame-button,
+  [frBreadcrumbLink],
+  [frBreadcrumbEllipsis],
+  [frCheckbox],
+  [frCombobox],
+  [frDatePickerTrigger],
+  .frame-date-picker__trigger,
+  [frMenuBarTrigger],
+  .frame-menubar__trigger,
+  [frPaginationLink],
+  [frPaginationPrevious],
+  [frPaginationNext],
+  .frame-pagination__link,
+  [frPopoverClose],
+  [frRadioGroupCard],
+  .frame-select__trigger,
+  [frTabsTrigger],
+  frame-tabs-trigger,
+  [frToggle],
+  .frame-calendar__day,
+  .frame-calendar__nav-button,
+  .frame-date-picker__preset
+):active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+:where(
+  .frame-button,
+  [frCombobox],
+  [frDatePickerTrigger],
+  .frame-date-picker__trigger,
+  [frDropdownMenuItem],
+  [frMenuBarTrigger],
+  .frame-menubar__trigger,
+  [frPopoverClose],
+  .frame-select__trigger,
+  [frTooltipTrigger],
+  [frToggle]
+):where([data-state='open'], [aria-expanded='true']) {
+  border-color: var(--frame-frame-accent, var(--frame-primary));
+  background: color-mix(in srgb, var(--frame-surface) 68%, var(--frame-muted));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
+}
+
+.frame-tooltip__content {
+  --frame-blueprint-corner-inset: 0.125rem;
+}

@@ -14,7 +14,7 @@
   --frame-resizable-handle-indicator-size: 2rem;
   --frame-resizable-handle-indicator-thickness: 0.25rem;
   --frame-resizable-handle-indicator-bg: var(--frame-border);
-  --frame-resizable-handle-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 28%, transparent);
+  --frame-resizable-handle-focus-shadow: none;
   --frame-resizable-transition-duration: 150ms;
   --frame-resizable-transition-easing: ease;
 }

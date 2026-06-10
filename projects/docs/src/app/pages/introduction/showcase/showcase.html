@@ -1,6 +1,6 @@
 <div
   frSidebarProvider
-  class="relative max-h-192 origin-center scale-[0.72] transform-[rotateX(20deg)rotateZ(-18deg)skewY(8deg)]"
+  class="relative"
 >
   <aside
     frSidebar
@@ -9,7 +9,7 @@
   >
     <div frSidebarHeader>
       <a frSidebarMenuButton size="lg" href="#">
-        <img [ngSrc]="themeService.isDark() ? '/logo/128x128_dark.webp' : '/logo/128x128.webp'" width="20" height="20"  alt="Logo"/>
+        <img [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'" width="20" height="20"  alt="Logo"/>
         <span>FrameUI</span>
       </a>
     </div>
@@ -57,11 +57,11 @@
     <div frSidebarRail></div>
   </aside>
 
-  <main frSidebarInset class="m-2 columns-2 gap-4 relative overflow-hidden!">
+  <main frSidebarInset class="relative m-2 columns-2 gap-4 overflow-hidden!">
     <div
       class="z-10 pointer-events-none absolute -bottom-2 inset-x-0 h-48 bg-linear-to-t from-background to-transparent"></div>
 
-    <section frCard class="shadow-sm [column-span:all] break-inside-avoid mb-4">
+    <section frCard class="[column-span:all] break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Buttons</span>
       </div>
@@ -76,7 +76,7 @@
         <button frButton size="lg" loading></button>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Badges</span>
       </div>
@@ -87,7 +87,7 @@
         <span frBadge variant="outline">Badge</span>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Avatar</span>
       </div>
@@ -121,7 +121,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Dropdown</span>
       </div>
@@ -153,7 +153,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Select/Combobox</span>
       </div>
@@ -200,7 +200,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Hover Card/Popover</span>
       </div>
@@ -252,7 +252,7 @@
         </frame-popover>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Radio Group</span>
       </div>
@@ -276,7 +276,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Progress</span>
       </div>
@@ -295,7 +295,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Slider</span>
       </div>
@@ -310,7 +310,7 @@
         </div>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Switch</span>
       </div>
@@ -325,7 +325,7 @@
         </label>
       </div>
     </section>
-    <section frCard class="shadow-sm break-inside-avoid mb-4">
+    <section frCard class="break-inside-avoid mb-4">
       <div frCardHeader>
         <span frCardTitle>Tooltip</span>
       </div>

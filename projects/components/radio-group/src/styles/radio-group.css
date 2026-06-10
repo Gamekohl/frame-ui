@@ -35,7 +35,7 @@ frame-radio-group[data-variant='cards'] {
   block-size: var(--frame-radio-group-item-size);
   margin: 0;
   border: 1px solid var(--frame-radio-group-item-border);
-  border-radius: 999px;
+  border-radius: 0;
   background: var(--frame-radio-group-item-bg);
   color: var(--frame-radio-group-item-color);
   cursor: pointer;
@@ -45,14 +45,15 @@ frame-radio-group[data-variant='cards'] {
     background-color var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
     border-color var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
     box-shadow var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
-    opacity var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing);
+    opacity var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
+    transform var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing);
 }
 
 [frRadioGroupItem]::before {
   content: '';
   inline-size: var(--frame-radio-group-item-dot-size);
   block-size: var(--frame-radio-group-item-dot-size);
-  border-radius: 999px;
+  border-radius: 0;
   background: currentColor;
   transform: scale(0);
   transition: transform 120ms ease;
@@ -60,10 +61,13 @@ frame-radio-group[data-variant='cards'] {
 
 [frRadioGroupItem]:where(:not(:disabled)):hover {
   border-color: var(--frame-radio-group-item-hover-border);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frRadioGroupItem]:focus-visible {
   box-shadow: var(--frame-radio-group-item-focus-shadow);
+  transform: translate(-1px, -1px);
 }
 
 [frRadioGroupItem]:checked {
@@ -106,7 +110,8 @@ frame-radio-group[data-variant='cards'] {
   transition:
     border-color var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
     box-shadow var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
-    opacity var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing);
+    opacity var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing),
+    transform var(--frame-radio-group-transition-duration) var(--frame-radio-group-transition-easing);
 }
 
 [frRadioGroupCard]:has([frRadioGroupCardMeta]) {
@@ -117,6 +122,8 @@ frame-radio-group[data-variant='cards'] {
 
 [frRadioGroupCard]:has([frRadioGroupItem]:where(:not(:disabled)):hover) {
   border-color: var(--frame-radio-group-card-hover-border);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frRadioGroupCard]:has([frRadioGroupItem]:checked) {

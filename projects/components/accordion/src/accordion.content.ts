@@ -19,7 +19,7 @@ export class FrAccordionContent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly item = inject(ACCORDION_ITEM);
   private initialized = false;
-  private rafId = -1;
+  private rafIds: number[] = [];
 
   constructor() {
     effect((onCleanup) => {
@@ -53,23 +53,31 @@ export class FrAccordionContent {
 
   private animate(open: boolean): void {
     const element = this.host.nativeElement;
+    const currentHeight = element.getBoundingClientRect().height;
+    const contentHeight = this.measureContentHeight();
 
     if (open) {
       element.style.visibility = 'visible';
-      element.style.height = '0px';
-      element.style.opacity = '0';
+      element.style.height = `${currentHeight}px`;
 
-      this.rafId = requestAnimationFrame(() => {
-        element.style.height = `${element.scrollHeight}px`;
+      if (currentHeight === 0) {
+        element.style.opacity = '0';
+      }
+
+      void element.offsetHeight;
+
+      this.requestAnimationFrame(() => {
+        element.style.height = `${contentHeight}px`;
         element.style.opacity = '1';
       });
       return;
     }
 
-    element.style.height = `${element.scrollHeight}px`;
+    element.style.height = `${currentHeight || contentHeight}px`;
     element.style.opacity = '1';
+    void element.offsetHeight;
 
-    this.rafId = requestAnimationFrame(() => {
+    this.requestAnimationFrame(() => {
       element.style.height = '0px';
       element.style.opacity = '0';
     });
@@ -83,12 +91,24 @@ export class FrAccordionContent {
     element.style.visibility = open ? 'visible' : 'hidden';
   }
 
+  private measureContentHeight(): number {
+    return this.host.nativeElement.scrollHeight;
+  }
+
   private cancelAnimationFrame(): void {
-    if (this.rafId === -1) {
-      return;
+    for (const rafId of this.rafIds) {
+      cancelAnimationFrame(rafId);
     }
 
-    cancelAnimationFrame(this.rafId);
-    this.rafId = -1;
+    this.rafIds = [];
+  }
+
+  private requestAnimationFrame(callback: FrameRequestCallback): void {
+    const rafId = requestAnimationFrame((time) => {
+      this.rafIds = this.rafIds.filter((id) => id !== rafId);
+      callback(time);
+    });
+
+    this.rafIds.push(rafId);
   }
 }

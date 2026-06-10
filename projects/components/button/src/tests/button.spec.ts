@@ -138,6 +138,7 @@ describe('FrButton', () => {
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     const loadingIndicator = fixture.nativeElement.querySelector('[frButtonLoading]') as HTMLElement;
 
+    expect(button.getAttribute('data-radius')).toBe('none');
     expect(button.getAttribute('data-has-custom-loading')).toBe('');
     expect(loadingIndicator.classList.contains('frame-button__loading')).toBe(true);
   });
@@ -152,6 +153,7 @@ describe('FrButton', () => {
     expect(button.classList.contains('frame-button')).toBe(true);
     expect(button.classList.contains('frame-icon-button')).toBe(true);
     expect(button.getAttribute('data-appearance')).toBe('outline');
+    expect(button.getAttribute('data-radius')).toBe('none');
     expect(button.getAttribute('data-size')).toBe('sm');
     expect(button.getAttribute('data-icon-button')).toBe('');
     expect(button.getAttribute('aria-label')).toBe('Add item');

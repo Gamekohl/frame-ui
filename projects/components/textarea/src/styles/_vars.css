@@ -10,9 +10,9 @@
   --frame-textarea-root-placeholder-color: var(--frame-muted-foreground);
   --frame-textarea-root-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
   --frame-textarea-root-focus-border: color-mix(in srgb, var(--frame-ring) 70%, var(--frame-border));
-  --frame-textarea-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 22%, transparent);
+  --frame-textarea-root-focus-shadow: none;
   --frame-textarea-root-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
-  --frame-textarea-root-invalid-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-destructive) 14%, transparent);
+  --frame-textarea-root-invalid-shadow: none;
   --frame-textarea-root-disabled-opacity: 0.55;
   --frame-textarea-root-readonly-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
   --frame-textarea-root-transition-duration: 150ms;

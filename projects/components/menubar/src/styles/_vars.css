@@ -18,5 +18,5 @@
   --frame-menubar-trigger-hover-color: var(--frame-menubar-color);
   --frame-menubar-trigger-open-bg: var(--frame-accent);
   --frame-menubar-trigger-open-color: var(--frame-accent-foreground);
-  --frame-menubar-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-menubar-trigger-focus-shadow: none;
 }

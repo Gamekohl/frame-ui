@@ -9,27 +9,28 @@ const accordionImportsCode = `import { FrAccordionModule } from '@frame-ui-ng/co
 const heroConfig: AccordionPreviewConfig = {
   type: 'single',
   collapsible: true,
-  defaultValue: 'shipping',
+  defaultValue: 'section-two',
   border: false,
   className: 'docs-accordion-preview',
   items: [
     {
-      value: 'shipping',
-      trigger: 'How do delivery windows work?',
-      content:
-        'Choose standard, priority, or scheduled delivery at checkout. Available windows update automatically based on the destination and inventory.',
+      value: 'section-one',
+      trigger: 'Section One',
+      content: 'Keep summary content compact so the row remains easy to scan.',
     },
     {
-      value: 'returns',
-      trigger: 'Can customers edit an order after checkout?',
-      content:
-        'Orders can be updated for a short approval window before fulfillment starts, letting support teams adjust addresses, quantities, or delivery notes.',
+      value: 'section-two',
+      trigger: 'Section Two',
+      options: [
+        { label: 'Option A', checked: true },
+        { label: 'Option B' },
+        { label: 'Option C' },
+      ],
     },
     {
-      value: 'support',
-      trigger: 'Where should support requests be routed?',
-      content:
-        'Route urgent issues to live support, use email for account follow-ups, and reserve phone callbacks for requests that need identity verification.',
+      value: 'section-three',
+      trigger: 'Section Three',
+      content: 'Use the last row for secondary information or follow-up controls.',
     },
   ],
 };
@@ -135,7 +136,7 @@ const customStylingConfig: AccordionPreviewConfig = {
   border: true,
   className: 'docs-accordion-preview',
   style: `--frame-accordion-item-border: color-mix(in srgb, var(--frame-primary) 18%, transparent);
---frame-accordion-item-radius: 1rem;
+--frame-accordion-item-radius: 0;
 --frame-accordion-trigger-min-height: 3.5rem;
 --frame-accordion-trigger-padding-x: 1rem;
 --frame-accordion-trigger-color: red;
@@ -458,11 +459,11 @@ ${customStylingConfig.style}
     'Use these CSS custom properties to tune spacing, typography, borders, motion, and icon behavior without changing the component markup. Override them globally for system-wide defaults or locally on a wrapper class for one-off variants.',
   tokens: `
   --frame-accordion-item-border: var(--frame-border);
-  --frame-accordion-item-radius: var(--frame-radius-md);
+  --frame-accordion-item-radius: 0;
   --frame-accordion-item-padding-x: 0;
-  --frame-accordion-trigger-min-height: 3rem;
+  --frame-accordion-trigger-min-height: 3.25rem;
   --frame-accordion-trigger-padding-y: 1rem;
-  --frame-accordion-trigger-padding-x: 0;
+  --frame-accordion-trigger-padding-x: 1rem;
   --frame-accordion-trigger-gap: 1rem;
   --frame-accordion-trigger-color: var(--frame-foreground);
   --frame-accordion-trigger-font-size: 0.9375rem;
@@ -470,14 +471,14 @@ ${customStylingConfig.style}
   --frame-accordion-trigger-hover-color: var(--frame-foreground);
   --frame-accordion-trigger-disabled-opacity: 0.55;
   --frame-accordion-content-padding-bottom: 1rem;
-  --frame-accordion-content-padding-inline: 0;
+  --frame-accordion-content-padding-inline: 1rem;
   --frame-accordion-content-color: var(--frame-muted-foreground);
   --frame-accordion-content-font-size: 0.875rem;
   --frame-accordion-content-line-height: 1.6;
   --frame-accordion-content-opacity-closed: 0;
   --frame-accordion-content-opacity-open: 1;
-  --frame-accordion-content-transition-duration: 220ms;
-  --frame-accordion-content-transition-timing: ease;
+  --frame-accordion-content-transition-duration: 240ms;
+  --frame-accordion-content-transition-timing: cubic-bezier(0.2, 0, 0, 1);
   --frame-accordion-icon-size: 1rem;
   --frame-accordion-icon-rotation: 180deg;
   `,

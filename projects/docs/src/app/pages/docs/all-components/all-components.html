@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
-  <article class="docs-article min-w-0 space-y-12 py-2">
+  <article class="docs-article min-w-0 space-y-12">
     <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-4">
       <p class="text-sm font-medium text-foreground">Getting Started</p>
       <div class="space-y-3">
@@ -11,7 +11,7 @@
     </header>
 
     <section id="components" class="scroll-mt-24 space-y-5">
-      <div animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="grid gap-10 sm:grid-cols-2">
+      <div animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="grid gap-5 sm:grid-cols-2">
         @for (item of components(); track item.name) {
           <a
             animate.enter="slide-in-enter"

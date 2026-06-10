@@ -27,7 +27,8 @@
   transition:
     border-color 150ms ease,
     box-shadow 150ms ease,
-    opacity 150ms ease;
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
 .frame-date-picker__trigger {
@@ -75,12 +76,23 @@
 .frame-date-picker__input-wrap:focus-within,
 .frame-date-picker__input-wrap:hover {
   border-color: var(--frame-date-picker-trigger-hover-border);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 .frame-date-picker__trigger:focus-visible,
 .frame-date-picker__input-wrap:focus-within {
   outline: none;
+  border-color: var(--frame-frame-accent, var(--frame-ring));
   box-shadow: var(--frame-date-picker-trigger-focus-shadow);
+}
+
+.frame-date-picker[data-open] .frame-date-picker__trigger,
+.frame-date-picker[data-open] .frame-date-picker__input-wrap {
+  border-color: var(--frame-frame-accent, var(--frame-date-picker-trigger-hover-border));
+  background: color-mix(in srgb, var(--frame-date-picker-trigger-bg) 68%, var(--frame-muted));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 .frame-date-picker[data-invalid] .frame-date-picker__trigger,
@@ -123,7 +135,7 @@
 
 .frame-date-picker__preset {
   min-block-size: var(--frame-date-picker-preset-height);
-  border: 0;
+  border: 1px solid transparent;
   border-radius: var(--frame-date-picker-preset-radius);
   background: transparent;
   color: inherit;
@@ -131,12 +143,20 @@
   font: inherit;
   padding-inline: 0.5rem;
   text-align: start;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease,
+    box-shadow 140ms ease;
 }
 
 .frame-date-picker__preset:hover,
 .frame-date-picker__preset:focus-visible {
   background: var(--frame-date-picker-preset-hover-bg);
+  border-color: var(--frame-frame-line-muted, var(--frame-border));
   outline: none;
+  transform: translateX(0.25rem);
+  box-shadow: none;
 }
 
 .frame-date-picker__time {
@@ -157,11 +177,17 @@
 .frame-date-picker__time-input {
   min-block-size: 2rem;
   border: 1px solid var(--frame-border);
-  border-radius: var(--frame-radius-md);
+  border-radius: var(--frame-date-picker-time-input-radius);
   background: var(--frame-background);
   color: var(--frame-foreground);
   font: inherit;
   padding-inline: 0.5rem;
+}
+
+.frame-date-picker__time-input:focus-visible {
+  border-color: var(--frame-frame-accent, var(--frame-ring));
+  outline: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--frame-frame-accent, var(--frame-ring)) 24%, transparent);
 }
 
 @keyframes frame-date-picker-enter {

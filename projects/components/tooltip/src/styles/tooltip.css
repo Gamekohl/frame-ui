@@ -14,6 +14,7 @@ frame-tooltip {
 
 .frame-tooltip__content {
   position: relative;
+  --frame-blueprint-corner-inset: 0.125rem;
   max-width: min(var(--frame-tooltip-content-max-width), calc(100vw - 1rem));
   border: 1px solid var(--frame-tooltip-content-border);
   border-radius: var(--frame-tooltip-content-radius);
@@ -75,6 +76,7 @@ frame-tooltip {
 
 [frTooltipShortcut],
 .frame-tooltip__shortcut {
+  border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
   border-radius: var(--frame-tooltip-shortcut-radius);
   background: var(--frame-tooltip-shortcut-bg);
   font: inherit;

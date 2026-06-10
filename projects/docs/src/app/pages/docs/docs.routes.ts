@@ -258,10 +258,10 @@ export default [
           ),
       },
       {
-        path: '',
+        path: '**',
         pathMatch: 'full',
-        loadComponent: () => import('./overview/overview').then((m) => m.Overview),
-      },
+        redirectTo: 'overview',
+      }
     ],
   },
   {

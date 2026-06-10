@@ -1,41 +1,41 @@
 <div
-  class="mx-auto grid max-w-350 grid-cols-1 gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[16rem_minmax(0,1fr)] xl:px-0">
-  <aside class="hidden lg:block">
-    <div class="sticky top-20 space-y-7 h-[90vh] overflow-scroll overflow-x-hidden scrollbar-none">
+  class="docs-shell mx-auto grid max-w-350 grid-cols-1 items-start gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[16rem_minmax(0,1fr)] xl:px-0">
+  <aside class="docs-sidebar-rail hidden self-start lg:block">
+    <div class="docs-blueprint-sheet docs-sidebar-sheet space-y-7 overflow-y-auto overflow-x-hidden p-4 scrollbar-none">
       <section>
-        <p class="mb-3 text-xs font-semibold tracking-tight text-muted-foreground">Getting Started</p>
+        <p class="docs-blueprint-meta mb-3">01 Getting Started</p>
         <nav class="grid gap-1 text-sm">
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/overview" routerLinkActive="font-semibold !text-foreground">Overview</a>
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/installation" routerLinkActive="font-semibold !text-foreground">Installation</a>
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/components" routerLinkActive="font-semibold !text-foreground" [routerLinkActiveOptions]="{exact: true}">Components</a>
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/theming" routerLinkActive="font-semibold !text-foreground">Theming</a>
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/theme-tokens" routerLinkActive="font-semibold !text-foreground">Theme tokens</a>
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/roadmap" routerLinkActive="font-semibold !text-foreground">Roadmap</a>
         </nav>
       </section>
 
       <section>
-        <p class="mb-3 text-xs font-semibold tracking-tight text-muted-foreground">Tools</p>
+        <p class="docs-blueprint-meta mb-3">02 Tools</p>
         <nav class="grid gap-1 text-sm">
-          <a class="rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+          <a class="border border-transparent p-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
              routerLink="/docs/mcp" routerLinkActive="font-semibold !text-foreground">MCP</a>
         </nav>
       </section>
 
       <section>
-        <p class="mb-3 text-xs font-semibold tracking-tight text-muted-foreground">Components</p>
+        <p class="docs-blueprint-meta mb-3">03 Components</p>
         <nav class="grid gap-1 text-sm">
           @for (item of components(); track item.name) {
             <a
-              class="group flex items-center justify-between rounded-lg py-2 px-3 text-muted-foreground hover:bg-muted hover:text-foreground"
+              class="group flex items-center justify-between border border-transparent px-3 py-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
               routerLink="/docs/components/{{ item.slug }}"
-              routerLinkActive="bg-muted font-medium !text-foreground"
+              routerLinkActive="border-primary/50 bg-muted font-medium !text-foreground"
             >
               <span>{{ item.name }}</span>
             </a>

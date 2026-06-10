@@ -4,21 +4,22 @@
 
 @theme {
   --font-sans: "Geist", "Aptos", "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
   --color-background: oklch(1 0 0);
   --color-foreground: oklch(0.145 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.45 0 0);
-  --color-border: oklch(0.922 0 0);
+  --color-muted: oklch(0.972 0.002 247);
+  --color-muted-foreground: oklch(0.42 0.012 247);
+  --color-border: oklch(0.87 0.006 247);
   --color-surface: oklch(1 0 0);
   --color-surface-foreground: oklch(0.145 0 0);
-  --color-primary: #161b27;
+  --color-primary: #d71920;
   --color-primary-foreground: oklch(0.985 0 0);
   --color-accent: oklch(0.97 0 0);
   --color-accent-foreground: oklch(0.205 0 0);
   --color-destructive: oklch(55.205% 0.18114 25.384);
   --color-destructive-foreground: oklch(100% 0.00011 271.152);
-  --color-input: oklch(0.922 0 0);
-  --color-ring: oklch(0.708 0 0);
+  --color-input: oklch(0.84 0.008 247);
+  --color-ring: #d71920;
 }
 
 html {
@@ -41,6 +42,19 @@ html {
   --frame-destructive-foreground: var(--color-destructive-foreground);
   --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
+  --frame-border-strong: oklch(0.68 0.012 247);
+  --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 48%, transparent);
+  --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 54%, transparent);
+  --frame-frame-accent: #d71920;
+  --frame-frame-tick-size: 0.375rem;
+
+  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 10%, transparent);
+  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 16%, transparent);
+  --docs-blueprint-red: #d71920;
+  --docs-blueprint-ink: #111827;
+  --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
+  --docs-header-height: 5.25rem;
+  --docs-page-padding-y: 2rem;
 
   --orange-red: oklch(63.32% .24 31.68);
   --vivid-pink: oklch(69.02% .277 332.77);
@@ -56,14 +70,23 @@ html.dark {
   --color-border: oklch(1 0 0 / 0.1);
   --color-surface: oklch(0.205 0 0);
   --color-surface-foreground: oklch(0.985 0 0);
-  --color-primary: oklch(0.922 0 0);
+  --color-primary: #ff4a4f;
   --color-primary-foreground: oklch(0.205 0 0);
   --color-accent: oklch(0.269 0 0);
   --color-accent-foreground: oklch(0.985 0 0);
   --color-destructive: oklch(0.704 0.191 22.216);
   --color-destructive-foreground: oklch(0.985 0 0);
   --color-input: oklch(1 0 0 / 0.15);
-  --color-ring: oklch(0.556 0 0);
+  --color-ring: #ff4a4f;
+  --frame-border-strong: oklch(1 0 0 / 0.24);
+  --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
+  --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
+  --frame-frame-accent: #ff4a4f;
+  --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 14%, transparent);
+  --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 18%, transparent);
+  --docs-blueprint-red: #ff4a4f;
+  --docs-blueprint-ink: var(--frame-foreground);
+  --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 96%, transparent);
   --orange-red: color-mix(in srgb, oklch(63.32% .24 31.68), white 60%);
   --vivid-pink: color-mix(in srgb, oklch(69.02% .277 332.77), white 70%);
   --electric-violet: color-mix(in srgb, oklch(53.18% .28 296.97), white 70%);
@@ -73,8 +96,22 @@ body {
   min-height: 100%;
   margin: 0;
   background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--frame-primary) 9%, transparent), transparent 34rem),
-    linear-gradient(180deg, color-mix(in srgb, var(--frame-muted) 32%, var(--frame-background)), var(--frame-background) 24rem);
+    linear-gradient(var(--docs-blueprint-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--docs-blueprint-grid) 1px, transparent 1px),
+    linear-gradient(var(--docs-blueprint-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--docs-blueprint-grid-strong) 1px, transparent 1px),
+    var(--frame-background);
+  background-attachment: fixed;
+  background-position:
+    -1px -1px,
+    -1px -1px,
+    -1px -1px,
+    -1px -1px;
+  background-size:
+    16px 16px,
+    16px 16px,
+    96px 96px,
+    96px 96px;
   color: var(--frame-foreground);
   font-family: var(--font-sans), sans-serif;
 }
@@ -84,10 +121,313 @@ body {
 }
 
 .angular-color-gradient {
-  --red-to-pink-to-purple-horizontal-gradient: linear-gradient( 90deg, var(--orange-red) 0%, var(--vivid-pink) 50%, var(--electric-violet) 100% );
-  background-image: var(--red-to-pink-to-purple-horizontal-gradient);
-  background-clip: text;
-  color: transparent;
+  color: var(--docs-blueprint-red);
+}
+
+.docs-mono {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.04em;
+}
+
+.docs-blueprint-sheet {
+  position: relative;
+  border: 1px solid var(--frame-frame-line);
+  background: var(--docs-blueprint-sheet);
+  box-shadow: none;
+  isolation: isolate;
+}
+
+.docs-blueprint-sheet[data-grid='true'] {
+  background:
+    linear-gradient(color-mix(in srgb, var(--docs-blueprint-grid) 34%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--docs-blueprint-grid) 34%, transparent) 1px, transparent 1px),
+    var(--docs-blueprint-sheet);
+  background-size: 32px 32px;
+  background-size: 32px 32px, 32px 32px, auto;
+}
+
+.docs-blueprint-sheet::before,
+.docs-blueprint-sheet::after {
+  position: absolute;
+  z-index: 2;
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  border-color: var(--docs-blueprint-red);
+  pointer-events: none;
+  content: "";
+}
+
+.docs-blueprint-sheet::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  border-block-start: 1px solid;
+  border-inline-start: 1px solid;
+}
+
+.docs-blueprint-sheet::after {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  border-block-end: 1px solid;
+  border-inline-end: 1px solid;
+}
+
+.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::before,
+.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::after {
+  content: none;
+}
+
+.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto) {
+  background-image:
+    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
+    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
+    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
+    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red));
+  background-position:
+    left top,
+    left top,
+    right bottom,
+    right bottom;
+  background-size:
+    0.75rem 1px,
+    1px 0.75rem,
+    0.75rem 1px,
+    1px 0.75rem;
+  background-repeat: no-repeat;
+  background-attachment: local;
+}
+
+.docs-blueprint-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--docs-blueprint-ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-blueprint-title::before {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  background: var(--docs-blueprint-red);
+  content: "";
+}
+
+.docs-shell {
+  --docs-sidebar-sticky-top: calc(var(--docs-header-height) + var(--docs-page-padding-y));
+  --docs-sidebar-visible-height: calc(100vh - var(--docs-header-height) - (var(--docs-page-padding-y) * 2));
+}
+
+.docs-sidebar-rail {
+  position: sticky;
+  top: var(--docs-sidebar-sticky-top);
+  max-block-size: var(--docs-sidebar-visible-height);
+  overflow: hidden;
+}
+
+.docs-sidebar-sheet {
+  max-block-size: var(--docs-sidebar-visible-height);
+}
+
+.docs-article > header,
+.docs-article > section {
+  position: relative;
+  border: 1px solid var(--frame-frame-line);
+  background: var(--docs-blueprint-sheet);
+  padding: clamp(1.25rem, 2vw, 2rem);
+  isolation: isolate;
+}
+
+.docs-article > header::before,
+.docs-article > header::after,
+.docs-article > section::before,
+.docs-article > section::after {
+  position: absolute;
+  z-index: 2;
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  border-color: var(--docs-blueprint-red);
+  pointer-events: none;
+  content: "";
+}
+
+.docs-article > header::before,
+.docs-article > section::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  border-block-start: 1px solid;
+  border-inline-start: 1px solid;
+}
+
+.docs-article > header::after,
+.docs-article > section::after {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  border-block-end: 1px solid;
+  border-inline-end: 1px solid;
+}
+
+.docs-article > header > p:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--docs-blueprint-red);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-article > header > p:first-child::before {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  background: var(--docs-blueprint-red);
+  content: "";
+}
+
+.docs-article > header h1 {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.docs-article > section > div:first-child h2,
+.docs-article > section > h2:first-child {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.docs-article > section a.group {
+  position: relative;
+  display: block;
+  min-block-size: 100%;
+  border: 1px solid var(--frame-frame-line-muted);
+  background: var(--frame-surface);
+  padding: 1rem;
+  text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.docs-article > section a.group:hover,
+.docs-article > section a.group:focus-visible {
+  border-color: var(--docs-blueprint-red);
+  outline: none;
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--frame-frame-line-muted) 90%, transparent);
+}
+
+.docs-article > section a.group::before,
+.docs-article > section a.group::after {
+  position: absolute;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-color: var(--docs-blueprint-red);
+  content: "";
+  pointer-events: none;
+}
+
+.docs-article > section a.group::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  border-block-start: 1px solid;
+  border-inline-start: 1px solid;
+}
+
+.docs-article > section a.group::after {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  border-block-end: 1px solid;
+  border-inline-end: 1px solid;
+}
+
+.docs-blueprint-meta {
+  color: var(--docs-blueprint-red);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-blueprint-meta:hover {
+  text-decoration: underline;
+}
+
+.docs-blueprint-ruler {
+  position: relative;
+  min-block-size: 1.75rem;
+  border: 1px solid var(--frame-frame-line-muted);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 7px,
+      color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 7px,
+      color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 8px
+    );
+}
+
+.docs-blueprint-measure {
+  position: relative;
+  display: block;
+  block-size: 1px;
+  min-inline-size: 4rem;
+  background: var(--docs-blueprint-red);
+}
+
+.docs-blueprint-measure::before,
+.docs-blueprint-measure::after {
+  position: absolute;
+  inset-block-start: -0.25rem;
+  inline-size: 1px;
+  block-size: 0.5rem;
+  background: var(--docs-blueprint-red);
+  content: "";
+}
+
+.docs-blueprint-measure::before {
+  inset-inline-start: 0;
+}
+
+.docs-blueprint-measure::after {
+  inset-inline-end: 0;
+}
+
+:where(
+  .rounded,
+  .rounded-sm,
+  .rounded-md,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl,
+  .rounded-3xl,
+  .rounded-full
+) {
+  border-radius: 0 !important;
+}
+
+:where([frAvatar], frame-avatar, [frSpinner], frame-spinner, .frame-slider__thumb) {
+  border-radius: 999px !important;
+}
+
+:where(main h1, main h2, main h3) {
+  letter-spacing: 0;
+}
+
+:where(code, kbd, pre) {
+  font-family: var(--font-mono), monospace;
+}
+
+:where(pre, docs-code-block, .shiki) {
+  border-radius: 0 !important;
 }
 
 .slide-in-enter {

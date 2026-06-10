@@ -1,17 +1,17 @@
-<header class="sticky top-0 z-40 border-b border-border/80 bg-background/86 backdrop-blur-xs">
+<header class="sticky top-0 z-40 border-b border-border bg-background/94 backdrop-blur-xs">
   <div class="mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
-      <img alt="Logo" [ngSrc]="themeService.isDark() ? '/logo/128x128_dark.webp' : '/logo/128x128.webp'" width="32" height="32" />
+      <img alt="Logo" [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'" width="24" height="24" />
     </a>
     <nav class="hidden items-center gap-5 text-sm font-semibold md:flex">
       <a
-        class="text-muted-foreground hover:text-foreground"
+        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
         routerLink="/docs"
       >
         Docs
       </a>
       <a
-        class="text-muted-foreground hover:text-foreground"
+        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
         routerLink="/docs/components"
       >
         Components
@@ -45,7 +45,7 @@
           Search docs...
         </span>
         </div>
-        <kbd class="rounded border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
+        <kbd class="border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
           Alt P
         </kbd>
       </button>
@@ -78,6 +78,7 @@
       </a>
     </div>
   </div>
+  <div aria-hidden="true" class="docs-blueprint-ruler border-x-0 border-b-0"></div>
 </header>
 
 <ng-template #searchDialog="frCommandDialog" frCommandDialog aria-label="Search documentation">

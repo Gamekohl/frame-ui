@@ -10,7 +10,7 @@
     --frame-checkbox-root-checked-border: var(--frame-primary);
     --frame-checkbox-root-checked-color: var(--frame-primary-foreground);
     --frame-checkbox-root-ring-color: var(--frame-ring);
-    --frame-checkbox-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-checkbox-root-ring-color) 35%, transparent);
+    --frame-checkbox-root-focus-shadow: none;
     --frame-checkbox-root-disabled-opacity: 0.55;
     --frame-checkbox-root-invalid-border: color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border));
     --frame-checkbox-indicator-size: 0.5rem;

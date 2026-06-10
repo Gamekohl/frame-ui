@@ -24,6 +24,6 @@
   --frame-calendar-select-radius: var(--frame-radius-md);
   --frame-calendar-select-border: var(--frame-border);
   --frame-calendar-select-bg: var(--frame-background);
-  --frame-calendar-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 26%, transparent);
+  --frame-calendar-focus-shadow: none;
   --frame-calendar-transition-duration: 150ms;
 }

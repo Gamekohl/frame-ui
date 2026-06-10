@@ -9,9 +9,9 @@
   --frame-input-otp-slot-font-size: 1rem;
   --frame-input-otp-slot-font-weight: 500;
   --frame-input-otp-slot-focus-border: var(--frame-input-root-focus-border);
-  --frame-input-otp-slot-focus-shadow: var(--frame-input-root-focus-shadow);
+  --frame-input-otp-slot-focus-shadow: none;
   --frame-input-otp-slot-invalid-border: var(--frame-input-root-invalid-border);
-  --frame-input-otp-slot-invalid-shadow: var(--frame-input-root-invalid-shadow);
+  --frame-input-otp-slot-invalid-shadow: none;
   --frame-input-otp-slot-disabled-bg: var(--frame-input-root-disabled-bg);
   --frame-input-otp-slot-disabled-color: var(--frame-input-root-disabled-color);
   --frame-input-otp-slot-disabled-opacity: var(--frame-input-root-disabled-opacity);

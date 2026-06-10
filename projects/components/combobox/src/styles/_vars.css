@@ -10,11 +10,12 @@
   --frame-combobox-control-disabled-color: var(--frame-muted-foreground);
   --frame-combobox-control-disabled-opacity: 0.6;
   --frame-combobox-control-focus-border: color-mix(in srgb, var(--frame-ring) 70%, var(--frame-border));
-  --frame-combobox-control-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 22%, transparent);
+  --frame-combobox-control-focus-shadow: none;
   --frame-combobox-control-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
-  --frame-combobox-control-invalid-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-destructive) 14%, transparent);
+  --frame-combobox-control-invalid-shadow: none;
   --frame-combobox-control-transition-duration: 150ms;
   --frame-combobox-clear-offset: 0.375rem;
+  --frame-combobox-clear-radius: var(--frame-radius-sm);
   --frame-combobox-panel-max-height: min(18rem, 50vh);
   --frame-combobox-panel-radius: var(--frame-radius-md);
   --frame-combobox-panel-bg: var(--frame-surface);
@@ -40,7 +41,7 @@
   --frame-combobox-separator-bg: var(--frame-border);
   --frame-combobox-chip-gap: 0.25rem;
   --frame-combobox-chip-height: 1.375rem;
-  --frame-combobox-chip-radius: 999px;
+  --frame-combobox-chip-radius: 0;
   --frame-combobox-chip-bg: var(--frame-primary);
   --frame-combobox-chip-color: var(--frame-primary-foreground);
   --frame-combobox-chip-font-size: 0.75rem;
@@ -48,7 +49,7 @@
   --frame-combobox-chip-padding-block: 0.1875rem;
   --frame-combobox-chip-padding-inline: 0.625rem 0.25rem;
   --frame-combobox-chip-remove-size: 1rem;
-  --frame-combobox-chip-remove-radius: 999px;
+  --frame-combobox-chip-remove-radius: 0;
   --frame-combobox-chip-remove-bg: color-mix(in srgb, currentColor 12%, transparent);
   --frame-combobox-chip-remove-hover-bg: color-mix(in srgb, currentColor 20%, transparent);
   --frame-combobox-chips-gap: 0.375rem;

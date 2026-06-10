@@ -1,12 +1,19 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FrAccordionModule } from '@frame-ui-ng/components/accordion';
+import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown } from '@ng-icons/tabler-icons';
+
+export type AccordionPreviewOption = {
+  label: string;
+  checked?: boolean;
+};
 
 export type AccordionPreviewItem = {
   value: string;
   trigger: string;
-  content: string;
+  content?: string;
+  options?: AccordionPreviewOption[];
   disabled?: boolean;
 };
 
@@ -27,6 +34,7 @@ export type AccordionPreviewConfig = {
   imports: [
     NgIconComponent,
     FrAccordionModule,
+    FrCheckboxModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -60,7 +68,18 @@ export type AccordionPreviewConfig = {
           </button>
 
           <div frAccordionContent [attr.data-token-target]="'content'">
-            {{ item.content }}
+            @if (item.options?.length) {
+              <div class="grid gap-3 py-1">
+                @for (option of item.options; track option.label) {
+                  <label class="inline-flex items-center gap-3 text-sm font-medium text-foreground">
+                    <input frCheckbox type="checkbox" [checked]="option.checked ?? false" />
+                    <span>{{ option.label }}</span>
+                  </label>
+                }
+              </div>
+            } @else {
+              {{ item.content }}
+            }
           </div>
         </section>
       }
