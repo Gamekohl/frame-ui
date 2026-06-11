@@ -16,7 +16,7 @@
   --frame-navigation-menu-trigger-hover-color: var(--frame-accent-foreground);
   --frame-navigation-menu-trigger-open-bg: var(--frame-accent);
   --frame-navigation-menu-trigger-open-color: var(--frame-accent-foreground);
-  --frame-navigation-menu-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-navigation-menu-trigger-focus-shadow: none;
   --frame-navigation-menu-content-width: 36rem;
   --frame-navigation-menu-content-gap: 0.25rem;
   --frame-navigation-menu-link-gap: 0.25rem;

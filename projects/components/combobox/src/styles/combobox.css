@@ -25,7 +25,8 @@ frame-combobox,
     background-color var(--frame-combobox-control-transition-duration) ease,
     border-color var(--frame-combobox-control-transition-duration) ease,
     box-shadow var(--frame-combobox-control-transition-duration) ease,
-    color var(--frame-combobox-control-transition-duration) ease;
+    color var(--frame-combobox-control-transition-duration) ease,
+    transform var(--frame-combobox-control-transition-duration) ease;
 }
 
 [frCombobox][data-disabled],
@@ -57,6 +58,14 @@ frame-combobox[data-disabled] .frame-combobox__chips {
   box-shadow: var(--frame-combobox-control-focus-shadow);
 }
 
+.frame-combobox__input[aria-expanded='true'],
+.frame-combobox__trigger[aria-expanded='true'] {
+  border-color: var(--frame-frame-accent, var(--frame-combobox-control-focus-border));
+  background: color-mix(in srgb, var(--frame-combobox-control-bg) 68%, var(--frame-muted));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
+}
+
 .frame-combobox__input[aria-invalid='true'],
 .frame-combobox__chips[data-invalid],
 [frCombobox][data-invalid] .frame-combobox__trigger {
@@ -81,7 +90,7 @@ frame-combobox[data-disabled] .frame-combobox__chips {
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: var(--frame-radius-sm);
+  border-radius: var(--frame-combobox-clear-radius);
   background: transparent;
   color: var(--frame-muted-foreground);
   cursor: pointer;
@@ -154,6 +163,7 @@ frame-combobox[data-disabled] .frame-combobox__chips {
 .frame-combobox__item:hover {
   background: var(--frame-accent);
   color: var(--frame-accent-foreground);
+  transform: translateX(0.25rem);
 }
 
 .frame-combobox__item[disabled] {

@@ -8,6 +8,13 @@
   --frame-select-trigger-active-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
   --frame-select-trigger-active-border: var(--frame-select-trigger-hover-border);
   --frame-select-trigger-active-color: var(--frame-select-trigger-hover-color);
+  --frame-select-trigger-corner-color: var(--frame-frame-line-muted);
+  --frame-select-trigger-corner-inset: var(--frame-frame-tick-inset, 0px);
+  --frame-select-trigger-corner-size: clamp(
+    0px,
+    calc((1px - var(--frame-select-trigger-radius, 0px)) * 9999),
+    var(--frame-frame-tick-size, 0.5rem)
+  );
   appearance: none;
   -webkit-appearance: none;
   display: inline-flex;
@@ -35,12 +42,35 @@
   text-align: left;
   text-decoration: none;
   box-shadow: none;
+  position: relative;
   transition:
     border-color var(--frame-select-trigger-transition-duration) ease,
     box-shadow var(--frame-select-trigger-transition-duration) ease,
     background-color var(--frame-select-trigger-transition-duration) ease,
     color var(--frame-select-trigger-transition-duration) ease,
-    opacity var(--frame-select-trigger-transition-duration) ease;
+    opacity var(--frame-select-trigger-transition-duration) ease,
+    transform var(--frame-select-trigger-transition-duration) ease;
+}
+
+.frame-select__trigger::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(var(--frame-select-trigger-corner-color), var(--frame-select-trigger-corner-color))
+      left var(--frame-select-trigger-corner-inset) top var(--frame-select-trigger-corner-inset) /
+      var(--frame-select-trigger-corner-size) 1px no-repeat,
+    linear-gradient(var(--frame-select-trigger-corner-color), var(--frame-select-trigger-corner-color))
+      left var(--frame-select-trigger-corner-inset) top var(--frame-select-trigger-corner-inset) / 1px
+      var(--frame-select-trigger-corner-size) no-repeat,
+    linear-gradient(var(--frame-select-trigger-corner-color), var(--frame-select-trigger-corner-color))
+      right var(--frame-select-trigger-corner-inset) bottom var(--frame-select-trigger-corner-inset) /
+      var(--frame-select-trigger-corner-size) 1px no-repeat,
+    linear-gradient(var(--frame-select-trigger-corner-color), var(--frame-select-trigger-corner-color))
+      right var(--frame-select-trigger-corner-inset) bottom var(--frame-select-trigger-corner-inset) / 1px
+      var(--frame-select-trigger-corner-size) no-repeat;
+  pointer-events: none;
+  content: '';
 }
 
 .frame-select__trigger:where(:not([data-disabled])):hover {
@@ -58,14 +88,27 @@
 }
 
 .frame-select__trigger:focus-visible {
-  outline: 2px solid transparent;
+  outline: 1px solid var(--frame-ring);
   outline-offset: 2px;
-  box-shadow: var(--frame-select-trigger-focus-shadow);
+  box-shadow: none;
+}
+
+.frame-select__trigger:focus-visible,
+.frame-select__trigger[data-state='open'] {
+  --frame-select-trigger-corner-color: var(--frame-frame-accent);
+}
+
+.frame-select__trigger[data-state='open'] {
+  background: var(--frame-select-trigger-active-bg);
+  border-color: var(--frame-select-trigger-active-border);
+  color: var(--frame-select-trigger-active-color);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 .frame-select__trigger[data-invalid] {
   border-color: var(--frame-select-trigger-invalid-border);
-  box-shadow: var(--frame-select-trigger-invalid-shadow);
+  box-shadow: none;
 }
 
 .frame-select__trigger[data-disabled] {

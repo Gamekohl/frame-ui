@@ -10,8 +10,8 @@
   --frame-slider-thumb-bg: var(--frame-background, #fff);
   --frame-slider-thumb-border: var(--frame-primary, #18181b);
   --frame-slider-thumb-border-width: 2px;
-  --frame-slider-thumb-shadow: 0 2px 10px rgb(0 0 0 / 0.16);
-  --frame-slider-thumb-focus-shadow: 0 0 0 4px color-mix(in srgb, var(--frame-ring, #18181b) 24%, transparent);
+  --frame-slider-thumb-shadow: none;
+  --frame-slider-thumb-focus-shadow: none;
   --frame-slider-disabled-opacity: 0.5;
-  --frame-slider-radius: 999px;
+  --frame-slider-radius: 0;
 }

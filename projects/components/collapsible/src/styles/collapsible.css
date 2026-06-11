@@ -3,11 +3,24 @@
 [frCollapsible],
 frame-collapsible {
   display: block;
+  background: transparent;
 }
 
 [frCollapsibleTrigger] {
   gap: var(--frame-collapsible-trigger-gap, 0.5rem);
   color: var(--frame-collapsible-trigger-color, var(--frame-foreground));
+  transition:
+    color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+[frCollapsibleTrigger]:where(:not(:disabled, [data-disabled])):hover,
+[frCollapsibleTrigger]:focus-visible,
+[frCollapsibleTrigger][data-state='open'] {
+  outline: none;
+  transform: translateX(0.25rem);
+  box-shadow: none;
 }
 
 [frCollapsibleTrigger]:where(:disabled, [data-disabled]) {

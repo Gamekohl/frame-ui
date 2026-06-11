@@ -9,7 +9,7 @@
   --frame-item-muted-bg: var(--frame-muted);
   --frame-item-hover-bg: var(--frame-accent);
   --frame-item-hover-color: var(--frame-accent-foreground);
-  --frame-item-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-item-focus-shadow: none;
   --frame-item-disabled-opacity: 0.5;
   --frame-item-content-gap: 0.25rem;
   --frame-item-header-gap: 0.625rem;

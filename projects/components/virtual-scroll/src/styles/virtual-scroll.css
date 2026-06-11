@@ -9,7 +9,7 @@ frame-virtual-viewport {
 frame-virtual-list {
   display: block;
   border: 1px solid var(--frame-border);
-  border-radius: var(--frame-radius-lg);
+  border-radius: var(--frame-virtual-list-radius, var(--frame-radius-lg));
   background: color-mix(in srgb, var(--frame-surface) 92%, transparent);
   overflow: hidden;
 }

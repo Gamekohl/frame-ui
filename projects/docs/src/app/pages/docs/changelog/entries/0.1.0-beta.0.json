@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0-beta.0",
+  "label": "First beta",
+  "status": "Released",
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Initial foundation package with CSS tokens and light/dark support.",
+        "Initial components package with Angular primitives and shared styles.",
+        "Docs site with installation, theming, theme tokens, and component pages."
+      ]
+    },
+    {
+      "title": "Included components",
+      "items": [
+        "Actions, forms, overlays, navigation, feedback, layout, and data display primitives.",
+        "Reactive forms support where the component represents form state.",
+        "Component-level CSS variables for local styling changes."
+      ]
+    }
+  ]
+}

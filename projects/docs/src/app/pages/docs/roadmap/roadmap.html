@@ -1,12 +1,9 @@
-<article class="docs-article min-w-0 space-y-10 py-2">
-  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-5">
-    <div class="flex flex-wrap items-center gap-3">
-      <p class="text-sm font-medium text-foreground">Planning</p>
-      <span frBadge variant="secondary">Work in progress</span>
-    </div>
+<article class="docs-article min-w-0 space-y-10">
+  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="docs-blueprint-sheet space-y-5 p-6">
+    <p class="docs-blueprint-title">Planning</p>
 
     <div class="space-y-4">
-      <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-foreground">
+      <h1 class="max-w-4xl font-mono text-4xl font-semibold uppercase text-foreground">
         Roadmap
       </h1>
       <p class="max-w-3xl text-base leading-8 text-muted-foreground">
@@ -26,7 +23,7 @@
         [style.--docs-enter-delay]="150 + groupIndex * 90 + 'ms'"
       >
         <div class="hidden md:col-start-2 md:row-start-1 md:flex md:justify-center">
-          <span class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground shadow-sm">
+          <span class="relative z-10 flex h-8 w-8 items-center justify-center border border-border bg-background text-sm font-semibold text-foreground">
             {{ groupIndex + 1 }}
           </span>
         </div>
@@ -39,7 +36,7 @@
           }"
         >
           <div
-            class="rounded-2xl border border-border bg-surface p-5"
+            class="docs-blueprint-sheet border border-border bg-surface p-5"
             [ngClass]="{
               'md:text-right': groupIndex % 2 === 0
             }"
@@ -50,7 +47,7 @@
                 'md:justify-end': groupIndex % 2 === 0
               }"
             >
-              <span class="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-sm font-semibold text-foreground md:hidden">
+              <span class="flex h-8 w-8 items-center justify-center border border-border bg-background text-sm font-semibold text-foreground md:hidden">
                 {{ groupIndex + 1 }}
               </span>
               <h2 class="text-2xl font-semibold tracking-tight text-foreground">{{ group.title }}</h2>

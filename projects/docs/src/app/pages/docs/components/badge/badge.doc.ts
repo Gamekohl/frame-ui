@@ -8,6 +8,7 @@ const heroConfig: BadgePreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
   items: [
     { label: 'Stable', variant: 'default' },
+    { label: 'Ready', variant: 'success' },
     { label: 'Internal', variant: 'secondary' },
     { label: 'Requires review', variant: 'outline' },
     { label: 'Open docs', variant: 'link', href: '#' },
@@ -22,6 +23,7 @@ const variantsConfig: BadgePreviewConfig = {
   items: [
     { label: 'Default', variant: 'default' },
     { label: 'Secondary', variant: 'secondary' },
+    { label: 'Success', variant: 'success' },
     { label: 'Destructive', variant: 'destructive' },
     { label: 'Outline', variant: 'outline' },
     { label: 'Ghost', variant: 'ghost' },
@@ -161,6 +163,9 @@ export const BADGE_DOC: ComponentDoc = {
             '--frame-badge-root-font-weight',
             '--frame-badge-root-bg',
             '--frame-badge-root-color',
+            '--frame-badge-success-bg',
+            '--frame-badge-success-border',
+            '--frame-badge-success-color',
             '--frame-badge-root-padding-block',
             '--frame-badge-root-padding-inline',
             '--frame-badge-root-focus-shadow',
@@ -287,6 +292,7 @@ ${customStylingConfig.style}
           language: 'html',
           code: `<span frBadge>Default</span>
 <span frBadge variant="secondary">Secondary</span>
+<span frBadge variant="success">Success</span>
 <span frBadge variant="destructive">Destructive</span>
 <span frBadge variant="outline">Outline</span>
 <span frBadge variant="ghost">Ghost</span>
@@ -391,6 +397,9 @@ ${customStylingConfig.style}
   --frame-badge-root-font-weight: 600;
   --frame-badge-root-bg: var(--frame-primary);
   --frame-badge-root-color: var(--frame-primary-foreground);
+  --frame-badge-success-bg: color-mix(in srgb, #16a34a 16%, var(--frame-surface));
+  --frame-badge-success-border: color-mix(in srgb, #16a34a 32%, transparent);
+  --frame-badge-success-color: color-mix(in srgb, #16a34a 78%, var(--frame-foreground));
   --frame-badge-root-padding-block: 0.1875rem;
   --frame-badge-root-padding-inline: 0.625rem;
   --frame-badge-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);

@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0-beta.0",
+  "label": "Next beta",
+  "status": "Next",
+  "sections": [
+    {
+      "title": "Changed",
+      "items": [
+        "New default visual style with sharper surfaces, clearer borders, and less shadow.",
+        "Theme setup now keeps light and dark as the only built-in theme modes."
+      ]
+    }
+  ]
+}

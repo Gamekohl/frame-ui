@@ -8,7 +8,7 @@
   --frame-radio-group-card-border: var(--frame-border);
   --frame-radio-group-card-hover-border: color-mix(in srgb, var(--frame-border) 70%, var(--frame-foreground));
   --frame-radio-group-card-checked-border: var(--frame-primary);
-  --frame-radio-group-card-checked-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-primary) 14%, transparent);
+  --frame-radio-group-card-checked-shadow: none;
   --frame-radio-group-card-disabled-opacity: 0.55;
   --frame-radio-group-card-meta-color: var(--frame-muted-foreground);
   --frame-radio-group-card-meta-font-size: 0.875rem;
@@ -21,7 +21,7 @@
   --frame-radio-group-item-checked-border: var(--frame-primary);
   --frame-radio-group-item-checked-bg: var(--frame-surface);
   --frame-radio-group-item-dot-size: 0.5rem;
-  --frame-radio-group-item-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 32%, transparent);
+  --frame-radio-group-item-focus-shadow: none;
   --frame-radio-group-item-invalid-border: var(--frame-destructive);
   --frame-radio-group-item-disabled-opacity: 0.5;
   --frame-radio-group-transition-duration: 150ms;

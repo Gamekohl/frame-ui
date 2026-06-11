@@ -36,6 +36,11 @@ describe('FrBadge', () => {
     expect(badge.classList.contains('frame-badge')).toBe(true);
     expect(badge.getAttribute('data-variant')).toBe('link');
     expect(badge.getAttribute('href')).toBe('/docs');
+
+    fixture.componentInstance.variant.set('success');
+    fixture.detectChanges();
+
+    expect(badge.getAttribute('data-variant')).toBe('success');
   });
 
   it('marks icon, label, and spinner slots', () => {

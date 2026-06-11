@@ -53,7 +53,7 @@ frame-switch-error {
   inline-size: var(--frame-switch-width);
   block-size: var(--frame-switch-height);
   margin: 0;
-  border: 1px solid transparent;
+  border: 1px solid var(--frame-border);
   border-radius: var(--frame-switch-radius);
   background: var(--frame-switch-bg);
   box-shadow: var(--frame-switch-border-shadow);
@@ -90,6 +90,7 @@ frame-switch-error {
 }
 
 [frSwitch]:checked {
+  border-color: color-mix(in srgb, var(--frame-primary) 72%, var(--frame-border));
   background: var(--frame-switch-checked-bg);
   box-shadow: var(--frame-switch-checked-border-shadow);
 }
@@ -107,15 +108,13 @@ frame-switch-error {
 }
 
 [frSwitch]:focus-visible {
-  box-shadow:
-    var(--frame-switch-border-shadow),
-    var(--frame-switch-focus-shadow);
+  outline: 1px solid var(--frame-ring);
+  outline-offset: 2px;
+  box-shadow: none;
 }
 
 [frSwitch]:checked:focus-visible {
-  box-shadow:
-    var(--frame-switch-checked-border-shadow),
-    var(--frame-switch-focus-shadow);
+  box-shadow: none;
 }
 
 [frSwitch]:disabled {
@@ -127,5 +126,5 @@ frame-switch-error {
 [frSwitch].ng-invalid.ng-touched,
 [frSwitch].ng-invalid.ng-dirty {
   border-color: var(--frame-switch-invalid-border);
-  box-shadow: var(--frame-switch-invalid-shadow);
+  box-shadow: none;
 }

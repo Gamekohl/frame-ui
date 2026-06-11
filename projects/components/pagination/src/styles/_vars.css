@@ -14,7 +14,7 @@
   --frame-pagination-link-active-bg: var(--frame-surface);
   --frame-pagination-link-active-color: var(--frame-foreground);
   --frame-pagination-link-active-border: var(--frame-border);
-  --frame-pagination-link-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-pagination-link-focus-shadow: none;
   --frame-pagination-link-disabled-opacity: 0.5;
   --frame-pagination-font-size: 0.875rem;
   --frame-pagination-font-weight: 500;

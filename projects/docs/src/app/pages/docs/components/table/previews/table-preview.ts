@@ -191,7 +191,9 @@ const DEPLOYMENTS: Deployment[] = [
 
           <ng-container frColumnDef="status">
             <th frHeaderCell *frHeaderCellDef>Status</th>
-            <td frCell *frCellDef="let deployment">{{ deployment.status }}</td>
+            <td frCell *frCellDef="let deployment">
+              <span frBadge [variant]="badgeVariant(deployment.status)">{{ deployment.status }}</span>
+            </td>
             <td frFooterCell *frFooterCellDef></td>
           </ng-container>
 
@@ -229,7 +231,9 @@ const DEPLOYMENTS: Deployment[] = [
 
           <ng-container frColumnDef="status">
             <th frHeaderCell *frHeaderCellDef>Status</th>
-            <td frCell *frCellDef="let deployment">{{ deployment.status }}</td>
+            <td frCell *frCellDef="let deployment">
+              <span frBadge [variant]="badgeVariant(deployment.status)">{{ deployment.status }}</span>
+            </td>
           </ng-container>
 
           <ng-container frColumnDef="actions">
@@ -492,12 +496,12 @@ export class DocsTablePreviewComponent {
     this.showOwner.update((value) => !value);
   }
 
-  protected badgeVariant(status: Deployment['status']): 'default' | 'secondary' | 'destructive' {
+  protected badgeVariant(status: Deployment['status']): 'success' | 'secondary' | 'destructive' {
     if (status === 'Failed') {
       return 'destructive';
     }
 
-    return status === 'Queued' ? 'secondary' : 'default';
+    return status === 'Queued' ? 'secondary' : 'success';
   }
 
   protected currency(value: number): string {

@@ -44,6 +44,7 @@ frame-sidebar {
   overflow: hidden;
   border-inline-end: 1px solid var(--frame-sidebar-border);
   background: var(--frame-sidebar-bg);
+  box-shadow: none;
   color: var(--frame-sidebar-color);
   transition:
     width var(--frame-sidebar-transition-duration) ease,
@@ -95,7 +96,7 @@ frame-sidebar[data-variant="inset"] {
   margin: var(--frame-sidebar-margin);
   border: 1px solid var(--frame-sidebar-border);
   border-radius: var(--frame-sidebar-radius);
-  box-shadow: var(--frame-sidebar-shadow);
+  box-shadow: var(--frame-sidebar-shadow), var(--frame-shadow-frame);
 }
 
 [frSidebar][data-collapsible="icon"][data-state="collapsed"],
@@ -179,10 +180,10 @@ frame-sidebar-group-label {
   align-items: center;
   gap: 0.5rem;
   padding-inline: 0.625rem;
-  color: var(--frame-sidebar-muted-color);
-  font-size: 0.75rem;
+  color: var(--frame-frame-accent);
+  font-size: 0.6875rem;
   font-weight: 650;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -240,7 +241,7 @@ frame-sidebar-menu-sub-button {
   min-width: 0;
   align-items: center;
   gap: 0.625rem;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: var(--frame-sidebar-menu-button-radius);
   background: transparent;
   color: var(--frame-sidebar-color);
@@ -287,6 +288,7 @@ frame-sidebar-menu-button[data-variant="outline"] {
 frame-sidebar-menu-button:hover,
 [frSidebarMenuSubButton]:hover,
 frame-sidebar-menu-sub-button:hover {
+  border-color: var(--frame-frame-line-muted);
   background: var(--frame-sidebar-accent);
   color: var(--frame-sidebar-accent-color);
 }
@@ -295,9 +297,20 @@ frame-sidebar-menu-sub-button:hover {
 frame-sidebar-menu-button[data-active],
 [frSidebarMenuSubButton][data-active],
 frame-sidebar-menu-sub-button[data-active] {
-  background: var(--frame-sidebar-primary);
-  color: var(--frame-sidebar-primary-color);
+  border-color: color-mix(in srgb, var(--frame-frame-accent) 55%, var(--frame-sidebar-border));
+  background: color-mix(in srgb, var(--frame-frame-accent) 9%, var(--frame-sidebar-bg));
+  color: var(--frame-sidebar-color);
   font-weight: 650;
+}
+
+[frSidebarMenuButton][data-active]::before,
+frame-sidebar-menu-button[data-active]::before,
+[frSidebarMenuSubButton][data-active]::before,
+frame-sidebar-menu-sub-button[data-active]::before {
+  inline-size: 2px;
+  align-self: stretch;
+  background: var(--frame-frame-accent);
+  content: "";
 }
 
 [frSidebarMenuButton][data-disabled],

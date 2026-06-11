@@ -27,29 +27,40 @@ nav[frBreadcrumb] {
 
 [frBreadcrumbLink] {
   min-width: 0;
-  border-radius: var(--frame-radius-sm);
+  border: 1px solid transparent;
+  border-radius: var(--frame-breadcrumb-link-radius);
   color: var(--frame-breadcrumb-link-color);
+  padding: 0.1875rem 0.375rem;
   text-decoration: none;
   text-underline-offset: 0.25rem;
   transition:
+    border-color var(--frame-breadcrumb-transition-duration) ease,
     color var(--frame-breadcrumb-transition-duration) ease,
-    box-shadow var(--frame-breadcrumb-transition-duration) ease;
+    box-shadow var(--frame-breadcrumb-transition-duration) ease,
+    transform var(--frame-breadcrumb-transition-duration) ease;
 }
 
 [frBreadcrumbLink]:hover {
+  border-color: var(--frame-frame-line-muted, var(--frame-border));
   color: var(--frame-breadcrumb-link-hover-color);
-  text-decoration: underline;
+  text-decoration: none;
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frBreadcrumbLink]:focus-visible {
   outline: none;
+  border-color: var(--frame-frame-accent, var(--frame-ring));
   box-shadow: var(--frame-breadcrumb-link-focus-shadow);
+  transform: translate(-1px, -1px);
 }
 
 [frBreadcrumbPage] {
   min-width: 0;
+  border-block-end: 1px solid var(--frame-frame-accent, var(--frame-primary));
   color: var(--frame-breadcrumb-page-color);
   font-weight: 500;
+  padding: 0.1875rem 0.375rem;
 }
 
 [frBreadcrumbSeparator] {
@@ -64,6 +75,7 @@ nav[frBreadcrumb] {
 }
 
 [frBreadcrumbSeparator]:empty::before {
+  color: var(--frame-frame-accent, var(--frame-primary));
   content: "/";
 }
 

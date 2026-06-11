@@ -9,14 +9,13 @@ import { DocsCodeBlockComponent } from './docs-code-block/docs-code-block';
   imports: [NgComponentOutlet, DocsCodeBlockComponent, FrButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="rounded-xl border border-border bg-surface overflow-hidden">
-      @if (label()) {
-        <div class="border-b border-border px-6 py-4">
-          <p class="text-sm font-medium text-muted-foreground">
-            {{ label() }}
-          </p>
-        </div>
-      }
+    <div class="docs-blueprint-sheet overflow-hidden">
+      <div class="flex items-center justify-between border-b border-border px-4 py-3">
+        <p class="docs-blueprint-meta">
+          {{ label() ?? 'Component Sheet' }}
+        </p>
+        <p class="docs-blueprint-meta">Grid: 8px · Scale: 1:1</p>
+      </div>
 
       @if (example().preview; as preview) {
         <div class="px-6 py-8">
@@ -44,6 +43,11 @@ import { DocsCodeBlockComponent } from './docs-code-block/docs-code-block';
           </div>
         }
       }
+      <div aria-hidden="true" class="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t border-border px-4 py-3">
+        <span class="docs-blueprint-measure"></span>
+        <span class="docs-blueprint-meta">Blueprint Preview</span>
+        <span class="docs-blueprint-measure"></span>
+      </div>
     </div>
   `,
 })

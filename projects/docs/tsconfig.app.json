@@ -5,6 +5,7 @@
   "compilerOptions": {
     "rootDir": "../..",
     "outDir": "../../out-tsc/app",
+    "resolveJsonModule": true,
     "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],

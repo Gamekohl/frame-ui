@@ -17,10 +17,39 @@ frame-input-header {
 
 [frInputControl],
 frame-input-control {
+  --frame-input-frame-color: var(--frame-frame-line-muted);
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+[frInputControl]::before,
+frame-input-control::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--frame-input-root-radius);
+  background:
+    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
+      left var(--frame-frame-tick-inset, 0.25rem) top var(--frame-frame-tick-inset, 0.25rem) /
+      var(--frame-frame-tick-size, 0.5rem) 1px no-repeat,
+    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
+      left var(--frame-frame-tick-inset, 0.25rem) top var(--frame-frame-tick-inset, 0.25rem) / 1px
+      var(--frame-frame-tick-size, 0.5rem) no-repeat,
+    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
+      right var(--frame-frame-tick-inset, 0.25rem) bottom var(--frame-frame-tick-inset, 0.25rem) /
+      var(--frame-frame-tick-size, 0.5rem) 1px no-repeat,
+    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
+      right var(--frame-frame-tick-inset, 0.25rem) bottom var(--frame-frame-tick-inset, 0.25rem) / 1px
+      var(--frame-frame-tick-size, 0.5rem) no-repeat;
+  pointer-events: none;
+  content: '';
+}
+
+[frInputControl]:focus-within,
+frame-input-control:focus-within {
+  --frame-input-frame-color: var(--frame-frame-accent);
 }
 
 [frInputFieldGroup],
@@ -61,7 +90,10 @@ frame-input-error {
   height: var(--frame-input-root-height);
   border: 1px solid var(--frame-input-root-border);
   border-radius: var(--frame-input-root-radius);
-  background: var(--frame-input-root-bg);
+  background:
+    linear-gradient(var(--frame-input-root-bg), var(--frame-input-root-bg)) padding-box,
+    linear-gradient(135deg, color-mix(in srgb, var(--frame-frame-line-muted) 70%, transparent), transparent 42%)
+      border-box;
   color: var(--frame-input-root-color);
   box-shadow: none;
   cursor: text;
@@ -91,14 +123,16 @@ frame-input-error {
 
 [frInput]:focus-visible {
   border-color: var(--frame-input-root-focus-border);
-  box-shadow: var(--frame-input-root-focus-shadow);
+  box-shadow: none;
+  outline: 1px solid var(--frame-ring);
+  outline-offset: 2px;
 }
 
 [frInput][aria-invalid='true'],
 [frInput].ng-invalid.ng-touched,
 [frInput].ng-invalid.ng-dirty {
   border-color: var(--frame-input-root-invalid-border);
-  box-shadow: var(--frame-input-root-invalid-shadow);
+  box-shadow: none;
 }
 
 [frInput]:disabled {

@@ -18,7 +18,7 @@
 .docs-token-inspector__hotspot,
 .docs-token-inspector__outline {
     position: absolute;
-    border-radius: 0.75rem;
+    border-radius: 0;
     transition:
             left 180ms ease,
             top 180ms ease,
@@ -73,25 +73,24 @@
 }
 
 .docs-token-inspector__popover {
-    @apply shadow-sm;
     max-inline-size: 32rem;
     max-block-size: min(32rem, calc(100vh - 2rem));
     overflow: auto;
     border: 1px solid var(--frame-border);
-    border-radius: 1rem;
+    border-radius: 0;
     background: color-mix(in srgb, var(--frame-surface) 94%, white 6%);
+    box-shadow: var(--frame-shadow-lg);
     padding: 1rem;
     backdrop-filter: blur(10px);
 }
 
 .docs-token-inspector__panel {
-    @apply shadow-sm;
     position: sticky;
     top: 6rem;
     max-block-size: min(36rem, calc(100vh - 7rem));
     overflow: auto;
     border: 1px solid var(--frame-border);
-    border-radius: 1rem;
+    border-radius: 0;
     background: color-mix(in srgb, var(--frame-surface) 94%, white 6%);
     padding: 1rem;
     backdrop-filter: blur(10px);

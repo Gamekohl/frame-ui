@@ -14,8 +14,8 @@
   --frame-tabs-trigger-hover-color: var(--frame-foreground, #09090b);
   --frame-tabs-trigger-active-bg: var(--frame-background, #fff);
   --frame-tabs-trigger-active-color: var(--frame-foreground, #09090b);
-  --frame-tabs-trigger-active-shadow: 0 1px 3px rgb(0 0 0 / 0.12);
-  --frame-tabs-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring, #18181b) 28%, transparent);
+  --frame-tabs-trigger-active-shadow: none;
+  --frame-tabs-trigger-focus-shadow: none;
   --frame-tabs-trigger-disabled-opacity: 0.5;
   --frame-tabs-line-color: var(--frame-border, #e5e7eb);
   --frame-tabs-line-active-color: var(--frame-primary, #18181b);

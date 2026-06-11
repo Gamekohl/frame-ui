@@ -1,45 +1,115 @@
-<main class="mx-auto grid min-h-[calc(100vh-60px)] max-w-448 items-center overflow-hidden px-4 py-8 sm:px-6 xl:px-10">
-  <div class="grid items-center gap-12 xl:grid-cols-[minmax(0,0.9fr)_minmax(40rem,1.1fr)]">
-    <section
-      animate.enter="slide-in-enter"
-      style="--docs-enter-delay: 0ms"
-      class="relative z-10"
-    >
-      <div class="relative max-w-4xl">
-        <div class="flex items-center gap-2 mb-3">
-          <img [ngSrc]="themeService.isDark() ? '/logo/128x128_dark.webp' : '/logo/128x128.webp'" width="32" height="32" />
-          <h4 class="text-2xl font-semibold tracking-tight">FrameUI</h4>
+<main class="intro-page mx-auto grid max-w-350 gap-8 overflow-hidden px-4 py-8 sm:px-6 xl:px-0">
+  <section
+    animate.enter="slide-in-enter"
+    style="--docs-enter-delay: 60ms"
+    frAlert
+    variant="info"
+  >
+    <ng-icon frAlertIcon name="tablerInfoCircle" />
+    <h2 frAlertTitle>FrameUI has a new visual direction</h2>
+    <p frAlertDescription>
+      I decided against building another shadcn clone for Angular. FrameUI now uses its own
+      technical default style, with sharper surfaces, visible structure, and a more distinct
+      component identity. If you are looking for a shadcn-style Angular library, take a look at
+      <a href="https://zardui.com/" target="_blank" rel="noreferrer" class="hover:underline">ZardUI</a> or
+      <a href="https://spartan.ng/" target="_blank" rel="noreferrer" class="hover:underline">SpartanNG</a>. The new style becomes the default in v0.2.0-beta.0.
+    </p>
+  </section>
+
+  <section
+    animate.enter="slide-in-enter"
+    style="--docs-enter-delay: 90ms"
+    class="intro-hero docs-blueprint-sheet"
+    data-grid="true"
+  >
+    <div class="intro-copy">
+      <div class="relative">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+          <h4 class="docs-blueprint-title font-mono text-lg! font-semibold leading-tight">FrameUI</h4>
+          <span class="docs-blueprint-meta">Angular Components</span>
         </div>
-        <h1 class="max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl text-center xl:text-left">
-          A customizable <span class="angular-color-gradient">Angular</span> component library built around modern primitives.
-        </h1>
 
-        <p class="mt-5 max-w-3xl text-lg leading-9 text-muted-foreground text-center xl:text-left">
-          Forms, overlays, navigation, feedback, and much more. The components share one token system, so they fit together without extra
-          styling glue.
-        </p>
+        <div class="flex flex-col items-center">
+          <h1 class="docs-mono max-w-3xl text-center text-4xl font-semibold uppercase leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            <span class="angular-color-gradient">Angular</span> UI primitives with a technical default style.
+          </h1>
 
-        <div class="mt-8 flex flex-wrap gap-3 justify-center xl:justify-start">
-          <a frButton size="lg" appearance="outline" routerLink="/docs/installation">
-            <span frButtonLabel>Get started</span>
-          </a>
-          <a frButton size="lg" routerLink="/docs/components">
-            <span frButtonLabel>Browse components</span>
-            <ng-icon name="tablerArrowRight" size="18" frButtonIcon />
-          </a>
+          <p class="mt-5 max-w-2xl text-center text-lg leading-8 text-muted-foreground">
+            FrameUI provides Angular components for application screens: forms, overlays, navigation,
+            feedback, data display, and layout. The default theme uses sharp edges, clear borders, and
+            a restrained red accent so the components have their own visual direction.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a frButton size="lg" appearance="outline" routerLink="/docs/installation">
+              <span frButtonLabel>Get started</span>
+            </a>
+            <a frButton size="lg" routerLink="/docs/components">
+              <span frButtonLabel>Browse components</span>
+              <ng-icon name="tablerArrowRight" size="18" frButtonIcon />
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <div
-      aria-hidden="true"
-      animate.enter="slide-in-enter"
-      class="relative hidden h-168 overflow-visible xl:block"
-      style="--docs-enter-delay: 120ms"
-    >
-      <div class="absolute left-0 top-1/2 w-280 -translate-y-1/2">
-        <app-showcase />
       </div>
     </div>
-  </div>
+
+    <!--<div
+      animate.enter="slide-in-enter"
+      class="intro-showcase-panel hidden xl:block"
+      style="--docs-enter-delay: 120ms"
+      aria-hidden="true"
+    >
+      <app-showcase class="intro-showcase transform-[rotateX(20deg)rotateZ(-20deg)skewY(8deg)scale(0.8)translateX(132px)translateY(-140px)]"></app-showcase>
+    </div>-->
+  </section>
+
+  <section class="grid gap-8 xl:grid-cols-[0.9fr_1.1fr]">
+    <article animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="docs-blueprint-sheet p-6 sm:p-8">
+      <div class="flex items-center justify-between gap-4 border-b border-border pb-4">
+        <h2 class="docs-blueprint-title">01 Design Approach</h2>
+        <span class="docs-blueprint-meta">Default Theme</span>
+      </div>
+
+      <div class="mt-8 space-y-5">
+        <h3 class="font-mono text-2xl font-semibold uppercase leading-tight text-foreground sm:text-3xl">
+          Built for application screens.
+        </h3>
+        <p class="text-base leading-8 text-muted-foreground">
+          The default styles use clear borders, compact spacing, and simple surfaces. They work well
+          for forms, tables, menus, and dashboards, and can be changed with CSS variables.
+        </p>
+      </div>
+    </article>
+
+    <article animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" class="docs-blueprint-sheet p-6 sm:p-8">
+      <div class="flex items-center justify-between gap-4 border-b border-border pb-4">
+        <h2 class="docs-blueprint-title">02 Component Model</h2>
+        <span class="docs-blueprint-meta">Angular</span>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="border border-border bg-background p-4">
+          <p class="docs-blueprint-meta">Selectors</p>
+          <h3 class="mt-4 font-semibold text-foreground">Explicit templates</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            Attribute and element selectors keep component structure visible in Angular templates.
+          </p>
+        </div>
+        <div class="border border-border bg-background p-4">
+          <p class="docs-blueprint-meta">Styles</p>
+          <h3 class="mt-4 font-semibold text-foreground">Themeable defaults</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            Components use CSS variables, so the default theme can be changed without replacing APIs.
+          </p>
+        </div>
+        <div class="border border-border bg-background p-4">
+          <p class="docs-blueprint-meta">Scope</p>
+          <h3 class="mt-4 font-semibold text-foreground">Application UI</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            The library focuses on reusable primitives for real applications.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
 </main>

@@ -2,6 +2,7 @@ import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsTablePreviewComponent } from './previews/table-preview';
 
 const importsCode = `import { CurrencyPipe } from '@angular/common';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrTableModule } from '@frame-ui-ng/components/table';`;
 
 const basicTs = `${importsCode}
@@ -13,6 +14,14 @@ deployments = [
   { id: 'DEP-2049', app: 'Northwind Portal', owner: 'Rhea', status: 'Queued', region: 'US East', cost: 860 },
   { id: 'DEP-2050', app: 'Signal Desk', owner: 'Nora', status: 'Ready', region: 'AP South', cost: 1440 },
 ];
+
+badgeVariant(status: string): 'success' | 'secondary' | 'destructive' {
+  if (status === 'Failed') {
+    return 'destructive';
+  }
+
+  return status === 'Queued' ? 'secondary' : 'success';
+}
 
 totalCost(): number {
   return this.deployments.reduce((total, deployment) => total + deployment.cost, 0);
@@ -34,7 +43,9 @@ const basicHtml = `<div frTableContainer>
 
     <ng-container frColumnDef="status">
       <th frHeaderCell *frHeaderCellDef>Status</th>
-      <td frCell *frCellDef="let deployment">{{ deployment.status }}</td>
+      <td frCell *frCellDef="let deployment">
+        <span frBadge [variant]="badgeVariant(deployment.status)">{{ deployment.status }}</span>
+      </td>
     </ng-container>
 
     <ng-container frColumnDef="region">
@@ -188,7 +199,9 @@ const stickyColumnsHtml = `<div frTableContainer>
 
     <ng-container frColumnDef="status">
       <th frHeaderCell *frHeaderCellDef>Status</th>
-      <td frCell *frCellDef="let deployment">{{ deployment.status }}</td>
+      <td frCell *frCellDef="let deployment">
+        <span frBadge [variant]="badgeVariant(deployment.status)">{{ deployment.status }}</span>
+      </td>
     </ng-container>
 
     <ng-container frColumnDef="cost" [stickyEnd]="true">

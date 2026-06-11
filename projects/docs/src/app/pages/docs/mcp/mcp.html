@@ -1,12 +1,12 @@
-<article class="docs-article min-w-0 space-y-10 py-2">
-  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="space-y-5">
+<article class="docs-article min-w-0 space-y-10">
+  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="docs-blueprint-sheet space-y-5 p-6">
     <div class="flex flex-wrap items-center gap-3">
-      <p class="text-sm font-medium text-foreground">Tooling</p>
+      <p class="docs-blueprint-title">Tooling</p>
       <span frBadge variant="secondary">Planned</span>
     </div>
 
     <div class="space-y-4">
-      <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-foreground">
+      <h1 class="max-w-4xl font-mono text-4xl font-semibold uppercase text-foreground">
         MCP for component library aware AI tooling
       </h1>
       <p class="max-w-3xl text-base leading-8 text-muted-foreground">
@@ -35,10 +35,10 @@
     @for (benefit of benefits; track benefit.title; let index = $index) {
       <article
         animate.enter="slide-in-enter"
-        class="rounded-2xl border border-border bg-surface p-5"
+        class="docs-blueprint-sheet border border-border bg-surface p-5"
         [style.--docs-enter-delay]="220 + index * 70 + 'ms'"
       >
-        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+        <span class="inline-flex h-8 w-8 items-center justify-center bg-primary text-sm font-semibold text-primary-foreground">
           {{ index + 1 }}
         </span>
         <h3 class="mt-4 text-lg font-semibold tracking-tight text-foreground">{{ benefit.title }}</h3>
@@ -50,7 +50,7 @@
   <section
     animate.enter="slide-in-enter"
     style="--docs-enter-delay: 440ms"
-    class="grid gap-5 rounded-3xl border border-border bg-surface p-6"
+    class="docs-blueprint-sheet grid gap-5 border border-border bg-surface p-6"
   >
     <div class="space-y-2">
       <p class="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
@@ -63,7 +63,7 @@
 
     <ul class="grid gap-3 md:grid-cols-2">
       @for (capability of capabilities; track capability) {
-        <li class="rounded-2xl border border-border/80 bg-background px-4 py-4 text-sm leading-6 text-muted-foreground">
+        <li class="border border-border/80 bg-background px-4 py-4 text-sm leading-6 text-muted-foreground">
           {{ capability }}
         </li>
       }
@@ -73,7 +73,7 @@
   <section
     animate.enter="slide-in-enter"
     style="--docs-enter-delay: 520ms"
-    class="rounded-3xl border border-dashed border-border bg-muted/30 p-6"
+    class="docs-blueprint-sheet border border-dashed border-border bg-muted/30 p-6"
   >
     <div class="flex flex-wrap items-center gap-3">
       <h2 class="text-xl font-semibold tracking-tight text-foreground">Coming soon</h2>

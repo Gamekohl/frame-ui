@@ -1,7 +1,10 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  FrAlert,
+  FrAlertDescription,
+  FrAlertIcon,
+  FrAlertTitle,
   FrButton,
   FrButtonIcon,
   FrButtonLabel,
@@ -10,37 +13,31 @@ import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,
-  tablerCheck,
-  tablerChevronDown,
-  tablerChevronRight,
-  tablerCircleCheck,
-  tablerDots,
-  tablerPalette,
-  tablerSettings,
-  tablerSparkles,
-  tablerUserPlus,
+  tablerInfoCircle,
 } from '@ng-icons/tabler-icons';
-import { Showcase } from './showcase/showcase';
 
 @Component({
   host: {
     class: 'overflow-x-hidden relative',
   },
   selector: 'app-introduction',
-  imports: [FrButton, FrButtonIcon, FrButtonLabel, NgIcon, RouterLink, Showcase, NgOptimizedImage],
+  imports: [
+    FrAlert,
+    FrAlertDescription,
+    FrAlertIcon,
+    FrAlertTitle,
+    FrButton,
+    FrButtonIcon,
+    FrButtonLabel,
+    NgIcon,
+    RouterLink,
+  ],
   templateUrl: './introduction.html',
+  styleUrl: './introduction.css',
   viewProviders: [
     provideIcons({
       tablerArrowRight,
-      tablerCheck,
-      tablerChevronDown,
-      tablerChevronRight,
-      tablerCircleCheck,
-      tablerDots,
-      tablerPalette,
-      tablerSettings,
-      tablerSparkles,
-      tablerUserPlus,
+      tablerInfoCircle,
     }),
   ],
 })

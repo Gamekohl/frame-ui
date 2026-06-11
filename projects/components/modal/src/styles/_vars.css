@@ -12,6 +12,7 @@
   --frame-modal-scrollable-height: min(calc(100dvh - 2rem), 28rem);
   --frame-modal-close-bg: transparent;
   --frame-modal-close-color: var(--frame-muted-foreground, #71717a);
+  --frame-modal-close-radius: var(--frame-radius-sm);
   --frame-modal-close-hover-bg: var(--frame-muted, #f4f4f5);
   --frame-modal-close-hover-color: var(--frame-foreground, #09090b);
   --frame-modal-z-index: 1000;

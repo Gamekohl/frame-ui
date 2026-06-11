@@ -1,9 +1,12 @@
 .frame-button-group,
 [frButtonGroup],
 frame-button-group {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
   width: 100%;
+  border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
+  background: var(--frame-surface);
 }
 
 .frame-button-group[data-orientation='vertical'],
@@ -66,4 +69,32 @@ frame-button-group[data-orientation='vertical'] > :not(:first-child):not(:last-c
 
 .frame-button-group > * {
   position: relative;
+}
+
+.frame-button-group::before,
+[frButtonGroup]::before,
+frame-button-group::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      left top / var(--frame-frame-tick-size, 0.375rem) 1px no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      left top / 1px var(--frame-frame-tick-size, 0.375rem) no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      right bottom / var(--frame-frame-tick-size, 0.375rem) 1px no-repeat,
+    linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
+      right bottom / 1px var(--frame-frame-tick-size, 0.375rem) no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.frame-button-group > .frame-button::before,
+.frame-button-group > [frButton]::before,
+[frButtonGroup] > .frame-button::before,
+[frButtonGroup] > [frButton]::before,
+frame-button-group > .frame-button::before,
+frame-button-group > [frButton]::before {
+  content: none;
 }

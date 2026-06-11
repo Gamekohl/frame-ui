@@ -3,9 +3,10 @@
   --frame-breadcrumb-root-font-size: 0.875rem;
   --frame-breadcrumb-root-line-height: 1.25rem;
   --frame-breadcrumb-list-gap: 0.375rem;
+  --frame-breadcrumb-link-radius: var(--frame-radius-sm);
   --frame-breadcrumb-link-color: var(--frame-muted-foreground);
   --frame-breadcrumb-link-hover-color: var(--frame-foreground);
-  --frame-breadcrumb-link-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
+  --frame-breadcrumb-link-focus-shadow: none;
   --frame-breadcrumb-page-color: var(--frame-foreground);
   --frame-breadcrumb-separator-color: var(--frame-muted-foreground);
   --frame-breadcrumb-separator-size: 0.875rem;

@@ -57,9 +57,9 @@ export class Overview {
       icon: 'tablerLayersIntersect',
     },
     {
-      title: 'Inspired by shadcn',
+      title: 'Composable primitives',
       description:
-        'The API leans into composable primitives and familiar patterns, while still staying idiomatic to Angular.',
+        'The API favors small, focused building blocks that compose into real Angular product interfaces.',
       icon: 'tablerTopologyComplex',
     },
     {

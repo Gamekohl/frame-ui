@@ -1,7 +1,7 @@
 <div class="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_14rem]">
   @if (component() === undefined) {
     <main class="min-w-0">
-      <section class="rounded-2xl border border-border bg-muted/10 px-6 py-12 sm:px-8">
+      <section class="docs-blueprint-sheet border border-border bg-muted/10 px-6 py-12 sm:px-8">
         <p class="text-sm font-medium text-muted-foreground">Loading component metadata</p>
       </section>
     </main>
@@ -14,7 +14,12 @@
         <p class="text-sm mt-2 text-muted-foreground">The component library does not provide icons.</p>
       </section>
 
-      <header class="border-b border-border pb-8">
+      <header class="docs-blueprint-sheet p-6 sm:p-8">
+        <div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+          <p class="docs-blueprint-title">Component Blueprint</p>
+          <p class="docs-blueprint-meta">X: 1280 · Y: 720 · Grid: 8px</p>
+        </div>
+
         <nav frBreadcrumb aria-label="Breadcrumb">
           <ol frBreadcrumbList>
             <li frBreadcrumbItem>
@@ -28,7 +33,7 @@
         </nav>
 
         <div class="mt-3 flex items-center gap-2">
-          <h1 class="text-3xl font-semibold tracking-tight text-foreground sm:text-3xl">
+          <h1 class="docs-mono text-3xl font-semibold uppercase text-foreground sm:text-3xl">
             {{ component.name }}
           </h1>
           @if (component.status !== 'Stable') {
@@ -42,7 +47,7 @@
 
         @if (doc().hero; as hero) {
           <div class="mt-8">
-            <docs-preview-card [example]="hero" [initialCodeOpen]="false" label="Preview" />
+            <docs-preview-card [example]="hero" [initialCodeOpen]="false" label="01 Hero Preview" />
           </div>
         }
       </header>
@@ -57,9 +62,9 @@
 
       @if (doc().usage?.length) {
         <section id="usage" class="scroll-mt-24 space-y-5">
-          <h2 class="text-2xl font-semibold tracking-tight">Usage</h2>
+          <h2 class="docs-blueprint-title">02 Usage</h2>
 
-          <div class="overflow-hidden rounded-xl">
+          <div class="docs-blueprint-sheet overflow-hidden">
             @for (block of doc().usage; track block.code) {
               <docs-code-block [code]="block.code" [language]="block.language" />
             }
@@ -69,12 +74,12 @@
 
       @if (doc().examples?.length) {
         <section id="examples" class="scroll-mt-24 space-y-8">
-          <h2 class="text-2xl font-semibold tracking-tight">Examples</h2>
+          <h2 class="docs-blueprint-title">03 Examples</h2>
 
           @for (example of doc().examples; track example.id) {
             <article [id]="'example-' + example.id" class="scroll-mt-24 space-y-4">
               <div>
-                <h3 class="text-xl font-semibold tracking-tight">
+                <h3 class="docs-mono text-lg font-semibold uppercase">
                   {{ example.title }}
                 </h3>
 
@@ -93,7 +98,7 @@
 
       @if (doc().styling; as styling) {
         <section id="styling" class="scroll-mt-24 space-y-5">
-          <h2 class="text-2xl font-semibold tracking-tight">Custom Styling</h2>
+          <h2 class="docs-blueprint-title">04 Custom Styling</h2>
 
           @if (styling.description) {
             <p class="max-w-3xl text-md leading-8 text-muted-foreground">
@@ -110,7 +115,7 @@
       @if (doc().tokenInspector; as tokenInspector) {
         <section id="token-inspector" class="scroll-mt-24 space-y-5">
           <div>
-            <h2 class="text-2xl font-semibold tracking-tight">Token Inspector</h2>
+            <h2 class="docs-blueprint-title">05 Token Inspector</h2>
 
             @if (tokenInspector.description) {
               <p class="mt-3 max-w-3xl text-md leading-8 text-muted-foreground">
@@ -133,8 +138,8 @@
 
       @if (doc().tokensTitle || doc().tokensDescription || doc().tokens) {
         <section id="tokens" class="scroll-mt-24 space-y-5">
-          <h2 class="text-2xl font-semibold tracking-tight">
-            {{ doc().tokensTitle ?? 'Tokens' }}
+          <h2 class="docs-blueprint-title">
+            06 {{ doc().tokensTitle ?? 'Tokens' }}
           </h2>
 
           @if (doc().tokensDescription) {
@@ -154,7 +159,7 @@
   } @else {
     <main class="min-w-0">
       <section
-        class="rounded-2xl border border-dashed border-border bg-muted/20 px-6 py-12 sm:px-8"
+        class="docs-blueprint-sheet border border-dashed border-border bg-muted/20 px-6 py-12 sm:px-8"
       >
         <nav frBreadcrumb aria-label="Breadcrumb">
           <ol frBreadcrumbList>

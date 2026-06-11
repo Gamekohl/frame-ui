@@ -22,6 +22,8 @@ frame-input-group {
 frame-input-group:where(:focus-within) {
   border-color: var(--frame-input-group-focus-border);
   box-shadow: var(--frame-input-group-focus-shadow);
+  outline: 1px solid var(--frame-ring);
+  outline-offset: 2px;
 }
 
 .frame-input-group:has([frInputGroupInput]:disabled),
