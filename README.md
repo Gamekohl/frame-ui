@@ -4,7 +4,7 @@
 
 A customizable Angular component library built around modern primitives.
 
-![Hero Image](projects/docs/public/hero.png)
+![Hero Image](projects/docs/public/hero.jpg)
 
 ---
 

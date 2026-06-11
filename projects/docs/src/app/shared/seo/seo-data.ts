@@ -72,6 +72,12 @@ const STATIC_ROUTES = {
       'Follow the FrameUI roadmap for planned Angular components, documentation improvements, theming work, and tooling updates.',
     path: '/docs/roadmap',
   },
+  '/docs/changelog': {
+    title: `Changelog | ${SITE_NAME}`,
+    description:
+      'Read the main changes in each FrameUI beta release.',
+    path: '/docs/changelog',
+  },
 } satisfies Record<string, SeoMetadata>;
 
 const COMPONENTS = {

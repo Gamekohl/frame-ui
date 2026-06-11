@@ -33,6 +33,10 @@ export default [
         path: 'roadmap',
         loadComponent: () => import('./roadmap/roadmap').then((m) => m.Roadmap),
       },
+      {
+        path: 'changelog',
+        loadComponent: () => import('./changelog/changelog').then((m) => m.Changelog),
+      },
       /*{
         path: 'ai-composer',
         loadComponent: () => import('./ai-composer/ai-composer').then((m) => m.AiComposer),

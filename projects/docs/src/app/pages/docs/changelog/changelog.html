@@ -1,0 +1,39 @@
+<article class="docs-article min-w-0 space-y-10">
+  <header animate.enter="slide-in-enter" style="--docs-enter-delay: 90ms" class="docs-blueprint-sheet space-y-5 p-6">
+    <p class="docs-blueprint-title">Planning</p>
+
+    <h1 class="max-w-4xl font-mono text-4xl font-semibold uppercase text-foreground">
+      Changelog
+    </h1>
+  </header>
+
+  @for (entry of entries; track entry.version; let entryIndex = $index) {
+    <section
+      frCard
+      animate.enter="slide-in-enter"
+      [style.--docs-enter-delay]="150 + entryIndex * 80 + 'ms'"
+    >
+      <div frCardHeader class="flex! flex-wrap items-start justify-between gap-4">
+        <h2 frCardTitle class="mt-2 font-mono text-2xl! uppercase">{{ entry.version }}</h2>
+      </div>
+
+      <div frCardContent class="space-y-8">
+        @for (section of entry.sections; track section.title) {
+          <section class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-foreground">
+              {{ section.title }}
+            </h3>
+            <ul class="grid gap-3 text-sm leading-7 text-muted-foreground">
+              @for (item of section.items; track item) {
+                <li class="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-3">
+                  <span class="mt-3 h-1.5 w-1.5 bg-primary" aria-hidden="true"></span>
+                  <span>{{ item }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      </div>
+    </section>
+  }
+</article>

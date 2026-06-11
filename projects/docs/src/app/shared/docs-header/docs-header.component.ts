@@ -70,6 +70,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     section: 'Planning',
     keywords: ['roadmap', 'planned', 'in progress', 'work in progress', 'todo'],
   },
+  {
+    title: 'Changelog',
+    path: '/docs/changelog',
+    section: 'Planning',
+    keywords: ['changelog', 'release', 'version', 'beta', 'changes'],
+  },
 ];
 
 const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
