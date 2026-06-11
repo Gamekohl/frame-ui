@@ -73,8 +73,6 @@
   frame-card,
   [frCarousel],
   frame-carousel,
-  [frCollapsible],
-  frame-collapsible,
   .frame-calendar,
   [frCommand],
   [frEmpty],
@@ -128,8 +126,6 @@
   [frAccordion],
   [frCarousel],
   frame-carousel,
-  [frCollapsible],
-  frame-collapsible,
   .frame-calendar,
   [frCommand],
   [frEmpty],
@@ -317,8 +313,6 @@
   frame-card,
   [frCarousel],
   frame-carousel,
-  [frCollapsible],
-  frame-collapsible,
   .frame-calendar,
   [frCommand],
   [frEmpty],
@@ -399,6 +393,10 @@
   .frame-navigation-menu__viewport,
   .frame-select__content
 )::before {
+  content: none;
+}
+
+.frame-date-picker__content .frame-calendar::before {
   content: none;
 }
 

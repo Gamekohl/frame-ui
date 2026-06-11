@@ -71,26 +71,22 @@
   font-size: var(--frame-accordion-content-font-size, 0.875rem);
   line-height: var(--frame-accordion-content-line-height, 1.6);
   overflow: hidden;
-  padding-block: 0;
+  padding-block: 0 var(--frame-accordion-content-padding-bottom, 1rem);
   padding-inline: var(--frame-accordion-content-padding-inline, 1rem);
   transition:
     height var(--frame-accordion-content-transition-duration, 240ms)
       var(--frame-accordion-content-transition-timing, cubic-bezier(0.2, 0, 0, 1)),
     opacity var(--frame-accordion-content-transition-duration, 220ms)
-      var(--frame-accordion-content-transition-timing, ease),
-    padding-bottom var(--frame-accordion-content-transition-duration, 240ms)
-      var(--frame-accordion-content-transition-timing, cubic-bezier(0.2, 0, 0, 1));
-  will-change: height, opacity, padding-bottom;
+      var(--frame-accordion-content-transition-timing, ease);
+  will-change: height, opacity;
 }
 
 [frAccordionContent][data-state='closed'] {
   opacity: var(--frame-accordion-content-opacity-closed, 0);
-  padding-bottom: 0;
 }
 
 [frAccordionContent][data-state='open'] {
   opacity: var(--frame-accordion-content-opacity-open, 1);
-  padding-bottom: var(--frame-accordion-content-padding-bottom, 1rem);
 }
 
 [frAccordionIcon] {

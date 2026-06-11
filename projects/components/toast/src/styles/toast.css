@@ -2,7 +2,7 @@
 
 .frame-toast-viewport {
   pointer-events: none;
-  z-index: 1000;
+  z-index: var(--frame-toast-z-index);
   box-sizing: border-box;
 }
 
@@ -18,6 +18,8 @@
 }
 
 .frame-toast__group {
+  --frame-toast-count: 1;
+  --frame-toast-stack-direction: 1;
   position: absolute;
   display: grid;
   width: var(--frame-toast-viewport-width);
@@ -31,86 +33,46 @@
 
 .frame-toast__group:hover,
 .frame-toast__group:focus-within {
-  padding-block-end: var(--frame-toast-stack-expanded-depth);
+  padding-block-end: max(
+    var(--frame-toast-stack-expanded-depth),
+    calc((var(--frame-toast-count) - 1) * 5rem)
+  );
 }
 
 .frame-toast__group .frame-toast {
+  --frame-toast-index: 0;
+  --frame-toast-stack-scale: max(
+    0.82,
+    calc(1 - (var(--frame-toast-stack-scale-step) * var(--frame-toast-index)))
+  );
   grid-area: 1 / 1;
   transform-origin: center top;
+  z-index: calc(1000 - var(--frame-toast-index));
+  transform: translateY(
+      calc(var(--frame-toast-stack-offset) * var(--frame-toast-index) * var(--frame-toast-stack-direction))
+    )
+    scale(var(--frame-toast-stack-scale));
   transition:
     opacity var(--frame-toast-motion-duration) var(--frame-toast-motion-easing),
     filter var(--frame-toast-motion-duration) var(--frame-toast-motion-easing),
     transform var(--frame-toast-stack-transition-duration) var(--frame-toast-stack-transition-easing);
 }
 
-.frame-toast__group .frame-toast:nth-child(1) {
-  z-index: 4;
-}
-
-.frame-toast__group .frame-toast:nth-child(2) {
-  z-index: 3;
-  transform: translateY(var(--frame-toast-stack-offset)) scale(calc(1 - var(--frame-toast-stack-scale-step)));
-}
-
-.frame-toast__group .frame-toast:nth-child(3) {
-  z-index: 2;
-  transform: translateY(calc(var(--frame-toast-stack-offset) * 2)) scale(calc(1 - (var(--frame-toast-stack-scale-step) * 2)));
-}
-
-.frame-toast__group .frame-toast:nth-child(n + 4) {
-  z-index: 1;
-  transform: translateY(calc(var(--frame-toast-stack-offset) * 3)) scale(calc(1 - (var(--frame-toast-stack-scale-step) * 3)));
-}
-
-.frame-toast__group:hover .frame-toast,
-.frame-toast__group:focus-within .frame-toast {
-  transform: translateY(0) scale(1);
-}
-
-.frame-toast__group[data-position^='top']:hover .frame-toast:nth-child(2),
-.frame-toast__group[data-position^='top']:focus-within .frame-toast:nth-child(2) {
-  transform: translateY(calc(100% + var(--frame-toast-stack-expanded-gap))) scale(1);
-}
-
-.frame-toast__group[data-position^='top']:hover .frame-toast:nth-child(3),
-.frame-toast__group[data-position^='top']:focus-within .frame-toast:nth-child(3) {
-  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * 2)) scale(1);
-}
-
-.frame-toast__group[data-position^='top']:hover .frame-toast:nth-child(n + 4),
-.frame-toast__group[data-position^='top']:focus-within .frame-toast:nth-child(n + 4) {
-  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * 3)) scale(1);
+.frame-toast__group[data-position^='top']:hover .frame-toast,
+.frame-toast__group[data-position^='top']:focus-within .frame-toast {
+  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * var(--frame-toast-index)))
+    scale(1);
 }
 
 .frame-toast__group[data-position^='bottom'] .frame-toast {
+  --frame-toast-stack-direction: -1;
   transform-origin: center bottom;
 }
 
-.frame-toast__group[data-position^='bottom'] .frame-toast:nth-child(2) {
-  transform: translateY(calc(var(--frame-toast-stack-offset) * -1)) scale(calc(1 - var(--frame-toast-stack-scale-step)));
-}
-
-.frame-toast__group[data-position^='bottom'] .frame-toast:nth-child(3) {
-  transform: translateY(calc(var(--frame-toast-stack-offset) * -2)) scale(calc(1 - (var(--frame-toast-stack-scale-step) * 2)));
-}
-
-.frame-toast__group[data-position^='bottom'] .frame-toast:nth-child(n + 4) {
-  transform: translateY(calc(var(--frame-toast-stack-offset) * -3)) scale(calc(1 - (var(--frame-toast-stack-scale-step) * 3)));
-}
-
-.frame-toast__group[data-position^='bottom']:hover .frame-toast:nth-child(2),
-.frame-toast__group[data-position^='bottom']:focus-within .frame-toast:nth-child(2) {
-  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * -1)) scale(1);
-}
-
-.frame-toast__group[data-position^='bottom']:hover .frame-toast:nth-child(3),
-.frame-toast__group[data-position^='bottom']:focus-within .frame-toast:nth-child(3) {
-  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * -2)) scale(1);
-}
-
-.frame-toast__group[data-position^='bottom']:hover .frame-toast:nth-child(n + 4),
-.frame-toast__group[data-position^='bottom']:focus-within .frame-toast:nth-child(n + 4) {
-  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * -3)) scale(1);
+.frame-toast__group[data-position^='bottom']:hover .frame-toast,
+.frame-toast__group[data-position^='bottom']:focus-within .frame-toast {
+  transform: translateY(calc((100% + var(--frame-toast-stack-expanded-gap)) * var(--frame-toast-index) * -1))
+    scale(1);
 }
 
 .frame-toast-viewport[data-strategy='inline'] .frame-toast__group {
@@ -131,7 +93,10 @@
 
 .frame-toast__group[data-position^='bottom']:hover,
 .frame-toast__group[data-position^='bottom']:focus-within {
-  padding-block-start: var(--frame-toast-stack-expanded-depth);
+  padding-block-start: max(
+    var(--frame-toast-stack-expanded-depth),
+    calc((var(--frame-toast-count) - 1) * 5rem)
+  );
   padding-block-end: 0;
 }
 

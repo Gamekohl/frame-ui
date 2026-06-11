@@ -41,6 +41,8 @@
 [frTextarea]:focus-visible {
   border-color: var(--frame-textarea-root-focus-border);
   box-shadow: var(--frame-textarea-root-focus-shadow);
+  outline: 1px solid var(--frame-ring);
+  outline-offset: 2px
 }
 
 [frTextarea][aria-invalid='true'],

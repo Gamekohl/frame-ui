@@ -1,4 +1,5 @@
 :root {
+  --frame-toast-z-index: 2147483647;
   --frame-toast-viewport-inset: 1rem;
   --frame-toast-viewport-width: min(100vw - 2rem, 26rem);
   --frame-toast-stack-offset: 0.875rem;

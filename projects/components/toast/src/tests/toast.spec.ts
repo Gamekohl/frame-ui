@@ -52,6 +52,24 @@ describe('FrToast', () => {
     expect(toasts[0].getAttribute('data-variant')).toBe('success');
   });
 
+  it('assigns stack indexes beyond four toasts', () => {
+    const fixture = TestBed.createComponent(ToastHostComponent);
+
+    for (let index = 1; index <= 6; index++) {
+      service.show(`Notification ${index}`, { duration: 0 });
+    }
+
+    fixture.detectChanges();
+
+    const group = fixture.nativeElement.querySelector('.frame-toast__group') as HTMLElement;
+    const toasts = fixture.nativeElement.querySelectorAll('.frame-toast');
+
+    expect(group.style.getPropertyValue('--frame-toast-count')).toBe('6');
+    expect(toasts.length).toBe(6);
+    expect(toasts[4].style.getPropertyValue('--frame-toast-index')).toBe('4');
+    expect(toasts[5].style.getPropertyValue('--frame-toast-index')).toBe('5');
+  });
+
   it('supports descriptions, actions, and dismiss buttons', () => {
     vi.useFakeTimers();
     const fixture = TestBed.createComponent(ToastHostComponent);

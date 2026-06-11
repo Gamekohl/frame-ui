@@ -32,31 +32,6 @@
   color: var(--frame-sheet-color);
 }
 
-.frame-sheet__panel::before,
-.frame-sheet__panel::after {
-  position: absolute;
-  z-index: 1;
-  inline-size: var(--frame-frame-tick-size);
-  block-size: var(--frame-frame-tick-size);
-  border-color: var(--frame-frame-accent);
-  pointer-events: none;
-  content: "";
-}
-
-.frame-sheet__panel::before {
-  inset-block-start: 0.5rem;
-  inset-inline-start: 0.5rem;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
-}
-
-.frame-sheet__panel::after {
-  inset-block-end: 0.5rem;
-  inset-inline-end: 0.5rem;
-  border-block-end: 1px solid;
-  border-inline-end: 1px solid;
-}
-
 .frame-sheet__panel[data-side="right"],
 .frame-sheet__panel[data-side="left"] {
   inset-block: 0;

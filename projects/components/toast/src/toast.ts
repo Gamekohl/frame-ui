@@ -21,8 +21,12 @@ import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.type
       @let positionToasts = groupedToasts().get(position) ?? [];
 
       @if (positionToasts.length > 0) {
-        <section class="frame-toast__group" [attr.data-position]="position">
-          @for (toast of positionToasts; track toast.id) {
+        <section
+          class="frame-toast__group"
+          [attr.data-position]="position"
+          [style.--frame-toast-count]="positionToasts.length"
+        >
+          @for (toast of positionToasts; track toast.id; let toastIndex = $index) {
             <article
               class="frame-toast"
               [attr.data-variant]="toast.variant"
@@ -31,6 +35,7 @@ import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.type
               [attr.data-has-description]="toast.description ? 'true' : 'false'"
               [attr.data-has-action]="toast.action ? 'true' : 'false'"
               [attr.data-state]="toast.state"
+              [style.--frame-toast-index]="toastIndex"
               data-token-target="toast-root"
             >
               @if (toast.loading) {

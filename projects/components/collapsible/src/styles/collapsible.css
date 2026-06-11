@@ -3,9 +3,7 @@
 [frCollapsible],
 frame-collapsible {
   display: block;
-  border-block: 1px solid var(--frame-frame-line-muted, var(--frame-border));
   background: transparent;
-  padding-block: 0.75rem;
 }
 
 [frCollapsibleTrigger] {
