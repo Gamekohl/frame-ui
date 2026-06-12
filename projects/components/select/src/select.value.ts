@@ -2,6 +2,9 @@ import { Directive, booleanAttribute, computed, inject, input } from '@angular/c
 
 import { FrSelect } from './select.root';
 
+export const FR_SELECT_ICON_POSITIONS = ['leading', 'trailing'] as const;
+export type FrSelectIconPosition = (typeof FR_SELECT_ICON_POSITIONS)[number];
+
 @Directive({
   selector: '[frSelectValue], frame-select-value',
   host: {
@@ -33,9 +36,12 @@ export class FrSelectItemIndicator {}
   host: {
     class: 'frame-select__icon',
     'aria-hidden': 'true',
+    '[attr.data-position]': 'position()',
   },
 })
-export class FrSelectIcon {}
+export class FrSelectIcon {
+  readonly position = input<FrSelectIconPosition>('trailing');
+}
 
 @Directive({
   selector: '[frSelectError], frame-select-error',

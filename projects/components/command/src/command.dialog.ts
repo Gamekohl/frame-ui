@@ -168,7 +168,7 @@ export class FrCommandService {
   ): FrCommandDialogConfig<Data, Result, Component> {
     return {
       ariaModal: true,
-      autoFocus: 'first-tabbable',
+      autoFocus: '[frCommandInput]',
       restoreFocus: true,
       width: 'min(calc(100vw - 2rem), 48rem)',
       maxWidth: 'calc(100vw - 2rem)',

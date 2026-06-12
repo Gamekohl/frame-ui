@@ -81,6 +81,24 @@ class ControlledSidebarHost {
   readonly openChange = signal<boolean | null>(null);
 }
 
+@Component({
+  imports: [FrSidebar, FrSidebarMenuButton, FrSidebarProvider, FrSidebarRail],
+  template: `
+    <div frSidebarProvider>
+      <aside frSidebar [minSize]="minSize()" [maxSize]="maxSize()">
+        <a frSidebarMenuButton>
+          <span data-long-label>Extremely long workspace navigation item</span>
+        </a>
+        <div frSidebarRail></div>
+      </aside>
+    </div>
+  `,
+})
+class ResizableSidebarHost {
+  readonly minSize = signal<number | null>(null);
+  readonly maxSize = signal<number | null>(384);
+}
+
 describe('FrSidebar', () => {
   let fixture: ComponentFixture<SidebarHost>;
 
@@ -153,6 +171,123 @@ describe('FrSidebar', () => {
 
     expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('240px');
     expect(fixture.componentInstance.provider().state()).toBe('expanded');
+  });
+
+  it('clamps rail resizing to explicit minSize and maxSize inputs', () => {
+    const resizeFixture = TestBed.createComponent(ResizableSidebarHost);
+    resizeFixture.componentInstance.minSize.set(220);
+    resizeFixture.componentInstance.maxSize.set(260);
+    resizeFixture.detectChanges();
+
+    const provider = resizeFixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const sidebar = resizeFixture.nativeElement.querySelector('[frSidebar]') as HTMLElement;
+    const rail = resizeFixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 240,
+      toJSON: () => ({}),
+      top: 0,
+      width: 240,
+      x: 0,
+      y: 0,
+    });
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: -80, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('220px');
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 80, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('260px');
+  });
+
+  it('defaults minSize to the widest sidebar content during rail resizing', () => {
+    const resizeFixture = TestBed.createComponent(ResizableSidebarHost);
+    resizeFixture.detectChanges();
+
+    const provider = resizeFixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const sidebar = resizeFixture.nativeElement.querySelector('[frSidebar]') as HTMLElement;
+    const longLabel = resizeFixture.nativeElement.querySelector('[data-long-label]') as HTMLElement;
+    const rail = resizeFixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    vi.spyOn(sidebar, 'scrollWidth', 'get').mockReturnValue(192);
+    vi.spyOn(longLabel, 'scrollWidth', 'get').mockReturnValue(276);
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 320,
+      toJSON: () => ({}),
+      top: 0,
+      width: 320,
+      x: 0,
+      y: 0,
+    });
+    vi.spyOn(longLabel, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 12,
+      right: 288,
+      toJSON: () => ({}),
+      top: 0,
+      width: 276,
+      x: 12,
+      y: 0,
+    });
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: -200, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('288px');
+  });
+
+  it('keeps automatic resize bounds stable during a drag gesture', () => {
+    const resizeFixture = TestBed.createComponent(ResizableSidebarHost);
+    resizeFixture.detectChanges();
+
+    const provider = resizeFixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const sidebar = resizeFixture.nativeElement.querySelector('[frSidebar]') as HTMLElement;
+    const longLabel = resizeFixture.nativeElement.querySelector('[data-long-label]') as HTMLElement;
+    const rail = resizeFixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 320,
+      toJSON: () => ({}),
+      top: 0,
+      width: 320,
+      x: 0,
+      y: 0,
+    });
+    vi.spyOn(longLabel, 'scrollWidth', 'get').mockReturnValue(240);
+    vi.spyOn(longLabel, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 12,
+      right: 252,
+      toJSON: () => ({}),
+      top: 0,
+      width: 240,
+      x: 12,
+      y: 0,
+    });
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 90, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 180, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('384px');
   });
 
   it('prevents disabled menu button actions', () => {

@@ -72,6 +72,13 @@ const hoverConfig: DropdownMenuPreviewConfig = {
   items: submenuItems,
 };
 
+const sideConfig: DropdownMenuPreviewConfig = {
+  className: 'flex min-h-64 items-center justify-center',
+  triggerLabel: 'Open to the right',
+  side: 'right',
+  items: basicItems,
+};
+
 const inspectorConfig: DropdownMenuPreviewConfig = {
   className: 'w-full max-w-5xl',
   persistentPanel: true,
@@ -164,7 +171,7 @@ viewProviders: [provideIcons({ tablerCheck, tablerCopy, tablerExternalLink, tabl
       code: `<div frDropdownMenu>
   <button type="button" [frDropdownMenuTrigger]="menu">Open actions</button>
 
-  <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent>
+  <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent side="auto">
     <div frDropdownMenuPanel>
       <button frDropdownMenuItem type="button">
         <ng-icon name="tablerUser" size="14" />
@@ -388,10 +395,47 @@ ${customStylingConfig.style}
       ],
     },
     {
+      id: 'side',
+      title: 'Side placement',
+      description:
+        'Use side to prefer bottom, top, right, or left placement. Set side="auto" to let root menus try every side in a sensible fallback order.',
+      preview: {
+        component: DocsDropdownMenuPreviewComponent,
+        inputs: {
+          config: sideConfig,
+        },
+      },
+      code: [
+        {
+          language: 'ts',
+          code: importsCode,
+        },
+        {
+          language: 'html',
+          code: `<div frDropdownMenu>
+  <button type="button" [frDropdownMenuTrigger]="menu">Open to the right</button>
+
+  <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent side="right">
+    <div frDropdownMenuPanel>
+      <button frDropdownMenuItem type="button">Open profile</button>
+      <button frDropdownMenuItem type="button">Invite teammate</button>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #adaptiveMenu="frDropdownMenuContent" frDropdownMenuContent side="auto">
+  <div frDropdownMenuPanel>
+    <!-- The overlay can fall back across bottom, top, right, and left. -->
+  </div>
+</ng-template>`,
+        },
+      ],
+    },
+    {
       id: 'submenu',
       title: 'Submenus',
       description:
-        'Submenus work well for secondary branches like sharing, exporting, or invite flows that should stay close to the current action list.',
+        'Submenus work well for secondary branches like sharing, exporting, or invite flows. They open to the right or left only, default to automatic horizontal fallback, and keep a small offset from the parent menu.',
       preview: {
         component: DocsDropdownMenuPreviewComponent,
         inputs: {
@@ -424,7 +468,7 @@ ${customStylingConfig.style}
           <span>Share</span>
         </button>
 
-        <ng-template #shareMenu="frDropdownMenuContent" frDropdownMenuSubContent>
+        <ng-template #shareMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
           <div frDropdownMenuPanel>
             <button frDropdownMenuItem type="button">
               <ng-icon name="tablerCopy" size="14" />

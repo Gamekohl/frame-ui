@@ -31,6 +31,7 @@ import {
   standalone: true,
   template: `
     <button [frSelect]="menu" [(value)]="value">
+      <frame-select-icon position="leading">#</frame-select-icon>
       <frame-select-value placeholder="Select a fruit"></frame-select-value>
       <frame-select-icon>v</frame-select-icon>
     </button>
@@ -109,6 +110,17 @@ describe('FrSelect', () => {
 
     expect(value.textContent?.trim()).toBe('Select a fruit');
     expect(value.getAttribute('data-placeholder')).toBe('');
+  });
+
+  it('supports leading and trailing trigger icons', async () => {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const icons = Array.from(fixture.nativeElement.querySelectorAll('frame-select-icon')) as HTMLElement[];
+
+    expect(icons[0].getAttribute('data-position')).toBe('leading');
+    expect(icons[1].getAttribute('data-position')).toBe('trailing');
   });
 
   it('updates the displayed value when an item is selected', async () => {

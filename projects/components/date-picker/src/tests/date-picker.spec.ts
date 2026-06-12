@@ -65,6 +65,27 @@ describe('FrDatePicker', () => {
     expect(fixture.componentInstance.value).toEqual(new Date(2026, 5, 10));
   });
 
+  it('focuses the calendar day grid when opened for arrow key navigation', async () => {
+    const fixture = TestBed.createComponent(DatePickerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.frame-date-picker__trigger') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const firstTabStop = document.querySelector('.frame-calendar__day[tabindex="0"]') as HTMLButtonElement;
+    expect(document.activeElement).toBe(firstTabStop);
+
+    firstTabStop.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const nextTabStop = document.querySelector('.frame-calendar__day[tabindex="0"]') as HTMLButtonElement;
+    expect(document.activeElement).toBe(nextTabStop);
+    expect(nextTabStop).not.toBe(firstTabStop);
+  });
+
   it('works with reactive forms', async () => {
     const fixture = TestBed.createComponent(FormsDatePickerHostComponent);
     fixture.detectChanges();

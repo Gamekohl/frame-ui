@@ -83,6 +83,36 @@ frame-input-group-addon {
   white-space: nowrap;
 }
 
+.frame-input-group__addon:has(> .frame-button),
+[frInputGroupAddon]:has(> .frame-button),
+frame-input-group-addon:has(> .frame-button) {
+  align-items: stretch;
+  padding-inline: 0;
+}
+
+.frame-input-group__addon > .frame-button,
+[frInputGroupAddon] > .frame-button,
+frame-input-group-addon > .frame-button {
+  --frame-button-root-corner-size: 0;
+  block-size: 100%;
+  min-block-size: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.frame-input-group__addon > .frame-button::before,
+[frInputGroupAddon] > .frame-button::before,
+frame-input-group-addon > .frame-button::before {
+  display: none;
+}
+
+.frame-input-group__addon > .frame-button:focus-visible,
+[frInputGroupAddon] > .frame-button:focus-visible,
+frame-input-group-addon > .frame-button:focus-visible {
+  outline-offset: -2px;
+}
+
 .frame-input-group:has([frInputGroupInput]:disabled) .frame-input-group__addon,
 .frame-input-group:has([frInputGroupInput]:disabled) [frInputGroupAddon],
 [frInputGroup]:has([frInputGroupInput]:disabled) .frame-input-group__addon,
@@ -102,6 +132,26 @@ frame-input-group-addon[data-align='inline-start'] {
 [frInputGroupAddon][data-align='inline-end'],
 frame-input-group-addon[data-align='inline-end'] {
   border-inline-start: 1px solid var(--frame-input-group-addon-border);
+}
+
+.frame-input-group__addon[data-variant='ghost'],
+[frInputGroupAddon][data-variant='ghost'],
+frame-input-group-addon[data-variant='ghost'] {
+  min-inline-size: auto;
+  border-inline: 0;
+  background: transparent;
+}
+
+.frame-input-group__addon[data-align='inline-start'][data-variant='ghost'],
+[frInputGroupAddon][data-align='inline-start'][data-variant='ghost'],
+frame-input-group-addon[data-align='inline-start'][data-variant='ghost'] {
+  padding-inline-end: 0;
+}
+
+.frame-input-group__addon[data-align='inline-end'][data-variant='ghost'],
+[frInputGroupAddon][data-align='inline-end'][data-variant='ghost'],
+frame-input-group-addon[data-align='inline-end'][data-variant='ghost'] {
+  padding-inline-start: 0.25rem;
 }
 
 .frame-input-group__text,

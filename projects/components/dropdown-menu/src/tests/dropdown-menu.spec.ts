@@ -5,18 +5,22 @@ import {
   FrDropdownMenu,
   FrDropdownMenuCheckboxItem,
   FrDropdownMenuContent,
+  FrDropdownMenuItem,
   FrDropdownMenuItemIndicator,
   FrDropdownMenuPanel,
   FrDropdownMenuSub,
   FrDropdownMenuSubTrigger,
   FrDropdownMenuTrigger,
 } from '../dropdown-menu';
+import { buildConnectedPositions } from '../dropdown-menu.position';
+import { FrDropdownMenuSide } from '../dropdown-menu.types';
 
 @Component({
   imports: [
     FrDropdownMenu,
     FrDropdownMenuCheckboxItem,
     FrDropdownMenuContent,
+    FrDropdownMenuItem,
     FrDropdownMenuItemIndicator,
     FrDropdownMenuPanel,
     FrDropdownMenuSub,
@@ -28,8 +32,10 @@ import {
     <div frDropdownMenu [triggerMode]="triggerMode()" [closeDelay]="closeDelay()">
       <button [frDropdownMenuTrigger]="menu" type="button">Open</button>
 
-      <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent>
+      <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent [side]="side()">
         <div frDropdownMenuPanel>
+          <button frDropdownMenuItem type="button">Plain item</button>
+
           <button
             frDropdownMenuCheckboxItem
             [checked]="checked()"
@@ -61,6 +67,7 @@ import {
 class TestHostComponent {
   readonly checked = signal(true);
   readonly closeDelay = signal(0);
+  readonly side = signal<FrDropdownMenuSide>('bottom');
   readonly triggerMode = signal<'both' | 'click' | 'hover'>('click');
 }
 
@@ -114,6 +121,111 @@ describe('dropdown menu primitives', () => {
     ) as HTMLButtonElement | null;
 
     expect(checkboxItem?.getAttribute('data-checked')).toBe('');
+  });
+
+  it('reflects configured side on the opened panel', async () => {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.componentInstance.side.set('left');
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const menu = document.body.querySelector('.frame-dropdown-menu__content') as HTMLElement | null;
+
+    expect(menu?.getAttribute('data-side')).toBe('left');
+  });
+
+  it('builds horizontal positions for left and right sides', () => {
+    const positions = buildConnectedPositions({
+      align: 'start',
+      alignOffset: 0,
+      isSubmenu: false,
+      side: 'right',
+      sideOffset: 4,
+    });
+
+    expect(positions[0]).toEqual(
+      expect.objectContaining({
+        originX: 'end',
+        overlayX: 'start',
+        offsetX: 4,
+      }),
+    );
+    expect(positions[1]).toEqual(
+      expect.objectContaining({
+        originX: 'start',
+        overlayX: 'end',
+        offsetX: -4,
+      }),
+    );
+  });
+
+  it('builds auto positions across all sides', () => {
+    const positions = buildConnectedPositions({
+      align: 'start',
+      alignOffset: 0,
+      isSubmenu: false,
+      side: 'auto',
+      sideOffset: 4,
+    });
+
+    expect(positions).toHaveLength(8);
+    expect(positions[0]).toEqual(expect.objectContaining({ originY: 'bottom', overlayY: 'top' }));
+    expect(positions[4]).toEqual(expect.objectContaining({ originX: 'end', overlayX: 'start' }));
+  });
+
+  it('builds submenu auto positions only to the right and left', () => {
+    const positions = buildConnectedPositions({
+      align: 'start',
+      alignOffset: 0,
+      isSubmenu: true,
+      side: 'auto',
+      sideOffset: 4,
+    });
+
+    expect(positions).toHaveLength(4);
+    expect(positions[0]).toEqual(
+      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 16 }),
+    );
+    expect(positions[2]).toEqual(
+      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -16 }),
+    );
+    expect(positions.some((position) => position.originY === 'bottom')).toBe(false);
+  });
+
+  it('normalizes vertical submenu sides to horizontal auto positions', () => {
+    const positions = buildConnectedPositions({
+      align: 'start',
+      alignOffset: 0,
+      isSubmenu: true,
+      side: 'bottom',
+      sideOffset: 4,
+    });
+
+    expect(positions).toHaveLength(4);
+    expect(positions[0]).toEqual(
+      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 16 }),
+    );
+    expect(positions[2]).toEqual(
+      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -16 }),
+    );
+  });
+
+  it('keeps larger configured submenu side offsets', () => {
+    const positions = buildConnectedPositions({
+      align: 'start',
+      alignOffset: 0,
+      isSubmenu: true,
+      side: 'right',
+      sideOffset: 20,
+    });
+
+    expect(positions[0]).toEqual(
+      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 20 }),
+    );
   });
 
   it('opens a submenu on hover when both trigger modes are enabled', async () => {

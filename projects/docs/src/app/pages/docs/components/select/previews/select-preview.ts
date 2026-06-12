@@ -14,6 +14,7 @@ import {
   tablerLeaf,
   tablerPalette,
   tablerRocket,
+  tablerStack2,
   tablerWorld,
   tablerX,
 } from '@ng-icons/tabler-icons';
@@ -36,6 +37,7 @@ export type SelectPreviewConfig = {
   className?: string;
   style?: string;
   placeholder?: string;
+  leadingIcon?: string;
   initialValue?: string | null;
   groups: SelectPreviewGroup[];
   position?: FrSelectPosition;
@@ -73,6 +75,7 @@ export type SelectPreviewConfig = {
       tablerLeaf,
       tablerPalette,
       tablerRocket,
+      tablerStack2,
       tablerWorld,
       tablerX,
     }),
@@ -141,6 +144,11 @@ export type SelectPreviewConfig = {
             [debugVisible]="config().debugVisible ?? false"
             [attr.data-token-target]="tokenTarget(config().tokenPrefix, 'trigger')"
           >
+            @if (config().leadingIcon) {
+              <span frSelectIcon position="leading" [attr.data-token-target]="tokenTarget(config().tokenPrefix, 'leading-icon')">
+                <ng-icon [name]="config().leadingIcon!" size="16" />
+              </span>
+            }
             <frame-select-value
               [placeholder]="config().placeholder ?? 'Select an option'"
               [attr.data-token-target]="tokenTarget(config().tokenPrefix, 'value')"
@@ -157,6 +165,11 @@ export type SelectPreviewConfig = {
             [attr.data-disabled]="config().disabled ? '' : null"
             [attr.data-token-target]="tokenTarget(config().tokenPrefix, 'trigger')"
           >
+            @if (config().leadingIcon) {
+              <span class="frame-select__icon" data-position="leading" [attr.data-token-target]="tokenTarget(config().tokenPrefix, 'leading-icon')">
+                <ng-icon [name]="config().leadingIcon!" size="16" />
+              </span>
+            }
             <span
               class="frame-select__value"
               [attr.data-placeholder]="control.value === null ? '' : null"

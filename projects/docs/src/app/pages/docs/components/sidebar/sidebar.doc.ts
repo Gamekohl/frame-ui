@@ -118,6 +118,20 @@ const scrollableCss = `.app-shell {
   height: 100dvh;
 }`;
 
+const resizableHtml = `<div frSidebarProvider>
+  <aside frSidebar [minSize]="240" [maxSize]="420">
+    <div frSidebarContent>
+      <!-- Sidebar content -->
+    </div>
+
+    <div frSidebarRail></div>
+  </aside>
+
+  <main frSidebarInset>
+    Main content
+  </main>
+</div>`;
+
 const variantsHtml = `<aside frSidebar variant="floating" collapsible="offcanvas">
   <!-- Floating sidebar content -->
 </aside>
@@ -355,7 +369,7 @@ export const SIDEBAR_DOC: ComponentDoc = {
           id: 'rail',
           label: 'Rail',
           selector: '[data-token-target="sidebar-rail"]',
-          description: 'The rail is a narrow hit target that toggles the sidebar from the edge.',
+          description: 'The rail is a narrow hit target that toggles or resizes the sidebar from the edge.',
           tokens: ['--frame-sidebar-border'],
         },
       ],
@@ -442,6 +456,22 @@ export const SIDEBAR_DOC: ComponentDoc = {
         { language: 'ts', code: importsCode },
         { language: 'html', code: scrollableHtml },
         { language: 'css', code: scrollableCss },
+      ],
+    },
+    {
+      id: 'resizable-bounds',
+      title: 'Resizable Bounds',
+      description:
+        'Set minSize and maxSize to clamp rail resizing. Without minSize, the sidebar measures its widest content and keeps that width readable.',
+      preview: {
+        component: DocsSidebarPreviewComponent,
+        inputs: {
+          config: { mode: 'basic' },
+        },
+      },
+      code: [
+        { language: 'ts', code: importsCode },
+        { language: 'html', code: resizableHtml },
       ],
     },
     {

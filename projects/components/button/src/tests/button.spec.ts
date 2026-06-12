@@ -158,4 +158,27 @@ describe('FrButton', () => {
     expect(button.getAttribute('data-icon-button')).toBe('');
     expect(button.getAttribute('aria-label')).toBe('Add item');
   });
+
+  it('reflects icon button size changes for square sizing styles', async () => {
+    const fixture = TestBed.createComponent(TestIconButtonHostComponent);
+    const component = fixture.componentInstance;
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+    expect(button.getAttribute('data-size')).toBe('sm');
+
+    component.size.set('md');
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(button.getAttribute('data-size')).toBe('md');
+
+    component.size.set('lg');
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(button.getAttribute('data-size')).toBe('lg');
+  });
 });

@@ -108,7 +108,6 @@
   .frame-modal__panel,
   .frame-navigation-menu__viewport,
   .frame-popover__content,
-  .frame-select__content,
   .frame-sheet__panel,
   .frame-toast,
   .frame-tooltip__content,
@@ -348,14 +347,9 @@
   .frame-modal__panel,
   .frame-navigation-menu__viewport,
   .frame-popover__content,
-  .frame-select__content,
   .frame-sheet__panel,
   .frame-toast,
-  .frame-tooltip__content,
-  [frSidebar],
-  frame-sidebar,
-  [frSidebarInset],
-  frame-sidebar-inset
+  .frame-tooltip__content
 )::before {
   --frame-blueprint-corner-offset: var(--frame-blueprint-corner-inset, 0px);
   --frame-blueprint-corner-size: clamp(
@@ -410,8 +404,7 @@
   [frVirtualList],
   frame-virtual-list,
   .frame-combobox__panel,
-  .frame-navigation-menu__viewport,
-  .frame-select__content
+  .frame-navigation-menu__viewport
 ) {
   background-image:
     linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent))),
@@ -446,7 +439,6 @@
   .frame-modal__panel,
   .frame-navigation-menu__viewport,
   .frame-popover__content,
-  .frame-select__content,
   .frame-sheet__panel,
   .frame-toast,
   .frame-tooltip__content

@@ -179,6 +179,61 @@ describe('FrCalendar', () => {
     expect(fixture.componentInstance.control.value).toEqual(new Date(2026, 5, 11));
   });
 
+  it('uses the selected day as the roving tab stop', () => {
+    const fixture = TestBed.createComponent(SingleCalendarHostComponent);
+    fixture.componentInstance.selected = new Date(2026, 5, 10);
+    fixture.detectChanges();
+
+    const days = Array.from(
+      fixture.nativeElement.querySelectorAll('.frame-calendar__day'),
+    ) as HTMLButtonElement[];
+    const tabbableDays = days.filter((day) => day.tabIndex === 0);
+
+    expect(tabbableDays.length).toBe(1);
+    expect(tabbableDays[0].getAttribute('data-date')).toBe('2026-06-10');
+    expect(tabbableDays[0].getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('moves focus between days with arrow keys without selecting', async () => {
+    const fixture = TestBed.createComponent(SingleCalendarHostComponent);
+    fixture.detectChanges();
+
+    const tenth = fixture.nativeElement.querySelector('[data-date="2026-06-10"]') as HTMLButtonElement;
+    tenth.focus();
+    tenth.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const eleventh = fixture.nativeElement.querySelector('[data-date="2026-06-11"]') as HTMLButtonElement;
+    expect(document.activeElement).toBe(eleventh);
+    expect(eleventh.tabIndex).toBe(0);
+    expect(fixture.componentInstance.selected).toBeNull();
+
+    eleventh.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const eighteenth = fixture.nativeElement.querySelector('[data-date="2026-06-18"]') as HTMLButtonElement;
+    expect(document.activeElement).toBe(eighteenth);
+    expect(eighteenth.tabIndex).toBe(0);
+  });
+
+  it('moves focus across month boundaries with arrow keys', async () => {
+    const fixture = TestBed.createComponent(SingleCalendarHostComponent);
+    fixture.detectChanges();
+
+    const thirtieth = fixture.nativeElement.querySelector('[data-date="2026-06-30"]') as HTMLButtonElement;
+    thirtieth.focus();
+    thirtieth.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const julyFirst = fixture.nativeElement.querySelector('[data-date="2026-07-01"]') as HTMLButtonElement;
+    expect(document.activeElement).toBe(julyFirst);
+    expect(julyFirst.tabIndex).toBe(0);
+  });
+
   it('supports custom navigation labels and templates', () => {
     const fixture = TestBed.createComponent(CustomNavigationCalendarHostComponent);
     fixture.detectChanges();

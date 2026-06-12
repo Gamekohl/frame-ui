@@ -1,0 +1,37 @@
+{
+  "version": "0.3.0-beta.0",
+  "label": "Next beta",
+  "status": "Next",
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Command dialogs now focus the command input when opened.",
+        "Datepicker calendar grids now support ARIA-style arrow key focus movement.",
+        "Dropdown menus now support side placement with auto, bottom, left, right, and top options; submenus stay constrained to left and right placement with a small parent-menu offset.",
+        "Input group addons now support connected button actions.",
+        "Input group addons now support a ghost variant for icons, shortcuts, and text without a separate addon surface.",
+        "Sidebar resizing now supports minSize and maxSize bounds.",
+        "Select triggers now support custom leading icons."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Accordion content now collapses with measured height transitions so closed panels take no visible height without runtime DOM changes.",
+        "Disabled buttons no longer run hover animations across appearances.",
+        "Dropdown menu items now use a pointer cursor.",
+        "Icon buttons now keep square dimensions across all supported sizes.",
+        "Sidebar no longer renders blueprint corner handles.",
+        "Select no longer renders trigger or panel corner handles.",
+        "Tooltip now opens immediately by default; use frTooltipOpenDelay when delayed hover behavior is needed."
+      ]
+    },
+    {
+      "title": "Breaking",
+      "items": [
+        "Tooltip now uses the direct frTooltip trigger API. The old frame-tooltip, frTooltipTrigger, frTooltipContent, and frTooltipPanel primitives were removed."
+      ]
+    }
+  ]
+}

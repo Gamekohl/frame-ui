@@ -8,6 +8,7 @@ import {
   effect,
   inject,
   input,
+  numberAttribute,
   output,
   signal,
 } from '@angular/core';
@@ -46,6 +47,15 @@ function coerceMenuButtonSize(value: unknown): FrSidebarMenuButtonSize {
 
 function coerceMenuButtonVariant(value: unknown): FrSidebarMenuButtonVariant {
   return value === 'outline' ? 'outline' : 'default';
+}
+
+function coerceOptionalNumber(value: unknown): number | null {
+  if (value === null || value === undefined || value === '') {
+    return null;
+  }
+
+  const coerced = numberAttribute(value, Number.NaN);
+  return Number.isFinite(coerced) ? coerced : null;
 }
 
 @Directive({
@@ -174,6 +184,8 @@ export class FrSidebar {
   readonly collapsible = input<FrSidebarCollapsible, unknown>('offcanvas', {
     transform: coerceCollapsible,
   });
+  readonly minSize = input<number | null, unknown>(null, { transform: coerceOptionalNumber });
+  readonly maxSize = input<number | null, unknown>(384, { transform: coerceOptionalNumber });
 }
 
 @Directive({
@@ -218,6 +230,8 @@ export class FrSidebarRail {
   private suppressClick = false;
   private frameId = -1;
   private pendingWidth = 0;
+  private resizeMinSize = 192;
+  private resizeMaxSize = 384;
 
   readonly provider = inject(FR_SIDEBAR_PROVIDER, { optional: true });
 
@@ -238,6 +252,7 @@ export class FrSidebarRail {
     this.startWidth = this.sidebar.elementRef.nativeElement.getBoundingClientRect().width;
     this.dragging = false;
     this.pendingWidth = this.startWidth;
+    this.captureResizeBounds();
     this.provider.setResizing(true);
     event.preventDefault();
 
@@ -250,6 +265,8 @@ export class FrSidebarRail {
       this.suppressClick = this.dragging;
       this.dragging = false;
       this.pendingWidth = 0;
+      this.resizeMinSize = 192;
+      this.resizeMaxSize = 384;
       setTimeout(() => {
         this.suppressClick = false;
       });
@@ -266,7 +283,7 @@ export class FrSidebarRail {
 
     const delta = event.clientX - this.startX;
     const direction = this.sidebar.side() === 'right' ? -1 : 1;
-    const nextWidth = Math.min(Math.max(this.startWidth + delta * direction, 192), 384);
+    const nextWidth = this.clampWidth(this.startWidth + delta * direction);
 
     if (Math.abs(delta) > 3) {
       this.dragging = true;
@@ -293,6 +310,44 @@ export class FrSidebarRail {
     if (this.pendingWidth) {
       this.provider?.setSidebarWidth(this.pendingWidth);
     }
+  }
+
+  private clampWidth(width: number): number {
+    return Math.min(Math.max(width, this.resizeMinSize), this.resizeMaxSize);
+  }
+
+  private captureResizeBounds(): void {
+    if (!this.sidebar) {
+      return;
+    }
+
+    const minSize = this.sidebar.minSize() ?? this.measureContentMinSize();
+    const maxSize = this.sidebar.maxSize() ?? Number.POSITIVE_INFINITY;
+
+    this.resizeMinSize = minSize;
+    this.resizeMaxSize = Math.max(minSize, maxSize);
+  }
+
+  private measureContentMinSize(): number {
+    if (!this.sidebar) {
+      return 192;
+    }
+
+    const sidebarElement = this.sidebar.elementRef.nativeElement;
+    const sidebarRect = sidebarElement.getBoundingClientRect();
+    let measuredWidth = 0;
+
+    for (const element of Array.from(sidebarElement.querySelectorAll<HTMLElement>('*'))) {
+      if (element.hasAttribute('frSidebarRail') || element.tagName.toLowerCase() === 'frame-sidebar-rail') {
+        continue;
+      }
+
+      const rect = element.getBoundingClientRect();
+      const inlineStart = Math.max(0, rect.left - sidebarRect.left);
+      measuredWidth = Math.max(measuredWidth, inlineStart + element.scrollWidth);
+    }
+
+    return Math.max(Math.ceil(measuredWidth), 192);
   }
 }
 

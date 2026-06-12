@@ -226,6 +226,7 @@ describe('FrCommand', () => {
     expect(document.body.querySelector('[frCommand]')?.textContent).toContain('Calendar');
     expect(document.body.querySelector('.frame-command-dialog__backdrop')).not.toBeNull();
     expect(trigger.getAttribute('data-state')).toBe('open');
+    expect(document.activeElement).toBe(document.body.querySelector('[frCommandInput]'));
   });
 
   it('opens component content programmatically', async () => {
