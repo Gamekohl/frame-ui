@@ -384,6 +384,7 @@
   [frVirtualList],
   frame-virtual-list,
   .frame-combobox__panel,
+  .frame-dropdown-menu__content,
   .frame-navigation-menu__viewport,
   .frame-select__content
 )::before {

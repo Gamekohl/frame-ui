@@ -153,6 +153,7 @@ body {
   inline-size: 0.75rem;
   block-size: 0.75rem;
   border-color: var(--docs-blueprint-red);
+  background: none;
   pointer-events: none;
   content: "";
 }
@@ -249,6 +250,7 @@ body {
   inline-size: 0.75rem;
   block-size: 0.75rem;
   border-color: var(--docs-blueprint-red);
+  background: none;
   pointer-events: none;
   content: "";
 }
@@ -330,6 +332,7 @@ body {
   inline-size: 0.5rem;
   block-size: 0.5rem;
   border-color: var(--docs-blueprint-red);
+  background: none;
   content: "";
   pointer-events: none;
 }

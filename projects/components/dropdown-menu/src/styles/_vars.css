@@ -5,7 +5,7 @@
   --frame-dropdown-menu-panel-color: var(--frame-surface-foreground);
   --frame-dropdown-menu-panel-border: var(--frame-border);
   --frame-dropdown-menu-panel-shadow: var(--frame-shadow-md);
-  --frame-dropdown-menu-panel-padding: 0.75rem;
+  --frame-dropdown-menu-panel-padding: 0.25rem;
   --frame-dropdown-menu-label-color: var(--frame-muted-foreground);
   --frame-dropdown-menu-label-font-size: 0.75rem;
   --frame-dropdown-menu-label-font-weight: 600;
