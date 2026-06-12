@@ -652,7 +652,7 @@
   .frame-menubar__trigger,
   [frPopoverClose],
   .frame-select__trigger,
-  [frTooltipTrigger],
+  [frTooltip],
   [frToggle]
 ):where([data-state='open'], [aria-expanded='true']) {
   border-color: var(--frame-frame-accent, var(--frame-primary));

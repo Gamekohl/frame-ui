@@ -136,7 +136,7 @@
           },
           {
             "language": "ts",
-            "code": "<div\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div\r\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -146,7 +146,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div\r\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
           },
           {
             "language": "css",
@@ -164,7 +164,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -174,11 +174,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -188,11 +188,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -202,7 +202,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
           }
         ]
       }
@@ -814,7 +814,7 @@
           },
           {
             "language": "ts",
-            "code": "<a frBadge href=\"/docs\" variant=\"link\">\r\n  <ng-icon frBadgeIcon position=\"inline-start\" name=\"tablerPlus\" />\n  <span frBadgeLabel>Open docs</span>\n  <span frSpinner size=\"xs\"></span>\n</a>"
+            "code": "<a frBadge href=\"/docs\" variant=\"link\">\r\n  <ng-icon frBadgeIcon position=\"inline-start\" name=\"tablerPlus\" />\r\n  <span frBadgeLabel>Open docs</span>\r\n  <span frSpinner size=\"xs\"></span>\r\n</a>"
           }
         ]
       },
@@ -824,7 +824,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<a frBadge href=\"/docs\" variant=\"link\">\r\n  <ng-icon frBadgeIcon position=\"inline-start\" name=\"tablerPlus\" />\n  <span frBadgeLabel>Open docs</span>\n  <span frSpinner size=\"xs\"></span>\n</a>"
+            "code": "<a frBadge href=\"/docs\" variant=\"link\">\r\n  <ng-icon frBadgeIcon position=\"inline-start\" name=\"tablerPlus\" />\r\n  <span frBadgeLabel>Open docs</span>\r\n  <span frSpinner size=\"xs\"></span>\r\n</a>"
           },
           {
             "language": "ts",
@@ -870,7 +870,7 @@
           },
           {
             "language": "ts",
-            "code": "<span frBadge>Default</span>\r\n<span frBadge variant=\"secondary\">Secondary</span>\n<span frBadge variant=\"success\">Success</span>\n<span frBadge variant=\"destructive\">Destructive</span>\n<span frBadge variant=\"outline\">Outline</span>\r\n<span frBadge variant=\"ghost\">Ghost</span>\r\n<a frBadge variant=\"link\">Link</a>"
+            "code": "<span frBadge>Default</span>\r\n<span frBadge variant=\"secondary\">Secondary</span>\r\n<span frBadge variant=\"success\">Success</span>\r\n<span frBadge variant=\"destructive\">Destructive</span>\r\n<span frBadge variant=\"outline\">Outline</span>\r\n<span frBadge variant=\"ghost\">Ghost</span>\r\n<a frBadge variant=\"link\">Link</a>"
           }
         ]
       },
@@ -880,7 +880,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<span frBadge>Default</span>\r\n<span frBadge variant=\"secondary\">Secondary</span>\n<span frBadge variant=\"success\">Success</span>\n<span frBadge variant=\"destructive\">Destructive</span>\n<span frBadge variant=\"outline\">Outline</span>\r\n<span frBadge variant=\"ghost\">Ghost</span>\r\n<a frBadge variant=\"link\">Link</a>"
+            "code": "<span frBadge>Default</span>\r\n<span frBadge variant=\"secondary\">Secondary</span>\r\n<span frBadge variant=\"success\">Success</span>\r\n<span frBadge variant=\"destructive\">Destructive</span>\r\n<span frBadge variant=\"outline\">Outline</span>\r\n<span frBadge variant=\"ghost\">Ghost</span>\r\n<a frBadge variant=\"link\">Link</a>"
           },
           {
             "language": "ts",
@@ -898,7 +898,7 @@
           },
           {
             "language": "ts",
-            "code": "<span frBadge variant=\"secondary\">\n  <span frSpinner size=\"xs\"></span>\n  <span frBadgeLabel>Syncing</span>\n</span>\n\n<span frBadge>\n  <span frBadgeLabel>Publishing</span>\n  <span frSpinner size=\"xs\"></span>\n</span>"
+            "code": "<span frBadge variant=\"secondary\">\r\n  <span frSpinner size=\"xs\"></span>\r\n  <span frBadgeLabel>Syncing</span>\r\n</span>\r\n\r\n<span frBadge>\r\n  <span frBadgeLabel>Publishing</span>\r\n  <span frSpinner size=\"xs\"></span>\r\n</span>"
           }
         ]
       },
@@ -908,7 +908,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<span frBadge variant=\"secondary\">\n  <span frSpinner size=\"xs\"></span>\n  <span frBadgeLabel>Syncing</span>\n</span>\n\n<span frBadge>\n  <span frBadgeLabel>Publishing</span>\n  <span frSpinner size=\"xs\"></span>\n</span>"
+            "code": "<span frBadge variant=\"secondary\">\r\n  <span frSpinner size=\"xs\"></span>\r\n  <span frBadgeLabel>Syncing</span>\r\n</span>\r\n\r\n<span frBadge>\r\n  <span frBadgeLabel>Publishing</span>\r\n  <span frSpinner size=\"xs\"></span>\r\n</span>"
           },
           {
             "language": "ts",
@@ -1056,7 +1056,7 @@
           },
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrSpinnerModule } from '@frame-ui-ng/components/spinner';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrSpinnerModule } from '@frame-ui-ng/components/spinner';"
           }
         ]
       },
@@ -1066,7 +1066,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrSpinnerModule } from '@frame-ui-ng/components/spinner';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrSpinnerModule } from '@frame-ui-ng/components/spinner';"
           },
           {
             "language": "ts",
@@ -1182,7 +1182,7 @@
           },
           {
             "language": "ts",
-            "code": "<button frButton [loading]=\"true\" type=\"button\">\n  <span frButtonIcon>\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\n  </span>\n  <span frButtonLabel>Saving</span>\n  <span frSpinner size=\"sm\"></span>\n</button>\n\n<button frButton appearance=\"outline\" [loading]=\"true\" loadingDisplay=\"inline\" type=\"button\">\n  <span frButtonIcon>\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\n  </span>\n  <span frButtonLabel>Publishing</span>\n  <span frSpinner size=\"sm\"></span>\n</button>"
+            "code": "<button frButton [loading]=\"true\" type=\"button\">\r\n  <span frButtonIcon>\r\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\r\n  </span>\r\n  <span frButtonLabel>Saving</span>\r\n  <span frSpinner size=\"sm\"></span>\r\n</button>\r\n\r\n<button frButton appearance=\"outline\" [loading]=\"true\" loadingDisplay=\"inline\" type=\"button\">\r\n  <span frButtonIcon>\r\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\r\n  </span>\r\n  <span frButtonLabel>Publishing</span>\r\n  <span frSpinner size=\"sm\"></span>\r\n</button>"
           }
         ]
       },
@@ -1192,7 +1192,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<button frButton [loading]=\"true\" type=\"button\">\n  <span frButtonIcon>\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\n  </span>\n  <span frButtonLabel>Saving</span>\n  <span frSpinner size=\"sm\"></span>\n</button>\n\n<button frButton appearance=\"outline\" [loading]=\"true\" loadingDisplay=\"inline\" type=\"button\">\n  <span frButtonIcon>\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\n  </span>\n  <span frButtonLabel>Publishing</span>\n  <span frSpinner size=\"sm\"></span>\n</button>"
+            "code": "<button frButton [loading]=\"true\" type=\"button\">\r\n  <span frButtonIcon>\r\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\r\n  </span>\r\n  <span frButtonLabel>Saving</span>\r\n  <span frSpinner size=\"sm\"></span>\r\n</button>\r\n\r\n<button frButton appearance=\"outline\" [loading]=\"true\" loadingDisplay=\"inline\" type=\"button\">\r\n  <span frButtonIcon>\r\n    <ng-icon name=\"tablerPlus\" size=\"16\" />\r\n  </span>\r\n  <span frButtonLabel>Publishing</span>\r\n  <span frSpinner size=\"sm\"></span>\r\n</button>"
           },
           {
             "language": "ts",
@@ -3328,7 +3328,7 @@
           },
           {
             "language": "ts",
-            "code": "<section frCommand class=\"custom-command\">\n  <input frCommandInput placeholder=\"Type a command or search...\" />\r\n  <div frCommandList>\r\n    <p frCommandEmpty>No results found.</p>\r\n    <div frCommandGroup heading=\"Suggestions\">\r\n      <p frCommandGroupHeading>Suggestions</p>\r\n      <button frCommandItem value=\"calendar\" label=\"Calendar\">Calendar</button>\r\n      <button frCommandItem value=\"emoji\" label=\"Search Emoji\">Search Emoji</button>\r\n    </div>\r\n  </div>\n  <div frCommandFooter>\n    <span><kbd>↑↓</kbd> to navigate</span>\n    <span><kbd>↵</kbd> to select</span>\n    <span><kbd>esc</kbd> to close</span>\n  </div>\n</section>"
+            "code": "<section frCommand class=\"custom-command\">\r\n  <input frCommandInput placeholder=\"Type a command or search...\" />\r\n  <div frCommandList>\r\n    <p frCommandEmpty>No results found.</p>\r\n    <div frCommandGroup heading=\"Suggestions\">\r\n      <p frCommandGroupHeading>Suggestions</p>\r\n      <button frCommandItem value=\"calendar\" label=\"Calendar\">Calendar</button>\r\n      <button frCommandItem value=\"emoji\" label=\"Search Emoji\">Search Emoji</button>\r\n    </div>\r\n  </div>\r\n  <div frCommandFooter>\r\n    <span><kbd>↑↓</kbd> to navigate</span>\r\n    <span><kbd>↵</kbd> to select</span>\r\n    <span><kbd>esc</kbd> to close</span>\r\n  </div>\r\n</section>"
           }
         ]
       },
@@ -3338,7 +3338,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section frCommand class=\"custom-command\">\n  <input frCommandInput placeholder=\"Type a command or search...\" />\r\n  <div frCommandList>\r\n    <p frCommandEmpty>No results found.</p>\r\n    <div frCommandGroup heading=\"Suggestions\">\r\n      <p frCommandGroupHeading>Suggestions</p>\r\n      <button frCommandItem value=\"calendar\" label=\"Calendar\">Calendar</button>\r\n      <button frCommandItem value=\"emoji\" label=\"Search Emoji\">Search Emoji</button>\r\n    </div>\r\n  </div>\n  <div frCommandFooter>\n    <span><kbd>↑↓</kbd> to navigate</span>\n    <span><kbd>↵</kbd> to select</span>\n    <span><kbd>esc</kbd> to close</span>\n  </div>\n</section>"
+            "code": "<section frCommand class=\"custom-command\">\r\n  <input frCommandInput placeholder=\"Type a command or search...\" />\r\n  <div frCommandList>\r\n    <p frCommandEmpty>No results found.</p>\r\n    <div frCommandGroup heading=\"Suggestions\">\r\n      <p frCommandGroupHeading>Suggestions</p>\r\n      <button frCommandItem value=\"calendar\" label=\"Calendar\">Calendar</button>\r\n      <button frCommandItem value=\"emoji\" label=\"Search Emoji\">Search Emoji</button>\r\n    </div>\r\n  </div>\r\n  <div frCommandFooter>\r\n    <span><kbd>↑↓</kbd> to navigate</span>\r\n    <span><kbd>↵</kbd> to select</span>\r\n    <span><kbd>esc</kbd> to close</span>\r\n  </div>\r\n</section>"
           },
           {
             "language": "css",
@@ -3384,7 +3384,7 @@
           },
           {
             "language": "ts",
-            "code": "@Component({\r\n  selector: 'docs-programmatic-command-body',\r\n  imports: [\n    FrCommandModule,\n    NgIcon,\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  viewProviders: [provideIcons(commandIcons)],\r\n  template: \\"
+            "code": "@Component({\r\n  selector: 'docs-programmatic-command-body',\r\n  imports: [\r\n    FrCommandModule,\r\n    NgIcon,\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  viewProviders: [provideIcons(commandIcons)],\r\n  template: \\"
           }
         ]
       },
@@ -3394,11 +3394,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "@Component({\r\n  selector: 'docs-programmatic-command-body',\r\n  imports: [\n    FrCommandModule,\n    NgIcon,\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  viewProviders: [provideIcons(commandIcons)],\r\n  template: \\"
+            "code": "@Component({\r\n  selector: 'docs-programmatic-command-body',\r\n  imports: [\r\n    FrCommandModule,\r\n    NgIcon,\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  viewProviders: [provideIcons(commandIcons)],\r\n  template: \\"
           },
           {
             "language": "ts",
-            "code": "${commandImports}\n\nreadonly components = [\n  'Accordion',\n  'Alert',\n  'Avatar',\r\n  'Badge',\r\n  'Breadcrumb',\r\n  'Button',\r\n  'Calendar',\r\n  'Card',\r\n  'Carousel',\r\n  'Checkbox',\r\n  'Collapsible',\r\n  'Combobox',\r\n  'Command',\r\n  'Dropdown Menu',\r\n  'Input',\r\n  'Modal',\r\n  'Select',\r\n  'Switch',\r\n  'Textarea',\r\n];"
+            "code": "${commandImports}\r\n\r\nreadonly components = [\r\n  'Accordion',\r\n  'Alert',\r\n  'Avatar',\r\n  'Badge',\r\n  'Breadcrumb',\r\n  'Button',\r\n  'Calendar',\r\n  'Card',\r\n  'Carousel',\r\n  'Checkbox',\r\n  'Collapsible',\r\n  'Combobox',\r\n  'Command',\r\n  'Dropdown Menu',\r\n  'Input',\r\n  'Modal',\r\n  'Select',\r\n  'Switch',\r\n  'Textarea',\r\n];"
           }
         ]
       },
@@ -3408,7 +3408,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${commandImports}\n\nreadonly components = [\n  'Accordion',\n  'Alert',\n  'Avatar',\r\n  'Badge',\r\n  'Breadcrumb',\r\n  'Button',\r\n  'Calendar',\r\n  'Card',\r\n  'Carousel',\r\n  'Checkbox',\r\n  'Collapsible',\r\n  'Combobox',\r\n  'Command',\r\n  'Dropdown Menu',\r\n  'Input',\r\n  'Modal',\r\n  'Select',\r\n  'Switch',\r\n  'Textarea',\r\n];"
+            "code": "${commandImports}\r\n\r\nreadonly components = [\r\n  'Accordion',\r\n  'Alert',\r\n  'Avatar',\r\n  'Badge',\r\n  'Breadcrumb',\r\n  'Button',\r\n  'Calendar',\r\n  'Card',\r\n  'Carousel',\r\n  'Checkbox',\r\n  'Collapsible',\r\n  'Combobox',\r\n  'Command',\r\n  'Dropdown Menu',\r\n  'Input',\r\n  'Modal',\r\n  'Select',\r\n  'Switch',\r\n  'Textarea',\r\n];"
           }
         ]
       }
@@ -9979,7 +9979,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\n${basicTs}"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${basicTs}"
           }
         ]
       },
@@ -9989,7 +9989,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\n${basicTs}"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${basicTs}"
           }
         ]
       }
@@ -10513,19 +10513,16 @@
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
     "imports": [
-      "FrTooltipContent",
-      "FrTooltipPanel",
-      "FrTooltipRoot",
-      "FrTooltipShortcut",
-      "FrTooltipTrigger"
+      "FrTooltipDirective",
+      "FrTooltipShortcut"
     ],
     "docsImports": [],
     "selectors": [
       {
-        "className": "FrTooltipContent",
+        "className": "FrTooltipDirective",
         "kind": "Directive",
-        "selector": "ng-template[frTooltipContent]",
-        "preferredSelector": "ng-template[frTooltipContent]",
+        "selector": "[frTooltip]",
+        "preferredSelector": "[frTooltip]",
         "inputs": [
           {
             "name": "align",
@@ -10540,7 +10537,11 @@
             "type": null
           },
           {
-            "name": "debugVisible",
+            "name": "closeDelay",
+            "type": null
+          },
+          {
+            "name": "openDelay",
             "type": null
           },
           {
@@ -10553,47 +10554,7 @@
           }
         ],
         "outputs": [],
-        "sourceFile": "projects/components/tooltip/src/tooltip.content.ts"
-      },
-      {
-        "className": "FrTooltipPanel",
-        "kind": "Directive",
-        "selector": "[frTooltipPanel]",
-        "preferredSelector": "[frTooltipPanel]",
-        "inputs": [],
-        "outputs": [],
-        "sourceFile": "projects/components/tooltip/src/tooltip.content.ts"
-      },
-      {
-        "className": "FrTooltipRoot",
-        "kind": "Component",
-        "selector": "frame-tooltip",
-        "preferredSelector": "frame-tooltip",
-        "inputs": [
-          {
-            "name": "openDelay",
-            "type": null
-          },
-          {
-            "name": "closeDelay",
-            "type": null
-          },
-          {
-            "name": "defaultOpen",
-            "type": null
-          },
-          {
-            "name": "debugVisible",
-            "type": null
-          }
-        ],
-        "outputs": [
-          {
-            "name": "openChange",
-            "type": "boolean"
-          }
-        ],
-        "sourceFile": "projects/components/tooltip/src/tooltip.root.ts"
+        "sourceFile": "projects/components/tooltip/src/tooltip.directive.ts"
       },
       {
         "className": "FrTooltipShortcut",
@@ -10602,21 +10563,7 @@
         "preferredSelector": "[frTooltipShortcut]",
         "inputs": [],
         "outputs": [],
-        "sourceFile": "projects/components/tooltip/src/tooltip.content.ts"
-      },
-      {
-        "className": "FrTooltipTrigger",
-        "kind": "Directive",
-        "selector": "[frTooltipTrigger]",
-        "preferredSelector": "[frTooltipTrigger]",
-        "inputs": [
-          {
-            "name": "content",
-            "type": "FrTooltipContent | null"
-          }
-        ],
-        "outputs": [],
-        "sourceFile": "projects/components/tooltip/src/tooltip.trigger.ts"
+        "sourceFile": "projects/components/tooltip/src/tooltip.directive.ts"
       }
     ],
     "usageGuidance": [
@@ -10634,7 +10581,7 @@
           },
           {
             "language": "ts",
-            "code": "<frame-tooltip class=\"branded-tooltip\">\n  <button frButton [frTooltipTrigger]=\"tip\" type=\"button\">\n    Branded hint\n  </button>\n\n  <ng-template #tip=\"frTooltipContent\" frTooltipContent arrow>\n    <div frTooltipPanel>Styled with local tooltip tokens.</div>\n  </ng-template>\n</frame-tooltip>"
+            "code": "<button\n  frButton\n  class=\"branded-tooltip\"\n  frTooltip=\"Styled with local tooltip tokens.\"\n  frTooltipArrow\n  type=\"button\"\n>\n  Branded hint\n</button>"
           }
         ]
       },
@@ -10644,7 +10591,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<frame-tooltip class=\"branded-tooltip\">\n  <button frButton [frTooltipTrigger]=\"tip\" type=\"button\">\n    Branded hint\n  </button>\n\n  <ng-template #tip=\"frTooltipContent\" frTooltipContent arrow>\n    <div frTooltipPanel>Styled with local tooltip tokens.</div>\n  </ng-template>\n</frame-tooltip>"
+            "code": "<button\n  frButton\n  class=\"branded-tooltip\"\n  frTooltip=\"Styled with local tooltip tokens.\"\n  frTooltipArrow\n  type=\"button\"\n>\n  Branded hint\n</button>"
           }
         ]
       }

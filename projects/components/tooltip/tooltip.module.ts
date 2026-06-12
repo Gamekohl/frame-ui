@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { FrTooltipContent, FrTooltipPanel, FrTooltipShortcut } from './src/tooltip.content';
-import { FrTooltipRoot } from './src/tooltip.root';
-import { FrTooltipTrigger } from './src/tooltip.trigger';
+import { FrTooltipDirective, FrTooltipShortcut } from './src/tooltip.directive';
 
 @NgModule({
-  imports: [FrTooltipRoot, FrTooltipTrigger, FrTooltipContent, FrTooltipPanel, FrTooltipShortcut],
-  exports: [FrTooltipRoot, FrTooltipTrigger, FrTooltipContent, FrTooltipPanel, FrTooltipShortcut],
+  imports: [FrTooltipDirective, FrTooltipShortcut],
+  exports: [FrTooltipDirective, FrTooltipShortcut],
 })
 export class FrTooltipModule {}

@@ -1,45 +1,67 @@
 import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { FrTooltip, FrTooltipContent, FrTooltipPanel, FrTooltipShortcut, FrTooltipTrigger } from '../tooltip';
+import { FrTooltipDirective, FrTooltipShortcut } from '../tooltip';
 
 @Component({
-  imports: [FrTooltip, FrTooltipContent, FrTooltipPanel, FrTooltipShortcut, FrTooltipTrigger],
+  imports: [FrTooltipDirective],
   template: `
-    <frame-tooltip [openDelay]="openDelay()" [closeDelay]="closeDelay()">
-      <button [frTooltipTrigger]="tip" type="button">Hover</button>
-
-      <ng-template #tip="frTooltipContent" frTooltipContent side="bottom" arrow>
-        <div frTooltipPanel>
-          Helpful hint
-          <kbd frTooltipShortcut>Ctrl H</kbd>
-        </div>
-      </ng-template>
-    </frame-tooltip>
+    <button [frTooltip]="tooltip()" [frTooltipArrow]="true" frTooltipSide="bottom" type="button">
+      Save
+    </button>
   `,
 })
-class TooltipHostComponent {
-  readonly openDelay = signal(0);
-  readonly closeDelay = signal(0);
+class InlineTooltipHostComponent {
+  readonly tooltip = signal('Save this draft');
 }
 
-describe('FrTooltip', () => {
-  let fixture: ComponentFixture<TooltipHostComponent>;
+@Component({
+  imports: [FrTooltipDirective],
+  template: `
+    <button [frTooltip]="tooltip" disabled type="button">
+      Ship release
+    </button>
+  `,
+})
+class DisabledInlineTooltipHostComponent {
+  readonly tooltip = 'Every team member needs to approve.';
+}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [TooltipHostComponent],
-    });
+@Component({
+  imports: [FrTooltipDirective],
+  template: `
+    <button [frTooltip]="tooltip" [disabled]="disabled()" type="button">
+      Ship release
+    </button>
+  `,
+})
+class DynamicDisabledInlineTooltipHostComponent {
+  readonly disabled = signal(false);
+  readonly tooltip = 'Approval is still pending.';
+}
 
-    fixture = TestBed.createComponent(TooltipHostComponent);
-    fixture.detectChanges();
-  });
+@Component({
+  imports: [FrTooltipDirective, FrTooltipShortcut],
+  template: `
+    <button [frTooltip]="tip" type="button">Save</button>
 
+    <ng-template #tip>
+      <span>Save current draft</span>
+      <kbd frTooltipShortcut>Ctrl S</kbd>
+    </ng-template>
+  `,
+})
+class TemplateTooltipHostComponent {}
+
+describe('FrTooltipDirective', () => {
   afterEach(() => {
     document.querySelectorAll('.cdk-overlay-container').forEach((element) => element.remove());
   });
 
-  it('opens and closes from pointer hover', async () => {
+  it('attaches a text tooltip directly to the trigger without an explicit delay', async () => {
+    const fixture = TestBed.createComponent(InlineTooltipHostComponent);
+    fixture.detectChanges();
+
     const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
 
     trigger.dispatchEvent(new MouseEvent('mouseenter'));
@@ -47,9 +69,27 @@ describe('FrTooltip', () => {
     await wait(0);
     fixture.detectChanges();
 
-    expect(document.querySelector('.frame-tooltip__content')?.textContent).toContain('Helpful hint');
+    const panel = document.querySelector('.frame-tooltip__content') as HTMLElement;
+
+    expect(panel?.textContent).toContain('Save this draft');
+    expect(panel?.getAttribute('data-arrow')).toBe('');
+    expect(panel?.getAttribute('data-side')).toBe('bottom');
+    expect(trigger.getAttribute('aria-describedby')).toMatch(/^frame-tooltip-inline-/);
     expect(trigger.getAttribute('data-state')).toBe('open');
-    expect(trigger.getAttribute('aria-describedby')).toMatch(/^frame-tooltip-/);
+  });
+
+  it('closes on pointer leave', async () => {
+    const fixture = TestBed.createComponent(InlineTooltipHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
+
+    trigger.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    await wait(0);
+    fixture.detectChanges();
+
+    expect(document.querySelector('.frame-tooltip__content')).not.toBeNull();
 
     trigger.dispatchEvent(new MouseEvent('mouseleave'));
     fixture.detectChanges();
@@ -61,6 +101,9 @@ describe('FrTooltip', () => {
   });
 
   it('opens on focus and closes with escape', async () => {
+    const fixture = TestBed.createComponent(InlineTooltipHostComponent);
+    fixture.detectChanges();
+
     const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
 
     trigger.dispatchEvent(new FocusEvent('focusin'));
@@ -76,25 +119,49 @@ describe('FrTooltip', () => {
     expect(document.querySelector('.frame-tooltip__content')).toBeNull();
   });
 
-  it('respects open delay', async () => {
-    fixture.componentInstance.openDelay.set(200);
+  it('wraps disabled native controls so their tooltip can still open', async () => {
+    const fixture = TestBed.createComponent(DisabledInlineTooltipHostComponent);
     fixture.detectChanges();
 
-    const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
-    trigger.dispatchEvent(new MouseEvent('mouseenter'));
-    fixture.detectChanges();
-    await wait(40);
-    fixture.detectChanges();
+    const wrapper = fixture.nativeElement.querySelector('.frame-tooltip__disabled-trigger') as HTMLElement;
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
 
-    expect(document.querySelector('.frame-tooltip__content')).toBeNull();
-
-    await wait(220);
+    wrapper.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    await wait(0);
     fixture.detectChanges();
 
-    expect(document.querySelector('.frame-tooltip__content')).not.toBeNull();
+    expect(button.disabled).toBe(true);
+    expect(document.querySelector('.frame-tooltip__content')?.textContent).toContain(
+      'Every team member needs to approve.',
+    );
   });
 
-  it('styles projected keyboard shortcuts', async () => {
+  it('handles native controls that become disabled after init', async () => {
+    const fixture = TestBed.createComponent(DynamicDisabledInlineTooltipHostComponent);
+    fixture.detectChanges();
+
+    fixture.componentInstance.disabled.set(true);
+    fixture.detectChanges();
+    await wait(0);
+    fixture.detectChanges();
+
+    const wrapper = fixture.nativeElement.querySelector('.frame-tooltip__disabled-trigger') as HTMLElement;
+
+    wrapper.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    await wait(0);
+    fixture.detectChanges();
+
+    expect(document.querySelector('.frame-tooltip__content')?.textContent).toContain(
+      'Approval is still pending.',
+    );
+  });
+
+  it('renders template tooltip content with shortcut styling', async () => {
+    const fixture = TestBed.createComponent(TemplateTooltipHostComponent);
+    fixture.detectChanges();
+
     const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
 
     trigger.dispatchEvent(new MouseEvent('mouseenter'));
@@ -104,8 +171,9 @@ describe('FrTooltip', () => {
 
     const shortcut = document.querySelector('[frTooltipShortcut]') as HTMLElement;
 
+    expect(document.querySelector('.frame-tooltip__content')?.textContent).toContain('Save current draft');
     expect(shortcut.classList.contains('frame-tooltip__shortcut')).toBe(true);
-    expect(shortcut.textContent).toContain('Ctrl H');
+    expect(shortcut.textContent).toContain('Ctrl S');
   });
 });
 

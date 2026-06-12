@@ -331,25 +331,13 @@
         <span frCardTitle>Tooltip</span>
       </div>
       <div frCardContent class="flex items-center gap-2">
-        <frame-tooltip>
-          <button frButton [frTooltipTrigger]="tip" type="button">
-            Tooltip
-          </button>
+        <button frButton frTooltip="Helpful details." type="button">
+          Tooltip
+        </button>
 
-          <ng-template #tip="frTooltipContent" frTooltipContent>
-            <div frTooltipPanel>Helpful details.</div>
-          </ng-template>
-        </frame-tooltip>
-
-        <frame-tooltip>
-          <button frButton [frTooltipTrigger]="tipArrow" type="button">
-            With arrow
-          </button>
-
-          <ng-template #tipArrow="frTooltipContent" frTooltipContent arrow>
-            <div frTooltipPanel>Helpful details.</div>
-          </ng-template>
-        </frame-tooltip>
+        <button frButton frTooltip="Helpful details." frTooltipArrow type="button">
+          With arrow
+        </button>
       </div>
     </section>
   </main>

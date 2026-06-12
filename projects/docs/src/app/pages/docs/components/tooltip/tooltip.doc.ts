@@ -5,61 +5,50 @@ const importsCode = `import { FrTooltipModule } from '@frame-ui-ng/components/to
 const buttonImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}`;
 
-const usageHtml = `<frame-tooltip>
-  <button frButton [frTooltipTrigger]="tip" type="button">
-    Hover for context
-  </button>
+const usageHtml = `<button frButton frTooltip="Helpful details." type="button">
+  Hover for context
+</button>`;
 
-  <ng-template #tip="frTooltipContent" frTooltipContent>
-    <div frTooltipPanel>Helpful details.</div>
-  </ng-template>
-</frame-tooltip>`;
+const arrowHtml = `<button frButton frTooltip="A small arrow points back to the trigger." frTooltipArrow type="button">
+  With arrow
+</button>`;
 
-const arrowHtml = `<ng-template #tip="frTooltipContent" frTooltipContent arrow>
-  <div frTooltipPanel>A small arrow points back to the trigger.</div>
+const sidesHtml = `<button frButton frTooltip="Top side" frTooltipSide="top" frTooltipArrow type="button">
+  Top
+</button>`;
+
+const shortcutHtml = `<button frButton appearance="outline" [frTooltip]="tip" frTooltipArrow type="button">
+  <ng-icon frButtonIcon name="tablerDeviceFloppy" />
+  <span frButtonLabel>Save draft</span>
+</button>
+
+<ng-template #tip>
+  <div class="shortcut-tooltip">
+    <span>Save current draft</span>
+    <kbd frTooltipShortcut>Ctrl S</kbd>
+  </div>
 </ng-template>`;
 
-const sidesHtml = `<frame-tooltip>
-  <button frButton [frTooltipTrigger]="tip" type="button">Top</button>
+const disabledHtml = `<button
+  frButton
+  frTooltip="Upgrade permissions before running this action."
+  frTooltipArrow
+  disabled
+  type="button"
+>
+  Locked action
+</button>`;
 
-  <ng-template #tip="frTooltipContent" frTooltipContent side="top" arrow>
-    <div frTooltipPanel>Top side</div>
-  </ng-template>
-</frame-tooltip>`;
-
-const shortcutHtml = `<frame-tooltip>
-  <button frButton appearance="outline" [frTooltipTrigger]="tip" type="button">
-    <ng-icon frButtonIcon name="tablerDeviceFloppy" />
-    <span frButtonLabel>Save draft</span>
-  </button>
-
-  <ng-template #tip="frTooltipContent" frTooltipContent arrow>
-    <div frTooltipPanel class="shortcut-tooltip">
-      <span>Save current draft</span>
-      <kbd frTooltipShortcut>Ctrl S</kbd>
-    </div>
-  </ng-template>
-</frame-tooltip>`;
-
-const disabledHtml = `<frame-tooltip>
-  <span [frTooltipTrigger]="tip" tabindex="0">
-    <button frButton disabled type="button">Locked action</button>
-  </span>
-
-  <ng-template #tip="frTooltipContent" frTooltipContent arrow>
-    <div frTooltipPanel>Upgrade permissions before running this action.</div>
-  </ng-template>
-</frame-tooltip>`;
-
-const delayHtml = `<frame-tooltip [openDelay]="650" [closeDelay]="120">
-  <button frButton [frTooltipTrigger]="tip" type="button">
-    Intentional delay
-  </button>
-
-  <ng-template #tip="frTooltipContent" frTooltipContent arrow>
-    <div frTooltipPanel>Delayed hints avoid flashing.</div>
-  </ng-template>
-</frame-tooltip>`;
+const delayHtml = `<button
+  frButton
+  frTooltip="Delayed hints avoid flashing."
+  [frTooltipOpenDelay]="650"
+  [frTooltipCloseDelay]="120"
+  frTooltipArrow
+  type="button"
+>
+  Intentional delay
+</button>`;
 
 const customCss = `.branded-tooltip {
   --frame-tooltip-content-bg: linear-gradient(135deg, #16302b, #315c4f);
@@ -70,13 +59,9 @@ const customCss = `.branded-tooltip {
 }`;
 
 const rtlHtml = `<div dir="rtl" lang="ar">
-  <frame-tooltip>
-    <button frButton [frTooltipTrigger]="tip" type="button">مساعدة</button>
-
-    <ng-template #tip="frTooltipContent" frTooltipContent side="right" arrow>
-      <div frTooltipPanel>تلميح قصير مرتبط بالزر.</div>
-    </ng-template>
-  </frame-tooltip>
+  <button frButton frTooltip="تلميح قصير مرتبط بالزر." frTooltipSide="right" frTooltipArrow type="button">
+    مساعدة
+  </button>
 </div>`;
 
 const tokens = `--frame-tooltip-content-bg: var(--frame-foreground, #09090b);
@@ -137,10 +122,8 @@ export const TOOLTIP_DOC: ComponentDoc = {
     { language: 'html', code: usageHtml },
   ],
 
-  composition: `FrTooltip
-├── FrTooltipTrigger
-└── FrTooltipContent
-    └── FrTooltipPanel`,
+  composition: `FrTooltipDirective
+└── FrTooltipShortcut`,
 
   tokenInspector: {
     id: 'token-inspector',
@@ -217,7 +200,7 @@ export const TOOLTIP_DOC: ComponentDoc = {
 
   styling: {
     description:
-      'Set tooltip tokens on frame-tooltip or the trigger. The overlay copies --frame-tooltip-* custom properties to the floating panel when it opens.',
+      'Set tooltip tokens on the trigger. The overlay copies --frame-tooltip-* custom properties to the floating panel when it opens.',
     preview: {
       id: 'custom-styling-preview',
       title: 'Custom Styling Preview',
@@ -232,15 +215,15 @@ export const TOOLTIP_DOC: ComponentDoc = {
         { language: 'ts', code: buttonImportsCode },
         {
           language: 'html',
-          code: `<frame-tooltip class="branded-tooltip">
-  <button frButton [frTooltipTrigger]="tip" type="button">
-    Branded hint
-  </button>
-
-  <ng-template #tip="frTooltipContent" frTooltipContent arrow>
-    <div frTooltipPanel>Styled with local tooltip tokens.</div>
-  </ng-template>
-</frame-tooltip>`,
+          code: `<button
+  frButton
+  class="branded-tooltip"
+  frTooltip="Styled with local tooltip tokens."
+  frTooltipArrow
+  type="button"
+>
+  Branded hint
+</button>`,
         },
         { language: 'css', code: customCss },
       ],

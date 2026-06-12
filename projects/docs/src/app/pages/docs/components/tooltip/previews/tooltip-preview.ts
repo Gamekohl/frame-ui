@@ -47,125 +47,139 @@ export type TooltipPreviewConfig = {
     @switch (config().mode) {
       @case ('basic') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="150">
-            <button frButton appearance="outline" [frTooltipTrigger]="tip" type="button">
-              <span frButtonLabel>Hover for context</span>
-            </button>
-
-            <ng-template #tip="frTooltipContent" frTooltipContent>
-              <div frTooltipPanel>Helpful details appear on hover or keyboard focus.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            appearance="outline"
+            frTooltip="Helpful details appear on hover or keyboard focus."
+            [frTooltipOpenDelay]="150"
+            type="button"
+          >
+            <span frButtonLabel>Hover for context</span>
+          </button>
         </div>
       }
 
       @case ('arrow') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="150">
-            <button frButton appearance="outline" [frTooltipTrigger]="noArrow" type="button">
-              No arrow
-            </button>
-            <ng-template #noArrow="frTooltipContent" frTooltipContent>
-              <div frTooltipPanel>A compact label without an arrow.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            appearance="outline"
+            frTooltip="A compact label without an arrow."
+            [frTooltipOpenDelay]="150"
+            type="button"
+          >
+            No arrow
+          </button>
 
-          <frame-tooltip [openDelay]="150">
-            <button frButton appearance="outline" [frTooltipTrigger]="withArrow" type="button">
-              With arrow
-            </button>
-            <ng-template #withArrow="frTooltipContent" frTooltipContent arrow>
-              <div frTooltipPanel>A small arrow points back to the trigger.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            appearance="outline"
+            frTooltip="A small arrow points back to the trigger."
+            [frTooltipOpenDelay]="150"
+            frTooltipArrow
+            type="button"
+          >
+            With arrow
+          </button>
         </div>
       }
 
       @case ('sides') {
         <div class="docs-tooltip-grid">
           @for (side of sides; track side) {
-            <frame-tooltip [openDelay]="100">
-              <button frButton appearance="outline" [frTooltipTrigger]="sideTip" type="button">
-                {{ side }}
-              </button>
-              <ng-template #sideTip="frTooltipContent" frTooltipContent [side]="side" arrow>
-                <div frTooltipPanel>{{ side }} side</div>
-              </ng-template>
-            </frame-tooltip>
+            <button
+              frButton
+              appearance="outline"
+              [frTooltip]="side + ' side'"
+              [frTooltipOpenDelay]="100"
+              [frTooltipSide]="side"
+              frTooltipArrow
+              type="button"
+            >
+              {{ side }}
+            </button>
           }
         </div>
       }
 
       @case ('shortcut') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="150">
-            <button frButton appearance="outline" [frTooltipTrigger]="saveTip" type="button">
-              <ng-icon frButtonIcon name="tablerDeviceFloppy" />
-              <span frButtonLabel>Save draft</span>
-            </button>
-            <ng-template #saveTip="frTooltipContent" frTooltipContent arrow>
-              <div frTooltipPanel class="docs-tooltip-shortcut">
-                <span>Save current draft</span>
-                <kbd frTooltipShortcut>Ctrl S</kbd>
-              </div>
-            </ng-template>
-          </frame-tooltip>
+          <button frButton appearance="outline" [frTooltip]="saveTip" frTooltipArrow type="button">
+            <ng-icon frButtonIcon name="tablerDeviceFloppy" />
+            <span frButtonLabel>Save draft</span>
+          </button>
+
+          <ng-template #saveTip>
+            <div class="docs-tooltip-shortcut">
+              <span>Save current draft</span>
+              <kbd frTooltipShortcut>Ctrl S</kbd>
+            </div>
+          </ng-template>
         </div>
       }
 
       @case ('disabled') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="150">
-            <span [frTooltipTrigger]="disabledTip" tabindex="0" class="docs-tooltip-disabled-trigger">
-              <button frButton disabled type="button">
-                <ng-icon frButtonIcon name="tablerLock" />
-                <span frButtonLabel>Locked action</span>
-              </button>
-            </span>
-            <ng-template #disabledTip="frTooltipContent" frTooltipContent arrow>
-              <div frTooltipPanel>Upgrade permissions before running this action.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            frTooltip="Upgrade permissions before running this action."
+            [frTooltipOpenDelay]="150"
+            frTooltipArrow
+            disabled
+            type="button"
+          >
+            <ng-icon frButtonIcon name="tablerLock" />
+            <span frButtonLabel>Locked action</span>
+          </button>
         </div>
       }
 
       @case ('delay') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="650" [closeDelay]="120">
-            <button frButton appearance="outline" [frTooltipTrigger]="delayTip" type="button">
-              Intentional delay
-            </button>
-            <ng-template #delayTip="frTooltipContent" frTooltipContent arrow>
-              <div frTooltipPanel>Delayed hints avoid flashing while users move across controls.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            appearance="outline"
+            frTooltip="Delayed hints avoid flashing while users move across controls."
+            [frTooltipOpenDelay]="650"
+            [frTooltipCloseDelay]="120"
+            frTooltipArrow
+            type="button"
+          >
+            Intentional delay
+          </button>
         </div>
       }
 
       @case ('custom-styling') {
         <div class="docs-tooltip-row">
-          <frame-tooltip [openDelay]="150" class="docs-tooltip-custom-trigger">
-            <button frButton appearance="outline" [frTooltipTrigger]="customTip" type="button">
-              Branded hint
-            </button>
-            <ng-template #customTip="frTooltipContent" frTooltipContent arrow>
-              <div frTooltipPanel>Styled with local tooltip tokens.</div>
-            </ng-template>
-          </frame-tooltip>
+          <button
+            frButton
+            appearance="outline"
+            class="docs-tooltip-custom-trigger"
+            frTooltip="Styled with local tooltip tokens."
+            [frTooltipOpenDelay]="150"
+            frTooltipArrow
+            type="button"
+          >
+            Branded hint
+          </button>
         </div>
       }
 
       @case ('rtl') {
         <div class="docs-tooltip-grid" dir="rtl" lang="ar">
           @for (side of sides; track side) {
-            <frame-tooltip [openDelay]="100">
-              <button frButton appearance="outline" [frTooltipTrigger]="rtlTip" type="button">
-                {{ side }}
-              </button>
-              <ng-template #rtlTip="frTooltipContent" frTooltipContent [side]="side" arrow>
-                <div frTooltipPanel>تلميح في جهة {{ side }}</div>
-              </ng-template>
-            </frame-tooltip>
+            <button
+              frButton
+              appearance="outline"
+              [frTooltip]="'تلميح في جهة ' + side"
+              [frTooltipOpenDelay]="100"
+              [frTooltipSide]="side"
+              frTooltipArrow
+              type="button"
+            >
+              {{ side }}
+            </button>
           }
         </div>
       }
@@ -219,10 +233,6 @@ export type TooltipPreviewConfig = {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-    }
-
-    .docs-tooltip-disabled-trigger {
-      display: inline-flex;
     }
 
     .docs-tooltip-custom-trigger {

@@ -1,15 +1,9 @@
 @import './_vars.css';
 
-frame-tooltip {
-  display: inline-block;
-}
-
-.frame-tooltip__anchor {
+.frame-tooltip__disabled-trigger {
   display: inline-flex;
-}
-
-[frTooltipTrigger] {
-  cursor: default;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .frame-tooltip__content {

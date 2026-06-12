@@ -1,14 +1,17 @@
-import { InjectionToken } from '@angular/core';
-
-export type FrTooltipController = {
-  isOpen(): boolean;
-  overlaySide(): string;
-  registerTrigger(trigger: HTMLElement): void;
-  setContent(content: unknown | null): void;
-  openWithDelay(): void;
-  closeWithDelay(): void;
-  open(): void;
-  close(): void;
-};
-
-export const FR_TOOLTIP_CONTROLLER = new InjectionToken<FrTooltipController>('FR_TOOLTIP_CONTROLLER');
+export const FR_TOOLTIP_TOKEN_NAMES = [
+  '--frame-tooltip-content-bg',
+  '--frame-tooltip-content-color',
+  '--frame-tooltip-content-border',
+  '--frame-tooltip-content-radius',
+  '--frame-tooltip-content-shadow',
+  '--frame-tooltip-content-padding',
+  '--frame-tooltip-content-max-width',
+  '--frame-tooltip-content-font-size',
+  '--frame-tooltip-content-font-weight',
+  '--frame-tooltip-content-line-height',
+  '--frame-tooltip-arrow-size',
+  '--frame-tooltip-motion-duration',
+  '--frame-tooltip-motion-distance',
+  '--frame-tooltip-motion-scale',
+  '--frame-tooltip-motion-easing',
+] as const;

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --color-background: var(--frame-background);
+  --color-foreground: var(--frame-foreground);
+  --color-muted: var(--frame-muted);
+  --color-muted-foreground: var(--frame-muted-foreground);
+  --color-border: var(--frame-border);
+  --color-surface: var(--frame-surface);
+  --color-surface-foreground: var(--frame-surface-foreground);
+  --color-primary: var(--frame-primary);
+  --color-primary-foreground: var(--frame-primary-foreground);
+  --color-accent: var(--frame-accent);
+  --color-accent-foreground: var(--frame-accent-foreground);
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+:root {
+  --frame-primary: #d71920;
+  --frame-button-root-radius: var(--frame-radius-md);
+}
+
+body {
+  background: var(--frame-background);
+  color: var(--frame-foreground);
+  font-family: var(--font-sans), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
