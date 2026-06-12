@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface DeployopsSummary {
   healthyServices: number;
@@ -66,9 +67,22 @@ export interface TeamMember {
   avatarUrl: string;
 }
 
+export interface PaginatedResponse<T> {
+  first: number;
+  prev: number | null;
+  next: number | null;
+  last: number;
+  pages: number;
+  items: number;
+  data: T[];
+}
+
+export type ReleasePagination = Omit<PaginatedResponse<Release>, 'data'>;
+
 export interface DeployopsDashboardData {
   summary: DeployopsSummary;
   releases: Release[];
+  releasePagination: ReleasePagination;
   incidents: Incident[];
   team: TeamMember[];
 }
@@ -76,17 +90,32 @@ export interface DeployopsDashboardData {
 @Injectable({
   providedIn: 'root',
 })
-export class DeployopsApiService {
+export class ApiService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:4300';
 
-  getDashboard(): Observable<DeployopsDashboardData> {
+  getDashboard(page = 1, perPage = 10): Observable<DeployopsDashboardData> {
     return forkJoin({
       summary: this.http.get<DeployopsSummary>(`${this.apiUrl}/summary`),
-      releases: this.http.get<Release[]>(`${this.apiUrl}/releases`),
+      releasePage: this.http.get<PaginatedResponse<Release>>(`${this.apiUrl}/releases`, {
+        params: {
+          _page: page,
+          _per_page: perPage,
+        },
+      }),
       incidents: this.http.get<Incident[]>(`${this.apiUrl}/incidents`),
       team: this.http.get<TeamMember[]>(`${this.apiUrl}/team`),
-    });
+    }).pipe(
+      map(({ releasePage, ...dashboardData }) => {
+        const { data, ...releasePagination } = releasePage;
+
+        return {
+          ...dashboardData,
+          releases: data,
+          releasePagination,
+        };
+      }),
+    );
   }
 
   releaseDetails(releaseId: string): Observable<ReleaseDetails> {

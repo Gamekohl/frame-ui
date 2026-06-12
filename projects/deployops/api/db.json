@@ -1,7 +1,7 @@
 {
   "summary": {
     "healthyServices": 24,
-    "activeDeployments": 8,
+    "activeDeployments": 18,
     "changeFailureRate": 3.8,
     "leadTimeMinutes": 42
   },
@@ -130,6 +130,156 @@
         "https://i.pravatar.cc/300?u=sara.meyer@deployops.dev"
       ],
       "updatedAt": "31m ago"
+    },
+    {
+      "id": "rel-1009",
+      "release": "Inventory Sync",
+      "version": "1.6.1",
+      "service": "inventory-sync",
+      "environment": "Production",
+      "status": "deploying",
+      "progress": 62,
+      "team": [
+        "https://i.pravatar.cc/300?u=leo.martin@deployops.dev",
+        "https://i.pravatar.cc/300?u=ines.rossi@deployops.dev",
+        "https://i.pravatar.cc/300?u=harper.lane@deployops.dev"
+      ],
+      "updatedAt": "35m ago"
+    },
+    {
+      "id": "rel-1010",
+      "release": "Fraud Signals",
+      "version": "2.4.0",
+      "service": "fraud-signals",
+      "environment": "Production",
+      "status": "blocked",
+      "progress": 18,
+      "team": [
+        "https://i.pravatar.cc/300?u=omar.hassan@deployops.dev",
+        "https://i.pravatar.cc/300?u=greta.voigt@deployops.dev",
+        "https://i.pravatar.cc/300?u=mei.tan@deployops.dev",
+        "https://i.pravatar.cc/300?u=diego.cruz@deployops.dev"
+      ],
+      "updatedAt": "38m ago"
+    },
+    {
+      "id": "rel-1011",
+      "release": "Order Timeline",
+      "version": "1.1.7",
+      "service": "orders-ui",
+      "environment": "Staging",
+      "status": "healthy",
+      "progress": 100,
+      "team": [
+        "https://i.pravatar.cc/300?u=paula.neumann@deployops.dev",
+        "https://i.pravatar.cc/300?u=felix.king@deployops.dev"
+      ],
+      "updatedAt": "42m ago"
+    },
+    {
+      "id": "rel-1012",
+      "release": "Metrics Aggregator",
+      "version": "3.2.5",
+      "service": "metrics-agg",
+      "environment": "Production",
+      "status": "deploying",
+      "progress": 81,
+      "team": [
+        "https://i.pravatar.cc/300?u=sofia.marin@deployops.dev",
+        "https://i.pravatar.cc/300?u=kai.turner@deployops.dev",
+        "https://i.pravatar.cc/300?u=ava.brooks@deployops.dev"
+      ],
+      "updatedAt": "47m ago"
+    },
+    {
+      "id": "rel-1013",
+      "release": "Customer Export",
+      "version": "0.12.0",
+      "service": "export-worker",
+      "environment": "Production",
+      "status": "in-queue",
+      "progress": 0,
+      "team": [
+        "https://i.pravatar.cc/300?u=clara.evans@deployops.dev",
+        "https://i.pravatar.cc/300?u=emma.ross@deployops.dev",
+        "https://i.pravatar.cc/300?u=noah.stein@deployops.dev"
+      ],
+      "updatedAt": "52m ago"
+    },
+    {
+      "id": "rel-1014",
+      "release": "Auth Session Rotation",
+      "version": "2.0.0",
+      "service": "auth-core",
+      "environment": "Production",
+      "status": "deploying",
+      "progress": 27,
+      "team": [
+        "https://i.pravatar.cc/300?u=ben.carter@deployops.dev",
+        "https://i.pravatar.cc/300?u=sara.meyer@deployops.dev",
+        "https://i.pravatar.cc/300?u=lucas.brown@deployops.dev"
+      ],
+      "updatedAt": "58m ago"
+    },
+    {
+      "id": "rel-1015",
+      "release": "Billing Reconciliation",
+      "version": "1.9.8",
+      "service": "billing-recon",
+      "environment": "Production",
+      "status": "healthy",
+      "progress": 100,
+      "team": [
+        "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev",
+        "https://i.pravatar.cc/300?u=talia.reed@deployops.dev",
+        "https://i.pravatar.cc/300?u=liam.walsh@deployops.dev"
+      ],
+      "updatedAt": "1h ago"
+    },
+    {
+      "id": "rel-1016",
+      "release": "Audit Trail Search",
+      "version": "1.3.4",
+      "service": "audit-search",
+      "environment": "Staging",
+      "status": "in-queue",
+      "progress": 0,
+      "team": [
+        "https://i.pravatar.cc/300?u=julia.fischer@deployops.dev",
+        "https://i.pravatar.cc/300?u=theo.lang@deployops.dev",
+        "https://i.pravatar.cc/300?u=rhea.sommer@deployops.dev"
+      ],
+      "updatedAt": "1h 6m ago"
+    },
+    {
+      "id": "rel-1017",
+      "release": "Mobile API Gateway",
+      "version": "4.1.0",
+      "service": "mobile-gateway",
+      "environment": "Production",
+      "status": "blocked",
+      "progress": 9,
+      "team": [
+        "https://i.pravatar.cc/300?u=marco.silva@deployops.dev",
+        "https://i.pravatar.cc/300?u=zoe.chen@deployops.dev",
+        "https://i.pravatar.cc/300?u=nina.patel@deployops.dev"
+      ],
+      "updatedAt": "1h 11m ago"
+    },
+    {
+      "id": "rel-1018",
+      "release": "Data Retention Jobs",
+      "version": "0.8.6",
+      "service": "retention-jobs",
+      "environment": "Development",
+      "status": "healthy",
+      "progress": 100,
+      "team": [
+        "https://i.pravatar.cc/300?u=ella.smith@deployops.dev",
+        "https://i.pravatar.cc/300?u=oliver.ng@deployops.dev",
+        "https://i.pravatar.cc/300?u=maya.okafor@deployops.dev"
+      ],
+      "updatedAt": "1h 18m ago"
     }
   ],
   "incidents": [
@@ -440,6 +590,366 @@
           "name": "Sara Meyer",
           "team": "Platform Team",
           "avatarUrl": "https://i.pravatar.cc/300?u=sara.meyer@deployops.dev",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "rel-1009",
+      "releaseId": "rel-1009",
+      "release": "Inventory Sync",
+      "version": "1.6.1",
+      "service": "inventory-sync",
+      "environment": "Production",
+      "status": "deploying",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Leo Martin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=leo.martin@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:12 AM",
+      "description": "Ship incremental stock reconciliation with backpressure handling for supplier feeds.",
+      "changeSummary": {
+        "commits": 13,
+        "filesChanged": 31,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Ines Rossi",
+          "team": "Inventory Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=ines.rossi@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Harper Lane",
+          "team": "SRE Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=harper.lane@deployops.dev",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "rel-1010",
+      "releaseId": "rel-1010",
+      "release": "Fraud Signals",
+      "version": "2.4.0",
+      "service": "fraud-signals",
+      "environment": "Production",
+      "status": "blocked",
+      "releaseType": "Canary",
+      "createdBy": {
+        "name": "Omar Hassan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=omar.hassan@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:16 AM",
+      "description": "Introduce risk-score enrichment for checkout sessions with canary safeguards.",
+      "changeSummary": {
+        "commits": 18,
+        "filesChanged": 47,
+        "testResults": "Passed",
+        "qualityGate": "Failed"
+      },
+      "approvals": [
+        {
+          "name": "Greta Voigt",
+          "team": "Risk Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=greta.voigt@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Mei Tan",
+          "team": "Security Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=mei.tan@deployops.dev",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "rel-1011",
+      "releaseId": "rel-1011",
+      "release": "Order Timeline",
+      "version": "1.1.7",
+      "service": "orders-ui",
+      "environment": "Staging",
+      "status": "healthy",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Paula Neumann",
+        "avatarUrl": "https://i.pravatar.cc/300?u=paula.neumann@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:19 AM",
+      "description": "Refresh order activity timelines and add carrier handoff event grouping.",
+      "changeSummary": {
+        "commits": 5,
+        "filesChanged": 14,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Felix King",
+          "team": "Product Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=felix.king@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Paula Neumann",
+          "team": "Frontend Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=paula.neumann@deployops.dev",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "rel-1012",
+      "releaseId": "rel-1012",
+      "release": "Metrics Aggregator",
+      "version": "3.2.5",
+      "service": "metrics-agg",
+      "environment": "Production",
+      "status": "deploying",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Sofia Marin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=sofia.marin@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:23 AM",
+      "description": "Reduce metric rollup lag and add partition-aware retries for late events.",
+      "changeSummary": {
+        "commits": 16,
+        "filesChanged": 36,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Kai Turner",
+          "team": "Observability Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=kai.turner@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Ava Brooks",
+          "team": "SRE Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=ava.brooks@deployops.dev",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "rel-1013",
+      "releaseId": "rel-1013",
+      "release": "Customer Export",
+      "version": "0.12.0",
+      "service": "export-worker",
+      "environment": "Production",
+      "status": "in-queue",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Clara Evans",
+        "avatarUrl": "https://i.pravatar.cc/300?u=clara.evans@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:28 AM",
+      "description": "Add resumable customer export jobs and signed download audit records.",
+      "changeSummary": {
+        "commits": 8,
+        "filesChanged": 22,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Emma Ross",
+          "team": "Data Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=emma.ross@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Noah Stein",
+          "team": "Platform Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=noah.stein@deployops.dev",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "rel-1014",
+      "releaseId": "rel-1014",
+      "release": "Auth Session Rotation",
+      "version": "2.0.0",
+      "service": "auth-core",
+      "environment": "Production",
+      "status": "deploying",
+      "releaseType": "Security",
+      "createdBy": {
+        "name": "Ben Carter",
+        "avatarUrl": "https://i.pravatar.cc/300?u=ben.carter@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:34 AM",
+      "description": "Rotate session signing keys and roll out short-lived refresh token claims.",
+      "changeSummary": {
+        "commits": 20,
+        "filesChanged": 53,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Sara Meyer",
+          "team": "Security Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=sara.meyer@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Lucas Brown",
+          "team": "SRE Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=lucas.brown@deployops.dev",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "rel-1015",
+      "releaseId": "rel-1015",
+      "release": "Billing Reconciliation",
+      "version": "1.9.8",
+      "service": "billing-recon",
+      "environment": "Production",
+      "status": "healthy",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Nadia Khan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 10:58 AM",
+      "description": "Finalize invoice reconciliation improvements and export provider settlement deltas.",
+      "changeSummary": {
+        "commits": 10,
+        "filesChanged": 27,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Talia Reed",
+          "team": "Finance Systems",
+          "avatarUrl": "https://i.pravatar.cc/300?u=talia.reed@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Liam Walsh",
+          "team": "Payments Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=liam.walsh@deployops.dev",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "rel-1016",
+      "releaseId": "rel-1016",
+      "release": "Audit Trail Search",
+      "version": "1.3.4",
+      "service": "audit-search",
+      "environment": "Staging",
+      "status": "in-queue",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Julia Fischer",
+        "avatarUrl": "https://i.pravatar.cc/300?u=julia.fischer@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:41 AM",
+      "description": "Index audit events by actor and resource to improve support investigation lookup.",
+      "changeSummary": {
+        "commits": 9,
+        "filesChanged": 19,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Theo Lang",
+          "team": "Platform Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=theo.lang@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Rhea Sommer",
+          "team": "Support Ops",
+          "avatarUrl": "https://i.pravatar.cc/300?u=rhea.sommer@deployops.dev",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "rel-1017",
+      "releaseId": "rel-1017",
+      "release": "Mobile API Gateway",
+      "version": "4.1.0",
+      "service": "mobile-gateway",
+      "environment": "Production",
+      "status": "blocked",
+      "releaseType": "Canary",
+      "createdBy": {
+        "name": "Marco Silva",
+        "avatarUrl": "https://i.pravatar.cc/300?u=marco.silva@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:46 AM",
+      "description": "Route mobile clients through the new gateway with per-version throttling controls.",
+      "changeSummary": {
+        "commits": 14,
+        "filesChanged": 33,
+        "testResults": "Failed",
+        "qualityGate": "Failed"
+      },
+      "approvals": [
+        {
+          "name": "Zoe Chen",
+          "team": "Mobile Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=zoe.chen@deployops.dev",
+          "status": "pending"
+        },
+        {
+          "name": "Nina Patel",
+          "team": "SRE Team",
+          "avatarUrl": "https://i.pravatar.cc/300?u=nina.patel@deployops.dev",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "rel-1018",
+      "releaseId": "rel-1018",
+      "release": "Data Retention Jobs",
+      "version": "0.8.6",
+      "service": "retention-jobs",
+      "environment": "Development",
+      "status": "healthy",
+      "releaseType": "Standard",
+      "createdBy": {
+        "name": "Ella Smith",
+        "avatarUrl": "https://i.pravatar.cc/300?u=ella.smith@deployops.dev"
+      },
+      "createdAt": "May 20, 2024 11:52 AM",
+      "description": "Run retention policy jobs in development with expanded dry-run reporting.",
+      "changeSummary": {
+        "commits": 4,
+        "filesChanged": 11,
+        "testResults": "Passed",
+        "qualityGate": "Passed"
+      },
+      "approvals": [
+        {
+          "name": "Oliver Ng",
+          "team": "Data Platform",
+          "avatarUrl": "https://i.pravatar.cc/300?u=oliver.ng@deployops.dev",
+          "status": "approved"
+        },
+        {
+          "name": "Maya Okafor",
+          "team": "ML Platform",
+          "avatarUrl": "https://i.pravatar.cc/300?u=maya.okafor@deployops.dev",
           "status": "approved"
         }
       ]

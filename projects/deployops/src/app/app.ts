@@ -1,31 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-  signal,
-  DestroyRef,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
-import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
-import { FrCardModule } from '@frame-ui-ng/components/card';
-import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrFieldModule } from '@frame-ui-ng/components/field';
-import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
-import { FrTableModule } from '@frame-ui-ng/components/table';
-import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  tablerArrowDown,
-  tablerArrowUp,
   tablerBell,
-  tablerCalendar,
   tablerChartDots,
   tablerCheckbox,
   tablerChevronDown,
@@ -51,34 +35,27 @@ import {
   tablerTrash,
   tablerUsers,
   tablerX,
+  tablerArrowDown,
+  tablerArrowUp,
+  tablerCalendar,
+  tablerTimelineEventText,
 } from '@ng-icons/tabler-icons';
-import { startWith, Subject, switchMap } from 'rxjs';
-import { ReleaseDetailsComponent } from './components/release-details/release-details';
-import {
-  DeployopsApiService,
-  DeployopsDashboardData,
-  Release,
-} from './deployops-api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     FrAvatarModule,
-    FrBadgeModule,
     FrButtonModule,
-    FrCardModule,
-    FrCheckboxModule,
     FrDropdownMenuModule,
     FrFieldModule,
-    FrInputModule,
     FrSidebarModule,
-    FrTableModule,
     FrSelectModule,
     NgIcon,
     ReactiveFormsModule,
-    ReleaseDetailsComponent,
-    FrTooltipDirective,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -114,93 +91,21 @@ import {
       tablerTrash,
       tablerX,
       tablerRefresh,
+      tablerTimelineEventText,
     }),
   ],
 })
-export class App implements OnInit {
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly api = inject(DeployopsApiService);
-
-  readonly displayedColumns = [
-    'select',
-    'release',
-    'service',
-    'environment',
-    'status',
-    'progress',
-    'team',
-    'updatedAt',
-    'actions',
-  ];
+export class App {
   readonly navItems = [
-    { label: 'Dashboard', icon: 'tablerProgressCheck', active: true },
-    { label: 'Deployments', icon: 'tablerPackages', active: false },
-    { label: 'Environments', icon: 'tablerServer', active: false },
-    { label: 'Services', icon: 'tablerServer', active: false },
-    { label: 'Insights', icon: 'tablerChartDots', active: false },
-    { label: 'Alerts', icon: 'tablerBell', active: false },
-    { label: 'Approvals', icon: 'tablerCheckbox', active: false },
-    { label: 'Settings', icon: 'tablerSettings', active: false },
+    { label: 'Release Queue', icon: 'tablerTimelineEventText', route: '/release-queue' },
+    { label: 'Deployments', icon: 'tablerPackages', route: null },
+    { label: 'Environments', icon: 'tablerServer', route: null },
+    { label: 'Services', icon: 'tablerServer', route: null },
+    { label: 'Insights', icon: 'tablerChartDots', route: null },
+    { label: 'Alerts', icon: 'tablerBell', route: null },
+    { label: 'Approvals', icon: 'tablerCheckbox', route: null },
+    { label: 'Settings', icon: 'tablerSettings', route: null },
   ];
-
-  readonly data = signal<DeployopsDashboardData | null>(null);
-  readonly selectedRelease = signal<Release | null>(null);
-
-  readonly refresh$ = new Subject<void>();
 
   deploymentControl = new FormControl<string | null>({ value: 'production', disabled: true });
-
-  ngOnInit(): void {
-    this.refresh$
-      .asObservable()
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        startWith(true),
-        switchMap(() => this.api.getDashboard()),
-      )
-      .subscribe({
-        next: (data) => {
-          this.data.set(data);
-        },
-      });
-  }
-
-  releaseBadge(release: Release): 'success' | 'secondary' | 'destructive' {
-    if (release.status === 'blocked') {
-      return 'destructive';
-    }
-
-    return release.status === 'healthy' ? 'success' : 'secondary';
-  }
-
-  statusLabel(release: Release): string {
-    const labels: Record<Release['status'], string> = {
-      blocked: 'Blocked',
-      deploying: 'Deploying',
-      healthy: 'Healthy',
-      'in-queue': 'In Queue',
-    };
-
-    return labels[release.status];
-  }
-
-  visibleTeam(release: Release): string[] {
-    return (release.team ?? []).slice(0, 3);
-  }
-
-  hiddenTeamCount(release: Release): number {
-    return Math.max(0, (release.team ?? []).length - 3);
-  }
-
-  openReleaseDetails(release: Release): void {
-    this.selectedRelease.set(release);
-  }
-
-  closeReleaseDetails(): void {
-    this.selectedRelease.set(null);
-  }
-
-  refreshData(): void {
-    this.refresh$.next();
-  }
 }

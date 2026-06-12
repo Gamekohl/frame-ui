@@ -11,7 +11,7 @@ import {
 import { of } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { DeployopsApiService, Release, ReleaseDetails } from '../../deployops-api.service';
+import { ApiService, Release, ReleaseDetails } from '../../services/api.service';
 import { ReleaseDetailsComponent } from './release-details';
 
 const release: Release = {
@@ -62,7 +62,7 @@ describe('ReleaseDetailsComponent', () => {
       imports: [ReleaseDetailsComponent],
       providers: [
         {
-          provide: DeployopsApiService,
+          provide: ApiService,
           useValue: {
             releaseDetails: releaseDetailsSpy,
           },

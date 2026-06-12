@@ -15,7 +15,7 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
 import { finalize, switchMap } from 'rxjs';
-import { DeployopsApiService, Release, ReleaseDetails } from '../../deployops-api.service';
+import { ApiService, Release, ReleaseDetails } from '../../services/api.service';
 
 @Component({
   host: {
@@ -29,7 +29,7 @@ import { DeployopsApiService, Release, ReleaseDetails } from '../../deployops-ap
 })
 export class ReleaseDetailsComponent {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly api = inject(DeployopsApiService);
+  private readonly api = inject(ApiService);
 
   readonly release = input.required<Release>();
   readonly closed = output<void>();
