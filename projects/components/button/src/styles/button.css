@@ -83,6 +83,9 @@
 
 .frame-icon-button {
   inline-size: var(--frame-button-root-height, 2.5rem);
+  min-inline-size: var(--frame-button-root-height, 2.5rem);
+  block-size: var(--frame-button-root-height, 2.5rem);
+  min-block-size: var(--frame-button-root-height, 2.5rem);
   padding-inline: 0;
   flex: 0 0 auto;
 }
@@ -157,7 +160,14 @@
 .frame-button:where(:disabled, [data-disabled]) {
   cursor: not-allowed;
   opacity: var(--frame-button-root-disabled-opacity, 0.55);
+  filter: none;
+  transform: none;
+  transition: none;
   /* box-shadow: var(--frame-button-root-disabled-shadow, none); */
+}
+
+.frame-button:where(:disabled, [data-disabled])::before {
+  transition: none;
 }
 
 .frame-button[data-appearance='outline'] {
@@ -191,19 +201,21 @@
   opacity: 0;
 }
 
-.frame-button[data-appearance='ghost']:hover::before,
+.frame-button[data-appearance='ghost']:where(:not(:disabled, [data-disabled])):hover::before,
 .frame-button[data-appearance='ghost']:focus-visible::before {
   opacity: 1;
 }
 
 .frame-button[data-size='sm'] {
-  min-height: 2rem;
+  --frame-button-root-height: 2rem;
+  min-height: var(--frame-button-root-height);
   padding-inline: 0.75rem;
   font-size: 0.8125rem;
 }
 
 .frame-button[data-size='lg'] {
-  min-height: 2.75rem;
+  --frame-button-root-height: 2.75rem;
+  min-height: var(--frame-button-root-height);
   padding-inline: 1.25rem;
   font-size: 0.9375rem;
 }

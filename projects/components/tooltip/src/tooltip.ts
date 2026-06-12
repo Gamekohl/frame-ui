@@ -1,6 +1,4 @@
-export { FrTooltipContent, FrTooltipPanel, FrTooltipShortcut } from './tooltip.content';
-export { FrTooltipRoot as FrTooltip } from './tooltip.root';
-export { FrTooltipTrigger } from './tooltip.trigger';
+export { FrTooltipDirective, FrTooltipShortcut } from './tooltip.directive';
 export {
   FR_TOOLTIP_ALIGNMENTS,
   FR_TOOLTIP_SIDES,

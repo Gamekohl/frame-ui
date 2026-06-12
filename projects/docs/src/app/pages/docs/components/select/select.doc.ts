@@ -49,22 +49,32 @@ const frameworkGroups = [
 ];
 
 const heroConfig: SelectPreviewConfig = {
-  placeholder: 'Choose a workspace surface',
-  initialValue: 'angular',
-  indicatorPosition: 'end',
-  groups: frameworkGroups,
-};
-
-const basicConfig: SelectPreviewConfig = {
-  placeholder: 'Choose a framework',
-  initialValue: 'angular',
+  placeholder: 'Choose an environment',
+  leadingIcon: 'tablerStack2',
+  initialValue: 'production',
   indicatorPosition: 'end',
   groups: [
     {
       items: [
-        { value: 'angular', label: 'Angular', icon: 'tablerRocket' },
-        { value: 'react', label: 'React', icon: 'tablerDevices' },
-        { value: 'vue', label: 'Vue', icon: 'tablerLeaf' },
+        { value: 'production', label: 'Production', icon: 'tablerStack2' },
+        { value: 'preview', label: 'Preview', icon: 'tablerDevices' },
+        { value: 'development', label: 'Development', icon: 'tablerRocket' },
+      ],
+    },
+  ],
+};
+
+const basicConfig: SelectPreviewConfig = {
+  placeholder: 'Choose an environment',
+  leadingIcon: 'tablerStack2',
+  initialValue: 'production',
+  indicatorPosition: 'end',
+  groups: [
+    {
+      items: [
+        { value: 'production', label: 'Production', icon: 'tablerStack2' },
+        { value: 'preview', label: 'Preview', icon: 'tablerDevices' },
+        { value: 'development', label: 'Development', icon: 'tablerRocket' },
       ],
     },
   ],
@@ -270,6 +280,13 @@ frameworkControl = new FormControl<string | null>('angular');`,
           tokens: ['--frame-select-trigger-gap'],
         },
         {
+          id: 'leading-icon',
+          label: 'Leading icon',
+          selector: '[data-token-target="select-leading-icon"]',
+          description: 'Leading icons share the trigger icon treatment but stay fixed while the trailing affordance rotates.',
+          tokens: ['--frame-select-trigger-gap'],
+        },
+        {
           id: 'panel',
           label: 'Panel',
           selector: '[data-token-target="select-panel"]',
@@ -406,28 +423,31 @@ ${customStylingConfig.style}
           language: 'ts',
           code: `${formImportsCode}
 
-frameworkControl = new FormControl<string | null>('angular');`,
+environmentControl = new FormControl<string | null>('production');`,
         },
         {
           language: 'html',
-          code: `<button [frSelect]="frameworkMenu" [formControl]="frameworkControl" indicatorPosition="end" type="button">
-  <frame-select-value placeholder="Choose a framework"></frame-select-value>
-  <span frSelectIcon>
+          code: `<button [frSelect]="environmentMenu" [formControl]="environmentControl" indicatorPosition="end" type="button">
+  <span frSelectIcon position="leading">
+    <ng-icon name="tablerStack2" size="16" />
+  </span>
+  <frame-select-value placeholder="Choose an environment"></frame-select-value>
+  <span frSelectIcon position="trailing">
     <ng-icon name="tablerChevronDown" size="16" />
   </span>
 </button>
 
-<ng-template #frameworkMenu="frSelectContent" frSelectContent>
+<ng-template #environmentMenu="frSelectContent" frSelectContent>
   <frame-select-panel>
     <frame-select-group>
-      <button frSelectItem value="angular" label="Angular">
-        <span>Angular</span>
+      <button frSelectItem value="production" label="Production">
+        <span>Production</span>
       </button>
-      <button frSelectItem value="react" label="React">
-        <span>React</span>
+      <button frSelectItem value="preview" label="Preview">
+        <span>Preview</span>
       </button>
-      <button frSelectItem value="vue" label="Vue">
-        <span>Vue</span>
+      <button frSelectItem value="development" label="Development">
+        <span>Development</span>
       </button>
     </frame-select-group>
   </frame-select-panel>

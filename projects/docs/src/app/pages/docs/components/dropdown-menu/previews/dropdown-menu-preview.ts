@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
-import { FrDropdownMenuModule, FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu';
+import {
+  FrDropdownMenuModule,
+  FrDropdownMenuSide,
+  FrDropdownMenuTriggerMode,
+} from '@frame-ui-ng/components/dropdown-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerCheck,
@@ -33,6 +37,7 @@ export type DropdownMenuPreviewConfig = {
   style?: string;
   triggerLabel?: string;
   triggerMode?: FrDropdownMenuTriggerMode;
+  side?: FrDropdownMenuSide;
   debugVisible?: boolean;
   persistentPanel?: boolean;
   staticOpen?: boolean;
@@ -80,7 +85,11 @@ export type DropdownMenuPreviewConfig = {
               </span>
             </button>
 
-            <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent>
+            <ng-template
+              #menu="frDropdownMenuContent"
+              frDropdownMenuContent
+              [side]="config().side ?? 'auto'"
+            >
               <div frDropdownMenuPanel>
                 @for (item of config().items; track item.label ?? item.kind + '-' + $index) {
                   @if (item.kind === 'label') {
@@ -426,7 +435,12 @@ export type DropdownMenuPreviewConfig = {
             </span>
           </button>
 
-          <ng-template #menu="frDropdownMenuContent" frDropdownMenuContent [debugVisible]="config().debugVisible ?? false">
+          <ng-template
+            #menu="frDropdownMenuContent"
+            frDropdownMenuContent
+            [side]="config().side ?? 'auto'"
+            [debugVisible]="config().debugVisible ?? false"
+          >
             <div frDropdownMenuPanel>
               @for (item of config().items; track item.label ?? item.kind + '-' + $index) {
                 @if (item.kind === 'label') {

@@ -33,7 +33,7 @@ export class FrDropdownMenuContent {
   readonly align = input<FrDropdownMenuAlignment>('start');
   readonly alignOffset = input(0);
   readonly debugVisible = input(false, { transform: booleanAttribute });
-  readonly side = input<FrDropdownMenuSide>('bottom');
+  readonly side = input<FrDropdownMenuSide>('auto');
   readonly sideOffset = input(4);
 
   isDebugVisible(): boolean {

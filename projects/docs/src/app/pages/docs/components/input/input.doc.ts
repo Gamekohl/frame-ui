@@ -64,8 +64,11 @@ const groupConfig: InputPreviewConfig = {
       kind: 'group',
       type: 'search',
       prefixIcon: 'tablerSearch',
-      initialValue: 'accordion',
-      description: 'Inline addons keep search, URL, and token inputs compact.',
+      prefixAddonVariant: 'ghost',
+      suffixButtonLabel: 'Filter',
+      suffixButtonIcon: 'tablerFilter',
+      placeholder: 'Search releases, services, or teams...',
+      description: 'Button addons behave like connected segments inside the same input shell.',
     },
     {
       id: 'public-url',
@@ -446,7 +449,7 @@ accountNameControl = new FormControl('Northwind', {
       id: 'group',
       title: 'Input groups',
       description:
-        'Use input groups when text or icons should sit directly inside the same interactive shell as the input itself.',
+        'Use input groups when text, icons, or lightweight shortcuts should sit inside the same interactive shell as the input itself.',
       preview: {
         component: DocsInputPreviewComponent,
         inputs: {
@@ -456,13 +459,43 @@ accountNameControl = new FormControl('Northwind', {
       code: [
         {
           language: 'ts',
-          code: `${formImportsCode}
+          code: `import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components/button';
+import { FrInputModule } from '@frame-ui-ng/components/input';
 
+searchControl = new FormControl('');
 urlControl = new FormControl('northwind.dev/docs');`,
         },
         {
           language: 'html',
           code: `<div frInputField>
+  <label frInputLabel for="docs-search">Docs search</label>
+
+  <div frInputGroup>
+    <span frInputGroupAddon align="inline-start" variant="ghost">
+      <ng-icon name="tablerSearch" size="16" />
+    </span>
+
+    <input
+      frInputGroupInput
+      id="docs-search"
+      type="search"
+      placeholder="Search releases, services, or teams..."
+      [formControl]="searchControl"
+    />
+
+    <span frInputGroupAddon align="inline-end">
+      <button frButton appearance="ghost" type="button">
+        <ng-icon name="tablerFilter" size="16" frButtonIcon />
+        <span frButtonLabel>Filter</span>
+      </button>
+    </span>
+  </div>
+
+  <p frInputDescription>Button addons behave like connected segments inside the same input shell.</p>
+</div>
+
+<div frInputField>
   <label frInputLabel for="public-url">Public URL</label>
 
   <div frInputGroup>

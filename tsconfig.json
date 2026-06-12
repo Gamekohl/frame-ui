@@ -93,6 +93,12 @@
       "path": "./projects/playground/tsconfig.spec.json"
     },
     {
+      "path": "./projects/deployops/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/deployops/tsconfig.spec.json"
+    },
+    {
       "path": "./projects/components/tsconfig.lib.json"
     },
     {

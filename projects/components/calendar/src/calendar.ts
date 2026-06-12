@@ -2,10 +2,12 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   TemplateRef,
   booleanAttribute,
   computed,
   forwardRef,
+  inject,
   input,
   output,
   signal,
@@ -139,7 +141,7 @@ const VALUE_ACCESSOR = {
             <h3 class="frame-calendar__month-caption">{{ month.label }}</h3>
           }
 
-          <table class="frame-calendar__table">
+          <table class="frame-calendar__table" role="grid" [attr.aria-readonly]="true">
             <thead>
               <tr>
                 @if (showWeekNumber()) {
@@ -171,9 +173,15 @@ const VALUE_ACCESSOR = {
                         class="frame-calendar__day"
                         type="button"
                         [disabled]="isDisabled() || day.disabled"
+                        [attr.data-date]="day.key"
+                        [attr.tabindex]="dayTabIndex(day)"
                         [attr.aria-label]="dayLabel(day.date)"
                         [attr.aria-pressed]="day.selected ? 'true' : 'false'"
+                        [attr.aria-selected]="day.selected ? 'true' : 'false'"
+                        [attr.aria-current]="day.today ? 'date' : null"
                         (click)="selectDay(day)"
+                        (focus)="focusedDate.set(day.date)"
+                        (keydown)="handleDayKeydown($event, day)"
                       >
                         @if (cellTemplate(); as template) {
                           <ng-container
@@ -227,9 +235,11 @@ export class FrCalendar implements ControlValueAccessor {
   readonly selectedChange = output<Date | FrCalendarDateRange | null>();
   readonly monthChange = output<Date>();
 
+  readonly focusedDate = signal<Date | null>(null);
   private readonly navigatedMonth = signal<Date | null>(null);
   private readonly internalValue = signal<Date | FrCalendarDateRange | null>(null);
   private readonly cvaDisabled = signal(false);
+  private readonly host = inject(ElementRef<HTMLElement>);
 
   readonly currentMonth = computed(() =>
     startOfMonth(this.navigatedMonth() ?? this.month() ?? new Date()),
@@ -262,6 +272,7 @@ export class FrCalendar implements ControlValueAccessor {
       this.buildMonth(addMonths(this.currentMonth(), index)),
     ),
   );
+  readonly activeDate = computed(() => this.resolveActiveDate());
 
   private onTouched: () => void = () => undefined;
   private onChange: (value: Date | FrCalendarDateRange | null) => void = () => undefined;
@@ -321,6 +332,33 @@ export class FrCalendar implements ControlValueAccessor {
     this.selectedChange.emit(nextValue);
   }
 
+  handleDayKeydown(event: KeyboardEvent, day: CalendarDay): void {
+    const offset = this.navigationOffset(event.key);
+
+    if (offset === null || this.isDisabled()) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const next = addDays(day.date, offset);
+    this.focusedDate.set(next);
+
+    if (!this.isDateVisible(next)) {
+      this.updateMonth(startOfMonth(next));
+    }
+
+    this.focusDay(next);
+  }
+
+  dayTabIndex(day: CalendarDay): number {
+    return sameDate(day.date, this.activeDate()) ? 0 : -1;
+  }
+
+  focusActiveDate(): void {
+    this.focusDay(this.activeDate());
+  }
+
   monthLabel(date: Date): string {
     return new Intl.DateTimeFormat(this.locale(), {
       month: 'long',
@@ -338,6 +376,105 @@ export class FrCalendar implements ControlValueAccessor {
 
   weekNumber(date: Date): string {
     return isoWeekNumber(date).toString().padStart(2, '0');
+  }
+
+  private navigationOffset(key: string): number | null {
+    switch (key) {
+      case 'ArrowLeft':
+        return this.dir() === 'rtl' ? 1 : -1;
+      case 'ArrowRight':
+        return this.dir() === 'rtl' ? -1 : 1;
+      case 'ArrowUp':
+        return -7;
+      case 'ArrowDown':
+        return 7;
+      default:
+        return null;
+    }
+  }
+
+  private resolveActiveDate(): Date {
+    const focused = this.focusedDate();
+
+    if (focused && this.findDay(focused) && !this.isDayDisabled(focused)) {
+      return cloneDate(focused);
+    }
+
+    const selected = this.selectedDate();
+
+    if (selected && this.findDay(selected) && !this.isDayDisabled(selected)) {
+      return cloneDate(selected);
+    }
+
+    const today = new Date();
+
+    if (this.findDay(today) && !this.isDayDisabled(today)) {
+      return cloneDate(today);
+    }
+
+    const firstEnabled = this.months()
+      .flatMap((month) => month.weeks.flat())
+      .find((day) => !day.disabled);
+
+    return firstEnabled ? cloneDate(firstEnabled.date) : cloneDate(this.currentMonth());
+  }
+
+  private selectedDate(): Date | null {
+    const value = this.value();
+
+    if (value instanceof Date) {
+      return value;
+    }
+
+    if (isRange(value)) {
+      return value.from ?? value.to;
+    }
+
+    return null;
+  }
+
+  private isDateVisible(date: Date): boolean {
+    return this.months().some((month) =>
+      month.weeks.some((week) => week.some((day) => sameDate(day.date, date))),
+    );
+  }
+
+  private findDay(date: Date): CalendarDay | null {
+    for (const month of this.months()) {
+      for (const week of month.weeks) {
+        const day = week.find((item) => sameDate(item.date, date));
+
+        if (day) {
+          return day;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  private isDayDisabled(date: Date): boolean {
+    return this.findDay(date)?.disabled ?? true;
+  }
+
+  private focusDay(date: Date): void {
+    if (this.focusDayElement(date)) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.focusDayElement(date);
+    });
+  }
+
+  private focusDayElement(date: Date): boolean {
+    const button = this.host.nativeElement.querySelector(
+      `.frame-calendar__day[data-date="${dateKey(date)}"]`,
+    ) as HTMLButtonElement | null;
+
+    button?.focus();
+
+    return !!button;
   }
 
   private updateMonth(month: Date): void {

@@ -14,6 +14,7 @@ import {
   input,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 
 import {
@@ -118,6 +119,7 @@ const POSITIONS: ConnectedPosition[] = [
       [cdkConnectedOverlayPush]="true"
       [cdkConnectedOverlayViewportMargin]="12"
       (overlayOutsideClick)="close()"
+      (attach)="focusCalendar()"
       (detach)="close()"
       (positionChange)="handlePositionChange($event)"
     >
@@ -225,6 +227,7 @@ export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
   readonly openChange = output<boolean>();
   readonly monthChange = output<Date>();
 
+  readonly calendar = viewChild(FrCalendar);
   readonly positions = POSITIONS;
   readonly isOpen = signal(false);
   readonly overlaySide = signal<'bottom' | 'top'>('bottom');
@@ -348,6 +351,10 @@ export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
 
   handlePositionChange(event: ConnectedOverlayPositionChange): void {
     this.overlaySide.set(event.connectionPair.overlayY === 'bottom' ? 'top' : 'bottom');
+  }
+
+  focusCalendar(): void {
+    this.calendar()?.focusActiveDate();
   }
 
   overlayPanelClasses(): string[] {

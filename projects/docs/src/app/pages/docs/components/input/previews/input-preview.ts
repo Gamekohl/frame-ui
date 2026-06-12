@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components/button';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+  tablerFilter,
   tablerLink,
   tablerLock,
   tablerMail,
@@ -14,6 +16,7 @@ import { merge } from 'rxjs';
 
 type InputControlKind = 'input' | 'group';
 type InputType = 'text' | 'email' | 'password' | 'search' | 'url';
+type InputGroupAddonVariant = 'default' | 'ghost';
 
 export type InputPreviewItem = {
   id: string;
@@ -30,7 +33,12 @@ export type InputPreviewItem = {
   reactiveInvalidDemo?: boolean;
   prefixText?: string;
   prefixIcon?: string;
+  prefixAddonVariant?: InputGroupAddonVariant;
+  suffixText?: string;
   suffixIcon?: string;
+  suffixButtonLabel?: string;
+  suffixButtonIcon?: string;
+  suffixAddonVariant?: InputGroupAddonVariant;
   tokenPrefix?: string;
 };
 
@@ -46,6 +54,9 @@ export type InputPreviewConfig = {
     class: 'block w-full',
   },
   imports: [
+    FrButton,
+    FrButtonIcon,
+    FrButtonLabel,
     FrInputModule,
     NgIcon,
     ReactiveFormsModule,
@@ -54,6 +65,7 @@ export type InputPreviewConfig = {
   viewProviders: [
     provideIcons({
       tablerMail,
+      tablerFilter,
       tablerSearch,
       tablerLock,
       tablerLink,
@@ -90,6 +102,7 @@ export type InputPreviewConfig = {
                   <span
                     frInputGroupAddon
                     align="inline-start"
+                    [variant]="item.prefixAddonVariant ?? 'default'"
                     [attr.data-token-target]="tokenTarget(item.tokenPrefix, 'addon')"
                   >
                     @if (item.prefixIcon) {
@@ -110,13 +123,25 @@ export type InputPreviewConfig = {
                   [attr.data-token-target]="tokenTarget(item.tokenPrefix, 'control')"
                 />
 
-                @if (item.suffixIcon) {
+                @if (item.suffixText || item.suffixIcon || item.suffixButtonLabel) {
                   <span
                     frInputGroupAddon
                     align="inline-end"
+                    [variant]="item.suffixAddonVariant ?? 'default'"
                     [attr.data-token-target]="tokenTarget(item.tokenPrefix, 'addon')"
                   >
-                    <ng-icon [name]="item.suffixIcon!" size="16" />
+                    @if (item.suffixButtonLabel) {
+                      <button frButton appearance="ghost" type="button">
+                        @if (item.suffixButtonIcon) {
+                          <ng-icon [name]="item.suffixButtonIcon!" size="16" frButtonIcon />
+                        }
+                        <span frButtonLabel>{{ item.suffixButtonLabel }}</span>
+                      </button>
+                    } @else if (item.suffixIcon) {
+                      <ng-icon [name]="item.suffixIcon!" size="16" />
+                    } @else if (item.suffixText) {
+                      <span frInputGroupText>{{ item.suffixText }}</span>
+                    }
                   </span>
                 }
               </div>
