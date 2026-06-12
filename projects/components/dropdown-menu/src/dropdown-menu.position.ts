@@ -5,7 +5,7 @@ import { FrDropdownMenuAlignment, FrDropdownMenuSide } from './dropdown-menu.typ
 type ConcreteDropdownMenuSide = Exclude<FrDropdownMenuSide, 'auto'>;
 
 const DEFAULT_SIDE_OFFSET = 4;
-const MIN_SUBMENU_SIDE_OFFSET = 16;
+const MIN_SUBMENU_SIDE_OFFSET = 8;
 
 export function defaultPositions(isSubmenu: boolean): ConnectedPosition[] {
   return buildConnectedPositions({

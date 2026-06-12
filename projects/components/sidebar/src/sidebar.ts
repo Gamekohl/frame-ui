@@ -1,7 +1,6 @@
 import {
   Directive,
   ElementRef,
-  HostListener,
   InjectionToken,
   booleanAttribute,
   computed,
@@ -74,6 +73,7 @@ function coerceOptionalNumber(value: unknown): number | null {
     '[attr.data-mobile-open]': 'openMobile()',
     '[attr.data-mobile]': 'isMobile() ? "" : null',
     '[attr.data-resizing]': 'resizing() ? "" : null',
+    '(document:keydown)': 'handleKeydown($event)',
   },
 })
 export class FrSidebarProvider {
@@ -149,7 +149,6 @@ export class FrSidebarProvider {
     this.setOpen(!this.open());
   }
 
-  @HostListener('document:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent): void {
     if (!this.keyboardShortcut()) {
       return;

@@ -4260,6 +4260,91 @@
     ]
   },
   {
+    "slug": "confirm-modal",
+    "name": "Confirm Modal",
+    "category": "Overlays",
+    "status": "Stable",
+    "summary": "Typed confirmation dialog built on modal primitives with configurable title, description, and action labels.",
+    "publicExport": null,
+    "importPath": "@frame-ui-ng/components",
+    "imports": [
+      "FrConfirmModalService",
+      "FrConfirmModalTrigger"
+    ],
+    "docsImports": [],
+    "selectors": [
+      {
+        "className": "FrConfirmModalService",
+        "kind": "Component",
+        "selector": "frame-confirm-modal",
+        "preferredSelector": "frame-confirm-modal",
+        "inputs": [],
+        "outputs": [],
+        "sourceFile": "projects/components/confirm-modal/src/confirm-modal.service.ts"
+      },
+      {
+        "className": "FrConfirmModalTrigger",
+        "kind": "Directive",
+        "selector": "[frConfirmModal]",
+        "preferredSelector": "[frConfirmModal]",
+        "inputs": [
+          {
+            "name": "config",
+            "type": "FrConfirmModalConfig | string"
+          },
+          {
+            "name": "title",
+            "type": "string | undefined"
+          },
+          {
+            "name": "description",
+            "type": "string | undefined"
+          },
+          {
+            "name": "cancelLabel",
+            "type": "string | undefined"
+          },
+          {
+            "name": "confirmLabel",
+            "type": "string | undefined"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "FrConfirmModalResult | undefined"
+          },
+          {
+            "name": "cancelled",
+            "type": "void"
+          },
+          {
+            "name": "confirmed",
+            "type": "void"
+          }
+        ],
+        "sourceFile": "projects/components/confirm-modal/src/confirm-modal.trigger.ts"
+      }
+    ],
+    "usageGuidance": [
+      "Import used primitives from @frame-ui-ng/components.",
+      "Prefer the preferredSelector value for each primitive."
+    ],
+    "examples": [
+      {
+        "title": "Ship release?",
+        "description": "This will notify everyone watching the release channel.",
+        "code": [
+          {
+            "language": "bash",
+            "code": "npx your-cli add confirm-modal"
+          }
+        ]
+      }
+    ],
+    "tokens": []
+  },
+  {
     "slug": "date-picker",
     "name": "Date Picker",
     "category": "Forms",
@@ -4801,7 +4886,7 @@
           },
           {
             "language": "html",
-            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuCheckboxItem [checked]=\"true\" type=\"button\">\r\n        <span frDropdownMenuItemIndicator>\r\n          <ng-icon name=\"tablerCheck\" size=\"14\" />\r\n        </span>\r\n        <span>Pin in sidebar</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"auto\">\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuCheckboxItem [checked]=\"true\" type=\"button\">\r\n        <span frDropdownMenuItemIndicator>\r\n          <ng-icon name=\"tablerCheck\" size=\"14\" />\r\n        </span>\r\n        <span>Pin in sidebar</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       },
@@ -4811,11 +4896,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuCheckboxItem [checked]=\"true\" type=\"button\">\r\n        <span frDropdownMenuItemIndicator>\r\n          <ng-icon name=\"tablerCheck\" size=\"14\" />\r\n        </span>\r\n        <span>Pin in sidebar</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"auto\">\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuCheckboxItem [checked]=\"true\" type=\"button\">\r\n        <span frDropdownMenuItemIndicator>\r\n          <ng-icon name=\"tablerCheck\" size=\"14\" />\r\n        </span>\r\n        <span>Pin in sidebar</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div class=\"workspace-menu\">\n  <div frDropdownMenu>\r\n    <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Styled workspace menu</button>\r\n\r\n    <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n      <div frDropdownMenuPanel>\r\n        <div frDropdownMenuLabel>Workspace</div>\r\n\r\n        <button frDropdownMenuItem type=\"button\">\r\n          <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n          <span>Settings</span>\r\n        </button>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"workspace-menu\">\r\n  <div frDropdownMenu>\r\n    <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Styled workspace menu</button>\r\n\r\n    <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n      <div frDropdownMenuPanel>\r\n        <div frDropdownMenuLabel>Workspace</div>\r\n\r\n        <button frDropdownMenuItem type=\"button\">\r\n          <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n          <span>Settings</span>\r\n        </button>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -4825,7 +4910,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"workspace-menu\">\n  <div frDropdownMenu>\r\n    <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Styled workspace menu</button>\r\n\r\n    <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n      <div frDropdownMenuPanel>\r\n        <div frDropdownMenuLabel>Workspace</div>\r\n\r\n        <button frDropdownMenuItem type=\"button\">\r\n          <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n          <span>Settings</span>\r\n        </button>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"workspace-menu\">\r\n  <div frDropdownMenu>\r\n    <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Styled workspace menu</button>\r\n\r\n    <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n      <div frDropdownMenuPanel>\r\n        <div frDropdownMenuLabel>Workspace</div>\r\n\r\n        <button frDropdownMenuItem type=\"button\">\r\n          <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n          <span>Settings</span>\r\n        </button>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
           },
           {
             "language": "css",
@@ -4834,7 +4919,7 @@
         ]
       },
       {
-        "title": "Submenus",
+        "title": "Side placement",
         "description": "Checkbox and radio-style states reserve space through the shared indicator token so aligned rows do not jump when selection changes.",
         "code": [
           {
@@ -4843,35 +4928,49 @@
           },
           {
             "language": "ts",
-            "code": "<div frDropdownMenu>\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Actions</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n        <span>Invite teammate</span>\r\n        <span frDropdownMenuShortcut>Cmd+I</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete access</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Actions</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n        <span>Invite teammate</span>\r\n        <span frDropdownMenuShortcut>Cmd+I</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete access</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Submenus",
+        "description": "Scope token overrides to a wrapper when a product area needs a softer menu radius, a different shadow, or custom hover treatment without changing the dropdown structure or behavior.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Actions</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n        <span>Invite teammate</span>\r\n        <span frDropdownMenuShortcut>Cmd+I</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete access</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open to the right</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"right\">\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">Open profile</button>\r\n      <button frDropdownMenuItem type=\"button\">Invite teammate</button>\r\n    </div>\r\n  </ng-template>\r\n</div>\r\n\r\n<ng-template #adaptiveMenu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"auto\">\r\n  <div frDropdownMenuPanel>\r\n    <!-- The overlay can fall back across bottom, top, right, and left. -->\r\n  </div>\r\n</ng-template>"
           }
         ]
       },
       {
         "title": "Shortcuts and destructive actions",
-        "description": "Scope token overrides to a wrapper when a product area needs a softer menu radius, a different shadow, or custom hover treatment without changing the dropdown structure or behavior.",
+        "description": "This preview applies local overrides to the panel surface, menu row sizing, and label color treatment.",
         "code": [
           {
             "language": "ts",
-            "code": "<div frDropdownMenu>\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Actions</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUser\" size=\"14\" />\r\n        <span>Open profile</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n        <span>Invite teammate</span>\r\n        <span frDropdownMenuShortcut>Cmd+I</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete access</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open to the right</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"right\">\r\n    <div frDropdownMenuPanel>\r\n      <button frDropdownMenuItem type=\"button\">Open profile</button>\r\n      <button frDropdownMenuItem type=\"button\">Invite teammate</button>\r\n    </div>\r\n  </ng-template>\r\n</div>\r\n\r\n<ng-template #adaptiveMenu=\"frDropdownMenuContent\" frDropdownMenuContent side=\"auto\">\r\n  <div frDropdownMenuPanel>\r\n    <!-- The overlay can fall back across bottom, top, right, and left. -->\r\n  </div>\r\n</ng-template>"
           },
           {
             "language": "ts",
-            "code": "<div frDropdownMenu>\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Publishing actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Publishing</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Save draft</span>\r\n        <span frDropdownMenuShortcut>Cmd+S</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSub>\r\n        <button [frDropdownMenuSubTrigger]=\"shareMenu\" type=\"button\">\r\n          <ng-icon name=\"tablerShare\" size=\"14\" />\r\n          <span>Share</span>\r\n        </button>\r\n\r\n        <ng-template #shareMenu=\"frDropdownMenuContent\" frDropdownMenuSubContent>\r\n          <div frDropdownMenuPanel>\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n              <span>Copy link</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n              <span>Invite reviewers</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerExternalLink\" size=\"14\" />\r\n              <span>Open public preview</span>\r\n            </button>\r\n          </div>\r\n        </ng-template>\r\n      </div>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete post</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Publishing actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Publishing</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Save draft</span>\r\n        <span frDropdownMenuShortcut>Cmd+S</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSub>\r\n        <button [frDropdownMenuSubTrigger]=\"shareMenu\" type=\"button\">\r\n          <ng-icon name=\"tablerShare\" size=\"14\" />\r\n          <span>Share</span>\r\n        </button>\r\n\r\n        <ng-template #shareMenu=\"frDropdownMenuContent\" frDropdownMenuSubContent side=\"auto\">\r\n          <div frDropdownMenuPanel>\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n              <span>Copy link</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n              <span>Invite reviewers</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerExternalLink\" size=\"14\" />\r\n              <span>Open public preview</span>\r\n            </button>\r\n          </div>\r\n        </ng-template>\r\n      </div>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete post</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       },
       {
         "title": "Hover trigger mode",
-        "description": "This preview applies local overrides to the panel surface, menu row sizing, and label color treatment.",
+        "description": "Use the default item primitive for simple action lists, grouping related commands with labels and separators when the menu needs more structure.",
         "code": [
           {
             "language": "ts",
-            "code": "<div frDropdownMenu>\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Publishing actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Publishing</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Save draft</span>\r\n        <span frDropdownMenuShortcut>Cmd+S</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSub>\r\n        <button [frDropdownMenuSubTrigger]=\"shareMenu\" type=\"button\">\r\n          <ng-icon name=\"tablerShare\" size=\"14\" />\r\n          <span>Share</span>\r\n        </button>\r\n\r\n        <ng-template #shareMenu=\"frDropdownMenuContent\" frDropdownMenuSubContent>\r\n          <div frDropdownMenuPanel>\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n              <span>Copy link</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n              <span>Invite reviewers</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerExternalLink\" size=\"14\" />\r\n              <span>Open public preview</span>\r\n            </button>\r\n          </div>\r\n        </ng-template>\r\n      </div>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete post</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Publishing actions</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Publishing</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Save draft</span>\r\n        <span frDropdownMenuShortcut>Cmd+S</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSub>\r\n        <button [frDropdownMenuSubTrigger]=\"shareMenu\" type=\"button\">\r\n          <ng-icon name=\"tablerShare\" size=\"14\" />\r\n          <span>Share</span>\r\n        </button>\r\n\r\n        <ng-template #shareMenu=\"frDropdownMenuContent\" frDropdownMenuSubContent side=\"auto\">\r\n          <div frDropdownMenuPanel>\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n              <span>Copy link</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerUserPlus\" size=\"14\" />\r\n              <span>Invite reviewers</span>\r\n            </button>\r\n\r\n            <button frDropdownMenuItem type=\"button\">\r\n              <ng-icon name=\"tablerExternalLink\" size=\"14\" />\r\n              <span>Open public preview</span>\r\n            </button>\r\n          </div>\r\n        </ng-template>\r\n      </div>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Delete post</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div frDropdownMenu>\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open workspace menu</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Workspace</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n        <span>Settings</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerShare\" size=\"14\" />\r\n        <span>Share workspace</span>\r\n        <span frDropdownMenuShortcut>Cmd+Shift+S</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Duplicate link</span>\r\n        <span frDropdownMenuShortcut>Alt+D</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Remove workspace</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frDropdownMenu>\r\n  <button type=\"button\" [frDropdownMenuTrigger]=\"menu\">Open workspace menu</button>\r\n\r\n  <ng-template #menu=\"frDropdownMenuContent\" frDropdownMenuContent>\r\n    <div frDropdownMenuPanel>\r\n      <div frDropdownMenuLabel>Workspace</div>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerSettings\" size=\"14\" />\r\n        <span>Settings</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerShare\" size=\"14\" />\r\n        <span>Share workspace</span>\r\n        <span frDropdownMenuShortcut>Cmd+Shift+S</span>\r\n      </button>\r\n\r\n      <button frDropdownMenuItem type=\"button\">\r\n        <ng-icon name=\"tablerCopy\" size=\"14\" />\r\n        <span>Duplicate link</span>\r\n        <span frDropdownMenuShortcut>Alt+D</span>\r\n      </button>\r\n\r\n      <div frDropdownMenuSeparator></div>\r\n\r\n      <button frDropdownMenuItem variant=\"destructive\" type=\"button\">\r\n        <ng-icon name=\"tablerTrash\" size=\"14\" />\r\n        <span>Remove workspace</span>\r\n      </button>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       }
@@ -5574,6 +5673,10 @@
           {
             "name": "align",
             "type": "FrInputGroupAddonAlign"
+          },
+          {
+            "name": "variant",
+            "type": "FrInputGroupAddonVariant"
           }
         ],
         "outputs": [],
@@ -5632,7 +5735,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nemailControl = new FormControl('team@northwind.dev');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nemailControl = new FormControl('team@northwind.dev');"
           }
         ]
       },
@@ -5642,7 +5745,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nemailControl = new FormControl('team@northwind.dev');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nemailControl = new FormControl('team@northwind.dev');"
           },
           {
             "language": "html",
@@ -5660,7 +5763,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nownerControl = new FormControl('julia@northwind.dev');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nownerControl = new FormControl('julia@northwind.dev');"
           }
         ]
       },
@@ -5670,21 +5773,21 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nownerControl = new FormControl('julia@northwind.dev');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nownerControl = new FormControl('julia@northwind.dev');"
           },
           {
             "language": "html",
-            "code": "<div class=\"campaign-input\">\n  <div frInputField>\r\n    <div frInputHeader>\r\n      <label frInputLabel for=\"campaign-owner\">Campaign owner</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frInputGroup>\r\n      <span frInputGroupAddon align=\"inline-start\">\r\n        <ng-icon name=\"tablerMail\" size=\"16\" />\r\n      </span>\r\n      <input frInputGroupInput id=\"campaign-owner\" [formControl]=\"ownerControl\" />\r\n    </div>\r\n\r\n    <p frInputDescription>\r\n      This preview applies local radius, focus, badge, and addon token overrides.\r\n    </p>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"campaign-input\">\r\n  <div frInputField>\r\n    <div frInputHeader>\r\n      <label frInputLabel for=\"campaign-owner\">Campaign owner</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frInputGroup>\r\n      <span frInputGroupAddon align=\"inline-start\">\r\n        <ng-icon name=\"tablerMail\" size=\"16\" />\r\n      </span>\r\n      <input frInputGroupInput id=\"campaign-owner\" [formControl]=\"ownerControl\" />\r\n    </div>\r\n\r\n    <p frInputDescription>\r\n      This preview applies local radius, focus, badge, and addon token overrides.\r\n    </p>\r\n  </div>\r\n</div>"
           }
         ]
       },
       {
         "title": "Basic field",
-        "description": "Inline addons keep search, URL, and token inputs compact.",
+        "description": "Button addons behave like connected segments inside the same input shell.",
         "code": [
           {
             "language": "html",
-            "code": "<div class=\"campaign-input\">\n  <div frInputField>\r\n    <div frInputHeader>\r\n      <label frInputLabel for=\"campaign-owner\">Campaign owner</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frInputGroup>\r\n      <span frInputGroupAddon align=\"inline-start\">\r\n        <ng-icon name=\"tablerMail\" size=\"16\" />\r\n      </span>\r\n      <input frInputGroupInput id=\"campaign-owner\" [formControl]=\"ownerControl\" />\r\n    </div>\r\n\r\n    <p frInputDescription>\r\n      This preview applies local radius, focus, badge, and addon token overrides.\r\n    </p>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"campaign-input\">\r\n  <div frInputField>\r\n    <div frInputHeader>\r\n      <label frInputLabel for=\"campaign-owner\">Campaign owner</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frInputGroup>\r\n      <span frInputGroupAddon align=\"inline-start\">\r\n        <ng-icon name=\"tablerMail\" size=\"16\" />\r\n      </span>\r\n      <input frInputGroupInput id=\"campaign-owner\" [formControl]=\"ownerControl\" />\r\n    </div>\r\n\r\n    <p frInputDescription>\r\n      This preview applies local radius, focus, badge, and addon token overrides.\r\n    </p>\r\n  </div>\r\n</div>"
           },
           {
             "language": "css",
@@ -5702,7 +5805,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nemailControl = new FormControl('team@northwind.dev');"
+            "code": "${formImportsCode}\r\n\r\nemailControl = new FormControl('team@northwind.dev');"
           }
         ]
       },
@@ -5712,7 +5815,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nemailControl = new FormControl('team@northwind.dev');"
+            "code": "${formImportsCode}\r\n\r\nemailControl = new FormControl('team@northwind.dev');"
           },
           {
             "language": "html",
@@ -5730,7 +5833,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\naccountNameControl = new FormControl('Northwind', {\n  validators: [Validators.required],\r\n  nonNullable: true,\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\naccountNameControl = new FormControl('Northwind', {\r\n  validators: [Validators.required],\r\n  nonNullable: true,\r\n});"
           }
         ]
       }
@@ -8033,6 +8136,14 @@
           {
             "name": "collapsible",
             "type": "FrSidebarCollapsible, unknown"
+          },
+          {
+            "name": "minSize",
+            "type": "number | null, unknown"
+          },
+          {
+            "name": "maxSize",
+            "type": "number | null, unknown"
           }
         ],
         "outputs": [],
@@ -8310,7 +8421,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frSidebarProvider class=\"workspace-shell\">\n  <aside frSidebar variant=\"floating\">\r\n    <!-- Sidebar content -->\r\n  </aside>\r\n</div>"
+            "code": "<div frSidebarProvider class=\"workspace-shell\">\r\n  <aside frSidebar variant=\"floating\">\r\n    <!-- Sidebar content -->\r\n  </aside>\r\n</div>"
           }
         ]
       },
@@ -8320,7 +8431,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frSidebarProvider class=\"workspace-shell\">\n  <aside frSidebar variant=\"floating\">\r\n    <!-- Sidebar content -->\r\n  </aside>\r\n</div>"
+            "code": "<div frSidebarProvider class=\"workspace-shell\">\r\n  <aside frSidebar variant=\"floating\">\r\n    <!-- Sidebar content -->\r\n  </aside>\r\n</div>"
           }
         ]
       }
@@ -8939,7 +9050,7 @@
     "examples": [
       {
         "title": "Preview",
-        "description": "The shell is configured through FrModalConfig.",
+        "description": "Hover the modal surface, header, title, description, body, or footer to inspect the tokens that shape the dialog composition.",
         "code": [
           {
             "language": "bash",
@@ -8947,35 +9058,21 @@
           },
           {
             "language": "ts",
-            "code": "<button frButton [frModalTrigger]=\"modal\">Open modal</button>\n\r\n<ng-template #modal=\"frModalContent\" frModalContent aria-label=\"Workspace settings\">\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Workspace settings</h2>\r\n      <p frModalDescription>Make focused changes without leaving the current page.</p>\r\n    </div>\r\n\r\n    <div frModalBody>\r\n      Modal content goes here.\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" frModalClose>Cancel</button>\r\n      <button frButton [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype SettingsModalData = {\n  workspace: string;\n};\n\n@Component({\n  selector: 'app-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  templateUrl: './settings-modal.html',\n})\nclass SettingsModalComponent {\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\n\n  close(result: 'cancel' | 'saved'): void {\n    this.modalRef.close(result);\n  }\n}\n\nreadonly modal = inject(FrModalService);\n\nopenSettings(): void {\n  const modalRef = this.modal.open(SettingsModalComponent, {\n    workspace: 'Platform',\n  }, {\n    ariaLabel: 'Workspace settings',\n    width: '32rem',\n  });\n\n  modalRef.closed.subscribe((result) => {\n    // handle cancel or saved\n  });\n}"
           }
         ]
       },
       {
         "title": "Import the modal primitives you need for the trigger, panel, layout, and close controls.",
-        "description": "Hover the modal surface, header, title, description, body, or footer to inspect the tokens that shape the dialog composition.",
-        "code": [
-          {
-            "language": "ts",
-            "code": "<button frButton [frModalTrigger]=\"modal\">Open modal</button>\n\r\n<ng-template #modal=\"frModalContent\" frModalContent aria-label=\"Workspace settings\">\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Workspace settings</h2>\r\n      <p frModalDescription>Make focused changes without leaving the current page.</p>\r\n    </div>\r\n\r\n    <div frModalBody>\r\n      Modal content goes here.\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" frModalClose>Cancel</button>\r\n      <button frButton [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
-          },
-          {
-            "language": "ts",
-            "code": "@Component({\r\n  selector: 'app-settings-modal-body',\r\n  template: \\"
-          }
-        ]
-      },
-      {
-        "title": "Workspace settings",
         "description": "The panel controls the modal surface, radius, border, shadow, spacing, and animation target.",
         "code": [
           {
             "language": "ts",
-            "code": "@Component({\r\n  selector: 'app-settings-modal-body',\r\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype SettingsModalData = {\n  workspace: string;\n};\n\n@Component({\n  selector: 'app-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  templateUrl: './settings-modal.html',\n})\nclass SettingsModalComponent {\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\n\n  close(result: 'cancel' | 'saved'): void {\n    this.modalRef.close(result);\n  }\n}\n\nreadonly modal = inject(FrModalService);\n\nopenSettings(): void {\n  const modalRef = this.modal.open(SettingsModalComponent, {\n    workspace: 'Platform',\n  }, {\n    ariaLabel: 'Workspace settings',\n    width: '32rem',\n  });\n\n  modalRef.closed.subscribe((result) => {\n    // handle cancel or saved\n  });\n}"
           },
           {
-            "language": "ts",
-            "code": "<div class=\"modal-brand-demo\">\n  <button frButton [frModalTrigger]=\"modal\">Open modal</button>\r\n\r\n  <ng-template #modal=\"frModalContent\" frModalContent>\r\n    <div frModalPanel>\r\n      <!-- header, body, and footer -->\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "language": "html",
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">Open modal</button>"
           }
         ]
       },
@@ -8984,12 +9081,12 @@
         "description": "Modal title text inherits the modal foreground color and establishes the dialog purpose.",
         "code": [
           {
-            "language": "ts",
-            "code": "<div class=\"modal-brand-demo\">\n  <button frButton [frModalTrigger]=\"modal\">Open modal</button>\r\n\r\n  <ng-template #modal=\"frModalContent\" frModalContent>\r\n    <div frModalPanel>\r\n      <!-- header, body, and footer -->\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "language": "html",
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">Open modal</button>"
           },
           {
-            "language": "css",
-            "code": ".modal-brand-demo {\r\n${customStylingConfig.style}\r\n}"
+            "language": "html",
+            "code": "<div frModalPanel>\n  <div frModalHeader>\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\n  </div>\n\n  <div frModalBody>\n    Modal content goes here.\n  </div>\n\n  <div frModalFooter>\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\n  </div>\n</div>"
           }
         ]
       },
@@ -8998,12 +9095,12 @@
         "description": "Descriptions use a quieter modal text color for supporting context.",
         "code": [
           {
-            "language": "css",
-            "code": ".modal-brand-demo {\r\n${customStylingConfig.style}\r\n}"
+            "language": "html",
+            "code": "<div frModalPanel>\n  <div frModalHeader>\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\n  </div>\n\n  <div frModalBody>\n    Modal content goes here.\n  </div>\n\n  <div frModalFooter>\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\n  </div>\n</div>"
           },
           {
             "language": "ts",
-            "code": "<button frButton type=\"button\" [frModalTrigger]=\"modal\">\n  Open modal\r\n</button>\r\n\r\n<ng-template #modal=\"frModalContent\" frModalContent aria-label=\"Workspace settings\">\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Workspace settings</h2>\r\n      <p frModalDescription>A composable modal built on top of Angular CDK Dialog.</p>\r\n    </div>\r\n\r\n    <div frModalBody>\r\n      Configure a focused workflow without sending people to a new route.\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-branded-modal',\n  imports: [FrModalModule],\n  template: \\"
           }
         ]
       },
@@ -9013,11 +9110,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<button frButton type=\"button\" [frModalTrigger]=\"modal\">\n  Open modal\r\n</button>\r\n\r\n<ng-template #modal=\"frModalContent\" frModalContent aria-label=\"Workspace settings\">\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Workspace settings</h2>\r\n      <p frModalDescription>A composable modal built on top of Angular CDK Dialog.</p>\r\n    </div>\r\n\r\n    <div frModalBody>\r\n      Configure a focused workflow without sending people to a new route.\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-branded-modal',\n  imports: [FrModalModule],\n  template: \\"
           },
           {
-            "language": "ts",
-            "code": "import { TemplateRef, inject, viewChild } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\nprivate readonly modal = inject(FrModalService);\nprivate readonly programmaticModal = viewChild.required<TemplateRef<unknown>>('programmaticModal');\n\nopenProgrammatic(): void {\n  this.modal.open(this.programmaticModal(), {\n    ariaLabel: 'Programmatic workspace settings',\n    width: '32rem',\n  });\n}"
+            "language": "html",
+            "code": "<div class=\"modal-brand-demo\">\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\n</div>"
           }
         ]
       },
@@ -9026,12 +9123,12 @@
         "description": "The footer inherits modal spacing and can become a persistent action area for long content.",
         "code": [
           {
-            "language": "ts",
-            "code": "import { TemplateRef, inject, viewChild } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\nprivate readonly modal = inject(FrModalService);\nprivate readonly programmaticModal = viewChild.required<TemplateRef<unknown>>('programmaticModal');\n\nopenProgrammatic(): void {\n  this.modal.open(this.programmaticModal(), {\n    ariaLabel: 'Programmatic workspace settings',\n    width: '32rem',\n  });\n}"
+            "language": "html",
+            "code": "<div class=\"modal-brand-demo\">\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\n</div>"
           },
           {
-            "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"openProgrammatic()\">\n  Open from code\n</button>\n\n<ng-template #programmaticModal>\n  <div frModalPanel>\n    <div frModalHeader>\n      <h2 frModalTitle>Programmatic workspace settings</h2>\n      <p frModalDescription>Opened from application logic with FrModalService.</p>\n    </div>\n\n    <div frModalFooter>\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\n    </div>\n  </div>\n</ng-template>"
+            "language": "css",
+            "code": ".modal-brand-demo-panel {\n${customStylingConfig.style}\n}"
           }
         ]
       },
@@ -9040,12 +9137,12 @@
         "description": "Override modal tokens on a local wrapper when a product flow needs a branded surface, stronger radius, or more prominent elevation without replacing the CDK Dialog foundation.",
         "code": [
           {
-            "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"openProgrammatic()\">\n  Open from code\n</button>\n\n<ng-template #programmaticModal>\n  <div frModalPanel>\n    <div frModalHeader>\n      <h2 frModalTitle>Programmatic workspace settings</h2>\n      <p frModalDescription>Opened from application logic with FrModalService.</p>\n    </div>\n\n    <div frModalFooter>\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\n    </div>\n  </div>\n</ng-template>"
+            "language": "css",
+            "code": ".modal-brand-demo-panel {\n${customStylingConfig.style}\n}"
           },
           {
             "language": "ts",
-            "code": "<ng-template #modal=\"frModalContent\" frModalContent>\n  <div frModalPanel [showCloseButton]=\"false\">\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Confirm deployment</h2>\r\n      <p frModalDescription>Omit the default close button when the action needs an explicit choice.</p>\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'confirmed'\">Confirm</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
           }
         ]
       },
@@ -9055,25 +9152,25 @@
         "code": [
           {
             "language": "ts",
-            "code": "<ng-template #modal=\"frModalContent\" frModalContent>\n  <div frModalPanel [showCloseButton]=\"false\">\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Confirm deployment</h2>\r\n      <p frModalDescription>Omit the default close button when the action needs an explicit choice.</p>\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'confirmed'\">Confirm</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
           },
           {
-            "language": "ts",
-            "code": "<button frButton type=\"button\" [frModalTrigger]=\"modal\">\n  Open guarded modal\r\n</button>\r\n\r\n<ng-template #modal=\"frModalContent\" frModalContent disableClose>\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Unsaved changes</h2>\r\n      <p frModalDescription>\r\n        Backdrop clicks are ignored, so users must choose one of the explicit controls.\r\n      </p>\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "language": "html",
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\n  Open modal\n</button>"
           }
         ]
       },
       {
         "title": "Scrollable with sticky footer",
-        "description": "Use a trigger and a template-backed content block for the common modal composition.",
+        "description": "Inject FrModalService and open a dedicated modal component for the common modal composition.",
         "code": [
           {
-            "language": "ts",
-            "code": "<button frButton type=\"button\" [frModalTrigger]=\"modal\">\n  Open guarded modal\r\n</button>\r\n\r\n<ng-template #modal=\"frModalContent\" frModalContent disableClose>\r\n  <div frModalPanel>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Unsaved changes</h2>\r\n      <p frModalDescription>\r\n        Backdrop clicks are ignored, so users must choose one of the explicit controls.\r\n      </p>\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\" [frModalClose]=\"'saved'\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "language": "html",
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\n  Open modal\n</button>"
           },
           {
             "language": "ts",
-            "code": "<ng-template #modal=\"frModalContent\" frModalContent>\n  <div frModalPanel size=\"lg\" scrollable stickyFooter>\r\n    <div frModalHeader>\r\n      <h2 frModalTitle>Workspace settings</h2>\r\n      <p frModalDescription>Use a scrollable body with a persistent footer for longer workflows.</p>\r\n    </div>\r\n\r\n    <div frModalBody>\r\n      <!-- Long content scrolls here. -->\r\n    </div>\r\n\r\n    <div frModalFooter>\r\n      <button frButton appearance=\"outline\" type=\"button\" frModalClose>Cancel</button>\r\n      <button frButton type=\"button\">Save changes</button>\r\n    </div>\r\n  </div>\r\n</ng-template>"
+            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype WorkspaceSettingsData = {\n  owner: string;\n};\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
           }
         ]
       }
@@ -9190,7 +9287,12 @@
         "kind": "Directive",
         "selector": "[frSelectIcon], frame-select-icon",
         "preferredSelector": "[frSelectIcon]",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "position",
+            "type": "FrSelectIconPosition"
+          }
+        ],
         "outputs": [],
         "sourceFile": "projects/components/select/src/select.value.ts"
       },
@@ -9279,7 +9381,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\n\nframeworkControl = new FormControl<string | null>('angular');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\r\n\r\nframeworkControl = new FormControl<string | null>('angular');"
           }
         ]
       },
@@ -9289,7 +9391,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\n\nframeworkControl = new FormControl<string | null>('angular');"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\r\n\r\nframeworkControl = new FormControl<string | null>('angular');"
           },
           {
             "language": "html",
@@ -9307,7 +9409,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\ncampaignControl = new FormControl<string | null>('launch');"
+            "code": "${formImportsCode}\r\n\r\ncampaignControl = new FormControl<string | null>('launch');"
           }
         ]
       },
@@ -9317,11 +9419,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\ncampaignControl = new FormControl<string | null>('launch');"
+            "code": "${formImportsCode}\r\n\r\ncampaignControl = new FormControl<string | null>('launch');"
           },
           {
             "language": "html",
-            "code": "<div class=\"campaign-select\">\n  <button [frSelect]=\"campaignMenu\" [formControl]=\"campaignControl\" indicatorPosition=\"end\" [debugVisible]=\"true\" type=\"button\">\r\n    <frame-select-value placeholder=\"Choose a campaign type\"></frame-select-value>\r\n    <span frSelectIcon>\r\n      <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n    </span>\r\n  </button>\r\n\r\n  <ng-template #campaignMenu=\"frSelectContent\" frSelectContent>\r\n    <frame-select-panel>\r\n      <frame-select-group>\r\n        <button frSelectItem value=\"launch\" label=\"Launch\">\r\n          <span>Launch</span>\r\n        </button>\r\n        <button frSelectItem value=\"docs\" label=\"Documentation\">\r\n          <span>Documentation</span>\r\n        </button>\r\n      </frame-select-group>\r\n    </frame-select-panel>\r\n  </ng-template>\r\n</div>"
+            "code": "<div class=\"campaign-select\">\r\n  <button [frSelect]=\"campaignMenu\" [formControl]=\"campaignControl\" indicatorPosition=\"end\" [debugVisible]=\"true\" type=\"button\">\r\n    <frame-select-value placeholder=\"Choose a campaign type\"></frame-select-value>\r\n    <span frSelectIcon>\r\n      <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n    </span>\r\n  </button>\r\n\r\n  <ng-template #campaignMenu=\"frSelectContent\" frSelectContent>\r\n    <frame-select-panel>\r\n      <frame-select-group>\r\n        <button frSelectItem value=\"launch\" label=\"Launch\">\r\n          <span>Launch</span>\r\n        </button>\r\n        <button frSelectItem value=\"docs\" label=\"Documentation\">\r\n          <span>Documentation</span>\r\n        </button>\r\n      </frame-select-group>\r\n    </frame-select-panel>\r\n  </ng-template>\r\n</div>"
           }
         ]
       },
@@ -9331,7 +9433,7 @@
         "code": [
           {
             "language": "html",
-            "code": "<div class=\"campaign-select\">\n  <button [frSelect]=\"campaignMenu\" [formControl]=\"campaignControl\" indicatorPosition=\"end\" [debugVisible]=\"true\" type=\"button\">\r\n    <frame-select-value placeholder=\"Choose a campaign type\"></frame-select-value>\r\n    <span frSelectIcon>\r\n      <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n    </span>\r\n  </button>\r\n\r\n  <ng-template #campaignMenu=\"frSelectContent\" frSelectContent>\r\n    <frame-select-panel>\r\n      <frame-select-group>\r\n        <button frSelectItem value=\"launch\" label=\"Launch\">\r\n          <span>Launch</span>\r\n        </button>\r\n        <button frSelectItem value=\"docs\" label=\"Documentation\">\r\n          <span>Documentation</span>\r\n        </button>\r\n      </frame-select-group>\r\n    </frame-select-panel>\r\n  </ng-template>\r\n</div>"
+            "code": "<div class=\"campaign-select\">\r\n  <button [frSelect]=\"campaignMenu\" [formControl]=\"campaignControl\" indicatorPosition=\"end\" [debugVisible]=\"true\" type=\"button\">\r\n    <frame-select-value placeholder=\"Choose a campaign type\"></frame-select-value>\r\n    <span frSelectIcon>\r\n      <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n    </span>\r\n  </button>\r\n\r\n  <ng-template #campaignMenu=\"frSelectContent\" frSelectContent>\r\n    <frame-select-panel>\r\n      <frame-select-group>\r\n        <button frSelectItem value=\"launch\" label=\"Launch\">\r\n          <span>Launch</span>\r\n        </button>\r\n        <button frSelectItem value=\"docs\" label=\"Documentation\">\r\n          <span>Documentation</span>\r\n        </button>\r\n      </frame-select-group>\r\n    </frame-select-panel>\r\n  </ng-template>\r\n</div>"
           },
           {
             "language": "css",
@@ -9349,7 +9451,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nframeworkControl = new FormControl<string | null>('angular');"
+            "code": "${formImportsCode}\r\n\r\nenvironmentControl = new FormControl<string | null>('production');"
           }
         ]
       },
@@ -9359,11 +9461,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nframeworkControl = new FormControl<string | null>('angular');"
+            "code": "${formImportsCode}\r\n\r\nenvironmentControl = new FormControl<string | null>('production');"
           },
           {
             "language": "html",
-            "code": "<button [frSelect]=\"frameworkMenu\" [formControl]=\"frameworkControl\" indicatorPosition=\"end\" type=\"button\">\r\n  <frame-select-value placeholder=\"Choose a framework\"></frame-select-value>\r\n  <span frSelectIcon>\r\n    <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n  </span>\r\n</button>\r\n\r\n<ng-template #frameworkMenu=\"frSelectContent\" frSelectContent>\r\n  <frame-select-panel>\r\n    <frame-select-group>\r\n      <button frSelectItem value=\"angular\" label=\"Angular\">\r\n        <span>Angular</span>\r\n      </button>\r\n      <button frSelectItem value=\"react\" label=\"React\">\r\n        <span>React</span>\r\n      </button>\r\n      <button frSelectItem value=\"vue\" label=\"Vue\">\r\n        <span>Vue</span>\r\n      </button>\r\n    </frame-select-group>\r\n  </frame-select-panel>\r\n</ng-template>"
+            "code": "<button [frSelect]=\"environmentMenu\" [formControl]=\"environmentControl\" indicatorPosition=\"end\" type=\"button\">\r\n  <span frSelectIcon position=\"leading\">\r\n    <ng-icon name=\"tablerStack2\" size=\"16\" />\r\n  </span>\r\n  <frame-select-value placeholder=\"Choose an environment\"></frame-select-value>\r\n  <span frSelectIcon position=\"trailing\">\r\n    <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n  </span>\r\n</button>\r\n\r\n<ng-template #environmentMenu=\"frSelectContent\" frSelectContent>\r\n  <frame-select-panel>\r\n    <frame-select-group>\r\n      <button frSelectItem value=\"production\" label=\"Production\">\r\n        <span>Production</span>\r\n      </button>\r\n      <button frSelectItem value=\"preview\" label=\"Preview\">\r\n        <span>Preview</span>\r\n      </button>\r\n      <button frSelectItem value=\"development\" label=\"Development\">\r\n        <span>Development</span>\r\n      </button>\r\n    </frame-select-group>\r\n  </frame-select-panel>\r\n</ng-template>"
           }
         ]
       },
@@ -9373,11 +9475,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<button [frSelect]=\"frameworkMenu\" [formControl]=\"frameworkControl\" indicatorPosition=\"end\" type=\"button\">\r\n  <frame-select-value placeholder=\"Choose a framework\"></frame-select-value>\r\n  <span frSelectIcon>\r\n    <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n  </span>\r\n</button>\r\n\r\n<ng-template #frameworkMenu=\"frSelectContent\" frSelectContent>\r\n  <frame-select-panel>\r\n    <frame-select-group>\r\n      <button frSelectItem value=\"angular\" label=\"Angular\">\r\n        <span>Angular</span>\r\n      </button>\r\n      <button frSelectItem value=\"react\" label=\"React\">\r\n        <span>React</span>\r\n      </button>\r\n      <button frSelectItem value=\"vue\" label=\"Vue\">\r\n        <span>Vue</span>\r\n      </button>\r\n    </frame-select-group>\r\n  </frame-select-panel>\r\n</ng-template>"
+            "code": "<button [frSelect]=\"environmentMenu\" [formControl]=\"environmentControl\" indicatorPosition=\"end\" type=\"button\">\r\n  <span frSelectIcon position=\"leading\">\r\n    <ng-icon name=\"tablerStack2\" size=\"16\" />\r\n  </span>\r\n  <frame-select-value placeholder=\"Choose an environment\"></frame-select-value>\r\n  <span frSelectIcon position=\"trailing\">\r\n    <ng-icon name=\"tablerChevronDown\" size=\"16\" />\r\n  </span>\r\n</button>\r\n\r\n<ng-template #environmentMenu=\"frSelectContent\" frSelectContent>\r\n  <frame-select-panel>\r\n    <frame-select-group>\r\n      <button frSelectItem value=\"production\" label=\"Production\">\r\n        <span>Production</span>\r\n      </button>\r\n      <button frSelectItem value=\"preview\" label=\"Preview\">\r\n        <span>Preview</span>\r\n      </button>\r\n      <button frSelectItem value=\"development\" label=\"Development\">\r\n        <span>Development</span>\r\n      </button>\r\n    </frame-select-group>\r\n  </frame-select-panel>\r\n</ng-template>"
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nsurfaceControl = new FormControl<string | null>('marketing');"
+            "code": "${formImportsCode}\r\n\r\nsurfaceControl = new FormControl<string | null>('marketing');"
           }
         ]
       }
@@ -10581,7 +10683,7 @@
           },
           {
             "language": "ts",
-            "code": "<button\n  frButton\n  class=\"branded-tooltip\"\n  frTooltip=\"Styled with local tooltip tokens.\"\n  frTooltipArrow\n  type=\"button\"\n>\n  Branded hint\n</button>"
+            "code": "<button\r\n  frButton\r\n  class=\"branded-tooltip\"\r\n  frTooltip=\"Styled with local tooltip tokens.\"\r\n  frTooltipArrow\r\n  type=\"button\"\r\n>\r\n  Branded hint\r\n</button>"
           }
         ]
       },
@@ -10591,7 +10693,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<button\n  frButton\n  class=\"branded-tooltip\"\n  frTooltip=\"Styled with local tooltip tokens.\"\n  frTooltipArrow\n  type=\"button\"\n>\n  Branded hint\n</button>"
+            "code": "<button\r\n  frButton\r\n  class=\"branded-tooltip\"\r\n  frTooltip=\"Styled with local tooltip tokens.\"\r\n  frTooltipArrow\r\n  type=\"button\"\r\n>\r\n  Branded hint\r\n</button>"
           }
         ]
       }

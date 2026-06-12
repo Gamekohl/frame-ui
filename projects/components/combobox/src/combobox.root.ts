@@ -10,7 +10,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  ViewChild,
   booleanAttribute,
   computed,
   contentChild,
@@ -19,6 +18,7 @@ import {
   input,
   model,
   signal,
+  viewChild,
 } from '@angular/core';
 
 import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
@@ -92,7 +92,7 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
   private readonly selectedLabels = new Map<FrComboboxValue, string>();
   private resizeObserver: ResizeObserver | null = null;
 
-  @ViewChild(CdkOverlayOrigin) private origin?: CdkOverlayOrigin;
+  private readonly origin = viewChild(CdkOverlayOrigin);
 
   readonly content = contentChild(FrComboboxContent);
   readonly autoHighlight = input(false, { transform: booleanAttribute });
@@ -303,7 +303,7 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
   }
 
   private measureAnchor(): void {
-    const element = this.origin?.elementRef.nativeElement ?? this.elementRef.nativeElement;
+    const element = this.origin()?.elementRef.nativeElement ?? this.elementRef.nativeElement;
 
     if (typeof element?.getBoundingClientRect !== 'function') {
       this.anchorWidth.set(null);
@@ -318,7 +318,7 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
       return;
     }
 
-    const element = this.origin?.elementRef.nativeElement ?? this.elementRef.nativeElement;
+    const element = this.origin()?.elementRef.nativeElement ?? this.elementRef.nativeElement;
 
     if (typeof element?.getBoundingClientRect !== 'function') {
       return;

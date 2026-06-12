@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { FrVirtualContent } from '../virtual-scroll.content';
@@ -30,7 +30,7 @@ import { FrVirtualViewport } from '../virtual-scroll.viewport';
   `,
 })
 class TestHostComponent {
-  @ViewChild(FrVirtualViewport, { static: true }) viewport!: FrVirtualViewport;
+  readonly viewport = viewChild.required(FrVirtualViewport);
 
   protected readonly items = Array.from({ length: 100 }, (_, index) => `Item ${index}`);
 }
@@ -46,7 +46,7 @@ describe('FrVirtualViewport', () => {
     });
 
     fixture.detectChanges();
-    fixture.componentInstance.viewport.measure();
+    fixture.componentInstance.viewport().measure();
     fixture.detectChanges();
 
     const rows = Array.from(fixture.nativeElement.querySelectorAll('.row')) as HTMLElement[];
@@ -81,8 +81,8 @@ describe('FrVirtualViewport', () => {
     });
 
     fixture.detectChanges();
-    fixture.componentInstance.viewport.measure();
-    fixture.componentInstance.viewport.scrollToIndex(20, 'start');
+    fixture.componentInstance.viewport().measure();
+    fixture.componentInstance.viewport().scrollToIndex(20, 'start');
     fixture.detectChanges();
 
     const rows = Array.from(fixture.nativeElement.querySelectorAll('.row')) as HTMLElement[];

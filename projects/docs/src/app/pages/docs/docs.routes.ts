@@ -114,6 +114,13 @@ export default [
           ),
       },
       {
+        path: 'components/confirm-modal',
+        loadComponent: () =>
+          import('./components/confirm-modal/confirm-modal.page').then(
+            (m) => m.ConfirmModalPageComponent,
+          ),
+      },
+      {
         path: 'components/date-picker',
         loadComponent: () =>
           import('./components/date-picker/date-picker.page').then(

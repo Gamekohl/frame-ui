@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  HostListener,
   OnDestroy,
   booleanAttribute,
   inject,
@@ -331,6 +330,8 @@ export class FrResizablePanel {
     '[attr.data-orientation]': 'group.orientation()',
     '[attr.data-handle]': 'withHandle() ? "" : null',
     '[attr.data-disabled]': 'group.disabled() ? "" : null',
+    '(pointerdown)': 'onPointerDown($event)',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class FrResizableHandle {
@@ -339,7 +340,6 @@ export class FrResizableHandle {
 
   readonly withHandle = input(false, { transform: booleanAttribute });
 
-  @HostListener('pointerdown', ['$event'])
   protected onPointerDown(event: PointerEvent): void {
     if (event.button !== 0) {
       return;
@@ -349,7 +349,6 @@ export class FrResizableHandle {
     this.group.startResize(this.elementRef.nativeElement, event.pointerId, event.clientX, event.clientY);
   }
 
-  @HostListener('keydown', ['$event'])
   protected onKeydown(event: KeyboardEvent): void {
     if (this.group.resizeFromKeyboard(this.elementRef.nativeElement, event.key)) {
       event.preventDefault();

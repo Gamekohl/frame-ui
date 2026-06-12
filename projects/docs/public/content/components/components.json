@@ -105,6 +105,13 @@
     "category": "Overlays"
   },
   {
+    "slug": "confirm-modal",
+    "name": "Confirm Modal",
+    "status": "Stable",
+    "summary": "Typed confirmation dialog built on modal primitives with configurable title, description, and action labels.",
+    "category": "Overlays"
+  },
+  {
     "slug": "date-picker",
     "name": "Date Picker",
     "status": "Stable",

@@ -13,6 +13,7 @@ export * from '@frame-ui-ng/components/collapsible';
 export * from '@frame-ui-ng/components/combobox';
 export * from '@frame-ui-ng/components/command';
 export * from '@frame-ui-ng/components/context-menu';
+export * from '@frame-ui-ng/components/confirm-modal';
 export * from '@frame-ui-ng/components/date-picker';
 export * from '@frame-ui-ng/components/dropdown-menu';
 export * from '@frame-ui-ng/components/empty';

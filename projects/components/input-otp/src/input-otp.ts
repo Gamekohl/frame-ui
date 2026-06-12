@@ -5,7 +5,6 @@ import {
   Directive,
   ElementRef,
   InjectionToken,
-  ViewChild,
   booleanAttribute,
   computed,
   inject,
@@ -13,6 +12,7 @@ import {
   numberAttribute,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 
 import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
@@ -79,7 +79,7 @@ const FR_INPUT_OTP_CONTROLLER = new InjectionToken<FrInputOtpController>('FrInpu
   `,
 })
 export class FrInputOtp extends FrControlValueAccessor<string> {
-  @ViewChild('nativeInput') private readonly nativeInput?: ElementRef<HTMLInputElement>;
+  private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
 
   readonly maxLength = input(6, { transform: numberAttribute });
   readonly pattern = input<FrInputOtpPattern>(FR_INPUT_OTP_PATTERN_DIGITS);
@@ -101,7 +101,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
       return;
     }
 
-    const inputElement = this.nativeInput?.nativeElement;
+    const inputElement = this.nativeInput()?.nativeElement;
 
     if (!inputElement) {
       return;
@@ -165,7 +165,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
   }
 
   syncActiveIndex(): void {
-    const inputElement = this.nativeInput?.nativeElement;
+    const inputElement = this.nativeInput()?.nativeElement;
     const index = inputElement?.selectionStart ?? this.value().length;
     this.activeIndex.set(clamp(index, 0, this.maxLength()));
   }

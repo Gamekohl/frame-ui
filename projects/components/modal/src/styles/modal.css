@@ -72,6 +72,10 @@
   min-height: 0;
 }
 
+.frame-modal__panel[data-confirm-modal] {
+  gap: 0;
+}
+
 .frame-modal__header,
 .frame-modal__body,
 .frame-modal__footer {
@@ -112,6 +116,10 @@
   border-block-start: 1px solid var(--frame-frame-line-muted);
   padding-block-start: 1rem;
   padding-block-end: var(--frame-modal-padding);
+}
+
+.frame-modal__panel[data-confirm-modal] .frame-modal__footer {
+  border-block-start: 0;
 }
 
 .frame-modal__panel[data-sticky-footer] .frame-modal__footer {
