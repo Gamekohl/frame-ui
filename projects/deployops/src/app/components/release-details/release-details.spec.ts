@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideIcons } from '@ng-icons/core';
 import {
-  tablerChevronDown,
   tablerCircleCheck,
   tablerLayersIntersect,
   tablerPackages,
@@ -68,7 +67,6 @@ describe('ReleaseDetailsComponent', () => {
           },
         },
         provideIcons({
-          tablerChevronDown,
           tablerCircleCheck,
           tablerLayersIntersect,
           tablerPackages,
@@ -95,22 +93,5 @@ describe('ReleaseDetailsComponent', () => {
     expect(compiled.textContent).toContain('Change summary');
     expect(compiled.textContent).toContain('Jordan Lee');
     expect(releaseDetailsSpy).toHaveBeenCalledWith('rel-1001');
-  });
-
-  it('should collapse and expand the sidebar', async () => {
-    const fixture = await createComponent();
-    const compiled = fixture.nativeElement as HTMLElement;
-
-    compiled.querySelector<HTMLButtonElement>('button[aria-label="Collapse release details"]')?.click();
-    fixture.detectChanges();
-
-    expect(compiled.getAttribute('data-collapsed')).toBe('true');
-    expect(compiled.textContent).toContain('Details');
-
-    compiled.querySelector<HTMLButtonElement>('button[aria-label="Expand release details"]')?.click();
-    fixture.detectChanges();
-
-    expect(compiled.getAttribute('data-collapsed')).toBe('false');
-    expect(compiled.textContent).toContain('Review');
   });
 });

@@ -28,7 +28,7 @@ import { NgIcon } from '@ng-icons/core';
             frInputGroupInput
             id="search"
             type="text"
-            placeholder="Search releases, services, ..."
+            [placeholder]="placeholder()"
           />
 
           <div frInputGroupAddon align="inline-end">
@@ -57,4 +57,5 @@ import { NgIcon } from '@ng-icons/core';
 })
 export class Header {
   title = input.required<string>();
+  placeholder = input('Search releases, services, ...');
 }

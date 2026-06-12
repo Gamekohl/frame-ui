@@ -1,12 +1,12 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsModalPreviewComponent } from './previews/modal-preview';
 
-const importsCode = `import { FrModalModule, FrModalService } from '@frame-ui-ng/components/modal';`;
-const triggerImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
-${importsCode}`;
+const importsCode = `import { FR_MODAL_DATA, FrModalModule, FrModalRef, FrModalService } from '@frame-ui-ng/components/modal';`;
+const buttonImportCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';`;
 
 const customStylingConfig = {
   className: 'modal-brand-demo flex min-h-48 w-full items-center justify-center rounded-3xl border p-8',
+  panelClass: 'modal-brand-demo-panel',
   style: `--frame-modal-bg: color-mix(in srgb, var(--frame-background) 88%, var(--frame-primary));
 --frame-modal-border: color-mix(in srgb, var(--frame-primary) 36%, var(--frame-border));
 --frame-modal-radius: 1.25rem;
@@ -50,57 +50,64 @@ export const MODAL_DOC: ComponentDoc = {
   usage: [
     {
       language: 'ts',
-      code: triggerImportsCode,
-    },
-    {
-      language: 'html',
-      code: `<button frButton [frModalTrigger]="modal">Open modal</button>
+      code: `import { Component, inject } from '@angular/core';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+${importsCode}
 
-<ng-template #modal="frModalContent" frModalContent aria-label="Workspace settings">
-  <div frModalPanel>
-    <div frModalHeader>
-      <h2 frModalTitle>Workspace settings</h2>
-      <p frModalDescription>Make focused changes without leaving the current page.</p>
-    </div>
+type SettingsModalData = {
+  workspace: string;
+};
 
-    <div frModalBody>
-      Modal content goes here.
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" frModalClose>Cancel</button>
-      <button frButton [frModalClose]="'saved'">Save changes</button>
-    </div>
-  </div>
-</ng-template>`,
-    },
-    {
-      language: 'ts',
-      code: `@Component({
-  selector: 'app-settings-modal-body',
-  template: \`<p>{{ summary }}</p>\`,
+@Component({
+  selector: 'app-settings-modal',
+  imports: [FrButtonModule, FrModalModule],
+  templateUrl: './settings-modal.html',
 })
-class SettingsModalBodyComponent {
-  summary = input('This content is rendered from a dedicated body component.');
+class SettingsModalComponent {
+  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);
+  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);
+
+  close(result: 'cancel' | 'saved'): void {
+    this.modalRef.close(result);
+  }
 }
 
 readonly modal = inject(FrModalService);
 
-openFromCode(): void {
-  this.modal.open(SettingsModalBodyComponent, {
+openSettings(): void {
+  const modalRef = this.modal.open(SettingsModalComponent, {
+    workspace: 'Platform',
+  }, {
     ariaLabel: 'Workspace settings',
-    bodyInputs: {
-      summary: 'Review the generated workspace settings before saving.',
-    },
-    description: 'The shell is configured through FrModalConfig.',
-    footerActions: [
-      { appearance: 'outline', label: 'Cancel', result: 'cancel' },
-      { label: 'Save changes', result: 'saved' },
-    ],
-    title: 'Workspace settings',
     width: '32rem',
   });
+
+  modalRef.closed.subscribe((result) => {
+    // handle cancel or saved
+  });
 }`,
+    },
+    {
+      language: 'html',
+      code: `<button frButton type="button" (click)="openSettings()">Open modal</button>`,
+    },
+    {
+      language: 'html',
+      code: `<div frModalPanel>
+  <div frModalHeader>
+    <h2 frModalTitle>{{ data.workspace }} settings</h2>
+    <p frModalDescription>Make focused changes without leaving the current page.</p>
+  </div>
+
+  <div frModalBody>
+    Modal content goes here.
+  </div>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+    <button frButton type="button" (click)="close('saved')">Save changes</button>
+  </div>
+</div>`,
     },
   ],
 
@@ -186,23 +193,39 @@ openFromCode(): void {
       code: [
         {
           language: 'ts',
-          code: triggerImportsCode,
+          code: `import { Component, inject } from '@angular/core';
+${buttonImportCode}
+${importsCode}
+
+@Component({
+  selector: 'app-branded-modal',
+  imports: [FrModalModule],
+  template: \`
+    <div frModalPanel>
+      <!-- header, body, and footer -->
+    </div>
+  \`,
+})
+class BrandedModalComponent {}
+
+private readonly modal = inject(FrModalService);
+
+openBrandedModal(): void {
+  this.modal.open(BrandedModalComponent, {
+    ariaLabel: 'Branded modal',
+    panelClass: 'modal-brand-demo-panel',
+  });
+}`,
         },
         {
           language: 'html',
           code: `<div class="modal-brand-demo">
-  <button frButton [frModalTrigger]="modal">Open modal</button>
-
-  <ng-template #modal="frModalContent" frModalContent>
-    <div frModalPanel>
-      <!-- header, body, and footer -->
-    </div>
-  </ng-template>
+  <button frButton type="button" (click)="openBrandedModal()">Open modal</button>
 </div>`,
         },
         {
           language: 'css',
-          code: `.modal-brand-demo {
+          code: `.modal-brand-demo-panel {
 ${customStylingConfig.style}
 }`,
         },
@@ -215,38 +238,60 @@ ${customStylingConfig.style}
       id: 'basic',
       title: 'Basic',
       description:
-        'Use a trigger and a template-backed content block for the common modal composition.',
+        'Inject FrModalService and open a dedicated modal component for the common modal composition.',
       preview: {
         component: DocsModalPreviewComponent,
       },
       code: [
         {
           language: 'ts',
-          code: triggerImportsCode,
+          code: `import { Component, inject } from '@angular/core';
+${buttonImportCode}
+${importsCode}
+
+@Component({
+  selector: 'app-workspace-settings-modal',
+  imports: [FrButtonModule, FrModalModule],
+  template: \`
+    <div frModalPanel>
+      <div frModalHeader>
+        <h2 frModalTitle>Workspace settings</h2>
+        <p frModalDescription>A composable modal built on top of Angular CDK Dialog.</p>
+      </div>
+
+      <div frModalBody>
+        Configure a focused workflow without sending people to a new route.
+      </div>
+
+      <div frModalFooter>
+        <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+        <button frButton type="button" (click)="close('saved')">Save changes</button>
+      </div>
+    </div>
+  \`,
+})
+class WorkspaceSettingsModalComponent {
+  private readonly modalRef = inject(FrModalRef<WorkspaceSettingsModalComponent, 'cancel' | 'saved'>);
+
+  close(result: 'cancel' | 'saved'): void {
+    this.modalRef.close(result);
+  }
+}
+
+private readonly modal = inject(FrModalService);
+
+openSettings(): void {
+  this.modal.open(WorkspaceSettingsModalComponent, {
+    ariaLabel: 'Workspace settings',
+    width: '32rem',
+  });
+}`,
         },
         {
           language: 'html',
-          code: `<button frButton type="button" [frModalTrigger]="modal">
+          code: `<button frButton type="button" (click)="openSettings()">
   Open modal
-</button>
-
-<ng-template #modal="frModalContent" frModalContent aria-label="Workspace settings">
-  <div frModalPanel>
-    <div frModalHeader>
-      <h2 frModalTitle>Workspace settings</h2>
-      <p frModalDescription>A composable modal built on top of Angular CDK Dialog.</p>
-    </div>
-
-    <div frModalBody>
-      Configure a focused workflow without sending people to a new route.
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" type="button" frModalClose>Cancel</button>
-      <button frButton type="button" [frModalClose]="'saved'">Save changes</button>
-    </div>
-  </div>
-</ng-template>`,
+</button>`,
         },
       ],
     },
@@ -254,7 +299,7 @@ ${customStylingConfig.style}
       id: 'programmatic',
       title: 'Programmatic open',
       description:
-        'Inject FrModalService when a modal needs to open from application logic instead of a direct trigger.',
+        'Inject FrModalService to open a modal component with data and dialog config from application logic.',
       preview: {
         component: DocsModalPreviewComponent,
         inputs: {
@@ -264,15 +309,46 @@ ${customStylingConfig.style}
       code: [
         {
           language: 'ts',
-          code: `import { TemplateRef, inject, viewChild } from '@angular/core';
+          code: `import { Component, inject } from '@angular/core';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 ${importsCode}
 
+type WorkspaceSettingsData = {
+  owner: string;
+};
+
+@Component({
+  selector: 'app-workspace-settings-modal',
+  imports: [FrButtonModule, FrModalModule],
+  template: \`
+    <div frModalPanel>
+      <div frModalHeader>
+        <h2 frModalTitle>Workspace settings</h2>
+        <p frModalDescription>Assigned owner: {{ data.owner }}</p>
+      </div>
+
+      <div frModalFooter>
+        <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+        <button frButton type="button" (click)="close('saved')">Save changes</button>
+      </div>
+    </div>
+  \`,
+})
+class WorkspaceSettingsModalComponent {
+  readonly data = inject<WorkspaceSettingsData>(FR_MODAL_DATA);
+  private readonly modalRef = inject(FrModalRef<WorkspaceSettingsModalComponent, 'cancel' | 'saved'>);
+
+  close(result: 'cancel' | 'saved'): void {
+    this.modalRef.close(result);
+  }
+}
+
 private readonly modal = inject(FrModalService);
-private readonly programmaticModal = viewChild.required<TemplateRef<unknown>>('programmaticModal');
 
 openProgrammatic(): void {
-  this.modal.open(this.programmaticModal(), {
+  this.modal.open(WorkspaceSettingsModalComponent, {
+    owner: 'Platform',
+  }, {
     ariaLabel: 'Programmatic workspace settings',
     width: '32rem',
   });
@@ -282,21 +358,7 @@ openProgrammatic(): void {
           language: 'html',
           code: `<button frButton type="button" (click)="openProgrammatic()">
   Open from code
-</button>
-
-<ng-template #programmaticModal>
-  <div frModalPanel>
-    <div frModalHeader>
-      <h2 frModalTitle>Programmatic workspace settings</h2>
-      <p frModalDescription>Opened from application logic with FrModalService.</p>
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" type="button" frModalClose>Cancel</button>
-      <button frButton type="button" [frModalClose]="'saved'">Save changes</button>
-    </div>
-  </div>
-</ng-template>`,
+</button>`,
         },
       ],
     },
@@ -314,23 +376,48 @@ openProgrammatic(): void {
       code: [
         {
           language: 'ts',
-          code: triggerImportsCode,
+          code: `import { Component, inject } from '@angular/core';
+${buttonImportCode}
+${importsCode}
+
+@Component({
+  selector: 'app-confirm-deployment-modal',
+  imports: [FrButtonModule, FrModalModule],
+  template: \`
+    <div frModalPanel [showCloseButton]="false">
+      <div frModalHeader>
+        <h2 frModalTitle>Confirm deployment</h2>
+        <p frModalDescription>Omit the default close button when the action needs an explicit choice.</p>
+      </div>
+
+      <div frModalFooter>
+        <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+        <button frButton type="button" (click)="close('confirmed')">Confirm</button>
+      </div>
+    </div>
+  \`,
+})
+class ConfirmDeploymentModalComponent {
+  private readonly modalRef = inject(FrModalRef<ConfirmDeploymentModalComponent, 'cancel' | 'confirmed'>);
+
+  close(result: 'cancel' | 'confirmed'): void {
+    this.modalRef.close(result);
+  }
+}
+
+private readonly modal = inject(FrModalService);
+
+openConfirmDeployment(): void {
+  this.modal.open(ConfirmDeploymentModalComponent, {
+    ariaLabel: 'Confirm deployment',
+  });
+}`,
         },
         {
           language: 'html',
-          code: `<ng-template #modal="frModalContent" frModalContent>
-  <div frModalPanel [showCloseButton]="false">
-    <div frModalHeader>
-      <h2 frModalTitle>Confirm deployment</h2>
-      <p frModalDescription>Omit the default close button when the action needs an explicit choice.</p>
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" type="button" frModalClose>Cancel</button>
-      <button frButton type="button" [frModalClose]="'confirmed'">Confirm</button>
-    </div>
-  </div>
-</ng-template>`,
+          code: `<button frButton type="button" (click)="openConfirmDeployment()">
+  Open without close icon
+</button>`,
         },
       ],
     },
@@ -338,7 +425,7 @@ openProgrammatic(): void {
       id: 'disable-close',
       title: 'Disable outside close',
       description:
-        'Set disableClose on the content template when backdrop clicks should be ignored and the modal must be closed through explicit controls.',
+        'Pass disableClose in the service config when backdrop clicks should be ignored and the modal must be closed through explicit controls.',
       preview: {
         component: DocsModalPreviewComponent,
         inputs: {
@@ -348,29 +435,51 @@ openProgrammatic(): void {
       code: [
         {
           language: 'ts',
-          code: triggerImportsCode,
+          code: `import { Component, inject } from '@angular/core';
+${buttonImportCode}
+${importsCode}
+
+@Component({
+  selector: 'app-unsaved-changes-modal',
+  imports: [FrButtonModule, FrModalModule],
+  template: \`
+    <div frModalPanel>
+      <div frModalHeader>
+        <h2 frModalTitle>Unsaved changes</h2>
+        <p frModalDescription>
+          Backdrop clicks are ignored, so users must choose one of the explicit controls.
+        </p>
+      </div>
+
+      <div frModalFooter>
+        <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+        <button frButton type="button" (click)="close('saved')">Save changes</button>
+      </div>
+    </div>
+  \`,
+})
+class UnsavedChangesModalComponent {
+  private readonly modalRef = inject(FrModalRef<UnsavedChangesModalComponent, 'cancel' | 'saved'>);
+
+  close(result: 'cancel' | 'saved'): void {
+    this.modalRef.close(result);
+  }
+}
+
+private readonly modal = inject(FrModalService);
+
+openGuardedModal(): void {
+  this.modal.open(UnsavedChangesModalComponent, {
+    ariaLabel: 'Unsaved changes',
+    disableClose: true,
+  });
+}`,
         },
         {
           language: 'html',
-          code: `<button frButton type="button" [frModalTrigger]="modal">
+          code: `<button frButton type="button" (click)="openGuardedModal()">
   Open guarded modal
-</button>
-
-<ng-template #modal="frModalContent" frModalContent disableClose>
-  <div frModalPanel>
-    <div frModalHeader>
-      <h2 frModalTitle>Unsaved changes</h2>
-      <p frModalDescription>
-        Backdrop clicks are ignored, so users must choose one of the explicit controls.
-      </p>
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" type="button" frModalClose>Cancel</button>
-      <button frButton type="button" [frModalClose]="'saved'">Save changes</button>
-    </div>
-  </div>
-</ng-template>`,
+</button>`,
         },
       ],
     },
@@ -388,27 +497,53 @@ openProgrammatic(): void {
       code: [
         {
           language: 'ts',
-          code: triggerImportsCode,
+          code: `import { Component, inject } from '@angular/core';
+${buttonImportCode}
+${importsCode}
+
+@Component({
+  selector: 'app-scrollable-settings-modal',
+  imports: [FrButtonModule, FrModalModule],
+  template: \`
+    <div class="settings-modal" frModalPanel size="lg" scrollable stickyFooter>
+      <div frModalHeader>
+        <h2 frModalTitle>Workspace settings</h2>
+        <p frModalDescription>Use a scrollable body with a persistent footer for longer workflows.</p>
+      </div>
+
+      <div frModalBody>
+        <!-- Long content scrolls here. -->
+      </div>
+
+      <div frModalFooter>
+        <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+        <button frButton type="button" (click)="close('saved')">Save changes</button>
+      </div>
+    </div>
+  \`,
+})
+class ScrollableSettingsModalComponent {
+  private readonly modalRef = inject(FrModalRef<ScrollableSettingsModalComponent, 'cancel' | 'saved'>);
+
+  close(result: 'cancel' | 'saved'): void {
+    this.modalRef.close(result);
+  }
+}
+
+private readonly modal = inject(FrModalService);
+
+openScrollableSettings(): void {
+  this.modal.open(ScrollableSettingsModalComponent, {
+    ariaLabel: 'Workspace settings',
+    width: 'min(44rem, calc(100vw - 2rem))',
+  });
+}`,
         },
         {
           language: 'html',
-          code: `<ng-template #modal="frModalContent" frModalContent>
-  <div frModalPanel size="lg" scrollable stickyFooter>
-    <div frModalHeader>
-      <h2 frModalTitle>Workspace settings</h2>
-      <p frModalDescription>Use a scrollable body with a persistent footer for longer workflows.</p>
-    </div>
-
-    <div frModalBody>
-      <!-- Long content scrolls here. -->
-    </div>
-
-    <div frModalFooter>
-      <button frButton appearance="outline" type="button" frModalClose>Cancel</button>
-      <button frButton type="button">Save changes</button>
-    </div>
-  </div>
-</ng-template>`,
+          code: `<button frButton type="button" (click)="openScrollableSettings()">
+  Open scrollable modal
+</button>`,
         },
         {
           language: 'css',

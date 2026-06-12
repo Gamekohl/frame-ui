@@ -99,3 +99,9 @@
     <router-outlet />
   </main>
 </div>
+
+<ng-template #toastCloseIcon>
+  <ng-icon name="tablerX" />
+</ng-template>
+
+<frame-toast-viewport [closeIcon]="toastCloseIcon" />

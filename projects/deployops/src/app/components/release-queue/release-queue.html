@@ -78,7 +78,8 @@
 
   @if (data(); as dashboardData) {
     <div frTableContainer class="release-table-wrap">
-      <table frTable density="lg" [dataSource]="dashboardData.releases">
+      <div class="release-table-scroll">
+        <table frTable density="lg" [dataSource]="dashboardData.releases">
         <ng-container frColumnDef="select">
           <th frHeaderCell *frHeaderCellDef class="select-column">
             <input frCheckbox type="checkbox" aria-label="Select all releases" />
@@ -178,7 +179,7 @@
                     <ng-icon name="tablerExternalLink" size="16" />
                     <span>View details</span>
                   </button>
-                  <button frDropdownMenuItem type="button">
+                  <button frDropdownMenuItem type="button" (click)="openEditRelease(release)">
                     <ng-icon name="tablerEdit" size="16" />
                     <span>Edit release</span>
                   </button>
@@ -199,7 +200,8 @@
 
         <tr frHeaderRow *frHeaderRowDef="displayedColumns"></tr>
         <tr frRow *frRowDef="let row; columns: displayedColumns" [ngStyle]="{ 'background-color': row.id === selectedRelease()?.id ? 'var(--frame-table-header-bg)' : null }"></tr>
-      </table>
+        </table>
+      </div>
 
       <div class="release-pagination px-4">
         <p class="text-sm text-muted-foreground">

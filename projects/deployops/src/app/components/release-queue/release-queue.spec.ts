@@ -27,6 +27,8 @@ import { of } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ApiService, DeployopsDashboardData, ReleaseDetails } from '../../services/api.service';
+import { FrModalService } from '@frame-ui-ng/components/modal';
+import { EditReleaseModalComponent } from '../edit-release-modal/edit-release-modal';
 import { ReleaseQueue } from './release-queue';
 
 const dashboardData: DeployopsDashboardData = {
@@ -142,10 +144,12 @@ const releaseDetails: ReleaseDetails = {
 describe('ReleaseQueue', () => {
   let getDashboardSpy: ReturnType<typeof vi.fn>;
   let releaseDetailsSpy: ReturnType<typeof vi.fn>;
+  let modalOpenSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     getDashboardSpy = vi.fn(() => of(dashboardData));
     releaseDetailsSpy = vi.fn(() => of(releaseDetails));
+    modalOpenSpy = vi.fn(() => ({ closed: of('cancel') }));
 
     await TestBed.configureTestingModule({
       imports: [ReleaseQueue],
@@ -178,6 +182,12 @@ describe('ReleaseQueue', () => {
           useValue: {
             getDashboard: getDashboardSpy,
             releaseDetails: releaseDetailsSpy,
+          },
+        },
+        {
+          provide: FrModalService,
+          useValue: {
+            open: modalOpenSpy,
           },
         },
       ],
@@ -286,5 +296,24 @@ describe('ReleaseQueue', () => {
 
     expect(getDashboardSpy).toHaveBeenCalledWith(1, 10);
     expect(getDashboardSpy).toHaveBeenCalledWith(2, 10);
+  });
+
+  it('should open the edit release modal with release data without refreshing on save', () => {
+    modalOpenSpy.mockReturnValueOnce({ closed: of('saved') });
+    const fixture = TestBed.createComponent(ReleaseQueue);
+    fixture.detectChanges();
+    getDashboardSpy.mockClear();
+
+    fixture.componentInstance.openEditRelease(dashboardData.releases[0]);
+
+    expect(modalOpenSpy).toHaveBeenCalledWith(
+      EditReleaseModalComponent,
+      { release: dashboardData.releases[0] },
+      {
+        ariaLabel: 'Edit Checkout Refactor',
+        width: 'min(42rem, calc(100vw - 2rem))',
+      },
+    );
+    expect(getDashboardSpy).not.toHaveBeenCalled();
   });
 });

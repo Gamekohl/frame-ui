@@ -7,6 +7,7 @@ import { FrFieldModule } from '@frame-ui-ng/components/field';
 import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FrToastModule } from '@frame-ui-ng/components/toast';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBell,
@@ -56,6 +57,7 @@ import {
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
+    FrToastModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -98,7 +100,7 @@ import {
 export class App {
   readonly navItems = [
     { label: 'Release Queue', icon: 'tablerTimelineEventText', route: '/release-queue' },
-    { label: 'Deployments', icon: 'tablerPackages', route: null },
+    { label: 'Deployments', icon: 'tablerPackages', route: '/deployments' },
     { label: 'Environments', icon: 'tablerServer', route: null },
     { label: 'Services', icon: 'tablerServer', route: null },
     { label: 'Insights', icon: 'tablerChartDots', route: null },

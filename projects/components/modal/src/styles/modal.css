@@ -17,7 +17,7 @@
 .frame-modal__panel {
   position: relative;
   display: flex;
-  max-height: min(calc(100dvh - 2rem), 42rem);
+  max-height: 80dvh;
   width: min(calc(100vw - 2rem), 32rem);
   flex-direction: column;
   gap: var(--frame-modal-gap);
@@ -93,6 +93,7 @@
   min-height: 0;
   flex: 0 1 auto;
   gap: 1rem;
+  overflow-y: auto;
 }
 
 .frame-modal__panel[data-scrollable] .frame-modal__body {

@@ -22,6 +22,67 @@ export interface Release {
   updatedAt: string;
 }
 
+export type DeploymentStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'rolled-back' | 'paused';
+
+export interface DeploymentSummary {
+  activeDeployments: number;
+  successRate: number;
+  avgDurationMinutes: number;
+  rollbackRate: number;
+  statusCounts: {
+    all: number;
+    running: number;
+    succeeded: number;
+    failed: number;
+    rolledBack: number;
+    queued: number;
+  };
+}
+
+export interface Deployment {
+  id: string;
+  deployment: string;
+  version: string;
+  service: string;
+  environment: string;
+  strategy: 'Canary' | 'Blue-green' | 'Rolling' | 'Recreate';
+  status: DeploymentStatus;
+  progress: number;
+  startedAt: string;
+  duration: string;
+  initiatedBy: {
+    name: string;
+    avatarUrl: string;
+  };
+}
+
+export interface DeploymentDetails {
+  id: string;
+  deploymentId: string;
+  deployment: string;
+  version: string;
+  service: string;
+  environment: string;
+  strategy: Deployment['strategy'];
+  status: DeploymentStatus;
+  startedAt: string;
+  initiatedBy: {
+    name: string;
+    avatarUrl: string;
+  };
+  currentPhase: string;
+  description: string;
+  health: {
+    errorRate: string;
+    latencyP95: string;
+    instances: string;
+  };
+  checks: Array<{
+    label: string;
+    status: 'passed' | 'running' | 'healthy' | 'failed' | 'pending';
+  }>;
+}
+
 export interface ReleaseApproval {
   name: string;
   team: string;
@@ -78,6 +139,7 @@ export interface PaginatedResponse<T> {
 }
 
 export type ReleasePagination = Omit<PaginatedResponse<Release>, 'data'>;
+export type DeploymentPagination = Omit<PaginatedResponse<Deployment>, 'data'>;
 
 export interface DeployopsDashboardData {
   summary: DeployopsSummary;
@@ -85,6 +147,12 @@ export interface DeployopsDashboardData {
   releasePagination: ReleasePagination;
   incidents: Incident[];
   team: TeamMember[];
+}
+
+export interface DeploymentsData {
+  summary: DeploymentSummary;
+  deployments: Deployment[];
+  deploymentPagination: DeploymentPagination;
 }
 
 @Injectable({
@@ -116,6 +184,32 @@ export class ApiService {
         };
       }),
     );
+  }
+
+  getDeployments(page = 1, perPage = 10): Observable<DeploymentsData> {
+    return forkJoin({
+      summary: this.http.get<DeploymentSummary>(`${this.apiUrl}/deploymentSummary`),
+      deploymentPage: this.http.get<PaginatedResponse<Deployment>>(`${this.apiUrl}/deployments`, {
+        params: {
+          _page: page,
+          _per_page: perPage,
+        },
+      }),
+    }).pipe(
+      map(({ deploymentPage, summary }) => {
+        const { data, ...deploymentPagination } = deploymentPage;
+
+        return {
+          summary,
+          deployments: data,
+          deploymentPagination,
+        };
+      }),
+    );
+  }
+
+  deploymentDetails(deploymentId: string): Observable<DeploymentDetails> {
+    return this.http.get<DeploymentDetails>(`${this.apiUrl}/deploymentDetails/${deploymentId}`);
   }
 
   releaseDetails(releaseId: string): Observable<ReleaseDetails> {

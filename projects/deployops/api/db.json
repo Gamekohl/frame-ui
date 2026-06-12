@@ -5,6 +5,20 @@
     "changeFailureRate": 3.8,
     "leadTimeMinutes": 42
   },
+  "deploymentSummary": {
+    "activeDeployments": 5,
+    "successRate": 96.4,
+    "avgDurationMinutes": 18,
+    "rollbackRate": 1.8,
+    "statusCounts": {
+      "all": 12,
+      "running": 5,
+      "succeeded": 4,
+      "failed": 1,
+      "rolledBack": 2,
+      "queued": 0
+    }
+  },
   "releases": [
     {
       "id": "rel-1001",
@@ -280,6 +294,526 @@
         "https://i.pravatar.cc/300?u=maya.okafor@deployops.dev"
       ],
       "updatedAt": "1h 18m ago"
+    }
+  ],
+  "deployments": [
+    {
+      "id": "dep-2001",
+      "deployment": "Checkout Refactor",
+      "version": "1.4.0",
+      "service": "checkout-api",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "running",
+      "progress": 62,
+      "startedAt": "10:42 AM",
+      "duration": "12m",
+      "initiatedBy": {
+        "name": "Alex Morgan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=alex.morgan@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2002",
+      "deployment": "Pricing Engine",
+      "version": "2.1.3",
+      "service": "pricing-svc",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "succeeded",
+      "progress": 100,
+      "startedAt": "10:28 AM",
+      "duration": "14m",
+      "initiatedBy": {
+        "name": "Mira Klein",
+        "avatarUrl": "https://i.pravatar.cc/300?u=mira.klein@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2003",
+      "deployment": "Search Service",
+      "version": "2.0.1",
+      "service": "search-svc",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "failed",
+      "progress": 34,
+      "startedAt": "10:21 AM",
+      "duration": "7m",
+      "initiatedBy": {
+        "name": "Taylor Kim",
+        "avatarUrl": "https://i.pravatar.cc/300?u=taylor.kim@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2004",
+      "deployment": "Payments Gateway",
+      "version": "1.8.4",
+      "service": "payments-svc",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "succeeded",
+      "progress": 100,
+      "startedAt": "10:04 AM",
+      "duration": "21m",
+      "initiatedBy": {
+        "name": "Liam Walsh",
+        "avatarUrl": "https://i.pravatar.cc/300?u=liam.walsh@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2005",
+      "deployment": "Inventory Sync",
+      "version": "1.6.1",
+      "service": "inventory-sync",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "running",
+      "progress": 38,
+      "startedAt": "10:55 AM",
+      "duration": "8m",
+      "initiatedBy": {
+        "name": "Leo Martin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=leo.martin@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2006",
+      "deployment": "Auth Session Rotation",
+      "version": "2.0.0",
+      "service": "auth-core",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "rolled-back",
+      "progress": 100,
+      "startedAt": "9:48 AM",
+      "duration": "11m",
+      "initiatedBy": {
+        "name": "Ben Carter",
+        "avatarUrl": "https://i.pravatar.cc/300?u=ben.carter@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2007",
+      "deployment": "Email Notifications",
+      "version": "1.5.2",
+      "service": "email-svc",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "succeeded",
+      "progress": 100,
+      "startedAt": "9:35 AM",
+      "duration": "9m",
+      "initiatedBy": {
+        "name": "Nora Hart",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nora.hart@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2008",
+      "deployment": "Feature Flags",
+      "version": "0.9.0",
+      "service": "feature-flags",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "running",
+      "progress": 73,
+      "startedAt": "11:02 AM",
+      "duration": "4m",
+      "initiatedBy": {
+        "name": "Noah Stein",
+        "avatarUrl": "https://i.pravatar.cc/300?u=noah.stein@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2009",
+      "deployment": "Metrics Aggregator",
+      "version": "3.2.5",
+      "service": "metrics-agg",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "running",
+      "progress": 81,
+      "startedAt": "10:47 AM",
+      "duration": "16m",
+      "initiatedBy": {
+        "name": "Sofia Marin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=sofia.marin@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2010",
+      "deployment": "Billing Reconciliation",
+      "version": "1.9.8",
+      "service": "billing-recon",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "succeeded",
+      "progress": 100,
+      "startedAt": "9:12 AM",
+      "duration": "18m",
+      "initiatedBy": {
+        "name": "Nadia Khan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2011",
+      "deployment": "Mobile API Gateway",
+      "version": "4.1.0",
+      "service": "mobile-gateway",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "rolled-back",
+      "progress": 100,
+      "startedAt": "8:58 AM",
+      "duration": "13m",
+      "initiatedBy": {
+        "name": "Marco Silva",
+        "avatarUrl": "https://i.pravatar.cc/300?u=marco.silva@deployops.dev"
+      }
+    },
+    {
+      "id": "dep-2012",
+      "deployment": "Customer Export",
+      "version": "0.12.0",
+      "service": "export-worker",
+      "environment": "Production",
+      "strategy": "Recreate",
+      "status": "running",
+      "progress": 22,
+      "startedAt": "11:08 AM",
+      "duration": "2m",
+      "initiatedBy": {
+        "name": "Clara Evans",
+        "avatarUrl": "https://i.pravatar.cc/300?u=clara.evans@deployops.dev"
+      }
+    }
+  ],
+  "deploymentDetails": [
+    {
+      "id": "dep-2001",
+      "deploymentId": "dep-2001",
+      "deployment": "Checkout Refactor",
+      "version": "1.4.0",
+      "service": "checkout-api",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "running",
+      "startedAt": "May 20, 2024 10:42 AM",
+      "initiatedBy": {
+        "name": "Alex Morgan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=alex.morgan@deployops.dev"
+      },
+      "currentPhase": "3 of 5",
+      "description": "Canary deployment for checkout orchestration changes. Traffic is currently serving 35% through the new release.",
+      "health": {
+        "errorRate": "0.04%",
+        "latencyP95": "182ms",
+        "instances": "18/30"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "running" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2002",
+      "deploymentId": "dep-2002",
+      "deployment": "Pricing Engine",
+      "version": "2.1.3",
+      "service": "pricing-svc",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "succeeded",
+      "startedAt": "May 20, 2024 10:28 AM",
+      "initiatedBy": {
+        "name": "Mira Klein",
+        "avatarUrl": "https://i.pravatar.cc/300?u=mira.klein@deployops.dev"
+      },
+      "currentPhase": "5 of 5",
+      "description": "Rolling deployment completed after validating pricing rule cache invalidation across all production pods.",
+      "health": {
+        "errorRate": "0.02%",
+        "latencyP95": "141ms",
+        "instances": "24/24"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "passed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2003",
+      "deploymentId": "dep-2003",
+      "deployment": "Search Service",
+      "version": "2.0.1",
+      "service": "search-svc",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "failed",
+      "startedAt": "May 20, 2024 10:21 AM",
+      "initiatedBy": {
+        "name": "Taylor Kim",
+        "avatarUrl": "https://i.pravatar.cc/300?u=taylor.kim@deployops.dev"
+      },
+      "currentPhase": "2 of 5",
+      "description": "Canary stopped after search indexing errors exceeded the deployment guardrail threshold.",
+      "health": {
+        "errorRate": "2.31%",
+        "latencyP95": "412ms",
+        "instances": "6/18"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "failed" },
+        { "label": "Error budget", "status": "failed" }
+      ]
+    },
+    {
+      "id": "dep-2004",
+      "deploymentId": "dep-2004",
+      "deployment": "Payments Gateway",
+      "version": "1.8.4",
+      "service": "payments-svc",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "succeeded",
+      "startedAt": "May 20, 2024 10:04 AM",
+      "initiatedBy": {
+        "name": "Liam Walsh",
+        "avatarUrl": "https://i.pravatar.cc/300?u=liam.walsh@deployops.dev"
+      },
+      "currentPhase": "4 of 4",
+      "description": "Blue-green switch completed after provider timeout handling was validated against live payment traffic.",
+      "health": {
+        "errorRate": "0.01%",
+        "latencyP95": "226ms",
+        "instances": "32/32"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "passed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2005",
+      "deploymentId": "dep-2005",
+      "deployment": "Inventory Sync",
+      "version": "1.6.1",
+      "service": "inventory-sync",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "running",
+      "startedAt": "May 20, 2024 10:55 AM",
+      "initiatedBy": {
+        "name": "Leo Martin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=leo.martin@deployops.dev"
+      },
+      "currentPhase": "2 of 4",
+      "description": "Blue environment is warming supplier feed workers before traffic cutover.",
+      "health": {
+        "errorRate": "0.08%",
+        "latencyP95": "238ms",
+        "instances": "10/26"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "running" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2006",
+      "deploymentId": "dep-2006",
+      "deployment": "Auth Session Rotation",
+      "version": "2.0.0",
+      "service": "auth-core",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "rolled-back",
+      "startedAt": "May 20, 2024 9:48 AM",
+      "initiatedBy": {
+        "name": "Ben Carter",
+        "avatarUrl": "https://i.pravatar.cc/300?u=ben.carter@deployops.dev"
+      },
+      "currentPhase": "Rollback complete",
+      "description": "Deployment was rolled back after refresh token claim validation failed for a legacy mobile client.",
+      "health": {
+        "errorRate": "0.11%",
+        "latencyP95": "168ms",
+        "instances": "30/30"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "failed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2007",
+      "deploymentId": "dep-2007",
+      "deployment": "Email Notifications",
+      "version": "1.5.2",
+      "service": "email-svc",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "succeeded",
+      "startedAt": "May 20, 2024 9:35 AM",
+      "initiatedBy": {
+        "name": "Nora Hart",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nora.hart@deployops.dev"
+      },
+      "currentPhase": "5 of 5",
+      "description": "Notification template deployment completed and retry metrics are within normal bounds.",
+      "health": {
+        "errorRate": "0.03%",
+        "latencyP95": "124ms",
+        "instances": "16/16"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "passed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2008",
+      "deploymentId": "dep-2008",
+      "deployment": "Feature Flags",
+      "version": "0.9.0",
+      "service": "feature-flags",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "running",
+      "startedAt": "May 20, 2024 11:02 AM",
+      "initiatedBy": {
+        "name": "Noah Stein",
+        "avatarUrl": "https://i.pravatar.cc/300?u=noah.stein@deployops.dev"
+      },
+      "currentPhase": "4 of 5",
+      "description": "Rolling deployment is applying scoped rollout rules with audit logging enabled.",
+      "health": {
+        "errorRate": "0.00%",
+        "latencyP95": "96ms",
+        "instances": "14/18"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "running" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2009",
+      "deploymentId": "dep-2009",
+      "deployment": "Metrics Aggregator",
+      "version": "3.2.5",
+      "service": "metrics-agg",
+      "environment": "Production",
+      "strategy": "Rolling",
+      "status": "running",
+      "startedAt": "May 20, 2024 10:47 AM",
+      "initiatedBy": {
+        "name": "Sofia Marin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=sofia.marin@deployops.dev"
+      },
+      "currentPhase": "4 of 5",
+      "description": "Partition-aware retry workers are rolling across the observability cluster.",
+      "health": {
+        "errorRate": "0.05%",
+        "latencyP95": "203ms",
+        "instances": "22/27"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "passed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2010",
+      "deploymentId": "dep-2010",
+      "deployment": "Billing Reconciliation",
+      "version": "1.9.8",
+      "service": "billing-recon",
+      "environment": "Production",
+      "strategy": "Blue-green",
+      "status": "succeeded",
+      "startedAt": "May 20, 2024 9:12 AM",
+      "initiatedBy": {
+        "name": "Nadia Khan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev"
+      },
+      "currentPhase": "4 of 4",
+      "description": "Provider settlement delta export is live and reconciliation workers are healthy.",
+      "health": {
+        "errorRate": "0.02%",
+        "latencyP95": "176ms",
+        "instances": "12/12"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "passed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2011",
+      "deploymentId": "dep-2011",
+      "deployment": "Mobile API Gateway",
+      "version": "4.1.0",
+      "service": "mobile-gateway",
+      "environment": "Production",
+      "strategy": "Canary",
+      "status": "rolled-back",
+      "startedAt": "May 20, 2024 8:58 AM",
+      "initiatedBy": {
+        "name": "Marco Silva",
+        "avatarUrl": "https://i.pravatar.cc/300?u=marco.silva@deployops.dev"
+      },
+      "currentPhase": "Rollback complete",
+      "description": "Gateway canary was rolled back after version-specific throttling rejected Android 8 clients.",
+      "health": {
+        "errorRate": "0.09%",
+        "latencyP95": "257ms",
+        "instances": "20/20"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "failed" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
+    },
+    {
+      "id": "dep-2012",
+      "deploymentId": "dep-2012",
+      "deployment": "Customer Export",
+      "version": "0.12.0",
+      "service": "export-worker",
+      "environment": "Production",
+      "strategy": "Recreate",
+      "status": "running",
+      "startedAt": "May 20, 2024 11:08 AM",
+      "initiatedBy": {
+        "name": "Clara Evans",
+        "avatarUrl": "https://i.pravatar.cc/300?u=clara.evans@deployops.dev"
+      },
+      "currentPhase": "1 of 3",
+      "description": "Export workers are draining existing jobs before the resumable job scheduler is activated.",
+      "health": {
+        "errorRate": "0.00%",
+        "latencyP95": "311ms",
+        "instances": "4/18"
+      },
+      "checks": [
+        { "label": "Preflight", "status": "passed" },
+        { "label": "Smoke tests", "status": "pending" },
+        { "label": "Error budget", "status": "healthy" }
+      ]
     }
   ],
   "incidents": [

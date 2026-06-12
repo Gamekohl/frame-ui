@@ -7,18 +7,24 @@ import {
 import { Injectable, TemplateRef, Type, inject } from '@angular/core';
 
 import { FrModalFooterAction, FrModalShell, FrModalShellOptions } from './modal-shell';
-import { FR_MODAL_DATA } from './modal.tokens';
+import { FrModalRef } from './modal.ref';
 
-export type FrModalRef<Result = unknown, Component = unknown> = DialogRef<Result, Component>;
 export type FrModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 export type FrModalConfig<Data = unknown, Result = unknown, Component = unknown> = DialogConfig<
   Data,
   DialogRef<Result, Component>
 > & {
+  /**
+   * @deprecated Use `data` or the second `open()` argument instead.
+   */
   bodyData?: unknown;
+  /**
+   * @deprecated Use `inputs` instead.
+   */
   bodyInputs?: Record<string, unknown>;
   description?: string;
   footerActions?: FrModalFooterAction[];
+  inputs?: Record<string, unknown>;
   scrollable?: boolean;
   showCloseButton?: boolean;
   size?: FrModalSize;
@@ -36,44 +42,52 @@ export class FrModalService {
   open<Result = unknown, Data = unknown, Component = unknown>(
     content: ComponentType<Component>,
     config?: FrModalConfig<Data, Result, Component>,
-  ): FrModalRef<Result, Component>;
+  ): FrModalRef<Component, Result>;
+  open<Result = unknown, Data = unknown, Component = unknown>(
+    content: ComponentType<Component>,
+    data: Data,
+    config?: Omit<FrModalConfig<Data, Result, Component>, 'data'>,
+  ): FrModalRef<Component, Result>;
   open<Result = unknown, Data = unknown, Context = unknown>(
     content: TemplateRef<Context>,
     config?: FrModalConfig<Data, Result, Context>,
-  ): FrModalRef<Result, Context>;
+  ): FrModalRef<Context, Result>;
   open<Result = unknown, Data = unknown, ComponentOrContext = unknown>(
     content: ComponentType<ComponentOrContext> | TemplateRef<ComponentOrContext>,
-    config: FrModalConfig<Data, Result, ComponentOrContext> = {},
-  ): FrModalRef<Result, ComponentOrContext> {
-    if (isComponentType(content) && hasShellOptions(config as FrModalConfig)) {
+    dataOrConfig?: Data | FrModalConfig<Data, Result, ComponentOrContext>,
+    config?: Omit<FrModalConfig<Data, Result, ComponentOrContext>, 'data'>,
+  ): FrModalRef<ComponentOrContext, Result> {
+    const resolvedConfig = resolveOpenConfig(content, dataOrConfig, config);
+
+    if (isComponentType(content) && hasShellOptions(resolvedConfig as FrModalConfig)) {
       const shellConfig: DialogConfig<FrModalShellOptions, DialogRef<Result, FrModalShell>> = {
-        ...(withoutShellOptions(config) as unknown as DialogConfig<
+        ...(withoutShellOptions(resolvedConfig) as unknown as DialogConfig<
           FrModalShellOptions,
           DialogRef<Result, FrModalShell>
         >),
         data: {
           bodyComponent: content as Type<unknown>,
-          bodyData: config.bodyData ?? config.data,
-          bodyInputs: config.bodyInputs,
-          description: config.description,
-          footerActions: config.footerActions,
-          scrollable: config.scrollable,
-          showCloseButton: config.showCloseButton,
-          size: config.size,
-          stickyFooter: config.stickyFooter,
-          title: config.title,
+          bodyData: resolvedConfig.bodyData ?? resolvedConfig.data,
+          bodyInputs: resolvedConfig.inputs ?? resolvedConfig.bodyInputs,
+          description: resolvedConfig.description,
+          footerActions: resolvedConfig.footerActions,
+          scrollable: resolvedConfig.scrollable,
+          showCloseButton: resolvedConfig.showCloseButton,
+          size: resolvedConfig.size,
+          stickyFooter: resolvedConfig.stickyFooter,
+          title: resolvedConfig.title,
         },
       };
 
       return this.dialog.open<Result, FrModalShellOptions, FrModalShell>(
         FrModalShell,
         this.withDefaultClasses(shellConfig),
-      ) as unknown as FrModalRef<Result, ComponentOrContext>;
+      ) as unknown as FrModalRef<ComponentOrContext, Result>;
     }
 
     return this.dialog.open<Result, Data, ComponentOrContext>(
       content,
-      this.withDefaultClasses(config),
+      this.withDefaultClasses(resolvedConfig),
     );
   }
 
@@ -92,6 +106,7 @@ export class FrModalService {
       ...config,
       panelClass: mergeClassList(config.panelClass, DEFAULT_PANEL_CLASS),
       backdropClass: mergeClassList(config.backdropClass, DEFAULT_BACKDROP_CLASS),
+      providers: withModalRefProvider(config.providers),
     };
   }
 }
@@ -106,6 +121,7 @@ function hasShellOptions(config: FrModalConfig): boolean {
     config.bodyInputs,
     config.description,
     config.footerActions,
+    config.inputs,
     config.scrollable,
     config.showCloseButton,
     config.size,
@@ -122,6 +138,7 @@ function withoutShellOptions<Data, Result, Component>(
     bodyInputs: _bodyInputs,
     description: _description,
     footerActions: _footerActions,
+    inputs: _inputs,
     scrollable: _scrollable,
     showCloseButton: _showCloseButton,
     size: _size,
@@ -131,6 +148,79 @@ function withoutShellOptions<Data, Result, Component>(
   } = config;
 
   return dialogConfig;
+}
+
+function resolveOpenConfig<Data, Result, ComponentOrContext>(
+  content: ComponentType<ComponentOrContext> | TemplateRef<ComponentOrContext>,
+  dataOrConfig: unknown,
+  config?: Omit<FrModalConfig<Data, Result, ComponentOrContext>, 'data'>,
+): FrModalConfig<Data, Result, ComponentOrContext> {
+  if (!isComponentType(content)) {
+    return (dataOrConfig ?? {}) as FrModalConfig<Data, Result, ComponentOrContext>;
+  }
+
+  if (config) {
+    return {
+      ...config,
+      data: dataOrConfig as Data,
+    } as FrModalConfig<Data, Result, ComponentOrContext>;
+  }
+
+  if (dataOrConfig === undefined) {
+    return {} as FrModalConfig<Data, Result, ComponentOrContext>;
+  }
+
+  if (isModalConfig(dataOrConfig)) {
+    return dataOrConfig as FrModalConfig<Data, Result, ComponentOrContext>;
+  }
+
+  return {
+    data: dataOrConfig as Data,
+  } as FrModalConfig<Data, Result, ComponentOrContext>;
+}
+
+const CONFIG_KEYS = new Set([
+  'ariaDescribedBy',
+  'ariaLabel',
+  'ariaLabelledBy',
+  'ariaModal',
+  'autoFocus',
+  'backdropClass',
+  'bodyData',
+  'bodyInputs',
+  'closeOnDestroy',
+  'closeOnNavigation',
+  'data',
+  'description',
+  'direction',
+  'disableClose',
+  'footerActions',
+  'height',
+  'inputs',
+  'maxHeight',
+  'maxWidth',
+  'minHeight',
+  'minWidth',
+  'panelClass',
+  'positionStrategy',
+  'providers',
+  'restoreFocus',
+  'role',
+  'scrollable',
+  'showCloseButton',
+  'size',
+  'stickyFooter',
+  'title',
+  'viewContainerRef',
+  'width',
+]);
+
+function isModalConfig(value: unknown): value is FrModalConfig {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return false;
+  }
+
+  return Object.keys(value).some((key) => CONFIG_KEYS.has(key));
 }
 
 function mergeClassList(
@@ -144,4 +234,19 @@ function mergeClassList(
       : [];
 
   return Array.from(new Set([defaultClass, ...classes].filter(Boolean)));
+}
+
+function withModalRefProvider<Data, Result, Component>(
+  providers: DialogConfig<Data, DialogRef<Result, Component>>['providers'],
+): DialogConfig<Data, DialogRef<Result, Component>>['providers'] {
+  const modalRefProvider = { provide: FrModalRef, useExisting: DialogRef };
+
+  if (typeof providers === 'function') {
+    return (dialogRef, config, container) => [
+      modalRefProvider,
+      ...providers(dialogRef, config, container),
+    ];
+  }
+
+  return [modalRefProvider, ...(providers ?? [])];
 }

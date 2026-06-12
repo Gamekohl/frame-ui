@@ -15,14 +15,18 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
-import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrTableModule } from '@frame-ui-ng/components/table';
+import { FrToastService } from '@frame-ui-ng/components/toast';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
 import { startWith, Subject, switchMap } from 'rxjs';
 import { ApiService, DeployopsDashboardData, Release } from '../../services/api.service';
 import { Header } from '../../shared/header/header';
+import {
+  EditReleaseModalComponent
+} from '../edit-release-modal/edit-release-modal';
 import { ReleaseDetailsComponent } from '../release-details/release-details';
 
 @Component({
@@ -34,7 +38,6 @@ import { ReleaseDetailsComponent } from '../release-details/release-details';
     FrCardModule,
     FrCheckboxModule,
     FrDropdownMenuModule,
-    FrInputModule,
     FrPaginationModule,
     FrTableModule,
     FrTooltipDirective,
@@ -50,6 +53,8 @@ import { ReleaseDetailsComponent } from '../release-details/release-details';
 export class ReleaseQueue implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly api = inject(ApiService);
+  private readonly modal = inject(FrModalService);
+  private readonly toastService = inject(FrToastService);
 
   readonly displayedColumns = [
     'select',
@@ -134,6 +139,23 @@ export class ReleaseQueue implements OnInit {
 
   closeReleaseDetails(): void {
     this.selectedRelease.set(null);
+  }
+
+  openEditRelease(release: Release): void {
+    this.modal.open(EditReleaseModalComponent, { release }, {
+      ariaLabel: `Edit ${release.release}`,
+      width: 'min(42rem, calc(100vw - 2rem))',
+    })
+      .closed
+      .subscribe({
+        next: result => {
+          if (result === 'saved') {
+            this.toastService.success('Release updated', {
+              description: `Release "${release.release}" updated successfully.`,
+            });
+          }
+        }
+      })
   }
 
   refreshData(): void {

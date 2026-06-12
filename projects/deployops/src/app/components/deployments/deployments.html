@@ -1,0 +1,369 @@
+<app-header title="Deployments" placeholder="Search deployments, services, or teams..." />
+
+<div class="deployments-workspace" [attr.data-details-open]="selectedDeployment() ? 'true' : 'false'">
+  <section class="deployments-content">
+    @if (data(); as deploymentsData) {
+      <div class="deployment-kpi-grid">
+        <section frCard>
+          <header frCardHeader>
+            <h5 frCardTitle>Active deployments</h5>
+            <div frCardAction class="deployment-kpi-icon" data-tone="blue">
+              <ng-icon name="tablerRocket" size="18" />
+            </div>
+          </header>
+          <div frCardContent>
+            <strong>{{ deploymentsData.summary.activeDeployments }}</strong>
+            <span class="text-sm text-muted-foreground">running in production</span>
+          </div>
+        </section>
+
+        <section frCard>
+          <header frCardHeader>
+            <h5 frCardTitle>Success rate</h5>
+            <div frCardAction class="deployment-kpi-icon" data-tone="green">
+              <ng-icon name="tablerCircleCheck" size="18" />
+            </div>
+          </header>
+          <div frCardContent>
+            <strong>{{ deploymentsData.summary.successRate }}%</strong>
+            <span class="text-sm text-muted-foreground">last 30 days</span>
+          </div>
+        </section>
+
+        <section frCard>
+          <header frCardHeader>
+            <h5 frCardTitle>Avg duration</h5>
+            <div frCardAction class="deployment-kpi-icon" data-tone="gray">
+              <ng-icon name="tablerCalendar" size="18" />
+            </div>
+          </header>
+          <div frCardContent>
+            <strong>{{ deploymentsData.summary.avgDurationMinutes }}m</strong>
+            <span class="text-sm text-muted-foreground">production deploys</span>
+          </div>
+        </section>
+
+        <section frCard>
+          <header frCardHeader>
+            <h5 frCardTitle>Rollback rate</h5>
+            <div frCardAction class="deployment-kpi-icon" data-tone="red">
+              <ng-icon name="tablerExclamationCircle" size="18" />
+            </div>
+          </header>
+          <div frCardContent>
+            <strong>{{ deploymentsData.summary.rollbackRate }}%</strong>
+            <span class="text-sm text-muted-foreground">2 rollbacks this week</span>
+          </div>
+        </section>
+      </div>
+
+      <div class="deployments-table-section">
+        <div
+          frTabs
+          class="deployments-tabs"
+          [value]="selectedFilter()"
+          (valueChange)="setFilter($event)"
+        >
+          <div frTabsList aria-label="Deployment filters">
+            <button frTabsTrigger value="all">All <span>{{ deploymentsData.summary.statusCounts.all }}</span></button>
+            <button frTabsTrigger value="running">Running <span>{{ deploymentsData.summary.statusCounts.running }}</span></button>
+            <button frTabsTrigger value="succeeded">Succeeded <span>{{ deploymentsData.summary.statusCounts.succeeded }}</span></button>
+            <button frTabsTrigger value="failed">Failed <span>{{ deploymentsData.summary.statusCounts.failed }}</span></button>
+            <button frTabsTrigger value="rolled-back">Rolled back <span>{{ deploymentsData.summary.statusCounts.rolledBack }}</span></button>
+          </div>
+        </div>
+        <div frTableContainer class="deployments-table-wrap">
+          <div class="deployments-table-scroll">
+            <table frTable density="lg" [dataSource]="filteredDeployments()">
+            <ng-container frColumnDef="select">
+              <th frHeaderCell *frHeaderCellDef class="select-column">
+                <input frCheckbox type="checkbox" aria-label="Select all deployments" />
+              </th>
+              <td frCell *frCellDef="let deployment" class="select-column">
+                <input frCheckbox type="checkbox" [attr.aria-label]="'Select ' + deployment.deployment" />
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="deployment">
+              <th frHeaderCell *frHeaderCellDef>Deployment</th>
+              <td frCell *frCellDef="let deployment">
+                <div class="deployment-cell">
+                  <strong>{{ deployment.deployment }}</strong>
+                  <span>{{ deployment.version }} · {{ deployment.strategy }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="service">
+              <th frHeaderCell *frHeaderCellDef>Service</th>
+              <td frCell *frCellDef="let deployment">
+                <div class="meta-cell">
+                  <ng-icon name="tablerPackages" size="18" />
+                  <span>{{ deployment.service }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="environment">
+              <th frHeaderCell *frHeaderCellDef>Environment</th>
+              <td frCell *frCellDef="let deployment">
+                <div class="meta-cell">
+                  <ng-icon name="tablerLayersIntersect" size="18" />
+                  <span>{{ deployment.environment }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="status">
+              <th frHeaderCell *frHeaderCellDef>Status</th>
+              <td frCell *frCellDef="let deployment">
+              <span
+                frBadge
+                class="deployment-status-badge"
+                [variant]="statusBadge(deployment.status)"
+                [attr.data-status]="deployment.status"
+              >
+                {{ statusLabel(deployment.status) }}
+              </span>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="startedAt">
+              <th frHeaderCell *frHeaderCellDef>Started</th>
+              <td frCell *frCellDef="let deployment">{{ deployment.startedAt }}</td>
+            </ng-container>
+
+            <ng-container frColumnDef="duration">
+              <th frHeaderCell *frHeaderCellDef>Duration</th>
+              <td frCell *frCellDef="let deployment">
+                <div class="duration-cell">
+                  <span>{{ deployment.duration }}</span>
+                  @if (showProgress(deployment)) {
+                    <div frProgress [value]="deployment.progress" [attr.aria-label]="deployment.deployment + ' progress'">
+                      <div frProgressIndicator></div>
+                    </div>
+                  }
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="initiatedBy">
+              <th frHeaderCell *frHeaderCellDef>Initiated by</th>
+              <td frCell *frCellDef="let deployment">
+                <div class="initiator-cell">
+                <span frAvatar size="sm">
+                  <img frAvatarImage [src]="deployment.initiatedBy.avatarUrl" alt="" />
+                </span>
+                  <span>{{ deployment.initiatedBy.name }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container frColumnDef="actions">
+              <th frHeaderCell class="text-end!" frTableNumeric *frHeaderCellDef>
+                <button
+                  (click)="refreshData()"
+                  frTooltip="Refresh deployments"
+                  frTooltipOpenDelay="700"
+                  frTooltipArrow
+                  frIconButton
+                  appearance="outline"
+                  type="button"
+                >
+                  <ng-icon name="tablerRefresh" />
+                </button>
+              </th>
+              <td frCell frTableNumeric *frCellDef="let deployment">
+                <div frDropdownMenu>
+                  <button
+                    frIconButton
+                    appearance="ghost"
+                    type="button"
+                    [frDropdownMenuTrigger]="deploymentMenu"
+                    [attr.aria-label]="'Actions for ' + deployment.deployment"
+                  >
+                    <ng-icon name="tablerDots" size="18" />
+                  </button>
+
+                  <ng-template #deploymentMenu="frDropdownMenuContent" frDropdownMenuContent>
+                    <div frDropdownMenuPanel>
+                      <button frDropdownMenuItem type="button" (click)="selectDeployment(deployment)">
+                        <ng-icon name="tablerExternalLink" size="16" />
+                        <span>View details</span>
+                      </button>
+                      <button frDropdownMenuItem type="button">
+                        <ng-icon name="tablerRefresh" size="16" />
+                        <span>Retry checks</span>
+                      </button>
+                      <button frDropdownMenuItem type="button">
+                        <ng-icon name="tablerSearch" size="16" />
+                        <span>View logs</span>
+                      </button>
+                      <div frDropdownMenuSeparator></div>
+                      <button frDropdownMenuItem variant="destructive" type="button">
+                        <ng-icon name="tablerExclamationCircle" size="16" />
+                        <span>Rollback deployment</span>
+                      </button>
+                    </div>
+                  </ng-template>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr frHeaderRow *frHeaderRowDef="displayedColumns"></tr>
+            <tr
+              frRow
+              *frRowDef="let row; columns: displayedColumns"
+              [ngStyle]="{ 'background-color': row.id === selectedDeployment()?.id ? 'var(--frame-table-header-bg)' : null }"
+            ></tr>
+            </table>
+          </div>
+
+          <div class="deployments-pagination">
+            <p class="text-sm text-muted-foreground">
+              Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }} deployments
+            </p>
+
+            <nav
+              frPagination
+              #pagination="frPagination"
+              aria-label="Deployments pagination"
+              [page]="currentPage()"
+              (pageChange)="goToPage($event)"
+              [totalPages]="totalPages()"
+            >
+              <ul frPaginationContent>
+                <li frPaginationItem>
+                  <button frPaginationPrevious type="button"></button>
+                </li>
+
+                @for (page of pagination.pages(); track $index) {
+                  <li frPaginationItem>
+                    @if (page === 'ellipsis') {
+                      <span frPaginationEllipsis></span>
+                    } @else {
+                      <button frPaginationLink type="button" [page]="page">
+                        {{ page }}
+                      </button>
+                    }
+                  </li>
+                }
+
+                <li frPaginationItem>
+                  <button frPaginationNext type="button"></button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+
+  @if (selectedDeployment(); as deployment) {
+    <aside class="deployment-details">
+      <div class="deployment-details__toolbar">
+        <h2>Deployment details</h2>
+        <button frIconButton appearance="ghost" type="button" aria-label="Close deployment details" (click)="selectDeployment(null)">
+          <ng-icon name="tablerX" size="18" />
+        </button>
+      </div>
+
+      @if (selectedDetails(); as details) {
+        <div class="deployment-details__hero">
+          <div class="deployment-details__icon">
+            <ng-icon name="tablerRocket" size="28" />
+          </div>
+          <div>
+            <h3>{{ details.service }}</h3>
+            <p class="text-sm text-muted-foreground">{{ details.version }} · {{ details.deployment }}</p>
+            <span frBadge class="deployment-status-badge mt-2" [variant]="statusBadge(details.status)" [attr.data-status]="details.status">
+              {{ statusLabel(details.status) }}
+            </span>
+          </div>
+        </div>
+
+        <div frSeparator></div>
+
+        <dl class="deployment-meta">
+          <div>
+            <dt>Environment</dt>
+            <dd>{{ details.environment }}</dd>
+          </div>
+          <div>
+            <dt>Strategy</dt>
+            <dd>{{ details.strategy }}</dd>
+          </div>
+          <div>
+            <dt>Started</dt>
+            <dd>{{ details.startedAt }}</dd>
+          </div>
+          <div>
+            <dt>Initiated by</dt>
+            <dd>
+              <span frAvatar size="sm">
+                <img frAvatarImage [src]="details.initiatedBy.avatarUrl" alt="" />
+              </span>
+              {{ details.initiatedBy.name }}
+            </dd>
+          </div>
+          <div>
+            <dt>Current phase</dt>
+            <dd>{{ details.currentPhase }}</dd>
+          </div>
+          <div class="deployment-meta__stack">
+            <dt>Description</dt>
+            <dd>{{ details.description }}</dd>
+          </div>
+        </dl>
+
+        <div frSeparator></div>
+
+        <section class="deployment-section">
+          <h5>Rollout health</h5>
+          <div class="health-grid">
+            <div>
+              <span>Error rate</span>
+              <strong>{{ details.health.errorRate }}</strong>
+            </div>
+            <div>
+              <span>Latency p95</span>
+              <strong>{{ details.health.latencyP95 }}</strong>
+            </div>
+            <div>
+              <span>Instances</span>
+              <strong>{{ details.health.instances }}</strong>
+            </div>
+          </div>
+        </section>
+
+        <div frSeparator></div>
+
+        <section class="deployment-section">
+          <h5>Deployment checks</h5>
+          <div class="check-list">
+            @for (check of details.checks; track check.label) {
+              <div class="check-item">
+                <span>{{ check.label }}</span>
+                <span frBadge [variant]="checkBadge(check.status)">{{ checkLabel(check.status) }}</span>
+              </div>
+            }
+          </div>
+        </section>
+
+        <div class="deployment-details__actions">
+          <button frButton type="button" class="pause-deployment-button">
+            <ng-icon frButtonIcon name="tablerExclamationCircle" size="18" />
+            <span frButtonLabel>Pause deployment</span>
+          </button>
+          <button frButton appearance="outline" type="button">
+            <ng-icon frButtonIcon name="tablerSearch" size="18" />
+            <span frButtonLabel>View logs</span>
+          </button>
+        </div>
+      } @else {
+        <p class="text-sm text-muted-foreground">Loading deployment details...</p>
+      }
+    </aside>
+  }
+</div>
