@@ -1,0 +1,27 @@
+:host {
+  position: sticky;
+  top: 1rem;
+  z-index: 99;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  min-width: 0;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  border-left: 1px solid var(--frame-border);
+  background-color: var(--frame-surface);
+  padding: 1rem;
+}
+
+:host > div:last-child:empty {
+  display: none;
+}
+
+@media (max-width: 54rem) {
+  :host {
+    position: static;
+    grid-template-rows: auto;
+    max-height: none;
+    overflow: visible;
+  }
+}

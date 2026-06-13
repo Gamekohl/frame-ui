@@ -1,4 +1,4 @@
-<app-header title="Deployments" placeholder="Search deployments, services, or teams..." />
+<app-header title="Deployments" />
 
 <div class="deployments-workspace" [attr.data-details-open]="selectedDeployment() ? 'true' : 'false'">
   <section class="deployments-content">
@@ -200,7 +200,11 @@
                         <span>View logs</span>
                       </button>
                       <div frDropdownMenuSeparator></div>
-                      <button frDropdownMenuItem variant="destructive" type="button">
+                      <button [frConfirmModal]="{
+                        title: 'Rollback deployment',
+                        description: `Are you sure you want to rollback this deployment? This action cannot be undone.`,
+                        confirmLabel: 'Rollback'
+                      }" frDropdownMenuItem variant="destructive" type="button">
                         <ng-icon name="tablerExclamationCircle" size="16" />
                         <span>Rollback deployment</span>
                       </button>
@@ -261,109 +265,10 @@
   </section>
 
   @if (selectedDeployment(); as deployment) {
-    <aside class="deployment-details">
-      <div class="deployment-details__toolbar">
-        <h2>Deployment details</h2>
-        <button frIconButton appearance="ghost" type="button" aria-label="Close deployment details" (click)="selectDeployment(null)">
-          <ng-icon name="tablerX" size="18" />
-        </button>
-      </div>
-
-      @if (selectedDetails(); as details) {
-        <div class="deployment-details__hero">
-          <div class="deployment-details__icon">
-            <ng-icon name="tablerRocket" size="28" />
-          </div>
-          <div>
-            <h3>{{ details.service }}</h3>
-            <p class="text-sm text-muted-foreground">{{ details.version }} · {{ details.deployment }}</p>
-            <span frBadge class="deployment-status-badge mt-2" [variant]="statusBadge(details.status)" [attr.data-status]="details.status">
-              {{ statusLabel(details.status) }}
-            </span>
-          </div>
-        </div>
-
-        <div frSeparator></div>
-
-        <dl class="deployment-meta">
-          <div>
-            <dt>Environment</dt>
-            <dd>{{ details.environment }}</dd>
-          </div>
-          <div>
-            <dt>Strategy</dt>
-            <dd>{{ details.strategy }}</dd>
-          </div>
-          <div>
-            <dt>Started</dt>
-            <dd>{{ details.startedAt }}</dd>
-          </div>
-          <div>
-            <dt>Initiated by</dt>
-            <dd>
-              <span frAvatar size="sm">
-                <img frAvatarImage [src]="details.initiatedBy.avatarUrl" alt="" />
-              </span>
-              {{ details.initiatedBy.name }}
-            </dd>
-          </div>
-          <div>
-            <dt>Current phase</dt>
-            <dd>{{ details.currentPhase }}</dd>
-          </div>
-          <div class="deployment-meta__stack">
-            <dt>Description</dt>
-            <dd>{{ details.description }}</dd>
-          </div>
-        </dl>
-
-        <div frSeparator></div>
-
-        <section class="deployment-section">
-          <h5>Rollout health</h5>
-          <div class="health-grid">
-            <div>
-              <span>Error rate</span>
-              <strong>{{ details.health.errorRate }}</strong>
-            </div>
-            <div>
-              <span>Latency p95</span>
-              <strong>{{ details.health.latencyP95 }}</strong>
-            </div>
-            <div>
-              <span>Instances</span>
-              <strong>{{ details.health.instances }}</strong>
-            </div>
-          </div>
-        </section>
-
-        <div frSeparator></div>
-
-        <section class="deployment-section">
-          <h5>Deployment checks</h5>
-          <div class="check-list">
-            @for (check of details.checks; track check.label) {
-              <div class="check-item">
-                <span>{{ check.label }}</span>
-                <span frBadge [variant]="checkBadge(check.status)">{{ checkLabel(check.status) }}</span>
-              </div>
-            }
-          </div>
-        </section>
-
-        <div class="deployment-details__actions">
-          <button frButton type="button" class="pause-deployment-button">
-            <ng-icon frButtonIcon name="tablerExclamationCircle" size="18" />
-            <span frButtonLabel>Pause deployment</span>
-          </button>
-          <button frButton appearance="outline" type="button">
-            <ng-icon frButtonIcon name="tablerSearch" size="18" />
-            <span frButtonLabel>View logs</span>
-          </button>
-        </div>
-      } @else {
-        <p class="text-sm text-muted-foreground">Loading deployment details...</p>
-      }
-    </aside>
+    <app-deployment-details
+      animate.enter="sidebar-enter"
+      [deployment]="deployment"
+      (closed)="selectDeployment(null)"
+    />
   }
 </div>

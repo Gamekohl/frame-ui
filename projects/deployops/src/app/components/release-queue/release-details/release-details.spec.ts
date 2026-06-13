@@ -10,7 +10,7 @@ import {
 import { of } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { ApiService, Release, ReleaseDetails } from '../../services/api.service';
+import { ApiService, Release, ReleaseDetails } from '../../../services/api.service';
 import { ReleaseDetailsComponent } from './release-details';
 
 const release: Release = {
@@ -87,7 +87,7 @@ describe('ReleaseDetailsComponent', () => {
     const fixture = await createComponent();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Review');
+    expect(compiled.textContent).toContain('Details');
     expect(compiled.textContent).toContain('Checkout Refactor');
     expect(compiled.textContent).toContain('Taylor Kim');
     expect(compiled.textContent).toContain('Change summary');

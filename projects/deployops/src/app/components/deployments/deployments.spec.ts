@@ -151,7 +151,7 @@ describe('Deployments', () => {
     expect(compiled.textContent).toContain('Active deployments');
     expect(compiled.textContent).toContain('Checkout Refactor');
     expect(compiled.textContent).toContain('checkout-api');
-    expect(compiled.textContent).toContain('Deployment details');
+    expect(compiled.textContent).toContain('Details');
     expect(compiled.textContent).toContain('Rollout health');
     expect(compiled.textContent).toContain('Smoke tests');
     expect(getDeploymentsSpy).toHaveBeenCalledWith(1, 10);

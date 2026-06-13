@@ -1,0 +1,112 @@
+<app-sidebar title="Details" (close)="closed.emit()">
+  <div sidebarBody class="grid gap-6">
+    <div class="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
+      <div class="grid w-18 place-items-center rounded-lg bg-primary/10 text-primary aspect-square">
+        <ng-icon name="tablerRocket" size="28" />
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold">{{ deployment().deployment }}</h3>
+        <p class="text-sm text-muted-foreground">{{ deployment().version }} <span aria-hidden="true">•</span> {{ deployment().service }}</p>
+        <span frBadge class="mt-2" [variant]="statusBadge()" [attr.data-status]="deployment().status">
+          {{ statusLabel() }}
+        </span>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="text-sm text-muted-foreground">Loading deployment details...</div>
+    } @else if (details(); as details) {
+      <div class="h-px bg-border"></div>
+
+      <dl class="grid gap-4">
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
+        <dd class="flex items-center justify-end gap-2 text-end">
+        <ng-icon name="tablerLayersIntersect" size="18" />
+            {{ details.environment }}
+      </dd>
+    </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Strategy</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.strategy }}</dd>
+    </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Started</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.startedAt }}</dd>
+    </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Initiated by</dt>
+        <dd class="flex items-center justify-end gap-2 text-end">
+        <span frAvatar size="sm">
+              <img frAvatarImage [src]="details.initiatedBy.avatarUrl" alt="" />
+        </span>
+            {{ details.initiatedBy.name }}
+      </dd>
+    </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Current phase</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.currentPhase }}</dd>
+    </div>
+        <div class="grid gap-2">
+          <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
+          <dd class="m-0 leading-6">{{ details.description }}</dd>
+    </div>
+  </dl>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Rollout health</h5>
+      <dl class="grid gap-4">
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+        <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
+      </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+        <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
+      </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+        <dt class="text-sm text-muted-foreground font-semibold">Instances</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.instances }}</dd>
+      </div>
+    </dl>
+  </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Deployment checks</h5>
+      <div class="grid gap-4">
+          @for (check of details.checks; track check.label) {
+          <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+          <strong>{{ check.label }}</strong>
+          <span frBadge [variant]="checkBadge(check)">{{ checkLabel(check) }}</span>
+        </div>
+      }
+    </div>
+  </section>
+    }
+  </div>
+
+  <ng-container sidebarFooter>
+    <div class="flex gap-2">
+      <button
+        [disabled]="!isPausable()"
+        [frTooltip]="!isPausable() ? 'Deployment has already finished.' : ''"
+        frButton
+        type="button"
+        class="w-full justify-center"
+        [frConfirmModal]="{ title: 'Pause deployment', description: 'Do you really want to pause this deployment? You can resume the deployment at a later time.' }"
+      >
+        <ng-icon frButtonIcon name="tablerExclamationCircle" size="18" />
+        <span frButtonLabel>Pause deployment</span>
+      </button>
+
+      <button frButton appearance="outline" type="button" class="w-full justify-center">
+        <ng-icon frButtonIcon name="tablerSearch" size="18" />
+        <span frButtonLabel>View logs</span>
+      </button>
+    </div>
+  </ng-container>
+</app-sidebar>

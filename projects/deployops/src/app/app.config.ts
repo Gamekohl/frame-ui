@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
-import { provideRouter, Routes } from '@angular/router';
+import { provideRouter, Routes, withViewTransitions } from '@angular/router';
 import { provideFrameUI } from '@frame-ui-ng/foundation';
 import { Deployments } from './components/deployments/deployments';
 import { ReleaseQueue } from './components/release-queue/release-queue';
@@ -16,7 +16,10 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withViewTransitions()
+    ),
     provideFrameUI({
       defaultTheme: 'light',
     }),

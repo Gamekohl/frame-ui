@@ -15,16 +15,16 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
 import { finalize, switchMap } from 'rxjs';
-import { ApiService, Release, ReleaseDetails } from '../../services/api.service';
+import { ApiService, Release, ReleaseDetails } from '../../../services/api.service';
+import { Sidebar } from '../../../shared/sidebar/sidebar';
 
 @Component({
   host: {
-    role: 'aside'
+    role: 'aside',
   },
   selector: 'app-release-details',
-  imports: [FrAvatarModule, FrBadgeModule, FrButtonModule, FrTooltipModule, NgIcon],
+  imports: [FrAvatarModule, FrBadgeModule, FrButtonModule, FrTooltipModule, NgIcon, Sidebar],
   templateUrl: './release-details.html',
-  styleUrl: './release-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseDetailsComponent {

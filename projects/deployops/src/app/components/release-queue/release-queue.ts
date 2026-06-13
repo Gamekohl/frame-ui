@@ -26,8 +26,8 @@ import { ApiService, DeployopsDashboardData, Release } from '../../services/api.
 import { Header } from '../../shared/header/header';
 import {
   EditReleaseModalComponent
-} from '../edit-release-modal/edit-release-modal';
-import { ReleaseDetailsComponent } from '../release-details/release-details';
+} from './edit-release-modal/edit-release-modal';
+import { ReleaseDetailsComponent } from './release-details/release-details';
 
 @Component({
   selector: 'app-release-queue',

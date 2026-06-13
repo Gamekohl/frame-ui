@@ -14,6 +14,7 @@ import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrConfirmModalModule } from '@frame-ui-ng/components/confirm-modal';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
@@ -26,11 +27,11 @@ import { startWith, Subject, switchMap } from 'rxjs';
 import {
   ApiService,
   Deployment,
-  DeploymentDetails,
   DeploymentStatus,
   DeploymentsData,
 } from '../../services/api.service';
 import { Header } from '../../shared/header/header';
+import { DeploymentDetailsComponent } from './deployment-details/deployment-details';
 
 type DeploymentFilter = 'all' | DeploymentStatus;
 
@@ -49,6 +50,8 @@ type DeploymentFilter = 'all' | DeploymentStatus;
     FrTableModule,
     FrTabsModule,
     FrTooltipDirective,
+    FrConfirmModalModule,
+    DeploymentDetailsComponent,
     Header,
     NgIcon,
     NgStyle,
@@ -76,7 +79,6 @@ export class Deployments implements OnInit {
   readonly refresh$ = new Subject<void>();
   readonly data = signal<DeploymentsData | null>(null);
   readonly selectedDeployment = signal<Deployment | null>(null);
-  readonly selectedDetails = signal<DeploymentDetails | null>(null);
   readonly currentPage = signal(1);
   readonly perPage = signal(10);
   readonly selectedFilter = signal<DeploymentFilter>('all');
@@ -126,18 +128,6 @@ export class Deployments implements OnInit {
 
   selectDeployment(deployment: Deployment | null): void {
     this.selectedDeployment.set(deployment);
-    this.selectedDetails.set(null);
-
-    if (!deployment) {
-      return;
-    }
-
-    this.api
-      .deploymentDetails(deployment.id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (details) => this.selectedDetails.set(details),
-      });
   }
 
   refreshData(): void {
@@ -171,25 +161,6 @@ export class Deployments implements OnInit {
     if (status === 'failed' || status === 'rolled-back') return 'destructive';
 
     return 'secondary';
-  }
-
-  checkBadge(status: DeploymentDetails['checks'][number]['status']): 'success' | 'secondary' | 'destructive' {
-    if (status === 'passed' || status === 'healthy') return 'success';
-    if (status === 'failed') return 'destructive';
-
-    return 'secondary';
-  }
-
-  checkLabel(status: DeploymentDetails['checks'][number]['status']): string {
-    const labels: Record<DeploymentDetails['checks'][number]['status'], string> = {
-      failed: 'Failed',
-      healthy: 'Healthy',
-      passed: 'Passed',
-      pending: 'Pending',
-      running: 'Running',
-    };
-
-    return labels[status];
   }
 
   showProgress(deployment: Deployment): boolean {

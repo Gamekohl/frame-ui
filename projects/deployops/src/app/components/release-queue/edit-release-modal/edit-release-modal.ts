@@ -9,7 +9,7 @@ import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerChevronDown } from '@ng-icons/tabler-icons';
-import { Release } from '../../services/api.service';
+import { Release } from '../../../services/api.service';
 
 export type EditReleaseModalData = {
   release: Release;

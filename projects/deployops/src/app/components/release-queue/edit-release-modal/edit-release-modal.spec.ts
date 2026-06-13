@@ -5,7 +5,7 @@ import { FrSelect } from '@frame-ui-ng/components/select';
 import { FrTextarea } from '@frame-ui-ng/components/textarea';
 import { describe, expect, it, vi } from 'vitest';
 
-import { Release } from '../../services/api.service';
+import { Release } from '../../../services/api.service';
 import { EditReleaseModalComponent, type EditReleaseModalResult } from './edit-release-modal';
 
 const release: Release = {

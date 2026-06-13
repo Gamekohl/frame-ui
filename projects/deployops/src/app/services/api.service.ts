@@ -77,10 +77,12 @@ export interface DeploymentDetails {
     latencyP95: string;
     instances: string;
   };
-  checks: Array<{
-    label: string;
-    status: 'passed' | 'running' | 'healthy' | 'failed' | 'pending';
-  }>;
+  checks: DeploymentDetailCheck[];
+}
+
+export interface DeploymentDetailCheck {
+  label: string;
+  status: 'passed' | 'running' | 'healthy' | 'failed' | 'pending';
 }
 
 export interface ReleaseApproval {

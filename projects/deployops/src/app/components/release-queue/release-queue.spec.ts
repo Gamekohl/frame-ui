@@ -28,7 +28,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ApiService, DeployopsDashboardData, ReleaseDetails } from '../../services/api.service';
 import { FrModalService } from '@frame-ui-ng/components/modal';
-import { EditReleaseModalComponent } from '../edit-release-modal/edit-release-modal';
+import { EditReleaseModalComponent } from './edit-release-modal/edit-release-modal';
 import { ReleaseQueue } from './release-queue';
 
 const dashboardData: DeployopsDashboardData = {
@@ -281,7 +281,7 @@ describe('ReleaseQueue', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Review');
+    expect(compiled.textContent).toContain('Details');
     expect(compiled.textContent).toContain('Taylor Kim');
     expect(compiled.textContent).toContain('Change summary');
     expect(compiled.textContent).toContain('Jordan Lee');
