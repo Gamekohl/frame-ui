@@ -9,8 +9,14 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { FrAvatar, FrAvatarImage, FrBadge, FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components';
+import { FrAvatar, FrAvatarImage, FrBadge, FrButton, FrButtonIcon, FrButtonLabel, FrProgress, FrProgressIndicator,
+  FrSeparator
+} from '@frame-ui-ng/components';
 import { FrConfirmModalTrigger } from '@frame-ui-ng/components/confirm-modal';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrRadioGroupModule } from '@frame-ui-ng/components/radio-group';
+import { FrSliderModule } from '@frame-ui-ng/components/slider';
+import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
 import { finalize, switchMap } from 'rxjs';
@@ -32,10 +38,17 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     FrButton,
     FrButtonIcon,
     FrButtonLabel,
+    FrRadioGroupModule,
+    FrSliderModule,
+    FrTabsModule,
+    FrFieldModule,
     NgIcon,
     Sidebar,
     FrTooltipDirective,
     FrConfirmModalTrigger,
+    FrProgress,
+    FrProgressIndicator,
+    FrSeparator,
   ],
   templateUrl: './deployment-details.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

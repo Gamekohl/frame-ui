@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideIcons } from '@ng-icons/core';
 import {
+  tablerChevronDown,
   tablerCircleCheck,
   tablerLayersIntersect,
   tablerPackages,
@@ -67,6 +68,7 @@ describe('ReleaseDetailsComponent', () => {
           },
         },
         provideIcons({
+          tablerChevronDown,
           tablerCircleCheck,
           tablerLayersIntersect,
           tablerPackages,

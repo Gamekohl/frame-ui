@@ -12,6 +12,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
 import { finalize, switchMap } from 'rxjs';
@@ -23,8 +24,9 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     role: 'aside',
   },
   selector: 'app-release-details',
-  imports: [FrAvatarModule, FrBadgeModule, FrButtonModule, FrTooltipModule, NgIcon, Sidebar],
+  imports: [FrAvatarModule, FrBadgeModule, FrButtonModule, FrTooltipModule, NgIcon, Sidebar, FrTabsModule],
   templateUrl: './release-details.html',
+  styleUrl: './release-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseDetailsComponent {

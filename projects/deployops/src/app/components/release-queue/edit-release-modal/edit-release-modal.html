@@ -1,135 +1,135 @@
 @let currentRelease = release();
 
 <div frModalPanel class="w-[min(42rem,calc(100vw-2rem))]">
-  <div frModalHeader>
-    <h2 frModalTitle>Edit release</h2>
-    <p frModalDescription>
-      Adjust queue metadata before the release is reviewed by platform and SRE teams.
-    </p>
-  </div>
+ <div frModalHeader>
+ <h2 frModalTitle>Edit release</h2>
+ <p frModalDescription>
+ Adjust queue metadata before the release is reviewed by platform and SRE teams.
+ </p>
+ </div>
 
-  <div frModalBody>
-    <section class="grid grid-cols-2 gap-3 rounded-md border border-border bg-muted/40 p-3.5 max-[54rem]:grid-cols-1">
-      <div class="grid min-w-0 gap-1">
-        <span class="text-xs text-muted-foreground">Service</span>
-        <strong>{{ currentRelease.service }}</strong>
-      </div>
-      <div class="grid min-w-0 gap-1">
-        <span class="text-xs text-muted-foreground">Current status</span>
-        <span
-          frBadge
-          class="release-status-badge"
-          [variant]="releaseBadge(currentRelease)"
-          [attr.data-status]="currentRelease.status"
-        >
-          {{ statusLabel(currentRelease) }}
-        </span>
-      </div>
-    </section>
+ <div frModalBody>
+ <section class="flex flex-col gap-3 rounded-md border border-border bg-muted/40 p-3.5 ">
+ <div class="flex flex-col min-w-0 gap-1">
+ <span class="text-xs text-muted-foreground">Service</span>
+ <strong>{{ currentRelease.service }}</strong>
+ </div>
+ <div class="flex flex-col min-w-0 gap-1">
+ <span class="text-xs text-muted-foreground">Current status</span>
+ <span
+ frBadge
+ class="release-status-badge"
+ [variant]="releaseBadge(currentRelease)"
+ [attr.data-status]="currentRelease.status"
+ >
+ {{ statusLabel(currentRelease) }}
+ </span>
+ </div>
+ </section>
 
-    <form class="grid grid-cols-2 gap-4 max-[54rem]:grid-cols-1" [formGroup]="form">
-      <div frField class="col-span-full">
-        <label frFieldLabel [for]="'edit-release-name-' + currentRelease.id">Release name</label>
-        <input
-          frInput
-          [id]="'edit-release-name-' + currentRelease.id"
-          type="text"
-          formControlName="release"
-          [attr.aria-invalid]="form.controls.release.invalid && form.controls.release.touched ? 'true' : null"
-        />
-        @if (form.controls.release.invalid && form.controls.release.touched) {
-          <p frFieldError>Release name is required.</p>
-        }
-      </div>
+ <form class="flex flex-col gap-4 " [formGroup]="form">
+ <div frField class="w-full">
+ <label frFieldLabel [for]="'edit-release-name-' + currentRelease.id">Release name</label>
+ <input
+ frInput
+ [id]="'edit-release-name-' + currentRelease.id"
+ type="text"
+ formControlName="release"
+ [attr.aria-invalid]="form.controls.release.invalid && form.controls.release.touched ? 'true' : null"
+ />
+ @if (form.controls.release.invalid && form.controls.release.touched) {
+ <p frFieldError>Release name is required.</p>
+ }
+ </div>
 
-      <div frField>
-        <label frFieldLabel [for]="'edit-release-version-' + currentRelease.id">Version</label>
-        <input
-          frInput
-          [id]="'edit-release-version-' + currentRelease.id"
-          type="text"
-          formControlName="version"
-          [attr.aria-invalid]="form.controls.version.invalid && form.controls.version.touched ? 'true' : null"
-        />
-        @if (form.controls.version.invalid && form.controls.version.touched) {
-          <p frFieldError>Version is required.</p>
-        }
-      </div>
+ <div frField>
+ <label frFieldLabel [for]="'edit-release-version-' + currentRelease.id">Version</label>
+ <input
+ frInput
+ [id]="'edit-release-version-' + currentRelease.id"
+ type="text"
+ formControlName="version"
+ [attr.aria-invalid]="form.controls.version.invalid && form.controls.version.touched ? 'true' : null"
+ />
+ @if (form.controls.version.invalid && form.controls.version.touched) {
+ <p frFieldError>Version is required.</p>
+ }
+ </div>
 
-      <div frField>
-        <label frFieldLabel [for]="'edit-release-environment-' + currentRelease.id">Environment</label>
-        <button
-          [frSelect]="environmentMenu"
-          [id]="'edit-release-environment-' + currentRelease.id"
-          formControlName="environment"
-          [invalid]="form.controls.environment.invalid && form.controls.environment.touched"
-          indicatorPosition="end"
-          type="button"
-        >
-          <span frSelectValue placeholder="Select environment"></span>
-          <ng-icon frSelectIcon name="tablerChevronDown" size="16" />
-        </button>
-        @if (form.controls.environment.invalid && form.controls.environment.touched) {
-          <p frFieldError>Environment is required.</p>
-        }
+ <div frField>
+ <label frFieldLabel [for]="'edit-release-environment-' + currentRelease.id">Environment</label>
+ <button
+ [frSelect]="environmentMenu"
+ [id]="'edit-release-environment-' + currentRelease.id"
+ formControlName="environment"
+ [invalid]="form.controls.environment.invalid && form.controls.environment.touched"
+ indicatorPosition="end"
+ type="button"
+ >
+ <span frSelectValue placeholder="Select environment"></span>
+ <ng-icon frSelectIcon name="tablerChevronDown" size="16" />
+ </button>
+ @if (form.controls.environment.invalid && form.controls.environment.touched) {
+ <p frFieldError>Environment is required.</p>
+ }
 
-        <ng-template #environmentMenu="frSelectContent" frSelectContent>
-          <div frSelectPanel>
-            @for (environment of environments; track environment) {
-              <button frSelectItem [value]="environment" [label]="environment">
-                {{ environment }}
-              </button>
-            }
-          </div>
-        </ng-template>
-      </div>
+ <ng-template #environmentMenu="frSelectContent" frSelectContent>
+ <div frSelectPanel>
+ @for (environment of environments; track environment) {
+ <button frSelectItem [value]="environment" [label]="environment">
+ {{ environment }}
+ </button>
+ }
+ </div>
+ </ng-template>
+ </div>
 
-      <div frField>
-        <label frFieldLabel [for]="'edit-release-status-' + currentRelease.id">Status</label>
-        <button
-          [frSelect]="statusMenu"
-          [id]="'edit-release-status-' + currentRelease.id"
-          formControlName="status"
-          [invalid]="form.controls.status.invalid && form.controls.status.touched"
-          indicatorPosition="end"
-          type="button"
-        >
-          <span frSelectValue placeholder="Select status"></span>
-          <ng-icon frSelectIcon name="tablerChevronDown" size="16" />
-        </button>
-        @if (form.controls.status.invalid && form.controls.status.touched) {
-          <p frFieldError>Status is required.</p>
-        }
+ <div frField>
+ <label frFieldLabel [for]="'edit-release-status-' + currentRelease.id">Status</label>
+ <button
+ [frSelect]="statusMenu"
+ [id]="'edit-release-status-' + currentRelease.id"
+ formControlName="status"
+ [invalid]="form.controls.status.invalid && form.controls.status.touched"
+ indicatorPosition="end"
+ type="button"
+ >
+ <span frSelectValue placeholder="Select status"></span>
+ <ng-icon frSelectIcon name="tablerChevronDown" size="16" />
+ </button>
+ @if (form.controls.status.invalid && form.controls.status.touched) {
+ <p frFieldError>Status is required.</p>
+ }
 
-        <ng-template #statusMenu="frSelectContent" frSelectContent>
-          <div frSelectPanel>
-            @for (status of statuses; track status.value) {
-              <button frSelectItem [value]="status.value" [label]="status.label">
-                {{ status.label }}
-              </button>
-            }
-          </div>
-        </ng-template>
-      </div>
+ <ng-template #statusMenu="frSelectContent" frSelectContent>
+ <div frSelectPanel>
+ @for (status of statuses; track status.value) {
+ <button frSelectItem [value]="status.value" [label]="status.label">
+ {{ status.label }}
+ </button>
+ }
+ </div>
+ </ng-template>
+ </div>
 
-      <div frField>
-        <label frFieldLabel [for]="'edit-release-note-' + currentRelease.id">Rollout note</label>
-        <textarea
-          frTextarea
-          [id]="'edit-release-note-' + currentRelease.id"
-          formControlName="note"
-          rows="4"
-          [attr.aria-invalid]="form.controls.note.invalid && form.controls.note.touched ? 'true' : null"
-        ></textarea>
-        @if (form.controls.note.invalid && form.controls.note.touched) {
-          <p frFieldError>Rollout note is required.</p>
-        }
-      </div>
-    </form>
-  </div>
+ <div frField>
+ <label frFieldLabel [for]="'edit-release-note-' + currentRelease.id">Rollout note</label>
+ <textarea
+ frTextarea
+ [id]="'edit-release-note-' + currentRelease.id"
+ formControlName="note"
+ rows="4"
+ [attr.aria-invalid]="form.controls.note.invalid && form.controls.note.touched ? 'true' : null"
+ ></textarea>
+ @if (form.controls.note.invalid && form.controls.note.touched) {
+ <p frFieldError>Rollout note is required.</p>
+ }
+ </div>
+ </form>
+ </div>
 
-  <div frModalFooter>
-    <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
-    <button frButton type="button" [disabled]="form.invalid" (click)="save()">Save changes</button>
-  </div>
+ <div frModalFooter>
+ <button frButton appearance="outline" type="button" (click)="close('cancel')">Cancel</button>
+ <button frButton type="button" [disabled]="form.invalid" (click)="save()">Save changes</button>
+ </div>
 </div>

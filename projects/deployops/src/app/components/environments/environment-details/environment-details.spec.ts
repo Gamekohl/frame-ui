@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideIcons } from '@ng-icons/core';
-import { tablerCalendar, tablerExternalLink, tablerServer, tablerX } from '@ng-icons/tabler-icons';
+import { tablerCalendar, tablerChevronDown, tablerExternalLink, tablerServer, tablerX } from '@ng-icons/tabler-icons';
 import { of } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -79,6 +79,7 @@ describe('EnvironmentDetailsComponent', () => {
       providers: [
         provideIcons({
           tablerCalendar,
+          tablerChevronDown,
           tablerExternalLink,
           tablerServer,
           tablerX,

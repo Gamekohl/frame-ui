@@ -1,15 +1,14 @@
 <app-sidebar title="Details" (close)="closed.emit()">
-  <div sidebarBody class="grid gap-6">
-    <div class="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
-      <div class="grid w-18 place-items-center rounded-lg bg-primary/10 text-primary aspect-square">
+  <div sidebarBody class="flex flex-col gap-6">
+    <div class="flex items-center gap-4">
+      <div class="flex w-18 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary aspect-square">
         <ng-icon name="tablerRocket" size="28" />
       </div>
       <div>
         <h3 class="text-lg font-semibold">{{ deployment().deployment }}</h3>
-        <p class="text-sm text-muted-foreground">{{ deployment().version }} <span aria-hidden="true">•</span> {{ deployment().service }}</p>
-        <span frBadge class="mt-2" [variant]="statusBadge()" [attr.data-status]="deployment().status">
-          {{ statusLabel() }}
-        </span>
+        <p class="text-sm text-muted-foreground">{{ deployment().version }} <span
+          aria-hidden="true">•</span> {{ deployment().service }}</p>
+        <span frBadge class="mt-2" [variant]="statusBadge()" [attr.data-status]="deployment().status">{{ statusLabel() }}</span>
       </div>
     </div>
 
@@ -18,74 +17,115 @@
     } @else if (details(); as details) {
       <div class="h-px bg-border"></div>
 
-      <dl class="grid gap-4">
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
-        <dd class="flex items-center justify-end gap-2 text-end">
-        <ng-icon name="tablerLayersIntersect" size="18" />
-            {{ details.environment }}
-      </dd>
-    </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Strategy</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">{{ details.strategy }}</dd>
-    </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Started</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">{{ details.startedAt }}</dd>
-    </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Initiated by</dt>
-        <dd class="flex items-center justify-end gap-2 text-end">
-        <span frAvatar size="sm">
-              <img frAvatarImage [src]="details.initiatedBy.avatarUrl" alt="" />
-        </span>
-            {{ details.initiatedBy.name }}
-      </dd>
-    </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Current phase</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">{{ details.currentPhase }}</dd>
-    </div>
-        <div class="grid gap-2">
-          <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
-          <dd class="m-0 leading-6">{{ details.description }}</dd>
-    </div>
-  </dl>
-
-      <div class="h-px bg-border"></div>
-
-      <section class="grid gap-5">
-        <h5 class="text-sm uppercase text-muted-foreground">Rollout health</h5>
-      <dl class="grid gap-4">
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-        <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
-            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
-      </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-        <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
-            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
-      </div>
-        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-        <dt class="text-sm text-muted-foreground font-semibold">Instances</dt>
-            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.instances }}</dd>
-      </div>
-    </dl>
-  </section>
-
-      <div class="h-px bg-border"></div>
-
-      <section class="grid gap-5">
-        <h5 class="text-sm uppercase text-muted-foreground">Deployment checks</h5>
-      <div class="grid gap-4">
-          @for (check of details.checks; track check.label) {
-          <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-          <strong>{{ check.label }}</strong>
-          <span frBadge [variant]="checkBadge(check)">{{ checkLabel(check) }}</span>
+      <div frTabs defaultValue="general">
+        <div frTabsList>
+          <button frTabsTrigger value="general" type="button">General</button>
+          <button frTabsTrigger value="rollout" type="button">Rollout</button>
+          <button frTabsTrigger value="checks" type="button">Checks</button>
         </div>
-      }
-    </div>
-  </section>
+
+        <div frTabsContent value="general">
+          <dl class="flex flex-col gap-4">
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">
+                <ng-icon name="tablerLayersIntersect" size="18" />
+                {{ details.environment }}
+              </dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Strategy</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.strategy }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Started</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.startedAt }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Initiated by</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">
+                <span frAvatar size="sm">
+                  <img frAvatarImage [src]="details.initiatedBy.avatarUrl" alt="" />
+                </span>
+                {{ details.initiatedBy.name }}
+              </dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Current phase</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.currentPhase }}</dd>
+            </div>
+            <div class="flex flex-col gap-2">
+              <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
+              <dd class="m-0 leading-6">{{ details.description }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div frTabsContent value="rollout">
+          <div class="flex flex-col gap-5">
+            <div frField>
+              <div frFieldContent>
+                <label frFieldLabel for="exposure">Canary exposure</label>
+              </div>
+
+              <div id="exposure" frProgress aria-label="Exposure" [value]="deployment().progress">
+                <div frProgressIndicator></div>
+              </div>
+            </div>
+
+            <div frSeparator></div>
+
+            <div frRadioGroup variant="cards" aria-label="Deployment action mode" class="flex flex-col gap-2">
+              <label frRadioGroupCard>
+                <input frRadioGroupItem type="radio" name="deployment-action-mode" value="pause" checked />
+                <div class="flex flex-col gap-1">
+                  <span>Pause canary</span>
+                  <span class="text-xs text-muted-foreground">Keep current pods warm</span>
+                </div>
+              </label>
+              <label frRadioGroupCard>
+                <input frRadioGroupItem type="radio" name="deployment-action-mode" value="rollback" />
+                <div class="flex flex-col gap-1">
+                  <span>Rollback</span>
+                  <span class="text-xs text-muted-foreground">Return traffic to previous version</span>
+                </div>
+              </label>
+            </div>
+
+            <div frSeparator></div>
+
+            <section class="flex flex-col gap-3">
+              <h5 class="text-sm font-semibold uppercase text-muted-foreground">Rollout health</h5>
+              <dl class="flex flex-col gap-4 pt-2">
+                <div class="flex items-center justify-between gap-4">
+                  <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
+                  <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
+                </div>
+                <div class="flex items-center justify-between gap-4">
+                  <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
+                  <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
+                </div>
+                <div class="flex items-center justify-between gap-4">
+                  <dt class="text-sm text-muted-foreground font-semibold">Instances</dt>
+                  <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.instances }}</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+        </div>
+
+        <div frTabsContent value="checks">
+          <h5 class="text-sm font-semibold uppercase text-muted-foreground">Deployment checks</h5>
+          <div class="flex flex-col gap-4">
+            @for (check of details.checks; track check.label) {
+              <div class="flex items-center justify-between gap-3">
+                <strong>{{ check.label }}</strong>
+                <span frBadge [variant]="checkBadge(check)">{{ checkLabel(check) }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
     }
   </div>
 

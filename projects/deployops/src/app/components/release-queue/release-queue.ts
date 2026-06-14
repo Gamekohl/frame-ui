@@ -14,9 +14,12 @@ import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrConfirmModalModule } from '@frame-ui-ng/components/confirm-modal';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrEmptyModule } from '@frame-ui-ng/components/empty';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
+import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrToastService } from '@frame-ui-ng/components/toast';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
@@ -37,8 +40,11 @@ import { ReleaseDetailsComponent } from './release-details/release-details';
     FrButtonModule,
     FrCardModule,
     FrCheckboxModule,
+    FrConfirmModalModule,
     FrDropdownMenuModule,
+    FrEmptyModule,
     FrPaginationModule,
+    FrSkeletonModule,
     FrTableModule,
     FrTooltipDirective,
     NgIcon,
@@ -74,7 +80,7 @@ export class ReleaseQueue implements OnInit {
   readonly data = signal<DeployopsDashboardData | null>(null);
   readonly selectedRelease = signal<Release | null>(null);
   readonly currentPage = signal(1);
-  readonly perPage = signal(10);
+  readonly perPage = signal(15);
   readonly totalPages = computed(() => this.data()?.releasePagination.pages ?? 1);
   readonly totalItems = computed(() => this.data()?.releasePagination.items ?? 0);
   readonly pageStart = computed(() => {

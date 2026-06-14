@@ -1,37 +1,41 @@
 :host {
-  position: sticky;
-  top: 1rem;
-  z-index: 99;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 1.5rem;
-  min-width: 0;
-  height: calc(100vh - 60px);
-  overflow: hidden;
-  border-left: 1px solid var(--frame-border);
-  background-color: var(--frame-surface);
-  padding: 1rem;
+    position: relative;
+    align-self: stretch;
+    z-index: 99;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    border-left: 1px solid var(--frame-border);
+    background-color: var(--frame-surface);
+    padding: 1rem;
+    width: 24rem;
 }
 
 #sidebar-body {
-  min-height: 0;
-  overflow-y: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
 }
 
 :host > div:last-child:empty {
-  display: none;
+    display: none;
 }
 
 @media (max-width: 54rem) {
-  :host {
-    position: static;
-    grid-template-rows: auto;
-    max-height: none;
-    overflow: visible;
-  }
+    :host {
+        position: static;
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+    }
 
-  :host > div:nth-child(2) {
-    overflow: visible;
-  }
+    :host > div:nth-child(2) {
+        overflow: visible;
+    }
 }

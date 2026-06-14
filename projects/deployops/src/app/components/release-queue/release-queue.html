@@ -1,178 +1,209 @@
 <app-header title="Release queue" />
 
 <div
-  class="grid min-h-0 grid-cols-[minmax(0,1fr)] items-start overflow-hidden data-[review-open=true]:grid-cols-[minmax(0,1fr)_minmax(23rem,26rem)] max-[76rem]:data-[review-open=true]:grid-cols-2 max-[54rem]:h-auto max-[54rem]:overflow-visible max-[54rem]:data-[review-open=true]:grid-cols-1"
+  class="flex gap-2"
   [attr.data-review-open]="selectedRelease() ? 'true' : 'false'"
 >
-  <section class="px-8 py-6 max-[54rem]:p-4">
-    @if (data(); as dashboardData) {
-      <div frTableContainer class="grid h-full min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden max-[54rem]:h-auto">
-        <div class="release-table-scroll min-h-0 min-w-0 overflow-auto">
-          <table frTable density="lg" class="min-w-[54rem]" [dataSource]="dashboardData.releases">
-            <ng-container frColumnDef="select">
-              <th frHeaderCell *frHeaderCellDef class="w-12">
-                <input frCheckbox type="checkbox" aria-label="Select all releases" />
-              </th>
-              <td frCell *frCellDef="let release" class="w-12">
-                <input frCheckbox type="checkbox" [attr.aria-label]="'Select ' + release.release" />
-              </td>
-            </ng-container>
+  @if (data(); as dashboardData) {
+    <div frTableContainer class="flex-1">
+      <div class="overflow-x-auto">
+        <table frTable density="lg" class="min-w-216" [dataSource]="dashboardData.releases">
+          <ng-container frColumnDef="select">
+            <th frHeaderCell *frHeaderCellDef class="w-12">
+              <input frCheckbox type="checkbox" aria-label="Select all releases" />
+            </th>
+            <td frCell *frCellDef="let release" class="w-12">
+              <input frCheckbox type="checkbox" [attr.aria-label]="'Select ' + release.release" />
+            </td>
+          </ng-container>
 
-            <ng-container frColumnDef="release">
-              <th frHeaderCell *frHeaderCellDef>Release</th>
-              <td frCell *frCellDef="let release">
-                <div class="grid gap-1">
-                  <strong class="font-bold text-foreground">{{ release.release }}</strong>
-                  <span class="text-muted-foreground">{{ release.version }}</span>
+          <ng-container frColumnDef="release">
+            <th frHeaderCell *frHeaderCellDef>Release</th>
+            <td frCell *frCellDef="let release">
+              <div class="flex flex-col gap-1">
+                <strong class="font-bold text-foreground">{{ release.release }}</strong>
+                <span class="text-muted-foreground">{{ release.version }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container frColumnDef="service">
+            <th frHeaderCell *frHeaderCellDef>Service</th>
+            <td frCell *frCellDef="let release">
+              <div class="inline-flex items-center gap-3 text-muted-foreground">
+                <ng-icon name="tablerPackages" size="18" />
+                <span>{{ release.service }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container frColumnDef="environment">
+            <th frHeaderCell *frHeaderCellDef>Environment</th>
+            <td frCell *frCellDef="let release">
+              <div class="inline-flex items-center gap-3 text-muted-foreground">
+                <ng-icon name="tablerLayersIntersect" size="18" />
+                <span>{{ release.environment }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container frColumnDef="status">
+            <th frHeaderCell *frHeaderCellDef>Status</th>
+            <td frCell *frCellDef="let release">
+ <span frBadge class="release-status-badge" [variant]="releaseBadge(release)" [attr.data-status]="release.status">
+ {{ statusLabel(release) }}
+ </span>
+            </td>
+          </ng-container>
+
+          <ng-container frColumnDef="progress">
+            <th frHeaderCell *frHeaderCellDef>Progress</th>
+            <td frCell *frCellDef="let release">
+              <div class="release-progress flex flex-col min-w-48 gap-2" [attr.data-status]="release.status">
+                <span class="text-xs font-semibold">{{ release.progress }}%</span>
+                <div class="release-progress-track" [style.--release-progress]="release.progress + '%'">
+                  <span></span>
                 </div>
-              </td>
-            </ng-container>
+              </div>
+            </td>
+          </ng-container>
 
-            <ng-container frColumnDef="service">
-              <th frHeaderCell *frHeaderCellDef>Service</th>
-              <td frCell *frCellDef="let release">
-                <div class="inline-flex items-center gap-3 text-muted-foreground">
-                  <ng-icon name="tablerPackages" size="18" />
-                  <span>{{ release.service }}</span>
-                </div>
-              </td>
-            </ng-container>
+          <ng-container frColumnDef="team">
+            <th frHeaderCell *frHeaderCellDef>Team</th>
+            <td frCell *frCellDef="let release">
+              <div frAvatarGroup size="sm">
+                @for (member of visibleTeam(release); track member) {
+                  <span frAvatar>
+ <img frAvatarImage [src]="member" alt="" />
+ </span>
+                }
+                @if (hiddenTeamCount(release)) {
+                  <span frAvatar>+{{ hiddenTeamCount(release) }}</span>
+                }
+              </div>
+            </td>
+          </ng-container>
 
-            <ng-container frColumnDef="environment">
-              <th frHeaderCell *frHeaderCellDef>Environment</th>
-              <td frCell *frCellDef="let release">
-                <div class="inline-flex items-center gap-3 text-muted-foreground">
-                  <ng-icon name="tablerLayersIntersect" size="18" />
-                  <span>{{ release.environment }}</span>
-                </div>
-              </td>
-            </ng-container>
+          <ng-container frColumnDef="updatedAt">
+            <th frHeaderCell *frHeaderCellDef>Updated</th>
+            <td frCell *frCellDef="let release">{{ release.updatedAt }}</td>
+          </ng-container>
 
-            <ng-container frColumnDef="status">
-              <th frHeaderCell *frHeaderCellDef>Status</th>
-              <td frCell *frCellDef="let release">
-              <span frBadge class="release-status-badge" [variant]="releaseBadge(release)" [attr.data-status]="release.status">
-                {{ statusLabel(release) }}
-              </span>
-              </td>
-            </ng-container>
-
-            <ng-container frColumnDef="progress">
-              <th frHeaderCell *frHeaderCellDef>Progress</th>
-              <td frCell *frCellDef="let release">
-                <div class="release-progress grid min-w-48 gap-2" [attr.data-status]="release.status">
-                  <span class="text-xs font-semibold">{{ release.progress }}%</span>
-                  <div class="release-progress-track" [style.--release-progress]="release.progress + '%'">
-                    <span></span>
-                  </div>
-                </div>
-              </td>
-            </ng-container>
-
-            <ng-container frColumnDef="team">
-              <th frHeaderCell *frHeaderCellDef>Team</th>
-              <td frCell *frCellDef="let release">
-                <div frAvatarGroup size="sm">
-                  @for (member of visibleTeam(release); track member) {
-                    <span frAvatar>
-                    <img frAvatarImage [src]="member" alt="" />
-                  </span>
-                  }
-                  @if (hiddenTeamCount(release)) {
-                    <span frAvatar>+{{ hiddenTeamCount(release) }}</span>
-                  }
-                </div>
-              </td>
-            </ng-container>
-
-            <ng-container frColumnDef="updatedAt">
-              <th frHeaderCell *frHeaderCellDef>Updated</th>
-              <td frCell *frCellDef="let release">{{ release.updatedAt }}</td>
-            </ng-container>
-
-            <ng-container frColumnDef="actions">
-              <th frHeaderCell class="text-end!" frTableNumeric *frHeaderCellDef>
-                <button (click)="refreshData()" frTooltip="Refresh Data" frTooltipOpenDelay="700" frTooltipArrow frIconButton appearance="outline">
-                  <ng-icon name="tablerRefresh" />
+          <ng-container frColumnDef="actions">
+            <th frHeaderCell class="text-end!" frTableNumeric *frHeaderCellDef>
+              <button (click)="refreshData()" frTooltip="Refresh Data" frTooltipOpenDelay="700" frTooltipArrow
+                      frIconButton appearance="outline">
+                <ng-icon name="tablerRefresh" />
+              </button>
+            </th>
+            <td frCell frTableNumeric *frCellDef="let release">
+              <div frDropdownMenu>
+                <button frIconButton appearance="ghost" type="button" [frDropdownMenuTrigger]="releaseMenu"
+                        [attr.aria-label]="'Actions for ' + release.release">
+                  <ng-icon name="tablerDots" size="18" />
                 </button>
-              </th>
-              <td frCell frTableNumeric *frCellDef="let release">
-                <div frDropdownMenu>
-                  <button frIconButton appearance="ghost" type="button" [frDropdownMenuTrigger]="releaseMenu" [attr.aria-label]="'Actions for ' + release.release">
-                    <ng-icon name="tablerDots" size="18" />
-                  </button>
 
-                  <ng-template #releaseMenu="frDropdownMenuContent" frDropdownMenuContent>
-                    <div frDropdownMenuPanel>
-                      <button frDropdownMenuItem type="button" (click)="openReleaseDetails(release)">
-                        <ng-icon name="tablerExternalLink" size="16" />
-                        <span>View details</span>
-                      </button>
-                      <button frDropdownMenuItem type="button" (click)="openEditRelease(release)">
-                        <ng-icon name="tablerEdit" size="16" />
-                        <span>Edit release</span>
-                      </button>
-                      <button frDropdownMenuItem type="button">
-                        <ng-icon name="tablerArrowUp" size="16" />
-                        <span>Promote to top</span>
-                      </button>
-                      <div frDropdownMenuSeparator></div>
-                      <button frDropdownMenuItem variant="destructive" type="button">
-                        <ng-icon name="tablerTrash" size="16" />
-                        <span>Cancel release</span>
-                      </button>
-                    </div>
-                  </ng-template>
-                </div>
-              </td>
-            </ng-container>
-
-            <tr frHeaderRow *frHeaderRowDef="displayedColumns"></tr>
-            <tr frRow *frRowDef="let row; columns: displayedColumns" [ngStyle]="{ 'background-color': row.id === selectedRelease()?.id ? 'var(--frame-table-header-bg)' : null }"></tr>
-          </table>
-        </div>
-
-        <div class="flex flex-wrap items-center justify-between gap-4 px-4 py-4">
-          <p class="m-0 text-sm text-muted-foreground">
-            Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }} releases
-          </p>
-
-          <nav
-            frPagination
-            #pagination="frPagination"
-            aria-label="Release queue pagination"
-            [page]="currentPage()"
-            (pageChange)="goToPage($event)"
-            [totalPages]="totalPages()"
-          >
-            <ul frPaginationContent>
-              <li frPaginationItem>
-                <button frPaginationPrevious type="button"></button>
-              </li>
-
-              @for (page of pagination.pages(); track $index) {
-                <li frPaginationItem>
-                  @if (page === 'ellipsis') {
-                    <span frPaginationEllipsis></span>
-                  } @else {
-                    <button frPaginationLink type="button" [page]="page">
-                      {{ page }}
+                <ng-template #releaseMenu="frDropdownMenuContent" frDropdownMenuContent>
+                  <div frDropdownMenuPanel>
+                    <button frDropdownMenuItem type="button" (click)="openReleaseDetails(release)">
+                      <ng-icon name="tablerExternalLink" size="16" />
+                      <span>View details</span>
                     </button>
-                  }
-                </li>
-              }
+                    <button frDropdownMenuItem type="button" (click)="openEditRelease(release)">
+                      <ng-icon name="tablerEdit" size="16" />
+                      <span>Edit release</span>
+                    </button>
+                    <button frDropdownMenuItem type="button">
+                      <ng-icon name="tablerArrowUp" size="16" />
+                      <span>Promote to top</span>
+                    </button>
+                    <div frDropdownMenuSeparator></div>
+                    <button
+                      frDropdownMenuItem
+                      variant="destructive"
+                      type="button"
+                      [frConfirmModal]="{
+ title: 'Cancel release',
+ description: 'Canceling a queued release removes it from the current promotion lane. This demo keeps the data unchanged.'
+ }"
+                    >
+                      <ng-icon name="tablerTrash" size="16" />
+                      <span>Cancel release</span>
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
+            </td>
+          </ng-container>
 
+          <tr frHeaderRow *frHeaderRowDef="displayedColumns"></tr>
+          <tr frRow *frRowDef="let row; columns: displayedColumns"
+              [ngStyle]="{ 'background-color': row.id === selectedRelease()?.id ? 'var(--frame-table-header-bg)' : null }"></tr>
+        </table>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+        <p class="m-0 text-sm text-muted-foreground">
+          Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }} releases
+        </p>
+
+        <nav
+          frPagination
+          #pagination="frPagination"
+          aria-label="Release queue pagination"
+          [page]="currentPage()"
+          (pageChange)="goToPage($event)"
+          [totalPages]="totalPages()"
+        >
+          <ul frPaginationContent>
+            <li frPaginationItem>
+              <button frPaginationPrevious type="button"></button>
+            </li>
+
+            @for (page of pagination.pages(); track $index) {
               <li frPaginationItem>
-                <button frPaginationNext type="button"></button>
+                @if (page === 'ellipsis') {
+                  <span frPaginationEllipsis></span>
+                } @else {
+                  <button frPaginationLink type="button" [page]="page">
+                    {{ page }}
+                  </button>
+                }
               </li>
-            </ul>
-          </nav>
+            }
 
-          <div></div>
+            <li frPaginationItem>
+              <button frPaginationNext type="button"></button>
+            </li>
+          </ul>
+        </nav>
+
+        <div></div>
+      </div>
+    </div>
+  } @else {
+    <div frTableContainer class="min-w-0 overflow-hidden">
+      <div class="flex flex-col gap-3 p-4">
+        @for (row of [1, 2, 3, 4, 5, 6]; track row) {
+          <div class="flex flex-wrap gap-4 rounded-md border p-4">
+            <div frSkeleton height="1rem"></div>
+            <div frSkeleton height="1rem"></div>
+            <div frSkeleton height="1rem"></div>
+            <div frSkeleton height="1rem"></div>
+          </div>
+        }
+      </div>
+      <div frEmpty variant="outline" orientation="horizontal" class="mx-4 mb-4">
+        <div frEmptyHeader>
+          <div frEmptyMedia variant="icon">
+            <ng-icon name="tablerPackages" size="20" />
+          </div>
+          <h3 frEmptyTitle>Loading release queue</h3>
+          <p frEmptyDescription>Fetching production releases and approvals.</p>
         </div>
       </div>
-    }
-  </section>
+    </div>
+  }
 
   @if (selectedRelease(); as release) {
     <app-release-details

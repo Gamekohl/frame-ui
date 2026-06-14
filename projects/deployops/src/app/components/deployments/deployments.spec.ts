@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideIcons } from '@ng-icons/core';
 import {
   tablerCalendar,
+  tablerChevronDown,
   tablerCircleCheck,
   tablerDots,
   tablerExclamationCircle,
@@ -119,6 +120,7 @@ describe('Deployments', () => {
       providers: [
         provideIcons({
           tablerCalendar,
+          tablerChevronDown,
           tablerCircleCheck,
           tablerDots,
           tablerExclamationCircle,

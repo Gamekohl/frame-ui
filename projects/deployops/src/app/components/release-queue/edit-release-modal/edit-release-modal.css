@@ -1,15 +1,15 @@
 .release-status-badge[data-status='in-queue'],
 .release-status-badge[data-status='deploying'] {
-  background: color-mix(in srgb, #2f80ed 12%, white);
-  color: #1f6fd1;
+ background: color-mix(in srgb, #2f80ed 12%, white);
+ color: #1f6fd1;
 }
 
 .release-status-badge[data-status='healthy'] {
-  background: color-mix(in srgb, #1f9d55 13%, white);
-  color: #228653;
+ background: color-mix(in srgb, #1f9d55 13%, white);
+ color: #228653;
 }
 
 .release-status-badge[data-status='blocked'] {
-  background: color-mix(in srgb, #d71920 12%, white);
-  color: #d71920;
+ background: color-mix(in srgb, #d71920 12%, white);
+ color: #d71920;
 }

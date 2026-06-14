@@ -14,7 +14,10 @@ import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrEmptyModule } from '@frame-ui-ng/components/empty';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
+import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
@@ -33,7 +36,10 @@ type ServiceFilter = 'all' | ServiceStatus;
     FrButtonModule,
     FrCardModule,
     FrDropdownMenuModule,
+    FrEmptyModule,
+    FrHoverCardModule,
     FrPaginationModule,
+    FrSkeletonModule,
     FrTabsModule,
     FrTooltipDirective,
     Header,

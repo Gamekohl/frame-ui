@@ -1,16 +1,17 @@
 <app-sidebar title="Details" (close)="close()">
-  <div sidebarBody class="grid gap-6">
+  <div sidebarBody class="flex flex-col gap-6">
     @if (details(); as release) {
-      <div class="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
-        <div class="grid w-18 place-items-center rounded-lg bg-primary/10 text-primary aspect-square">
+      <div class="flex items-center gap-4">
+        <div class="flex flex-col w-18 items-center justify-center rounded-lg bg-primary/10 text-primary aspect-square">
           <ng-icon name="tablerPackages" size="28" />
         </div>
         <div>
           <h3 class="text-lg font-semibold">{{ release.release }}</h3>
-          <p class="text-sm text-muted-foreground">{{ release.version }} <span aria-hidden="true">•</span> {{ release.service }}</p>
-          <span frBadge class="mt-2" [variant]="releaseBadge(release)" [attr.data-status]="release.status">
-          {{ statusLabel(release) }}
-        </span>
+          <p class="text-sm text-muted-foreground">{{ release.version }} <span
+            aria-hidden="true">•</span> {{ release.service }}</p>
+            <span frBadge class="mt-2" [variant]="releaseBadge(release)" [attr.data-status]="release.status">
+              {{ statusLabel(release) }}
+            </span>
         </div>
       </div>
 
@@ -19,95 +20,97 @@
       } @else if (details(); as details) {
         <div class="h-px bg-border"></div>
 
-        <dl class="grid gap-4">
-          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">
-            <ng-icon name="tablerLayersIntersect" size="18" />
-            {{ details.environment }}
-          </dd>
-        </div>
-          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Release type</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">{{ details.releaseType }}</dd>
-        </div>
-          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Created by</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">
-            <span frAvatar size="sm">
-              <img frAvatarImage [src]="details.createdBy.avatarUrl" alt="" />
-            </span>
-            {{ details.createdBy.name }}
-          </dd>
-        </div>
-          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-          <dt class="text-sm text-muted-foreground font-semibold">Created</dt>
-          <dd class="flex items-center justify-end gap-2 text-end">{{ details.createdAt }}</dd>
-        </div>
-          <div class="grid gap-2">
-          <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
-          <dd class="m-0 leading-6">{{ details.description }}</dd>
-        </div>
-      </dl>
-
-        <div class="h-px bg-border"></div>
-
-        <section class="grid gap-5">
-        <h5 class="text-sm uppercase text-muted-foreground">Change summary</h5>
-          <dl class="grid gap-4">
-            <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-            <dt class="text-sm text-muted-foreground font-semibold">Commits</dt>
-            <dd class="flex items-center justify-end gap-2 text-end">{{ details.changeSummary.commits }}</dd>
+        <div frTabs defaultValue="general">
+          <div frTabsList>
+            <button frTabsTrigger value="general">General</button>
+            <button frTabsTrigger value="change-summary">Change summary</button>
+            <button frTabsTrigger value="approvals">Approvals</button>
           </div>
-            <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-            <dt class="text-sm text-muted-foreground font-semibold">Files changed</dt>
-            <dd class="flex items-center justify-end gap-2 text-end">{{ details.changeSummary.filesChanged }}</dd>
-          </div>
-            <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-            <dt class="text-sm text-muted-foreground font-semibold">Test results</dt>
-            <dd class="flex items-center justify-end gap-2 text-end text-green-700">
-              <ng-icon name="tablerCircleCheck" size="18" />
-              {{ details.changeSummary.testResults }}
-            </dd>
-          </div>
-            <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
-            <dt class="text-sm text-muted-foreground font-semibold">Quality gate</dt>
-            <dd class="flex items-center justify-end gap-2 text-end text-green-700">
-              <ng-icon name="tablerCircleCheck" size="18" />
-              {{ details.changeSummary.qualityGate }}
-            </dd>
-          </div>
-        </dl>
-      </section>
 
-        <div class="h-px bg-border"></div>
-
-        <section class="grid gap-5">
-        <h5 class="text-sm uppercase text-muted-foreground">Approvals</h5>
-          <div class="grid gap-4">
-          @for (approval of details.approvals; track approval.name) {
-              <div class="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
-              <span frAvatar>
-                <img frAvatarImage [src]="approval.avatarUrl" alt="" />
-              </span>
-              <div>
-                <strong>{{ approval.name }}</strong>
-                <span>{{ approval.team }}</span>
+          <div frTabsContent value="general">
+            <dl class="flex flex-col gap-4">
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">
+                  <ng-icon name="tablerLayersIntersect" size="18" />
+                  {{ details.environment }}
+                </dd>
               </div>
-              <span frBadge [variant]="approval.status === 'approved' ? 'success' : 'secondary'">
-                {{ approval.status === 'approved' ? 'Approved' : 'Pending' }}
-              </span>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Release type</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">{{ details.releaseType }}</dd>
+              </div>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Created by</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">
+                  <span frAvatar size="sm">
+                    <img frAvatarImage [src]="details.createdBy.avatarUrl" alt="" />
+                  </span>
+                  {{ details.createdBy.name }}
+                </dd>
+              </div>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Created</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">{{ details.createdAt }}</dd>
+              </div>
+              <div class="flex flex-col gap-2">
+                <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
+                <dd class="m-0 leading-6">{{ details.description }}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div frTabsContent value="change-summary">
+            <dl class="flex flex-col gap-4">
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Commits</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">{{ details.changeSummary.commits }}</dd>
+              </div>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Files changed</dt>
+                <dd class="flex items-center justify-end gap-2 text-end">{{ details.changeSummary.filesChanged }}</dd>
+              </div>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Test results</dt>
+                <dd class="flex items-center justify-end gap-2 text-end text-green-700">
+                  <ng-icon name="tablerCircleCheck" size="18" />
+                  {{ details.changeSummary.testResults }}
+                </dd>
+              </div>
+              <div class="flex justify-between items-center">
+                <dt class="text-sm text-muted-foreground font-semibold">Quality gate</dt>
+                <dd class="flex items-center justify-end gap-2 text-end text-green-700">
+                  <ng-icon name="tablerCircleCheck" size="18" />
+                  {{ details.changeSummary.qualityGate }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div frTabsContent value="approvals">
+            <div class="flex flex-col gap-4">
+              @for (approval of details.approvals; track approval.name) {
+                <div class="flex justify-between items-center gap-2">
+                  <span frAvatar>
+                    <img frAvatarImage [src]="approval.avatarUrl" alt="" />
+                  </span>
+                  <span class="font-semibold flex-1">{{ approval.name }}</span>
+                  <span frBadge [variant]="approval.status === 'approved' ? 'success' : 'secondary'">
+                    {{ approval.status === 'approved' ? 'Approved' : 'Pending' }}
+                  </span>
+                </div>
+              }
             </div>
-          }
+          </div>
         </div>
-      </section>
       }
     }
   </div>
 
   <ng-container sidebarFooter>
     @if (details()) {
-      <button [frTooltip]="!isApproved() ? 'Every team member needs to approve.' : null" frTooltipArrow [disabled]="!isApproved()" frButton
+      <button [frTooltip]="!isApproved() ? 'Every team member needs to approve.' : null" frTooltipArrow
+              [disabled]="!isApproved()" frButton
               class="flex-1 min-h-15 justify-center bg-primary! text-primary-foreground!" type="button">
         <ng-icon frButtonIcon name="tablerSend" size="20" />
         <span frButtonLabel>Ship release</span>

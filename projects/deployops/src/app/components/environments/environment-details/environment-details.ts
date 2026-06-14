@@ -8,7 +8,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { FrAvatar, FrAvatarImage, FrBadge, FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components';
+import { FrAvatar, FrAvatarImage, FrBadge, FrButton, FrButtonIcon, FrButtonLabel, FrSeparator } from '@frame-ui-ng/components';
+import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { NgIcon } from '@ng-icons/core';
 import { finalize, switchMap } from 'rxjs';
 import {
@@ -29,8 +30,10 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     FrButton,
     FrButtonIcon,
     FrButtonLabel,
+    FrTabsModule,
     NgIcon,
     Sidebar,
+    FrSeparator,
   ],
   templateUrl: './environment-details.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,58 +1,58 @@
 :host {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+ min-height: 0;
+ overflow: hidden;
 }
 
 .services-kpi-icon[data-tone='blue'] {
-  background: color-mix(in srgb, #2f80ed 12%, white);
-  color: #1f6fd1;
+ background: color-mix(in srgb, #2f80ed 12%, white);
+ color: #1f6fd1;
 }
 
 .services-kpi-icon[data-tone='red'] {
-  background: color-mix(in srgb, #d71920 12%, white);
-  color: #d71920;
+ background: color-mix(in srgb, #d71920 12%, white);
+ color: #d71920;
 }
 
 .service-card[data-selected='true'] {
-  border-color: var(--frame-primary);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame-primary) 70%, transparent);
+ border-color: var(--frame-primary);
+ box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame-primary) 70%, transparent);
 }
 
 .service-status-badge[data-status='healthy'] {
-  background: color-mix(in srgb, #1f9d55 13%, white);
-  color: #228653;
+ background: color-mix(in srgb, #1f9d55 13%, white);
+ color: #228653;
 }
 
 .service-status-badge[data-status='degraded'],
 .service-status-badge[data-status='maintenance'] {
-  background: color-mix(in srgb, #2f80ed 12%, white);
-  color: #1f6fd1;
+ background: color-mix(in srgb, #2f80ed 12%, white);
+ color: #1f6fd1;
 }
 
 .service-status-badge[data-status='incident'] {
-  background: color-mix(in srgb, #d71920 12%, white);
-  color: #d71920;
+ background: color-mix(in srgb, #d71920 12%, white);
+ color: #d71920;
 }
 
 .service-health-bar[data-status='healthy'] {
-  background: #1f9d55;
+ background: #1f9d55;
 }
 
 .service-health-bar[data-status='degraded'],
 .service-health-bar[data-status='maintenance'] {
-  background: #1877d5;
+ background: #1877d5;
 }
 
 .service-health-bar[data-status='incident'] {
-  background: #d71920;
+ background: #d71920;
 }
 
 @media (max-width: 54rem) {
-  :host {
-    height: auto;
-    overflow: visible;
-  }
+ :host {
+ height: auto;
+ overflow: visible;
+ }
 }

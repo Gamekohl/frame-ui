@@ -3,6 +3,7 @@ import { provideIcons } from '@ng-icons/core';
 import {
   tablerBell,
   tablerCalendar,
+  tablerChevronDown,
   tablerExternalLink,
   tablerFilter,
   tablerRefresh,
@@ -141,6 +142,7 @@ describe('Environments', () => {
         provideIcons({
           tablerBell,
           tablerCalendar,
+          tablerChevronDown,
           tablerExternalLink,
           tablerFilter,
           tablerRefresh,

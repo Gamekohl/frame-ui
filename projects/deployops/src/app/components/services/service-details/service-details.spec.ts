@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideIcons } from '@ng-icons/core';
 import {
+  tablerChevronDown,
   tablerExternalLink,
   tablerLayersIntersect,
   tablerSearch,
@@ -72,6 +73,7 @@ describe('ServiceDetailsComponent', () => {
       imports: [ServiceDetailsComponent],
       providers: [
         provideIcons({
+          tablerChevronDown,
           tablerExternalLink,
           tablerLayersIntersect,
           tablerSearch,

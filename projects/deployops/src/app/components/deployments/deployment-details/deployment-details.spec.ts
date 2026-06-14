@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
+  tablerChevronDown,
   tablerExclamationCircle,
   tablerLayersIntersect,
   tablerRocket,
@@ -60,6 +61,7 @@ describe('DeploymentDetails', () => {
       imports: [DeploymentDetailsComponent],
       providers: [
         provideIcons({
+          tablerChevronDown,
           tablerExclamationCircle,
           tablerLayersIntersect,
           tablerRocket,

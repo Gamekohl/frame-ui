@@ -16,9 +16,11 @@ import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { FrConfirmModalModule } from '@frame-ui-ng/components/confirm-modal';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrEmptyModule } from '@frame-ui-ng/components/empty';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
 import { FrSeparatorModule } from '@frame-ui-ng/components/separator';
+import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
@@ -43,14 +45,16 @@ type DeploymentFilter = 'all' | DeploymentStatus;
     FrButtonModule,
     FrCardModule,
     FrCheckboxModule,
+    FrConfirmModalModule,
     FrDropdownMenuModule,
+    FrEmptyModule,
     FrPaginationModule,
     FrProgressModule,
     FrSeparatorModule,
+    FrSkeletonModule,
     FrTableModule,
     FrTabsModule,
     FrTooltipDirective,
-    FrConfirmModalModule,
     DeploymentDetailsComponent,
     Header,
     NgIcon,
