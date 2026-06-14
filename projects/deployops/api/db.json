@@ -839,6 +839,281 @@
       "openedAt": "44 min ago"
     }
   ],
+  "alertSummary": {
+    "activeAlerts": 9,
+    "sev1": 1,
+    "acknowledged": 3,
+    "suppressed": 2,
+    "meanTimeToAck": "3m 42s",
+    "noiseReduction": "41%"
+  },
+  "alerts": [
+    {
+      "id": "alert-1001",
+      "title": "Checkout canary breaching payment authorization SLO",
+      "service": "checkout-api",
+      "environment": "Production",
+      "severity": "sev1",
+      "status": "firing",
+      "signal": "checkout_authorization_error_rate",
+      "age": "7 min",
+      "ownerTeam": "Checkout Platform",
+      "assignee": {
+        "name": "Alex Morgan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=alex.morgan@acme.io"
+      },
+      "metric": "Authorization errors",
+      "threshold": "> 1.20% for 5m",
+      "currentValue": "2.84%",
+      "route": "Payments escalation",
+      "runbook": "Checkout canary runbook",
+      "impact": "Card payments are intermittently failing for the checkout canary cohort. Traffic is still limited to 15%, but error budget burn is accelerating.",
+      "lastEvent": "Burn rate crossed 14x"
+    },
+    {
+      "id": "alert-1002",
+      "title": "Search indexing lag above freshness target",
+      "service": "search-svc",
+      "environment": "Production",
+      "severity": "sev2",
+      "status": "acknowledged",
+      "signal": "search_index_lag_seconds",
+      "age": "18 min",
+      "ownerTeam": "Discovery",
+      "assignee": {
+        "name": "Jordan Lee",
+        "avatarUrl": "https://i.pravatar.cc/300?u=jordan.lee@deployops.dev"
+      },
+      "metric": "Index lag",
+      "threshold": "> 300s for 10m",
+      "currentValue": "612s",
+      "route": "Search primary",
+      "runbook": "Indexer backlog runbook",
+      "impact": "New catalog items and price updates are delayed in search results, but checkout and browsing remain available.",
+      "lastEvent": "Kafka consumer group rebalanced"
+    },
+    {
+      "id": "alert-1003",
+      "title": "Billing settlement queue approaching retry limit",
+      "service": "billing-recon",
+      "environment": "Production",
+      "severity": "sev2",
+      "status": "firing",
+      "signal": "settlement_retry_queue_depth",
+      "age": "11 min",
+      "ownerTeam": "Revenue Systems",
+      "assignee": {
+        "name": "Nadia Khan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev"
+      },
+      "metric": "Retry queue",
+      "threshold": "> 1200 jobs",
+      "currentValue": "1840 jobs",
+      "route": "Revenue escalation",
+      "runbook": "Settlement replay runbook",
+      "impact": "Settlement exports are delayed for the current batch. Customer-facing billing is unaffected while retries remain below hard limit.",
+      "lastEvent": "Partner API returned 429"
+    },
+    {
+      "id": "alert-1004",
+      "title": "Feature flag cache miss rate elevated after rollout",
+      "service": "feature-flags",
+      "environment": "Production",
+      "severity": "sev3",
+      "status": "acknowledged",
+      "signal": "flag_cache_miss_ratio",
+      "age": "26 min",
+      "ownerTeam": "Platform",
+      "assignee": {
+        "name": "Morgan Patel",
+        "avatarUrl": "https://i.pravatar.cc/300?u=morgan.patel@deployops.dev"
+      },
+      "metric": "Cache miss ratio",
+      "threshold": "> 18%",
+      "currentValue": "24%",
+      "route": "Platform primary",
+      "runbook": "Flag cache warmup",
+      "impact": "Flag evaluation latency is slightly elevated for first reads after deployment. No incorrect flag values have been observed.",
+      "lastEvent": "Warmup job started"
+    },
+    {
+      "id": "alert-1005",
+      "title": "Inventory sync replica behind write leader",
+      "service": "inventory-sync",
+      "environment": "Production",
+      "severity": "sev3",
+      "status": "firing",
+      "signal": "replication_lag_seconds",
+      "age": "33 min",
+      "ownerTeam": "Supply Chain",
+      "assignee": {
+        "name": "Rhea Sommer",
+        "avatarUrl": "https://i.pravatar.cc/300?u=rhea.sommer@deployops.dev"
+      },
+      "metric": "Replica lag",
+      "threshold": "> 90s",
+      "currentValue": "143s",
+      "route": "Supply chain primary",
+      "runbook": "Inventory replica recovery",
+      "impact": "Inventory availability can be stale in the admin console. Customer inventory reservations still read from the leader.",
+      "lastEvent": "Read replica restarted"
+    },
+    {
+      "id": "alert-1006",
+      "title": "Email provider sandbox is returning transient 5xx",
+      "service": "email-svc",
+      "environment": "Staging",
+      "severity": "info",
+      "status": "suppressed",
+      "signal": "email_provider_5xx_ratio",
+      "age": "41 min",
+      "ownerTeam": "Messaging",
+      "assignee": {
+        "name": "Alex Morgan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=alex.morgan@acme.io"
+      },
+      "metric": "Provider 5xx",
+      "threshold": "> 5%",
+      "currentValue": "8.3%",
+      "route": "Messaging staging",
+      "runbook": "Email provider failover",
+      "impact": "Staging email verification flows may retry. Production provider traffic is healthy.",
+      "lastEvent": "Maintenance window active"
+    },
+    {
+      "id": "alert-1007",
+      "title": "Metrics aggregator cardinality guard triggered",
+      "service": "metrics-agg",
+      "environment": "Production",
+      "severity": "sev3",
+      "status": "resolved",
+      "signal": "timeseries_cardinality_guard",
+      "age": "54 min",
+      "ownerTeam": "SRE",
+      "assignee": {
+        "name": "Sofia Marin",
+        "avatarUrl": "https://i.pravatar.cc/300?u=sofia.marin@deployops.dev"
+      },
+      "metric": "New series",
+      "threshold": "> 150k / 10m",
+      "currentValue": "72k / 10m",
+      "route": "SRE primary",
+      "runbook": "Metrics cardinality cleanup",
+      "impact": "High-cardinality labels were dropped before ingestion pressure affected alert delivery.",
+      "lastEvent": "Label allowlist updated"
+    },
+    {
+      "id": "alert-1008",
+      "title": "Export worker retry backlog during scheduler migration",
+      "service": "export-worker",
+      "environment": "Production",
+      "severity": "sev3",
+      "status": "suppressed",
+      "signal": "export_retry_backlog",
+      "age": "1h 12m",
+      "ownerTeam": "Data Platform",
+      "assignee": {
+        "name": "Clara Evans",
+        "avatarUrl": "https://i.pravatar.cc/300?u=clara.evans@deployops.dev"
+      },
+      "metric": "Retry backlog",
+      "threshold": "> 900 jobs",
+      "currentValue": "1180 jobs",
+      "route": "Data platform primary",
+      "runbook": "Export scheduler migration",
+      "impact": "Large scheduled exports are delayed while old workers drain. Interactive exports remain prioritized.",
+      "lastEvent": "Migration suppression active"
+    },
+    {
+      "id": "alert-1009",
+      "title": "Mobile gateway p95 latency recovered after regional failover",
+      "service": "mobile-gateway",
+      "environment": "Production",
+      "severity": "sev2",
+      "status": "resolved",
+      "signal": "mobile_gateway_p95_latency",
+      "age": "1h 36m",
+      "ownerTeam": "Mobile",
+      "assignee": {
+        "name": "Zoe Chen",
+        "avatarUrl": "https://i.pravatar.cc/300?u=zoe.chen@deployops.dev"
+      },
+      "metric": "p95 latency",
+      "threshold": "> 450ms",
+      "currentValue": "188ms",
+      "route": "Mobile escalation",
+      "runbook": "Mobile gateway failover",
+      "impact": "Mobile checkout latency briefly exceeded the SLO during failover, then returned to normal after traffic shifted.",
+      "lastEvent": "Failover completed"
+    }
+  ],
+  "alertRoutes": [
+    {
+      "id": "route-1",
+      "name": "Payments escalation",
+      "team": "Checkout Platform",
+      "primary": {
+        "name": "Alex Morgan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=alex.morgan@acme.io"
+      },
+      "escalation": "Page payments lead after 10m",
+      "services": ["checkout-api", "payments-svc", "pricing-svc"],
+      "health": "covered"
+    },
+    {
+      "id": "route-2",
+      "name": "Search primary",
+      "team": "Discovery",
+      "primary": {
+        "name": "Jordan Lee",
+        "avatarUrl": "https://i.pravatar.cc/300?u=jordan.lee@deployops.dev"
+      },
+      "escalation": "Escalate to relevance owner after 20m",
+      "services": ["search-svc", "reco-ml"],
+      "health": "handoff"
+    },
+    {
+      "id": "route-3",
+      "name": "Revenue escalation",
+      "team": "Revenue Systems",
+      "primary": {
+        "name": "Nadia Khan",
+        "avatarUrl": "https://i.pravatar.cc/300?u=nadia.khan@deployops.dev"
+      },
+      "escalation": "Thin coverage until 2:00 PM",
+      "services": ["billing-recon", "payments-svc"],
+      "health": "thin"
+    }
+  ],
+  "alertSuppressions": [
+    {
+      "id": "sup-1",
+      "scope": "email-svc / staging",
+      "reason": "Provider sandbox maintenance",
+      "window": "10:00 AM - 12:30 PM",
+      "expiresAt": "42 min",
+      "createdBy": "Messaging rotation",
+      "status": "active"
+    },
+    {
+      "id": "sup-2",
+      "scope": "export-worker retry backlog",
+      "reason": "Scheduler migration drain",
+      "window": "9:30 AM - 1:00 PM",
+      "expiresAt": "1h 12m",
+      "createdBy": "Data Platform",
+      "status": "active"
+    },
+    {
+      "id": "sup-3",
+      "scope": "preview-* environments",
+      "reason": "Synthetic checkout load test",
+      "window": "2:00 PM - 3:00 PM",
+      "expiresAt": "scheduled",
+      "createdBy": "SRE Team",
+      "status": "scheduled"
+    }
+  ],
   "releaseDetails": [
     {
       "id": "rel-1001",

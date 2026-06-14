@@ -105,7 +105,7 @@ export class App {
     { label: 'Environments', icon: 'tablerServer', route: '/environments' },
     { label: 'Services', icon: 'tablerServer', route: '/services' },
     { label: 'Insights', icon: 'tablerChartDots', route: null },
-    { label: 'Alerts', icon: 'tablerBell', route: null },
+    { label: 'Alerts', icon: 'tablerBell', route: '/alerts' },
     { label: 'Approvals', icon: 'tablerCheckbox', route: null },
     { label: 'Settings', icon: 'tablerSettings', route: null },
   ];

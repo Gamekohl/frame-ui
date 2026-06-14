@@ -26,6 +26,8 @@ export type DeploymentStatus = 'queued' | 'running' | 'succeeded' | 'failed' | '
 export type ServiceStatus = 'healthy' | 'degraded' | 'incident' | 'maintenance';
 export type EnvironmentStatus = 'healthy' | 'warming' | 'degraded' | 'locked';
 export type EnvironmentGateStatus = 'passed' | 'running' | 'blocked' | 'scheduled';
+export type AlertSeverity = 'sev1' | 'sev2' | 'sev3' | 'info';
+export type AlertStatus = 'firing' | 'acknowledged' | 'suppressed' | 'resolved';
 
 export interface DeploymentSummary {
   activeDeployments: number;
@@ -275,6 +277,61 @@ export interface Incident {
   openedAt: string;
 }
 
+export interface AlertSummary {
+  activeAlerts: number;
+  sev1: number;
+  acknowledged: number;
+  suppressed: number;
+  meanTimeToAck: string;
+  noiseReduction: string;
+}
+
+export interface AlertItem {
+  id: string;
+  title: string;
+  service: string;
+  environment: string;
+  severity: AlertSeverity;
+  status: AlertStatus;
+  signal: string;
+  age: string;
+  ownerTeam: string;
+  assignee: {
+    name: string;
+    avatarUrl: string;
+  };
+  metric: string;
+  threshold: string;
+  currentValue: string;
+  route: string;
+  runbook: string;
+  impact: string;
+  lastEvent: string;
+}
+
+export interface AlertRoute {
+  id: string;
+  name: string;
+  team: string;
+  primary: {
+    name: string;
+    avatarUrl: string;
+  };
+  escalation: string;
+  services: string[];
+  health: 'covered' | 'thin' | 'handoff';
+}
+
+export interface AlertSuppression {
+  id: string;
+  scope: string;
+  reason: string;
+  window: string;
+  expiresAt: string;
+  createdBy: string;
+  status: 'active' | 'scheduled';
+}
+
 export interface TeamMember {
   id: string;
   email: string;
@@ -318,6 +375,13 @@ export interface ServicesData {
 export interface EnvironmentsData {
   summary: EnvironmentSummary;
   environments: DeployEnvironment[];
+}
+
+export interface AlertsData {
+  summary: AlertSummary;
+  alerts: AlertItem[];
+  routes: AlertRoute[];
+  suppressions: AlertSuppression[];
 }
 
 @Injectable({
@@ -399,6 +463,15 @@ export class ApiService {
     return forkJoin({
       summary: this.http.get<EnvironmentSummary>(`${this.apiUrl}/environmentSummary`),
       environments: this.http.get<DeployEnvironment[]>(`${this.apiUrl}/environments`),
+    });
+  }
+
+  getAlerts(): Observable<AlertsData> {
+    return forkJoin({
+      summary: this.http.get<AlertSummary>(`${this.apiUrl}/alertSummary`),
+      alerts: this.http.get<AlertItem[]>(`${this.apiUrl}/alerts`),
+      routes: this.http.get<AlertRoute[]>(`${this.apiUrl}/alertRoutes`),
+      suppressions: this.http.get<AlertSuppression[]>(`${this.apiUrl}/alertSuppressions`),
     });
   }
 

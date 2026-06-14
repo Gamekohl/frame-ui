@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter, Routes, withViewTransitions } from '@angular/router';
 import { provideFrameUI } from '@frame-ui-ng/foundation';
+import { Alerts } from './components/alerts/alerts';
 import { Deployments } from './components/deployments/deployments';
 import { Environments } from './components/environments/environments';
 import { ReleaseQueue } from './components/release-queue/release-queue';
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'deployments', component: Deployments },
   { path: 'environments', component: Environments },
   { path: 'services', component: Services },
+  { path: 'alerts', component: Alerts },
 ];
 
 export const appConfig: ApplicationConfig = {
