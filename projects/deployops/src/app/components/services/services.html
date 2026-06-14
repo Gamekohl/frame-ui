@@ -1,0 +1,240 @@
+<app-header title="Services" placeholder="Search services, owners, or runtimes..." />
+
+<div class="services-workspace" [attr.data-details-open]="selectedService() ? 'true' : 'false'">
+  <section class="services-content">
+    @if (data()) {
+      <div class="services-catalog-layout">
+        <aside class="flex flex-col gap-4">
+          <section frCard class="min-h-0">
+            <header frCardHeader>
+              <h5 frCardTitle>Operational focus</h5>
+              <div frCardAction class="services-kpi-icon" data-tone="red">
+                <ng-icon name="tablerExclamationCircle" size="18" />
+              </div>
+            </header>
+            <div frCardContent class="grid gap-4">
+              @for (service of attentionServices(); track service.id) {
+                <button
+                  type="button"
+                  class="grid rounded-md border bg-surface p-3 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
+                  [class.border-primary]="service.id === selectedService()?.id"
+                  (click)="selectService(service)"
+                >
+                  <span class="flex items-center justify-between gap-3">
+                    <strong>{{ service.displayName }}</strong>
+                    <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
+                      {{ statusLabel(service.status) }}
+                    </span>
+                  </span>
+                  <span class="mt-2 text-sm text-muted-foreground">{{ service.errorRate }} errors · {{ service.latencyP95 }} p95</span>
+                </button>
+              }
+            </div>
+          </section>
+
+          <section frCard>
+            <header frCardHeader>
+              <h5 frCardTitle>Runtime mix</h5>
+              <div frCardAction class="services-kpi-icon" data-tone="blue">
+                <ng-icon name="tablerPackages" size="18" />
+              </div>
+            </header>
+            <div frCardContent class="grid gap-3">
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Node.js</span>
+                <span class="text-muted-foreground">4 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Go</span>
+                <span class="text-muted-foreground">3 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Java / Kotlin</span>
+                <span class="text-muted-foreground">3 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Python / Rust</span>
+                <span class="text-muted-foreground">2 services</span>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <section class="services-catalog-card min-h-0">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-1">
+            <div>
+              <h3 class="m-0 text-lg font-semibold">Service catalog</h3>
+              <p class="m-0 text-sm text-muted-foreground">Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }}</p>
+            </div>
+
+            <button
+              (click)="refreshData()"
+              frTooltip="Refresh services"
+              frTooltipOpenDelay="700"
+              frTooltipArrow
+              frButton
+              appearance="outline"
+              type="button"
+            >
+              <ng-icon name="tablerRefresh" />
+              Refresh
+            </button>
+          </div>
+
+          <div class="services-catalog-scroll">
+            <div class="grid gap-4 xl:grid-cols-2">
+              @for (service of filteredServices(); track service.id) {
+                <article
+                  frCard
+                  class="service-card cursor-pointer transition hover:border-primary"
+                  [attr.data-selected]="service.id === selectedService()?.id"
+                  (click)="selectService(service)"
+                >
+                  <header frCardHeader>
+                    <div class="grid gap-1">
+                      <h4 frCardTitle class="text-base">{{ service.displayName }}</h4>
+                      <p frCardDescription>{{ service.name }} · {{ service.version }}</p>
+                    </div>
+                    <div frCardAction>
+                      <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
+                        {{ statusLabel(service.status) }}
+                      </span>
+                    </div>
+                  </header>
+
+                  <div frCardContent class="grid gap-5">
+                    <div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                      <div class="inline-flex min-w-0 items-center gap-3">
+                        <span frAvatar size="sm">
+                          <img frAvatarImage [src]="service.owner.avatarUrl" alt="" />
+                        </span>
+                        <div class="min-w-0">
+                          <strong class="block truncate">{{ service.owner.name }}</strong>
+                          <span class="block truncate text-sm text-muted-foreground">{{ service.owner.team }}</span>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-wrap gap-2 sm:justify-end">
+                        <span frBadge variant="secondary">{{ service.tier }}</span>
+                        <span frBadge variant="secondary">{{ service.runtime }}</span>
+                      </div>
+                    </div>
+
+                    <div class="grid gap-3 sm:grid-cols-3">
+                      <div class="rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Uptime</span>
+                        <strong class="mt-1 block">{{ service.uptime }}</strong>
+                      </div>
+                      <div class="rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Latency</span>
+                        <strong class="mt-1 block">{{ service.latencyP95 }}</strong>
+                      </div>
+                      <div class="rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Instances</span>
+                        <strong class="mt-1 block">{{ service.instances }}</strong>
+                      </div>
+                    </div>
+
+                    <div class="grid gap-2">
+                      <div class="flex items-center justify-between gap-3 text-sm">
+                        <span class="text-muted-foreground">Health pressure</span>
+                        <span>{{ service.errorRate }} errors</span>
+                      </div>
+                      <div class="h-2 overflow-hidden rounded-full bg-muted">
+                        <span
+                          class="service-health-bar block h-full rounded-full"
+                          [ngStyle]="{ width: latencyWidth(service) + '%' }"
+                          [attr.data-status]="service.status"
+                        ></span>
+                      </div>
+                    </div>
+
+                    <footer class="flex flex-wrap items-center justify-between gap-3">
+                      <span class="text-sm text-muted-foreground">{{ service.dependencies }} dependencies · deployed {{ service.lastDeployment }}</span>
+
+                      <div frDropdownMenu (click)="$event.stopPropagation()">
+                        <button
+                          frIconButton
+                          appearance="ghost"
+                          type="button"
+                          [frDropdownMenuTrigger]="serviceMenu"
+                          [attr.aria-label]="'Actions for ' + service.displayName"
+                        >
+                          <ng-icon name="tablerDots" size="18" />
+                        </button>
+
+                        <ng-template #serviceMenu="frDropdownMenuContent" frDropdownMenuContent>
+                          <div frDropdownMenuPanel>
+                            <button frDropdownMenuItem type="button" (click)="selectService(service)">
+                              <ng-icon name="tablerExternalLink" size="16" />
+                              <span>View details</span>
+                            </button>
+                            <button frDropdownMenuItem type="button">
+                              <ng-icon name="tablerSearch" size="16" />
+                              <span>View logs</span>
+                            </button>
+                            <button frDropdownMenuItem type="button">
+                              <ng-icon name="tablerLayersIntersect" size="16" />
+                              <span>Open dependencies</span>
+                            </button>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </footer>
+                  </div>
+                </article>
+              }
+            </div>
+          </div>
+
+          <div class="services-pagination">
+            <p class="text-sm text-muted-foreground">
+              Page {{ currentPage() }} of {{ totalPages() }}
+            </p>
+
+            <nav
+              frPagination
+              #pagination="frPagination"
+              aria-label="Services pagination"
+              [page]="currentPage()"
+              (pageChange)="goToPage($event)"
+              [totalPages]="totalPages()"
+            >
+              <ul frPaginationContent>
+                <li frPaginationItem>
+                  <button frPaginationPrevious type="button"></button>
+                </li>
+
+                @for (page of pagination.pages(); track $index) {
+                  <li frPaginationItem>
+                    @if (page === 'ellipsis') {
+                      <span frPaginationEllipsis></span>
+                    } @else {
+                      <button frPaginationLink type="button" [page]="page">
+                        {{ page }}
+                      </button>
+                    }
+                  </li>
+                }
+
+                <li frPaginationItem>
+                  <button frPaginationNext type="button"></button>
+                </li>
+              </ul>
+            </nav>
+
+            <div></div>
+          </div>
+        </section>
+      </div>
+    }
+  </section>
+
+  @if (selectedService(); as service) {
+    <app-service-details
+      animate.enter="sidebar-enter"
+      [service]="service"
+      (closed)="selectService(null)"
+    />
+  }
+</div>

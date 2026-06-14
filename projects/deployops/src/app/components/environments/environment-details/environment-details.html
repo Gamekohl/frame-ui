@@ -1,0 +1,144 @@
+<app-sidebar title="Environment" (close)="closed.emit()">
+  <div sidebarBody class="grid gap-6">
+    <div class="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
+      <div class="grid w-18 place-items-center rounded-lg bg-primary/10 text-primary aspect-square">
+        <ng-icon name="tablerServer" size="28" />
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold">{{ environment().name }}</h3>
+        <p class="text-sm text-muted-foreground">{{ environment().slug }} <span aria-hidden="true">•</span> {{ environment().stage }}</p>
+        <span frBadge class="mt-2" [variant]="statusBadge()" [attr.data-status]="environment().status">
+          {{ statusLabel() }}
+        </span>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="text-sm text-muted-foreground">Loading environment details...</div>
+    } @else if (details(); as details) {
+      <div class="h-px bg-border"></div>
+
+      <dl class="grid gap-4">
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Owner</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">
+            <span frAvatar size="sm">
+              <img frAvatarImage [src]="details.owner.avatarUrl" alt="" />
+            </span>
+            {{ details.owner.name }}
+          </dd>
+        </div>
+        <div class="grid gap-2">
+          <dt class="text-sm text-muted-foreground font-semibold">Purpose</dt>
+          <dd class="m-0 leading-6">{{ details.purpose }}</dd>
+        </div>
+      </dl>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Controls</h5>
+        <dl class="grid gap-4">
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Deploy policy</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.controls.deployPolicy }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Approvals</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.controls.approvalsRequired }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Freeze</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.controls.freezeWindow }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Data</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.controls.dataPolicy }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Regions</h5>
+        <div class="grid gap-4">
+          @for (region of details.regions; track region.name) {
+            <div class="grid gap-2 rounded-md border p-3">
+              <div class="flex items-center justify-between gap-3">
+                <strong>{{ region.name }}</strong>
+                <span frBadge [variant]="statusBadge(region.status)">{{ statusLabel(region.status) }}</span>
+              </div>
+              <div class="flex items-center justify-between gap-3 text-sm text-muted-foreground">
+                <span>{{ region.capacity }} capacity</span>
+                <span>{{ region.latencyP95 }} p95</span>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Readiness gates</h5>
+        <div class="grid gap-4">
+          @for (gate of details.readiness; track gate.label) {
+            <div class="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+              <div>
+                <strong>{{ gate.label }}</strong>
+                <p class="m-0 text-sm text-muted-foreground">{{ gate.description }}</p>
+              </div>
+              <span frBadge [variant]="gateBadge(gate.status)">{{ gateLabel(gate.status) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Release channels</h5>
+        <div class="grid gap-4">
+          @for (channel of details.releaseChannels; track channel.name) {
+            <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+              <div>
+                <strong>{{ channel.name }}</strong>
+                <p class="m-0 text-sm text-muted-foreground">{{ channel.version }}</p>
+              </div>
+              <span frBadge [variant]="gateBadge(channel.state)">{{ gateLabel(channel.state) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Recent activity</h5>
+        <div class="grid gap-4">
+          @for (activity of details.recentActivity; track activity.title) {
+            <div>
+              <strong>{{ activity.title }}</strong>
+              <p class="m-0 text-sm text-muted-foreground">{{ activity.time }} by {{ activity.actor }}</p>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+
+  <ng-container sidebarFooter>
+    <div class="flex gap-2">
+      <button frButton type="button" class="w-full justify-center">
+        <ng-icon frButtonIcon name="tablerCalendar" size="18" />
+        <span frButtonLabel>Schedule window</span>
+      </button>
+
+      <button frButton appearance="outline" type="button" class="w-full justify-center">
+        <ng-icon frButtonIcon name="tablerExternalLink" size="18" />
+        <span frButtonLabel>Runbook</span>
+      </button>
+    </div>
+  </ng-container>
+</app-sidebar>

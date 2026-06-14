@@ -1,0 +1,148 @@
+<app-sidebar title="Service details" (close)="closed.emit()">
+  <div sidebarBody class="grid gap-6">
+    <div class="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
+      <div class="grid w-18 place-items-center rounded-lg bg-primary/10 text-primary aspect-square">
+        <ng-icon name="tablerServer" size="28" />
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold">{{ service().displayName }}</h3>
+        <p class="text-sm text-muted-foreground">{{ service().version }} <span aria-hidden="true">•</span> {{ service().name }}</p>
+        <span frBadge class="mt-2" [variant]="statusBadge()" [attr.data-status]="service().status">
+          {{ statusLabel() }}
+        </span>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="text-sm text-muted-foreground">Loading service details...</div>
+    } @else if (details(); as details) {
+      <div class="h-px bg-border"></div>
+
+      <dl class="grid gap-4">
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Environment</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">
+            <ng-icon name="tablerLayersIntersect" size="18" />
+            {{ details.environment }}
+          </dd>
+        </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Tier</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.tier }}</dd>
+        </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Runtime</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.runtime }}</dd>
+        </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Region</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">{{ details.region }}</dd>
+        </div>
+        <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+          <dt class="text-sm text-muted-foreground font-semibold">Owner</dt>
+          <dd class="flex items-center justify-end gap-2 text-end">
+            <span frAvatar size="sm">
+              <img frAvatarImage [src]="details.owner.avatarUrl" alt="" />
+            </span>
+            {{ details.owner.name }}
+          </dd>
+        </div>
+        <div class="grid gap-2">
+          <dt class="text-sm text-muted-foreground font-semibold">Description</dt>
+          <dd class="m-0 leading-6">{{ details.description }}</dd>
+        </div>
+      </dl>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Service health</h5>
+        <dl class="grid gap-4">
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Uptime</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.uptime }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Saturation</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.saturation }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">SLO</h5>
+        <dl class="grid gap-4">
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Availability</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.slo.availability }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Target</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.slo.target }}</dd>
+          </div>
+          <div class="grid grid-cols-[minmax(7rem,0.7fr)_minmax(0,1fr)] items-center gap-4">
+            <dt class="text-sm text-muted-foreground font-semibold">Error budget</dt>
+            <dd class="flex items-center justify-end gap-2 text-end">{{ details.slo.errorBudgetRemaining }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="h-px bg-border"></div>
+
+      <section class="grid gap-5">
+        <h5 class="text-sm uppercase text-muted-foreground">Dependencies</h5>
+        <div class="grid gap-4">
+          @for (dependency of details.dependencies; track dependency.name) {
+            <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+              <strong>{{ dependency.name }}</strong>
+              <span frBadge [variant]="statusBadge(dependency.status)">{{ statusLabel(dependency.status) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      @if (hasAlerts()) {
+        <div class="h-px bg-border"></div>
+
+        <section class="grid gap-5">
+          <h5 class="text-sm uppercase text-muted-foreground">Open alerts</h5>
+          <div class="grid gap-4">
+            @for (alert of details.alerts; track alert.title) {
+              <div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+                <div>
+                  <strong>{{ alert.title }}</strong>
+                  <p class="m-0 text-sm text-muted-foreground">{{ alert.openedAt }}</p>
+                </div>
+                <span frBadge [variant]="alertBadge(alert.severity)">{{ alert.severity }}</span>
+              </div>
+            }
+          </div>
+        </section>
+      }
+    }
+  </div>
+
+  <ng-container sidebarFooter>
+    <div class="flex gap-2">
+      <button frButton type="button" class="w-full justify-center">
+        <ng-icon frButtonIcon name="tablerSearch" size="18" />
+        <span frButtonLabel>View logs</span>
+      </button>
+
+      <button frButton appearance="outline" type="button" class="w-full justify-center">
+        <ng-icon frButtonIcon name="tablerExternalLink" size="18" />
+        <span frButtonLabel>Runbook</span>
+      </button>
+    </div>
+  </ng-container>
+</app-sidebar>

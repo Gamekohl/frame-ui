@@ -23,6 +23,9 @@ export interface Release {
 }
 
 export type DeploymentStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'rolled-back' | 'paused';
+export type ServiceStatus = 'healthy' | 'degraded' | 'incident' | 'maintenance';
+export type EnvironmentStatus = 'healthy' | 'warming' | 'degraded' | 'locked';
+export type EnvironmentGateStatus = 'passed' | 'running' | 'blocked' | 'scheduled';
 
 export interface DeploymentSummary {
   activeDeployments: number;
@@ -85,6 +88,154 @@ export interface DeploymentDetailCheck {
   status: 'passed' | 'running' | 'healthy' | 'failed' | 'pending';
 }
 
+export interface ServiceSummary {
+  totalServices: number;
+  healthyServices: number;
+  degradedServices: number;
+  incidentServices: number;
+  avgLatencyP95: string;
+  statusCounts: {
+    all: number;
+    healthy: number;
+    degraded: number;
+    incident: number;
+    maintenance: number;
+  };
+}
+
+export interface ServiceOwner {
+  name: string;
+  team: string;
+  avatarUrl: string;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  displayName: string;
+  environment: string;
+  status: ServiceStatus;
+  tier: 'Tier 1' | 'Tier 2' | 'Tier 3';
+  runtime: string;
+  version: string;
+  uptime: string;
+  latencyP95: string;
+  errorRate: string;
+  instances: string;
+  owner: ServiceOwner;
+  lastDeployment: string;
+  dependencies: number;
+}
+
+export interface ServiceDetails {
+  id: string;
+  serviceId: string;
+  name: string;
+  displayName: string;
+  environment: string;
+  status: ServiceStatus;
+  tier: Service['tier'];
+  runtime: string;
+  version: string;
+  region: string;
+  repository: string;
+  description: string;
+  owner: ServiceOwner;
+  health: {
+    uptime: string;
+    latencyP95: string;
+    errorRate: string;
+    saturation: string;
+  };
+  slo: {
+    availability: string;
+    target: string;
+    errorBudgetRemaining: string;
+  };
+  dependencies: Array<{
+    name: string;
+    status: ServiceStatus;
+  }>;
+  alerts: Array<{
+    title: string;
+    severity: 'low' | 'medium' | 'high';
+    openedAt: string;
+  }>;
+}
+
+export interface EnvironmentSummary {
+  totalEnvironments: number;
+  protectedEnvironments: number;
+  promotionReady: number;
+  activeReleases: number;
+  statusCounts: {
+    healthy: number;
+    warming: number;
+    degraded: number;
+    locked: number;
+  };
+}
+
+export interface DeployEnvironment {
+  id: string;
+  name: string;
+  slug: string;
+  stage: 'Development' | 'Quality' | 'Staging' | 'Production' | 'Preview';
+  status: EnvironmentStatus;
+  description: string;
+  owner: ServiceOwner;
+  regionCount: number;
+  serviceCount: number;
+  activeRelease: string;
+  readiness: {
+    passed: number;
+    total: number;
+  };
+  drift: string;
+  capacityHeadroom: number;
+  dataFreshness: string;
+  nextWindow: string;
+  protected: boolean;
+}
+
+export interface EnvironmentDetails {
+  id: string;
+  environmentId: string;
+  name: string;
+  slug: string;
+  status: EnvironmentStatus;
+  purpose: string;
+  owner: ServiceOwner;
+  controls: {
+    deployPolicy: string;
+    approvalsRequired: string;
+    freezeWindow: string;
+    dataPolicy: string;
+  };
+  regions: Array<{
+    name: string;
+    status: EnvironmentStatus;
+    capacity: string;
+    latencyP95: string;
+  }>;
+  readiness: Array<{
+    label: string;
+    status: EnvironmentGateStatus;
+    description: string;
+  }>;
+  releaseChannels: Array<{
+    name: string;
+    version: string;
+    state: EnvironmentGateStatus;
+  }>;
+  accessGroups: string[];
+  recentActivity: Array<{
+    title: string;
+    time: string;
+    actor: string;
+  }>;
+}
+
 export interface ReleaseApproval {
   name: string;
   team: string;
@@ -142,6 +293,7 @@ export interface PaginatedResponse<T> {
 
 export type ReleasePagination = Omit<PaginatedResponse<Release>, 'data'>;
 export type DeploymentPagination = Omit<PaginatedResponse<Deployment>, 'data'>;
+export type ServicePagination = Omit<PaginatedResponse<Service>, 'data'>;
 
 export interface DeployopsDashboardData {
   summary: DeployopsSummary;
@@ -155,6 +307,17 @@ export interface DeploymentsData {
   summary: DeploymentSummary;
   deployments: Deployment[];
   deploymentPagination: DeploymentPagination;
+}
+
+export interface ServicesData {
+  summary: ServiceSummary;
+  services: Service[];
+  servicePagination: ServicePagination;
+}
+
+export interface EnvironmentsData {
+  summary: EnvironmentSummary;
+  environments: DeployEnvironment[];
 }
 
 @Injectable({
@@ -210,11 +373,48 @@ export class ApiService {
     );
   }
 
+  getServices(page = 1, perPage = 10): Observable<ServicesData> {
+    return forkJoin({
+      summary: this.http.get<ServiceSummary>(`${this.apiUrl}/serviceSummary`),
+      servicePage: this.http.get<PaginatedResponse<Service>>(`${this.apiUrl}/services`, {
+        params: {
+          _page: page,
+          _per_page: perPage,
+        },
+      }),
+    }).pipe(
+      map(({ servicePage, summary }) => {
+        const { data, ...servicePagination } = servicePage;
+
+        return {
+          summary,
+          services: data,
+          servicePagination,
+        };
+      }),
+    );
+  }
+
+  getEnvironments(): Observable<EnvironmentsData> {
+    return forkJoin({
+      summary: this.http.get<EnvironmentSummary>(`${this.apiUrl}/environmentSummary`),
+      environments: this.http.get<DeployEnvironment[]>(`${this.apiUrl}/environments`),
+    });
+  }
+
   deploymentDetails(deploymentId: string): Observable<DeploymentDetails> {
     return this.http.get<DeploymentDetails>(`${this.apiUrl}/deploymentDetails/${deploymentId}`);
   }
 
   releaseDetails(releaseId: string): Observable<ReleaseDetails> {
     return this.http.get<ReleaseDetails>(`${this.apiUrl}/releaseDetails/${releaseId}`);
+  }
+
+  serviceDetails(serviceId: string): Observable<ServiceDetails> {
+    return this.http.get<ServiceDetails>(`${this.apiUrl}/serviceDetails/${serviceId}`);
+  }
+
+  environmentDetails(environmentId: string): Observable<EnvironmentDetails> {
+    return this.http.get<EnvironmentDetails>(`${this.apiUrl}/environmentDetails/${environmentId}`);
   }
 }

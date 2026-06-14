@@ -1,0 +1,238 @@
+<app-header title="Environments" placeholder="Search environments, controls, or owners..." />
+
+<div class="environments-workspace" [attr.data-details-open]="selectedEnvironment() ? 'true' : 'false'">
+  <section class="environments-content">
+    @if (data(); as environmentData) {
+      <section class="environments-runway-grid">
+        <section frCard class="environment-runway-card">
+          <header frCardHeader>
+            <div>
+              <h3 frCardTitle>Promotion runway</h3>
+              <p frCardDescription>Follow a release from fast feedback through protected production gates.</p>
+            </div>
+            <div frCardAction>
+              <button
+                (click)="refreshData()"
+                frTooltip="Refresh environments"
+                frTooltipOpenDelay="700"
+                frTooltipArrow
+                frButton
+                appearance="outline"
+                type="button"
+              >
+                <ng-icon name="tablerRefresh" />
+                Refresh
+              </button>
+            </div>
+          </header>
+
+          <div frCardContent>
+            <div class="promotion-runway">
+              @for (environment of environmentData.environments; track environment.id) {
+                <button
+                  type="button"
+                  class="environment-node cursor-pointer"
+                  [attr.data-selected]="environment.id === selectedEnvironment()?.id"
+                  [attr.data-status]="environment.status"
+                  (click)="selectEnvironment(environment)"
+                >
+                  <span class="flex items-center justify-between gap-3">
+                    <span class="text-xs font-semibold uppercase text-muted-foreground">{{ environment.stage }}</span>
+                    <span frBadge [variant]="statusBadge(environment.status)" class="environment-status-badge" [attr.data-status]="environment.status">
+                      {{ statusLabel(environment.status) }}
+                    </span>
+                  </span>
+                  <strong class="mt-3 block text-xl">{{ environment.name }}</strong>
+                  <span class="mt-1 block text-sm text-muted-foreground">{{ environment.activeRelease }}</span>
+
+                  <div class="mt-5 grid gap-3">
+                    <div>
+                      <div class="mb-2 flex items-center justify-between gap-3 text-sm">
+                        <span>Readiness</span>
+                        <span>{{ environment.readiness.passed }}/{{ environment.readiness.total }}</span>
+                      </div>
+                      <div frProgress [value]="readinessPercent(environment)" [attr.aria-label]="environment.name + ' readiness'">
+                        <div frProgressIndicator></div>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                      <span class="rounded-md border bg-muted/40 p-2">
+                        <span class="block text-muted-foreground">Services</span>
+                        <strong>{{ environment.serviceCount }}</strong>
+                      </span>
+                      <span class="rounded-md border bg-muted/40 p-2">
+                        <span class="block text-muted-foreground">Regions</span>
+                        <strong>{{ environment.regionCount }}</strong>
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+        </section>
+
+        <aside class="grid gap-4">
+          <section frCard>
+            <header frCardHeader>
+              <div>
+                <h3 frCardTitle>Control summary</h3>
+                <p frCardDescription>Protection and release activity across environments.</p>
+              </div>
+              <div frCardAction class="environment-kpi-icon" data-tone="blue">
+                <ng-icon name="tablerShieldCheck" size="18" />
+              </div>
+            </header>
+            <div frCardContent class="grid grid-cols-2 gap-3">
+              <div class="rounded-md border bg-muted/40 p-3">
+                <span class="text-sm text-muted-foreground">Protected</span>
+                <strong class="mt-1 block text-2xl">{{ environmentData.summary.protectedEnvironments }}</strong>
+              </div>
+              <div class="rounded-md border bg-muted/40 p-3">
+                <span class="text-sm text-muted-foreground">Ready</span>
+                <strong class="mt-1 block text-2xl">{{ environmentData.summary.promotionReady }}</strong>
+              </div>
+              <div class="rounded-md border bg-muted/40 p-3">
+                <span class="text-sm text-muted-foreground">Active releases</span>
+                <strong class="mt-1 block text-2xl">{{ environmentData.summary.activeReleases }}</strong>
+              </div>
+              <div class="rounded-md border bg-muted/40 p-3">
+                <span class="text-sm text-muted-foreground">Degraded</span>
+                <strong class="mt-1 block text-2xl">{{ environmentData.summary.statusCounts.degraded }}</strong>
+              </div>
+            </div>
+          </section>
+
+          @if (selectedEnvironment(); as environment) {
+            <section frCard>
+              <header frCardHeader>
+                <div>
+                  <h3 frCardTitle>{{ environment.name }} readiness</h3>
+                  <p frCardDescription>{{ environment.description }}</p>
+                </div>
+              </header>
+              <div frCardContent class="grid gap-5">
+                <div class="grid gap-2">
+                  <div class="flex items-center justify-between gap-3 text-sm">
+                    <span class="text-muted-foreground">Promotion gates</span>
+                    <strong>{{ selectedReadiness() }}%</strong>
+                  </div>
+                  <div frProgress [value]="selectedReadiness()" [attr.aria-label]="environment.name + ' selected readiness'">
+                    <div frProgressIndicator></div>
+                  </div>
+                </div>
+
+                <dl class="grid gap-3 text-sm">
+                  <div class="flex items-center justify-between gap-4">
+                    <dt class="text-muted-foreground">Next window</dt>
+                    <dd class="m-0 text-end">{{ environment.nextWindow }}</dd>
+                  </div>
+                  <div class="flex items-center justify-between gap-4">
+                    <dt class="text-muted-foreground">Config drift</dt>
+                    <dd class="m-0 text-end">{{ environment.drift }}</dd>
+                  </div>
+                  <div class="flex items-center justify-between gap-4">
+                    <dt class="text-muted-foreground">Data</dt>
+                    <dd class="m-0 text-end">{{ environment.dataFreshness }}</dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+          }
+        </aside>
+      </section>
+
+      <section class="environment-ops-grid">
+        <section frCard class="min-h-0">
+          <header frCardHeader>
+            <div>
+              <h3 frCardTitle>Protected lanes</h3>
+              <p frCardDescription>Where deploys require additional controls before promotion.</p>
+            </div>
+          </header>
+          <div frCardContent class="grid gap-3">
+            @for (environment of protectedEnvironments(); track environment.id) {
+              <button
+                type="button"
+                class="grid rounded-md border bg-surface p-4 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
+                [class.border-primary]="environment.id === selectedEnvironment()?.id"
+                (click)="selectEnvironment(environment)"
+              >
+                <span class="flex flex-wrap items-center justify-between gap-3">
+                  <strong>{{ environment.name }}</strong>
+                  <span frBadge variant="secondary">
+                    <ng-icon name="tablerShieldCheck" size="14" />
+                    Protected
+                  </span>
+                </span>
+                <span class="mt-2 text-sm text-muted-foreground">{{ environment.nextWindow }} · {{ environment.drift }}</span>
+              </button>
+            }
+          </div>
+        </section>
+
+        <section frCard class="min-h-0">
+          <header frCardHeader>
+            <div>
+              <h3 frCardTitle>Capacity posture</h3>
+              <p frCardDescription>Headroom available before a promotion should be throttled.</p>
+            </div>
+          </header>
+          <div frCardContent class="grid gap-4">
+            @for (environment of environmentData.environments; track environment.id) {
+              <button
+                type="button"
+                class="capacity-row cursor-pointer"
+                [attr.data-selected]="environment.id === selectedEnvironment()?.id"
+                (click)="selectEnvironment(environment)"
+              >
+                <span class="flex items-center justify-between gap-4">
+                  <strong>{{ environment.name }}</strong>
+                  <span class="text-sm text-muted-foreground">{{ environment.capacityHeadroom }}% headroom</span>
+                </span>
+                <span class="mt-2 block h-2 overflow-hidden rounded-full bg-muted">
+                  <span
+                    class="capacity-bar block h-full rounded-full"
+                    [ngStyle]="{ width: environment.capacityHeadroom + '%' }"
+                    [attr.data-status]="environment.status"
+                  ></span>
+                </span>
+              </button>
+            }
+          </div>
+        </section>
+
+        <section frCard class="min-h-0">
+          <header frCardHeader>
+            <div>
+              <h3 frCardTitle>Upcoming windows</h3>
+              <p frCardDescription>Release managers can plan around open and protected lanes.</p>
+            </div>
+          </header>
+          <div frCardContent class="grid gap-4">
+            @for (environment of environmentData.environments; track environment.id) {
+              <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+                <span class="mt-1 grid size-8 place-items-center rounded-md bg-muted text-muted-foreground">
+                  <ng-icon name="tablerCalendar" size="17" />
+                </span>
+                <div>
+                  <strong>{{ environment.name }}</strong>
+                  <p class="m-0 text-sm text-muted-foreground">{{ environment.nextWindow }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      </section>
+    }
+  </section>
+
+  @if (selectedEnvironment(); as environment) {
+    <app-environment-details
+      animate.enter="sidebar-enter"
+      [environment]="environment"
+      (closed)="selectEnvironment(null)"
+    />
+  }
+</div>

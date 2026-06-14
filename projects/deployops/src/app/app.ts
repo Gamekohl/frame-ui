@@ -101,8 +101,8 @@ export class App {
   readonly navItems = [
     { label: 'Release Queue', icon: 'tablerTimelineEventText', route: '/release-queue' },
     { label: 'Deployments', icon: 'tablerPackages', route: '/deployments' },
-    { label: 'Environments', icon: 'tablerServer', route: null },
-    { label: 'Services', icon: 'tablerServer', route: null },
+    { label: 'Environments', icon: 'tablerServer', route: '/environments' },
+    { label: 'Services', icon: 'tablerServer', route: '/services' },
     { label: 'Insights', icon: 'tablerChartDots', route: null },
     { label: 'Alerts', icon: 'tablerBell', route: null },
     { label: 'Approvals', icon: 'tablerCheckbox', route: null },
