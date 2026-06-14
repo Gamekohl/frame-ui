@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
-import { FrButton, FrButtonIcon, FrButtonLabel, FrIconButton, FrInputGroup, FrInputGroupAddon, FrInputGroupInput } from '@frame-ui-ng/components';
+import { RouterLink } from '@angular/router';
+import { FrButton, FrButtonIcon, FrButtonLabel, FrIconButton } from '@frame-ui-ng/components';
 import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { NgIcon } from '@ng-icons/core';
 
@@ -11,40 +12,18 @@ import { NgIcon } from '@ng-icons/core';
     FrButtonLabel,
     FrCommandModule,
     FrIconButton,
-    FrInputGroup,
-    FrInputGroupAddon,
-    FrInputGroupInput,
     NgIcon,
+    RouterLink,
   ],
   template: `
-    <header class="flex items-center justify-end gap-4 border-b border-border bg-surface px-4 py-2.5">
+    <header
+      class="flex items-center justify-end gap-4 border-b border-border bg-surface px-4 py-2.5"
+    >
       <h2 class="text-xl font-semibold flex-1">{{ title() }}</h2>
-
-      <div class="flex">
-        <div class="w-96!" frInputGroup>
-          <span frInputGroupAddon align="inline-start" variant="ghost">
-            <ng-icon frButtonIcon name="tablerSearch" size="16" />
-          </span>
-
-          <input
-            frInputGroupInput
-            id="search"
-            type="text"
-            placeholder="Search releases, services, ..."
-          />
-
-          <div frInputGroupAddon align="inline-end">
-            <button appearance="outline" frButton type="button">
-              <ng-icon frButtonIcon name="tablerFilter" size="16" />
-              <span frButtonLabel>Filter</span>
-            </button>
-          </div>
-        </div>
-      </div>
 
       <button [frCommandDialogTrigger]="commandMenu" appearance="outline" frButton type="button">
         <ng-icon frButtonIcon name="tablerSearch" size="16" />
-        <span frButtonLabel>Command</span>
+        <span frButtonLabel>Search releases, services...</span>
       </button>
 
       <button frIconButton appearance="ghost" aria-label="Notifications" type="button">
@@ -54,7 +33,11 @@ import { NgIcon } from '@ng-icons/core';
       </button>
     </header>
 
-    <ng-template #commandMenu="frCommandDialog" frCommandDialog aria-label="DeployOps command palette">
+    <ng-template
+      #commandMenu="frCommandDialog"
+      frCommandDialog
+      aria-label="DeployOps command palette"
+    >
       <section frCommand closeOnSelect>
         <input frCommandInput placeholder="Search commands, pages, or operations..." />
 
@@ -63,29 +46,28 @@ import { NgIcon } from '@ng-icons/core';
 
           <div frCommandGroup heading="Navigation">
             <p frCommandGroupHeading>Navigation</p>
-            <button frCommandItem value="release-queue" label="Open Release Queue">
+            <button routerLink="/" frCommandItem value="release-queue" label="Open Release Queue">
               <ng-icon frCommandItemIcon name="tablerPackages" size="16" />
               Open Release Queue
-              <span frCommandShortcut>R</span>
             </button>
-            <button frCommandItem value="deployments" label="Open Deployments">
+            <button
+              routerLink="/deployments"
+              frCommandItem
+              value="deployments"
+              label="Open Deployments"
+            >
               <ng-icon frCommandItemIcon name="tablerRocket" size="16" />
               Open Deployments
-              <span frCommandShortcut>D</span>
             </button>
-            <button frCommandItem value="services" label="Open Services">
+            <button routerLink="/services" frCommandItem value="services" label="Open Services">
               <ng-icon frCommandItemIcon name="tablerServer" size="16" />
               Open Services
-              <span frCommandShortcut>S</span>
             </button>
-            <button frCommandItem value="environments" label="Open Environments">
+            <button routerLink="/environments" frCommandItem value="environments" label="Open Environments">
               <ng-icon frCommandItemIcon name="tablerLayersIntersect" size="16" />
               Open Environments
-              <span frCommandShortcut>E</span>
             </button>
           </div>
-
-          <div frCommandSeparator></div>
 
           <div frCommandGroup heading="Operations">
             <p frCommandGroupHeading>Operations</p>

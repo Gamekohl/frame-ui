@@ -7,6 +7,7 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrEmptyModule } from '@frame-ui-ng/components/empty';
+import { FrItemModule } from '@frame-ui-ng/components/item';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
 import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
@@ -40,6 +41,7 @@ type EnvironmentFilter = 'all' | EnvironmentStatus;
     FrSkeletonModule,
     FrSwitchModule,
     FrTooltipDirective,
+    FrItemModule,
     Header,
     NgIcon,
     NgStyle,

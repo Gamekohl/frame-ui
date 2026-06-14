@@ -8,6 +8,7 @@ import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FrToastModule } from '@frame-ui-ng/components/toast';
+import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBell,
@@ -57,7 +58,8 @@ import {
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    FrToastModule
+    FrToastModule,
+    FrTooltipDirective,
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

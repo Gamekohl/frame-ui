@@ -49,6 +49,7 @@ frame-item[data-size='xs'] {
 
 [frItem][data-interactive]:where(:not([data-disabled])):hover,
 frame-item[data-interactive]:where(:not([data-disabled])):hover {
+  cursor: pointer;
   background: var(--frame-item-hover-bg);
   color: var(--frame-item-hover-color);
 }

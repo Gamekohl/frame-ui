@@ -40,7 +40,7 @@
           </div>
         </section>
 
-        <section frCard class="flex-1">
+        <section frCard class="flex-1 h-full!">
           <header frCardHeader>
             <div>
               <h3 frCardTitle>Promotion runway</h3>
@@ -164,7 +164,7 @@
         </section>
       </div>
 
-      <div clasS="flex gap-4">
+      <div class="flex gap-4">
         <section frCard>
           <header frCardHeader>
             <div>
@@ -172,25 +172,23 @@
               <p frCardDescription>Where deploys require additional controls before promotion.</p>
             </div>
           </header>
-          <div frCardContent class="flex flex-col gap-3">
-            @for (environment of protectedEnvironments(); track environment.id) {
-              <button
-                type="button"
-                class="flex flex-col rounded-md border bg-surface p-4 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
-                [class.border-primary]="environment.id === selectedEnvironment()?.id"
-                (click)="selectEnvironment(environment)"
-              >
-                <span class="flex flex-wrap items-center justify-between gap-3">
-                  <strong>{{ environment.name }}</strong>
-                  <span frBadge variant="secondary">
+          <div frCardContent>
+            <div frItemGroup class="flex flex-col w-fit! h-fit!">
+              @for (environment of protectedEnvironments(); track environment.id) {
+                <div frItem interactive (click)="selectEnvironment(environment)">
+                  <span frItemMedia variant="icon">
                     <ng-icon name="tablerShieldCheck" size="14" />
-                    Protected
                   </span>
-                </span>
-                <span class="mt-2 text-sm text-muted-foreground">{{ environment.nextWindow }}
-                  · {{ environment.drift }}</span>
-              </button>
-            }
+                  <div frItemContent>
+                   <span frItemTitle>{{ environment.name }}</span>
+                     <span frItemDescription>{{ environment.nextWindow }} · {{ environment.drift }}</span>
+                  </div>
+                </div>
+                @if (!$last) {
+                  <div frItemSeparator></div>
+                }
+              }
+            </div>
           </div>
         </section>
 

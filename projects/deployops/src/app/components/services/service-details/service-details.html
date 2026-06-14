@@ -41,7 +41,9 @@
             </div>
             <div class="flex items-center justify-between gap-4">
               <dt class="text-sm text-muted-foreground font-semibold">Runtime</dt>
-              <dd class="flex items-center justify-end gap-2 text-end">{{ details.runtime }}</dd>
+              <dd class="flex items-center justify-end gap-2 text-end">
+                <span frBadge>{{ details.runtime }}</span>
+              </dd>
             </div>
             <div class="flex items-center justify-between gap-4">
               <dt class="text-sm text-muted-foreground font-semibold">Region</dt>
@@ -64,27 +66,24 @@
         </div>
 
         <div frTabsContent value="health" class="flex flex-col gap-5">
-          <div>
-            <h5 class="text-sm font-semibold uppercase text-muted-foreground">Service health</h5>
-            <dl class="flex flex-col gap-4">
-              <div class="flex items-center justify-between gap-4">
-                <dt class="text-sm text-muted-foreground font-semibold">Uptime</dt>
-                <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.uptime }}</dd>
-              </div>
-              <div class="flex items-center justify-between gap-4">
-                <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
-                <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
-              </div>
-              <div class="flex items-center justify-between gap-4">
-                <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
-                <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
-              </div>
-              <div class="flex items-center justify-between gap-4">
-                <dt class="text-sm text-muted-foreground font-semibold">Saturation</dt>
-                <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.saturation }}</dd>
-              </div>
-            </dl>
-          </div>
+          <dl class="flex flex-col gap-4">
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Uptime</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.uptime }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Latency p95</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.latencyP95 }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Error rate</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.errorRate }}</dd>
+            </div>
+            <div class="flex items-center justify-between gap-4">
+              <dt class="text-sm text-muted-foreground font-semibold">Saturation</dt>
+              <dd class="flex items-center justify-end gap-2 text-end">{{ details.health.saturation }}</dd>
+            </div>
+          </dl>
 
           <section class="flex flex-col gap-3">
             <h5 class="text-sm font-semibold uppercase text-muted-foreground">SLO</h5>
