@@ -168,7 +168,7 @@ describe('Environments', () => {
 
     expect(compiled.textContent).toContain('Environments');
     expect(compiled.textContent).toContain('Promotion runway');
-    expect(compiled.textContent).toContain('Control summary');
+    expect(compiled.textContent).toContain('Upcoming windows');
     expect(compiled.textContent).toContain('Protected lanes');
     expect(compiled.textContent).toContain('Capacity posture');
     expect(compiled.textContent).toContain('Production');

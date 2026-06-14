@@ -1,63 +1,66 @@
 <app-header title="Deployments" />
 
-<div class="deployments-workspace" [attr.data-details-open]="selectedDeployment() ? 'true' : 'false'">
-  <section class="deployments-content">
+<div
+  class="grid h-full min-h-0 grid-cols-[minmax(0,1fr)] items-start overflow-hidden data-[details-open=true]:grid-cols-[minmax(0,1fr)_minmax(23rem,26rem)] max-[76rem]:data-[details-open=true]:grid-cols-2 max-[54rem]:h-auto max-[54rem]:overflow-visible max-[54rem]:data-[details-open=true]:grid-cols-1"
+  [attr.data-details-open]="selectedDeployment() ? 'true' : 'false'"
+>
+  <section class="grid h-full min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)] gap-6 px-8 py-6 max-[54rem]:h-auto max-[54rem]:p-4">
     @if (data(); as deploymentsData) {
-      <div class="deployment-kpi-grid">
+      <div class="grid grid-cols-4 gap-4 max-[76rem]:grid-cols-2 max-[54rem]:grid-cols-1">
         <section frCard>
           <header frCardHeader>
-            <h5 frCardTitle>Active deployments</h5>
-            <div frCardAction class="deployment-kpi-icon" data-tone="blue">
+            <h5 frCardTitle class="m-0 text-sm font-semibold text-muted-foreground">Active deployments</h5>
+            <div frCardAction class="deployment-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="blue">
               <ng-icon name="tablerRocket" size="18" />
             </div>
           </header>
-          <div frCardContent>
-            <strong>{{ deploymentsData.summary.activeDeployments }}</strong>
+          <div frCardContent class="grid gap-2">
+            <strong class="block text-3xl leading-none">{{ deploymentsData.summary.activeDeployments }}</strong>
             <span class="text-sm text-muted-foreground">running in production</span>
           </div>
         </section>
 
         <section frCard>
           <header frCardHeader>
-            <h5 frCardTitle>Success rate</h5>
-            <div frCardAction class="deployment-kpi-icon" data-tone="green">
+            <h5 frCardTitle class="m-0 text-sm font-semibold text-muted-foreground">Success rate</h5>
+            <div frCardAction class="deployment-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="green">
               <ng-icon name="tablerCircleCheck" size="18" />
             </div>
           </header>
-          <div frCardContent>
-            <strong>{{ deploymentsData.summary.successRate }}%</strong>
+          <div frCardContent class="grid gap-2">
+            <strong class="block text-3xl leading-none">{{ deploymentsData.summary.successRate }}%</strong>
             <span class="text-sm text-muted-foreground">last 30 days</span>
           </div>
         </section>
 
         <section frCard>
           <header frCardHeader>
-            <h5 frCardTitle>Avg duration</h5>
-            <div frCardAction class="deployment-kpi-icon" data-tone="gray">
+            <h5 frCardTitle class="m-0 text-sm font-semibold text-muted-foreground">Avg duration</h5>
+            <div frCardAction class="deployment-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="gray">
               <ng-icon name="tablerCalendar" size="18" />
             </div>
           </header>
-          <div frCardContent>
-            <strong>{{ deploymentsData.summary.avgDurationMinutes }}m</strong>
+          <div frCardContent class="grid gap-2">
+            <strong class="block text-3xl leading-none">{{ deploymentsData.summary.avgDurationMinutes }}m</strong>
             <span class="text-sm text-muted-foreground">production deploys</span>
           </div>
         </section>
 
         <section frCard>
           <header frCardHeader>
-            <h5 frCardTitle>Rollback rate</h5>
-            <div frCardAction class="deployment-kpi-icon" data-tone="red">
+            <h5 frCardTitle class="m-0 text-sm font-semibold text-muted-foreground">Rollback rate</h5>
+            <div frCardAction class="deployment-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="red">
               <ng-icon name="tablerExclamationCircle" size="18" />
             </div>
           </header>
-          <div frCardContent>
-            <strong>{{ deploymentsData.summary.rollbackRate }}%</strong>
+          <div frCardContent class="grid gap-2">
+            <strong class="block text-3xl leading-none">{{ deploymentsData.summary.rollbackRate }}%</strong>
             <span class="text-sm text-muted-foreground">2 rollbacks this week</span>
           </div>
         </section>
       </div>
 
-      <div class="deployments-table-section">
+      <div class="grid min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)] gap-1">
         <div
           frTabs
           class="deployments-tabs"
@@ -65,21 +68,21 @@
           (valueChange)="setFilter($event)"
         >
           <div frTabsList aria-label="Deployment filters">
-            <button frTabsTrigger value="all">All <span>{{ deploymentsData.summary.statusCounts.all }}</span></button>
-            <button frTabsTrigger value="running">Running <span>{{ deploymentsData.summary.statusCounts.running }}</span></button>
-            <button frTabsTrigger value="succeeded">Succeeded <span>{{ deploymentsData.summary.statusCounts.succeeded }}</span></button>
-            <button frTabsTrigger value="failed">Failed <span>{{ deploymentsData.summary.statusCounts.failed }}</span></button>
-            <button frTabsTrigger value="rolled-back">Rolled back <span>{{ deploymentsData.summary.statusCounts.rolledBack }}</span></button>
+            <button frTabsTrigger value="all">All <span class="ms-1 inline-grid h-5 min-w-5 place-items-center rounded-full bg-muted text-xs text-muted-foreground">{{ deploymentsData.summary.statusCounts.all }}</span></button>
+            <button frTabsTrigger value="running">Running <span class="ms-1 inline-grid h-5 min-w-5 place-items-center rounded-full bg-muted text-xs text-muted-foreground">{{ deploymentsData.summary.statusCounts.running }}</span></button>
+            <button frTabsTrigger value="succeeded">Succeeded <span class="ms-1 inline-grid h-5 min-w-5 place-items-center rounded-full bg-muted text-xs text-muted-foreground">{{ deploymentsData.summary.statusCounts.succeeded }}</span></button>
+            <button frTabsTrigger value="failed">Failed <span class="ms-1 inline-grid h-5 min-w-5 place-items-center rounded-full bg-muted text-xs text-muted-foreground">{{ deploymentsData.summary.statusCounts.failed }}</span></button>
+            <button frTabsTrigger value="rolled-back">Rolled back <span class="ms-1 inline-grid h-5 min-w-5 place-items-center rounded-full bg-muted text-xs text-muted-foreground">{{ deploymentsData.summary.statusCounts.rolledBack }}</span></button>
           </div>
         </div>
-        <div frTableContainer class="deployments-table-wrap">
-          <div class="deployments-table-scroll">
-            <table frTable density="lg" [dataSource]="filteredDeployments()">
+        <div frTableContainer class="grid h-full min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden max-[54rem]:h-auto">
+          <div class="deployments-table-scroll min-h-0 min-w-0 overflow-auto">
+            <table frTable density="lg" class="min-w-[62rem]" [dataSource]="filteredDeployments()">
             <ng-container frColumnDef="select">
-              <th frHeaderCell *frHeaderCellDef class="select-column">
+              <th frHeaderCell *frHeaderCellDef class="w-12">
                 <input frCheckbox type="checkbox" aria-label="Select all deployments" />
               </th>
-              <td frCell *frCellDef="let deployment" class="select-column">
+              <td frCell *frCellDef="let deployment" class="w-12">
                 <input frCheckbox type="checkbox" [attr.aria-label]="'Select ' + deployment.deployment" />
               </td>
             </ng-container>
@@ -87,9 +90,9 @@
             <ng-container frColumnDef="deployment">
               <th frHeaderCell *frHeaderCellDef>Deployment</th>
               <td frCell *frCellDef="let deployment">
-                <div class="deployment-cell">
-                  <strong>{{ deployment.deployment }}</strong>
-                  <span>{{ deployment.version }} · {{ deployment.strategy }}</span>
+                <div class="grid gap-1">
+                  <strong class="font-bold text-foreground">{{ deployment.deployment }}</strong>
+                  <span class="text-muted-foreground">{{ deployment.version }} · {{ deployment.strategy }}</span>
                 </div>
               </td>
             </ng-container>
@@ -97,7 +100,7 @@
             <ng-container frColumnDef="service">
               <th frHeaderCell *frHeaderCellDef>Service</th>
               <td frCell *frCellDef="let deployment">
-                <div class="meta-cell">
+                <div class="inline-flex items-center gap-3 text-muted-foreground">
                   <ng-icon name="tablerPackages" size="18" />
                   <span>{{ deployment.service }}</span>
                 </div>
@@ -107,7 +110,7 @@
             <ng-container frColumnDef="environment">
               <th frHeaderCell *frHeaderCellDef>Environment</th>
               <td frCell *frCellDef="let deployment">
-                <div class="meta-cell">
+                <div class="inline-flex items-center gap-3 text-muted-foreground">
                   <ng-icon name="tablerLayersIntersect" size="18" />
                   <span>{{ deployment.environment }}</span>
                 </div>
@@ -136,7 +139,7 @@
             <ng-container frColumnDef="duration">
               <th frHeaderCell *frHeaderCellDef>Duration</th>
               <td frCell *frCellDef="let deployment">
-                <div class="duration-cell">
+                <div class="grid min-w-32 gap-2">
                   <span>{{ deployment.duration }}</span>
                   @if (showProgress(deployment)) {
                     <div frProgress [value]="deployment.progress" [attr.aria-label]="deployment.deployment + ' progress'">
@@ -150,7 +153,7 @@
             <ng-container frColumnDef="initiatedBy">
               <th frHeaderCell *frHeaderCellDef>Initiated by</th>
               <td frCell *frCellDef="let deployment">
-                <div class="initiator-cell">
+                <div class="inline-flex items-center gap-3 text-foreground">
                 <span frAvatar size="sm">
                   <img frAvatarImage [src]="deployment.initiatedBy.avatarUrl" alt="" />
                 </span>
@@ -223,8 +226,8 @@
             </table>
           </div>
 
-          <div class="deployments-pagination px-4">
-            <p class="text-sm text-muted-foreground">
+          <div class="flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+            <p class="m-0 text-sm text-muted-foreground">
               Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }} deployments
             </p>
 

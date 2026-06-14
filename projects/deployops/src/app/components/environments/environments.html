@@ -1,10 +1,35 @@
-<app-header title="Environments" placeholder="Search environments, controls, or owners..." />
+<app-header title="Environments" />
 
-<div class="environments-workspace" [attr.data-details-open]="selectedEnvironment() ? 'true' : 'false'">
-  <section class="environments-content">
+<div
+  class="grid h-full min-h-0 grid-cols-[minmax(0,1fr)] items-start overflow-hidden data-[details-open=true]:grid-cols-[minmax(0,1fr)_minmax(23rem,26rem)] max-[82rem]:data-[details-open=true]:grid-cols-1 max-[54rem]:h-auto max-[54rem]:overflow-visible"
+  [attr.data-details-open]="selectedEnvironment() ? 'true' : 'false'"
+>
+  <section class="grid h-full min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-auto px-8 py-6 max-[54rem]:h-auto max-[54rem]:overflow-visible max-[54rem]:p-4">
     @if (data(); as environmentData) {
-      <section class="environments-runway-grid">
-        <section frCard class="environment-runway-card">
+      <section class="flex gap-2">
+        <section frCard class="min-h-0">
+          <header frCardHeader>
+            <div>
+              <h3 frCardTitle>Upcoming windows</h3>
+              <p frCardDescription>Release managers can plan around open and protected lanes.</p>
+            </div>
+          </header>
+          <div frCardContent class="grid gap-4">
+            @for (environment of environmentData.environments; track environment.id) {
+              <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+                <span class="mt-1 grid size-8 place-items-center rounded-md bg-muted text-muted-foreground">
+                  <ng-icon name="tablerCalendar" size="17" />
+                </span>
+                <div>
+                  <strong>{{ environment.name }}</strong>
+                  <p class="m-0 text-sm text-muted-foreground">{{ environment.nextWindow }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section frCard class="h-full! flex-1 overflow-hidden">
           <header frCardHeader>
             <div>
               <h3 frCardTitle>Promotion runway</h3>
@@ -27,11 +52,11 @@
           </header>
 
           <div frCardContent>
-            <div class="promotion-runway">
+            <div class="grid grid-cols-[repeat(5,minmax(12rem,1fr))] gap-3.5 overflow-x-auto py-0.5">
               @for (environment of environmentData.environments; track environment.id) {
                 <button
                   type="button"
-                  class="environment-node cursor-pointer"
+                  class="environment-node min-w-0 cursor-pointer rounded-lg border border-border bg-surface p-4 text-left transition hover:-translate-y-px hover:border-primary"
                   [attr.data-selected]="environment.id === selectedEnvironment()?.id"
                   [attr.data-status]="environment.status"
                   (click)="selectEnvironment(environment)"
@@ -73,77 +98,9 @@
           </div>
         </section>
 
-        <aside class="grid gap-4">
-          <section frCard>
-            <header frCardHeader>
-              <div>
-                <h3 frCardTitle>Control summary</h3>
-                <p frCardDescription>Protection and release activity across environments.</p>
-              </div>
-              <div frCardAction class="environment-kpi-icon" data-tone="blue">
-                <ng-icon name="tablerShieldCheck" size="18" />
-              </div>
-            </header>
-            <div frCardContent class="grid grid-cols-2 gap-3">
-              <div class="rounded-md border bg-muted/40 p-3">
-                <span class="text-sm text-muted-foreground">Protected</span>
-                <strong class="mt-1 block text-2xl">{{ environmentData.summary.protectedEnvironments }}</strong>
-              </div>
-              <div class="rounded-md border bg-muted/40 p-3">
-                <span class="text-sm text-muted-foreground">Ready</span>
-                <strong class="mt-1 block text-2xl">{{ environmentData.summary.promotionReady }}</strong>
-              </div>
-              <div class="rounded-md border bg-muted/40 p-3">
-                <span class="text-sm text-muted-foreground">Active releases</span>
-                <strong class="mt-1 block text-2xl">{{ environmentData.summary.activeReleases }}</strong>
-              </div>
-              <div class="rounded-md border bg-muted/40 p-3">
-                <span class="text-sm text-muted-foreground">Degraded</span>
-                <strong class="mt-1 block text-2xl">{{ environmentData.summary.statusCounts.degraded }}</strong>
-              </div>
-            </div>
-          </section>
-
-          @if (selectedEnvironment(); as environment) {
-            <section frCard>
-              <header frCardHeader>
-                <div>
-                  <h3 frCardTitle>{{ environment.name }} readiness</h3>
-                  <p frCardDescription>{{ environment.description }}</p>
-                </div>
-              </header>
-              <div frCardContent class="grid gap-5">
-                <div class="grid gap-2">
-                  <div class="flex items-center justify-between gap-3 text-sm">
-                    <span class="text-muted-foreground">Promotion gates</span>
-                    <strong>{{ selectedReadiness() }}%</strong>
-                  </div>
-                  <div frProgress [value]="selectedReadiness()" [attr.aria-label]="environment.name + ' selected readiness'">
-                    <div frProgressIndicator></div>
-                  </div>
-                </div>
-
-                <dl class="grid gap-3 text-sm">
-                  <div class="flex items-center justify-between gap-4">
-                    <dt class="text-muted-foreground">Next window</dt>
-                    <dd class="m-0 text-end">{{ environment.nextWindow }}</dd>
-                  </div>
-                  <div class="flex items-center justify-between gap-4">
-                    <dt class="text-muted-foreground">Config drift</dt>
-                    <dd class="m-0 text-end">{{ environment.drift }}</dd>
-                  </div>
-                  <div class="flex items-center justify-between gap-4">
-                    <dt class="text-muted-foreground">Data</dt>
-                    <dd class="m-0 text-end">{{ environment.dataFreshness }}</dd>
-                  </div>
-                </dl>
-              </div>
-            </section>
-          }
-        </aside>
       </section>
 
-      <section class="environment-ops-grid">
+      <section class="flex gap-2">
         <section frCard class="min-h-0">
           <header frCardHeader>
             <div>
@@ -172,7 +129,7 @@
           </div>
         </section>
 
-        <section frCard class="min-h-0">
+        <section frCard class="min-h-0 flex-1">
           <header frCardHeader>
             <div>
               <h3 frCardTitle>Capacity posture</h3>
@@ -183,7 +140,7 @@
             @for (environment of environmentData.environments; track environment.id) {
               <button
                 type="button"
-                class="capacity-row cursor-pointer"
+                class="capacity-row grid cursor-pointer rounded-md border border-border bg-surface p-3.5 text-left transition hover:border-primary hover:bg-muted/40"
                 [attr.data-selected]="environment.id === selectedEnvironment()?.id"
                 (click)="selectEnvironment(environment)"
               >
@@ -199,28 +156,6 @@
                   ></span>
                 </span>
               </button>
-            }
-          </div>
-        </section>
-
-        <section frCard class="min-h-0">
-          <header frCardHeader>
-            <div>
-              <h3 frCardTitle>Upcoming windows</h3>
-              <p frCardDescription>Release managers can plan around open and protected lanes.</p>
-            </div>
-          </header>
-          <div frCardContent class="grid gap-4">
-            @for (environment of environmentData.environments; track environment.id) {
-              <div class="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
-                <span class="mt-1 grid size-8 place-items-center rounded-md bg-muted text-muted-foreground">
-                  <ng-icon name="tablerCalendar" size="17" />
-                </span>
-                <div>
-                  <strong>{{ environment.name }}</strong>
-                  <p class="m-0 text-sm text-muted-foreground">{{ environment.nextWindow }}</p>
-                </div>
-              </div>
             }
           </div>
         </section>

@@ -1,16 +1,19 @@
 <app-header title="Release queue" />
 
-<div class="dashboard-workspace" [attr.data-review-open]="selectedRelease() ? 'true' : 'false'">
-  <section class="release-content">
+<div
+  class="grid min-h-0 grid-cols-[minmax(0,1fr)] items-start overflow-hidden data-[review-open=true]:grid-cols-[minmax(0,1fr)_minmax(23rem,26rem)] max-[76rem]:data-[review-open=true]:grid-cols-2 max-[54rem]:h-auto max-[54rem]:overflow-visible max-[54rem]:data-[review-open=true]:grid-cols-1"
+  [attr.data-review-open]="selectedRelease() ? 'true' : 'false'"
+>
+  <section class="px-8 py-6 max-[54rem]:p-4">
     @if (data(); as dashboardData) {
-      <div frTableContainer class="release-table-wrap">
-        <div class="release-table-scroll">
-          <table frTable density="lg" [dataSource]="dashboardData.releases">
+      <div frTableContainer class="grid h-full min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden max-[54rem]:h-auto">
+        <div class="release-table-scroll min-h-0 min-w-0 overflow-auto">
+          <table frTable density="lg" class="min-w-[54rem]" [dataSource]="dashboardData.releases">
             <ng-container frColumnDef="select">
-              <th frHeaderCell *frHeaderCellDef class="select-column">
+              <th frHeaderCell *frHeaderCellDef class="w-12">
                 <input frCheckbox type="checkbox" aria-label="Select all releases" />
               </th>
-              <td frCell *frCellDef="let release" class="select-column">
+              <td frCell *frCellDef="let release" class="w-12">
                 <input frCheckbox type="checkbox" [attr.aria-label]="'Select ' + release.release" />
               </td>
             </ng-container>
@@ -18,9 +21,9 @@
             <ng-container frColumnDef="release">
               <th frHeaderCell *frHeaderCellDef>Release</th>
               <td frCell *frCellDef="let release">
-                <div class="release-cell">
-                  <strong>{{ release.release }}</strong>
-                  <span>{{ release.version }}</span>
+                <div class="grid gap-1">
+                  <strong class="font-bold text-foreground">{{ release.release }}</strong>
+                  <span class="text-muted-foreground">{{ release.version }}</span>
                 </div>
               </td>
             </ng-container>
@@ -28,7 +31,7 @@
             <ng-container frColumnDef="service">
               <th frHeaderCell *frHeaderCellDef>Service</th>
               <td frCell *frCellDef="let release">
-                <div class="meta-cell">
+                <div class="inline-flex items-center gap-3 text-muted-foreground">
                   <ng-icon name="tablerPackages" size="18" />
                   <span>{{ release.service }}</span>
                 </div>
@@ -38,7 +41,7 @@
             <ng-container frColumnDef="environment">
               <th frHeaderCell *frHeaderCellDef>Environment</th>
               <td frCell *frCellDef="let release">
-                <div class="meta-cell">
+                <div class="inline-flex items-center gap-3 text-muted-foreground">
                   <ng-icon name="tablerLayersIntersect" size="18" />
                   <span>{{ release.environment }}</span>
                 </div>
@@ -57,7 +60,7 @@
             <ng-container frColumnDef="progress">
               <th frHeaderCell *frHeaderCellDef>Progress</th>
               <td frCell *frCellDef="let release">
-                <div class="release-progress" [attr.data-status]="release.status">
+                <div class="release-progress grid min-w-48 gap-2" [attr.data-status]="release.status">
                   <span class="text-xs font-semibold">{{ release.progress }}%</span>
                   <div class="release-progress-track" [style.--release-progress]="release.progress + '%'">
                     <span></span>
@@ -129,8 +132,8 @@
           </table>
         </div>
 
-        <div class="release-pagination px-4">
-          <p class="text-sm text-muted-foreground">
+        <div class="flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+          <p class="m-0 text-sm text-muted-foreground">
             Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }} releases
           </p>
 
@@ -173,7 +176,6 @@
 
   @if (selectedRelease(); as release) {
     <app-release-details
-      class="review-sidebar"
       animate.enter="sidebar-enter"
       [release]="release"
       (closed)="closeReleaseDetails()"

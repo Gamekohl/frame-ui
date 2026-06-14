@@ -1,6 +1,6 @@
 @let currentRelease = release();
 
-<div frModalPanel class="edit-release-modal">
+<div frModalPanel class="w-[min(42rem,calc(100vw-2rem))]">
   <div frModalHeader>
     <h2 frModalTitle>Edit release</h2>
     <p frModalDescription>
@@ -9,12 +9,12 @@
   </div>
 
   <div frModalBody>
-    <section class="edit-release-summary">
-      <div>
+    <section class="grid grid-cols-2 gap-3 rounded-md border border-border bg-muted/40 p-3.5 max-[54rem]:grid-cols-1">
+      <div class="grid min-w-0 gap-1">
         <span class="text-xs text-muted-foreground">Service</span>
         <strong>{{ currentRelease.service }}</strong>
       </div>
-      <div>
+      <div class="grid min-w-0 gap-1">
         <span class="text-xs text-muted-foreground">Current status</span>
         <span
           frBadge
@@ -27,8 +27,8 @@
       </div>
     </section>
 
-    <form class="edit-release-form" [formGroup]="form">
-      <div frField>
+    <form class="grid grid-cols-2 gap-4 max-[54rem]:grid-cols-1" [formGroup]="form">
+      <div frField class="col-span-full">
         <label frFieldLabel [for]="'edit-release-name-' + currentRelease.id">Release name</label>
         <input
           frInput

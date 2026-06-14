@@ -2,15 +2,21 @@
   position: sticky;
   top: 1rem;
   z-index: 99;
+  box-sizing: border-box;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 1.5rem;
   min-width: 0;
-  max-height: calc(100vh - 60px);
-  overflow-y: auto;
+  height: calc(100vh - 60px);
+  overflow: hidden;
   border-left: 1px solid var(--frame-border);
   background-color: var(--frame-surface);
   padding: 1rem;
+}
+
+#sidebar-body {
+  min-height: 0;
+  overflow-y: auto;
 }
 
 :host > div:last-child:empty {
@@ -22,6 +28,10 @@
     position: static;
     grid-template-rows: auto;
     max-height: none;
+    overflow: visible;
+  }
+
+  :host > div:nth-child(2) {
     overflow: visible;
   }
 }

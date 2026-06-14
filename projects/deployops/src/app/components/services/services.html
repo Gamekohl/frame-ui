@@ -1,14 +1,17 @@
 <app-header title="Services" placeholder="Search services, owners, or runtimes..." />
 
-<div class="services-workspace" [attr.data-details-open]="selectedService() ? 'true' : 'false'">
-  <section class="services-content">
+<div
+  class="grid h-full min-h-0 grid-cols-[minmax(0,1fr)] items-start overflow-hidden data-[details-open=true]:grid-cols-[minmax(0,1fr)_minmax(23rem,26rem)] max-[76rem]:data-[details-open=true]:grid-cols-1 max-[54rem]:h-auto max-[54rem]:overflow-visible"
+  [attr.data-details-open]="selectedService() ? 'true' : 'false'"
+>
+  <section class="grid h-full min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)] gap-5 px-8 py-6 max-[54rem]:h-auto max-[54rem]:p-4">
     @if (data()) {
-      <div class="services-catalog-layout">
+      <div class="grid min-h-0 min-w-0 grid-cols-[minmax(16rem,0.28fr)_minmax(0,1fr)] gap-4 max-[76rem]:grid-cols-1">
         <aside class="flex flex-col gap-4">
           <section frCard class="min-h-0">
             <header frCardHeader>
               <h5 frCardTitle>Operational focus</h5>
-              <div frCardAction class="services-kpi-icon" data-tone="red">
+              <div frCardAction class="services-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="red">
                 <ng-icon name="tablerExclamationCircle" size="18" />
               </div>
             </header>
@@ -35,7 +38,7 @@
           <section frCard>
             <header frCardHeader>
               <h5 frCardTitle>Runtime mix</h5>
-              <div frCardAction class="services-kpi-icon" data-tone="blue">
+              <div frCardAction class="services-kpi-icon grid w-9 place-items-center rounded-md aspect-square" data-tone="blue">
                 <ng-icon name="tablerPackages" size="18" />
               </div>
             </header>
@@ -60,7 +63,7 @@
           </section>
         </aside>
 
-        <section class="services-catalog-card min-h-0">
+        <section class="grid min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)_auto] gap-4 max-[54rem]:min-h-0">
           <div class="flex flex-wrap items-center justify-between gap-3 px-1">
             <div>
               <h3 class="m-0 text-lg font-semibold">Service catalog</h3>
@@ -81,7 +84,7 @@
             </button>
           </div>
 
-          <div class="services-catalog-scroll">
+          <div class="min-h-0 min-w-0 overflow-auto p-0.5 max-[54rem]:overflow-visible">
             <div class="grid gap-4 xl:grid-cols-2">
               @for (service of filteredServices(); track service.id) {
                 <article
@@ -187,8 +190,8 @@
             </div>
           </div>
 
-          <div class="services-pagination">
-            <p class="text-sm text-muted-foreground">
+          <div class="flex flex-wrap items-center justify-between gap-4 py-1">
+            <p class="m-0 text-sm text-muted-foreground">
               Page {{ currentPage() }} of {{ totalPages() }}
             </p>
 

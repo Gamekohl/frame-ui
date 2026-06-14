@@ -15,7 +15,7 @@ import { NgIcon } from '@ng-icons/core';
     NgIcon,
   ],
   template: `
-    <header class="dashboard-header flex items-center justify-end gap-4">
+    <header class="flex items-center justify-end gap-4 border-b border-border bg-surface px-4 py-2.5">
       <h2 class="text-xl font-semibold flex-1">{{ title() }}</h2>
 
       <div class="flex">
@@ -46,13 +46,6 @@ import { NgIcon } from '@ng-icons/core';
         </span>
       </button>
     </header>
-  `,
-  styles: `
-    .dashboard-header {
-      border-bottom: 1px solid var(--frame-border);
-      background: var(--frame-surface);
-      padding: 0.6rem 1rem;
-    }
   `,
 })
 export class Header {

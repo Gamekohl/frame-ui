@@ -1,33 +1,3 @@
-.edit-release-modal {
-  width: min(42rem, calc(100vw - 2rem));
-}
-
-.edit-release-summary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  padding: 0.875rem;
-  border: 1px solid var(--frame-border);
-  border-radius: var(--frame-radius-md);
-  background: color-mix(in srgb, var(--frame-muted) 44%, transparent);
-}
-
-.edit-release-summary div {
-  display: grid;
-  gap: 0.35rem;
-  min-width: 0;
-}
-
-.edit-release-form {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.edit-release-form [frField]:last-child {
-  grid-column: 1 / -1;
-}
-
 .release-status-badge[data-status='in-queue'],
 .release-status-badge[data-status='deploying'] {
   background: color-mix(in srgb, #2f80ed 12%, white);
@@ -42,11 +12,4 @@
 .release-status-badge[data-status='blocked'] {
   background: color-mix(in srgb, #d71920 12%, white);
   color: #d71920;
-}
-
-@media (max-width: 54rem) {
-  .edit-release-summary,
-  .edit-release-form {
-    grid-template-columns: 1fr;
-  }
 }

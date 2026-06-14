@@ -60,7 +60,6 @@ import {
     FrToastModule
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [
     provideIcons({
