@@ -30,6 +30,7 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     Sidebar,
   ],
   templateUrl: './service-details.html',
+  styleUrl: './service-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServiceDetailsComponent {

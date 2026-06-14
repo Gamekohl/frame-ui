@@ -36,6 +36,7 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     FrSeparator,
   ],
   templateUrl: './environment-details.html',
+  styleUrl: './environment-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EnvironmentDetailsComponent {

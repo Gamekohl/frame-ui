@@ -51,6 +51,7 @@ import { Sidebar } from '../../../shared/sidebar/sidebar';
     FrSeparator,
   ],
   templateUrl: './deployment-details.html',
+  styleUrl: './deployment-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeploymentDetailsComponent {

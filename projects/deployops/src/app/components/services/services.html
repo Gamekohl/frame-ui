@@ -1,323 +1,293 @@
-<app-header title="Services" placeholder="Search services, owners, or runtimes..." />
+<app-header title="Services" />
 
 <div
- class="flex min-h-0 flex-1 items-start overflow-hidden max-[54rem]:h-auto max-[54rem]:flex-col max-[54rem]:overflow-visible"
- [attr.data-details-open]="selectedService() ? 'true' : 'false'"
+  class="flex"
+  [attr.data-details-open]="selectedService() ? 'true' : 'false'"
 >
- <section class="flex min-h-0 min-w-0 flex-1 flex-col gap-5 overflow-y-auto px-8 py-6 max-[54rem]:h-auto max-[54rem]:w-full max-[54rem]:p-4">
- @if (data()) {
- <div class="flex min-w-0 gap-4 max-[76rem]:flex-col">
- <aside class="flex w-72 shrink-0 flex-col gap-4 max-[76rem]:w-full">
- <section frCard class="min-h-0">
- <header frCardHeader>
- <h5 frCardTitle>Operational focus</h5>
- <div frCardAction class="services-kpi-icon flex flex-col w-9 items-center justify-center rounded-md aspect-square" data-tone="red">
- <ng-icon name="tablerExclamationCircle" size="18" />
- </div>
- </header>
- <div frCardContent class="flex flex-col gap-4">
- @for (service of attentionServices(); track service.id) {
- <button
- type="button"
- class="flex flex-col rounded-md border bg-surface p-3 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
- [class.border-primary]="service.id === selectedService()?.id"
- (click)="selectService(service)"
- >
- <span class="flex items-center justify-between gap-3">
- <strong>{{ service.displayName }}</strong>
- <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
- {{ statusLabel(service.status) }}
- </span>
- </span>
- <span class="mt-2 text-sm text-muted-foreground">{{ service.errorRate }} errors · {{ service.latencyP95 }} p95</span>
- </button>
- } @empty {
- <div frEmpty variant="outline" class="py-6">
- <div frEmptyHeader>
- <div frEmptyMedia variant="icon">
- <ng-icon name="tablerCircleCheck" size="20" />
- </div>
- <h3 frEmptyTitle>All quiet</h3>
- <p frEmptyDescription>No service needs immediate attention.</p>
- </div>
- </div>
- }
- </div>
- </section>
+  <section class="flex-1 p-4">
+    @if (data()) {
+      <div class="flex min-w-0 gap-4 max-[76rem]:flex-col">
+        <aside class="flex w-72 shrink-0 flex-col gap-4 max-[76rem]:w-full">
+          <section frCard class="min-h-0">
+            <header frCardHeader>
+              <h5 frCardTitle>Operational focus</h5>
+              <div frCardAction
+                   class="services-kpi-icon flex flex-col w-9 items-center justify-center rounded-md aspect-square"
+                   data-tone="red">
+                <ng-icon name="tablerExclamationCircle" size="18" />
+              </div>
+            </header>
+            <div frCardContent class="flex flex-col gap-4">
+              @for (service of attentionServices(); track service.id) {
+                <button
+                  type="button"
+                  class="flex flex-col rounded-md border bg-surface p-3 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
+                  [class.border-primary]="service.id === selectedService()?.id"
+                  (click)="selectService(service)"
+                >
+                  <span class="flex items-center justify-between gap-3">
+                    <strong>{{ service.displayName }}</strong>
+                    <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
+                      {{ statusLabel(service.status) }}
+                    </span>
+                  </span>
+                  <span class="mt-2 text-sm text-muted-foreground">{{ service.errorRate }}
+                    errors · {{ service.latencyP95 }} p95</span>
+                </button>
+              } @empty {
+                <div frEmpty variant="outline" class="py-6">
+                  <div frEmptyHeader>
+                    <div frEmptyMedia variant="icon">
+                      <ng-icon name="tablerCircleCheck" size="20" />
+                    </div>
+                    <h3 frEmptyTitle>All quiet</h3>
+                    <p frEmptyDescription>No service needs immediate attention.</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
 
- <section frCard>
- <header frCardHeader>
- <h5 frCardTitle>Runtime mix</h5>
- <div frCardAction class="services-kpi-icon flex flex-col w-9 items-center justify-center rounded-md aspect-square" data-tone="blue">
- <ng-icon name="tablerPackages" size="18" />
- </div>
- </header>
- <div frCardContent class="flex flex-col gap-3">
- <div class="flex items-center justify-between gap-4 text-sm">
- <span>Node.js</span>
- <span class="text-muted-foreground">4 services</span>
- </div>
- <div class="flex items-center justify-between gap-4 text-sm">
- <span>Go</span>
- <span class="text-muted-foreground">3 services</span>
- </div>
- <div class="flex items-center justify-between gap-4 text-sm">
- <span>Java / Kotlin</span>
- <span class="text-muted-foreground">3 services</span>
- </div>
- <div class="flex items-center justify-between gap-4 text-sm">
- <span>Python / Rust</span>
- <span class="text-muted-foreground">2 services</span>
- </div>
- </div>
- </section>
- </aside>
+          <section frCard>
+            <header frCardHeader>
+              <h5 frCardTitle>Runtime mix</h5>
+              <div frCardAction
+                   class="services-kpi-icon flex flex-col w-9 items-center justify-center rounded-md aspect-square"
+                   data-tone="blue">
+                <ng-icon name="tablerPackages" size="18" />
+              </div>
+            </header>
+            <div frCardContent class="flex flex-col gap-3">
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Node.js</span>
+                <span class="text-muted-foreground">4 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Go</span>
+                <span class="text-muted-foreground">3 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Java / Kotlin</span>
+                <span class="text-muted-foreground">3 services</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 text-sm">
+                <span>Python / Rust</span>
+                <span class="text-muted-foreground">2 services</span>
+              </div>
+            </div>
+          </section>
+        </aside>
 
- <section class="flex min-w-0 flex-1 flex-col gap-4">
- <div class="flex flex-wrap items-center justify-between gap-3 px-1">
- <div>
- <h3 class="m-0 text-lg font-semibold">Service catalog</h3>
- <p class="m-0 text-sm text-muted-foreground">Showing {{ pageStart() }}-{{ pageEnd() }} of {{ totalItems() }}</p>
- </div>
+        <section class="flex flex-1 flex-col gap-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-1">
+            <div>
+              <h3 class="m-0 text-lg font-semibold">Service catalog</h3>
+              <p class="m-0 text-sm text-muted-foreground">Showing {{ pageStart() }}-{{ pageEnd() }}
+                of {{ totalItems() }}</p>
+            </div>
 
- <button
- (click)="refreshData()"
- frTooltip="Refresh services"
- frTooltipOpenDelay="700"
- frTooltipArrow
- frButton
- appearance="outline"
- type="button"
- >
- <ng-icon name="tablerRefresh" />
- Refresh
- </button>
- </div>
+            <button
+              (click)="refreshData()"
+              frTooltip="Refresh services"
+              frTooltipOpenDelay="700"
+              frTooltipArrow
+              frButton
+              appearance="outline"
+              type="button"
+            >
+              <ng-icon name="tablerRefresh" />
+              Refresh
+            </button>
+          </div>
 
- <div class="min-w-0 p-0.5">
- <div class="flex flex-wrap gap-4">
- @for (service of filteredServices(); track service.id) {
- <article
- frCard
- class="service-card min-w-[20rem] flex-1 basis-[24rem] cursor-pointer transition hover:border-primary"
- [attr.data-selected]="service.id === selectedService()?.id"
- (click)="selectService(service)"
- >
- <header frCardHeader>
- <div class="flex flex-col gap-1">
- <frame-hover-card [openDelay]="150" [closeDelay]="100">
- <button
- [frHoverCardTrigger]="servicePreview"
- type="button"
- class="w-fit text-left text-base font-semibold hover:text-primary"
- (click)="$event.stopPropagation(); selectService(service)"
- >
- {{ service.displayName }}
- </button>
+          <div class="min-w-0 p-0.5">
+            <div class="grid grid-cols-2 gap-4">
+              @for (service of filteredServices(); track service.id) {
+                <article
+                  frCard
+                  class="service-card min-w-[20rem] flex-1 basis-[24rem] cursor-pointer transition hover:border-primary"
+                  [attr.data-selected]="service.id === selectedService()?.id"
+                  (click)="selectService(service)"
+                >
+                  <header frCardHeader>
+                    <div class="flex flex-col gap-1">
+                      <span class="font-semibold">{{ service.displayName }}</span>
+                      <p frCardDescription>{{ service.name }} · {{ service.version }}</p>
+                    </div>
+                    <div frCardAction>
+                      <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
+                        {{ statusLabel(service.status) }}
+                      </span>
+                    </div>
+                  </header>
 
- <ng-template #servicePreview="frHoverCardContent" frHoverCardContent side="right" align="start">
- <div frHoverCardPanel class="flex flex-col max-w-80 gap-3 p-3">
- <div class="flex items-center justify-between gap-3">
- <strong>{{ service.displayName }}</strong>
- <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
- {{ statusLabel(service.status) }}
- </span>
- </div>
- <p class="m-0 text-sm text-muted-foreground">
- {{ service.owner.team }} owns {{ service.name }} in {{ service.environment }}.
- </p>
- <div class="flex gap-2 text-sm">
- <span class="min-w-0 flex-1 rounded-md border bg-muted/40 p-2">
- <span class="block text-muted-foreground">Runtime</span>
- <strong>{{ service.runtime }}</strong>
- </span>
- <span class="min-w-0 flex-1 rounded-md border bg-muted/40 p-2">
- <span class="block text-muted-foreground">Latency</span>
- <strong>{{ service.latencyP95 }}</strong>
- </span>
- <span class="min-w-0 flex-1 rounded-md border bg-muted/40 p-2">
- <span class="block text-muted-foreground">Deps</span>
- <strong>{{ service.dependencies }}</strong>
- </span>
- </div>
- </div>
- </ng-template>
- </frame-hover-card>
- <p frCardDescription>{{ service.name }} · {{ service.version }}</p>
- </div>
- <div frCardAction>
- <span frBadge [variant]="statusBadge(service.status)" class="service-status-badge" [attr.data-status]="service.status">
- {{ statusLabel(service.status) }}
- </span>
- </div>
- </header>
+                  <div frCardContent class="flex flex-col gap-5">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div class="inline-flex min-w-0 items-center gap-3">
+                        <span frAvatar size="sm">
+                          <img frAvatarImage [src]="service.owner.avatarUrl" alt="" />
+                        </span>
+                        <div class="min-w-0">
+                          <strong class="block truncate">{{ service.owner.name }}</strong>
+                          <span class="block truncate text-sm text-muted-foreground">{{ service.owner.team }}</span>
+                        </div>
+                      </div>
 
- <div frCardContent class="flex flex-col gap-5">
- <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
- <div class="inline-flex min-w-0 items-center gap-3">
- <span frAvatar size="sm">
- <img frAvatarImage [src]="service.owner.avatarUrl" alt="" />
- </span>
- <div class="min-w-0">
- <strong class="block truncate">{{ service.owner.name }}</strong>
- <span class="block truncate text-sm text-muted-foreground">{{ service.owner.team }}</span>
- </div>
- </div>
+                      <div class="flex flex-wrap gap-2 sm:justify-end">
+                        <span frBadge variant="secondary">{{ service.tier }}</span>
+                        <span frBadge variant="secondary">{{ service.runtime }}</span>
+                      </div>
+                    </div>
 
- <div class="flex flex-wrap gap-2 sm:justify-end">
- <span frBadge variant="secondary">{{ service.tier }}</span>
- <span frBadge variant="secondary">{{ service.runtime }}</span>
- </div>
- </div>
+                    <div class="flex flex-col gap-3 sm:flex-row">
+                      <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Uptime</span>
+                        <strong class="mt-1 block">{{ service.uptime }}</strong>
+                      </div>
+                      <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Latency</span>
+                        <strong class="mt-1 block">{{ service.latencyP95 }}</strong>
+                      </div>
+                      <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
+                        <span class="text-xs text-muted-foreground">Instances</span>
+                        <strong class="mt-1 block">{{ service.instances }}</strong>
+                      </div>
+                    </div>
 
- <div class="flex flex-col gap-3 sm:flex-row">
- <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
- <span class="text-xs text-muted-foreground">Uptime</span>
- <strong class="mt-1 block">{{ service.uptime }}</strong>
- </div>
- <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
- <span class="text-xs text-muted-foreground">Latency</span>
- <strong class="mt-1 block">{{ service.latencyP95 }}</strong>
- </div>
- <div class="min-w-0 flex-1 rounded-md border bg-muted/40 p-3">
- <span class="text-xs text-muted-foreground">Instances</span>
- <strong class="mt-1 block">{{ service.instances }}</strong>
- </div>
- </div>
+                    <div class="flex flex-col gap-2">
+                      <div class="flex items-center justify-between gap-3 text-sm">
+                        <span class="text-muted-foreground">Health pressure</span>
+                        <span>{{ service.errorRate }} errors</span>
+                      </div>
+                      <div class="h-2 overflow-hidden rounded-full bg-muted">
+                        <span
+                         class="service-health-bar block h-full rounded-full"
+                         [ngStyle]="{ width: latencyWidth(service) + '%' }"
+                         [attr.data-status]="service.status"
+                        ></span>
+                      </div>
+                    </div>
 
- <div class="flex flex-col gap-2">
- <div class="flex items-center justify-between gap-3 text-sm">
- <span class="text-muted-foreground">Health pressure</span>
- <span>{{ service.errorRate }} errors</span>
- </div>
- <div class="h-2 overflow-hidden rounded-full bg-muted">
- <span
- class="service-health-bar block h-full rounded-full"
- [ngStyle]="{ width: latencyWidth(service) + '%' }"
- [attr.data-status]="service.status"
- ></span>
- </div>
- </div>
+                    <footer class="flex flex-wrap items-center justify-between gap-3">
+                      <span class="text-sm text-muted-foreground">{{ service.dependencies }}
+                        dependencies · deployed {{ service.lastDeployment }}</span>
 
- <footer class="flex flex-wrap items-center justify-between gap-3">
- <span class="text-sm text-muted-foreground">{{ service.dependencies }} dependencies · deployed {{ service.lastDeployment }}</span>
+                      <div frDropdownMenu (click)="$event.stopPropagation()">
+                        <button
+                          frIconButton
+                          appearance="ghost"
+                          type="button"
+                          [frDropdownMenuTrigger]="serviceMenu"
+                          [attr.aria-label]="'Actions for ' + service.displayName"
+                        >
+                          <ng-icon name="tablerDots" size="18" />
+                        </button>
 
- <div frDropdownMenu (click)="$event.stopPropagation()">
- <button
- frIconButton
- appearance="ghost"
- type="button"
- [frDropdownMenuTrigger]="serviceMenu"
- [attr.aria-label]="'Actions for ' + service.displayName"
- >
- <ng-icon name="tablerDots" size="18" />
- </button>
+                        <ng-template #serviceMenu="frDropdownMenuContent" frDropdownMenuContent>
+                          <div frDropdownMenuPanel>
+                            <button frDropdownMenuItem type="button" (click)="selectService(service)">
+                              <ng-icon name="tablerExternalLink" size="16" />
+                              <span>View details</span>
+                            </button>
+                            <button frDropdownMenuItem type="button">
+                              <ng-icon name="tablerSearch" size="16" />
+                              <span>View logs</span>
+                            </button>
+                            <button frDropdownMenuItem type="button">
+                              <ng-icon name="tablerLayersIntersect" size="16" />
+                              <span>Open dependencies</span>
+                            </button>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </footer>
+                  </div>
+                </article>
+              } @empty {
+                <div frEmpty variant="outline" orientation="horizontal" class="min-h-64 xl:w-full">
+                  <div frEmptyHeader>
+                    <div frEmptyMedia variant="icon">
+                      <ng-icon name="tablerServer" size="20" />
+                    </div>
+                    <h3 frEmptyTitle>No services found</h3>
+                    <p frEmptyDescription>The selected service status has no matches on this page.</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
 
- <ng-template #serviceMenu="frDropdownMenuContent" frDropdownMenuContent>
- <div frDropdownMenuPanel>
- <button frDropdownMenuItem type="button" (click)="selectService(service)">
- <ng-icon name="tablerExternalLink" size="16" />
- <span>View details</span>
- </button>
- <button frDropdownMenuItem type="button">
- <ng-icon name="tablerSearch" size="16" />
- <span>View logs</span>
- </button>
- <button frDropdownMenuItem type="button">
- <ng-icon name="tablerLayersIntersect" size="16" />
- <span>Open dependencies</span>
- </button>
- </div>
- </ng-template>
- </div>
- </footer>
- </div>
- </article>
- } @empty {
- <div frEmpty variant="outline" orientation="horizontal" class="min-h-64 xl:w-full">
- <div frEmptyHeader>
- <div frEmptyMedia variant="icon">
- <ng-icon name="tablerServer" size="20" />
- </div>
- <h3 frEmptyTitle>No services found</h3>
- <p frEmptyDescription>The selected service status has no matches on this page.</p>
- </div>
- </div>
- }
- </div>
- </div>
+          <div class="flex flex-wrap items-center justify-between gap-4 py-1">
+            <p class="m-0 text-sm text-muted-foreground">
+              Page {{ currentPage() }} of {{ totalPages() }}
+            </p>
 
- <div class="flex flex-wrap items-center justify-between gap-4 py-1">
- <p class="m-0 text-sm text-muted-foreground">
- Page {{ currentPage() }} of {{ totalPages() }}
- </p>
+            <nav
+              frPagination
+              #pagination="frPagination"
+              aria-label="Services pagination"
+              [page]="currentPage()"
+              (pageChange)="goToPage($event)"
+              [totalPages]="totalPages()"
+            >
+              <ul frPaginationContent>
+                <li frPaginationItem>
+                  <button frPaginationPrevious type="button"></button>
+                </li>
 
- <nav
- frPagination
- #pagination="frPagination"
- aria-label="Services pagination"
- [page]="currentPage()"
- (pageChange)="goToPage($event)"
- [totalPages]="totalPages()"
- >
- <ul frPaginationContent>
- <li frPaginationItem>
- <button frPaginationPrevious type="button"></button>
- </li>
+                @for (page of pagination.pages(); track $index) {
+                  <li frPaginationItem>
+                    @if (page === 'ellipsis') {
+                      <span frPaginationEllipsis></span>
+                    } @else {
+                      <button frPaginationLink type="button" [page]="page">
+                        {{ page }}
+                      </button>
+                    }
+                  </li>
+                }
 
- @for (page of pagination.pages(); track $index) {
- <li frPaginationItem>
- @if (page === 'ellipsis') {
- <span frPaginationEllipsis></span>
- } @else {
- <button frPaginationLink type="button" [page]="page">
- {{ page }}
- </button>
- }
- </li>
- }
+                <li frPaginationItem>
+                  <button frPaginationNext type="button"></button>
+                </li>
+              </ul>
+            </nav>
 
- <li frPaginationItem>
- <button frPaginationNext type="button"></button>
- </li>
- </ul>
- </nav>
+            <div></div>
+          </div>
+        </section>
+      </div>
+    } @else {
+      <div class="flex min-w-0 gap-4 max-[76rem]:flex-col">
+        <aside class="flex w-72 shrink-0 flex-col gap-4 max-[76rem]:w-full">
+          <div frCard class="min-w-0 flex-1">
+            <div frCardContent class="flex flex-col gap-4 p-5">
+              <div frSkeleton width="10rem" height="1.25rem"></div>
+              <div frSkeleton height="7rem" radius="0.5rem"></div>
+            </div>
+          </div>
+          <div frCard class="min-w-0 flex-1 overflow-hidden">
+            <div frCardContent class="flex flex-col gap-4 p-5">
+              <div frSkeleton width="8rem" height="1.25rem"></div>
+              <div frSkeleton height="5rem" radius="0.5rem"></div>
+            </div>
+          </div>
+        </aside>
+        <div frCard>
+          <div frCardContent class="flex flex-col gap-4 p-5">
+            <div frSkeleton width="13rem" height="1.25rem"></div>
+            <div frSkeleton height="22rem" radius="0.5rem"></div>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
 
- <div></div>
- </div>
- </section>
- </div>
- } @else {
- <div class="flex min-w-0 gap-4 max-[76rem]:flex-col">
- <aside class="flex w-72 shrink-0 flex-col gap-4 max-[76rem]:w-full">
- <div frCard class="min-w-0 flex-1">
- <div frCardContent class="flex flex-col gap-4 p-5">
- <div frSkeleton width="10rem" height="1.25rem"></div>
- <div frSkeleton height="7rem" radius="0.5rem"></div>
- </div>
- </div>
- <div frCard class="min-w-0 flex-1 overflow-hidden">
- <div frCardContent class="flex flex-col gap-4 p-5">
- <div frSkeleton width="8rem" height="1.25rem"></div>
- <div frSkeleton height="5rem" radius="0.5rem"></div>
- </div>
- </div>
- </aside>
- <div frCard>
- <div frCardContent class="flex flex-col gap-4 p-5">
- <div frSkeleton width="13rem" height="1.25rem"></div>
- <div frSkeleton height="22rem" radius="0.5rem"></div>
- </div>
- </div>
- </div>
- }
- </section>
-
- @if (selectedService(); as service) {
- <app-service-details
- animate.enter="sidebar-enter"
- [service]="service"
- (closed)="selectService(null)"
- />
- }
+  @if (selectedService(); as service) {
+    <app-service-details
+      animate.enter="sidebar-enter"
+      [service]="service"
+      (closed)="selectService(null)"
+    />
+  }
 </div>

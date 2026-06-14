@@ -1,13 +1,5 @@
 import { NgStyle } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  OnInit,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
@@ -21,13 +13,12 @@ import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
 import { FrSwitchModule } from '@frame-ui-ng/components/switch';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { Subject, startWith, switchMap } from 'rxjs';
+import { startWith, Subject, switchMap } from 'rxjs';
 import {
   ApiService,
   DeployEnvironment,
-  EnvironmentGateStatus,
-  EnvironmentStatus,
   EnvironmentsData,
+  EnvironmentStatus
 } from '../../services/api.service';
 import { Header } from '../../shared/header/header';
 import { EnvironmentDetailsComponent } from './environment-details/environment-details';
@@ -65,27 +56,16 @@ export class Environments implements OnInit {
   readonly data = signal<EnvironmentsData | null>(null);
   readonly selectedEnvironment = signal<DeployEnvironment | null>(null);
   readonly selectedStatus = signal<EnvironmentFilter>('all');
-  readonly protectedOnly = signal(false);
   readonly filteredEnvironments = computed(() => {
     const status = this.selectedStatus();
 
     return (this.data()?.environments ?? []).filter((environment) => {
-      const statusMatches = status === 'all' || environment.status === status;
-      const protectionMatches = !this.protectedOnly() || environment.protected;
-
-      return statusMatches && protectionMatches;
+      return status === 'all' || environment.status === status;
     });
   });
   readonly protectedEnvironments = computed(() =>
     this.filteredEnvironments().filter((environment) => environment.protected),
   );
-  readonly selectedReadiness = computed(() => {
-    const environment = this.selectedEnvironment();
-
-    if (!environment) return 0;
-
-    return this.readinessPercent(environment);
-  });
 
   ngOnInit(): void {
     this.refresh$
@@ -115,10 +95,6 @@ export class Environments implements OnInit {
     this.refresh$.next();
   }
 
-  setProtectedOnly(event: Event): void {
-    this.protectedOnly.set((event.target as HTMLInputElement).checked);
-  }
-
   filterLabel(filter = this.selectedStatus()): string {
     if (filter === 'all') return 'All statuses';
 
@@ -145,16 +121,5 @@ export class Environments implements OnInit {
     if (status === 'degraded') return 'destructive';
 
     return 'secondary';
-  }
-
-  gateLabel(status: EnvironmentGateStatus): string {
-    const labels: Record<EnvironmentGateStatus, string> = {
-      blocked: 'Blocked',
-      passed: 'Passed',
-      running: 'Running',
-      scheduled: 'Scheduled',
-    };
-
-    return labels[status];
   }
 }
