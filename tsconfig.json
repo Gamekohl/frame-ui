@@ -60,6 +60,7 @@
       ,"@frame-ui-ng/components/toggle": [         "./projects/components/toggle/public-api.ts",         "./dist/components/toggle"       ]
       ,"@frame-ui-ng/components/tooltip": [         "./projects/components/tooltip/public-api.ts",         "./dist/components/tooltip"       ]
       ,"@frame-ui-ng/components/toast": [         "./projects/components/toast/public-api.ts",         "./dist/components/toast"       ]
+      ,"@frame-ui-ng/components/utils": [         "./projects/components/utils/public-api.ts",         "./dist/components/utils"       ]
       ,"@frame-ui-ng/components/virtual-scroll": [         "./projects/components/virtual-scroll/public-api.ts",         "./dist/components/virtual-scroll"       ]
     },
     "noImplicitOverride": true,

@@ -82,10 +82,22 @@ class ControlledSidebarHost {
 }
 
 @Component({
+  imports: [FrSidebar, FrSidebarProvider, FrSidebarRail],
+  template: `
+    <div frSidebarProvider>
+      <aside frSidebar collapsible="offcanvas">
+        <div frSidebarRail></div>
+      </aside>
+    </div>
+  `,
+})
+class OffcanvasRailHost {}
+
+@Component({
   imports: [FrSidebar, FrSidebarMenuButton, FrSidebarProvider, FrSidebarRail],
   template: `
     <div frSidebarProvider>
-      <aside frSidebar [minSize]="minSize()" [maxSize]="maxSize()">
+      <aside frSidebar [minSize]="minSize()" [maxSize]="maxSize()" [resizable]="resizable()">
         <a frSidebarMenuButton>
           <span data-long-label>Extremely long workspace navigation item</span>
         </a>
@@ -97,6 +109,7 @@ class ControlledSidebarHost {
 class ResizableSidebarHost {
   readonly minSize = signal<number | null>(null);
   readonly maxSize = signal<number | null>(384);
+  readonly resizable = signal(true);
 }
 
 describe('FrSidebar', () => {
@@ -138,13 +151,54 @@ describe('FrSidebar', () => {
     expect(sidebar.getAttribute('data-state')).toBe('collapsed');
   });
 
-  it('toggles from the sidebar rail', () => {
+  it('does not toggle icon-collapsed sidebars from a rail click', () => {
+    const trigger = fixture.debugElement.query(By.directive(FrSidebarTrigger)).nativeElement as HTMLButtonElement;
+    const provider = fixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
     const rail = fixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    trigger.click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.provider().state()).toBe('collapsed');
 
     rail.click();
     fixture.detectChanges();
 
     expect(fixture.componentInstance.provider().state()).toBe('collapsed');
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('');
+  });
+
+  it('keeps expanded width after an icon rail click followed by trigger expansion', () => {
+    const trigger = fixture.debugElement.query(By.directive(FrSidebarTrigger)).nativeElement as HTMLButtonElement;
+    const provider = fixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const rail = fixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    trigger.click();
+    fixture.detectChanges();
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+    rail.click();
+    fixture.detectChanges();
+
+    trigger.click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.provider().state()).toBe('expanded');
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('');
+  });
+
+  it('toggles offcanvas sidebars from the sidebar rail', () => {
+    const offcanvasFixture = TestBed.createComponent(OffcanvasRailHost);
+    offcanvasFixture.detectChanges();
+
+    const provider = offcanvasFixture.debugElement.query(By.directive(FrSidebarProvider)).injector.get(FrSidebarProvider);
+    const rail = offcanvasFixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    rail.click();
+    offcanvasFixture.detectChanges();
+
+    expect(provider.state()).toBe('collapsed');
   });
 
   it('resizes from the sidebar rail without toggling', () => {
@@ -170,6 +224,36 @@ describe('FrSidebar', () => {
     fixture.detectChanges();
 
     expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('240px');
+    expect(fixture.componentInstance.provider().state()).toBe('expanded');
+  });
+
+  it('expands an icon-collapsed sidebar when dragging the rail to resize', () => {
+    const trigger = fixture.debugElement.query(By.directive(FrSidebarTrigger)).nativeElement as HTMLButtonElement;
+    const provider = fixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const sidebar = fixture.nativeElement.querySelector('[frSidebar]') as HTMLElement;
+    const rail = fixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    trigger.click();
+    fixture.detectChanges();
+
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 48,
+      toJSON: () => ({}),
+      top: 0,
+      width: 48,
+      x: 0,
+      y: 0,
+    });
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 48, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+    fixture.detectChanges();
+
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('192px');
     expect(fixture.componentInstance.provider().state()).toBe('expanded');
   });
 
@@ -206,6 +290,35 @@ describe('FrSidebar', () => {
     document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
 
     expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('260px');
+  });
+
+  it('does not resize from the rail when resizable is false', () => {
+    const resizeFixture = TestBed.createComponent(ResizableSidebarHost);
+    resizeFixture.componentInstance.resizable.set(false);
+    resizeFixture.detectChanges();
+
+    const provider = resizeFixture.nativeElement.querySelector('[frSidebarProvider]') as HTMLElement;
+    const sidebar = resizeFixture.nativeElement.querySelector('[frSidebar]') as HTMLElement;
+    const rail = resizeFixture.debugElement.query(By.directive(FrSidebarRail)).nativeElement as HTMLElement;
+
+    vi.spyOn(sidebar, 'getBoundingClientRect').mockReturnValue({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 240,
+      toJSON: () => ({}),
+      top: 0,
+      width: 240,
+      x: 0,
+      y: 0,
+    });
+
+    rail.dispatchEvent(new PointerEvent('pointerdown', { clientX: 0, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointermove', { clientX: 80, bubbles: true }));
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+
+    expect(sidebar.getAttribute('data-resizable')).toBeNull();
+    expect(provider.style.getPropertyValue('--frame-sidebar-width')).toBe('');
   });
 
   it('defaults minSize to the widest sidebar content during rail resizing', () => {

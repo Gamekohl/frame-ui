@@ -14,6 +14,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 
 import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
+import { clampNumber, coerceNumber } from '@frame-ui-ng/components/utils';
 
 export const FR_SLIDER_ORIENTATIONS = ['horizontal', 'vertical'] as const;
 
@@ -22,11 +23,6 @@ export type FrSliderValue = number | number[];
 
 function coerceOrientation(value: unknown): FrSliderOrientation {
   return value === 'vertical' ? 'vertical' : 'horizontal';
-}
-
-function coerceNumber(value: unknown, fallback: number): number {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
 }
 
 function coerceValue(value: FrSliderValue | null | undefined): number[] {
@@ -239,7 +235,7 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
       const next = index < normalized.length - 1 ? normalized[index + 1] - minDistance : max;
       const lower = activeIndex === index ? previous : min;
       const upper = activeIndex === index ? next : max;
-      return this.snap(clamp(value, lower, upper), min, step);
+      return this.snap(clampNumber(value, lower, upper), min, step);
     });
   }
 
@@ -268,7 +264,7 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
       percent = 1 - percent;
     }
 
-    return this.min() + clamp(percent, 0, 1) * (this.max() - this.min());
+    return this.min() + clampNumber(percent, 0, 1) * (this.max() - this.min());
   }
 
   private closestThumbIndex(value: number): number {
@@ -282,8 +278,4 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
   private isRtl(): boolean {
     return getComputedStyle(this.elementRef.nativeElement).direction === 'rtl';
   }
-}
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
 }

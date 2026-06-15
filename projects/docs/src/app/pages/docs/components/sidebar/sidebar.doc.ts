@@ -132,6 +132,20 @@ const resizableHtml = `<div frSidebarProvider>
   </main>
 </div>`;
 
+const resizeDisabledHtml = `<div frSidebarProvider>
+  <aside frSidebar [resizable]="false">
+    <div frSidebarContent>
+      <!-- Sidebar content -->
+    </div>
+
+    <div frSidebarRail></div>
+  </aside>
+
+  <main frSidebarInset>
+    Main content
+  </main>
+</div>`;
+
 const variantsHtml = `<aside frSidebar variant="floating" collapsible="offcanvas">
   <!-- Floating sidebar content -->
 </aside>
@@ -472,6 +486,22 @@ export const SIDEBAR_DOC: ComponentDoc = {
       code: [
         { language: 'ts', code: importsCode },
         { language: 'html', code: resizableHtml },
+      ],
+    },
+    {
+      id: 'resize-disabled',
+      title: 'Disable Rail Resize',
+      description:
+        'Set resizable to false when the sidebar should keep a fixed width. The rail remains part of the layout but no longer starts drag resizing.',
+      preview: {
+        component: DocsSidebarPreviewComponent,
+        inputs: {
+          config: { mode: 'resize-disabled' },
+        },
+      },
+      code: [
+        { language: 'ts', code: importsCode },
+        { language: 'html', code: resizeDisabledHtml },
       ],
     },
     {

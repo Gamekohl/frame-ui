@@ -12,6 +12,7 @@ import {
   signal,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { clampNumber } from '@frame-ui-ng/components/utils';
 
 export const FR_SIDEBAR_SIDES = ['left', 'right'] as const;
 export const FR_SIDEBAR_VARIANTS = ['sidebar', 'floating', 'inset'] as const;
@@ -171,6 +172,7 @@ export class FrSidebarProvider {
     '[attr.data-side]': 'side()',
     '[attr.data-variant]': 'variant()',
     '[attr.data-collapsible]': 'collapsible()',
+    '[attr.data-resizable]': 'resizable() ? "" : null',
     '[attr.data-state]': 'provider?.state() ?? "expanded"',
     '[attr.data-mobile-open]': 'provider?.openMobile() ?? false',
   },
@@ -185,6 +187,7 @@ export class FrSidebar {
   });
   readonly minSize = input<number | null, unknown>(null, { transform: coerceOptionalNumber });
   readonly maxSize = input<number | null, unknown>(384, { transform: coerceOptionalNumber });
+  readonly resizable = input(true, { transform: booleanAttribute });
 }
 
 @Directive({
@@ -239,11 +242,15 @@ export class FrSidebarRail {
       return;
     }
 
+    if (this.sidebar?.collapsible() === 'icon') {
+      return;
+    }
+
     this.provider?.toggleSidebar();
   }
 
   startResize(event: PointerEvent): void {
-    if (!this.sidebar || !this.provider || this.provider.isMobile()) {
+    if (!this.sidebar || !this.provider || this.provider.isMobile() || !this.sidebar.resizable()) {
       return;
     }
 
@@ -259,7 +266,9 @@ export class FrSidebarRail {
     const up = () => {
       this.document.removeEventListener('pointermove', move);
       this.document.removeEventListener('pointerup', up);
-      this.flushResize();
+      if (this.dragging) {
+        this.flushResize();
+      }
       this.provider?.setResizing(false);
       this.suppressClick = this.dragging;
       this.dragging = false;
@@ -282,10 +291,14 @@ export class FrSidebarRail {
 
     const delta = event.clientX - this.startX;
     const direction = this.sidebar.side() === 'right' ? -1 : 1;
-    const nextWidth = this.clampWidth(this.startWidth + delta * direction);
+    const nextWidth = clampNumber(this.startWidth + delta * direction, this.resizeMinSize, this.resizeMaxSize);
 
     if (Math.abs(delta) > 3) {
       this.dragging = true;
+
+      if (this.sidebar.collapsible() === 'icon' && !this.provider.open()) {
+        this.provider.setOpen(true);
+      }
     }
 
     this.pendingWidth = nextWidth;
@@ -309,10 +322,6 @@ export class FrSidebarRail {
     if (this.pendingWidth) {
       this.provider?.setSidebarWidth(this.pendingWidth);
     }
-  }
-
-  private clampWidth(width: number): number {
-    return Math.min(Math.max(width, this.resizeMinSize), this.resizeMaxSize);
   }
 
   private captureResizeBounds(): void {

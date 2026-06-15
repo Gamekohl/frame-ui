@@ -17,6 +17,7 @@ import {
 
 import { FrControlValueAccessor, provideDsValueAccessor } from '@frame-ui-ng/components/forms';
 import { FrInput } from '@frame-ui-ng/components/input';
+import { clampNumber } from '@frame-ui-ng/components/utils';
 
 export const FR_INPUT_OTP_PATTERN_DIGITS = /^[0-9]$/;
 export const FR_INPUT_OTP_PATTERN_DIGITS_AND_CHARS = /^[a-zA-Z0-9]$/;
@@ -107,7 +108,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
       return;
     }
 
-    const nextIndex = clamp(index, 0, this.maxLength());
+    const nextIndex = clampNumber(index, 0, this.maxLength());
     inputElement.focus();
     inputElement.setSelectionRange(nextIndex, nextIndex);
     this.activeIndex.set(nextIndex);
@@ -167,7 +168,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
   syncActiveIndex(): void {
     const inputElement = this.nativeInput()?.nativeElement;
     const index = inputElement?.selectionStart ?? this.value().length;
-    this.activeIndex.set(clamp(index, 0, this.maxLength()));
+    this.activeIndex.set(clampNumber(index, 0, this.maxLength()));
   }
 
   markTouched(): void {
@@ -206,7 +207,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
 
   private replaceFrom(index: number, text: string): string {
     const value = this.value();
-    const start = clamp(index, 0, this.maxLength());
+    const start = clampNumber(index, 0, this.maxLength());
     const next = `${value.slice(0, start)}${text}${value.slice(start + text.length)}`;
 
     return this.sanitize(next);
@@ -293,9 +294,5 @@ function toMatcher(pattern: FrInputOtpPattern): (character: string) => boolean {
 
   const regex = new RegExp(pattern);
   return (character) => regex.test(character);
-}
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
 }
 

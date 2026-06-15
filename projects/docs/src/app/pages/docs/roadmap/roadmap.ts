@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 import {
-  FrBadge,
+  FrBadge, FrButton,
   FrCard,
   FrCardContent,
   FrCardHeader,
   FrCardTitle,
 } from '@frame-ui-ng/components';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,
   tablerBolt,
@@ -15,6 +15,7 @@ import {
   tablerCircleDashed,
   tablerHammer,
   tablerLayersIntersect,
+  tablerMail,
   tablerPalette,
   tablerRocket,
   tablerSparkles,
@@ -23,10 +24,16 @@ import {
 
 type RoadmapStatus = 'In progress' | 'Planned' | 'Exploring' | 'Indeterminate';
 
+type RoadmapAction = {
+  readonly icon: string;
+  readonly link: string;
+};
+
 type RoadmapItem = {
   readonly title: string;
   readonly description: string;
   readonly status: RoadmapStatus;
+  readonly actions?: RoadmapAction[];
 };
 
 type RoadmapGroup = {
@@ -38,14 +45,7 @@ type RoadmapGroup = {
 
 @Component({
   selector: 'app-roadmap',
-  imports: [
-    NgClass,
-    FrBadge,
-    FrCard,
-    FrCardContent,
-    FrCardHeader,
-    FrCardTitle,
-  ],
+  imports: [NgClass, FrBadge, FrCard, FrCardContent, FrCardHeader, FrCardTitle, NgIcon, FrButton],
   templateUrl: './roadmap.html',
   viewProviders: [
     provideIcons({
@@ -59,6 +59,7 @@ type RoadmapGroup = {
       tablerRocket,
       tablerSparkles,
       tablerTools,
+      tablerMail,
     }),
   ],
 })
@@ -71,10 +72,9 @@ export class Roadmap {
       items: [
         {
           title: 'Charts',
-          description:
-            'Adding a versatile Charts component to the library',
-          status: 'In progress'
-        }
+          description: 'Adding a versatile Charts component to the library',
+          status: 'In progress',
+        },
       ],
     },
     {
@@ -84,21 +84,20 @@ export class Roadmap {
       items: [
         {
           title: 'Select Component Advanced Features',
-          description:
-            'Support for Lazy/Async Loading, Search',
-          status: 'Planned'
+          description: 'Support for Lazy/Async Loading, Search',
+          status: 'Planned',
         },
         {
           title: 'Extend Accessibility',
           description:
             'A focused review of keyboard behavior, labels, roles, focus states, and screen reader output.',
-          status: 'Planned'
+          status: 'Planned',
         },
         {
           title: 'MCP Integration',
           description:
             'A structured way for AI tools to read component APIs, examples, and usage rules.',
-          status: 'Planned'
+          status: 'Planned',
         },
       ],
     },
@@ -110,9 +109,15 @@ export class Roadmap {
         {
           title: 'Contributing',
           description:
-            'If you\'d like to contribute, hit me up on the official Discord.',
-          status: 'Exploring'
-        }
+            "If you'd like to contribute, hit me up per mail or Discord @gamekohl.",
+          status: 'Exploring',
+          actions: [
+            {
+              icon: 'tablerMail',
+              link: 'mailto:hello@frame-ui.com',
+            },
+          ],
+        },
       ],
     },
   ];
