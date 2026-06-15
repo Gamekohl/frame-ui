@@ -78,6 +78,42 @@ const STATIC_ROUTES = {
       'Read the main changes in each FrameUI beta release.',
     path: '/docs/changelog',
   },
+  '/charts': {
+    title: `Area Chart | ${SITE_NAME}`,
+    description:
+      'Explore FrameUI chart examples for theme-aware dashboards, reports, and operational interfaces.',
+    path: '/charts/area',
+  },
+  '/charts/area': {
+    title: `Area Chart | ${SITE_NAME}`,
+    description:
+      'Display volume, trends, and cumulative movement over time with FrameUI area chart examples.',
+    path: '/charts/area',
+  },
+  '/charts/bar': {
+    title: `Bar Chart | ${SITE_NAME}`,
+    description:
+      'Compare grouped or single-series values across categories with FrameUI bar chart examples.',
+    path: '/charts/bar',
+  },
+  '/charts/line': {
+    title: `Line Chart | ${SITE_NAME}`,
+    description:
+      'Show continuous trends and compare multiple series with FrameUI line chart examples.',
+    path: '/charts/line',
+  },
+  '/charts/pie': {
+    title: `Pie Chart | ${SITE_NAME}`,
+    description:
+      'Represent part-to-whole relationships with token-aware FrameUI pie chart examples.',
+    path: '/charts/pie',
+  },
+  '/charts/radial': {
+    title: `Radial Chart | ${SITE_NAME}`,
+    description:
+      'Show progress, quota usage, and compact KPI completion with token-aware FrameUI radial chart examples.',
+    path: '/charts/radial',
+  },
 } satisfies Record<string, SeoMetadata>;
 
 const COMPONENTS = {

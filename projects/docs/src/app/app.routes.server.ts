@@ -16,6 +16,13 @@ function loadComponentSlugs(): string[] {
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'charts/:type',
+    renderMode: RenderMode.Prerender,
+    async getPrerenderParams() {
+      return ['area', 'bar', 'line', 'pie', 'radial'].map((type) => ({ type }));
+    },
+  },
+  {
     path: 'docs/components/:slug',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {

@@ -1,0 +1,32 @@
+.frame-chart__radial-track,
+.frame-chart__radial-segment {
+  fill: none;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__radial-track {
+  stroke: var(--frame-chart-grid-color);
+}
+
+.frame-chart__radial-segment {
+  transition:
+    opacity 160ms ease,
+    stroke 160ms ease;
+}
+
+.frame-chart__radial-value {
+  fill: var(--frame-foreground);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  dominant-baseline: central;
+}
+
+.frame-chart__radial-label {
+  fill: var(--frame-muted-foreground);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  dominant-baseline: central;
+}

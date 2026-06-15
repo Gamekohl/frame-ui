@@ -1,0 +1,11 @@
+.frame-chart__bar {
+  rx: 5;
+  ry: 5;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+[frChart][data-type="bar"] .frame-chart__legend,
+frame-chart[data-type="bar"] .frame-chart__legend {
+  margin-block-start: 0.5rem;
+}

@@ -16,6 +16,12 @@
       >
         Components
       </a>
+      <a
+        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
+        routerLink="/charts/area"
+      >
+        Charts
+      </a>
       <!--<a class="text-muted-foreground hover:text-foreground flex items-center gap-2" routerLink="/docs/mcp">
         MCP
       </a>
@@ -99,8 +105,6 @@
         }
       </div>
 
-      <div frCommandSeparator></div>
-
       <div frCommandGroup heading="Tools">
         <p frCommandGroupHeading>Tools</p>
 
@@ -113,7 +117,17 @@
         }
       </div>
 
-      <div frCommandSeparator></div>
+      <div frCommandGroup heading="Charts">
+        <p frCommandGroupHeading>Charts</p>
+
+        @for (page of charts; track page.path) {
+          <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
+            <ng-icon name="tablerChartAreaLine" size="17" frCommandItemIcon />
+            <span>{{ page.title }}</span>
+            <span frCommandShortcut>{{ page.section }}</span>
+          </button>
+        }
+      </div>
 
       <div frCommandGroup heading="Components">
         <p frCommandGroupHeading>Components</p>

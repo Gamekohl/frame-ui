@@ -1,0 +1,7 @@
+.frame-chart__pie-slice {
+  stroke: var(--frame-background);
+  stroke-linejoin: round;
+  stroke-width: 2;
+  transform-box: view-box;
+  transform-origin: center;
+}

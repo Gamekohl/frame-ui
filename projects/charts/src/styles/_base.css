@@ -1,0 +1,55 @@
+[frChart],
+frame-chart {
+  --frame-chart-height: 20rem;
+  --frame-chart-1: var(--frame-primary);
+  --frame-chart-2: color-mix(in srgb, var(--frame-primary) 58%, var(--frame-foreground));
+  --frame-chart-3: color-mix(in srgb, var(--frame-success, #16a34a) 82%, var(--frame-foreground));
+  --frame-chart-4: color-mix(in srgb, var(--frame-warning, #f59e0b) 82%, var(--frame-foreground));
+  --frame-chart-5: color-mix(in srgb, var(--frame-destructive, #dc2626) 82%, var(--frame-foreground));
+  --frame-chart-grid-color: color-mix(in srgb, var(--frame-border) 78%, transparent);
+  --frame-chart-axis-color: var(--frame-muted-foreground);
+  --frame-chart-tooltip-bg: var(--frame-popover, var(--frame-surface));
+  --frame-chart-tooltip-color: var(--frame-popover-foreground, var(--frame-foreground));
+  --frame-chart-tooltip-border: var(--frame-border);
+  --frame-chart-tooltip-shadow: var(--frame-shadow-lg, 0 12px 30px rgb(0 0 0 / 0.12));
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--frame-foreground);
+}
+
+.frame-chart__surface {
+  display: block;
+  width: 100%;
+  height: var(--frame-chart-height);
+  overflow: visible;
+  touch-action: none;
+}
+
+.frame-chart__empty {
+  position: absolute;
+  inset: 2.5rem 1rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  border: 1px dashed var(--frame-chart-grid-color);
+  color: var(--frame-muted-foreground);
+  pointer-events: none;
+  text-align: center;
+}
+
+.frame-chart__empty strong {
+  color: var(--frame-foreground);
+  font-size: 0.9375rem;
+}
+
+.frame-chart__empty span {
+  font-size: 0.8125rem;
+}

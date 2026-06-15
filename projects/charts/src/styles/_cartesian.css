@@ -1,0 +1,50 @@
+.frame-chart__grid line {
+  stroke: var(--frame-chart-grid-color);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__axis text {
+  fill: var(--frame-chart-axis-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-stretch: normal;
+  letter-spacing: 0;
+}
+
+.frame-chart__area {
+  opacity: 0.14;
+}
+
+.frame-chart__zero-line {
+  stroke: color-mix(in srgb, var(--frame-foreground) 34%, transparent);
+  stroke-dasharray: 5 5;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__reveal-mask {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+.frame-chart__cursor {
+  stroke: color-mix(in srgb, var(--frame-foreground) 28%, transparent);
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__dot {
+  stroke: var(--frame-background);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
