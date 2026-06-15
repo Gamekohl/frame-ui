@@ -18,7 +18,7 @@
             @for (environment of filteredEnvironments(); track environment.id) {
               <div class="flex gap-3">
                 <span
-                  class="mt-1 flex size-8 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+                  class="mt-1 flex size-8 shrink-0 items-center justify-center bg-muted text-muted-foreground">
                   <ng-icon name="tablerCalendar" size="17" />
                 </span>
                 <div>
@@ -98,7 +98,11 @@
                 appearance="outline"
                 type="button"
               >
-                <ng-icon name="tablerRefresh" />
+                @if (isLoading()) {
+                  <span frSpinner size="sm" label="Refreshing environments"></span>
+                } @else {
+                  <ng-icon name="tablerRefresh" />
+                }
                 Refresh
               </button>
             </div>
@@ -109,7 +113,7 @@
               @for (environment of filteredEnvironments(); track environment.id) {
                 <button
                   type="button"
-                  class="environment-node min-w-48 flex-1 basis-48 cursor-pointer rounded-lg border border-border bg-surface p-4 text-left transition hover:-translate-y-px hover:border-primary"
+                  class="environment-node min-w-48 flex-1 basis-48 cursor-pointer border border-border bg-surface p-4 text-left transition hover:-translate-y-px hover:border-primary"
                   [attr.data-selected]="environment.id === selectedEnvironment()?.id"
                   [attr.data-status]="environment.status"
                   (click)="selectEnvironment(environment)"
@@ -234,20 +238,35 @@
         </section>
       </div>
     } @else {
-      <section class="flex gap-4 max-[54rem]:flex-col">
-        <div frCard class="min-w-0 flex-1">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="11rem" height="1.25rem"></div>
-            <div frSkeleton height="8rem" radius="0.5rem"></div>
+      @if (errorMessage(); as message) {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <ng-icon name="tablerExclamationCircle" size="20" />
+            </div>
+            <h3 frEmptyTitle>Environments unavailable</h3>
+            <p frEmptyDescription>{{ message }}</p>
+          </div>
+          <div frEmptyContent>
+            <button frButton type="button" (click)="refreshData()">
+              @if (isLoading()) {
+                <span frSpinner size="sm" decorative></span>
+              }
+              Retry
+            </button>
           </div>
         </div>
-        <div frCard class="min-w-0 flex-1">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="13rem" height="1.25rem"></div>
-            <div frSkeleton height="8rem" radius="0.5rem"></div>
+      } @else {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <span frSpinner size="lg" label="Loading environments"></span>
+            </div>
+            <h3 frEmptyTitle>Loading environments</h3>
+            <p frEmptyDescription>Fetching promotion lanes and readiness gates.</p>
           </div>
         </div>
-      </section>
+      }
     }
   </section>
 

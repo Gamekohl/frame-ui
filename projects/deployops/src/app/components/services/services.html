@@ -21,7 +21,7 @@
               @for (service of attentionServices(); track service.id) {
                 <button
                   type="button"
-                  class="flex flex-col rounded-md border bg-surface p-3 text-left transition hover:border-primary hover:bg-muted/40 cursor-pointer"
+                  class="flex flex-col border border-border bg-surface p-3 text-left transition hover:bg-muted/40 cursor-pointer"
                   [class.border-primary]="service.id === selectedService()?.id"
                   (click)="selectService(service)"
                 >
@@ -95,7 +95,11 @@
               appearance="outline"
               type="button"
             >
-              <ng-icon name="tablerRefresh" />
+              @if (isLoading()) {
+                <span frSpinner size="sm" label="Refreshing services"></span>
+              } @else {
+                <ng-icon name="tablerRefresh" />
+              }
               Refresh
             </button>
           </div>
@@ -258,28 +262,35 @@
         </section>
       </div>
     } @else {
-      <div class="flex min-w-0 gap-4 max-[76rem]:flex-col">
-        <aside class="flex w-72 shrink-0 flex-col gap-4 max-[76rem]:w-full">
-          <div frCard class="min-w-0 flex-1">
-            <div frCardContent class="flex flex-col gap-4 p-5">
-              <div frSkeleton width="10rem" height="1.25rem"></div>
-              <div frSkeleton height="7rem" radius="0.5rem"></div>
+      @if (errorMessage(); as message) {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <ng-icon name="tablerExclamationCircle" size="20" />
             </div>
+            <h3 frEmptyTitle>Services unavailable</h3>
+            <p frEmptyDescription>{{ message }}</p>
           </div>
-          <div frCard class="min-w-0 flex-1 overflow-hidden">
-            <div frCardContent class="flex flex-col gap-4 p-5">
-              <div frSkeleton width="8rem" height="1.25rem"></div>
-              <div frSkeleton height="5rem" radius="0.5rem"></div>
-            </div>
-          </div>
-        </aside>
-        <div frCard>
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="13rem" height="1.25rem"></div>
-            <div frSkeleton height="22rem" radius="0.5rem"></div>
+          <div frEmptyContent>
+            <button frButton type="button" (click)="refreshData()">
+              @if (isLoading()) {
+                <span frSpinner size="sm" decorative></span>
+              }
+              Retry
+            </button>
           </div>
         </div>
-      </div>
+      } @else {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <span frSpinner size="lg" label="Loading services"></span>
+            </div>
+            <h3 frEmptyTitle>Loading services</h3>
+            <p frEmptyDescription>Fetching service health and ownership data.</p>
+          </div>
+        </div>
+      }
     }
   </section>
 

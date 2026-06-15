@@ -100,9 +100,9 @@ import {
 })
 export class App {
   readonly navItems = [
-    { label: 'Release Queue', icon: 'tablerTimelineEventText', route: '/release-queue' },
-    { label: 'Deployments', icon: 'tablerPackages', route: '/deployments' },
-    { label: 'Environments', icon: 'tablerServer', route: '/environments' },
+    { label: 'Release Queue', icon: 'tablerPackages', route: '/release-queue' },
+    { label: 'Deployments', icon: 'tablerRocket', route: '/deployments' },
+    { label: 'Environments', icon: 'tablerLayersIntersect', route: '/environments' },
     { label: 'Services', icon: 'tablerServer', route: '/services' },
     { label: 'Insights', icon: 'tablerChartDots', route: null },
     { label: 'Alerts', icon: 'tablerBell', route: '/alerts' },

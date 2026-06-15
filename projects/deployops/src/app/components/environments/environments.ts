@@ -11,10 +11,11 @@ import { FrItemModule } from '@frame-ui-ng/components/item';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
 import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';
 import { FrSwitchModule } from '@frame-ui-ng/components/switch';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { startWith, Subject, switchMap } from 'rxjs';
+import { EMPTY, catchError, finalize, startWith, Subject, switchMap } from 'rxjs';
 import {
   ApiService,
   DeployEnvironment,
@@ -39,6 +40,7 @@ type EnvironmentFilter = 'all' | EnvironmentStatus;
     FrProgressModule,
     FrSelectModule,
     FrSkeletonModule,
+    FrSpinnerModule,
     FrSwitchModule,
     FrTooltipDirective,
     FrItemModule,
@@ -55,6 +57,8 @@ export class Environments implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly refresh$ = new Subject<void>();
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
   readonly data = signal<EnvironmentsData | null>(null);
   readonly selectedEnvironment = signal<DeployEnvironment | null>(null);
   readonly selectedStatus = signal<EnvironmentFilter>('all');
@@ -75,7 +79,19 @@ export class Environments implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         startWith(true),
-        switchMap(() => this.api.getEnvironments()),
+        switchMap(() => {
+          this.isLoading.set(true);
+          this.errorMessage.set(null);
+
+          return this.api.getEnvironments().pipe(
+            catchError(() => {
+              this.errorMessage.set('Environments could not be loaded. Check the API server and try again.');
+
+              return EMPTY;
+            }),
+            finalize(() => this.isLoading.set(false)),
+          );
+        }),
       )
       .subscribe({
         next: (data) => {

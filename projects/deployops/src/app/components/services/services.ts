@@ -15,13 +15,13 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrEmptyModule } from '@frame-ui-ng/components/empty';
-import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { Subject, startWith, switchMap } from 'rxjs';
+import { EMPTY, Subject, catchError, finalize, startWith, switchMap } from 'rxjs';
 import { ApiService, Service, ServiceStatus, ServicesData } from '../../services/api.service';
 import { Header } from '../../shared/header/header';
 import { ServiceDetailsComponent } from './service-details/service-details';
@@ -37,9 +37,9 @@ type ServiceFilter = 'all' | ServiceStatus;
     FrCardModule,
     FrDropdownMenuModule,
     FrEmptyModule,
-    FrHoverCardModule,
     FrPaginationModule,
     FrSkeletonModule,
+    FrSpinnerModule,
     FrTabsModule,
     FrTooltipDirective,
     Header,
@@ -56,6 +56,8 @@ export class Services implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly refresh$ = new Subject<void>();
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
   readonly data = signal<ServicesData | null>(null);
   readonly selectedService = signal<Service | null>(null);
   readonly currentPage = signal(1);
@@ -89,7 +91,19 @@ export class Services implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         startWith(true),
-        switchMap(() => this.api.getServices(this.currentPage(), this.perPage())),
+        switchMap(() => {
+          this.isLoading.set(true);
+          this.errorMessage.set(null);
+
+          return this.api.getServices(this.currentPage(), this.perPage()).pipe(
+            catchError(() => {
+              this.errorMessage.set('Services could not be loaded. Check the API server and try again.');
+
+              return EMPTY;
+            }),
+            finalize(() => this.isLoading.set(false)),
+          );
+        }),
       )
       .subscribe({
         next: (data) => this.data.set(data),

@@ -20,11 +20,12 @@ import { FrEmptyModule } from '@frame-ui-ng/components/empty';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrToastService } from '@frame-ui-ng/components/toast';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { startWith, Subject, switchMap } from 'rxjs';
+import { EMPTY, catchError, finalize, startWith, Subject, switchMap } from 'rxjs';
 import { ApiService, DeployopsDashboardData, Release } from '../../services/api.service';
 import { Header } from '../../shared/header/header';
 import {
@@ -45,6 +46,7 @@ import { ReleaseDetailsComponent } from './release-details/release-details';
     FrEmptyModule,
     FrPaginationModule,
     FrSkeletonModule,
+    FrSpinnerModule,
     FrTableModule,
     FrTooltipDirective,
     NgIcon,
@@ -77,6 +79,8 @@ export class ReleaseQueue implements OnInit {
   readonly refresh$ = new Subject<void>();
 
   readonly isInitialLoad = signal<boolean>(true);
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
   readonly data = signal<DeployopsDashboardData | null>(null);
   readonly selectedRelease = signal<Release | null>(null);
   readonly currentPage = signal(1);
@@ -98,7 +102,22 @@ export class ReleaseQueue implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         startWith(true),
-        switchMap(() => this.api.getDashboard(this.currentPage(), this.perPage())),
+        switchMap(() => {
+          this.isLoading.set(true);
+          this.errorMessage.set(null);
+
+          return this.api.getDashboard(this.currentPage(), this.perPage()).pipe(
+            catchError(() => {
+              this.errorMessage.set('The release queue could not be loaded. Check the API server and try again.');
+
+              return EMPTY;
+            }),
+            finalize(() => {
+              this.isLoading.set(false);
+              this.isInitialLoad.set(false);
+            }),
+          );
+        }),
       )
       .subscribe({
         next: (data) => {
@@ -158,6 +177,7 @@ export class ReleaseQueue implements OnInit {
           if (result === 'saved') {
             this.toastService.success('Release updated', {
               description: `Release "${release.release}" updated successfully.`,
+              position: 'top-right'
             });
           }
         }

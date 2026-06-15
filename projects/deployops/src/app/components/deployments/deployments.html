@@ -4,9 +4,9 @@
   class="flex"
   [attr.data-details-open]="selectedDeployment() ? 'true' : 'false'"
 >
-  <section class="flex-1">
+  <section class="flex-1 p-4">
     @if (data(); as deploymentsData) {
-      <div class="flex flex-wrap gap-4 p-4">
+      <div class="flex flex-wrap gap-4">
         <section frCard class="min-w-56 flex-1 basis-56">
           <header frCardHeader>
             <h5 frCardTitle class="m-0 text-sm font-semibold text-muted-foreground">Active deployments</h5>
@@ -71,7 +71,7 @@
       <div class="flex min-w-0 flex-col gap-1">
         <div
           frTabs
-          class="deployments-tabs px-4 pb-3"
+          class="deployments-tabs py-3"
           [value]="selectedFilter()"
           (valueChange)="setFilter($event)"
         >
@@ -192,7 +192,11 @@
                     appearance="outline"
                     type="button"
                   >
-                    <ng-icon name="tablerRefresh" />
+                    @if (isLoading()) {
+                      <span frSpinner size="sm" label="Refreshing deployments"></span>
+                    } @else {
+                      <ng-icon name="tablerRefresh" />
+                    }
                   </button>
                 </th>
                 <td frCell frTableNumeric *frCellDef="let deployment">
@@ -298,29 +302,35 @@
         </div>
       </div>
     } @else {
-      <div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto">
-        <div class="flex flex-wrap gap-4">
-          @for (item of [1, 2, 3, 4]; track item) {
-            <section frCard class="min-w-56 flex-1 basis-56">
-              <div frCardContent class="flex flex-col gap-4 p-5">
-                <div frSkeleton width="8rem" height="1rem"></div>
-                <div frSkeleton width="5rem" height="2rem"></div>
-              </div>
-            </section>
-          }
-        </div>
-
-        <div frTableContainer class="flex min-w-0 flex-col gap-3 overflow-hidden p-4">
-          @for (row of [1, 2, 3, 4, 5, 6]; track row) {
-            <div class="flex flex-wrap gap-4 rounded-md border p-4">
-              <div frSkeleton height="1rem"></div>
-              <div frSkeleton height="1rem"></div>
-              <div frSkeleton height="1rem"></div>
-              <div frSkeleton height="1rem"></div>
+      @if (errorMessage(); as message) {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <ng-icon name="tablerExclamationCircle" size="20" />
             </div>
-          }
+            <h3 frEmptyTitle>Deployments unavailable</h3>
+            <p frEmptyDescription>{{ message }}</p>
+          </div>
+          <div frEmptyContent>
+            <button frButton type="button" (click)="refreshData()">
+              @if (isLoading()) {
+                <span frSpinner size="sm" decorative></span>
+              }
+              Retry
+            </button>
+          </div>
         </div>
-      </div>
+      } @else {
+        <div frEmpty variant="outline">
+          <div frEmptyHeader>
+            <div frEmptyMedia variant="icon">
+              <span frSpinner size="lg" label="Loading deployments"></span>
+            </div>
+            <h3 frEmptyTitle>Loading deployments</h3>
+            <p frEmptyDescription>Fetching deployments.</p>
+          </div>
+        </div>
+      }
     }
   </section>
 

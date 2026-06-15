@@ -8,10 +8,11 @@ import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrEmptyModule } from '@frame-ui-ng/components/empty';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { Subject, startWith, switchMap } from 'rxjs';
+import { EMPTY, Subject, catchError, finalize, startWith, switchMap } from 'rxjs';
 import {
   AlertItem,
   AlertRoute,
@@ -35,6 +36,7 @@ type AlertFilter = 'all' | AlertStatus;
     FrEmptyModule,
     FrProgressModule,
     FrSkeletonModule,
+    FrSpinnerModule,
     FrTabsModule,
     FrTooltipDirective,
     Header,
@@ -48,6 +50,8 @@ export class Alerts implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly refresh$ = new Subject<void>();
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
   readonly data = signal<AlertsData | null>(null);
   readonly selectedFilter = signal<AlertFilter>('firing');
 
@@ -78,7 +82,19 @@ export class Alerts implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         startWith(true),
-        switchMap(() => this.api.getAlerts()),
+        switchMap(() => {
+          this.isLoading.set(true);
+          this.errorMessage.set(null);
+
+          return this.api.getAlerts().pipe(
+            catchError(() => {
+              this.errorMessage.set('Alerts could not be loaded. Check the API server and try again.');
+
+              return EMPTY;
+            }),
+            finalize(() => this.isLoading.set(false)),
+          );
+        }),
       )
       .subscribe({
         next: (data) => this.data.set(data),

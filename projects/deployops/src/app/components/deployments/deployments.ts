@@ -21,11 +21,12 @@ import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
 import { FrSeparatorModule } from '@frame-ui-ng/components/separator';
 import { FrSkeletonModule } from '@frame-ui-ng/components/skeleton';
+import { FrSpinnerModule } from '@frame-ui-ng/components/spinner';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipDirective } from '@frame-ui-ng/components/tooltip';
 import { NgIcon } from '@ng-icons/core';
-import { startWith, Subject, switchMap } from 'rxjs';
+import { EMPTY, catchError, finalize, startWith, Subject, switchMap } from 'rxjs';
 import {
   ApiService,
   Deployment,
@@ -52,6 +53,7 @@ type DeploymentFilter = 'all' | DeploymentStatus;
     FrProgressModule,
     FrSeparatorModule,
     FrSkeletonModule,
+    FrSpinnerModule,
     FrTableModule,
     FrTabsModule,
     FrTooltipDirective,
@@ -81,6 +83,8 @@ export class Deployments implements OnInit {
   ];
 
   readonly refresh$ = new Subject<void>();
+  readonly isLoading = signal<boolean>(false);
+  readonly errorMessage = signal<string | null>(null);
   readonly data = signal<DeploymentsData | null>(null);
   readonly selectedDeployment = signal<Deployment | null>(null);
   readonly currentPage = signal(1);
@@ -111,7 +115,19 @@ export class Deployments implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         startWith(true),
-        switchMap(() => this.api.getDeployments(this.currentPage(), this.perPage())),
+        switchMap(() => {
+          this.isLoading.set(true);
+          this.errorMessage.set(null);
+
+          return this.api.getDeployments(this.currentPage(), this.perPage()).pipe(
+            catchError(() => {
+              this.errorMessage.set('Deployments could not be loaded. Check the API server and try again.');
+
+              return EMPTY;
+            }),
+            finalize(() => this.isLoading.set(false)),
+          );
+        }),
       )
       .subscribe({
         next: (data) => {

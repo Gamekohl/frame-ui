@@ -5,7 +5,7 @@
   [attr.data-review-open]="selectedRelease() ? 'true' : 'false'"
 >
   @if (data(); as dashboardData) {
-    <div frTableContainer class="flex-1">
+    <div frTableContainer class="flex-1 p-4">
       <div class="overflow-x-auto">
         <table frTable density="lg" class="min-w-216" [dataSource]="dashboardData.releases">
           <ng-container frColumnDef="select">
@@ -93,7 +93,11 @@
             <th frHeaderCell class="text-end!" frTableNumeric *frHeaderCellDef>
               <button (click)="refreshData()" frTooltip="Refresh Data" frTooltipOpenDelay="700" frTooltipArrow
                       frIconButton appearance="outline">
-                <ng-icon name="tablerRefresh" />
+                @if (isLoading()) {
+                  <span frSpinner size="sm" label="Refreshing release queue"></span>
+                } @else {
+                  <ng-icon name="tablerRefresh" />
+                }
               </button>
             </th>
             <td frCell frTableNumeric *frCellDef="let release">
@@ -140,6 +144,18 @@
           <tr frRow *frRowDef="let row; columns: displayedColumns"
               [ngStyle]="{ 'background-color': row.id === selectedRelease()?.id ? 'var(--frame-table-header-bg)' : null }"></tr>
         </table>
+
+        @if (!dashboardData.releases.length) {
+          <div frEmpty variant="outline" orientation="horizontal" class="m-4">
+            <div frEmptyHeader>
+              <div frEmptyMedia variant="icon">
+                <ng-icon name="tablerPackages" size="20" />
+              </div>
+              <h3 frEmptyTitle>No releases found</h3>
+              <p frEmptyDescription>The release queue is empty for the current page.</p>
+            </div>
+          </div>
+        }
       </div>
 
       <div class="flex flex-wrap items-center justify-between gap-4 px-4 py-4">
@@ -182,27 +198,35 @@
       </div>
     </div>
   } @else {
-    <div frTableContainer class="min-w-0 overflow-hidden">
-      <div class="flex flex-col gap-3 p-4">
-        @for (row of [1, 2, 3, 4, 5, 6]; track row) {
-          <div class="flex flex-wrap gap-4 rounded-md border p-4">
-            <div frSkeleton height="1rem"></div>
-            <div frSkeleton height="1rem"></div>
-            <div frSkeleton height="1rem"></div>
-            <div frSkeleton height="1rem"></div>
-          </div>
-        }
-      </div>
-      <div frEmpty variant="outline" orientation="horizontal" class="mx-4 mb-4">
+    @if (errorMessage(); as message) {
+      <div frEmpty variant="outline" class="m-4">
         <div frEmptyHeader>
           <div frEmptyMedia variant="icon">
-            <ng-icon name="tablerPackages" size="20" />
+            <ng-icon name="tablerExclamationCircle" size="20" />
+          </div>
+          <h3 frEmptyTitle>Release queue unavailable</h3>
+          <p frEmptyDescription>{{ message }}</p>
+        </div>
+        <div frEmptyContent>
+          <button frButton type="button" (click)="refreshData()">
+            @if (isLoading()) {
+              <span frSpinner size="sm" decorative></span>
+            }
+            Retry
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div frEmpty variant="outline" class="m-4">
+        <div frEmptyHeader>
+          <div frEmptyMedia variant="icon">
+            <span frSpinner size="lg" label="Loading release queue"></span>
           </div>
           <h3 frEmptyTitle>Loading release queue</h3>
           <p frEmptyDescription>Fetching production releases and approvals.</p>
         </div>
       </div>
-    </div>
+    }
   }
 
   @if (selectedRelease(); as release) {

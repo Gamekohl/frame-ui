@@ -17,11 +17,11 @@ import { NgIcon } from '@ng-icons/core';
   ],
   template: `
     <header
-      class="flex items-center justify-end gap-4 border-b border-border bg-surface px-4 py-2.5"
+      class="flex items-center gap-4 border-b border-border bg-surface px-4 py-2.5"
     >
       <h2 class="text-xl font-semibold flex-1">{{ title() }}</h2>
 
-      <button [frCommandDialogTrigger]="commandMenu" appearance="outline" frButton type="button">
+      <button [frCommandDialogTrigger]="commandMenu" appearance="outline" frButton type="button" class="min-w-92! justify-start!">
         <ng-icon frButtonIcon name="tablerSearch" size="16" />
         <span frButtonLabel>Search releases, services...</span>
       </button>
@@ -59,13 +59,27 @@ import { NgIcon } from '@ng-icons/core';
               <ng-icon frCommandItemIcon name="tablerRocket" size="16" />
               Open Deployments
             </button>
+            <button
+              routerLink="/environments"
+              frCommandItem
+              value="environments"
+              label="Open Environments"
+            >
+              <ng-icon frCommandItemIcon name="tablerLayersIntersect" size="16" />
+              Open Environments
+            </button>
             <button routerLink="/services" frCommandItem value="services" label="Open Services">
               <ng-icon frCommandItemIcon name="tablerServer" size="16" />
               Open Services
             </button>
-            <button routerLink="/environments" frCommandItem value="environments" label="Open Environments">
-              <ng-icon frCommandItemIcon name="tablerLayersIntersect" size="16" />
-              Open Environments
+            <button
+              routerLink="/alerts"
+              frCommandItem
+              value="alerts"
+              label="Open Alerts"
+            >
+              <ng-icon frCommandItemIcon name="tablerBell" size="16" />
+              Open Alerts
             </button>
           </div>
 

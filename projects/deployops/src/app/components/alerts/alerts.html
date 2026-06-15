@@ -20,7 +20,11 @@
                 appearance="outline"
                 type="button"
               >
-                <ng-icon name="tablerRefresh" size="16" />
+                @if (isLoading()) {
+                  <span frSpinner size="sm" label="Refreshing alerts"></span>
+                } @else {
+                  <ng-icon name="tablerRefresh" size="16" />
+                }
                 Refresh
               </button>
             </div>
@@ -187,6 +191,12 @@
               (valueChange)="setFilter($event)"
             >
               <div frTabsList aria-label="Alert filters">
+                <button frTabsTrigger value="all" type="button">
+                  All
+                  <span class="ms-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-muted px-1 text-xs text-muted-foreground">
+                    {{ statusCount('all') }}
+                  </span>
+                </button>
                 <button frTabsTrigger value="firing" type="button">
                   Firing
                   <span class="ms-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-muted px-1 text-xs text-muted-foreground">
@@ -209,12 +219,6 @@
                   Resolved
                   <span class="ms-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-muted px-1 text-xs text-muted-foreground">
                     {{ statusCount('resolved') }}
-                  </span>
-                </button>
-                <button frTabsTrigger value="all" type="button">
-                  All
-                  <span class="ms-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-muted px-1 text-xs text-muted-foreground">
-                    {{ statusCount('all') }}
                   </span>
                 </button>
               </div>
@@ -378,36 +382,34 @@
       </section>
     </div>
   } @else {
-    <div class="flex flex-col gap-4">
-      <section class="grid grid-cols-1 gap-4 min-[78rem]:grid-cols-[minmax(0,4fr)_minmax(16rem,1fr)]">
-        <div frCard class="min-w-0">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="12rem" height="1.25rem"></div>
-            <div frSkeleton height="12rem" radius="0.5rem"></div>
+    @if (errorMessage(); as message) {
+      <div frEmpty variant="outline">
+        <div frEmptyHeader>
+          <div frEmptyMedia variant="icon">
+            <ng-icon name="tablerExclamationCircle" size="20" />
           </div>
+          <h3 frEmptyTitle>Alerts unavailable</h3>
+          <p frEmptyDescription>{{ message }}</p>
         </div>
-        <div frCard class="min-w-0">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="9rem" height="1.25rem"></div>
-            <div frSkeleton height="8rem" radius="0.5rem"></div>
+        <div frEmptyContent>
+          <button frButton type="button" (click)="refreshData()">
+            @if (isLoading()) {
+              <span frSpinner size="sm" decorative></span>
+            }
+            Retry
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div frEmpty variant="outline">
+        <div frEmptyHeader>
+          <div frEmptyMedia variant="icon">
+            <span frSpinner size="lg" label="Loading alerts"></span>
           </div>
+          <h3 frEmptyTitle>Loading alerts</h3>
+          <p frEmptyDescription>Fetching signals, routes and suppression windows.</p>
         </div>
-      </section>
-
-      <section class="grid grid-cols-1 gap-4 min-[78rem]:grid-cols-[minmax(0,4fr)_minmax(16rem,1fr)]">
-        <div frCard class="min-w-0">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="10rem" height="1.25rem"></div>
-            <div frSkeleton height="26rem" radius="0.5rem"></div>
-          </div>
-        </div>
-        <div frCard class="min-w-0">
-          <div frCardContent class="flex flex-col gap-4 p-5">
-            <div frSkeleton width="11rem" height="1.25rem"></div>
-            <div frSkeleton height="20rem" radius="0.5rem"></div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    }
   }
 </section>
