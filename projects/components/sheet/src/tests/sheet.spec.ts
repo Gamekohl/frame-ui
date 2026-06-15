@@ -118,6 +118,27 @@ describe('FrSheet', () => {
     expect(trigger.getAttribute('data-state')).toBe('closed');
   });
 
+  it('closes from the default panel close button', async () => {
+    const fixture = TestBed.createComponent(TriggerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.debugElement.query(By.directive(FrSheetTrigger)).nativeElement as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const close = document.body.querySelector('.frame-sheet__close') as HTMLButtonElement;
+
+    expect(close).not.toBeNull();
+
+    close.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(document.body.querySelector('[frSheetPanel]')).toBeNull();
+    expect(trigger.getAttribute('data-state')).toBe('closed');
+  });
+
   it('can render without the default close button', async () => {
     const fixture = TestBed.createComponent(NoCloseHostComponent);
     fixture.detectChanges();
