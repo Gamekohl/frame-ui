@@ -131,6 +131,16 @@ provideFrameUI({
 
 In this mode the library does not write to the DOM. It reads the current root class and keeps `ThemeService.theme()` in sync with that external source of truth.
 
+## Global Appearance Options
+
+FrameUI components include small blueprint-style corner handles by default. Disable them for the whole app from the foundation provider:
+
+```ts
+provideFrameUI({
+  disableCornerHandles: true,
+});
+```
+
 Use scoped overrides for local brand moments:
 
 ```css

@@ -188,10 +188,10 @@ describe('dropdown menu primitives', () => {
 
     expect(positions).toHaveLength(4);
     expect(positions[0]).toEqual(
-      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 16 }),
+      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 8 }),
     );
     expect(positions[2]).toEqual(
-      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -16 }),
+      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -8 }),
     );
     expect(positions.some((position) => position.originY === 'bottom')).toBe(false);
   });
@@ -207,10 +207,10 @@ describe('dropdown menu primitives', () => {
 
     expect(positions).toHaveLength(4);
     expect(positions[0]).toEqual(
-      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 16 }),
+      expect.objectContaining({ originX: 'end', overlayX: 'start', offsetX: 8 }),
     );
     expect(positions[2]).toEqual(
-      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -16 }),
+      expect.objectContaining({ originX: 'start', overlayX: 'end', offsetX: -8 }),
     );
   });
 

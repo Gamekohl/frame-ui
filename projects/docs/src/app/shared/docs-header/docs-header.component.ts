@@ -16,6 +16,7 @@ import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBrandGithub,
+  tablerCoffee,
   tablerChartAreaLine,
   tablerComponents,
   tablerFileText,
@@ -146,6 +147,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerSunMoon,
       tablerTools,
       tablerBrandGithub,
+      tablerCoffee,
     }),
   ],
 })

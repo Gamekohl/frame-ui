@@ -7,6 +7,7 @@
       "title": "Added",
       "items": [
         "Added the new Confirm Modal component package with FrConfirmModalService and the frConfirmModal trigger directive.",
+        "Added a disableCornerHandles option to provideFrameUI for turning off blueprint-style corner handles across all components.",
         "Added a resizable input to Sidebar so rail resizing can be disabled when a fixed navigation width is required."
       ]
     },

@@ -14,7 +14,7 @@ import { chartCategories } from './chart-examples.data';
       <header class="flex flex-col gap-4">
         <div>
           <p class="docs-blueprint-meta mb-3">Data Visualization</p>
-          <h1 class="text-4xl font-semibold tracking-tight text-foreground">Charts</h1>
+          <h1 class="text-4xl font-semibold tracking-tight text-foreground uppercase">Charts</h1>
           <p class="mt-3 max-w-3xl text-base leading-8 text-muted-foreground">
             Theme-aware chart patterns for dashboards, reports, and operational interfaces. Charts
             are shipped separately from

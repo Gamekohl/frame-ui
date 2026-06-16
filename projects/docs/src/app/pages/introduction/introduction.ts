@@ -1,15 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  FrAlert,
-  FrAlertDescription,
-  FrAlertIcon,
-  FrAlertTitle,
   FrButton,
   FrButtonIcon,
   FrButtonLabel,
 } from '@frame-ui-ng/components';
-import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,
@@ -22,10 +17,6 @@ import {
   },
   selector: 'app-introduction',
   imports: [
-    FrAlert,
-    FrAlertDescription,
-    FrAlertIcon,
-    FrAlertTitle,
     FrButton,
     FrButtonIcon,
     FrButtonLabel,
@@ -41,6 +32,4 @@ import {
     }),
   ],
 })
-export class IntroductionComponent {
-  readonly themeService = inject(ThemeService);
-}
+export class IntroductionComponent {}

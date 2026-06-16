@@ -81,6 +81,10 @@
   transition: opacity 150ms ease;
 }
 
+:root[data-frame-corner-handles='false'] .frame-button::before {
+  content: none;
+}
+
 .frame-icon-button {
   inline-size: var(--frame-button-root-height, 2.5rem);
   min-inline-size: var(--frame-button-root-height, 2.5rem);

@@ -80,17 +80,7 @@ export class DocsTokenInspectorComponent {
     return this.measuredTargets().find((target) => target.id === activeId) ?? null;
   });
   readonly visibleTarget = computed(() => {
-    const explicit = this.activeTarget();
-
-    if (explicit) {
-      return explicit;
-    }
-
-    if (this.layout() === 'side-panel') {
-      return this.measuredTargets()[0] ?? null;
-    }
-
-    return null;
+    return this.activeTarget();
   });
 
   readonly overlayPositions: ConnectedPosition[] = [
@@ -138,8 +128,26 @@ export class DocsTokenInspectorComponent {
     },
   ];
 
+  readonly sidePanelPositions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetX: -32,
+    },
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetX: 32,
+    },
+  ];
+
   private resizeObserver: ResizeObserver | null = null;
   private mutationObserver: MutationObserver | null = null;
+  private clearActiveTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
     effect(() => {
@@ -168,6 +176,7 @@ export class DocsTokenInspectorComponent {
     });
 
     this.destroyRef.onDestroy(() => {
+      this.cancelClearActive();
       this.resizeObserver?.disconnect();
       this.resizeObserver = null;
       this.mutationObserver?.disconnect();
@@ -180,18 +189,37 @@ export class DocsTokenInspectorComponent {
       return;
     }
 
+    this.cancelClearActive();
     this.activeTargetId.set(id);
   }
 
-  clearActive(): void {
-    if (this.layout() === 'side-panel') {
-      return;
-    }
-
+  scheduleClearActive(): void {
     if (this.pinnedTargetId()) {
       return;
     }
 
+    this.cancelClearActive();
+    this.clearActiveTimeout = setTimeout(() => {
+      this.clearActiveTimeout = null;
+      this.activeTargetId.set(null);
+    }, 90);
+  }
+
+  cancelClearActive(): void {
+    if (!this.clearActiveTimeout) {
+      return;
+    }
+
+    clearTimeout(this.clearActiveTimeout);
+    this.clearActiveTimeout = null;
+  }
+
+  clearActive(): void {
+    if (this.pinnedTargetId()) {
+      return;
+    }
+
+    this.cancelClearActive();
     this.activeTargetId.set(null);
   }
 
@@ -282,10 +310,6 @@ export class DocsTokenInspectorComponent {
 
     if (pinnedId && !measuredTargets.some((target) => target.id === pinnedId)) {
       this.pinnedTargetId.set(null);
-    }
-
-    if (this.layout() === 'side-panel' && !this.pinnedTargetId() && !this.activeTargetId()) {
-      this.activeTargetId.set(measuredTargets[0]?.id ?? null);
     }
   }
 

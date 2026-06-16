@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import {
   EnvironmentProviders,
+  ENVIRONMENT_INITIALIZER,
   Injectable,
   InjectionToken,
   OnDestroy,
@@ -19,6 +20,7 @@ export interface FrameUIConfig {
   attribute: string;
   className: string;
   defaultTheme: FrameUITheme;
+  disableCornerHandles: boolean;
   mode: ThemeSyncMode;
   strategy: ThemeBindingStrategy;
 }
@@ -27,9 +29,12 @@ const DEFAULT_CONFIG: FrameUIConfig = {
   attribute: 'data-theme',
   className: 'dark',
   defaultTheme: 'light',
+  disableCornerHandles: false,
   mode: 'managed',
   strategy: 'attribute',
 };
+
+const CORNER_HANDLES_ATTRIBUTE = 'data-frame-corner-handles';
 
 export const FRAME_UI_CONFIG = new InjectionToken<FrameUIConfig>(
   'FRAME_UI_CONFIG',
@@ -42,6 +47,7 @@ export interface FrameUIOptions {
   attribute?: string;
   className?: string;
   defaultTheme?: FrameUITheme;
+  disableCornerHandles?: boolean;
   mode?: ThemeSyncMode;
   strategy?: ThemeBindingStrategy;
 }
@@ -55,6 +61,13 @@ export function provideFrameUI(
       useValue: createFrameUIConfig(options),
     },
     ThemeService,
+    {
+      provide: ENVIRONMENT_INITIALIZER,
+      multi: true,
+      useValue: () => {
+        inject(ThemeService);
+      },
+    },
   ]);
 }
 
@@ -67,6 +80,8 @@ export function createFrameUIConfig(
     attribute: options.attribute ?? DEFAULT_CONFIG.attribute,
     className: options.className ?? DEFAULT_CONFIG.className,
     defaultTheme,
+    disableCornerHandles:
+      options.disableCornerHandles ?? DEFAULT_CONFIG.disableCornerHandles,
     mode: options.mode ?? DEFAULT_CONFIG.mode,
     strategy: options.strategy ?? DEFAULT_CONFIG.strategy,
   };
@@ -84,6 +99,8 @@ export class ThemeService implements OnDestroy {
   readonly isDark = computed(() => this.activeTheme() === 'dark');
 
   constructor() {
+    this.applyCornerHandlesPreference();
+
     if (this.config.mode === 'observe') {
       this.syncFromDom();
       this.observeThemeChanges();
@@ -134,6 +151,21 @@ export class ThemeService implements OnDestroy {
     }
 
     root.setAttribute(this.config.attribute, name);
+  }
+
+  private applyCornerHandlesPreference(): void {
+    const root = this.document?.documentElement;
+
+    if (!root) {
+      return;
+    }
+
+    if (this.config.disableCornerHandles) {
+      root.setAttribute(CORNER_HANDLES_ATTRIBUTE, 'false');
+      return;
+    }
+
+    root.removeAttribute(CORNER_HANDLES_ATTRIBUTE);
   }
 
   private observeThemeChanges(): void {

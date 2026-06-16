@@ -66,8 +66,8 @@ const tokens = `--frame-chart-height: 20rem;
 export const CHART_DOC: ComponentDoc = {
   slug: 'chart',
   breadcrumb: 'Charts / Chart',
-  sectionLabel: 'Charts',
-  sectionPath: '/charts',
+  //sectionLabel: 'Charts',
+  //sectionPath: '/charts',
 
   hero: {
     id: 'chart-hero',
