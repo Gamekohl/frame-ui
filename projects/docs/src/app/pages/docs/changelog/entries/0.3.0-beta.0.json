@@ -11,6 +11,8 @@
         "Dropdown menus now support side placement with auto, bottom, left, right, and top options; submenus stay constrained to left and right placement with a small parent-menu offset.",
         "Input group addons now support connected button actions.",
         "Input group addons now support a ghost variant for icons, shortcuts, and text without a separate addon surface.",
+        "Modal bodies can now inject FrModalRef<Component, Result> directly without using the FR_MODAL_REF token.",
+        "Modal service calls now support opening a component with data and dialog config directly.",
         "Sidebar resizing now supports minSize and maxSize bounds.",
         "Select triggers now support custom leading icons."
       ]

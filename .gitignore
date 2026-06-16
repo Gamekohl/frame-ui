@@ -41,6 +41,7 @@ testem.log
 __screenshots__/
 /projects/ai-composer-eval
 /projects/playground
+/projects/deployops
 /scripts
 TODO.md
 

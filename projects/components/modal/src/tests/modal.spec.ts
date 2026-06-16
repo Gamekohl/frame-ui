@@ -11,6 +11,7 @@ import {
   FrModalFooter,
   FrModalHeader,
   FrModalPanel,
+  FrModalRef,
   FrModalService,
   FrModalTitle,
   FrModalTrigger,
@@ -101,6 +102,25 @@ class CustomPropertyHostComponent {}
 })
 class ProgrammaticContentComponent {
   readonly data = inject<{ message: string }>(FR_MODAL_DATA);
+}
+
+@Component({
+  imports: [FrModalPanel],
+  standalone: true,
+  template: `
+    <frame-modal-panel>
+      {{ data.message }}
+      <button type="button" class="programmatic-close" (click)="close()">Done</button>
+    </frame-modal-panel>
+  `,
+})
+class ProgrammaticDataComponent {
+  readonly data = inject<{ message: string }>(FR_MODAL_DATA);
+  private readonly modalRef = inject(FrModalRef<ProgrammaticDataComponent, string>);
+
+  close(): void {
+    this.modalRef.close('done');
+  }
 }
 
 @Component({
@@ -222,6 +242,28 @@ describe('FrModal', () => {
     expect(panel.textContent).toContain('Opened from code');
   });
 
+  it('opens component content with data as the second argument', async () => {
+    const modal = TestBed.inject(FrModalService);
+    const closedResults: unknown[] = [];
+
+    const modalRef = modal.open(ProgrammaticDataComponent, {
+      id: 'release-1',
+      message: 'Opened with data argument',
+    });
+    modalRef.closed.subscribe((result) => closedResults.push(result));
+    modalRef.componentRef?.changeDetectorRef.detectChanges();
+
+    const panel = document.body.querySelector('frame-modal-panel') as HTMLElement;
+
+    expect(panel.textContent).toContain('Opened with data argument');
+
+    const close = document.body.querySelector('.programmatic-close') as HTMLButtonElement;
+    close.click();
+    await new Promise((resolve) => setTimeout(resolve));
+
+    expect(closedResults).toEqual(['done']);
+  });
+
   it('opens template content programmatically', async () => {
     const fixture = TestBed.createComponent(ProgrammaticTemplateHostComponent);
     fixture.detectChanges();
@@ -238,9 +280,8 @@ describe('FrModal', () => {
   it('opens a configured modal shell programmatically around body content', async () => {
     const modal = TestBed.inject(FrModalService);
 
-    const modalRef = modal.open(ProgrammaticShellBodyComponent, {
-      bodyData: { suffix: 'from data' },
-      bodyInputs: { message: 'Rendered' },
+    const modalRef = modal.open(ProgrammaticShellBodyComponent, { suffix: 'from data' }, {
+      inputs: { message: 'Rendered' },
       description: 'Shell description',
       footerActions: [
         { appearance: 'outline', label: 'Cancel', result: 'cancel' },

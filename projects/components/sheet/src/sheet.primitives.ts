@@ -34,17 +34,22 @@ export class FrSheetClose {
   template: `
     <ng-content />
     @if (showCloseButton()) {
-      <button class="frame-sheet__close" frSheetClose type="button" aria-label="Close sheet">
+      <button class="frame-sheet__close" type="button" aria-label="Close sheet" (click)="close()">
         <span aria-hidden="true">×</span>
       </button>
     }
   `,
-  imports: [FrSheetClose],
 })
 export class FrSheetPanel {
+  private readonly dialogRef = inject<DialogRef<unknown, unknown>>(DialogRef, { optional: true });
+
   readonly scrollable = input(false, { transform: booleanAttribute });
   readonly showCloseButton = input(true, { transform: booleanAttribute });
   readonly side = input<FrSheetSide, unknown>('right', { transform: coerceSheetSide });
+
+  close(): void {
+    this.dialogRef?.close();
+  }
 }
 
 @Directive({

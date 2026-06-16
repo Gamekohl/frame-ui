@@ -28,6 +28,7 @@ export type SidebarPreviewMode =
   | 'inspector'
   | 'menu'
   | 'right'
+  | 'resize-disabled'
   | 'rtl'
   | 'scrollable'
   | 'skeleton';
@@ -77,6 +78,7 @@ export type SidebarPreviewConfig = {
           [side]="mode() === 'right' || mode() === 'rtl' ? 'right' : 'left'"
           [variant]="variant()"
           [collapsible]="collapsible()"
+          [resizable]="mode() !== 'resize-disabled'"
           [attr.dir]="mode() === 'rtl' ? 'rtl' : null"
           data-token-target="sidebar-root"
         >
@@ -377,6 +379,10 @@ export class DocsSidebarPreviewComponent {
       return 'Scrollable navigation content';
     }
 
+    if (this.mode() === 'resize-disabled') {
+      return 'Fixed rail sizing';
+    }
+
     return 'Composable sidebar layout';
   }
 
@@ -391,6 +397,10 @@ export class DocsSidebarPreviewComponent {
 
     if (this.mode() === 'scrollable') {
       return 'The sidebar keeps its header and footer fixed while the content region scrolls independently.';
+    }
+
+    if (this.mode() === 'resize-disabled') {
+      return 'Disable rail resizing when the shell should keep a predictable width while retaining normal sidebar composition.';
     }
 
     return 'Use the provider to coordinate trigger, rail, sidebar state, and the surrounding inset content.';

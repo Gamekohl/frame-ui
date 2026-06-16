@@ -18,6 +18,7 @@ import {
   signal,
   numberAttribute,
 } from '@angular/core';
+import { clampNumber, parseCssPixelValue } from '@frame-ui-ng/components/utils';
 
 import { buildTooltipPositions } from './tooltip.position';
 import { FR_TOOLTIP_TOKEN_NAMES } from './tooltip.tokens';
@@ -57,6 +58,9 @@ export class FrTooltipDirective implements AfterViewInit {
   private openTimer: ReturnType<typeof setTimeout> | null = null;
   private overlayRef: OverlayRef | null = null;
   private panelRef: ComponentRef<FrTooltipInlinePanel> | null = null;
+  private arrowFrameId = -1;
+  private currentSide: FrTooltipSide = this.side();
+  private pendingArrowSide: FrTooltipSide = this.side();
   private triggerElement = this.elementRef.nativeElement;
   private wrapped = false;
   private wrapper: HTMLElement | null = null;
@@ -196,6 +200,7 @@ export class FrTooltipDirective implements AfterViewInit {
       this.panelRef = this.overlayRef.attach(new ComponentPortal(FrTooltipInlinePanel));
       this.updatePanelInputs();
       this.syncCustomPropertiesToOverlay();
+      this.scheduleArrowPosition();
     }
 
     this.isOpen.set(true);
@@ -255,8 +260,10 @@ export class FrTooltipDirective implements AfterViewInit {
           : 'left';
 
     this.panelRef?.setInput('side', side);
+    this.currentSide = side;
     this.overlayRef?.removePanelClass(['frame-tooltip-overlay--top', 'frame-tooltip-overlay--right', 'frame-tooltip-overlay--bottom', 'frame-tooltip-overlay--left']);
     this.overlayRef?.addPanelClass(`frame-tooltip-overlay--${side}`);
+    this.scheduleArrowPosition(side);
   }
 
   private updatePanelInputs(): void {
@@ -270,6 +277,7 @@ export class FrTooltipDirective implements AfterViewInit {
     panelRef.setInput('content', this.content() ?? '');
     panelRef.setInput('id', this.tooltipId);
     panelRef.setInput('side', this.side());
+    this.currentSide = this.side();
   }
 
   private syncCustomPropertiesToOverlay(): void {
@@ -312,6 +320,51 @@ export class FrTooltipDirective implements AfterViewInit {
     }
   }
 
+  private scheduleArrowPosition(side = this.currentSide): void {
+    this.pendingArrowSide = side;
+
+    if (!this.arrow() || this.arrowFrameId !== -1) {
+      return;
+    }
+
+    this.arrowFrameId = requestAnimationFrame(() => {
+      this.arrowFrameId = -1;
+      this.syncArrowPosition(this.pendingArrowSide);
+    });
+  }
+
+  private syncArrowPosition(side: FrTooltipSide): void {
+    const panel = this.overlayRef?.overlayElement.querySelector<HTMLElement>('.frame-tooltip__content');
+
+    if (!panel) {
+      return;
+    }
+
+    const panelRect = panel.getBoundingClientRect();
+    const triggerRect = this.triggerElement.getBoundingClientRect();
+
+    if (!panelRect.width || !panelRect.height || !triggerRect.width || !triggerRect.height) {
+      return;
+    }
+
+    const arrowSize = parseCssPixelValue(
+      getComputedStyle(panel).getPropertyValue('--frame-tooltip-arrow-size'),
+      8,
+    );
+    const edgeInset = arrowSize / 2;
+
+    if (side === 'top' || side === 'bottom') {
+      const triggerCenter = triggerRect.left + triggerRect.width / 2 - panelRect.left;
+      const arrowX = clampNumber(triggerCenter - arrowSize / 2, edgeInset, panelRect.width - arrowSize - edgeInset);
+      panel.style.setProperty('--frame-tooltip-arrow-x', `${Math.round(arrowX * 100) / 100}px`);
+      return;
+    }
+
+    const triggerCenter = triggerRect.top + triggerRect.height / 2 - panelRect.top;
+    const arrowY = clampNumber(triggerCenter - arrowSize / 2, edgeInset, panelRect.height - arrowSize - edgeInset);
+    panel.style.setProperty('--frame-tooltip-arrow-y', `${Math.round(arrowY * 100) / 100}px`);
+  }
+
   private listen(target: HTMLElement, eventName: string, listener: EventListener): () => void {
     target.addEventListener(eventName, listener);
     return () => target.removeEventListener(eventName, listener);
@@ -333,6 +386,10 @@ export class FrTooltipDirective implements AfterViewInit {
 
   private destroy(): void {
     this.close();
+    if (this.arrowFrameId !== -1) {
+      cancelAnimationFrame(this.arrowFrameId);
+      this.arrowFrameId = -1;
+    }
     this.overlayRef?.dispose();
     this.overlayRef = null;
     this.disabledObserver?.disconnect();

@@ -90,6 +90,12 @@ frame-button-group::before {
   pointer-events: none;
 }
 
+:root[data-frame-corner-handles='false'] .frame-button-group::before,
+:root[data-frame-corner-handles='false'] [frButtonGroup]::before,
+:root[data-frame-corner-handles='false'] frame-button-group::before {
+  content: none;
+}
+
 .frame-button-group > .frame-button::before,
 .frame-button-group > [frButton]::before,
 [frButtonGroup] > .frame-button::before,

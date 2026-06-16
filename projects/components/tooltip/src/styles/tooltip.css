@@ -50,21 +50,21 @@
 
 .frame-tooltip__content[data-arrow][data-side='top']::after {
   inset-block-end: calc(var(--frame-tooltip-arrow-size) / -2);
-  inset-inline-start: calc(50% - var(--frame-tooltip-arrow-size) / 2);
+  inset-inline-start: var(--frame-tooltip-arrow-x, calc(50% - var(--frame-tooltip-arrow-size) / 2));
 }
 
 .frame-tooltip__content[data-arrow][data-side='bottom']::after {
   inset-block-start: calc(var(--frame-tooltip-arrow-size) / -2);
-  inset-inline-start: calc(50% - var(--frame-tooltip-arrow-size) / 2);
+  inset-inline-start: var(--frame-tooltip-arrow-x, calc(50% - var(--frame-tooltip-arrow-size) / 2));
 }
 
 .frame-tooltip__content[data-arrow][data-side='left']::after {
-  inset-block-start: calc(50% - var(--frame-tooltip-arrow-size) / 2);
+  inset-block-start: var(--frame-tooltip-arrow-y, calc(50% - var(--frame-tooltip-arrow-size) / 2));
   inset-inline-end: calc(var(--frame-tooltip-arrow-size) / -2);
 }
 
 .frame-tooltip__content[data-arrow][data-side='right']::after {
-  inset-block-start: calc(50% - var(--frame-tooltip-arrow-size) / 2);
+  inset-block-start: var(--frame-tooltip-arrow-y, calc(50% - var(--frame-tooltip-arrow-size) / 2));
   inset-inline-start: calc(var(--frame-tooltip-arrow-size) / -2);
 }
 

@@ -33,6 +33,7 @@ describe('FrameUI', () => {
     expect(config.defaultTheme).toBe('dark');
     expect(config.attribute).toBe('data-theme');
     expect(config.className).toBe('dark');
+    expect(config.disableCornerHandles).toBe(false);
   });
 
   it('applies the active theme attribute', () => {
@@ -119,5 +120,35 @@ describe('FrameUI', () => {
 
     expect(themeService.theme()).toBe('dark');
     expect(themeService.isDark()).toBe(true);
+  });
+
+  it('can disable component corner handles globally', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideFrameUI({
+          disableCornerHandles: true,
+        }),
+      ],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.getAttribute('data-frame-corner-handles')).toBe(
+      'false',
+    );
+  });
+
+  it('does not write the corner handles attribute by default', () => {
+    TestBed.configureTestingModule({
+      providers: [provideFrameUI()],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.hasAttribute('data-frame-corner-handles')).toBe(
+      false,
+    );
   });
 });

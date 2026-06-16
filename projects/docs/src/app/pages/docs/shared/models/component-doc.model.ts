@@ -13,6 +13,8 @@ export type DocsTokenInspectorTarget = {
 export type ComponentDoc = {
   slug: string;
   breadcrumb: string;
+  sectionLabel?: string;
+  sectionPath?: string;
 
   hero?: DocsExample;
 

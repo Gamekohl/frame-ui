@@ -13,7 +13,8 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FrModalContent } from './modal.content';
-import { FrModalRef, FrModalService } from './modal.service';
+import { FrModalRef } from './modal.ref';
+import { FrModalService } from './modal.service';
 
 @Directive({
   selector: '[frModalTrigger]',

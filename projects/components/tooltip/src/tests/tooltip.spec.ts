@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { FrTooltipDirective, FrTooltipShortcut } from '../tooltip';
 
@@ -76,6 +77,53 @@ describe('FrTooltipDirective', () => {
     expect(panel?.getAttribute('data-side')).toBe('bottom');
     expect(trigger.getAttribute('aria-describedby')).toMatch(/^frame-tooltip-inline-/);
     expect(trigger.getAttribute('data-state')).toBe('open');
+  });
+
+  it('aligns the arrow with the trigger center when the panel is shifted', async () => {
+    const fixture = TestBed.createComponent(InlineTooltipHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('button') as HTMLElement;
+
+    trigger.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    await wait(0);
+    fixture.detectChanges();
+
+    const panel = document.querySelector('.frame-tooltip__content') as HTMLElement;
+    const directive = fixture.debugElement.query(By.directive(FrTooltipDirective)).injector.get(FrTooltipDirective) as unknown as {
+      scheduleArrowPosition(side: 'bottom'): void;
+    };
+
+    panel.style.setProperty('--frame-tooltip-arrow-size', '8px');
+
+    vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+      bottom: 140,
+      height: 40,
+      left: 100,
+      right: 140,
+      toJSON: () => ({}),
+      top: 100,
+      width: 40,
+      x: 100,
+      y: 100,
+    });
+    vi.spyOn(panel, 'getBoundingClientRect').mockReturnValue({
+      bottom: 90,
+      height: 40,
+      left: 60,
+      right: 220,
+      toJSON: () => ({}),
+      top: 50,
+      width: 160,
+      x: 60,
+      y: 50,
+    });
+
+    directive.scheduleArrowPosition('bottom');
+    await wait(16);
+
+    expect(panel.style.getPropertyValue('--frame-tooltip-arrow-x')).toBe('56px');
   });
 
   it('closes on pointer leave', async () => {

@@ -28,6 +28,7 @@
       ,"@frame-ui-ng/components/combobox": [         "./projects/components/combobox/public-api.ts",         "./dist/components/combobox"       ]
       ,"@frame-ui-ng/components/command": [         "./projects/components/command/public-api.ts",         "./dist/components/command"       ]
       ,"@frame-ui-ng/components/context-menu": [         "./projects/components/context-menu/public-api.ts",         "./dist/components/context-menu"       ]
+      ,"@frame-ui-ng/components/confirm-modal": [         "./projects/components/confirm-modal/public-api.ts",         "./dist/components/confirm-modal"       ]
       ,"@frame-ui-ng/components/date-picker": [         "./projects/components/date-picker/public-api.ts",         "./dist/components/date-picker"       ]
       ,"@frame-ui-ng/components/dropdown-menu": [         "./projects/components/dropdown-menu/public-api.ts",         "./dist/components/dropdown-menu"       ]
       ,"@frame-ui-ng/components/empty": [         "./projects/components/empty/public-api.ts",         "./dist/components/empty"       ]
@@ -59,6 +60,7 @@
       ,"@frame-ui-ng/components/toggle": [         "./projects/components/toggle/public-api.ts",         "./dist/components/toggle"       ]
       ,"@frame-ui-ng/components/tooltip": [         "./projects/components/tooltip/public-api.ts",         "./dist/components/tooltip"       ]
       ,"@frame-ui-ng/components/toast": [         "./projects/components/toast/public-api.ts",         "./dist/components/toast"       ]
+      ,"@frame-ui-ng/components/utils": [         "./projects/components/utils/public-api.ts",         "./dist/components/utils"       ]
       ,"@frame-ui-ng/components/virtual-scroll": [         "./projects/components/virtual-scroll/public-api.ts",         "./dist/components/virtual-scroll"       ]
     },
     "noImplicitOverride": true,
@@ -91,12 +93,6 @@
     },
     {
       "path": "./projects/playground/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/deployops/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/deployops/tsconfig.spec.json"
     },
     {
       "path": "./projects/components/tsconfig.lib.json"

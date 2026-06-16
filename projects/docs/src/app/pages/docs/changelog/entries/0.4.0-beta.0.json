@@ -1,0 +1,30 @@
+{
+  "version": "0.4.0-beta.0",
+  "label": "Confirm modal",
+  "status": "Next",
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Added the new Confirm Modal component package with FrConfirmModalService and the frConfirmModal trigger directive.",
+        "Added a disableCornerHandles option to provideFrameUI for turning off blueprint-style corner handles across all components.",
+        "Added a resizable input to Sidebar so rail resizing can be disabled when a fixed navigation width is required."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Modal service overloads now support passing component data directly as the second open() argument.",
+        "Modal bodies can now inject FrModalRef<Component, Result> directly.",
+        "Modal shell configuration now supports inputs as the preferred replacement for bodyInputs.",
+        "Buttons now use fit-content as their minimum width so compact labels and icon compositions size more naturally.",
+        "Interactive Item rows now show a pointer cursor on hover.",
+        "Dropdown submenu side offset was reduced for tighter submenu placement.",
+        "Tooltip arrows now stay centered on their trigger when the overlay is shifted by viewport positioning.",
+        "Sidebar icon-collapse rail interactions now keep labels hidden and preserve the expanded sidebar width when toggled again.",
+        "Sidebar rail dragging from icon-collapsed state now expands and resizes the sidebar consistently.",
+        "Disabled Sidebar menu buttons no longer animate or receive hover styling."
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-40 border-b border-border bg-background/94 backdrop-blur-xs">
+<header class="sticky top-0 z-40 border-b border-border bg-background/40 backdrop-blur-xs">
   <div class="mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
       <img alt="Logo" [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'" width="24" height="24" />
@@ -16,16 +16,6 @@
       >
         Components
       </a>
-      <!--<a class="text-muted-foreground hover:text-foreground flex items-center gap-2" routerLink="/docs/mcp">
-        MCP
-      </a>
-      <a class="text-muted-foreground hover:text-foreground" routerLink="/docs/roadmap">
-        Roadmap
-      </a>
-      <a class="text-muted-foreground hover:text-foreground flex items-center gap-2" routerLink="/docs/ai-composer">
-        AI Composer
-        <span frBadge>Alpha</span>
-      </a>-->
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
@@ -76,6 +66,19 @@
       >
         <ng-icon name="tablerBrandGithub" size="18" frButtonIcon />
       </a>
+
+      <a
+        href="https://buymeacoffee.com/gamekohl"
+        target="_blank"
+        frIconButton
+        appearance="outline"
+        size="sm"
+        aria-label="BuyMeACoffee"
+        type="button"
+        title="BuyMeACoffee"
+      >
+        <ng-icon name="tablerCoffee" size="18" frButtonIcon />
+      </a>
     </div>
   </div>
 </header>
@@ -99,8 +102,6 @@
         }
       </div>
 
-      <div frCommandSeparator></div>
-
       <div frCommandGroup heading="Tools">
         <p frCommandGroupHeading>Tools</p>
 
@@ -112,8 +113,6 @@
           </button>
         }
       </div>
-
-      <div frCommandSeparator></div>
 
       <div frCommandGroup heading="Components">
         <p frCommandGroupHeading>Components</p>

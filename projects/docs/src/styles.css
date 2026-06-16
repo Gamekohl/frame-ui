@@ -142,7 +142,6 @@ body {
     linear-gradient(color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
     var(--docs-blueprint-sheet);
-  background-size: 32px 32px;
   background-size: 32px 32px, 32px 32px, auto;
 }
 
@@ -217,7 +216,7 @@ body {
 }
 
 .docs-shell {
-  --docs-sidebar-sticky-top: calc(var(--docs-header-height) + var(--docs-page-padding-y));
+  --docs-sidebar-sticky-top: 5rem;
   --docs-sidebar-visible-height: calc(100vh - var(--docs-header-height) - (var(--docs-page-padding-y) * 2));
 }
 

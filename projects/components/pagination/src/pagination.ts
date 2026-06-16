@@ -1,4 +1,5 @@
 import { Component, Directive, booleanAttribute, computed, inject, input, model } from '@angular/core';
+import { clampNumber } from '@frame-ui-ng/components/utils';
 
 export type FrPaginationPage = number | 'ellipsis';
 
@@ -24,7 +25,7 @@ export class FrPagination {
   readonly pages = computed(() => this.buildPages());
 
   goToPage(page: number): void {
-    this.page.set(Math.min(Math.max(page, 1), this.normalizedTotalPages()));
+    this.page.set(clampNumber(page, 1, this.normalizedTotalPages()));
   }
 
   goToPreviousPage(): void {
@@ -43,7 +44,7 @@ export class FrPagination {
     const totalPages = this.normalizedTotalPages();
     const boundaryCount = Math.max(0, Math.floor(this.boundaryCount()));
     const siblingCount = Math.max(0, Math.floor(this.siblingCount()));
-    const currentPage = Math.min(Math.max(this.page(), 1), totalPages);
+    const currentPage = clampNumber(this.page(), 1, totalPages);
     const pages = new Set<number>();
 
     for (let page = 1; page <= Math.min(boundaryCount, totalPages); page += 1) {

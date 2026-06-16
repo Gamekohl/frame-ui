@@ -29,7 +29,7 @@
   --frame-spinner-indicator-color: currentColor;
   position: relative;
   display: inline-flex;
-  min-width: 2rem;
+  min-width: fit-content;
   min-height: var(--frame-button-root-height, 2.5rem);
   align-items: center;
   justify-content: center;
@@ -79,6 +79,10 @@
   pointer-events: none;
   content: '';
   transition: opacity 150ms ease;
+}
+
+:root[data-frame-corner-handles='false'] .frame-button::before {
+  content: none;
 }
 
 .frame-icon-button {

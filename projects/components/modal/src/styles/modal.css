@@ -17,7 +17,7 @@
 .frame-modal__panel {
   position: relative;
   display: flex;
-  max-height: min(calc(100dvh - 2rem), 42rem);
+  max-height: 80dvh;
   width: min(calc(100vw - 2rem), 32rem);
   flex-direction: column;
   gap: var(--frame-modal-gap);
@@ -72,6 +72,10 @@
   min-height: 0;
 }
 
+.frame-modal__panel[data-confirm-modal] {
+  gap: 0;
+}
+
 .frame-modal__header,
 .frame-modal__body,
 .frame-modal__footer {
@@ -93,6 +97,7 @@
   min-height: 0;
   flex: 0 1 auto;
   gap: 1rem;
+  overflow-y: auto;
 }
 
 .frame-modal__panel[data-scrollable] .frame-modal__body {
@@ -111,6 +116,10 @@
   border-block-start: 1px solid var(--frame-frame-line-muted);
   padding-block-start: 1rem;
   padding-block-end: var(--frame-modal-padding);
+}
+
+.frame-modal__panel[data-confirm-modal] .frame-modal__footer {
+  border-block-start: 0;
 }
 
 .frame-modal__panel[data-sticky-footer] .frame-modal__footer {

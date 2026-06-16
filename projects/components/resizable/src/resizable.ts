@@ -2,27 +2,18 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  HostListener,
   OnDestroy,
   booleanAttribute,
   inject,
   input,
   output,
 } from '@angular/core';
+import { clampNumber, coerceNumber } from '@frame-ui-ng/components/utils';
 
 export const FR_RESIZABLE_ORIENTATIONS = ['horizontal', 'vertical'] as const;
 export type FrResizableOrientation = (typeof FR_RESIZABLE_ORIENTATIONS)[number];
 
 let nextResizableId = 0;
-
-function coerceSize(value: unknown, fallback: number): number {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-}
-
-function clampSize(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
-}
 
 @Directive({
   selector: '[frResizablePanelGroup], frame-resizable-panel-group',
@@ -89,7 +80,7 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
       if (!panel.style.flexBasis) {
         this.applyPanelSize(
           panel,
-          clampSize(this.defaultSize(panel) ?? fallbackSize, this.minSize(panel), this.maxSize(panel)),
+          clampNumber(this.defaultSize(panel) ?? fallbackSize, this.minSize(panel), this.maxSize(panel)),
         );
       } else {
         this.applyPanelSize(panel, this.panelSize(panel) ?? 0);
@@ -204,8 +195,8 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
   ): void {
     const previousMin = this.minSize(previousPanel);
     const previousMax = Math.min(this.maxSize(previousPanel), pairTotal - this.minSize(nextPanel));
-    const previousSize = clampSize(requestedPreviousSize, previousMin, previousMax);
-    const nextSize = clampSize(pairTotal - previousSize, this.minSize(nextPanel), this.maxSize(nextPanel));
+    const previousSize = clampNumber(requestedPreviousSize, previousMin, previousMax);
+    const nextSize = clampNumber(pairTotal - previousSize, this.minSize(nextPanel), this.maxSize(nextPanel));
 
     this.applyPanelSize(previousPanel, previousSize);
     this.applyPanelSize(nextPanel, nextSize);
@@ -282,19 +273,19 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
 
   private defaultSize(panel: HTMLElement): number | null {
     const value = panel.getAttribute('data-default-size');
-    return value === null ? null : coerceSize(value, 0);
+    return value === null ? null : coerceNumber(value, 0);
   }
 
   private minSize(panel: HTMLElement): number {
-    return coerceSize(panel.getAttribute('data-min-size'), 0);
+    return coerceNumber(panel.getAttribute('data-min-size'), 0);
   }
 
   private maxSize(panel: HTMLElement): number {
-    return coerceSize(panel.getAttribute('data-max-size'), 100);
+    return coerceNumber(panel.getAttribute('data-max-size'), 100);
   }
 
   private collapsedSize(panel: HTMLElement): number {
-    return coerceSize(panel.getAttribute('data-collapsed-size'), 0);
+    return coerceNumber(panel.getAttribute('data-collapsed-size'), 0);
   }
 
   private collapsible(panel: HTMLElement): boolean {
@@ -314,11 +305,11 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
   },
 })
 export class FrResizablePanel {
-  readonly defaultSize = input<number, unknown>(0, { transform: (value) => coerceSize(value, 0) });
-  readonly minSize = input<number, unknown>(0, { transform: (value) => coerceSize(value, 0) });
-  readonly maxSize = input<number, unknown>(100, { transform: (value) => coerceSize(value, 100) });
+  readonly defaultSize = input<number, unknown>(0, { transform: (value) => coerceNumber(value, 0) });
+  readonly minSize = input<number, unknown>(0, { transform: (value) => coerceNumber(value, 0) });
+  readonly maxSize = input<number, unknown>(100, { transform: (value) => coerceNumber(value, 100) });
   readonly collapsible = input(false, { transform: booleanAttribute });
-  readonly collapsedSize = input<number, unknown>(0, { transform: (value) => coerceSize(value, 0) });
+  readonly collapsedSize = input<number, unknown>(0, { transform: (value) => coerceNumber(value, 0) });
 }
 
 @Directive({
@@ -331,6 +322,8 @@ export class FrResizablePanel {
     '[attr.data-orientation]': 'group.orientation()',
     '[attr.data-handle]': 'withHandle() ? "" : null',
     '[attr.data-disabled]': 'group.disabled() ? "" : null',
+    '(pointerdown)': 'onPointerDown($event)',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class FrResizableHandle {
@@ -339,7 +332,6 @@ export class FrResizableHandle {
 
   readonly withHandle = input(false, { transform: booleanAttribute });
 
-  @HostListener('pointerdown', ['$event'])
   protected onPointerDown(event: PointerEvent): void {
     if (event.button !== 0) {
       return;
@@ -349,7 +341,6 @@ export class FrResizableHandle {
     this.group.startResize(this.elementRef.nativeElement, event.pointerId, event.clientX, event.clientY);
   }
 
-  @HostListener('keydown', ['$event'])
   protected onKeydown(event: KeyboardEvent): void {
     if (this.group.resizeFromKeyboard(this.elementRef.nativeElement, event.key)) {
       event.preventDefault();

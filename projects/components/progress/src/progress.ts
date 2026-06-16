@@ -1,4 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
+import { clampNumber } from '@frame-ui-ng/components/utils';
 
 function coerceProgressValue(value: unknown): number | null {
   if (value === null || value === undefined || value === '') {
@@ -44,7 +45,7 @@ export class FrProgress {
       return 0;
     }
 
-    return Math.min(Math.max(value, 0), this.max());
+    return clampNumber(value, 0, this.max());
   });
 
   readonly percentage = computed(() => (this.normalizedValue() / this.max()) * 100);

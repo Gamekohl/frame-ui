@@ -73,10 +73,16 @@
                   }
                 </div>
 
-                <div frCardContent class="space-y-5">
+                <div frCardContent class="space-y-4">
                   <p class="text-sm leading-5 text-muted-foreground">
                     {{ item.description }}
                   </p>
+
+                  @for (action of item.actions; track action) {
+                    <a title="Via Mail" frButton appearance="outline" size="sm" [href]="action.link">
+                      <ng-icon [name]="action.icon" />
+                    </a>
+                  }
                 </div>
               </section>
             }

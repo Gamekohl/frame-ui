@@ -23,7 +23,9 @@
         <nav frBreadcrumb aria-label="Breadcrumb">
           <ol frBreadcrumbList>
             <li frBreadcrumbItem>
-              <a frBreadcrumbLink routerLink="/docs/components">Components</a>
+              <a frBreadcrumbLink [routerLink]="doc().sectionPath ?? '/docs/components'">
+                {{ doc().sectionLabel ?? 'Components' }}
+              </a>
             </li>
             <li frBreadcrumbSeparator></li>
             <li frBreadcrumbItem>
@@ -164,7 +166,9 @@
         <nav frBreadcrumb aria-label="Breadcrumb">
           <ol frBreadcrumbList>
             <li frBreadcrumbItem>
-              <a frBreadcrumbLink routerLink="/docs/components">Components</a>
+              <a frBreadcrumbLink [routerLink]="doc().sectionPath ?? '/docs/components'">
+                {{ doc().sectionLabel ?? 'Components' }}
+              </a>
             </li>
             <li frBreadcrumbSeparator></li>
             <li frBreadcrumbItem>
