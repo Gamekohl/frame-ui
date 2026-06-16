@@ -1,7 +1,26 @@
+.frame-chart__pie-slice-frame {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
 .frame-chart__pie-slice {
   stroke: var(--frame-background);
   stroke-linejoin: round;
   stroke-width: 2;
   transform-box: view-box;
   transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frame-chart__pie-slice {
+    transition:
+      filter 180ms ease,
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [frChart][data-type="pie"] .frame-chart__pie-slice:hover,
+  frame-chart[data-type="pie"] .frame-chart__pie-slice:hover {
+    filter: brightness(1.05);
+    transform: scale(1.018);
+  }
 }

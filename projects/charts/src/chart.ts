@@ -110,13 +110,14 @@ let nextChartId = 0;
       @if (type() === 'pie') {
         <g class="frame-chart__pie">
           @for (slice of model().slices; track slice.key) {
-            <path
-              class="frame-chart__pie-slice"
-              [style.--frame-chart-slice-order]="slice.order"
-              [attr.d]="slice.path"
-              [attr.fill]="slice.color"
-              [attr.aria-label]="slice.label + ': ' + formatValue(slice.value)"
-            />
+            <g class="frame-chart__pie-slice-frame" [style.--frame-chart-slice-order]="slice.order">
+              <path
+                class="frame-chart__pie-slice"
+                [attr.d]="slice.path"
+                [attr.fill]="slice.color"
+                [attr.aria-label]="slice.label + ': ' + formatValue(slice.value)"
+              />
+            </g>
           }
         </g>
       } @else if (type() === 'radial') {
@@ -130,6 +131,7 @@ let nextChartId = 0;
             <path
               class="frame-chart__radial-segment"
               [style.--frame-chart-radial-order]="segment.order"
+              [style.--frame-chart-radial-stroke-width]="segment.strokeWidth + 'px'"
               [attr.d]="segment.path"
               [attr.stroke]="segment.color"
               [attr.stroke-width]="segment.strokeWidth"
@@ -226,7 +228,12 @@ let nextChartId = 0;
     }
 
     @if (showTooltip() && activeTooltip(); as tooltip) {
-      <div class="frame-chart__tooltip" [style.left.%]="tooltip.xPercent" [style.top.%]="tooltip.yPercent">
+      <div
+        class="frame-chart__tooltip"
+        [attr.data-side]="tooltip.xPercent > 70 ? 'left' : 'right'"
+        [style.left.%]="tooltip.xPercent"
+        [style.top.%]="tooltip.yPercent"
+      >
         <div class="frame-chart__tooltip-label">{{ tooltip.label }}</div>
         @for (item of tooltip.values; track item.label) {
           <div class="frame-chart__tooltip-row">
@@ -273,6 +280,7 @@ export class FrChart implements AfterViewInit {
   readonly valueFormatter = input<((value: number) => string) | null>(null);
   readonly activeIndex = model<number | null>(null);
 
+  private readonly pointerTooltipPosition = signal<{ xPercent: number; yPercent: number } | null>(null);
   protected readonly viewBoxWidth = signal(VIEWBOX_WIDTH);
   protected readonly viewBoxHeight = computed(() => Math.max(this.height(), 160));
   protected readonly model = computed(() => this.buildModel());
@@ -301,9 +309,11 @@ export class FrChart implements AfterViewInit {
     const firstPoint = model.series[0]?.points[activeIndex];
 
     if (this.type() === 'pie' && activeSlice) {
+      const pointerPosition = this.pointerTooltipPosition();
+
       return {
-        xPercent: activeSlice.xPercent,
-        yPercent: activeSlice.yPercent,
+        xPercent: pointerPosition?.xPercent ?? activeSlice.xPercent,
+        yPercent: pointerPosition?.yPercent ?? activeSlice.yPercent,
         label: activeSlice.label,
         values: [
           {
@@ -316,9 +326,11 @@ export class FrChart implements AfterViewInit {
     }
 
     if (this.type() === 'radial' && activeRadial) {
+      const pointerPosition = this.pointerTooltipPosition();
+
       return {
-        xPercent: activeRadial.xPercent,
-        yPercent: activeRadial.yPercent,
+        xPercent: pointerPosition?.xPercent ?? activeRadial.xPercent,
+        yPercent: pointerPosition?.yPercent ?? activeRadial.yPercent,
         label: activeRadial.label,
         values: [
           {
@@ -377,6 +389,8 @@ export class FrChart implements AfterViewInit {
       return;
     }
 
+    this.pointerTooltipPosition.set(this.tooltipPositionFromPointer(event, rect));
+
     if (this.type() === 'pie') {
       this.activeIndex.set(this.pieIndexFromPointer(event, rect));
       return;
@@ -395,6 +409,7 @@ export class FrChart implements AfterViewInit {
 
   protected clearActiveIndex(): void {
     this.activeIndex.set(null);
+    this.pointerTooltipPosition.set(null);
   }
 
   protected formatValue(value: number): string {
@@ -544,5 +559,12 @@ export class FrChart implements AfterViewInit {
     const centerY = model.plotY + model.plotHeight / 2;
 
     return radialIndexFromPoint(model.radials, pointerX, pointerY, centerX, centerY);
+  }
+
+  private tooltipPositionFromPointer(event: PointerEvent, rect: DOMRect): { xPercent: number; yPercent: number } {
+    return {
+      xPercent: clampNumber(((event.clientX - rect.left) / rect.width) * 100, 0, 100),
+      yPercent: clampNumber(((event.clientY - rect.top) / rect.height) * 100, 0, 100),
+    };
   }
 }

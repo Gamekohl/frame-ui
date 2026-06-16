@@ -1,4 +1,9 @@
 .frame-chart__tooltip {
+  --frame-chart-tooltip-transform: translate(
+    var(--frame-chart-tooltip-offset-x),
+    calc(-100% - var(--frame-chart-tooltip-offset-y))
+  );
+
   position: absolute;
   z-index: 1;
   display: flex;
@@ -13,7 +18,63 @@
   color: var(--frame-chart-tooltip-color);
   font-size: 0.8125rem;
   pointer-events: none;
-  transform: translate(-50%, calc(-100% - 0.75rem));
+  transform: var(--frame-chart-tooltip-transform);
+  transform-origin: bottom center;
+  animation: frame-chart-tooltip-enter var(--frame-chart-tooltip-motion-duration)
+    var(--frame-chart-tooltip-motion-easing);
+}
+
+.frame-chart__tooltip[data-side='left'] {
+  --frame-chart-tooltip-transform: translate(
+    calc(-100% - var(--frame-chart-tooltip-offset-x)),
+    calc(-100% - var(--frame-chart-tooltip-offset-y))
+  );
+
+  transform-origin: bottom right;
+}
+
+@keyframes frame-chart-tooltip-enter {
+  from {
+    opacity: 0;
+    transform:
+      translate(
+        var(--frame-chart-tooltip-offset-x),
+        calc(-100% - var(--frame-chart-tooltip-offset-y) + var(--frame-chart-tooltip-motion-distance))
+      )
+      scale(var(--frame-chart-tooltip-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: var(--frame-chart-tooltip-transform);
+  }
+}
+
+.frame-chart__tooltip[data-side='left'] {
+  animation-name: frame-chart-tooltip-enter-left;
+}
+
+@keyframes frame-chart-tooltip-enter-left {
+  from {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-100% - var(--frame-chart-tooltip-offset-x)),
+        calc(-100% - var(--frame-chart-tooltip-offset-y) + var(--frame-chart-tooltip-motion-distance))
+      )
+      scale(var(--frame-chart-tooltip-motion-scale));
+  }
+
+  to {
+    opacity: 1;
+    transform: var(--frame-chart-tooltip-transform);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame-chart__tooltip {
+    animation: none;
+  }
 }
 
 .frame-chart__tooltip-label {

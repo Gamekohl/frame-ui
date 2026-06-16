@@ -10,9 +10,24 @@
 }
 
 .frame-chart__radial-segment {
+  stroke-width: var(--frame-chart-radial-stroke-width);
+  transform-box: view-box;
+  transform-origin: center;
   transition:
+    filter 160ms ease,
     opacity 160ms ease,
-    stroke 160ms ease;
+    stroke 160ms ease,
+    stroke-width 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [frChart][data-type="radial"] .frame-chart__radial-segment:hover,
+  frame-chart[data-type="radial"] .frame-chart__radial-segment:hover {
+    filter: brightness(1.08);
+    stroke-width: calc(var(--frame-chart-radial-stroke-width) + 2px);
+    transform: scale(1.006);
+  }
 }
 
 .frame-chart__radial-value {

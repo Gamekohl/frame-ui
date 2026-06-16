@@ -148,7 +148,13 @@ frame-chart {
   --frame-chart-tooltip-bg: var(--frame-popover, var(--frame-surface));
   --frame-chart-tooltip-color: var(--frame-popover-foreground, var(--frame-foreground));
   --frame-chart-tooltip-border: var(--frame-border);
+  --frame-chart-tooltip-offset-x: 0.875rem;
+  --frame-chart-tooltip-offset-y: 1rem;
   --frame-chart-tooltip-shadow: var(--frame-shadow-lg, 0 12px 30px rgb(0 0 0 / 0.12));
+  --frame-chart-tooltip-motion-duration: 140ms;
+  --frame-chart-tooltip-motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --frame-chart-tooltip-motion-distance: 0.2rem;
+  --frame-chart-tooltip-motion-scale: 0.98;
 }`;
 
 export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
@@ -164,6 +170,8 @@ export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
       '--frame-chart-3',
       '--frame-chart-4',
       '--frame-chart-5',
+      '--frame-chart-tooltip-offset-x',
+      '--frame-chart-tooltip-offset-y',
     ],
   },
   {
@@ -237,6 +245,24 @@ export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
     selector: '.frame-chart__legend',
     description: 'The legend inherits muted foreground styling while its markers use resolved chart colors.',
     tokens: ['--frame-chart-1', '--frame-chart-2', '--frame-chart-3', '--frame-chart-4', '--frame-chart-5'],
+  },
+  {
+    id: 'chart-tooltip',
+    label: 'Tooltip',
+    selector: '.frame-chart__tooltip',
+    description: 'The tooltip uses offset tokens to avoid sitting directly below the cursor and shares dropdown-style enter motion.',
+    tokens: [
+      '--frame-chart-tooltip-bg',
+      '--frame-chart-tooltip-color',
+      '--frame-chart-tooltip-border',
+      '--frame-chart-tooltip-offset-x',
+      '--frame-chart-tooltip-offset-y',
+      '--frame-chart-tooltip-shadow',
+      '--frame-chart-tooltip-motion-duration',
+      '--frame-chart-tooltip-motion-easing',
+      '--frame-chart-tooltip-motion-distance',
+      '--frame-chart-tooltip-motion-scale',
+    ],
   },
 ];
 

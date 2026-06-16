@@ -8,7 +8,7 @@
     animation-delay: calc(var(--frame-chart-bar-order, 0) * 55ms);
   }
 
-  .frame-chart__pie-slice {
+  .frame-chart__pie-slice-frame {
     animation: frame-chart-pie-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: calc(var(--frame-chart-slice-order, 0) * 65ms);
   }
@@ -23,7 +23,6 @@
   .frame-chart__line,
   .frame-chart__area,
   .frame-chart__bar,
-  .frame-chart__pie-slice,
   .frame-chart__radial-segment {
     transition:
       opacity 160ms ease,
