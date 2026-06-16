@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideFrameUI({
       strategy: 'class',
-      mode: 'observe',
+      mode: 'observe'
     }),
   ],
 };

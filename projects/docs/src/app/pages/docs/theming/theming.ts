@@ -34,6 +34,7 @@ export class Theming {
         },
       ],
     },
+    { id: 'global-appearance-options', title: 'Global appearance options' },
     { id: 'tailwind-css', title: 'Tailwind CSS' },
     { id: 'bootstrap-and-other-css-frameworks', title: 'Bootstrap and other CSS frameworks' },
     { id: 'local-overrides', title: 'Local overrides' },
@@ -68,6 +69,16 @@ export const appConfig = {
       strategy: 'class',
       mode: 'observe',
       className: 'dark',
+    }),
+  ],
+};`;
+
+  protected readonly globalAppearanceCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+
+export const appConfig = {
+  providers: [
+    provideFrameUI({
+      disableCornerHandles: true,
     }),
   ],
 };`;
