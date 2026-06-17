@@ -16,11 +16,22 @@
   opacity: 0.14;
 }
 
+[frChart][data-sparkline] .frame-chart__area,
+frame-chart[data-sparkline] .frame-chart__area {
+  opacity: 0.18;
+}
+
 .frame-chart__zero-line {
   stroke: color-mix(in srgb, var(--frame-foreground) 34%, transparent);
   stroke-dasharray: 5 5;
   stroke-width: 1.25;
   vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__sparkline-zero-line {
+  stroke: color-mix(in srgb, var(--frame-chart-axis-color) 48%, transparent);
+  stroke-dasharray: none;
+  stroke-width: 1;
 }
 
 .frame-chart__line {
@@ -29,6 +40,11 @@
   stroke-linejoin: round;
   stroke-width: 2.25;
   vector-effect: non-scaling-stroke;
+}
+
+[frChart][data-sparkline] .frame-chart__line,
+frame-chart[data-sparkline] .frame-chart__line {
+  stroke-width: 2;
 }
 
 .frame-chart__reveal-mask {
@@ -47,4 +63,9 @@
   stroke: var(--frame-background);
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__sparkline-dot {
+  filter: drop-shadow(0 1px 4px rgb(0 0 0 / 0.22));
+  stroke-width: 2.25;
 }

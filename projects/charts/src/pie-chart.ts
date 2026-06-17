@@ -5,6 +5,7 @@ import { coerceNumber } from './chart-utils';
 
 type BuildPieSlicesOptions = {
   readonly data: readonly FrChartDatum[];
+  readonly innerRadius?: number;
   readonly plotHeight: number;
   readonly plotWidth: number;
   readonly plotX: number;
@@ -17,6 +18,7 @@ type BuildPieSlicesOptions = {
 
 export function buildPieSlices({
   data,
+  innerRadius = 0,
   plotHeight,
   plotWidth,
   plotX,
@@ -42,6 +44,7 @@ export function buildPieSlices({
   const centerX = plotX + plotWidth / 2;
   const centerY = plotY + plotHeight / 2;
   const radius = pieRadius(plotWidth, plotHeight);
+  const resolvedInnerRadius = Math.max(Math.min(innerRadius, radius - 1), 0);
   let startAngle = -90;
 
   return data.map((datum, index) => {
@@ -55,7 +58,10 @@ export function buildPieSlices({
       label: formatChartLabel(datum[xKey] ?? index + 1),
       color,
       order: index,
-      path: arcPath(centerX, centerY, radius, startAngle, endAngle),
+      path:
+        resolvedInnerRadius > 0
+          ? donutArcPath(centerX, centerY, radius, resolvedInnerRadius, startAngle, endAngle)
+          : arcPath(centerX, centerY, radius, startAngle, endAngle),
       startAngle,
       endAngle,
       value,
@@ -75,8 +81,11 @@ export function pieIndexFromPoint(
   centerX: number,
   centerY: number,
   radius: number,
+  innerRadius = 0,
 ): number | null {
-  if (!slices.length || Math.hypot(pointX - centerX, pointY - centerY) > radius) {
+  const distance = Math.hypot(pointX - centerX, pointY - centerY);
+
+  if (!slices.length || distance > radius || distance < innerRadius) {
     return null;
   }
 
@@ -89,6 +98,10 @@ export function pieIndexFromPoint(
 
 export function pieRadius(plotWidth: number, plotHeight: number): number {
   return Math.max(Math.min(plotWidth, plotHeight) / 2 - 10, 1);
+}
+
+export function donutInnerRadius(plotWidth: number, plotHeight: number): number {
+  return Math.max(pieRadius(plotWidth, plotHeight) * 0.58, 1);
 }
 
 function arcPath(centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number): string {
@@ -107,6 +120,41 @@ function arcPath(centerX: number, centerY: number, radius: number, startAngle: n
   const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
 
   return `M ${centerX} ${centerY} L ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y} Z`;
+}
+
+function donutArcPath(
+  centerX: number,
+  centerY: number,
+  outerRadius: number,
+  innerRadius: number,
+  startAngle: number,
+  endAngle: number,
+): string {
+  if (endAngle - startAngle >= 359.999) {
+    return [
+      `M ${centerX} ${centerY - outerRadius}`,
+      `A ${outerRadius} ${outerRadius} 0 1 1 ${centerX} ${centerY + outerRadius}`,
+      `A ${outerRadius} ${outerRadius} 0 1 1 ${centerX} ${centerY - outerRadius}`,
+      `M ${centerX} ${centerY - innerRadius}`,
+      `A ${innerRadius} ${innerRadius} 0 1 0 ${centerX} ${centerY + innerRadius}`,
+      `A ${innerRadius} ${innerRadius} 0 1 0 ${centerX} ${centerY - innerRadius}`,
+      'Z',
+    ].join(' ');
+  }
+
+  const outerStart = polarToCartesian(centerX, centerY, outerRadius, startAngle);
+  const outerEnd = polarToCartesian(centerX, centerY, outerRadius, endAngle);
+  const innerStart = polarToCartesian(centerX, centerY, innerRadius, startAngle);
+  const innerEnd = polarToCartesian(centerX, centerY, innerRadius, endAngle);
+  const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
+
+  return [
+    `M ${outerStart.x} ${outerStart.y}`,
+    `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${outerEnd.x} ${outerEnd.y}`,
+    `L ${innerEnd.x} ${innerEnd.y}`,
+    `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${innerStart.x} ${innerStart.y}`,
+    'Z',
+  ].join(' ');
 }
 
 function polarToCartesian(centerX: number, centerY: number, radius: number, angle: number): { x: number; y: number } {

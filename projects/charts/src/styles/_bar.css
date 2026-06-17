@@ -5,6 +5,14 @@
   transform-origin: center bottom;
 }
 
+[frChart][data-type="bar-sparkline"] .frame-chart__bar,
+[frChart][data-type="column-sparkline"] .frame-chart__bar,
+frame-chart[data-type="bar-sparkline"] .frame-chart__bar,
+frame-chart[data-type="column-sparkline"] .frame-chart__bar {
+  rx: 3;
+  ry: 3;
+}
+
 [frChart][data-type="bar"] .frame-chart__legend,
 frame-chart[data-type="bar"] .frame-chart__legend {
   margin-block-start: 0.5rem;

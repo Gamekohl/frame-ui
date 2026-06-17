@@ -29,6 +29,11 @@ frame-chart {
   color: var(--frame-foreground);
 }
 
+[frChart][data-sparkline],
+frame-chart[data-sparkline] {
+  gap: 0;
+}
+
 .frame-chart__surface {
   display: block;
   width: 100%;

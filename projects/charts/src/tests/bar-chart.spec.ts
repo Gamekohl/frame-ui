@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BarChartHost, BarChartLongLabelsHost } from './chart-test-hosts';
+import { BarChartHost, BarChartLongLabelsHost, HorizontalBarChartHost, StackedBarChartHost } from './chart-test-hosts';
 
 describe('FrChart bar chart', () => {
   it('renders grouped bars and series legend items', () => {
@@ -25,5 +25,31 @@ describe('FrChart bar chart', () => {
 
     expect(xAxisLabel.textContent).toContain('…');
     expect(xAxisLabel.querySelector('title')?.textContent).toBe('checkout-orchestration-worker');
+  });
+
+  it('renders stacked bars on a shared category position', () => {
+    const fixture = TestBed.createComponent(StackedBarChartHost);
+    fixture.detectChanges();
+
+    const bars = Array.from(fixture.nativeElement.querySelectorAll('.frame-chart__bar')) as SVGRectElement[];
+    const firstSegment = bars[0];
+    const secondSegment = bars[3];
+
+    expect(bars.length).toBe(6);
+    expect(firstSegment.getAttribute('x')).toBe(secondSegment.getAttribute('x'));
+    expect(Number(firstSegment.getAttribute('height'))).toBeGreaterThan(0);
+    expect(Number(secondSegment.getAttribute('height'))).toBeGreaterThan(0);
+  });
+
+  it('renders horizontal bars with category labels on the y axis', () => {
+    const fixture = TestBed.createComponent(HorizontalBarChartHost);
+    fixture.detectChanges();
+
+    const bars = Array.from(fixture.nativeElement.querySelectorAll('.frame-chart__bar')) as SVGRectElement[];
+    const yAxis = fixture.nativeElement.querySelector('.frame-chart__axis--y') as SVGGElement;
+
+    expect(bars.length).toBe(6);
+    expect(Number(bars[0].getAttribute('width'))).toBeGreaterThan(Number(bars[0].getAttribute('height')));
+    expect(yAxis.textContent).toContain('API');
   });
 });

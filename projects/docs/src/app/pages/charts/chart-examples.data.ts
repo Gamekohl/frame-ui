@@ -1,33 +1,49 @@
-import { FrChartCurve, FrChartDatum, FrChartSeries, FrChartType } from '@frame-ui-ng/charts';
+import {
+  FrChartBarLayout,
+  FrChartBarOrientation,
+  FrChartCurve,
+  FrChartDatum,
+  FrChartSeries,
+  FrChartType,
+} from '@frame-ui-ng/charts';
 
 import { DocsCodeBlock, DocsTokenInspectorTarget } from '../docs/shared/models/component-doc.model';
 
 export type ChartCategory = {
-  readonly id: FrChartType | 'radar' | 'radial' | 'tooltip';
+  readonly id: ChartCategoryId | 'radar' | 'tooltip';
   readonly label: string;
   readonly disabled?: boolean;
 };
 
+export type ChartCategoryId = FrChartType | 'sparkline';
+
 export type ChartExample = {
   readonly id: string;
-  readonly category: FrChartType;
+  readonly category: ChartCategoryId;
   readonly title: string;
   readonly description: string;
   readonly featured?: boolean;
   readonly type: FrChartType;
+  readonly barLayout?: FrChartBarLayout;
+  readonly barOrientation?: FrChartBarOrientation;
   readonly curve?: FrChartCurve;
+  readonly legendToggle?: boolean;
   readonly xKey?: string;
   readonly data: readonly FrChartDatum[];
   readonly series: readonly FrChartSeries[];
   readonly code: readonly DocsCodeBlock[];
+  readonly barLabel?: string;
   readonly valueFormatter?: (value: number) => string;
 };
 
 export const chartCategories: readonly ChartCategory[] = [
   { id: 'area', label: 'Area Charts' },
   { id: 'bar', label: 'Bar Charts' },
+  { id: 'composed', label: 'Composed Charts' },
   { id: 'line', label: 'Line Charts' },
   { id: 'pie', label: 'Pie Charts' },
+  { id: 'donut', label: 'Donut Charts' },
+  { id: 'sparkline', label: 'Sparklines' },
   { id: 'radar', label: 'Radar Charts', disabled: true },
   { id: 'radial', label: 'Radial Charts' },
 ];
@@ -88,6 +104,48 @@ const runtimeData = [
   { runtime: '.NET', services: 3 },
 ];
 
+const performanceData = [
+  { month: 'Jan', revenue: 42, forecast: 48, conversion: 18 },
+  { month: 'Feb', revenue: 55, forecast: 58, conversion: 21 },
+  { month: 'Mar', revenue: 49, forecast: 62, conversion: 24 },
+  { month: 'Apr', revenue: 73, forecast: 68, conversion: 27 },
+  { month: 'May', revenue: 66, forecast: 72, conversion: 25 },
+  { month: 'Jun', revenue: 88, forecast: 80, conversion: 31 },
+];
+
+const sparklineData = [
+  { day: '1', value: 24 },
+  { day: '2', value: 20 },
+  { day: '3', value: 34 },
+  { day: '4', value: 12 },
+  { day: '5', value: 4 },
+  { day: '6', value: 36 },
+  { day: '7', value: 8 },
+  { day: '8', value: 5 },
+  { day: '9', value: 18 },
+  { day: '10', value: 14 },
+  { day: '11', value: -10 },
+  { day: '12', value: 10 },
+];
+
+const sparklineBarData = [
+  { team: 'Progress', value: 90 },
+];
+
+const serviceVolumeData = [
+  { service: 'API', requests: 320, errors: 12 },
+  { service: 'Worker', requests: 220, errors: 18 },
+  { service: 'Queue', requests: 160, errors: 6 },
+  { service: 'Scheduler', requests: 120, errors: 4 },
+];
+
+const deploymentData = [
+  { status: 'Healthy', services: 42, color: 'var(--frame-chart-3)' },
+  { status: 'Degraded', services: 9, color: 'var(--frame-chart-4)' },
+  { status: 'Investigating', services: 5, color: 'var(--frame-chart-5)' },
+  { status: 'Paused', services: 7 },
+];
+
 const readinessData = [
   { check: 'Preflight', value: 100, max: 100 },
   { check: 'Smoke tests', value: 78, max: 100 },
@@ -133,6 +191,23 @@ const shortAreaTs = `visitors = [
   { month: 'Jun', desktop: 188 },
   { month: 'Jul', desktop: 211 },
 ];`;
+
+const sparklineTs = `sparklineData = [
+  { day: '1', value: 24 },
+  { day: '2', value: 20 },
+  { day: '3', value: 34 },
+  { day: '4', value: 12 },
+  { day: '5', value: 4 },
+  { day: '6', value: 36 },
+  { day: '7', value: 8 },
+  { day: '8', value: 5 },
+  { day: '9', value: 18 },
+  { day: '10', value: 14 },
+  { day: '11', value: -10 },
+  { day: '12', value: 10 },
+];
+
+sparklineSeries = [{ key: 'value', label: 'Value' }];`;
 
 export const chartTokens = `[frChart],
 frame-chart {
@@ -218,10 +293,10 @@ export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
   },
   {
     id: 'chart-pie',
-    label: 'Pie slices',
+    label: 'Pie and donut slices',
     selector: '.frame-chart__pie-slice',
     description:
-      'Pie charts read optional datum colors first, then use the seed palette and generated colors for the remaining slices.',
+      'Pie and donut charts read optional datum colors first, then use the seed palette and generated colors for the remaining slices.',
     tokens: ['--frame-chart-1', '--frame-chart-2', '--frame-chart-3', '--frame-chart-4', '--frame-chart-5'],
   },
   {
@@ -369,6 +444,90 @@ export const chartExamples: readonly ChartExample[] = [
     ],
   },
   {
+    id: 'bar-stacked-incidents',
+    category: 'bar',
+    title: 'Bar Chart - Stacked',
+    description: 'Showing total incidents while preserving severity contribution per month',
+    type: 'bar',
+    barLayout: 'stacked',
+    data: incidentData,
+    series: [
+      { key: 'critical', label: 'Critical' },
+      { key: 'warning', label: 'Warning' },
+    ],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\nincidentData = ${JSON.stringify(incidentData, null, 2)};` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="bar"
+  barLayout="stacked"
+  xKey="month"
+  [data]="incidentData"
+  [series]="incidentSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'bar-horizontal-services',
+    category: 'bar',
+    title: 'Bar Chart - Horizontal',
+    description: 'Showing service volume where category labels benefit from more horizontal space',
+    type: 'bar',
+    barOrientation: 'horizontal',
+    xKey: 'service',
+    data: serviceVolumeData,
+    series: [
+      { key: 'requests', label: 'Requests' },
+      { key: 'errors', label: 'Errors' },
+    ],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\nserviceVolumeData = ${JSON.stringify(serviceVolumeData, null, 2)};` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="bar"
+  barOrientation="horizontal"
+  xKey="service"
+  [data]="serviceVolumeData"
+  [series]="serviceSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'composed-performance',
+    category: 'composed',
+    title: 'Composed Chart - Performance',
+    description: 'Combining revenue bars, forecast area, and conversion line in one shared timeline',
+    featured: true,
+    type: 'composed',
+    legendToggle: true,
+    data: performanceData,
+    series: [
+      { key: 'forecast', label: 'Forecast', type: 'area', color: 'var(--frame-chart-2)' },
+      { key: 'revenue', label: 'Revenue', type: 'bar', color: 'var(--frame-chart-1)' },
+      { key: 'conversion', label: 'Conversion', type: 'line', color: 'var(--frame-chart-3)' },
+    ],
+    code: [
+      {
+        language: 'ts',
+        code: `${importsCode}\n\nperformanceData = ${JSON.stringify(performanceData, null, 2)};\n\nperformanceSeries = [\n  { key: 'forecast', label: 'Forecast', type: 'area' },\n  { key: 'revenue', label: 'Revenue', type: 'bar' },\n  { key: 'conversion', label: 'Conversion', type: 'line' },\n];`,
+      },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="composed"
+  xKey="month"
+  legendToggle
+  [data]="performanceData"
+  [series]="performanceSeries"
+/>`,
+      },
+    ],
+  },
+  {
     id: 'line-revenue',
     category: 'line',
     title: 'Line Chart - Multiple',
@@ -427,6 +586,177 @@ export const chartExamples: readonly ChartExample[] = [
     code: [
       { language: 'ts', code: `${importsCode}\n\nruntimeData = ${JSON.stringify(runtimeData, null, 2)};` },
       { language: 'html', code: `<frame-chart type="pie" xKey="runtime" [data]="runtimeData" [series]="runtimeSeries" />` },
+    ],
+  },
+  {
+    id: 'donut-deployment',
+    category: 'donut',
+    title: 'Donut Chart - Deployment Health',
+    description: 'Showing service health distribution with room for surrounding summary content',
+    featured: true,
+    type: 'donut',
+    xKey: 'status',
+    data: deploymentData,
+    series: [{ key: 'services', label: 'Services' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\ndeploymentData = ${JSON.stringify(deploymentData, null, 2)};` },
+      { language: 'html', code: `<frame-chart type="donut" xKey="status" [data]="deploymentData" [series]="serviceSeries" />` },
+    ],
+  },
+  {
+    id: 'donut-runtime',
+    category: 'donut',
+    title: 'Donut Chart',
+    description: 'Showing services by runtime with the same interaction model as pie charts',
+    type: 'donut',
+    xKey: 'runtime',
+    data: runtimeData,
+    series: [{ key: 'services', label: 'Services' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\nruntimeData = ${JSON.stringify(runtimeData, null, 2)};` },
+      { language: 'html', code: `<frame-chart type="donut" xKey="runtime" [data]="runtimeData" [series]="runtimeSeries" />` },
+    ],
+  },
+  {
+    id: 'sparkline-area-sharp',
+    category: 'sparkline',
+    title: 'Area Sparkline - Sharp',
+    description: 'The same compact area treatment with crisp straight segments',
+    type: 'area-sparkline',
+    curve: 'sharp',
+    xKey: 'day',
+    data: sparklineData,
+    series: [{ key: 'value', label: 'Visitors' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\n${sparklineTs}` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="area-sparkline"
+  curve="sharp"
+  xKey="day"
+  aria-label="Weekly visitors"
+  [data]="sparklineData"
+  [series]="sparklineSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'sparkline-line',
+    category: 'sparkline',
+    title: 'Line Sparkline',
+    description: 'A low-noise trend line for metrics where shape matters more than scale',
+    featured: true,
+    type: 'line-sparkline',
+    xKey: 'day',
+    data: sparklineData,
+    series: [{ key: 'value', label: 'Latency' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\n${sparklineTs}` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="line-sparkline"
+  xKey="day"
+  aria-label="Weekly latency"
+  [data]="sparklineData"
+  [series]="sparklineSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'sparkline-area',
+    category: 'sparkline',
+    title: 'Area Sparkline - Smooth',
+    description: 'A compact filled trend for dense dashboard cards and table cells',
+    type: 'area-sparkline',
+    curve: 'smooth',
+    xKey: 'day',
+    data: sparklineData,
+    series: [{ key: 'value', label: 'Visitors' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\n${sparklineTs}` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="area-sparkline"
+  curve="smooth"
+  xKey="day"
+  aria-label="Weekly visitors"
+  [data]="sparklineData"
+  [series]="sparklineSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'sparkline-column',
+    category: 'sparkline',
+    title: 'Column Sparkline',
+    description: 'Small vertical bars for quick volume comparison over time',
+    type: 'column-sparkline',
+    xKey: 'day',
+    data: sparklineData,
+    series: [{ key: 'value', label: 'Signups' }],
+    code: [
+      { language: 'ts', code: `${importsCode}\n\n${sparklineTs}` },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="column-sparkline"
+  xKey="day"
+  aria-label="Weekly signups"
+  [data]="sparklineData"
+  [series]="sparklineSeries"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'sparkline-bar',
+    category: 'sparkline',
+    title: 'Bar Sparkline',
+    description: 'Horizontal mini bars for short ranked summaries in narrow layouts',
+    type: 'bar-sparkline',
+    xKey: 'team',
+    data: sparklineBarData,
+    series: [{ key: 'value', label: 'Queued' }],
+    barLabel: '90%',
+    code: [
+      {
+        language: 'ts',
+        code: `${importsCode}\n\nsparklineBarData = ${JSON.stringify(sparklineBarData, null, 2)};\n\nsparklineSeries = [{ key: 'value', label: 'Queued' }];`,
+      },
+      {
+        language: 'html',
+        code: `<div class="sparkline-bar-label">
+  <frame-chart
+    type="bar-sparkline"
+    xKey="team"
+    aria-label="Queued work by team"
+    [data]="sparklineBarData"
+    [series]="sparklineSeries"
+  />
+  <span>90%</span>
+</div>`,
+      },
+      {
+        language: 'css',
+        code: `.sparkline-bar-label {
+  position: relative;
+}
+
+.sparkline-bar-label span {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  color: var(--frame-primary-foreground);
+  font-weight: 800;
+  transform: translateY(-50%);
+}`,
+      },
     ],
   },
   {

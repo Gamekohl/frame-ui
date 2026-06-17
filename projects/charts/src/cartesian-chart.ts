@@ -1,12 +1,21 @@
 import { chartColor } from './chart-colors';
 import { formatChartLabel, toChartLabel } from './chart-format';
-import { FrChartDatum, FrChartPoint, FrChartSeries, FrChartSeriesModel, FrChartTick } from './chart.types';
+import {
+  FrChartCurve,
+  FrChartDatum,
+  FrChartPoint,
+  FrChartSeries,
+  FrChartSeriesModel,
+  FrChartSeriesType,
+  FrChartTick,
+} from './chart.types';
 import { coerceNumber } from './chart-utils';
 
 type BuildCartesianSeriesOptions = {
   readonly baselineY: number;
-  readonly curve: 'linear' | 'smooth' | 'step';
+  readonly curve: FrChartCurve;
   readonly data: readonly FrChartDatum[];
+  readonly defaultType?: FrChartSeriesType;
   readonly series: readonly FrChartSeries[];
   readonly seriesSpacing?: number;
   readonly xForIndex: (index: number) => number;
@@ -18,6 +27,7 @@ export function buildCartesianSeries({
   baselineY,
   curve,
   data,
+  defaultType = 'line',
   series,
   seriesSpacing = 0,
   xForIndex,
@@ -40,6 +50,7 @@ export function buildCartesianSeries({
       key: item.key,
       label: item.label ?? toChartLabel(item.key),
       color: item.color ?? chartColor(index),
+      type: item.type ?? defaultType,
       points,
       path,
       areaPath: areaPaths.join(' '),
@@ -48,12 +59,12 @@ export function buildCartesianSeries({
   });
 }
 
-export function pathForPoints(points: readonly FrChartPoint[], curve: 'linear' | 'smooth' | 'step' = 'smooth'): string {
+export function pathForPoints(points: readonly FrChartPoint[], curve: FrChartCurve = 'smooth'): string {
   if (!points.length) {
     return '';
   }
 
-  if (points.length === 1 || curve === 'linear') {
+  if (points.length === 1 || curve === 'linear' || curve === 'sharp') {
     return points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ');
   }
 
@@ -81,7 +92,7 @@ export function pathForPoints(points: readonly FrChartPoint[], curve: 'linear' |
 export function buildAreaPath(
   points: readonly FrChartPoint[],
   baselineY: number,
-  curve: 'linear' | 'smooth' | 'step' = 'smooth',
+  curve: FrChartCurve = 'smooth',
 ): string {
   return buildAreaPaths(points, baselineY, curve).join(' ');
 }
@@ -89,7 +100,7 @@ export function buildAreaPath(
 export function buildAreaPaths(
   points: readonly FrChartPoint[],
   baselineY: number,
-  curve: 'linear' | 'smooth' | 'step' = 'smooth',
+  curve: FrChartCurve = 'smooth',
 ): readonly string[] {
   if (!points.length) {
     return [];
@@ -105,7 +116,7 @@ export function buildAreaPaths(
       Math.sign(previous.y - baselineY) !== Math.sign(point.y - baselineY)
     );
   });
-  const areaCurve = crossesBaseline ? 'linear' : curve;
+  const areaCurve: FrChartCurve = crossesBaseline ? 'linear' : curve;
   const segments = splitPointsAtBaseline(points, baselineY);
 
   return segments.map((segment) => closeAreaPath(segment, baselineY, areaCurve)).filter(Boolean);
@@ -149,7 +160,7 @@ function splitPointsAtBaseline(points: readonly FrChartPoint[], baselineY: numbe
 function closeAreaPath(
   points: readonly FrChartPoint[],
   baselineY: number,
-  curve: 'linear' | 'smooth' | 'step',
+  curve: FrChartCurve,
 ): string {
   const path = pathForPoints(points, curve);
   const first = points[0];
@@ -193,4 +204,35 @@ export function buildYTicks(
       y: yForValue(value),
     };
   }).reverse();
+}
+
+export function buildValueTicks(
+  min: number,
+  max: number,
+  positionForValue: (value: number) => number,
+  formatValue: (value: number) => string,
+  axis: 'x' | 'y',
+): readonly FrChartTick[] {
+  const tickCount = 5;
+  const range = max - min || 1;
+
+  return Array.from({ length: tickCount }, (_, index) => {
+    const value = min + (range / (tickCount - 1)) * index;
+    const position = positionForValue(value);
+
+    return axis === 'x'
+      ? { label: formatValue(value), x: position }
+      : { label: formatValue(value), y: position };
+  });
+}
+
+export function buildCategoryTicks(
+  data: readonly FrChartDatum[],
+  xKey: string,
+  yForIndex: (index: number) => number,
+): readonly FrChartTick[] {
+  return data.map((datum, index) => ({
+    label: formatChartLabel(datum[xKey] ?? index + 1),
+    y: yForIndex(index),
+  }));
 }

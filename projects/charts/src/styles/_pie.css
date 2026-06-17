@@ -4,6 +4,7 @@
 }
 
 .frame-chart__pie-slice {
+  fill-rule: evenodd;
   stroke: var(--frame-background);
   stroke-linejoin: round;
   stroke-width: 2;
@@ -19,6 +20,8 @@
   }
 
   [frChart][data-type="pie"] .frame-chart__pie-slice:hover,
+  [frChart][data-type="donut"] .frame-chart__pie-slice:hover,
+  frame-chart[data-type="donut"] .frame-chart__pie-slice:hover,
   frame-chart[data-type="pie"] .frame-chart__pie-slice:hover {
     filter: brightness(1.05);
     transform: scale(1.018);

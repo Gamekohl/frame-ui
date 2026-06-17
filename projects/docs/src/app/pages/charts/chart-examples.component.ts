@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components/button';
-import { FrChart, FrChartType } from '@frame-ui-ng/charts';
+import { FrChart } from '@frame-ui-ng/charts';
 import {
   FrSheetBody,
   FrSheetClose,
@@ -23,6 +23,7 @@ import {
   chartInspectorTargets,
   chartTokens,
 } from './chart-examples.data';
+import type { ChartCategoryId } from './chart-examples.data';
 
 @Component({
   selector: 'docs-chart-examples',
@@ -75,10 +76,13 @@ import {
             </div>
             <frame-chart
               [type]="featured.type"
+              [barLayout]="featured.barLayout ?? 'grouped'"
+              [barOrientation]="featured.barOrientation ?? 'vertical'"
               [curve]="featured.curve ?? 'smooth'"
               [xKey]="featured.xKey ?? 'month'"
               [data]="featured.data"
               [series]="featured.series"
+              [legendToggle]="featured.legendToggle ?? false"
               [valueFormatter]="featured.valueFormatter ?? null"
             />
           </div>
@@ -87,7 +91,10 @@ import {
 
       <div class="flex flex-wrap gap-8">
         @for (example of compactExamples(); track example.id) {
-          <article class="docs-chart-card">
+          <article
+            class="docs-chart-card"
+            [class.docs-chart-card--sparkline-pair]="isSparklinePair(example)"
+          >
             <div class="flex items-center justify-between gap-4">
               <p class="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <ng-icon name="tablerChartAreaLine" size="16" />
@@ -113,15 +120,36 @@ import {
                   <p>{{ example.description }}</p>
                 </div>
               </div>
-              <frame-chart
-                [type]="example.type"
-                [curve]="example.curve ?? 'smooth'"
-                [xKey]="example.xKey ?? 'month'"
-                [data]="example.data"
-                [series]="example.series"
-                [valueFormatter]="example.valueFormatter ?? null"
-                [showYAxis]="false"
-              />
+              @if (example.barLabel) {
+                <div class="docs-chart-example__bar-label-shell">
+                  <frame-chart
+                    [type]="example.type"
+                    [barLayout]="example.barLayout ?? 'grouped'"
+                    [barOrientation]="example.barOrientation ?? 'vertical'"
+                    [curve]="example.curve ?? 'smooth'"
+                    [xKey]="example.xKey ?? 'month'"
+                    [data]="example.data"
+                    [series]="example.series"
+                    [legendToggle]="example.legendToggle ?? false"
+                    [valueFormatter]="example.valueFormatter ?? null"
+                    [showYAxis]="example.type === 'bar' && example.barOrientation === 'horizontal'"
+                  />
+                  <span class="docs-chart-example__bar-label">{{ example.barLabel }}</span>
+                </div>
+              } @else {
+                <frame-chart
+                  [type]="example.type"
+                  [barLayout]="example.barLayout ?? 'grouped'"
+                  [barOrientation]="example.barOrientation ?? 'vertical'"
+                  [curve]="example.curve ?? 'smooth'"
+                  [xKey]="example.xKey ?? 'month'"
+                  [data]="example.data"
+                  [series]="example.series"
+                  [legendToggle]="example.legendToggle ?? false"
+                  [valueFormatter]="example.valueFormatter ?? null"
+                  [showYAxis]="example.type === 'bar' && example.barOrientation === 'horizontal'"
+                />
+              }
             </div>
           </article>
         }
@@ -210,6 +238,10 @@ import {
       gap: 0.75rem;
     }
 
+    .docs-chart-card--sparkline-pair {
+      flex-basis: min(100%, calc(50% - 1rem));
+    }
+
     .docs-chart-example {
       display: flex;
       flex-direction: column;
@@ -255,11 +287,38 @@ import {
     .docs-chart-example frame-chart {
       padding: 0 1.25rem 1.25rem;
     }
+
+    .docs-chart-example [data-sparkline] {
+      --frame-chart-height: 7.5rem;
+    }
+
+    .docs-chart-example__bar-label-shell {
+      position: relative;
+      min-width: 0;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    .docs-chart-example__bar-label-shell frame-chart {
+      padding: 0;
+    }
+
+    .docs-chart-example__bar-label {
+      position: absolute;
+      top: calc((100% - 1.25rem) / 2);
+      right: 2rem;
+      color: var(--frame-primary-foreground);
+      font-size: 0.75rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
   `,
   viewProviders: [provideIcons({ tablerChartAreaLine, tablerCode })],
 })
 export class ChartExamplesComponent {
-  readonly category = input.required<FrChartType>();
+  readonly category = input.required<ChartCategoryId>();
 
   protected readonly chartComponent = FrChart;
   protected readonly chartInspectorTargets = chartInspectorTargets;
@@ -286,12 +345,15 @@ export class ChartExamplesComponent {
 
     return {
       type: example.type,
+      barLayout: example.barLayout ?? 'grouped',
+      barOrientation: example.barOrientation ?? 'vertical',
       curve: example.curve ?? 'smooth',
       xKey: example.xKey ?? 'month',
       data: example.data,
       series: example.series,
+      legendToggle: example.legendToggle ?? false,
       valueFormatter: example.valueFormatter ?? null,
-      showYAxis: !(example.type === 'pie' || example.type === 'radial'),
+      showYAxis: !(example.type === 'pie' || example.type === 'donut' || example.type === 'radial'),
       height: 260,
       ariaLabel: example.title,
     };
@@ -303,5 +365,9 @@ export class ChartExamplesComponent {
         .find((category) => category.id === this.category())
         ?.label.replace(/s$/, '') ?? 'Chart'
     );
+  }
+
+  protected isSparklinePair(example: ChartExample): boolean {
+    return example.id === 'sparkline-column' || example.id === 'sparkline-bar';
   }
 }

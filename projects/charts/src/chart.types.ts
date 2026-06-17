@@ -1,11 +1,27 @@
-export type FrChartType = 'area' | 'bar' | 'line' | 'pie' | 'radial';
-export type FrChartCurve = 'linear' | 'smooth' | 'step';
+export type FrChartType =
+  | 'area'
+  | 'area-sparkline'
+  | 'bar'
+  | 'bar-sparkline'
+  | 'column-sparkline'
+  | 'composed'
+  | 'donut'
+  | 'line'
+  | 'line-sparkline'
+  | 'pie'
+  | 'radial';
+export type FrChartCurve = 'linear' | 'sharp' | 'smooth' | 'step';
+export type FrChartBarLayout = 'grouped' | 'stacked';
+export type FrChartBarOrientation = 'horizontal' | 'vertical';
+export type FrChartSeriesType = 'area' | 'bar' | 'line';
 export type FrChartDatum = Record<string, Date | number | string | null | undefined>;
 
 export interface FrChartSeries {
   readonly key: string;
   readonly label?: string;
   readonly color?: string;
+  readonly hidden?: boolean;
+  readonly type?: FrChartSeriesType;
 }
 
 export interface FrChartPoint {
@@ -18,6 +34,7 @@ export interface FrChartSeriesModel {
   readonly key: string;
   readonly label: string;
   readonly color: string;
+  readonly type: FrChartSeriesType;
   readonly points: readonly FrChartPoint[];
   readonly path: string;
   readonly areaPath: string;
@@ -71,6 +88,8 @@ export interface FrChartLegendItem {
   readonly key: string;
   readonly label: string;
   readonly color: string;
+  readonly hidden?: boolean;
+  readonly type?: FrChartSeriesType;
 }
 
 export interface FrChartTick {
@@ -84,6 +103,7 @@ export interface FrChartModel {
   readonly plotY: number;
   readonly plotWidth: number;
   readonly plotHeight: number;
+  readonly baselineX: number;
   readonly baselineY: number;
   readonly showZeroBaseline: boolean;
   readonly series: readonly FrChartSeriesModel[];

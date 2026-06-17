@@ -166,6 +166,123 @@ export class PieChartZeroValuesHost {
   imports: [FrChart],
   template: `
     <frame-chart
+      type="bar"
+      barLayout="stacked"
+      xKey="month"
+      aria-label="Stacked incidents"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class StackedBarChartHost {
+  readonly data = [
+    { month: 'Jan', critical: 2, warning: 7 },
+    { month: 'Feb', critical: 1, warning: 6 },
+    { month: 'Mar', critical: 3, warning: 8 },
+  ];
+  readonly series: FrChartSeries[] = [
+    { key: 'critical', label: 'Critical' },
+    { key: 'warning', label: 'Warning' },
+  ];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="bar"
+      barOrientation="horizontal"
+      xKey="service"
+      aria-label="Service volume"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class HorizontalBarChartHost {
+  readonly data = [
+    { service: 'API', requests: 320, errors: 12 },
+    { service: 'Worker', requests: 220, errors: 18 },
+    { service: 'Queue', requests: 160, errors: 6 },
+  ];
+  readonly series: FrChartSeries[] = [
+    { key: 'requests', label: 'Requests' },
+    { key: 'errors', label: 'Errors' },
+  ];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="composed"
+      xKey="month"
+      aria-label="Revenue composition"
+      legendToggle
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class ComposedChartHost {
+  readonly data = [
+    { month: 'Jan', revenue: 42, forecast: 48, conversion: 18 },
+    { month: 'Feb', revenue: 55, forecast: 58, conversion: 21 },
+    { month: 'Mar', revenue: 49, forecast: 62, conversion: 24 },
+  ];
+  readonly series: FrChartSeries[] = [
+    { key: 'revenue', label: 'Revenue', type: 'bar' },
+    { key: 'forecast', label: 'Forecast', type: 'area' },
+    { key: 'conversion', label: 'Conversion', type: 'line' },
+  ];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="donut"
+      xKey="channel"
+      aria-label="Acquisition mix"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class DonutChartHost {
+  readonly data = [
+    { channel: 'Organic', visitors: 420 },
+    { channel: 'Direct', visitors: 260 },
+    { channel: 'Referral', visitors: 190 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'visitors', label: 'Visitors' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="donut"
+      xKey="reason"
+      aria-label="Zero values"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class DonutChartZeroValuesHost {
+  readonly data = [
+    { reason: 'No traffic', count: 0 },
+    { reason: 'No referrals', count: 0 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'count', label: 'Count' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
       type="radial"
       xKey="metric"
       aria-label="Readiness"
@@ -201,4 +318,161 @@ export class RadialChartZeroValuesHost {
     { metric: 'Smoke tests', value: 0, max: 100 },
   ];
   readonly series: FrChartSeries[] = [{ key: 'value', label: 'Progress' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="area-sparkline"
+      xKey="day"
+      aria-label="Weekly visitors"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class AreaSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 18 },
+    { day: 'Tue', value: 22 },
+    { day: 'Wed', value: 19 },
+    { day: 'Thu', value: 28 },
+    { day: 'Fri', value: 31 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Visitors' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="area-sparkline"
+      curve="sharp"
+      xKey="day"
+      aria-label="Weekly sharp visitors"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class SharpAreaSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 18 },
+    { day: 'Tue', value: 22 },
+    { day: 'Wed', value: 19 },
+    { day: 'Thu', value: 28 },
+    { day: 'Fri', value: 31 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Visitors' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="area-sparkline"
+      curve="sharp"
+      xKey="day"
+      aria-label="Mixed visitors"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class MixedAreaSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 18 },
+    { day: 'Tue', value: -10 },
+    { day: 'Wed', value: 24 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Visitors' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="column-sparkline"
+      xKey="day"
+      aria-label="Mixed signups"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class MixedColumnSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 18 },
+    { day: 'Tue', value: -10 },
+    { day: 'Wed', value: 24 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Signups' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="line-sparkline"
+      xKey="day"
+      aria-label="Weekly latency"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class LineSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 142 },
+    { day: 'Tue', value: 138 },
+    { day: 'Wed', value: 151 },
+    { day: 'Thu', value: 133 },
+    { day: 'Fri', value: 129 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Latency' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="column-sparkline"
+      xKey="day"
+      aria-label="Weekly signups"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class ColumnSparklineChartHost {
+  readonly data = [
+    { day: 'Mon', value: 12 },
+    { day: 'Tue', value: 18 },
+    { day: 'Wed', value: 14 },
+    { day: 'Thu', value: 24 },
+    { day: 'Fri', value: 20 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Signups' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="bar-sparkline"
+      xKey="team"
+      aria-label="Team queue"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class BarSparklineChartHost {
+  readonly data = [
+    { team: 'API', value: 12 },
+    { team: 'Jobs', value: 18 },
+    { team: 'UI', value: 8 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'value', label: 'Queued' }];
 }

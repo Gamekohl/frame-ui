@@ -116,3 +116,21 @@
   align-items: center;
   gap: 0.375rem;
 }
+
+.frame-chart__legend-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.frame-chart__legend-button[data-hidden] {
+  opacity: 0.45;
+}
+
+.frame-chart__legend-button[data-hidden] .frame-chart__legend-marker {
+  background: transparent !important;
+  outline: 1px solid currentcolor;
+}
