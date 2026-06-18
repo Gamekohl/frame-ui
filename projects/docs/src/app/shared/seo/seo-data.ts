@@ -145,10 +145,20 @@ const COMPONENTS = {
     summary:
       'Right-click and long-press menus with actions, groups, submenus, shortcuts, checkbox and radio items.',
   },
+  'confirm-modal': {
+    name: 'Confirm Modal',
+    summary:
+      'Confirmation dialog primitives for destructive actions, exits, and important workflow decisions.',
+  },
   'date-picker': {
     name: 'Date Picker',
     summary:
       'Calendar-backed date and range picker with presets, editable input, time selection, RTL, and reactive forms support.',
+  },
+  'drag-drop': {
+    name: 'Drag Drop',
+    summary:
+      'CDK-backed drag and drop primitives for sortable lists, connected lists, and swimlane boards.',
   },
   'dropdown-menu': {
     name: 'Dropdown Menu',
@@ -314,4 +324,14 @@ export function normalizePath(path: string): string {
   }
 
   return normalized;
+}
+
+export function canonicalPagePath(path: string): string {
+  const normalized = normalizePath(path);
+
+  if (normalized === '/') {
+    return normalized;
+  }
+
+  return `${normalized}/`;
 }

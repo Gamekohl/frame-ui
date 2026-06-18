@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { DEFAULT_IMAGE_PATH, getSeoForPath, normalizePath, SITE_NAME, SITE_URL } from './seo-data';
+import { canonicalPagePath, DEFAULT_IMAGE_PATH, getSeoForPath, normalizePath, SITE_NAME, SITE_URL } from './seo-data';
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -30,7 +30,7 @@ export class SeoService {
 
   private updateFromUrl(url: string): void {
     const seo = getSeoForPath(url);
-    const canonicalUrl = this.absoluteUrl(seo.path);
+    const canonicalUrl = this.absoluteUrl(canonicalPagePath(seo.path));
     const imageUrl = this.absoluteUrl(seo.imagePath ?? DEFAULT_IMAGE_PATH);
     const robots = seo.robots ?? 'index, follow';
 

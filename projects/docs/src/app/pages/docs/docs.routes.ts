@@ -128,6 +128,11 @@ export default [
           ),
       },
       {
+        path: 'components/drag-drop',
+        loadComponent: () =>
+          import('./components/drag-drop/drag-drop.page').then((m) => m.DragDropPageComponent),
+      },
+      {
         path: 'components/dropdown-menu',
         loadComponent: () =>
           import('./components/dropdown-menu/dropdown-menu.page').then((m) => m.DropdownMenuPageComponent),

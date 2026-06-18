@@ -2,325 +2,343 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://frame-ui.com/</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/overview</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/overview/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/installation</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/installation/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/theming</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/theming/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/theme-tokens</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/theme-tokens/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/mcp</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/mcp/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/roadmap</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/roadmap/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/accordion</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/changelog/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://frame-ui.com/docs/components/accordion/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/alert</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/alert/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/avatar</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/avatar/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/badge</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/badge/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/button</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/breadcrumb/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/button-group</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/button/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/breadcrumb</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/button-group/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/calendar</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/calendar/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/card</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/card/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/carousel</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/carousel/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/checkbox</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/checkbox/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/collapsible</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/collapsible/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/command</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/combobox/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/combobox</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/command/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/context-menu</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/confirm-modal/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/date-picker</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/context-menu/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/dropdown-menu</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/date-picker/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/empty</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/drag-drop/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/hover-card</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/dropdown-menu/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/field</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/empty/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/input</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/field/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/input-otp</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/hover-card/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/item</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/input/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/menubar</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/input-otp/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/navigation-menu</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/item/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/pagination</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/menubar/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/popover</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/modal/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/progress</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/navigation-menu/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/radio-group</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/pagination/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/resizable</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/popover/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/separator</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/progress/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/sheet</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/radio-group/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/sidebar</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/resizable/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/skeleton</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/select/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/spinner</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/separator/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/slider</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/sheet/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/modal</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/sidebar/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/select</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/skeleton/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/switch</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/slider/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/table</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/spinner/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/tabs</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/switch/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/textarea</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/table/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/toggle</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/tabs/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/tooltip</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/textarea/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/toast</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/toast/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://frame-ui.com/docs/components/virtual-scroll</loc>
-    <lastmod>2026-06-09</lastmod>
+    <loc>https://frame-ui.com/docs/components/toggle/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://frame-ui.com/docs/components/tooltip/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://frame-ui.com/docs/components/virtual-scroll/</loc>
+    <lastmod>2026-06-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

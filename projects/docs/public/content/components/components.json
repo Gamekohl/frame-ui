@@ -119,6 +119,13 @@
     "category": "Forms"
   },
   {
+    "slug": "drag-drop",
+    "name": "Drag Drop",
+    "status": "Preview",
+    "summary": "CDK-backed drag and drop primitives for sortable lists, connected lists, and swimlane boards.",
+    "category": "Data display"
+  },
+  {
     "slug": "dropdown-menu",
     "name": "Dropdown Menu",
     "status": "Stable",
