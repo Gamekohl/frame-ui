@@ -15,6 +15,7 @@ export type FrResizableOrientation = (typeof FR_RESIZABLE_ORIENTATIONS)[number];
 
 let nextResizableId = 0;
 
+/** Resizable panel group that coordinates pane sizes. */
 @Directive({
   selector: '[frResizablePanelGroup], frame-resizable-panel-group',
   exportAs: 'frResizablePanelGroup',
@@ -113,6 +114,7 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
     const startPrevious = this.panelSize(previousPanel) ?? 0;
     const startNext = this.panelSize(nextPanel) ?? 0;
     const pairTotal = startPrevious + startNext;
+    // Keep pair resizing local so adjacent panels trade space without changing total layout.
     const rtlMultiplier =
       this.orientation() === 'horizontal' && getComputedStyle(this.elementRef.nativeElement).direction === 'rtl'
         ? -1
@@ -193,6 +195,7 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
     pairTotal: number,
     requestedPreviousSize: number,
   ): void {
+    // Clamp the previous panel first; the next panel receives the remaining pair size.
     const previousMin = this.minSize(previousPanel);
     const previousMax = Math.min(this.maxSize(previousPanel), pairTotal - this.minSize(nextPanel));
     const previousSize = clampNumber(requestedPreviousSize, previousMin, previousMax);
@@ -207,6 +210,7 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
   private applyPanelSize(panel: HTMLElement, size: number): void {
     const normalizedSize = Math.max(size, 0);
     const collapsedThreshold = this.collapsible(panel) ? this.collapsedSize(panel) : 0;
+    // Collapsible panels snap to their collapsed size instead of shrinking below it.
     const collapsed = normalizedSize <= collapsedThreshold;
     const appliedSize = collapsed ? collapsedThreshold : normalizedSize;
 
@@ -293,6 +297,7 @@ export class FrResizablePanelGroup implements AfterViewInit, OnDestroy {
   }
 }
 
+/** Panel slot for resizable. */
 @Directive({
   selector: '[frResizablePanel], frame-resizable-panel',
   host: {
@@ -312,6 +317,7 @@ export class FrResizablePanel {
   readonly collapsedSize = input<number, unknown>(0, { transform: (value) => coerceNumber(value, 0) });
 }
 
+/** Resize handle between adjacent resizable panels. */
 @Directive({
   selector: '[frResizableHandle], frame-resizable-handle',
   host: {
@@ -347,3 +353,4 @@ export class FrResizableHandle {
     }
   }
 }
+

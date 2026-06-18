@@ -7,6 +7,7 @@ export type FrFieldLegendVariant = (typeof FR_FIELD_LEGEND_VARIANTS)[number];
 export type FrFieldOrientation = (typeof FR_FIELD_ORIENTATIONS)[number];
 export type FrFieldErrorLike = string | { message?: string | null } | null | undefined;
 
+/** Fieldset wrapper for related form fields. */
 @Directive({
   selector: 'fieldset[frFieldSet], frame-field-set',
   host: {
@@ -15,6 +16,7 @@ export type FrFieldErrorLike = string | { message?: string | null } | null | und
 })
 export class FrFieldSet {}
 
+/** Legend slot for field. */
 @Directive({
   selector: 'legend[frFieldLegend], frame-field-legend',
   host: {
@@ -26,6 +28,7 @@ export class FrFieldLegend {
   readonly variant = input<FrFieldLegendVariant>('legend');
 }
 
+/** Group slot for field. */
 @Directive({
   selector: '[frFieldGroup], frame-field-group',
   host: {
@@ -34,6 +37,7 @@ export class FrFieldLegend {
 })
 export class FrFieldGroup {}
 
+/** Form field row with orientation and responsive layout. */
 @Directive({
   selector: '[frField], frame-field',
   host: {
@@ -50,6 +54,7 @@ export class FrField {
   readonly invalid = input(false, { transform: booleanAttribute });
 }
 
+/** Content slot for field. */
 @Directive({
   selector: '[frFieldContent], frame-field-content',
   host: {
@@ -58,6 +63,7 @@ export class FrField {
 })
 export class FrFieldContent {}
 
+/** Label slot for field. */
 @Directive({
   selector: '[frFieldLabel], frame-field-label',
   host: {
@@ -66,6 +72,7 @@ export class FrFieldContent {}
 })
 export class FrFieldLabel {}
 
+/** Description slot for field. */
 @Directive({
   selector: '[frFieldDescription], frame-field-description',
   host: {
@@ -74,6 +81,7 @@ export class FrFieldLabel {}
 })
 export class FrFieldDescription {}
 
+/** Separator slot for field. */
 @Directive({
   selector: '[frFieldSeparator], frame-field-separator',
   host: {
@@ -83,6 +91,7 @@ export class FrFieldDescription {}
 })
 export class FrFieldSeparator {}
 
+/** Error slot for field. */
 @Component({
   selector: '[frFieldError], frame-field-error',
   host: {
@@ -110,3 +119,4 @@ export class FrFieldError {
     return error?.message ?? '';
   }
 }
+

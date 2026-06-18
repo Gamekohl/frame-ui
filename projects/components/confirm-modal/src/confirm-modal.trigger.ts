@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { FrConfirmModalResult } from './confirm-modal';
 import { FrConfirmModalConfig, FrConfirmModalService } from './confirm-modal.service';
 
+/** Trigger control for confirm modal. */
 @Directive({
   selector: '[frConfirmModal]',
   exportAs: 'frConfirmModal',

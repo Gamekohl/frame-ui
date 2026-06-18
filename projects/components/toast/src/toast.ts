@@ -5,6 +5,7 @@ import { FrSpinner } from '@frame-ui-ng/components/spinner';
 import { FrToastService } from './toast.service';
 import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.types';
 
+/** Viewport container for rendered toasts. */
 @Component({
   selector: 'frame-toast-viewport',
   exportAs: 'frToastViewport',
@@ -124,3 +125,4 @@ export class FrToastViewport {
     this.toast.dismiss(toast.id);
   }
 }
+

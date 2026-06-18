@@ -8,6 +8,7 @@ function coerceSheetSide(value: unknown): FrSheetSide {
   return value === 'top' || value === 'bottom' || value === 'left' ? value : 'right';
 }
 
+/** Close control for sheet. */
 @Directive({
   selector: '[frSheetClose]',
   host: {
@@ -24,6 +25,7 @@ export class FrSheetClose {
   }
 }
 
+/** Panel slot for sheet. */
 @Component({
   selector: '[frSheetPanel], frame-sheet-panel',
   host: {
@@ -52,6 +54,7 @@ export class FrSheetPanel {
   }
 }
 
+/** Header slot for sheet. */
 @Directive({
   selector: '[frSheetHeader], frame-sheet-header',
   host: {
@@ -60,6 +63,7 @@ export class FrSheetPanel {
 })
 export class FrSheetHeader {}
 
+/** Body slot for sheet. */
 @Directive({
   selector: '[frSheetBody], frame-sheet-body',
   host: {
@@ -68,6 +72,7 @@ export class FrSheetHeader {}
 })
 export class FrSheetBody {}
 
+/** Footer slot for sheet. */
 @Directive({
   selector: '[frSheetFooter], frame-sheet-footer',
   host: {
@@ -76,6 +81,7 @@ export class FrSheetBody {}
 })
 export class FrSheetFooter {}
 
+/** Title slot for sheet. */
 @Directive({
   selector: '[frSheetTitle], frame-sheet-title',
   host: {
@@ -84,6 +90,7 @@ export class FrSheetFooter {}
 })
 export class FrSheetTitle {}
 
+/** Description slot for sheet. */
 @Directive({
   selector: '[frSheetDescription], frame-sheet-description',
   host: {

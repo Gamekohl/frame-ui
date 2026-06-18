@@ -1,7 +1,8 @@
-import { Directive, ElementRef, effect, inject } from '@angular/core';
+import { AfterViewInit, Directive, DoCheck, ElementRef, OnDestroy, inject } from '@angular/core';
 
 import { ACCORDION_ITEM } from './accordion.tokens';
 
+/** Content slot for accordion. */
 @Directive({
   selector: '[frAccordionContent]',
   standalone: true,
@@ -15,27 +16,33 @@ import { ACCORDION_ITEM } from './accordion.tokens';
     'role': 'region',
   },
 })
-export class FrAccordionContent {
+export class FrAccordionContent implements AfterViewInit, DoCheck, OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly item = inject(ACCORDION_ITEM);
   private initialized = false;
+  private lastOpen = false;
   private rafIds: number[] = [];
 
-  constructor() {
-    effect((onCleanup) => {
-      const open = this.item.open();
+  ngAfterViewInit(): void {
+    this.lastOpen = this.item.open();
+    this.applyStaticState(this.lastOpen);
+    this.initialized = true;
+  }
 
-      this.cancelAnimationFrame();
+  ngDoCheck(): void {
+    const open = this.item.open();
 
-      if (!this.initialized) {
-        this.applyStaticState(open);
-        this.initialized = true;
-        return;
-      }
+    if (!this.initialized || open === this.lastOpen) {
+      return;
+    }
 
-      this.animate(open);
-      onCleanup(() => this.cancelAnimationFrame());
-    });
+    this.cancelAnimationFrame();
+    this.lastOpen = open;
+    this.animate(open);
+  }
+
+  ngOnDestroy(): void {
+    this.cancelAnimationFrame();
   }
 
   onTransitionEnd(event: TransitionEvent): void {

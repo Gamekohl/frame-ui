@@ -5,6 +5,7 @@ import { buildHoverCardPositions } from './hover-card.position';
 import { FR_HOVER_CARD_CONTROLLER } from './hover-card.tokens';
 import { FrHoverCardAlignment, FrHoverCardSide } from './hover-card.types';
 
+/** Content slot for hover card. */
 @Directive({
   selector: 'ng-template[frHoverCardContent]',
   exportAs: 'frHoverCardContent',
@@ -28,6 +29,7 @@ export class FrHoverCardContent {
   }
 }
 
+/** Panel slot for hover card. */
 @Directive({
   selector: '[frHoverCardPanel]',
   host: {

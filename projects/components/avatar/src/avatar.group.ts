@@ -2,6 +2,7 @@ import { Directive, booleanAttribute, input } from '@angular/core';
 
 import { FrAvatarSize } from './avatar.types';
 
+/** Group slot for avatar. */
 @Directive({
   selector: '[frAvatarGroup]',
   standalone: true,
@@ -16,6 +17,7 @@ export class FrAvatarGroup {
   readonly size = input<FrAvatarSize>('md');
 }
 
+/** Avatar group count component primitive. */
 @Directive({
   selector: '[frAvatarGroupCount]',
   standalone: true,

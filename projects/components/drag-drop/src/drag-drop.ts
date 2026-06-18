@@ -1,8 +1,8 @@
 import {
   Directive,
+  DoCheck,
   OnDestroy,
   booleanAttribute,
-  effect,
   inject,
   input,
   output,
@@ -34,6 +34,7 @@ export const FR_DROP_LIST_ORIENTATIONS = ['horizontal', 'vertical', 'mixed'] as 
 
 export type FrDropListOrientation = (typeof FR_DROP_LIST_ORIENTATIONS)[number];
 
+/** Connects child drop lists dynamically through the CDK group primitive. */
 @Directive({
   selector: '[frDragDropGroup], frame-drag-drop-group',
   hostDirectives: [CdkDropListGroup],
@@ -42,7 +43,7 @@ export type FrDropListOrientation = (typeof FR_DROP_LIST_ORIENTATIONS)[number];
     '[attr.data-disabled]': 'disabled() ? "" : null',
   },
 })
-export class FrDragDropGroup {
+export class FrDragDropGroup implements DoCheck {
   private readonly cdkGroup = inject(CdkDropListGroup);
 
   readonly disabled = input(false, {
@@ -50,13 +51,12 @@ export class FrDragDropGroup {
     transform: booleanAttribute,
   });
 
-  constructor() {
-    effect(() => {
-      this.cdkGroup.disabled = this.disabled();
-    });
+  ngDoCheck(): void {
+    this.cdkGroup.disabled = this.disabled();
   }
 }
 
+/** Drop target for sortable and transferable draggable items. */
 @Directive({
   selector: '[frDropList], frame-drop-list',
   hostDirectives: [CdkDropList],
@@ -67,7 +67,7 @@ export class FrDragDropGroup {
     '[attr.data-sorting-disabled]': 'sortingDisabled() ? "" : null',
   },
 })
-export class FrDropList<T = unknown> implements OnDestroy {
+export class FrDropList<T = unknown> implements DoCheck, OnDestroy {
   private readonly cdkDropList = inject<CdkDropList<T>>(CdkDropList);
   private readonly subscriptions = new Subscription();
 
@@ -113,39 +113,6 @@ export class FrDropList<T = unknown> implements OnDestroy {
   readonly sorted = output<CdkDragSortEvent<T>>({ alias: 'frDropListSorted' });
 
   constructor() {
-    effect(() => {
-      const id = this.id();
-      this.cdkDropList.id = id ?? this.cdkDropList.id;
-      this.cdkDropList.connectedTo = this.connectedTo();
-      this.cdkDropList.data = this.data() as T;
-      this.cdkDropList.orientation = this.orientation() as DropListOrientation;
-      this.cdkDropList.lockAxis = this.lockAxis();
-      this.cdkDropList.disabled = this.disabled();
-      this.cdkDropList.sortingDisabled = this.sortingDisabled();
-      this.cdkDropList.autoScrollDisabled = this.autoScrollDisabled();
-      this.cdkDropList.hasAnchor = this.hasAnchor();
-
-      const enterPredicate = this.enterPredicate();
-      if (enterPredicate) {
-        this.cdkDropList.enterPredicate = enterPredicate;
-      }
-
-      const sortPredicate = this.sortPredicate();
-      if (sortPredicate) {
-        this.cdkDropList.sortPredicate = sortPredicate;
-      }
-
-      const autoScrollStep = this.autoScrollStep();
-      if (autoScrollStep !== null) {
-        this.cdkDropList.autoScrollStep = autoScrollStep;
-      }
-
-      const elementContainerSelector = this.elementContainerSelector();
-      if (elementContainerSelector !== null) {
-        this.cdkDropList.elementContainerSelector = elementContainerSelector;
-      }
-    });
-
     this.forward(this.cdkDropList.dropped, this.dropped);
     this.forward(this.cdkDropList.entered, this.entered);
     this.forward(this.cdkDropList.exited, this.exited);
@@ -156,6 +123,40 @@ export class FrDropList<T = unknown> implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  ngDoCheck(): void {
+    // Forward signal inputs into the CDK directive hosted on the same element.
+    const id = this.id();
+    this.cdkDropList.id = id ?? this.cdkDropList.id;
+    this.cdkDropList.connectedTo = this.connectedTo();
+    this.cdkDropList.data = this.data() as T;
+    this.cdkDropList.orientation = this.orientation() as DropListOrientation;
+    this.cdkDropList.lockAxis = this.lockAxis();
+    this.cdkDropList.disabled = this.disabled();
+    this.cdkDropList.sortingDisabled = this.sortingDisabled();
+    this.cdkDropList.autoScrollDisabled = this.autoScrollDisabled();
+    this.cdkDropList.hasAnchor = this.hasAnchor();
+
+    const enterPredicate = this.enterPredicate();
+    if (enterPredicate) {
+      this.cdkDropList.enterPredicate = enterPredicate;
+    }
+
+    const sortPredicate = this.sortPredicate();
+    if (sortPredicate) {
+      this.cdkDropList.sortPredicate = sortPredicate;
+    }
+
+    const autoScrollStep = this.autoScrollStep();
+    if (autoScrollStep !== null) {
+      this.cdkDropList.autoScrollStep = autoScrollStep;
+    }
+
+    const elementContainerSelector = this.elementContainerSelector();
+    if (elementContainerSelector !== null) {
+      this.cdkDropList.elementContainerSelector = elementContainerSelector;
+    }
+  }
+
   private forward<Value>(
     source: { subscribe(next: (value: Value) => void): { unsubscribe(): void } },
     target: { emit(value: Value): void },
@@ -164,6 +165,7 @@ export class FrDropList<T = unknown> implements OnDestroy {
   }
 }
 
+/** Makes the host element draggable; add a handle to narrow the drag gesture. */
 @Directive({
   selector: '[frDrag], frame-drag',
   hostDirectives: [CdkDrag],
@@ -173,7 +175,7 @@ export class FrDropList<T = unknown> implements OnDestroy {
     '[attr.data-lock-axis]': 'lockAxis()',
   },
 })
-export class FrDrag<T = unknown> implements OnDestroy {
+export class FrDrag<T = unknown> implements DoCheck, OnDestroy {
   private readonly cdkDrag = inject<CdkDrag<T>>(CdkDrag);
   private readonly subscriptions = new Subscription();
 
@@ -209,52 +211,6 @@ export class FrDrag<T = unknown> implements OnDestroy {
   readonly moved = output<CdkDragMove<T>>({ alias: 'frDragMoved' });
 
   constructor() {
-    effect(() => {
-      this.cdkDrag.data = this.data() as T;
-      this.cdkDrag.lockAxis = this.lockAxis();
-      this.cdkDrag.disabled = this.disabled();
-
-      const rootElementSelector = this.rootElementSelector();
-      if (rootElementSelector !== null) {
-        this.cdkDrag.rootElementSelector = rootElementSelector;
-      }
-
-      const boundaryElement = this.boundaryElement();
-      if (boundaryElement !== null) {
-        this.cdkDrag.boundaryElement = boundaryElement;
-      }
-
-      const dragStartDelay = this.dragStartDelay();
-      if (dragStartDelay !== null) {
-        this.cdkDrag.dragStartDelay = dragStartDelay;
-      }
-
-      const freeDragPosition = this.freeDragPosition();
-      if (freeDragPosition !== null) {
-        this.cdkDrag.freeDragPosition = freeDragPosition;
-      }
-
-      const constrainPosition = this.constrainPosition();
-      if (constrainPosition !== null) {
-        this.cdkDrag.constrainPosition = constrainPosition;
-      }
-
-      const previewClass = this.previewClass();
-      if (previewClass !== null) {
-        this.cdkDrag.previewClass = previewClass;
-      }
-
-      const previewContainer = this.previewContainer();
-      if (previewContainer !== null) {
-        this.cdkDrag.previewContainer = previewContainer;
-      }
-
-      const scale = this.scale();
-      if (scale !== null) {
-        this.cdkDrag.scale = scale;
-      }
-    });
-
     this.forward(this.cdkDrag.started, this.started);
     this.forward(this.cdkDrag.released, this.released);
     this.forward(this.cdkDrag.ended, this.ended);
@@ -268,6 +224,53 @@ export class FrDrag<T = unknown> implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  ngDoCheck(): void {
+    // Keep FrameUI inputs as the public API while delegating behavior to CDK.
+    this.cdkDrag.data = this.data() as T;
+    this.cdkDrag.lockAxis = this.lockAxis();
+    this.cdkDrag.disabled = this.disabled();
+
+    const rootElementSelector = this.rootElementSelector();
+    if (rootElementSelector !== null) {
+      this.cdkDrag.rootElementSelector = rootElementSelector;
+    }
+
+    const boundaryElement = this.boundaryElement();
+    if (boundaryElement !== null) {
+      this.cdkDrag.boundaryElement = boundaryElement;
+    }
+
+    const dragStartDelay = this.dragStartDelay();
+    if (dragStartDelay !== null) {
+      this.cdkDrag.dragStartDelay = dragStartDelay;
+    }
+
+    const freeDragPosition = this.freeDragPosition();
+    if (freeDragPosition !== null) {
+      this.cdkDrag.freeDragPosition = freeDragPosition;
+    }
+
+    const constrainPosition = this.constrainPosition();
+    if (constrainPosition !== null) {
+      this.cdkDrag.constrainPosition = constrainPosition;
+    }
+
+    const previewClass = this.previewClass();
+    if (previewClass !== null) {
+      this.cdkDrag.previewClass = previewClass;
+    }
+
+    const previewContainer = this.previewContainer();
+    if (previewContainer !== null) {
+      this.cdkDrag.previewContainer = previewContainer;
+    }
+
+    const scale = this.scale();
+    if (scale !== null) {
+      this.cdkDrag.scale = scale;
+    }
+  }
+
   private forward<Value>(
     source: { subscribe(next: (value: Value) => void): { unsubscribe(): void } },
     target: { emit(value: Value): void },
@@ -276,6 +279,7 @@ export class FrDrag<T = unknown> implements OnDestroy {
   }
 }
 
+/** Optional projected handle that starts dragging for the nearest draggable host. */
 @Directive({
   selector: '[frDragHandle], frame-drag-handle',
   hostDirectives: [CdkDragHandle],
@@ -284,7 +288,7 @@ export class FrDrag<T = unknown> implements OnDestroy {
     '[attr.data-disabled]': 'disabled() ? "" : null',
   },
 })
-export class FrDragHandle {
+export class FrDragHandle implements DoCheck {
   private readonly cdkHandle = inject(CdkDragHandle);
 
   readonly disabled = input(false, {
@@ -292,19 +296,19 @@ export class FrDragHandle {
     transform: booleanAttribute,
   });
 
-  constructor() {
-    effect(() => {
-      this.cdkHandle.disabled = this.disabled();
-    });
+  ngDoCheck(): void {
+    this.cdkHandle.disabled = this.disabled();
   }
 }
 
+/** Custom preview template rendered while an item is being dragged. */
 @Directive({
   selector: 'ng-template[frDragPreview]',
   hostDirectives: [CdkDragPreview],
 })
 export class FrDragPreview {}
 
+/** Custom placeholder template rendered in the source list during drag. */
 @Directive({
   selector: 'ng-template[frDragPlaceholder]',
   hostDirectives: [CdkDragPlaceholder],

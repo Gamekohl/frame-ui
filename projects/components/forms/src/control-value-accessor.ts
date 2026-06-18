@@ -20,6 +20,7 @@ export function provideDsValueAccessor(type: Type<ControlValueAccessor>) {
   };
 }
 
+/** Base ControlValueAccessor implementation for FrameUI form controls. */
 @Directive()
 export abstract class FrControlValueAccessor<T> implements ControlValueAccessor, OnInit {
   private readonly injector = inject(Injector);
@@ -87,3 +88,4 @@ export abstract class FrControlValueAccessor<T> implements ControlValueAccessor,
     this.controlStateVersion.update((version) => version + 1);
   }
 }
+

@@ -16,6 +16,7 @@ import { FrModalContent } from './modal.content';
 import { FrModalRef } from './modal.ref';
 import { FrModalService } from './modal.service';
 
+/** Trigger control for modal. */
 @Directive({
   selector: '[frModalTrigger]',
   host: {

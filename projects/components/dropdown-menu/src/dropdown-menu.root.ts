@@ -1,4 +1,4 @@
-import { Directive, Injectable, InjectionToken, effect, inject, input, signal } from '@angular/core';
+import { Directive, Injectable, InjectionToken, computed, inject, input } from '@angular/core';
 
 import { FrDropdownMenuTriggerMode } from './dropdown-menu.types';
 
@@ -11,6 +11,7 @@ export const FR_DROPDOWN_MENU_PARENT = new InjectionToken<FrDropdownMenuParent>(
   'FrDropdownMenuParent',
 );
 
+/** Shared registry for nested dropdown menu state. */
 @Injectable()
 export class FrDropdownMenuTree {
   private readonly triggers = new Set<{ close(): void }>();
@@ -61,6 +62,7 @@ export class FrDropdownMenuTree {
   }
 }
 
+/** Root controller for dropdown menu interactions. */
 @Directive({
   selector: '[frDropdownMenu]',
   providers: [
@@ -79,6 +81,7 @@ export class FrDropdownMenu implements FrDropdownMenuParent {
   readonly triggerMode = input<FrDropdownMenuTriggerMode>('click');
 }
 
+/** Nested submenu controller for dropdown menu. */
 @Directive({
   selector: '[frDropdownMenuSub]',
   providers: [
@@ -99,13 +102,7 @@ export class FrDropdownMenuSub implements FrDropdownMenuParent {
     alias: 'triggerMode',
   });
 
-  readonly closeDelay = signal(this.parent.closeDelay());
-  readonly triggerMode = signal(this.parent.triggerMode());
-
-  constructor() {
-    effect(() => {
-      this.closeDelay.set(this.closeDelayInput() ?? this.parent.closeDelay());
-      this.triggerMode.set(this.triggerModeInput() ?? this.parent.triggerMode());
-    });
-  }
+  readonly closeDelay = computed(() => this.closeDelayInput() ?? this.parent.closeDelay());
+  readonly triggerMode = computed(() => this.triggerModeInput() ?? this.parent.triggerMode());
 }
+

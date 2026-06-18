@@ -1,5 +1,6 @@
 import { Component, Directive, input } from '@angular/core';
 
+/** Breadcrumb navigation landmark. */
 @Directive({
   selector: 'nav[frBreadcrumb], [frBreadcrumb]',
   host: {
@@ -11,6 +12,7 @@ export class FrBreadcrumb {
   readonly ariaLabel = input('breadcrumb', { alias: 'aria-label' });
 }
 
+/** List slot for breadcrumb. */
 @Directive({
   selector: 'ol[frBreadcrumbList], ul[frBreadcrumbList], [frBreadcrumbList]',
   host: {
@@ -19,6 +21,7 @@ export class FrBreadcrumb {
 })
 export class FrBreadcrumbList {}
 
+/** Item slot for breadcrumb. */
 @Directive({
   selector: 'li[frBreadcrumbItem], [frBreadcrumbItem]',
   host: {
@@ -27,6 +30,7 @@ export class FrBreadcrumbList {}
 })
 export class FrBreadcrumbItem {}
 
+/** Navigable link inside a breadcrumb item. */
 @Directive({
   selector: 'a[frBreadcrumbLink], [frBreadcrumbLink]',
   host: {
@@ -35,6 +39,7 @@ export class FrBreadcrumbItem {}
 })
 export class FrBreadcrumbLink {}
 
+/** Page slot for breadcrumb. */
 @Directive({
   selector: '[frBreadcrumbPage]',
   host: {
@@ -44,6 +49,7 @@ export class FrBreadcrumbLink {}
 })
 export class FrBreadcrumbPage {}
 
+/** Separator slot for breadcrumb. */
 @Directive({
   selector: '[frBreadcrumbSeparator]',
   host: {
@@ -54,6 +60,7 @@ export class FrBreadcrumbPage {}
 })
 export class FrBreadcrumbSeparator {}
 
+/** Ellipsis slot for breadcrumb. */
 @Component({
   selector: '[frBreadcrumbEllipsis], frame-breadcrumb-ellipsis',
   host: {
@@ -68,3 +75,4 @@ export class FrBreadcrumbSeparator {}
 export class FrBreadcrumbEllipsis {
   readonly label = input('More pages');
 }
+

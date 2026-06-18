@@ -3,6 +3,7 @@ import { Directive, input } from '@angular/core';
 export const FR_SWITCH_SIZES = ['sm', 'default'] as const;
 export type FrSwitchSize = (typeof FR_SWITCH_SIZES)[number];
 
+/** Switch input styled as a FrameUI control. */
 @Directive({
   selector: 'input[type=checkbox][frSwitch]',
   host: {
@@ -15,6 +16,7 @@ export class FrSwitch {
   readonly size = input<FrSwitchSize>('default');
 }
 
+/** Field slot for switch. */
 @Directive({
   selector: '[frSwitchField], frame-switch-field',
   host: {
@@ -23,6 +25,7 @@ export class FrSwitch {
 })
 export class FrSwitchField {}
 
+/** Content slot for switch. */
 @Directive({
   selector: '[frSwitchContent], frame-switch-content',
   host: {
@@ -31,6 +34,7 @@ export class FrSwitchField {}
 })
 export class FrSwitchContent {}
 
+/** Label slot for switch. */
 @Directive({
   selector: '[frSwitchLabel], frame-switch-label',
   host: {
@@ -39,6 +43,7 @@ export class FrSwitchContent {}
 })
 export class FrSwitchLabel {}
 
+/** Description slot for switch. */
 @Directive({
   selector: '[frSwitchDescription], frame-switch-description',
   host: {
@@ -47,6 +52,7 @@ export class FrSwitchLabel {}
 })
 export class FrSwitchDescription {}
 
+/** Error slot for switch. */
 @Directive({
   selector: '[frSwitchError], frame-switch-error',
   host: {
@@ -55,3 +61,4 @@ export class FrSwitchDescription {}
   },
 })
 export class FrSwitchError {}
+

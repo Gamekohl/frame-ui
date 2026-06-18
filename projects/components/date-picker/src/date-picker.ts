@@ -54,6 +54,7 @@ const POSITIONS: ConnectedPosition[] = [
   },
 ];
 
+/** Date picker control backed by the calendar primitive. */
 @Component({
   selector: 'frame-date-picker',
   exportAs: 'frDatePicker',
@@ -297,6 +298,7 @@ export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
 
   selectCalendarValue(value: FrDatePickerValue): void {
     const previous = this.singleDate();
+    // Preserve the existing time when a calendar click only changes the date portion.
     const next = this.showTime() && value instanceof Date && previous ? mergeTime(value, previous) : value;
 
     this.commitValue(normalizeValue(next, this.mode()));
@@ -380,6 +382,7 @@ function normalizeValue(value: FrDatePickerValue | undefined, mode: FrCalendarMo
     return mode === 'range' ? { from: null, to: null } : null;
   }
 
+  // Normalize across modes so form writes, presets, and calendar selections share one shape.
   if (mode === 'range') {
     if (isRange(value)) {
       return {
@@ -458,4 +461,5 @@ function mergeTime(date: Date, timeSource: Date): Date {
   next.setHours(timeSource.getHours(), timeSource.getMinutes(), timeSource.getSeconds(), timeSource.getMilliseconds());
   return next;
 }
+
 

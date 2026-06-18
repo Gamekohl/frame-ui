@@ -2,6 +2,7 @@ import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
 
 import { AVATAR_ROOT } from './avatar.tokens';
 
+/** Avatar image component primitive. */
 @Directive({
   selector: 'img[frAvatarImage]',
   standalone: true,

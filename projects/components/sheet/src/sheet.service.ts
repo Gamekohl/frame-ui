@@ -23,6 +23,7 @@ export type FrSheetConfig<Data = unknown, Result = unknown, Component = unknown>
 const DEFAULT_PANEL_CLASS = 'frame-sheet__overlay-pane';
 const DEFAULT_BACKDROP_CLASS = 'frame-sheet__backdrop';
 
+/** Service for opening sheet dialogs. */
 @Injectable({ providedIn: 'root' })
 export class FrSheetService {
   private readonly dialog = inject(Dialog);
@@ -137,3 +138,4 @@ function mergeClassList(
 
   return Array.from(new Set([defaultClass, ...classes].filter(Boolean)));
 }
+

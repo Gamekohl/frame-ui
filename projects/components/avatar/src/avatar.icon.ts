@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { AVATAR_ROOT } from './avatar.tokens';
 
+/** Icon slot for avatar. */
 @Directive({
   selector: '[frAvatarIcon]',
   standalone: true,

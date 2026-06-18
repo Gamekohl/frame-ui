@@ -5,6 +5,7 @@ import { buildPopoverPositions } from './popover.position';
 import { FR_POPOVER_CONTROLLER } from './popover.tokens';
 import { FrPopoverAlignment, FrPopoverSide } from './popover.types';
 
+/** Content slot for popover. */
 @Directive({
   selector: 'ng-template[frPopoverContent]',
   exportAs: 'frPopoverContent',
@@ -28,6 +29,7 @@ export class FrPopoverContent {
   }
 }
 
+/** Panel slot for popover. */
 @Directive({
   selector: '[frPopoverPanel]',
   host: {
@@ -41,6 +43,7 @@ export class FrPopoverPanel {
   protected readonly content = inject(FrPopoverContent);
 }
 
+/** Header slot for popover. */
 @Directive({
   selector: '[frPopoverHeader]',
   host: {
@@ -49,6 +52,7 @@ export class FrPopoverPanel {
 })
 export class FrPopoverHeader {}
 
+/** Title slot for popover. */
 @Directive({
   selector: '[frPopoverTitle]',
   host: {
@@ -57,6 +61,7 @@ export class FrPopoverHeader {}
 })
 export class FrPopoverTitle {}
 
+/** Description slot for popover. */
 @Directive({
   selector: '[frPopoverDescription]',
   host: {
@@ -65,6 +70,7 @@ export class FrPopoverTitle {}
 })
 export class FrPopoverDescription {}
 
+/** Body slot for popover. */
 @Directive({
   selector: '[frPopoverBody]',
   host: {
@@ -73,6 +79,7 @@ export class FrPopoverDescription {}
 })
 export class FrPopoverBody {}
 
+/** Footer slot for popover. */
 @Directive({
   selector: '[frPopoverFooter]',
   host: {
@@ -81,6 +88,7 @@ export class FrPopoverBody {}
 })
 export class FrPopoverFooter {}
 
+/** Close control for popover. */
 @Directive({
   selector: '[frPopoverClose]',
   host: {

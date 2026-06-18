@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
 
 import { FrCombobox } from './combobox.root';
 
+/** Search input for combobox filtering. */
 @Directive({
   selector: 'input[frComboboxInput]',
   host: {
@@ -61,6 +62,7 @@ export class FrComboboxInput {
   }
 }
 
+/** Trigger control for combobox. */
 @Directive({
   selector: 'button[frComboboxTrigger]',
   host: {
@@ -76,6 +78,7 @@ export class FrComboboxTrigger {
   protected readonly root = inject(FrCombobox);
 }
 
+/** Clear control for combobox values. */
 @Directive({
   selector: 'button[frComboboxClear]',
   host: {
@@ -92,3 +95,4 @@ export class FrComboboxClear {
     return !this.root.showClear() || !this.root.hasValue();
   }
 }
+

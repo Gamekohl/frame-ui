@@ -3,10 +3,10 @@ import { ConnectedPosition } from '@angular/cdk/overlay';
 import {
   DestroyRef,
   Directive,
+  DoCheck,
   InputSignal,
   OnDestroy,
   booleanAttribute,
-  effect,
   inject,
   input,
   signal,
@@ -24,6 +24,7 @@ import {
   FrDropdownMenuTriggerMode,
 } from '@frame-ui-ng/components/dropdown-menu';
 
+/** Trigger control for context menu sub. */
 @Directive({
   selector: '[frContextMenuSubTrigger]',
   hostDirectives: [CdkMenuItem, CdkMenuTrigger],
@@ -36,7 +37,7 @@ import {
     '(mouseleave)': 'handleMouseLeave()',
   },
 })
-export class FrContextMenuSubTrigger implements OnDestroy {
+export class FrContextMenuSubTrigger implements DoCheck, OnDestroy {
   private readonly cdkMenuTrigger = inject(CdkMenuTrigger);
   private readonly destroyRef = inject(DestroyRef);
   private readonly tree = inject(FrDropdownMenuTree);
@@ -54,21 +55,7 @@ export class FrContextMenuSubTrigger implements OnDestroy {
 
   constructor() {
     this.tree.register(this);
-
-    effect(() => {
-      const content = this.menuContent();
-
-      this.cdkMenuTrigger.menuTemplateRef = content?.templateRef ?? null;
-      this.cdkMenuTrigger.menuPosition = this.resolvePositions();
-
-      if (content?.isDebugVisible() && !this.cdkMenuTrigger.isOpen()) {
-        queueMicrotask(() => {
-          if (!this.cdkMenuTrigger.isOpen()) {
-            this.cdkMenuTrigger.open();
-          }
-        });
-      }
-    });
+    queueMicrotask(() => this.syncCdkTrigger());
 
     this.cdkMenuTrigger.opened.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.tree.cancelClose();
@@ -87,6 +74,25 @@ export class FrContextMenuSubTrigger implements OnDestroy {
 
       this.isOpen.set(false);
     });
+  }
+
+  ngDoCheck(): void {
+    this.syncCdkTrigger();
+  }
+
+  private syncCdkTrigger(): void {
+    const content = this.menuContent();
+
+    this.cdkMenuTrigger.menuTemplateRef = content?.templateRef ?? null;
+    this.cdkMenuTrigger.menuPosition = this.resolvePositions();
+
+    if (content?.isDebugVisible() && !this.cdkMenuTrigger.isOpen()) {
+      queueMicrotask(() => {
+        if (!this.cdkMenuTrigger.isOpen()) {
+          this.cdkMenuTrigger.open();
+        }
+      });
+    }
   }
 
   close(): void {

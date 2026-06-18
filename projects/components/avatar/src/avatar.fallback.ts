@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { AVATAR_ROOT } from './avatar.tokens';
 
+/** Avatar fallback component primitive. */
 @Directive({
   selector: '[frAvatarFallback]',
   standalone: true,

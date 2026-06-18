@@ -12,6 +12,7 @@ export interface FrCommandRootContext {
   isHighlighted(item: FrCommandItem): boolean;
   isItemSelected(value: unknown): boolean;
   moveHighlight(delta: number): void;
+  refreshItems(): void;
   registerItem(item: FrCommandItem): void;
   selectItem(item: FrCommandItem): void;
   setQuery(query: string): void;

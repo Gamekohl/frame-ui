@@ -1,4 +1,4 @@
-import { Directive, effect, inject, input, signal } from '@angular/core';
+import { Directive, computed, inject, input } from '@angular/core';
 
 import { FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu';
 import {
@@ -7,6 +7,7 @@ import {
   FrDropdownMenuTree,
 } from '@frame-ui-ng/components/dropdown-menu';
 
+/** Root controller for context menu interactions. */
 @Directive({
   selector: '[frContextMenu]',
   providers: [
@@ -25,6 +26,7 @@ export class FrContextMenu implements FrDropdownMenuParent {
   readonly triggerMode = input<FrDropdownMenuTriggerMode>('both');
 }
 
+/** Nested submenu controller for context menu. */
 @Directive({
   selector: '[frContextMenuSub]',
   providers: [
@@ -45,14 +47,8 @@ export class FrContextMenuSub implements FrDropdownMenuParent {
     alias: 'triggerMode',
   });
 
-  readonly closeDelay = signal(this.parent.closeDelay());
-  readonly triggerMode = signal(this.parent.triggerMode());
-
-  constructor() {
-    effect(() => {
-      this.closeDelay.set(this.closeDelayInput() ?? this.parent.closeDelay());
-      this.triggerMode.set(this.triggerModeInput() ?? this.parent.triggerMode());
-    });
-  }
+  readonly closeDelay = computed(() => this.closeDelayInput() ?? this.parent.closeDelay());
+  readonly triggerMode = computed(() => this.triggerModeInput() ?? this.parent.triggerMode());
 }
+
 

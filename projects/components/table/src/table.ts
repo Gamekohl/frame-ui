@@ -35,6 +35,7 @@ export const FR_TABLE_VARIANTS = ['default', 'outline', 'card'] as const;
 export type FrTableDensity = (typeof FR_TABLE_DENSITIES)[number];
 export type FrTableVariant = (typeof FR_TABLE_VARIANTS)[number];
 
+/** CDK table wrapper with FrameUI density and variant styling. */
 @Component({
   selector: 'table[frTable], frame-table',
   exportAs: 'frTable',
@@ -102,6 +103,7 @@ export class FrTable<T> extends CdkTable<T> {
   readonly variant = input<FrTableVariant>('default');
 }
 
+/** Scrollable container for tables. */
 @Directive({
   selector: '[frTableContainer], frame-table-container',
   host: {
@@ -110,6 +112,7 @@ export class FrTable<T> extends CdkTable<T> {
 })
 export class FrTableContainer {}
 
+/** Caption slot for table. */
 @Directive({
   selector: '[frTableCaption], frame-table-caption, caption[frTableCaption]',
   host: {
@@ -118,6 +121,7 @@ export class FrTableContainer {}
 })
 export class FrTableCaption {}
 
+/** Header slot for table. */
 @Directive({
   selector: '[frTableHeader], frame-table-header, thead[frTableHeader]',
   host: {
@@ -126,6 +130,7 @@ export class FrTableCaption {}
 })
 export class FrTableHeader {}
 
+/** Body slot for table. */
 @Directive({
   selector: '[frTableBody], frame-table-body, tbody[frTableBody]',
   host: {
@@ -134,6 +139,7 @@ export class FrTableHeader {}
 })
 export class FrTableBody {}
 
+/** Footer slot for table. */
 @Directive({
   selector: '[frTableFooter], frame-table-footer, tfoot[frTableFooter]',
   host: {
@@ -142,6 +148,7 @@ export class FrTableBody {}
 })
 export class FrTableFooter {}
 
+/** Column definition bridge to CDK table. */
 @Directive({
   selector: '[frColumnDef]',
   hostDirectives: [
@@ -153,24 +160,28 @@ export class FrTableFooter {}
 })
 export class FrColumnDef {}
 
+/** Header cell template definition for CDK table. */
 @Directive({
   selector: '[frHeaderCellDef]',
   hostDirectives: [CdkHeaderCellDef],
 })
 export class FrHeaderCellDef {}
 
+/** Body cell template definition for CDK table. */
 @Directive({
   selector: '[frCellDef]',
   hostDirectives: [CdkCellDef],
 })
 export class FrCellDef {}
 
+/** Footer cell template definition for CDK table. */
 @Directive({
   selector: '[frFooterCellDef]',
   hostDirectives: [CdkFooterCellDef],
 })
 export class FrFooterCellDef {}
 
+/** Header cell host for table columns. */
 @Directive({
   selector: 'th[frHeaderCell], frame-header-cell',
   host: {
@@ -179,6 +190,7 @@ export class FrFooterCellDef {}
 })
 export class FrHeaderCell {}
 
+/** Body cell host for table rows. */
 @Directive({
   selector: 'td[frCell], frame-cell',
   host: {
@@ -187,6 +199,7 @@ export class FrHeaderCell {}
 })
 export class FrCell {}
 
+/** Footer cell host for table summaries. */
 @Directive({
   selector: 'td[frFooterCell], frame-footer-cell',
   host: {
@@ -195,6 +208,7 @@ export class FrCell {}
 })
 export class FrFooterCell {}
 
+/** Header row rendered by CDK table. */
 @Component({
   selector: 'tr[frHeaderRow], frame-header-row',
   imports: [CdkCellOutlet],
@@ -214,6 +228,7 @@ export class FrFooterCell {}
 })
 export class FrHeaderRow extends CdkHeaderRow {}
 
+/** Body row rendered by CDK table. */
 @Component({
   selector: 'tr[frRow], frame-row',
   imports: [CdkCellOutlet],
@@ -233,6 +248,7 @@ export class FrHeaderRow extends CdkHeaderRow {}
 })
 export class FrRow extends CdkRow {}
 
+/** Footer row rendered by CDK table. */
 @Component({
   selector: 'tr[frFooterRow], frame-footer-row',
   imports: [CdkCellOutlet],
@@ -252,6 +268,7 @@ export class FrRow extends CdkRow {}
 })
 export class FrFooterRow extends CdkFooterRow {}
 
+/** Header row definition bridge to CDK table. */
 @Directive({
   selector: '[frHeaderRowDef]',
   hostDirectives: [
@@ -263,6 +280,7 @@ export class FrFooterRow extends CdkFooterRow {}
 })
 export class FrHeaderRowDef {}
 
+/** Body row definition bridge to CDK table. */
 @Directive({
   selector: '[frRowDef]',
   hostDirectives: [
@@ -274,6 +292,7 @@ export class FrHeaderRowDef {}
 })
 export class FrRowDef<T> {}
 
+/** Footer row definition bridge to CDK table. */
 @Directive({
   selector: '[frFooterRowDef]',
   hostDirectives: [
@@ -285,12 +304,14 @@ export class FrRowDef<T> {}
 })
 export class FrFooterRowDef {}
 
+/** Fallback row rendered when table data is empty. */
 @Directive({
   selector: 'ng-template[frNoDataRow]',
   hostDirectives: [CdkNoDataRow],
 })
 export class FrNoDataRow {}
 
+/** Numeric alignment helper for table cells. */
 @Directive({
   selector: '[frTableNumeric]',
   host: {
@@ -299,6 +320,7 @@ export class FrNoDataRow {}
 })
 export class FrTableNumeric {}
 
+/** Muted text helper for table content. */
 @Directive({
   selector: '[frTableMuted]',
   host: {
@@ -307,6 +329,7 @@ export class FrTableNumeric {}
 })
 export class FrTableMuted {}
 
+/** Virtualized table viewport helper. */
 @Directive({
   selector: '[frTableVirtual], frame-table-virtual',
   host: {
@@ -315,6 +338,7 @@ export class FrTableMuted {}
 })
 export class FrTableVirtual {}
 
+/** Header slot for table virtual. */
 @Directive({
   selector: '[frTableVirtualHeader], frame-table-virtual-header',
   host: {
@@ -323,6 +347,7 @@ export class FrTableVirtual {}
 })
 export class FrTableVirtualHeader {}
 
+/** Virtualized table row helper. */
 @Directive({
   selector: '[frTableVirtualRow], frame-table-virtual-row',
   host: {
@@ -331,6 +356,7 @@ export class FrTableVirtualHeader {}
 })
 export class FrTableVirtualRow {}
 
+/** Virtualized table cell helper. */
 @Directive({
   selector: '[frTableVirtualCell], frame-table-virtual-cell',
   host: {
@@ -338,3 +364,4 @@ export class FrTableVirtualRow {}
   },
 })
 export class FrTableVirtualCell {}
+
