@@ -8,6 +8,136 @@ const dragDropImportsCode = `import {
   transferArrayItem,
 } from '@frame-ui-ng/components/drag-drop';`;
 
+const singleListTs = `readonly items = [
+  { id: 'research', title: 'Research interaction states' },
+  { id: 'tokens', title: 'Map drag tokens' },
+  { id: 'docs', title: 'Draft usage examples' },
+];
+
+drop(event: CdkDragDrop<Array<{ id: string; title: string }>>): void {
+  moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+}`;
+
+const usageListTs = `readonly tasks = [
+  { id: 'audit', title: 'Audit keyboard paths' },
+  { id: 'motion', title: 'Review drag motion' },
+  { id: 'publish', title: 'Publish package' },
+];
+
+drop(event: CdkDragDrop<Array<{ id: string; title: string }>>): void {
+  moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+}`;
+
+const transferListTs = `readonly lists = [
+  {
+    id: 'backlog',
+    title: 'Backlog',
+    tasks: [
+      { id: 'filters', title: 'Add filter controls' },
+      { id: 'audit-log', title: 'Design audit log' },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    tasks: [
+      { id: 'tokens', title: 'Token migration' },
+    ],
+  },
+];
+
+drop(event: CdkDragDrop<Array<{ id: string; title: string }>>): void {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    return;
+  }
+
+  transferArrayItem(
+    event.previousContainer.data,
+    event.container.data,
+    event.previousIndex,
+    event.currentIndex,
+  );
+}`;
+
+const nestedTs = `readonly cards = [
+  {
+    id: 'profile',
+    title: 'Profile card',
+    children: [
+      { id: 'avatar', title: 'Avatar upload' },
+      { id: 'timezone', title: 'Timezone selector' },
+    ],
+  },
+  {
+    id: 'billing',
+    title: 'Billing card',
+    children: [
+      { id: 'invoice', title: 'Invoice address' },
+      { id: 'tax', title: 'Tax ID field' },
+    ],
+  },
+];
+
+dropCard(
+  event: CdkDragDrop<Array<{
+    id: string;
+    title: string;
+    children: Array<{ id: string; title: string }>;
+  }>>,
+): void {
+  moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
+}
+
+dropChild(
+  cardId: string,
+  event: CdkDragDrop<Array<{ id: string; title: string }>>,
+): void {
+  const card = this.cards.find((item) => item.id === cardId);
+
+  if (card) {
+    moveItemInArray(card.children, event.previousIndex, event.currentIndex);
+  }
+}`;
+
+const disabledTs = `readonly task = {
+  id: 'billing',
+  title: 'Billing migration',
+  locked: true,
+};`;
+
+const swimlaneTs = `readonly lanes = [
+  {
+    id: 'todo',
+    title: 'To do',
+    tasks: [
+      { id: 'copy', title: 'Tighten onboarding copy' },
+      { id: 'empty', title: 'Empty states QA' },
+    ],
+  },
+  {
+    id: 'active',
+    title: 'Active',
+    tasks: [
+      { id: 'dashboard', title: 'Dashboard drag cards' },
+    ],
+  },
+];
+
+dropLane(event: CdkDragDrop<Array<{ id: string; title: string }>>): void {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    return;
+  }
+
+  transferArrayItem(
+    event.previousContainer.data,
+    event.container.data,
+    event.previousIndex,
+    event.currentIndex,
+  );
+}`;
+
 export const DRAG_DROP_DOC: ComponentDoc = {
   slug: 'drag-drop',
   breadcrumb: 'Components / Drag Drop',
@@ -65,6 +195,10 @@ export const DRAG_DROP_DOC: ComponentDoc = {
     {
       language: 'ts',
       code: dragDropImportsCode,
+    },
+    {
+      language: 'ts',
+      code: usageListTs,
     },
     {
       language: 'html',
@@ -149,6 +283,14 @@ export const DRAG_DROP_DOC: ComponentDoc = {
       },
       code: [
         {
+          language: 'ts',
+          code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: singleListTs,
+        },
+        {
           language: 'html',
           code: `<div frDropList [frDropListData]="items" (frDropListDropped)="drop($event)">
   @for (item of items; track item.id) {
@@ -175,6 +317,10 @@ export const DRAG_DROP_DOC: ComponentDoc = {
         {
           language: 'ts',
           code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: singleListTs,
         },
         {
           language: 'html',
@@ -206,6 +352,10 @@ export const DRAG_DROP_DOC: ComponentDoc = {
           code: dragDropImportsCode,
         },
         {
+          language: 'ts',
+          code: singleListTs,
+        },
+        {
           language: 'html',
           code: `<div frDropList [frDropListData]="items" (frDropListDropped)="drop($event)">
   @for (item of items; track item.id) {
@@ -232,11 +382,11 @@ export const DRAG_DROP_DOC: ComponentDoc = {
       code: [
         {
           language: 'ts',
-          code: `import { CdkDragDrop, moveItemInArray } from '@frame-ui-ng/components/drag-drop';
-
-drop(event: CdkDragDrop<Task[]>): void {
-  moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
-}`,
+          code: `import { CdkDragDrop, moveItemInArray } from '@frame-ui-ng/components/drag-drop';`,
+        },
+        {
+          language: 'ts',
+          code: usageListTs,
         },
       ],
     },
@@ -252,6 +402,14 @@ drop(event: CdkDragDrop<Task[]>): void {
         },
       },
       code: [
+        {
+          language: 'ts',
+          code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: transferListTs,
+        },
         {
           language: 'html',
           code: `<div frDragDropGroup>
@@ -271,21 +429,6 @@ drop(event: CdkDragDrop<Task[]>): void {
   }
 </div>`,
         },
-        {
-          language: 'ts',
-          code: `drop(event: CdkDragDrop<Task[]>): void {
-  if (event.previousContainer === event.container) {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  } else {
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex,
-    );
-  }
-}`,
-        },
       ],
     },
     {
@@ -300,6 +443,14 @@ drop(event: CdkDragDrop<Task[]>): void {
         },
       },
       code: [
+        {
+          language: 'ts',
+          code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: nestedTs,
+        },
         {
           language: 'html',
           code: `<div frDropList [frDropListData]="cards" (frDropListDropped)="dropCard($event)">
@@ -338,6 +489,14 @@ drop(event: CdkDragDrop<Task[]>): void {
       },
       code: [
         {
+          language: 'ts',
+          code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: disabledTs,
+        },
+        {
           language: 'html',
           code: `<article frDrag [frDragData]="task" [frDragDisabled]="task.locked">
   <button
@@ -365,6 +524,14 @@ drop(event: CdkDragDrop<Task[]>): void {
         },
       },
       code: [
+        {
+          language: 'ts',
+          code: dragDropImportsCode,
+        },
+        {
+          language: 'ts',
+          code: swimlaneTs,
+        },
         {
           language: 'html',
           code: `<div frDragDropGroup class="board">

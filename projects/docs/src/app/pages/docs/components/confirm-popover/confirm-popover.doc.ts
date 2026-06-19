@@ -37,6 +37,10 @@ const cardHtml = `<div
   <span>Click the card to confirm an archive action.</span>
 </div>`;
 
+const cardTs = `archiveWorkspace(): void {
+  // Archive the selected workspace.
+}`;
+
 const customLabelsHtml = `<button
   frButton
   appearance="outline"
@@ -154,6 +158,7 @@ export const CONFIRM_POPOVER_DOC: ComponentDoc = {
       },
       code: [
         { language: 'ts', code: importsCode },
+        { language: 'ts', code: cardTs },
         { language: 'html', code: cardHtml },
       ],
     },
