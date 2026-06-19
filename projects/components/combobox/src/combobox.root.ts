@@ -6,14 +6,14 @@ import {
 } from '@angular/cdk/overlay';
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  afterNextRender,
+  AfterViewInit,
   Component,
   DestroyRef,
+  DoCheck,
   ElementRef,
   booleanAttribute,
   computed,
   contentChild,
-  effect,
   inject,
   input,
   model,
@@ -45,6 +45,7 @@ const POSITIONS: ConnectedPosition[] = [
   },
 ];
 
+/** Combobox control with single and multi-value support. */
 @Component({
   selector: '[frCombobox], frame-combobox',
   exportAs: 'frCombobox',
@@ -84,12 +85,17 @@ const POSITIONS: ConnectedPosition[] = [
     </ng-template>
   `,
 })
-export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrComboboxValue[] | null> {
+export class FrCombobox
+  extends FrControlValueAccessor<FrComboboxValue | FrComboboxValue[] | null>
+  implements AfterViewInit, DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly items = new Set<FrComboboxItem>();
   private readonly itemsVersion = signal(0);
   private readonly selectedLabels = new Map<FrComboboxValue, string>();
+  private lastAutoHighlight = false;
+  private lastItemsVersion = -1;
+  private lastQuery = '';
   private resizeObserver: ResizeObserver | null = null;
 
   private readonly origin = viewChild(CdkOverlayOrigin);
@@ -137,21 +143,6 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
   constructor() {
     super();
 
-    effect(() => {
-      if (this.debugVisible()) {
-        afterNextRender(() => this.open());
-      }
-    });
-
-    effect(() => {
-      this.query();
-      this.itemsVersion();
-
-      if (this.autoHighlight()) {
-        this.highlightedIndex.set(0);
-      }
-    });
-
     queueMicrotask(() => {
       this.measureAnchor();
       this.attachResizeObserver();
@@ -162,6 +153,36 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
     });
   }
 
+  ngAfterViewInit(): void {
+    if (this.debugVisible()) {
+      this.open();
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.debugVisible() && !this.isOpen()) {
+      this.open();
+    }
+
+    const autoHighlight = this.autoHighlight();
+    const itemsVersion = this.itemsVersion();
+    const query = this.query();
+
+    if (
+      autoHighlight &&
+      (query !== this.lastQuery ||
+        itemsVersion !== this.lastItemsVersion ||
+        autoHighlight !== this.lastAutoHighlight)
+    ) {
+      // Filtering can invalidate the current index, so restart highlight at the first visible item.
+      this.highlightedIndex.set(0);
+    }
+
+    this.lastAutoHighlight = autoHighlight;
+    this.lastItemsVersion = itemsVersion;
+    this.lastQuery = query;
+  }
+
   registerItem(item: FrComboboxItem): void {
     this.items.add(item);
     this.bumpItems();
@@ -169,6 +190,10 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
 
   unregisterItem(item: FrComboboxItem): void {
     this.items.delete(item);
+    this.bumpItems();
+  }
+
+  refreshItems(): void {
     this.bumpItems();
   }
 
@@ -310,6 +335,7 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
       return;
     }
 
+    // Match the overlay width to the trigger even when content is rendered in the CDK overlay.
     this.anchorWidth.set(element.getBoundingClientRect().width || null);
   }
 
@@ -328,4 +354,5 @@ export class FrCombobox extends FrControlValueAccessor<FrComboboxValue | FrCombo
     this.resizeObserver.observe(element);
   }
 }
+
 

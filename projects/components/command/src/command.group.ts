@@ -3,6 +3,7 @@ import { Directive, booleanAttribute, computed, inject, input, signal } from '@a
 import { FrCommandItem } from './command.item';
 import { FR_COMMAND_GROUP } from './command.tokens';
 
+/** Group slot for command. */
 @Directive({
   selector: '[frCommandGroup]',
   exportAs: 'frCommandGroup',
@@ -42,6 +43,7 @@ export class FrCommandGroup {
   }
 }
 
+/** Heading slot for a command group. */
 @Directive({
   selector: '[frCommandGroupHeading]',
   standalone: true,
@@ -50,3 +52,4 @@ export class FrCommandGroup {
   },
 })
 export class FrCommandGroupHeading {}
+

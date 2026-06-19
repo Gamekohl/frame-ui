@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+/** Textarea control with FrameUI field styling. */
 @Directive({
   selector: 'textarea[frTextarea]',
   host: {
@@ -7,3 +8,4 @@ import { Directive } from '@angular/core';
   },
 })
 export class FrTextarea {}
+

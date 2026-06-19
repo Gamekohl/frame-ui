@@ -35,6 +35,7 @@ export type FrModalShellOptions = {
   title?: string;
 };
 
+/** Default shell for modal content, title, and footer actions. */
 @Component({
   selector: 'frame-modal-shell',
   imports: [
@@ -115,4 +116,5 @@ export class FrModalShell {
     }
   }
 }
+
 

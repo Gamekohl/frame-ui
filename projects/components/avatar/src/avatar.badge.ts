@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+/** Badge slot for avatar. */
 @Directive({
   selector: '[frAvatarBadge]',
   standalone: true,

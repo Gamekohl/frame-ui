@@ -12,6 +12,7 @@ export * from './checkbox/src/checkbox';
 export * from './collapsible/src/collapsible';
 export * from './combobox/src/combobox';
 export * from './command/src/command';
+export * from './confirm-popover/src/confirm-popover';
 export * from './context-menu/src/context-menu';
 export * from './date-picker/src/date-picker';
 export * from './dropdown-menu/src/dropdown-menu';

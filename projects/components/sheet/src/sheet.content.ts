@@ -10,6 +10,7 @@ import {
 
 import { FrSheetConfig } from './sheet.service';
 
+/** Content slot for sheet. */
 @Directive({
   selector: 'ng-template[frSheetContent]',
   exportAs: 'frSheetContent',

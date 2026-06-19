@@ -1,11 +1,11 @@
 import {
   DestroyRef,
   Directive,
+  DoCheck,
   ElementRef,
   afterNextRender,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   signal,
@@ -13,6 +13,7 @@ import {
 
 import { FrCombobox, FrComboboxValue } from './combobox.root';
 
+/** Item slot for combobox. */
 @Directive({
   selector: 'button[frComboboxItem]',
   host: {
@@ -28,7 +29,7 @@ import { FrCombobox, FrComboboxValue } from './combobox.root';
     '(mouseenter)': 'highlightSelf()',
   },
 })
-export class FrComboboxItem {
+export class FrComboboxItem implements DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly root = inject(FrCombobox);
@@ -38,6 +39,7 @@ export class FrComboboxItem {
   readonly itemLabel = input<string | null>(null, { alias: 'label' });
   readonly value = input.required<FrComboboxValue>();
   readonly resolvedLabel = signal('');
+  private lastItemStateKey = '';
 
   readonly label = computed(() => this.itemLabel() ?? this.resolvedLabel());
   readonly visible = computed(() => this.root.itemVisible(this.label()));
@@ -54,11 +56,21 @@ export class FrComboboxItem {
       this.observeTextChanges();
     });
 
-    effect(() => {
-      if (this.root.isSelected(this.value())) {
-        this.root.rememberItemLabel(this.value(), this.label());
-      }
-    });
+  }
+
+  ngDoCheck(): void {
+    const itemStateKey = `${this.label()}|${this.disabled()}|${this.root.isSelected(this.value())}`;
+
+    if (itemStateKey === this.lastItemStateKey) {
+      return;
+    }
+
+    this.lastItemStateKey = itemStateKey;
+    this.root.refreshItems();
+
+    if (this.root.isSelected(this.value())) {
+      this.root.rememberItemLabel(this.value(), this.label());
+    }
   }
 
   isVisible(): boolean {
@@ -93,6 +105,7 @@ export class FrComboboxItem {
 
   private refreshResolvedLabel(): void {
     this.resolvedLabel.set(this.resolveLabel());
+    this.root.refreshItems();
   }
 
   private observeTextChanges(): void {
@@ -100,6 +113,7 @@ export class FrComboboxItem {
       return;
     }
 
+    // Items without explicit labels derive filtering text from projected content.
     this.mutationObserver = new MutationObserver(() => this.refreshResolvedLabel());
     this.mutationObserver.observe(this.elementRef.nativeElement, {
       characterData: true,
@@ -109,6 +123,7 @@ export class FrComboboxItem {
   }
 }
 
+/** Indicator slot for combobox item. */
 @Directive({
   selector: '[frComboboxItemIndicator]',
   host: {

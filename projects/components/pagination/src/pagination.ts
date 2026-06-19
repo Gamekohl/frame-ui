@@ -3,6 +3,7 @@ import { clampNumber } from '@frame-ui-ng/components/utils';
 
 export type FrPaginationPage = number | 'ellipsis';
 
+/** Pagination navigation container. */
 @Directive({
   selector: 'nav[frPagination], [frPagination]',
   exportAs: 'frPagination',
@@ -78,6 +79,7 @@ export class FrPagination {
   }
 }
 
+/** Content slot for pagination. */
 @Directive({
   selector: 'ul[frPaginationContent], ol[frPaginationContent], [frPaginationContent]',
   host: {
@@ -86,6 +88,7 @@ export class FrPagination {
 })
 export class FrPaginationContent {}
 
+/** Item slot for pagination. */
 @Directive({
   selector: 'li[frPaginationItem], [frPaginationItem]',
   host: {
@@ -94,6 +97,7 @@ export class FrPaginationContent {}
 })
 export class FrPaginationItem {}
 
+/** Page link with active and disabled states. */
 @Directive({
   selector: 'a[frPaginationLink], button[frPaginationLink]',
   host: {
@@ -138,6 +142,7 @@ export class FrPaginationLink {
   }
 }
 
+/** Icon slot for pagination. */
 @Directive({
   selector: '[frPaginationIcon]',
   host: {
@@ -147,6 +152,7 @@ export class FrPaginationLink {
 })
 export class FrPaginationIcon {}
 
+/** Previous-page pagination control. */
 @Component({
   selector: 'a[frPaginationPrevious], button[frPaginationPrevious]',
   host: {
@@ -192,6 +198,7 @@ export class FrPaginationPrevious {
   }
 }
 
+/** Next-page pagination control. */
 @Component({
   selector: 'a[frPaginationNext], button[frPaginationNext]',
   host: {
@@ -237,6 +244,7 @@ export class FrPaginationNext {
   }
 }
 
+/** Ellipsis slot for pagination. */
 @Component({
   selector: '[frPaginationEllipsis], frame-pagination-ellipsis',
   host: {
@@ -251,3 +259,4 @@ export class FrPaginationNext {
 export class FrPaginationEllipsis {
   readonly label = input('More pages');
 }
+

@@ -8,6 +8,7 @@ export type FrEmptyMediaVariant = (typeof FR_EMPTY_MEDIA_VARIANTS)[number];
 export type FrEmptyOrientation = (typeof FR_EMPTY_ORIENTATIONS)[number];
 export type FrEmptyVariant = (typeof FR_EMPTY_VARIANTS)[number];
 
+/** Empty-state container with orientation and variant controls. */
 @Directive({
   selector: '[frEmpty], frame-empty',
   host: {
@@ -21,6 +22,7 @@ export class FrEmpty {
   readonly variant = input<FrEmptyVariant>('default');
 }
 
+/** Header slot for empty. */
 @Directive({
   selector: '[frEmptyHeader], frame-empty-header',
   host: {
@@ -29,6 +31,7 @@ export class FrEmpty {
 })
 export class FrEmptyHeader {}
 
+/** Media slot for empty. */
 @Directive({
   selector: '[frEmptyMedia], frame-empty-media',
   host: {
@@ -40,6 +43,7 @@ export class FrEmptyMedia {
   readonly variant = input<FrEmptyMediaVariant>('default');
 }
 
+/** Title slot for empty. */
 @Directive({
   selector: '[frEmptyTitle], frame-empty-title',
   host: {
@@ -48,6 +52,7 @@ export class FrEmptyMedia {
 })
 export class FrEmptyTitle {}
 
+/** Description slot for empty. */
 @Directive({
   selector: '[frEmptyDescription], frame-empty-description',
   host: {
@@ -56,6 +61,7 @@ export class FrEmptyTitle {}
 })
 export class FrEmptyDescription {}
 
+/** Content slot for empty. */
 @Directive({
   selector: '[frEmptyContent], frame-empty-content',
   host: {
@@ -63,3 +69,4 @@ export class FrEmptyDescription {}
   },
 })
 export class FrEmptyContent {}
+

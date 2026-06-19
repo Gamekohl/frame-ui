@@ -5,6 +5,7 @@ import { FrSelect } from './select.root';
 export const FR_SELECT_ICON_POSITIONS = ['leading', 'trailing'] as const;
 export type FrSelectIconPosition = (typeof FR_SELECT_ICON_POSITIONS)[number];
 
+/** Value slot for select. */
 @Directive({
   selector: '[frSelectValue], frame-select-value',
   host: {
@@ -22,6 +23,7 @@ export class FrSelectValue {
   protected readonly displayText = computed(() => this.select.displayValue() ?? this.placeholder());
 }
 
+/** Indicator slot for select item. */
 @Directive({
   selector: '[frSelectItemIndicator], frame-select-item-indicator',
   host: {
@@ -31,6 +33,7 @@ export class FrSelectValue {
 })
 export class FrSelectItemIndicator {}
 
+/** Icon slot for select. */
 @Directive({
   selector: '[frSelectIcon], frame-select-icon',
   host: {
@@ -43,6 +46,7 @@ export class FrSelectIcon {
   readonly position = input<FrSelectIconPosition>('trailing');
 }
 
+/** Error slot for select. */
 @Directive({
   selector: '[frSelectError], frame-select-error',
   host: {

@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+/** List wrapper for virtualized items. */
 @Directive({
   selector: '[frVirtualList], frame-virtual-list',
   host: {
@@ -8,6 +9,7 @@ import { Directive } from '@angular/core';
 })
 export class FrVirtualList {}
 
+/** Panel wrapper for virtualized content. */
 @Directive({
   selector: '[frVirtualPanel], frame-virtual-panel',
   host: {
@@ -16,6 +18,7 @@ export class FrVirtualList {}
 })
 export class FrVirtualPanel {}
 
+/** Item wrapper for virtualized rows. */
 @Directive({
   selector: '[frVirtualItem], frame-virtual-item',
   host: {
@@ -24,6 +27,7 @@ export class FrVirtualPanel {}
 })
 export class FrVirtualItem {}
 
+/** Meta slot for virtual item. */
 @Directive({
   selector: '[frVirtualItemMeta], frame-virtual-item-meta',
   host: {
@@ -31,3 +35,4 @@ export class FrVirtualItem {}
   },
 })
 export class FrVirtualItemMeta {}
+

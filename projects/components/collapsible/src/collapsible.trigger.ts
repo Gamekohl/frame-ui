@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { FR_COLLAPSIBLE } from './collapsible.tokens';
 
+/** Trigger control for collapsible. */
 @Directive({
   selector: 'button[frCollapsibleTrigger]',
   standalone: true,

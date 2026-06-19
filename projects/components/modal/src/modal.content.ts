@@ -10,6 +10,7 @@ import { Direction } from '@angular/cdk/bidi';
 
 import { FrModalConfig } from './modal.service';
 
+/** Content slot for modal. */
 @Directive({
   selector: 'ng-template[frModalContent]',
   exportAs: 'frModalContent',

@@ -10,6 +10,7 @@ import { ACCORDION_ITEM, ACCORDION_ROOT } from './accordion.tokens';
 
 let accordionItemId = 0;
 
+/** Item slot for accordion. */
 @Directive({
   selector: '[frAccordionItem]',
   exportAs: 'frAccordionItem',

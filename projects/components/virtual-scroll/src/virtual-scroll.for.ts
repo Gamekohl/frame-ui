@@ -1,10 +1,10 @@
 import {
   Directive,
+  DoCheck,
   EmbeddedViewRef,
   TemplateRef,
   ViewContainerRef,
   computed,
-  effect,
   inject,
   input,
 } from '@angular/core';
@@ -23,10 +23,11 @@ export interface FrVirtualForContext<T> {
 
 export type FrVirtualTrackBy<T> = (index: number, item: T) => unknown;
 
+/** Structural directive for rendering virtualized ranges. */
 @Directive({
   selector: '[frVirtualFor][frVirtualForOf]',
 })
-export class FrVirtualFor<T> {
+export class FrVirtualFor<T> implements DoCheck {
   private readonly templateRef = inject<TemplateRef<FrVirtualForContext<T>>>(TemplateRef);
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly viewport = inject(FrVirtualViewport);
@@ -34,6 +35,7 @@ export class FrVirtualFor<T> {
 
   readonly frVirtualForOf = input.required<readonly T[]>();
   readonly frVirtualForTrackBy = input<FrVirtualTrackBy<T> | null>(null);
+  private lastRenderKey = '';
 
   private readonly slice = computed(() => {
     const items = this.frVirtualForOf();
@@ -47,12 +49,24 @@ export class FrVirtualFor<T> {
     };
   });
 
-  constructor() {
-    effect(() => {
-      const items = this.frVirtualForOf();
-      this.viewport.setTotalCount(items.length);
-      this.render();
-    });
+  ngDoCheck(): void {
+    const items = this.frVirtualForOf();
+    const renderKey = [
+      items,
+      items.length,
+      this.viewport.startIndex(),
+      this.viewport.endIndex(),
+      this.frVirtualForTrackBy(),
+    ].map(String).join('|');
+
+    this.viewport.setTotalCount(items.length);
+
+    if (renderKey === this.lastRenderKey) {
+      return;
+    }
+
+    this.lastRenderKey = renderKey;
+    this.render();
   }
 
   static ngTemplateContextGuard<T>(
@@ -118,3 +132,4 @@ export class FrVirtualFor<T> {
     return view;
   }
 }
+

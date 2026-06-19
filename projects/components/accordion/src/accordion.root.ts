@@ -1,15 +1,15 @@
 import {
   Directive,
   booleanAttribute,
-  effect,
   input,
+  linkedSignal,
   output,
-  signal,
 } from '@angular/core';
 
 import { ACCORDION_ROOT } from './accordion.tokens';
 import { FrAccordionType } from './accordion.types';
 
+/** Accordion component primitive. */
 @Directive({
   selector: '[frAccordion]',
   exportAs: 'frAccordion',
@@ -28,13 +28,7 @@ export class FrAccordion {
   readonly defaultValue = input<string | readonly string[] | null>(null);
   readonly valueChange = output<string | string[] | null>();
 
-  private readonly openItems = signal<string[]>([]);
-
-  constructor() {
-    effect(() => {
-      this.openItems.set(this.normalizeValues(this.defaultValue(), this.type()));
-    });
-  }
+  private readonly openItems = linkedSignal(() => this.normalizeValues(this.defaultValue(), this.type()));
 
   isItemOpen(value: string): boolean {
     return this.openItems().includes(value);

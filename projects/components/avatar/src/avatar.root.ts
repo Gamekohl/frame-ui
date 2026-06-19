@@ -3,6 +3,7 @@ import { Directive, input, signal } from '@angular/core';
 import { AVATAR_ROOT } from './avatar.tokens';
 import { FrAvatarSize } from './avatar.types';
 
+/** Avatar component primitive. */
 @Directive({
   selector: 'FrAvatar, [frAvatar]',
   exportAs: 'frAvatar',

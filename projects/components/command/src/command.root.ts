@@ -1,8 +1,8 @@
 import {
   Directive,
+  DoCheck,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   model,
@@ -30,6 +30,7 @@ const DEFAULT_FILTER: FrCommandFilter = (query, label, keywords) => {
   return [label, ...keywords].some((value) => value.toLowerCase().includes(normalizedQuery));
 };
 
+/** Command menu root that coordinates filtering and selection. */
 @Directive({
   selector: '[frCommand], frame-command',
   exportAs: 'frCommand',
@@ -42,10 +43,14 @@ const DEFAULT_FILTER: FrCommandFilter = (query, label, keywords) => {
     '(keydown)': 'handleKeydown($event)',
   },
 })
-export class FrCommand {
+export class FrCommand implements DoCheck {
   private readonly dialogRef = inject<DialogRef<unknown>>(DialogRef, { optional: true });
   private readonly items = new Set<FrCommandItem>();
   private readonly itemsVersion = signal(0);
+  private lastFilter: FrCommandFilter | null = null;
+  private lastHighlightedIndex = 0;
+  private lastItemsVersion = -1;
+  private lastQuery = '';
 
   readonly closeOnSelect = input(false, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
@@ -60,18 +65,24 @@ export class FrCommand {
   readonly highlightedIndex = signal(0);
   readonly selectedValue = computed(() => this.value());
 
-  constructor() {
-    effect(() => {
-      this.query();
-      this.itemsVersion();
-      this.normalizeHighlight();
-    });
+  ngDoCheck(): void {
+    const filter = this.filter();
+    const highlightedIndex = this.highlightedIndex();
+    const itemsVersion = this.itemsVersion();
+    const query = this.query();
 
-    effect(() => {
-      this.highlightedIndex();
-      this.itemsVersion();
+    if (query !== this.lastQuery || itemsVersion !== this.lastItemsVersion || filter !== this.lastFilter) {
+      this.normalizeHighlight();
+    }
+
+    if (highlightedIndex !== this.lastHighlightedIndex || itemsVersion !== this.lastItemsVersion) {
       this.scrollHighlightedItemIntoView();
-    });
+    }
+
+    this.lastFilter = filter;
+    this.lastHighlightedIndex = this.highlightedIndex();
+    this.lastItemsVersion = itemsVersion;
+    this.lastQuery = query;
   }
 
   registerItem(item: FrCommandItem): void {
@@ -81,6 +92,10 @@ export class FrCommand {
 
   unregisterItem(item: FrCommandItem): void {
     this.items.delete(item);
+    this.bumpItems();
+  }
+
+  refreshItems(): void {
     this.bumpItems();
   }
 
@@ -218,3 +233,4 @@ export class FrCommand {
     this.visibleItems()[this.highlightedIndex()]?.scrollIntoView();
   }
 }
+

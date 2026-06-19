@@ -2,6 +2,7 @@ import { Directive, computed, inject } from '@angular/core';
 
 import { FrVirtualViewport } from './virtual-scroll.viewport';
 
+/** Measured content wrapper for virtual scrolling. */
 @Directive({
   selector: '[frVirtualContent], frame-virtual-content',
   host: {
@@ -16,3 +17,4 @@ export class FrVirtualContent {
   protected readonly before = computed(() => this.viewport.before());
   protected readonly after = computed(() => this.viewport.after());
 }
+

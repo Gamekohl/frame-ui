@@ -6,6 +6,7 @@ const DEFAULT_DURATION = 4000;
 const DISMISS_ANIMATION_DURATION = 180;
 let nextToastId = 0;
 
+/** Service for creating and dismissing toasts. */
 @Injectable({ providedIn: 'root' })
 export class FrToastService {
   private readonly timers = new Map<string, ReturnType<typeof setTimeout>>();
@@ -173,3 +174,4 @@ export class FrToastService {
     }
   }
 }
+

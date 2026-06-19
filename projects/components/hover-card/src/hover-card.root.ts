@@ -27,6 +27,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = buildHoverCardPositions({
   sideOffset: 8,
 });
 
+/** Root controller for hover card. */
 @Component({
   selector: 'frame-hover-card',
   exportAs: 'frHoverCard',

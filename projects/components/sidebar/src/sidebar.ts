@@ -4,9 +4,9 @@ import {
   InjectionToken,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
+  linkedSignal,
   numberAttribute,
   output,
   signal,
@@ -58,6 +58,7 @@ function coerceOptionalNumber(value: unknown): number | null {
   return Number.isFinite(coerced) ? coerced : null;
 }
 
+/** Shared state provider for sidebar. */
 @Directive({
   selector: '[frSidebarProvider], frame-sidebar-provider',
   exportAs: 'frSidebarProvider',
@@ -74,13 +75,14 @@ function coerceOptionalNumber(value: unknown): number | null {
     '[attr.data-mobile-open]': 'openMobile()',
     '[attr.data-mobile]': 'isMobile() ? "" : null',
     '[attr.data-resizing]': 'resizing() ? "" : null',
+    '[style.--frame-sidebar-state]': 'state()',
     '(document:keydown)': 'handleKeydown($event)',
   },
 })
 export class FrSidebarProvider {
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly internalOpen = signal(true);
+  private readonly internalOpen = linkedSignal(() => this.defaultOpen());
   private readonly internalOpenMobile = signal(false);
   protected readonly resizing = signal(false);
 
@@ -97,18 +99,6 @@ export class FrSidebarProvider {
   readonly state = computed<FrSidebarState>(() => (this.open() ? 'expanded' : 'collapsed'));
 
   constructor() {
-    this.internalOpen.set(this.defaultOpen());
-
-    effect(() => {
-      if (this.openInput() === null) {
-        this.internalOpen.set(this.defaultOpen());
-      }
-    });
-
-    effect(() => {
-      this.elementRef.nativeElement.style.setProperty('--frame-sidebar-state', this.state());
-    });
-
     const defaultView = this.document.defaultView;
     if (!defaultView?.matchMedia) {
       return;
@@ -165,6 +155,7 @@ export class FrSidebarProvider {
   }
 }
 
+/** Sidebar root driven by provider state. */
 @Directive({
   selector: '[frSidebar], frame-sidebar',
   host: {
@@ -190,6 +181,7 @@ export class FrSidebar {
   readonly resizable = input(true, { transform: booleanAttribute });
 }
 
+/** Trigger control for sidebar. */
 @Directive({
   selector: '[frSidebarTrigger]',
   host: {
@@ -209,6 +201,7 @@ export class FrSidebarTrigger {
   }
 }
 
+/** Rail slot for sidebar. */
 @Directive({
   selector: '[frSidebarRail], frame-sidebar-rail',
   host: {
@@ -307,6 +300,7 @@ export class FrSidebarRail {
       return;
     }
 
+    // Batch rapid pointer moves into one width write per animation frame.
     this.frameId = requestAnimationFrame(() => {
       this.provider?.setSidebarWidth(this.pendingWidth);
       this.frameId = -1;
@@ -341,6 +335,7 @@ export class FrSidebarRail {
       return 192;
     }
 
+    // Use rendered child width as a fallback min-size when consumers do not provide one.
     const sidebarElement = this.sidebar.elementRef.nativeElement;
     const sidebarRect = sidebarElement.getBoundingClientRect();
     let measuredWidth = 0;
@@ -359,6 +354,7 @@ export class FrSidebarRail {
   }
 }
 
+/** Inset slot for sidebar. */
 @Directive({
   selector: '[frSidebarInset], frame-sidebar-inset',
   host: {
@@ -367,6 +363,7 @@ export class FrSidebarRail {
 })
 export class FrSidebarInset {}
 
+/** Header slot for sidebar. */
 @Directive({
   selector: '[frSidebarHeader], frame-sidebar-header',
   host: {
@@ -375,6 +372,7 @@ export class FrSidebarInset {}
 })
 export class FrSidebarHeader {}
 
+/** Footer slot for sidebar. */
 @Directive({
   selector: '[frSidebarFooter], frame-sidebar-footer',
   host: {
@@ -383,6 +381,7 @@ export class FrSidebarHeader {}
 })
 export class FrSidebarFooter {}
 
+/** Content slot for sidebar. */
 @Directive({
   selector: '[frSidebarContent], frame-sidebar-content',
   host: {
@@ -391,6 +390,7 @@ export class FrSidebarFooter {}
 })
 export class FrSidebarContent {}
 
+/** Group slot for sidebar. */
 @Directive({
   selector: '[frSidebarGroup], frame-sidebar-group',
   host: {
@@ -399,6 +399,7 @@ export class FrSidebarContent {}
 })
 export class FrSidebarGroup {}
 
+/** Label slot for sidebar group. */
 @Directive({
   selector: '[frSidebarGroupLabel], frame-sidebar-group-label',
   host: {
@@ -407,6 +408,7 @@ export class FrSidebarGroup {}
 })
 export class FrSidebarGroupLabel {}
 
+/** Action slot for sidebar group. */
 @Directive({
   selector: '[frSidebarGroupAction], frame-sidebar-group-action',
   host: {
@@ -416,6 +418,7 @@ export class FrSidebarGroupLabel {}
 })
 export class FrSidebarGroupAction {}
 
+/** Content slot for sidebar group. */
 @Directive({
   selector: '[frSidebarGroupContent], frame-sidebar-group-content',
   host: {
@@ -424,6 +427,7 @@ export class FrSidebarGroupAction {}
 })
 export class FrSidebarGroupContent {}
 
+/** Menu list inside sidebar navigation. */
 @Directive({
   selector: '[frSidebarMenu], frame-sidebar-menu',
   host: {
@@ -433,6 +437,7 @@ export class FrSidebarGroupContent {}
 })
 export class FrSidebarMenu {}
 
+/** Item slot for sidebar menu. */
 @Directive({
   selector: '[frSidebarMenuItem], frame-sidebar-menu-item',
   host: {
@@ -442,6 +447,7 @@ export class FrSidebarMenu {}
 })
 export class FrSidebarMenuItem {}
 
+/** Interactive button or link inside a sidebar menu item. */
 @Directive({
   selector: '[frSidebarMenuButton], a[frSidebarMenuButton], button[frSidebarMenuButton]',
   host: {
@@ -474,6 +480,7 @@ export class FrSidebarMenuButton {
   }
 }
 
+/** Action slot for sidebar menu. */
 @Directive({
   selector: '[frSidebarMenuAction], frame-sidebar-menu-action',
   host: {
@@ -486,6 +493,7 @@ export class FrSidebarMenuAction {
   readonly showOnHover = input(false, { transform: booleanAttribute });
 }
 
+/** Badge slot for sidebar menu. */
 @Directive({
   selector: '[frSidebarMenuBadge], frame-sidebar-menu-badge',
   host: {
@@ -494,6 +502,7 @@ export class FrSidebarMenuAction {
 })
 export class FrSidebarMenuBadge {}
 
+/** Nested menu list inside sidebar navigation. */
 @Directive({
   selector: '[frSidebarMenuSub], frame-sidebar-menu-sub',
   host: {
@@ -503,6 +512,7 @@ export class FrSidebarMenuBadge {}
 })
 export class FrSidebarMenuSub {}
 
+/** Item slot for sidebar menu sub. */
 @Directive({
   selector: '[frSidebarMenuSubItem], frame-sidebar-menu-sub-item',
   host: {
@@ -512,6 +522,7 @@ export class FrSidebarMenuSub {}
 })
 export class FrSidebarMenuSubItem {}
 
+/** Interactive button or link inside a sidebar submenu. */
 @Directive({
   selector: '[frSidebarMenuSubButton], a[frSidebarMenuSubButton], button[frSidebarMenuSubButton]',
   host: {
@@ -534,6 +545,7 @@ export class FrSidebarMenuSubButton {
   }
 }
 
+/** Skeleton slot for sidebar menu. */
 @Directive({
   selector: '[frSidebarMenuSkeleton], frame-sidebar-menu-skeleton',
   host: {
@@ -546,3 +558,4 @@ export class FrSidebarMenuSkeleton {
   readonly showIcon = input(false, { transform: booleanAttribute });
   readonly width = input('72%');
 }
+

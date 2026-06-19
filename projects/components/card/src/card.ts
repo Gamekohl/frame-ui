@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  Renderer2,
-  RendererStyleFlags2,
-  effect,
-  inject,
-  input,
-} from '@angular/core';
+import { Directive, computed, input } from '@angular/core';
 
 export const FR_CARD_SIZES = ['default', 'sm'] as const;
 export const FR_CARD_SPACINGS = ['sm', 'md', 'lg', 'xl'] as const;
@@ -23,43 +15,26 @@ const FR_CARD_SPACING_VALUES: Record<FrCardSpacing, string> = {
   xl: '2rem',
 };
 
+/** Card container with size and spacing controls. */
 @Directive({
   selector: '[frCard], frame-card',
   host: {
     class: 'frame-card',
     '[attr.data-size]': 'size()',
     '[attr.data-spacing]': 'spacing()',
+    '[style.--frame-card-spacing]': 'spacingValue()',
   },
 })
 export class FrCard {
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly renderer = inject(Renderer2);
-
   readonly size = input<FrCardSize>('default');
   readonly spacing = input<FrCardSpacing | null>(null);
-
-  constructor() {
-    effect(() => {
-      const spacing = this.spacing();
-      if (!spacing) {
-        this.renderer.removeStyle(
-          this.elementRef.nativeElement,
-          '--frame-card-spacing',
-          RendererStyleFlags2.DashCase,
-        );
-        return;
-      }
-
-      this.renderer.setStyle(
-        this.elementRef.nativeElement,
-        '--frame-card-spacing',
-        FR_CARD_SPACING_VALUES[spacing],
-        RendererStyleFlags2.DashCase,
-      );
-    });
-  }
+  protected readonly spacingValue = computed(() => {
+    const spacing = this.spacing();
+    return spacing ? FR_CARD_SPACING_VALUES[spacing] : null;
+  });
 }
 
+/** Header slot for card. */
 @Directive({
   selector: '[frCardHeader]',
   host: {
@@ -68,6 +43,7 @@ export class FrCard {
 })
 export class FrCardHeader {}
 
+/** Title slot for card. */
 @Directive({
   selector: '[frCardTitle]',
   host: {
@@ -76,6 +52,7 @@ export class FrCardHeader {}
 })
 export class FrCardTitle {}
 
+/** Description slot for card. */
 @Directive({
   selector: '[frCardDescription]',
   host: {
@@ -84,6 +61,7 @@ export class FrCardTitle {}
 })
 export class FrCardDescription {}
 
+/** Action slot for card. */
 @Directive({
   selector: '[frCardAction]',
   host: {
@@ -92,6 +70,7 @@ export class FrCardDescription {}
 })
 export class FrCardAction {}
 
+/** Content slot for card. */
 @Directive({
   selector: '[frCardContent]',
   host: {
@@ -100,6 +79,7 @@ export class FrCardAction {}
 })
 export class FrCardContent {}
 
+/** Footer slot for card. */
 @Directive({
   selector: '[frCardFooter]',
   host: {
@@ -110,3 +90,4 @@ export class FrCardContent {}
 export class FrCardFooter {
   readonly align = input<FrCardFooterAlign>('start');
 }
+

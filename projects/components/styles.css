@@ -15,6 +15,7 @@
 @import './combobox/src/styles/combobox.css';
 @import './context-menu/src/styles/context-menu.css';
 @import './date-picker/src/styles/date-picker.css';
+@import './drag-drop/src/styles/drag-drop.css';
 @import './empty/src/styles/empty.css';
 @import './field/src/styles/field.css';
 @import './hover-card/src/styles/hover-card.css';
@@ -27,6 +28,7 @@
 @import './navigation-menu/src/styles/navigation-menu.css';
 @import './pagination/src/styles/pagination.css';
 @import './popover/src/styles/popover.css';
+@import './confirm-popover/src/styles/confirm-popover.css';
 @import './progress/src/styles/progress.css';
 @import './radio-group/src/styles/radio-group.css';
 @import './resizable/src/styles/resizable.css';

@@ -27,6 +27,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = buildPopoverPositions({
   sideOffset: 8,
 });
 
+/** Root controller for popover. */
 @Component({
   selector: 'frame-popover',
   exportAs: 'frPopover',

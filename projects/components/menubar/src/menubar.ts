@@ -23,6 +23,7 @@ import { FrDropdownMenuTriggerMode } from '@frame-ui-ng/components/dropdown-menu
 
 export const FR_MENUBAR_PARENT = new InjectionToken<FrMenuBar>('FrMenuBarParent');
 
+/** Menubar root for top-level menu interactions. */
 @Directive({
   selector: '[frMenuBar], frame-menubar',
   providers: [
@@ -46,6 +47,7 @@ export class FrMenuBar implements FrDropdownMenuParent {
   readonly triggerMode = input<FrDropdownMenuTriggerMode>('both');
 }
 
+/** Top-level menu scope inside a menubar. */
 @Directive({
   selector: '[frMenuBarMenu], frame-menubar-menu',
   host: {
@@ -55,6 +57,7 @@ export class FrMenuBar implements FrDropdownMenuParent {
 })
 export class FrMenuBarMenu {}
 
+/** Trigger control for menu bar. */
 @Directive({
   selector: '[frMenuBarTrigger]',
   hostDirectives: [
@@ -70,6 +73,7 @@ export class FrMenuBarMenu {}
 })
 export class FrMenuBarTrigger {}
 
+/** Content slot for menu bar. */
 @Directive({
   selector: 'ng-template[frMenuBarContent], ng-template[frMenuBarSubContent]',
   exportAs: 'frMenuBarContent',
@@ -86,6 +90,7 @@ export class FrMenuBarTrigger {}
 })
 export class FrMenuBarContent extends FrDropdownMenuContent {}
 
+/** Panel slot for menu bar. */
 @Directive({
   selector: '[frMenuBarPanel]',
   hostDirectives: [FrDropdownMenuPanel],
@@ -95,6 +100,7 @@ export class FrMenuBarContent extends FrDropdownMenuContent {}
 })
 export class FrMenuBarPanel {}
 
+/** Item slot for menu bar. */
 @Directive({
   selector: '[frMenuBarItem]',
   hostDirectives: [
@@ -109,6 +115,7 @@ export class FrMenuBarPanel {}
 })
 export class FrMenuBarItem {}
 
+/** Item slot for menu bar checkbox. */
 @Directive({
   selector: 'button[frMenuBarCheckboxItem]',
   hostDirectives: [
@@ -123,6 +130,7 @@ export class FrMenuBarItem {}
 })
 export class FrMenuBarCheckboxItem {}
 
+/** Group slot for menu bar radio. */
 @Directive({
   selector: '[frMenuBarRadioGroup]',
   hostDirectives: [FrDropdownMenuRadioGroup],
@@ -132,6 +140,7 @@ export class FrMenuBarCheckboxItem {}
 })
 export class FrMenuBarRadioGroup {}
 
+/** Item slot for menu bar radio. */
 @Directive({
   selector: 'button[frMenuBarRadioItem]',
   hostDirectives: [
@@ -146,6 +155,7 @@ export class FrMenuBarRadioGroup {}
 })
 export class FrMenuBarRadioItem {}
 
+/** Label slot for menu bar. */
 @Directive({
   selector: '[frMenuBarLabel]',
   hostDirectives: [
@@ -160,6 +170,7 @@ export class FrMenuBarRadioItem {}
 })
 export class FrMenuBarLabel {}
 
+/** Separator slot for menu bar. */
 @Directive({
   selector: '[frMenuBarSeparator]',
   hostDirectives: [FrDropdownMenuSeparator],
@@ -169,6 +180,7 @@ export class FrMenuBarLabel {}
 })
 export class FrMenuBarSeparator {}
 
+/** Shortcut slot for menu bar. */
 @Directive({
   selector: '[frMenuBarShortcut]',
   hostDirectives: [FrDropdownMenuShortcut],
@@ -178,6 +190,7 @@ export class FrMenuBarSeparator {}
 })
 export class FrMenuBarShortcut {}
 
+/** Indicator slot for menu bar item. */
 @Directive({
   selector: '[frMenuBarItemIndicator]',
   hostDirectives: [FrDropdownMenuItemIndicator],
@@ -187,6 +200,7 @@ export class FrMenuBarShortcut {}
 })
 export class FrMenuBarItemIndicator {}
 
+/** Nested submenu scope inside a menubar. */
 @Directive({
   selector: '[frMenuBarSub]',
   hostDirectives: [
@@ -201,6 +215,7 @@ export class FrMenuBarItemIndicator {}
 })
 export class FrMenuBarSub {}
 
+/** Trigger control for menu bar sub. */
 @Directive({
   selector: '[frMenuBarSubTrigger]',
   hostDirectives: [
@@ -214,4 +229,5 @@ export class FrMenuBarSub {}
   },
 })
 export class FrMenuBarSubTrigger {}
+
 

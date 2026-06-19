@@ -1,5 +1,6 @@
 import { booleanAttribute, Directive, input } from '@angular/core';
 
+/** Skeleton placeholder for loading content. */
 @Directive({
   selector: '[frSkeleton], frame-skeleton',
   exportAs: 'frSkeleton',
@@ -18,3 +19,4 @@ export class FrSkeleton {
   readonly height = input<string | null>(null);
   readonly radius = input<string | null>(null);
 }
+
