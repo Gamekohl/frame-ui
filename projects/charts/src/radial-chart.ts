@@ -1,5 +1,6 @@
 import { chartColor, chartDatumColor } from './chart-colors';
 import { formatChartLabel } from './chart-format';
+import { circularArcPath, polarToCartesian } from './chart-geometry';
 import { FrChartDatum, FrChartRadialSegmentModel, FrChartSeries } from './chart.types';
 import { clampNumber, coerceNumber } from './chart-utils';
 
@@ -59,14 +60,15 @@ export function buildRadialSegments({
 
       const endAngle = startAngle + fullSweep * percent;
       const color = chartDatumColor(datum) ?? series[index]?.color ?? chartColor(index);
+      const labelPoint = polarToCartesian(centerX, centerY, radius, endAngle);
 
       return {
         key: String(datum[xKey] ?? index),
         label: formatChartLabel(datum[xKey] ?? index + 1),
         color,
         order: index,
-        path: arcPath(centerX, centerY, radius, startAngle, endAngle),
-        trackPath: arcPath(centerX, centerY, radius, startAngle, startAngle + fullSweep),
+        path: circularArcPath(centerX, centerY, radius, startAngle, endAngle),
+        trackPath: circularArcPath(centerX, centerY, radius, startAngle, startAngle + fullSweep),
         radius,
         strokeWidth,
         startAngle,
@@ -74,8 +76,8 @@ export function buildRadialSegments({
         value,
         max,
         percent,
-        xPercent: ((centerX + Math.cos(toRadians(endAngle)) * radius) / viewBoxWidth) * 100,
-        yPercent: ((centerY + Math.sin(toRadians(endAngle)) * radius) / viewBoxHeight) * 100,
+        xPercent: (labelPoint.x / viewBoxWidth) * 100,
+        yPercent: (labelPoint.y / viewBoxHeight) * 100,
       };
     })
     .filter((segment): segment is FrChartRadialSegmentModel => !!segment);
@@ -94,31 +96,4 @@ export function radialIndexFromPoint(
   );
 
   return index === -1 ? null : index;
-}
-
-function arcPath(centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number): string {
-  if (endAngle <= startAngle) {
-    const start = polarToCartesian(centerX, centerY, radius, startAngle);
-
-    return `M ${start.x} ${start.y} L ${start.x} ${start.y}`;
-  }
-
-  const start = polarToCartesian(centerX, centerY, radius, startAngle);
-  const end = polarToCartesian(centerX, centerY, radius, endAngle);
-  const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
-
-  return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
-}
-
-function polarToCartesian(centerX: number, centerY: number, radius: number, angle: number): { x: number; y: number } {
-  const radians = toRadians(angle);
-
-  return {
-    x: centerX + radius * Math.cos(radians),
-    y: centerY + radius * Math.sin(radians),
-  };
-}
-
-function toRadians(angle: number): number {
-  return (angle * Math.PI) / 180;
 }

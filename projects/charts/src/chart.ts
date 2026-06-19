@@ -31,6 +31,7 @@ import {
 } from './chart.constants';
 import { chartColor } from './chart-colors';
 import { formatChartLabel, inferChartSeries, toChartLabel } from './chart-format';
+import { svgPointFromPointer } from './chart-geometry';
 import { buildPieSlices, donutInnerRadius, pieIndexFromPoint, pieRadius } from './pie-chart';
 import { buildRadialSegments, radialIndexFromPoint } from './radial-chart';
 import {
@@ -386,12 +387,19 @@ export class FrChart implements AfterViewInit {
 
     return activeIndex === null ? 0 : firstSeries?.points[activeIndex]?.x ?? 0;
   });
-  protected readonly isEmptyChart = computed(
-    () =>
-      (this.type() === 'pie' && !this.model().slices.length) ||
-      (this.type() === 'donut' && !this.model().slices.length) ||
-      (this.type() === 'radial' && !this.model().radials.length),
-  );
+  protected readonly isEmptyChart = computed(() => {
+    const model = this.model();
+
+    if (this.isCircularChart()) {
+      return !model.slices.length;
+    }
+
+    if (this.type() === 'radial') {
+      return !model.radials.length;
+    }
+
+    return !model.series.some((series) => series.points.length > 0);
+  });
   protected readonly activeTooltip = computed<FrChartTooltip | null>(() => {
     const activeIndex = this.activeIndex();
 
@@ -705,19 +713,13 @@ export class FrChart implements AfterViewInit {
       return null;
     }
 
-    const scale = Math.min(rect.width / this.viewBoxWidth(), rect.height / this.viewBoxHeight());
-    const renderedWidth = this.viewBoxWidth() * scale;
-    const renderedHeight = this.viewBoxHeight() * scale;
-    const offsetX = (rect.width - renderedWidth) / 2;
-    const offsetY = (rect.height - renderedHeight) / 2;
-    const pointerX = (event.clientX - rect.left - offsetX) / scale;
-    const pointerY = (event.clientY - rect.top - offsetY) / scale;
+    const pointer = svgPointFromPointer(event, rect, this.viewBoxWidth(), this.viewBoxHeight());
     const centerX = model.plotX + model.plotWidth / 2;
     const centerY = model.plotY + model.plotHeight / 2;
     return pieIndexFromPoint(
       model.slices,
-      pointerX,
-      pointerY,
+      pointer.x,
+      pointer.y,
       centerX,
       centerY,
       pieRadius(model.plotWidth, model.plotHeight),
@@ -813,17 +815,11 @@ export class FrChart implements AfterViewInit {
       return null;
     }
 
-    const scale = Math.min(rect.width / this.viewBoxWidth(), rect.height / this.viewBoxHeight());
-    const renderedWidth = this.viewBoxWidth() * scale;
-    const renderedHeight = this.viewBoxHeight() * scale;
-    const offsetX = (rect.width - renderedWidth) / 2;
-    const offsetY = (rect.height - renderedHeight) / 2;
-    const pointerX = (event.clientX - rect.left - offsetX) / scale;
-    const pointerY = (event.clientY - rect.top - offsetY) / scale;
+    const pointer = svgPointFromPointer(event, rect, this.viewBoxWidth(), this.viewBoxHeight());
     const centerX = model.plotX + model.plotWidth / 2;
     const centerY = model.plotY + model.plotHeight / 2;
 
-    return radialIndexFromPoint(model.radials, pointerX, pointerY, centerX, centerY);
+    return radialIndexFromPoint(model.radials, pointer.x, pointer.y, centerX, centerY);
   }
 
   private tooltipPositionFromPointer(event: PointerEvent, rect: DOMRect): { xPercent: number; yPercent: number } {
