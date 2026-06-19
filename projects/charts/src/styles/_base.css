@@ -22,8 +22,11 @@ frame-chart {
   position: relative;
   display: flex;
   width: 100%;
+  max-width: 100%;
+  inline-size: 100%;
   min-width: 0;
   min-height: 0;
+  box-sizing: border-box;
   flex-direction: column;
   gap: 0.75rem;
   color: var(--frame-foreground);
@@ -37,7 +40,10 @@ frame-chart[data-sparkline] {
 .frame-chart__surface {
   display: block;
   width: 100%;
+  max-width: 100%;
+  inline-size: 100%;
   height: var(--frame-chart-height);
+  box-sizing: border-box;
   overflow: visible;
   touch-action: none;
 }
