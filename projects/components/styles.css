@@ -28,6 +28,7 @@
 @import './navigation-menu/src/styles/navigation-menu.css';
 @import './pagination/src/styles/pagination.css';
 @import './popover/src/styles/popover.css';
+@import './confirm-popover/src/styles/confirm-popover.css';
 @import './progress/src/styles/progress.css';
 @import './radio-group/src/styles/radio-group.css';
 @import './resizable/src/styles/resizable.css';

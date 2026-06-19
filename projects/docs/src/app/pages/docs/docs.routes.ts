@@ -121,6 +121,13 @@ export default [
           ),
       },
       {
+        path: 'components/confirm-popover',
+        loadComponent: () =>
+          import('./components/confirm-popover/confirm-popover.page').then(
+            (m) => m.ConfirmPopoverPageComponent,
+          ),
+      },
+      {
         path: 'components/date-picker',
         loadComponent: () =>
           import('./components/date-picker/date-picker.page').then(

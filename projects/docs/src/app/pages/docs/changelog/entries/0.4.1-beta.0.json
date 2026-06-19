@@ -1,11 +1,19 @@
 {
   "version": "0.4.1-beta.0",
-  "label": "Next Beta",
+  "label": "Drag and drop and confirm popover",
   "status": "Released",
   "sections": [
     {
       "title": "Added",
       "items": [
+        "Added the new Drag and Drop component package built on top of Angular CDK Drag&Drop.",
+        "Added the new Confirm Popover component package for anchored confirmation prompts with config-object and individual-input APIs."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Updated component internals to avoid Angular effect() usage in favor of explicit lifecycle synchronization, computed values, linked signals, and host bindings."
       ]
     }
   ]

@@ -29,6 +29,7 @@
       ,"@frame-ui-ng/components/command": [         "./projects/components/command/public-api.ts",         "./dist/components/command"       ]
       ,"@frame-ui-ng/components/context-menu": [         "./projects/components/context-menu/public-api.ts",         "./dist/components/context-menu"       ]
       ,"@frame-ui-ng/components/confirm-modal": [         "./projects/components/confirm-modal/public-api.ts",         "./dist/components/confirm-modal"       ]
+      ,"@frame-ui-ng/components/confirm-popover": [         "./projects/components/confirm-popover/public-api.ts",         "./dist/components/confirm-popover"       ]
       ,"@frame-ui-ng/components/date-picker": [         "./projects/components/date-picker/public-api.ts",         "./dist/components/date-picker"       ]
       ,"@frame-ui-ng/components/drag-drop": [         "./projects/components/drag-drop/public-api.ts",         "./dist/components/drag-drop"       ]
       ,"@frame-ui-ng/components/dropdown-menu": [         "./projects/components/dropdown-menu/public-api.ts",         "./dist/components/dropdown-menu"       ]

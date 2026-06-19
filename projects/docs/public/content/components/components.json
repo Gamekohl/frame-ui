@@ -112,6 +112,13 @@
     "category": "Overlays"
   },
   {
+    "slug": "confirm-popover",
+    "name": "Confirm Popover",
+    "status": "Stable",
+    "summary": "Anchored confirmation prompt that can attach to buttons, cards, rows, and custom trigger components.",
+    "category": "Overlays"
+  },
+  {
     "slug": "date-picker",
     "name": "Date Picker",
     "status": "Stable",

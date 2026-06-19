@@ -150,6 +150,11 @@ const COMPONENTS = {
     summary:
       'Confirmation dialog primitives for destructive actions, exits, and important workflow decisions.',
   },
+  'confirm-popover': {
+    name: 'Confirm Popover',
+    summary:
+      'Anchored confirmation prompt that can attach to buttons, cards, rows, and custom trigger components.',
+  },
   'date-picker': {
     name: 'Date Picker',
     summary:

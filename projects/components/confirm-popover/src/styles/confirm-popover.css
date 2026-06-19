@@ -1,0 +1,20 @@
+.frame-confirm-popover-overlay {
+  --frame-popover-content-width: var(--frame-confirm-popover-content-width, 19rem);
+}
+
+.frame-confirm-popover__content {
+  --frame-blueprint-radius: var(--frame-popover-content-radius);
+  gap: var(--frame-confirm-popover-gap, var(--frame-popover-content-gap));
+}
+
+.frame-confirm-popover__title {
+  margin: 0;
+}
+
+.frame-confirm-popover__description {
+  margin: 0;
+}
+
+.frame-confirm-popover__footer {
+  justify-content: flex-end;
+}
