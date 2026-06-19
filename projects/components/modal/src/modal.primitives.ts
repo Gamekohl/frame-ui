@@ -1,6 +1,7 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Directive, booleanAttribute, inject, input } from '@angular/core';
 
+/** Close control for modal. */
 @Directive({
   selector: '[frModalClose]',
   host: {
@@ -17,6 +18,7 @@ export class FrModalClose {
   }
 }
 
+/** Panel slot for modal. */
 @Component({
   selector: '[frModalPanel], frame-modal-panel',
   host: {
@@ -47,6 +49,7 @@ export class FrModalPanel {
   readonly stickyFooter = input(false, { transform: booleanAttribute });
 }
 
+/** Header slot for modal. */
 @Directive({
   selector: '[frModalHeader], frame-modal-header',
   host: {
@@ -55,6 +58,7 @@ export class FrModalPanel {
 })
 export class FrModalHeader {}
 
+/** Body slot for modal. */
 @Directive({
   selector: '[frModalBody], frame-modal-body',
   host: {
@@ -63,6 +67,7 @@ export class FrModalHeader {}
 })
 export class FrModalBody {}
 
+/** Footer slot for modal. */
 @Directive({
   selector: '[frModalFooter], frame-modal-footer',
   host: {
@@ -71,6 +76,7 @@ export class FrModalBody {}
 })
 export class FrModalFooter {}
 
+/** Title slot for modal. */
 @Directive({
   selector: '[frModalTitle], frame-modal-title',
   host: {
@@ -79,6 +85,7 @@ export class FrModalFooter {}
 })
 export class FrModalTitle {}
 
+/** Description slot for modal. */
 @Directive({
   selector: '[frModalDescription], frame-modal-description',
   host: {

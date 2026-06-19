@@ -6,6 +6,7 @@ export const FR_RADIO_GROUP_VARIANTS = ['default', 'cards'] as const;
 export type FrRadioGroupOrientation = (typeof FR_RADIO_GROUP_ORIENTATIONS)[number];
 export type FrRadioGroupVariant = (typeof FR_RADIO_GROUP_VARIANTS)[number];
 
+/** Radio group host with orientation and variant controls. */
 @Directive({
   selector: '[frRadioGroup], frame-radio-group',
   exportAs: 'frRadioGroup',
@@ -23,6 +24,7 @@ export class FrRadioGroup {
   readonly disabled = input(false, { transform: booleanAttribute });
 }
 
+/** Item slot for radio group. */
 @Directive({
   selector: 'input[type=radio][frRadioGroupItem]',
   host: {
@@ -31,6 +33,7 @@ export class FrRadioGroup {
 })
 export class FrRadioGroupItem {}
 
+/** Field slot for radio group. */
 @Directive({
   selector: 'label[frRadioGroupField]',
   host: {
@@ -46,6 +49,7 @@ export class FrRadioGroupField {
   readonly invalid = input(false, { transform: booleanAttribute });
 }
 
+/** Card layout option for radio group choices. */
 @Directive({
   selector: 'label[frRadioGroupCard]',
   host: {
@@ -54,6 +58,7 @@ export class FrRadioGroupField {
 })
 export class FrRadioGroupCard {}
 
+/** Meta slot for radio group card. */
 @Directive({
   selector: '[frRadioGroupCardMeta]',
   host: {
@@ -61,3 +66,4 @@ export class FrRadioGroupCard {}
   },
 })
 export class FrRadioGroupCardMeta {}
+

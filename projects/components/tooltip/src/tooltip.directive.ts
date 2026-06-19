@@ -8,11 +8,12 @@ import {
   ComponentRef,
   DestroyRef,
   Directive,
+  DoCheck,
   ElementRef,
   PLATFORM_ID,
   TemplateRef,
   booleanAttribute,
-  effect,
+  computed,
   inject,
   input,
   signal,
@@ -26,6 +27,7 @@ import { FrTooltipAlignment, FrTooltipSide } from './tooltip.types';
 
 let nextInlineTooltipId = 0;
 
+/** Tooltip trigger directive with delay and placement options. */
 @Directive({
   selector: '[frTooltip]',
   host: {
@@ -34,7 +36,7 @@ let nextInlineTooltipId = 0;
     '[attr.data-state]': 'isOpen() ? "open" : "closed"',
   },
 })
-export class FrTooltipDirective implements AfterViewInit {
+export class FrTooltipDirective implements AfterViewInit, DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -65,21 +67,28 @@ export class FrTooltipDirective implements AfterViewInit {
   private wrapped = false;
   private wrapper: HTMLElement | null = null;
   private teardownListeners: Array<() => void> = [];
+  private lastPanelInputKey = '';
 
   constructor() {
     this.destroyRef.onDestroy(() => this.destroy());
+  }
 
-    effect(() => {
-      const content = this.content();
+  ngDoCheck(): void {
+    const content = this.content();
 
-      if (this.panelRef && content) {
-        this.updatePanelInputs();
-      }
+    if (!content) {
+      this.close();
+      this.lastPanelInputKey = '';
+      return;
+    }
 
-      if (!content) {
-        this.close();
-      }
-    });
+    const panelInputKey = [content, this.arrow(), this.side(), this.tooltipId].map(String).join('|');
+
+    if (this.panelRef && panelInputKey !== this.lastPanelInputKey) {
+      this.updatePanelInputs();
+    }
+
+    this.lastPanelInputKey = panelInputKey;
   }
 
   ngAfterViewInit(): void {
@@ -125,6 +134,7 @@ export class FrTooltipDirective implements AfterViewInit {
     }
 
     const wrapper = this.document.createElement('span');
+    // Disabled form controls do not emit pointer/focus events, so the wrapper becomes the trigger.
     wrapper.className = 'frame-tooltip__disabled-trigger';
     wrapper.tabIndex = 0;
     parent.insertBefore(wrapper, element);
@@ -298,6 +308,7 @@ export class FrTooltipDirective implements AfterViewInit {
   private copyCustomProperties(source: HTMLElement, overlayPane: HTMLElement, panel: HTMLElement): void {
     const sourceStyles = getComputedStyle(source);
 
+    // Overlay content is portaled, so copy theme tokens from the trigger into the pane.
     for (const propertyName of FR_TOOLTIP_TOKEN_NAMES) {
       const propertyValue = sourceStyles.getPropertyValue(propertyName);
 
@@ -327,6 +338,7 @@ export class FrTooltipDirective implements AfterViewInit {
       return;
     }
 
+    // Coalesce position changes until CDK has applied the latest overlay geometry.
     this.arrowFrameId = requestAnimationFrame(() => {
       this.arrowFrameId = -1;
       this.syncArrowPosition(this.pendingArrowSide);
@@ -407,6 +419,7 @@ export class FrTooltipDirective implements AfterViewInit {
   }
 }
 
+/** Shortcut slot for tooltip. */
 @Directive({
   selector: '[frTooltipShortcut]',
   host: {
@@ -415,6 +428,7 @@ export class FrTooltipDirective implements AfterViewInit {
 })
 export class FrTooltipShortcut {}
 
+/** Inline overlay panel that renders tooltip text or template content. */
 @Component({
   selector: 'frame-tooltip-inline-panel',
   imports: [NgTemplateOutlet],
@@ -441,21 +455,13 @@ class FrTooltipInlinePanel {
   readonly id = input.required<string>();
   readonly side = input('top');
 
-  protected readonly templateContent = signal<TemplateRef<unknown> | null>(null);
-  protected readonly textContent = signal('');
-
-  constructor() {
-    effect(() => {
-      const content = this.content();
-
-      if (content instanceof TemplateRef) {
-        this.templateContent.set(content);
-        this.textContent.set('');
-        return;
-      }
-
-      this.templateContent.set(null);
-      this.textContent.set(content ?? '');
-    });
-  }
+  protected readonly templateContent = computed(() => {
+    const content = this.content();
+    return content instanceof TemplateRef ? content : null;
+  });
+  protected readonly textContent = computed(() => {
+    const content = this.content();
+    return content instanceof TemplateRef ? '' : content;
+  });
 }
+

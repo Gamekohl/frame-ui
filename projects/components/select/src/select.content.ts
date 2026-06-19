@@ -12,6 +12,7 @@ import { FrSelect } from './select.root';
 export const FR_SELECT_POSITIONS = ['item-aligned', 'popper'] as const;
 export type FrSelectPosition = (typeof FR_SELECT_POSITIONS)[number];
 
+/** Content slot for select. */
 @Directive({
   selector: 'ng-template[frSelectContent]',
   exportAs: 'frSelectContent',
@@ -66,12 +67,14 @@ export class FrSelectContent extends FrDropdownMenuContent {
       return;
     }
 
+    // Render once offscreen so projected items can register before the menu opens.
     this.registrationView = this.viewContainerRef.createEmbeddedView(this.templateRef);
     this.registrationView.detectChanges();
 
     const index = this.viewContainerRef.indexOf(this.registrationView);
 
     if (index >= 0) {
+      // Keep registrations alive without inserting the template into the DOM twice.
       this.viewContainerRef.detach(index);
     }
   }
@@ -99,6 +102,7 @@ export class FrSelectContent extends FrDropdownMenuContent {
   }
 }
 
+/** Panel slot for select. */
 @Directive({
   selector: '[frSelectPanel], frame-select-panel',
   hostDirectives: [FrDropdownMenuPanel],

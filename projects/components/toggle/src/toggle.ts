@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DoCheck,
   Directive,
   booleanAttribute,
   computed,
-  effect,
   input,
   output,
   signal,
@@ -24,6 +24,7 @@ function booleanOrNullAttribute(value: unknown): boolean | null {
   return value === null || value === undefined ? null : booleanAttribute(value);
 }
 
+/** Toggle button backed by ControlValueAccessor state. */
 @Component({
   selector: 'button[frToggle]',
   exportAs: 'frToggle',
@@ -43,9 +44,11 @@ function booleanOrNullAttribute(value: unknown): boolean | null {
   },
   template: `<ng-content />`,
 })
-export class FrToggle extends FrControlValueAccessor<boolean> {
+export class FrToggle extends FrControlValueAccessor<boolean> implements DoCheck {
   private readonly internalPressed = signal(false);
   private controlledByInput = false;
+  private lastDefaultPressed: boolean | null = null;
+  private lastPressedInput: boolean | null = null;
 
   readonly defaultPressed = input(false, { transform: booleanAttribute });
   readonly pressedInput = input<boolean | null, unknown>(null, {
@@ -62,22 +65,24 @@ export class FrToggle extends FrControlValueAccessor<boolean> {
   protected readonly disabled = computed(() => this.disabledInput() || this.formDisabled());
   protected readonly pressed = computed(() => this.internalPressed());
 
-  constructor() {
-    super();
+  ngDoCheck(): void {
+    const pressed = this.pressedInput();
+    const defaultPressed = this.defaultPressed();
+    const pressedChanged = pressed !== this.lastPressedInput;
+    const defaultChanged = defaultPressed !== this.lastDefaultPressed;
 
-    effect(() => {
-      const pressed = this.pressedInput();
+    this.lastPressedInput = pressed;
+    this.lastDefaultPressed = defaultPressed;
 
-      if (pressed !== null) {
-        this.controlledByInput = true;
-        this.internalPressed.set(pressed);
-        return;
-      }
+    if (pressedChanged && pressed !== null) {
+      this.controlledByInput = true;
+      this.internalPressed.set(pressed);
+      return;
+    }
 
-      if (!this.controlledByInput) {
-        this.internalPressed.set(this.defaultPressed());
-      }
-    });
+    if (!this.controlledByInput && defaultChanged) {
+      this.internalPressed.set(defaultPressed);
+    }
   }
 
   protected setViewValue(value: boolean | null): void {
@@ -103,6 +108,7 @@ export class FrToggle extends FrControlValueAccessor<boolean> {
   }
 }
 
+/** Icon slot for toggle. */
 @Directive({
   selector: '[frToggleIcon]',
   host: {
@@ -112,6 +118,7 @@ export class FrToggle extends FrControlValueAccessor<boolean> {
 })
 export class FrToggleIcon {}
 
+/** Label slot for toggle. */
 @Directive({
   selector: '[frToggleLabel]',
   host: {
@@ -119,3 +126,4 @@ export class FrToggleIcon {}
   },
 })
 export class FrToggleLabel {}
+

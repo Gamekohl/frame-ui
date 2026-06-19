@@ -13,6 +13,7 @@ import {
 
 import { FrConfirmModalData, FrConfirmModalResult } from './confirm-modal';
 
+/** Default modal content used by the confirmation service. */
 @Component({
   selector: 'frame-confirm-modal',
   imports: [
@@ -61,6 +62,7 @@ export type FrConfirmModalConfig = Omit<
   title?: string;
 };
 
+/** Service for opening confirmation dialogs. */
 @Injectable({ providedIn: 'root' })
 export class FrConfirmModalService {
   private readonly modal = inject(FrModalService);

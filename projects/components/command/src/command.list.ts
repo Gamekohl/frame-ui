@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { FR_COMMAND } from './command.tokens';
 
+/** List slot for command. */
 @Directive({
   selector: '[frCommandList]',
   standalone: true,
@@ -12,6 +13,7 @@ import { FR_COMMAND } from './command.tokens';
 })
 export class FrCommandList {}
 
+/** Empty-state slot for command results. */
 @Directive({
   selector: '[frCommandEmpty]',
   standalone: true,
@@ -23,3 +25,4 @@ export class FrCommandList {}
 export class FrCommandEmpty {
   protected readonly command = inject(FR_COMMAND);
 }
+

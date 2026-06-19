@@ -112,11 +112,25 @@
     "category": "Overlays"
   },
   {
+    "slug": "confirm-popover",
+    "name": "Confirm Popover",
+    "status": "Stable",
+    "summary": "Anchored confirmation prompt that can attach to buttons, cards, rows, and custom trigger components.",
+    "category": "Overlays"
+  },
+  {
     "slug": "date-picker",
     "name": "Date Picker",
     "status": "Stable",
     "summary": "Calendar-backed date and range picker with presets, editable input, time selection, RTL, and reactive forms support.",
     "category": "Forms"
+  },
+  {
+    "slug": "drag-drop",
+    "name": "Drag Drop",
+    "status": "Preview",
+    "summary": "CDK-backed drag and drop primitives for sortable lists, connected lists, and swimlane boards.",
+    "category": "Data display"
   },
   {
     "slug": "dropdown-menu",

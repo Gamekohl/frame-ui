@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+/** Input wrapper for labels, controls, and validation text. */
 @Directive({
   selector: 'input[frInput]',
   host: {
@@ -8,6 +9,7 @@ import { Directive } from '@angular/core';
 })
 export class FrInput {}
 
+/** Field slot for input. */
 @Directive({
   selector: '[frInputField], frame-input-field',
   host: {
@@ -16,6 +18,7 @@ export class FrInput {}
 })
 export class FrInputField {}
 
+/** Header slot for input. */
 @Directive({
   selector: '[frInputHeader], frame-input-header',
   host: {
@@ -24,6 +27,7 @@ export class FrInputField {}
 })
 export class FrInputHeader {}
 
+/** Control slot for input. */
 @Directive({
   selector: '[frInputControl], frame-input-control',
   host: {
@@ -32,6 +36,7 @@ export class FrInputHeader {}
 })
 export class FrInputControl {}
 
+/** Group slot for input field. */
 @Directive({
   selector: '[frInputFieldGroup], frame-input-field-group',
   host: {
@@ -40,6 +45,7 @@ export class FrInputControl {}
 })
 export class FrInputFieldGroup {}
 
+/** Label slot for input. */
 @Directive({
   selector: '[frInputLabel], frame-input-label',
   host: {
@@ -48,6 +54,7 @@ export class FrInputFieldGroup {}
 })
 export class FrInputLabel {}
 
+/** Description slot for input. */
 @Directive({
   selector: '[frInputDescription], frame-input-description',
   host: {
@@ -56,6 +63,7 @@ export class FrInputLabel {}
 })
 export class FrInputDescription {}
 
+/** Error slot for input. */
 @Directive({
   selector: '[frInputError], frame-input-error',
   host: {
@@ -65,6 +73,7 @@ export class FrInputDescription {}
 })
 export class FrInputError {}
 
+/** Badge slot for input. */
 @Directive({
   selector: '[frInputBadge], frame-input-badge',
   host: {
@@ -72,3 +81,4 @@ export class FrInputError {}
   },
 })
 export class FrInputBadge {}
+

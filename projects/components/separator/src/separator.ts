@@ -8,6 +8,7 @@ function coerceSeparatorOrientation(value: unknown): FrSeparatorOrientation {
   return value === 'vertical' ? 'vertical' : 'horizontal';
 }
 
+/** Visual or semantic separator with orientation support. */
 @Directive({
   selector: '[frSeparator], frame-separator',
   exportAs: 'frSeparator',
@@ -26,3 +27,4 @@ export class FrSeparator {
 
   readonly decorative = input(true, { transform: booleanAttribute });
 }
+

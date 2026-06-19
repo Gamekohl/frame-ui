@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+/** Separator slot for command. */
 @Directive({
   selector: '[frCommandSeparator]',
   standalone: true,

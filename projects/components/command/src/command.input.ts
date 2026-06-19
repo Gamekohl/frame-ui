@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, input } from '@angular/core';
 
 import { FR_COMMAND } from './command.tokens';
 
+/** Command input component primitive. */
 @Directive({
   selector: 'input[frCommandInput]',
   standalone: true,

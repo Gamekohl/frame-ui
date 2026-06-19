@@ -34,6 +34,7 @@ type FrInputOtpController = {
 
 const FR_INPUT_OTP_CONTROLLER = new InjectionToken<FrInputOtpController>('FrInputOtpController');
 
+/** One-time-code input with grouped slots. */
 @Component({
   selector: 'frame-input-otp',
   exportAs: 'frInputOtp',
@@ -208,6 +209,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
   private replaceFrom(index: number, text: string): string {
     const value = this.value();
     const start = clampNumber(index, 0, this.maxLength());
+    // The hidden input is the source of truth; visual slots are projections of this string.
     const next = `${value.slice(0, start)}${text}${value.slice(start + text.length)}`;
 
     return this.sanitize(next);
@@ -232,6 +234,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
   }
 }
 
+/** Group slot for input otp. */
 @Directive({
   selector: '[frInputOtpGroup], frame-input-otp-group',
   host: {
@@ -240,6 +243,7 @@ export class FrInputOtp extends FrControlValueAccessor<string> {
 })
 export class FrInputOtpGroup {}
 
+/** Input slot for one OTP character. */
 @Component({
   selector: '[frInputOtpSlot], frame-input-otp-slot',
   imports: [NgClass],
@@ -270,6 +274,7 @@ export class FrInputOtpSlot {
   readonly active = computed(() => this.root.activeIndex() === this.index());
 }
 
+/** Separator slot for input otp. */
 @Directive({
   selector: '[frInputOtpSeparator], frame-input-otp-separator',
   host: {
@@ -295,4 +300,5 @@ function toMatcher(pattern: FrInputOtpPattern): (character: string) => boolean {
   const regex = new RegExp(pattern);
   return (character) => regex.test(character);
 }
+
 

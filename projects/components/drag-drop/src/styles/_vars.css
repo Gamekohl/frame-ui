@@ -1,0 +1,28 @@
+:root {
+  --frame-drag-drop-gap: 0.75rem;
+  --frame-drag-drop-group-gap: 1rem;
+  --frame-drop-list-min-height: 3.5rem;
+  --frame-drop-list-padding: 0.5rem;
+  --frame-drop-list-radius: var(--frame-radius-lg);
+  --frame-drop-list-bg: var(--frame-surface);
+  --frame-drop-list-border: var(--frame-border);
+  --frame-drop-list-hover-border: color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border));
+  --frame-drop-list-disabled-opacity: 0.55;
+  --frame-drag-gap: 0.75rem;
+  --frame-drag-padding: 0.875rem;
+  --frame-drag-radius: var(--frame-radius-md);
+  --frame-drag-bg: var(--frame-background);
+  --frame-drag-color: var(--frame-foreground);
+  --frame-drag-border: var(--frame-border);
+  --frame-drag-shadow: var(--frame-shadow-xs);
+  --frame-drag-hover-bg: var(--frame-accent);
+  --frame-drag-preview-bg: var(--frame-background);
+  --frame-drag-preview-shadow: var(--frame-shadow-xl);
+  --frame-drag-placeholder-opacity: 0.24;
+  --frame-drag-placeholder-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
+  --frame-drag-placeholder-border: color-mix(in srgb, var(--frame-primary) 45%, transparent);
+  --frame-drag-sort-duration: 250ms;
+  --frame-drag-sort-easing: cubic-bezier(0, 0, 0.2, 1);
+  --frame-drag-handle-color: var(--frame-muted-foreground);
+  --frame-drag-handle-hover-color: var(--frame-foreground);
+}

@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DoCheck,
   ElementRef,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   numberAttribute,
@@ -37,6 +37,7 @@ function coerceValue(value: FrSliderValue | null | undefined): number[] {
   return [coerceNumber(value, 0)];
 }
 
+/** Slider control with single and range value support. */
 @Component({
   selector: 'frame-slider',
   exportAs: 'frSlider',
@@ -79,10 +80,11 @@ function coerceValue(value: FrSliderValue | null | undefined): number[] {
     }
   `,
 })
-export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
+export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> implements DoCheck {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly document = inject(DOCUMENT);
   private controlledByInput = false;
+  private lastInputKey = '';
 
   readonly min = input(0, { transform: numberAttribute });
   readonly max = input(100, { transform: numberAttribute });
@@ -112,22 +114,32 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
     return this.percentForValue(values.at(-1) ?? this.min());
   });
 
-  constructor() {
-    super();
+  ngDoCheck(): void {
+    const inputKey = [
+      this.valueInput(),
+      this.defaultValue(),
+      this.min(),
+      this.max(),
+      this.step(),
+      this.minStepsBetweenThumbs(),
+    ].map((value) => (Array.isArray(value) ? value.join(',') : String(value))).join('|');
 
-    effect(() => {
-      const controlledValue = this.valueInput();
+    if (inputKey === this.lastInputKey) {
+      return;
+    }
 
-      if (controlledValue !== null) {
-        this.controlledByInput = true;
-        this.values.set(this.normalizeValues(coerceValue(controlledValue)));
-        return;
-      }
+    this.lastInputKey = inputKey;
 
-      if (!this.controlledByInput) {
-        this.values.set(this.normalizeValues(coerceValue(this.defaultValue())));
-      }
-    });
+    const controlledValue = this.valueInput();
+    if (controlledValue !== null) {
+      this.controlledByInput = true;
+      this.values.set(this.normalizeValues(coerceValue(controlledValue)));
+      return;
+    }
+
+    if (!this.controlledByInput) {
+      this.values.set(this.normalizeValues(coerceValue(this.defaultValue())));
+    }
   }
 
   protected setViewValue(value: FrSliderValue | null): void {
@@ -230,6 +242,7 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
     const minDistance = Math.max(this.minStepsBetweenThumbs(), 0) * step;
     const normalized = values.length ? values : [min];
 
+    // Only the active thumb is bounded by neighbors; passive thumbs keep their full range.
     return normalized.map((value, index) => {
       const previous = index > 0 ? normalized[index - 1] + minDistance : min;
       const next = index < normalized.length - 1 ? normalized[index + 1] - minDistance : max;
@@ -256,6 +269,7 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
     const direction = horizontal && this.isRtl() ? -1 : 1;
     let percent = size > 0 ? offset / size : 0;
 
+    // Convert visual position into logical value direction for RTL and inverted sliders.
     if (direction === -1) {
       percent = 1 - percent;
     }
@@ -279,3 +293,4 @@ export class FrSlider extends FrControlValueAccessor<FrSliderValue | null> {
     return getComputedStyle(this.elementRef.nativeElement).direction === 'rtl';
   }
 }
+

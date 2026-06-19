@@ -1,8 +1,9 @@
-import { Directive, ElementRef, effect, inject, input } from '@angular/core';
+import { Directive, DoCheck, ElementRef, inject, input } from '@angular/core';
 
 import { FrPopoverContent } from './popover.content';
 import { FR_POPOVER_CONTROLLER } from './popover.tokens';
 
+/** Trigger control for popover. */
 @Directive({
   selector: '[frPopoverTrigger]',
   host: {
@@ -13,24 +14,27 @@ import { FR_POPOVER_CONTROLLER } from './popover.tokens';
     '(keydown)': 'handleKeydown($event)',
   },
 })
-export class FrPopoverTrigger {
+export class FrPopoverTrigger implements DoCheck {
   readonly content = input<FrPopoverContent | null>(null, {
     alias: 'frPopoverTrigger',
   });
 
   protected readonly root = inject(FR_POPOVER_CONTROLLER);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private lastContent: FrPopoverContent | null = null;
 
   constructor() {
     this.root.registerTrigger(this.elementRef.nativeElement);
+  }
 
-    effect(() => {
-      const content = this.content();
+  ngDoCheck(): void {
+    const content = this.content();
 
-      if (content) {
-        this.root.setContent(content);
-      }
-    });
+    if (content && content !== this.lastContent) {
+      this.root.setContent(content);
+    }
+
+    this.lastContent = content;
   }
 
   protected handleClick(event: Event): void {

@@ -1,10 +1,12 @@
 import {
+  AfterViewChecked,
+  DoCheck,
   DestroyRef,
   Directive,
   ElementRef,
+  afterNextRender,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   model,
@@ -19,6 +21,7 @@ import { FrSelectContent } from './select.content';
 export const FR_SELECT_INDICATOR_POSITIONS = ['start', 'end'] as const;
 export type FrSelectIndicatorPosition = (typeof FR_SELECT_INDICATOR_POSITIONS)[number];
 
+/** Select control backed by dropdown menu primitives. */
 @Directive({
   selector: 'button[frSelect]',
   hostDirectives: [
@@ -28,7 +31,6 @@ export type FrSelectIndicatorPosition = (typeof FR_SELECT_INDICATOR_POSITIONS)[n
     },
     {
       directive: FrDropdownMenuTrigger,
-      inputs: ['frDropdownMenuTrigger: frSelect'],
     },
   ],
   providers: [provideDsValueAccessor(FrSelect)],
@@ -45,15 +47,20 @@ export type FrSelectIndicatorPosition = (typeof FR_SELECT_INDICATOR_POSITIONS)[n
     role: 'combobox',
   },
 })
-export class FrSelect extends FrControlValueAccessor<string | null> {
+export class FrSelect extends FrControlValueAccessor<string | null> implements AfterViewChecked, DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly dropdownTrigger = inject(FrDropdownMenuTrigger);
   private readonly elementRef = inject<ElementRef<HTMLButtonElement>>(ElementRef);
   private readonly selectedLabel = signal<string | null>(null);
   private readonly labels = new Map<string | null, string>();
+  private lastContent: FrSelectContent | null = null;
+  private lastContentDebugVisible = false;
+  private lastDebugVisible = false;
+  private lastTriggerWidth = 0;
   private resizeObserver: ResizeObserver | null = null;
 
   readonly value = model<string | null>(null);
+  readonly menuContent = input<FrSelectContent | null>(null, { alias: 'frSelect' });
   readonly debugVisible = input(false, { transform: booleanAttribute });
   readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
   readonly indicatorPosition = input<FrSelectIndicatorPosition>('start');
@@ -74,24 +81,24 @@ export class FrSelect extends FrControlValueAccessor<string | null> {
   constructor() {
     super();
 
-    effect(() => {
-      const content = this.dropdownTrigger.menuContent() as FrSelectContent | null;
-
-      if (content) {
-        content.select = this;
-        content.setDebugVisibleOverride(this.debugVisible() ? true : null);
-        content.setTriggerWidth(this.elementRef.nativeElement.offsetWidth);
-        content.ensureItemsRegistered();
-      }
-    });
+    afterNextRender(() => this.syncContent());
 
     queueMicrotask(() => {
+      this.syncContent();
       this.attachResizeObserver();
     });
 
     this.destroyRef.onDestroy(() => {
       this.resizeObserver?.disconnect();
     });
+  }
+
+  ngDoCheck(): void {
+    this.syncContent();
+  }
+
+  ngAfterViewChecked(): void {
+    this.syncContent();
   }
 
   registerItem(value: string | null, label: string): void {
@@ -129,10 +136,53 @@ export class FrSelect extends FrControlValueAccessor<string | null> {
     const element = this.elementRef.nativeElement;
 
     this.resizeObserver = new ResizeObserver(() => {
-      const content = this.dropdownTrigger.menuContent() as FrSelectContent | null;
+      const content = this.resolveContent();
       content?.setTriggerWidth(element.offsetWidth);
     });
     this.resizeObserver.observe(element);
   }
+
+  private syncContent(): void {
+    const content = this.resolveContent();
+
+    if (!content) {
+      this.lastContent = null;
+      this.dropdownTrigger.setMenuContentOverride(null);
+      return;
+    }
+
+    const debugVisible = this.debugVisible();
+    const contentDebugVisible = debugVisible || content.debugVisible();
+    const triggerWidth = this.elementRef.nativeElement.offsetWidth;
+
+    if (
+      content === this.lastContent &&
+      debugVisible === this.lastDebugVisible &&
+      contentDebugVisible === this.lastContentDebugVisible &&
+      triggerWidth === this.lastTriggerWidth
+    ) {
+      return;
+    }
+
+    content.select = this;
+    content.setDebugVisibleOverride(debugVisible ? true : null);
+    content.setTriggerWidth(triggerWidth);
+    content.ensureItemsRegistered();
+    this.dropdownTrigger.setMenuContentOverride(content);
+
+    if (content.isDebugVisible()) {
+      queueMicrotask(() => this.dropdownTrigger.open());
+    }
+
+    this.lastContent = content;
+    this.lastContentDebugVisible = contentDebugVisible;
+    this.lastDebugVisible = debugVisible;
+    this.lastTriggerWidth = triggerWidth;
+  }
+
+  private resolveContent(): FrSelectContent | null {
+    return this.menuContent() ?? (this.dropdownTrigger.menuContent() as FrSelectContent | null);
+  }
 }
+
 

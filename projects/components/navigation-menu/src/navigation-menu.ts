@@ -15,6 +15,7 @@ export const FR_NAVIGATION_MENU_PARENT = new InjectionToken<FrNavigationMenu>(
   'FrNavigationMenuParent',
 );
 
+/** Navigation menu root for hover and focus interactions. */
 @Directive({
   selector: '[frNavigationMenu], frame-navigation-menu',
   providers: [
@@ -38,6 +39,7 @@ export class FrNavigationMenu implements FrDropdownMenuParent {
   readonly triggerMode = input<FrDropdownMenuTriggerMode>('both');
 }
 
+/** List slot for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuList], frame-navigation-menu-list',
   host: {
@@ -47,6 +49,7 @@ export class FrNavigationMenu implements FrDropdownMenuParent {
 })
 export class FrNavigationMenuList {}
 
+/** Item slot for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuItem], frame-navigation-menu-item',
   host: {
@@ -56,6 +59,7 @@ export class FrNavigationMenuList {}
 })
 export class FrNavigationMenuItem {}
 
+/** Trigger control for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuTrigger]',
   hostDirectives: [
@@ -71,6 +75,7 @@ export class FrNavigationMenuItem {}
 })
 export class FrNavigationMenuTrigger {}
 
+/** Content slot for navigation menu. */
 @Directive({
   selector: 'ng-template[frNavigationMenuContent]',
   exportAs: 'frNavigationMenuContent',
@@ -87,6 +92,7 @@ export class FrNavigationMenuTrigger {}
 })
 export class FrNavigationMenuContent extends FrDropdownMenuContent {}
 
+/** Panel slot for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuPanel]',
   hostDirectives: [FrDropdownMenuPanel],
@@ -96,6 +102,7 @@ export class FrNavigationMenuContent extends FrDropdownMenuContent {}
 })
 export class FrNavigationMenuPanel {}
 
+/** Link primitive inside a navigation menu panel. */
 @Directive({
   selector: '[frNavigationMenuLink], a[frNavigationMenuLink]',
   host: {
@@ -107,6 +114,7 @@ export class FrNavigationMenuLink {
   readonly active = input(false, { transform: booleanAttribute });
 }
 
+/** Grid layout helper for navigation menu content. */
 @Directive({
   selector: '[frNavigationMenuGrid]',
   host: {
@@ -118,6 +126,7 @@ export class FrNavigationMenuGrid {
   readonly columns = input<1 | 2 | 3>(1);
 }
 
+/** Featured content slot inside navigation menu panels. */
 @Directive({
   selector: '[frNavigationMenuFeature]',
   host: {
@@ -126,6 +135,7 @@ export class FrNavigationMenuGrid {
 })
 export class FrNavigationMenuFeature {}
 
+/** Title slot for navigation menu link. */
 @Directive({
   selector: '[frNavigationMenuLinkTitle]',
   host: {
@@ -134,6 +144,7 @@ export class FrNavigationMenuFeature {}
 })
 export class FrNavigationMenuLinkTitle {}
 
+/** Description slot for navigation menu link. */
 @Directive({
   selector: '[frNavigationMenuLinkDescription]',
   host: {
@@ -142,6 +153,7 @@ export class FrNavigationMenuLinkTitle {}
 })
 export class FrNavigationMenuLinkDescription {}
 
+/** Separator slot for navigation link. */
 @Directive({
   selector: '[frNavigationLinkSeparator]',
   host: {
@@ -152,6 +164,7 @@ export class FrNavigationMenuLinkDescription {}
 })
 export class FrNavigationLinkSeparator {}
 
+/** Indicator slot for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuIndicator], frame-navigation-menu-indicator',
   host: {
@@ -161,6 +174,7 @@ export class FrNavigationLinkSeparator {}
 })
 export class FrNavigationMenuIndicator {}
 
+/** Viewport slot for navigation menu. */
 @Directive({
   selector: '[frNavigationMenuViewport], frame-navigation-menu-viewport',
   host: {
@@ -168,4 +182,5 @@ export class FrNavigationMenuIndicator {}
   },
 })
 export class FrNavigationMenuViewport {}
+
 

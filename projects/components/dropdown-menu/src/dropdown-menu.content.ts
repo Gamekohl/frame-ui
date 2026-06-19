@@ -17,6 +17,7 @@ export const FR_DROPDOWN_MENU_CONTENT = new InjectionToken<FrDropdownMenuContent
   'FrDropdownMenuContent',
 );
 
+/** Content slot for dropdown menu. */
 @Directive({
   selector: 'ng-template[frDropdownMenuContent], ng-template[frDropdownMenuSubContent]',
   exportAs: 'frDropdownMenuContent',
@@ -51,6 +52,7 @@ export class FrDropdownMenuContent {
   }
 }
 
+/** Panel slot for dropdown menu. */
 @Directive({
   selector: '[frDropdownMenuPanel]',
   hostDirectives: [CdkMenu, CdkTargetMenuAim],

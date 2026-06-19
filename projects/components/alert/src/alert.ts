@@ -10,6 +10,7 @@ export const FR_ALERT_VARIANTS = [
 
 export type FrAlertVariant = (typeof FR_ALERT_VARIANTS)[number];
 
+/** Alert component primitive. */
 @Directive({
   selector: '[frAlert]',
   host: {
@@ -22,6 +23,7 @@ export class FrAlert {
   readonly variant = input<FrAlertVariant>('default');
 }
 
+/** Icon slot for alert. */
 @Directive({
   selector: '[frAlertIcon]',
   host: {
@@ -31,6 +33,7 @@ export class FrAlert {
 })
 export class FrAlertIcon {}
 
+/** Title slot for alert. */
 @Directive({
   selector: '[frAlertTitle]',
   host: {
@@ -39,6 +42,7 @@ export class FrAlertIcon {}
 })
 export class FrAlertTitle {}
 
+/** Description slot for alert. */
 @Directive({
   selector: '[frAlertDescription]',
   host: {

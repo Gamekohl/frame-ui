@@ -48,12 +48,14 @@ frame-popover {
   --frame-popover-transform-origin: right;
 }
 
-[frPopoverHeader] {
+[frPopoverHeader],
+.frame-popover__header {
   display: grid;
   gap: var(--frame-popover-header-gap);
 }
 
-[frPopoverTitle] {
+[frPopoverTitle],
+.frame-popover__title {
   margin: 0;
   color: var(--frame-popover-title-color);
   font-size: var(--frame-popover-title-font-size);
@@ -61,19 +63,22 @@ frame-popover {
   line-height: 1.2;
 }
 
-[frPopoverDescription] {
+[frPopoverDescription],
+.frame-popover__description {
   margin: 0;
   color: var(--frame-popover-description-color);
   font-size: var(--frame-popover-description-font-size);
   line-height: 1.45;
 }
 
-[frPopoverBody] {
+[frPopoverBody],
+.frame-popover__body {
   display: grid;
   gap: var(--frame-popover-body-gap);
 }
 
-[frPopoverFooter] {
+[frPopoverFooter],
+.frame-popover__footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;

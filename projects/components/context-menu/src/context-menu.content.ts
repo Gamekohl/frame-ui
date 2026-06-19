@@ -27,6 +27,7 @@ export const FR_CONTEXT_MENU_CONTENT = new InjectionToken<FrContextMenuContent>(
   'FrContextMenuContent',
 );
 
+/** Content slot for context menu. */
 @Directive({
   selector: 'ng-template[frContextMenuContent], ng-template[frContextMenuSubContent]',
   exportAs: 'frContextMenuContent',
@@ -65,6 +66,7 @@ export class FrContextMenuContent implements Partial<FrDropdownMenuContent> {
   }
 }
 
+/** Panel slot for context menu. */
 @Directive({
   selector: '[frContextMenuPanel]',
   hostDirectives: [CdkMenu, CdkTargetMenuAim],

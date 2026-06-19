@@ -24,6 +24,7 @@ export type FrCommandDialogConfig<Data = unknown, Result = unknown, Component = 
 const DEFAULT_PANEL_CLASS = 'frame-command-dialog__overlay-pane';
 const DEFAULT_BACKDROP_CLASS = 'frame-command-dialog__backdrop';
 
+/** Template configuration for a command dialog. */
 @Directive({
   selector: 'ng-template[frCommandDialog]',
   exportAs: 'frCommandDialog',
@@ -74,6 +75,7 @@ export class FrCommandDialog {
   }
 }
 
+/** Trigger control for command dialog. */
 @Directive({
   selector: '[frCommandDialogTrigger]',
   standalone: true,
@@ -129,6 +131,7 @@ export class FrCommandDialogTrigger {
   }
 }
 
+/** Service for opening command dialogs. */
 @Injectable({ providedIn: 'root' })
 export class FrCommandService {
   private readonly dialog = inject(Dialog);
@@ -195,3 +198,4 @@ function mergeClassList(
 
   return Array.from(new Set([defaultClass, ...classes].filter(Boolean)));
 }
+

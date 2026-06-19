@@ -35,6 +35,7 @@ export type FrModalConfig<Data = unknown, Result = unknown, Component = unknown>
 const DEFAULT_PANEL_CLASS = 'frame-modal__overlay-pane';
 const DEFAULT_BACKDROP_CLASS = 'frame-modal__backdrop';
 
+/** Service for opening modal dialogs. */
 @Injectable({ providedIn: 'root' })
 export class FrModalService {
   private readonly dialog = inject(Dialog);
@@ -159,6 +160,7 @@ function resolveOpenConfig<Data, Result, ComponentOrContext>(
     return (dataOrConfig ?? {}) as FrModalConfig<Data, Result, ComponentOrContext>;
   }
 
+  // Component opens support the shorthand `open(Component, data, config)` shape.
   if (config) {
     return {
       ...config,
@@ -170,6 +172,7 @@ function resolveOpenConfig<Data, Result, ComponentOrContext>(
     return {} as FrModalConfig<Data, Result, ComponentOrContext>;
   }
 
+  // Without a third argument, distinguish raw data from a full modal config by known keys.
   if (isModalConfig(dataOrConfig)) {
     return dataOrConfig as FrModalConfig<Data, Result, ComponentOrContext>;
   }
@@ -250,3 +253,4 @@ function withModalRefProvider<Data, Result, Component>(
 
   return [modalRefProvider, ...(providers ?? [])];
 }
+

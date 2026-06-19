@@ -14,6 +14,7 @@ import {
   calculateVirtualRange,
 } from './virtual-scroll.engine';
 
+/** Viewport controller for virtual scrolling. */
 @Directive({
   selector: '[frVirtualViewport], frame-virtual-viewport',
   exportAs: 'frVirtualViewport',
@@ -76,6 +77,7 @@ export class FrVirtualViewport {
 
   scrollToIndex(index: number, alignment: FrVirtualScrollAlignment = 'auto'): void {
     const element = this.elementRef.nativeElement;
+    // Virtual scrolling assumes fixed item heights, so index math can stay O(1).
     const nextScrollTop = calculateScrollOffsetForIndex(
       index,
       alignment,
@@ -106,3 +108,4 @@ export class FrVirtualViewport {
     this.resizeObserver.observe(element);
   }
 }
+

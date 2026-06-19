@@ -7,6 +7,7 @@ export const FR_INPUT_GROUP_ADDON_VARIANTS = ['default', 'ghost'] as const;
 export type FrInputGroupAddonAlign = (typeof FR_INPUT_GROUP_ADDON_ALIGNS)[number];
 export type FrInputGroupAddonVariant = (typeof FR_INPUT_GROUP_ADDON_VARIANTS)[number];
 
+/** Group slot for input. */
 @Directive({
   selector: '[frInputGroup], frame-input-group',
   host: {
@@ -15,6 +16,7 @@ export type FrInputGroupAddonVariant = (typeof FR_INPUT_GROUP_ADDON_VARIANTS)[nu
 })
 export class FrInputGroup {}
 
+/** Addon slot for grouped inputs. */
 @Directive({
   selector: '[frInputGroupAddon], frame-input-group-addon',
   host: {
@@ -28,6 +30,7 @@ export class FrInputGroupAddon {
   readonly variant = input<FrInputGroupAddonVariant>('default');
 }
 
+/** Text slot for grouped inputs. */
 @Directive({
   selector: '[frInputGroupText], frame-input-group-text',
   host: {
@@ -36,6 +39,7 @@ export class FrInputGroupAddon {
 })
 export class FrInputGroupText {}
 
+/** Input control slot inside an input group. */
 @Directive({
   selector: 'input[frInputGroupInput]',
   hostDirectives: [FrInput],
@@ -44,3 +48,4 @@ export class FrInputGroupText {}
   },
 })
 export class FrInputGroupInput {}
+

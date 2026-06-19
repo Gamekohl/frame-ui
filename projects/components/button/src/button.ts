@@ -15,6 +15,7 @@ export type FrButtonLoadingDisplay = (typeof FR_BUTTON_LOADING_DISPLAYS)[number]
 export type FrButtonRadius = (typeof FR_BUTTON_RADII)[number];
 export type FrButtonSize = (typeof FR_BUTTON_SIZES)[number];
 
+/** Button host with FrameUI size and appearance variants. */
 @Directive({
   selector: 'a[frButton], button[frButton]',
   host: {
@@ -49,6 +50,7 @@ export class FrButton {
   protected readonly isUnavailable = computed(() => this.disabled() || this.loading());
 }
 
+/** Icon-only button host with square sizing. */
 @Directive({
   selector: 'a[frIconButton], button[frIconButton]',
   hostDirectives: [
@@ -67,6 +69,7 @@ export class FrIconButton {
   readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 }
 
+/** Icon slot for button. */
 @Directive({
   selector: '[frButtonIcon]',
   host: {
@@ -76,6 +79,7 @@ export class FrIconButton {
 })
 export class FrButtonIcon {}
 
+/** Label slot for button. */
 @Directive({
   selector: '[frButtonLabel]',
   host: {
@@ -84,6 +88,7 @@ export class FrButtonIcon {}
 })
 export class FrButtonLabel {}
 
+/** Loading indicator slot for button. */
 @Directive({
   selector: '[frButtonLoading]',
   host: {
@@ -92,3 +97,4 @@ export class FrButtonLabel {}
   },
 })
 export class FrButtonLoading {}
+

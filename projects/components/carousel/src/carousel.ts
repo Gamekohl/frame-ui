@@ -2,12 +2,12 @@ import {
   AfterViewInit,
   DestroyRef,
   Directive,
+  DoCheck,
   ElementRef,
   InjectionToken,
   Renderer2,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   output,
@@ -46,6 +46,7 @@ export type FrCarouselApi = {
 
 const FR_CAROUSEL = new InjectionToken<FrCarousel>('FrCarousel');
 
+/** Carousel root that coordinates scroll state and navigation. */
 @Directive({
   selector: '[frCarousel], frame-carousel',
   exportAs: 'frCarousel',
@@ -61,7 +62,7 @@ const FR_CAROUSEL = new InjectionToken<FrCarousel>('FrCarousel');
   },
   providers: [{ provide: FR_CAROUSEL, useExisting: FrCarousel }],
 })
-export class FrCarousel implements AfterViewInit {
+export class FrCarousel implements AfterViewInit, DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly listeners = new Map<FrCarouselEvent, Set<() => void>>();
   private readonly pluginCleanups: Array<() => void> = [];
@@ -72,6 +73,8 @@ export class FrCarousel implements AfterViewInit {
   private loopBoundaryClone: HTMLElement | null = null;
   private contentElement: HTMLElement | null = null;
   private itemElements: HTMLElement[] = [];
+  private lastLoop = false;
+  private lastPlugins: readonly FrCarouselPlugin[] | null = null;
 
   readonly align = input<FrCarouselAlign>('start');
   readonly loop = input(false, { transform: booleanAttribute });
@@ -101,29 +104,21 @@ export class FrCarousel implements AfterViewInit {
   };
 
   constructor() {
-    effect(() => {
-      const plugins = this.plugins();
-      this.pluginCleanups.splice(0).forEach((cleanup) => cleanup());
-
-      for (const plugin of plugins) {
-        const cleanup = plugin(this.api);
-        if (typeof cleanup === 'function') {
-          this.pluginCleanups.push(cleanup);
-        }
-      }
-    });
-
-    effect(() => {
-      if (!this.effectiveLoop()) {
-        this.removeLoopClone();
-      }
-    });
-
     this.destroyRef.onDestroy(() => {
       this.pluginCleanups.splice(0).forEach((cleanup) => cleanup());
       this.clearLoopResetTimer();
       this.clearScrollSyncTimer();
     });
+  }
+
+  ngDoCheck(): void {
+    this.syncPlugins();
+
+    const loop = this.effectiveLoop();
+    if (!loop && loop !== this.lastLoop) {
+      this.removeLoopClone();
+    }
+    this.lastLoop = loop;
   }
 
   ngAfterViewInit(): void {
@@ -217,6 +212,25 @@ export class FrCarousel implements AfterViewInit {
     this.listeners.get(event)?.forEach((callback) => callback());
   }
 
+  private syncPlugins(): void {
+    const plugins = this.plugins();
+
+    if (plugins === this.lastPlugins) {
+      return;
+    }
+
+    this.pluginCleanups.splice(0).forEach((cleanup) => cleanup());
+
+    for (const plugin of plugins) {
+      const cleanup = plugin(this.api);
+      if (typeof cleanup === 'function') {
+        this.pluginCleanups.push(cleanup);
+      }
+    }
+
+    this.lastPlugins = plugins;
+  }
+
   private recalculate(): void {
     this.snapCount.set(this.itemElements.length);
     this.emit('reInit');
@@ -227,6 +241,7 @@ export class FrCarousel implements AfterViewInit {
       return;
     }
 
+    // Derive the active item from the nearest snap point during user-driven scrolling.
     const current = this.getCurrentScrollOffset();
     const closest = this.itemElements.reduce(
       (best, item, index) => {
@@ -320,6 +335,7 @@ export class FrCarousel implements AfterViewInit {
       return;
     }
 
+    // Scroll to a temporary clone first, then jump back to the real edge item invisibly.
     const finalIndex = direction === 'next' ? 0 : this.snapCount() - 1;
     const cloneSource = direction === 'next' ? this.itemElements[0] : this.itemElements[this.snapCount() - 1];
     const resetTarget = this.itemElements[finalIndex];
@@ -378,6 +394,7 @@ export class FrCarousel implements AfterViewInit {
       return;
     }
 
+    // `scrollend` is not universal, so keep a timeout fallback for the loop reset.
     let didReset = false;
     const reset = () => {
       if (didReset) {
@@ -426,6 +443,7 @@ export class FrCarousel implements AfterViewInit {
   }
 }
 
+/** Content slot for carousel. */
 @Directive({
   selector: '[frCarouselContent]',
   host: {
@@ -442,6 +460,7 @@ export class FrCarouselContent implements AfterViewInit {
   }
 }
 
+/** Item slot for carousel. */
 @Directive({
   selector: '[frCarouselItem]',
   host: {
@@ -461,6 +480,7 @@ export class FrCarouselItem implements AfterViewInit {
   }
 }
 
+/** Previous-slide control for carousel. */
 @Directive({
   selector: 'button[frCarouselPrevious]',
   hostDirectives: [
@@ -482,6 +502,7 @@ export class FrCarouselPrevious {
   readonly label = input('Previous slide');
 }
 
+/** Next-slide control for carousel. */
 @Directive({
   selector: 'button[frCarouselNext]',
   hostDirectives: [
@@ -502,4 +523,5 @@ export class FrCarouselNext {
   protected readonly carousel = inject(FR_CAROUSEL);
   readonly label = input('Next slide');
 }
+
 

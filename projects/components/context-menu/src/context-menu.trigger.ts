@@ -3,9 +3,9 @@ import { ConnectedPosition } from '@angular/cdk/overlay';
 import {
   DestroyRef,
   Directive,
+  DoCheck,
   ElementRef,
   booleanAttribute,
-  effect,
   inject,
   input,
   output,
@@ -21,6 +21,7 @@ type ContextMenuCoordinates = {
   readonly y: number;
 };
 
+/** Trigger control for context menu. */
 @Directive({
   selector: '[frContextMenuTrigger]',
   hostDirectives: [CdkContextMenuTrigger],
@@ -34,7 +35,7 @@ type ContextMenuCoordinates = {
     '(pointerleave)': 'clearLongPress()',
   },
 })
-export class FrContextMenuTrigger {
+export class FrContextMenuTrigger implements DoCheck {
   private static readonly CUSTOM_PROPERTY_PREFIX = '--frame-dropdown-menu-';
 
   private readonly cdkContextMenuTrigger = inject(CdkContextMenuTrigger);
@@ -52,21 +53,7 @@ export class FrContextMenuTrigger {
   readonly isOpen = signal(false);
 
   constructor() {
-    effect(() => {
-      const content = this.menuContent();
-
-      this.cdkContextMenuTrigger.menuTemplateRef = content?.templateRef ?? null;
-      this.cdkContextMenuTrigger.menuPosition = this.resolvePositions();
-      this.cdkContextMenuTrigger.disabled = this.disabled();
-
-      if (content?.isDebugVisible() && !this.cdkContextMenuTrigger.isOpen()) {
-        queueMicrotask(() => {
-          if (!this.cdkContextMenuTrigger.isOpen()) {
-            this.openAtCenter();
-          }
-        });
-      }
-    });
+    queueMicrotask(() => this.syncCdkTrigger());
 
     this.cdkContextMenuTrigger.opened.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.isOpen.set(true);
@@ -91,6 +78,26 @@ export class FrContextMenuTrigger {
     });
   }
 
+  ngDoCheck(): void {
+    this.syncCdkTrigger();
+  }
+
+  private syncCdkTrigger(): void {
+    const content = this.menuContent();
+
+    this.cdkContextMenuTrigger.menuTemplateRef = content?.templateRef ?? null;
+    this.cdkContextMenuTrigger.menuPosition = this.resolvePositions();
+    this.cdkContextMenuTrigger.disabled = this.disabled();
+
+    if (content?.isDebugVisible() && !this.cdkContextMenuTrigger.isOpen()) {
+      queueMicrotask(() => {
+        if (!this.cdkContextMenuTrigger.isOpen()) {
+          this.openAtCenter();
+        }
+      });
+    }
+  }
+
   openAt(coordinates: ContextMenuCoordinates): void {
     if (this.disabled() || !this.menuContent()) {
       return;
@@ -109,6 +116,7 @@ export class FrContextMenuTrigger {
     }
 
     this.clearLongPress();
+    // Touch and pen users need a delayed open because they do not have a native contextmenu gesture.
     this.longPressTimeoutId = setTimeout(() => {
       event.preventDefault();
       this.openAt({ x: event.clientX, y: event.clientY });
@@ -151,6 +159,7 @@ export class FrContextMenuTrigger {
       overlayElement.querySelector<HTMLElement>('.frame-dropdown-menu__content') ?? overlayElement;
     const sourceStyles = getComputedStyle(this.elementRef.nativeElement);
 
+    // CDK portals the menu, so trigger-scoped CSS variables must be mirrored manually.
     for (let index = 0; index < sourceStyles.length; index += 1) {
       const propertyName = sourceStyles.item(index);
 

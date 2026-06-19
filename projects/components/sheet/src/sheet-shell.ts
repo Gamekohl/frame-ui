@@ -35,6 +35,7 @@ export type FrSheetShellOptions = {
   title?: string;
 };
 
+/** Default shell for sheet content, title, and footer actions. */
 @Component({
   selector: 'frame-sheet-shell',
   imports: [
@@ -114,4 +115,5 @@ export class FrSheetShell {
     }
   }
 }
+
 

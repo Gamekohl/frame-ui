@@ -2,16 +2,16 @@ import {
   Directive,
   booleanAttribute,
   computed,
-  effect,
   input,
+  linkedSignal,
   output,
-  signal,
 } from '@angular/core';
 
 import { FR_COLLAPSIBLE } from './collapsible.tokens';
 
 let collapsibleId = 0;
 
+/** Root controller for expandable collapsible content. */
 @Directive({
   selector: '[frCollapsible], frame-collapsible',
   exportAs: 'frCollapsible',
@@ -25,7 +25,7 @@ let collapsibleId = 0;
 })
 export class FrCollapsible {
   private readonly collapsibleId = ++collapsibleId;
-  private readonly internalOpen = signal(false);
+  private readonly internalOpen = linkedSignal(() => this.defaultOpen());
 
   readonly defaultOpen = input(false, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
@@ -35,14 +35,6 @@ export class FrCollapsible {
   readonly open = computed(() => this.openInput() ?? this.internalOpen());
   readonly triggerId = computed(() => `frame-collapsible-trigger-${this.collapsibleId}`);
   readonly contentId = computed(() => `frame-collapsible-content-${this.collapsibleId}`);
-
-  constructor() {
-    effect(() => {
-      if (this.openInput() === undefined) {
-        this.internalOpen.set(this.defaultOpen());
-      }
-    });
-  }
 
   toggle(): void {
     if (this.disabled()) {
@@ -64,3 +56,4 @@ export class FrCollapsible {
     this.openChange.emit(open);
   }
 }
+

@@ -15,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FrSheetContent } from './sheet.content';
 import { FrSheetRef, FrSheetService } from './sheet.service';
 
+/** Trigger control for sheet. */
 @Directive({
   selector: '[frSheetTrigger]',
   host: {

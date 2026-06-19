@@ -15,6 +15,7 @@ export const FR_BADGE_ICON_POSITIONS = ['inline-start', 'inline-end'] as const;
 export type FrBadgeVariant = (typeof FR_BADGE_VARIANTS)[number];
 export type FrBadgeIconPosition = (typeof FR_BADGE_ICON_POSITIONS)[number];
 
+/** Inline badge host with variant styling. */
 @Directive({
   selector: '[frBadge], frame-badge',
   host: {
@@ -26,6 +27,7 @@ export class FrBadge {
   readonly variant = input<FrBadgeVariant>('default');
 }
 
+/** Icon slot for badge. */
 @Directive({
   selector: '[frBadgeIcon]',
   host: {
@@ -38,6 +40,7 @@ export class FrBadgeIcon {
   readonly position = input<FrBadgeIconPosition>('inline-start');
 }
 
+/** Label slot for badge. */
 @Directive({
   selector: '[frBadgeLabel]',
   host: {
@@ -46,6 +49,7 @@ export class FrBadgeIcon {
 })
 export class FrBadgeLabel {}
 
+/** Loading indicator slot for badge. */
 @Directive({
   selector: '[frBadgeSpinner]',
   hostDirectives: [
@@ -65,3 +69,4 @@ export class FrBadgeLabel {}
 export class FrBadgeSpinner {
   readonly position = input<FrBadgeIconPosition>('inline-start');
 }
+

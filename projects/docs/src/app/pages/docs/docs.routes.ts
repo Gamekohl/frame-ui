@@ -121,11 +121,23 @@ export default [
           ),
       },
       {
+        path: 'components/confirm-popover',
+        loadComponent: () =>
+          import('./components/confirm-popover/confirm-popover.page').then(
+            (m) => m.ConfirmPopoverPageComponent,
+          ),
+      },
+      {
         path: 'components/date-picker',
         loadComponent: () =>
           import('./components/date-picker/date-picker.page').then(
             (m) => m.DatePickerPageComponent,
           ),
+      },
+      {
+        path: 'components/drag-drop',
+        loadComponent: () =>
+          import('./components/drag-drop/drag-drop.page').then((m) => m.DragDropPageComponent),
       },
       {
         path: 'components/dropdown-menu',

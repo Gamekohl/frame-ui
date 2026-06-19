@@ -10,6 +10,7 @@ import {
 
 import { FrCombobox, FrComboboxValue } from './combobox.root';
 
+/** Chip list for multi-value combobox selections. */
 @Directive({
   selector: '[frComboboxChips], frame-combobox-chips',
   host: {
@@ -22,6 +23,7 @@ export class FrComboboxChips {
   protected readonly root = inject(FrCombobox);
 }
 
+/** List slot for combobox value. */
 @Directive({
   selector: '[frComboboxValue], frame-combobox-value',
   exportAs: 'frComboboxValue',
@@ -37,6 +39,7 @@ export class FrComboboxValueList {
   }
 }
 
+/** Selected value chip for combobox. */
 @Directive({
   selector: '[frComboboxChip], frame-combobox-chip',
   exportAs: 'frComboboxChip',
@@ -87,6 +90,7 @@ export class FrComboboxChip {
   }
 }
 
+/** Remove control for a combobox chip. */
 @Directive({
   selector: 'button[frComboboxChipRemove]',
   host: {
@@ -105,6 +109,7 @@ export class FrComboboxChipRemove {
   }
 }
 
+/** Inline text input inside combobox chips. */
 @Directive({
   selector: 'input[frComboboxChipsInput]',
   host: {
@@ -148,6 +153,7 @@ export class FrComboboxChipsInput {
   }
 }
 
+/** Error slot for combobox. */
 @Directive({
   selector: '[frComboboxError], frame-combobox-error',
   host: {
@@ -156,3 +162,4 @@ export class FrComboboxChipsInput {
   },
 })
 export class FrComboboxError {}
+

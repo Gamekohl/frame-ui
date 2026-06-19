@@ -1,25 +1,20 @@
-import { Directive, ElementRef, booleanAttribute, effect, inject, input } from '@angular/core';
+import { Directive, booleanAttribute, input } from '@angular/core';
 
+/** Checkbox input styled as a FrameUI control. */
 @Directive({
   selector: 'input[type=checkbox][frCheckbox]',
   host: {
     class: 'frame-checkbox',
     '[attr.aria-checked]': 'indeterminate() ? "mixed" : null',
     '[attr.data-indeterminate]': 'indeterminate() ? "" : null',
+    '[indeterminate]': 'indeterminate()',
   },
 })
 export class FrCheckbox {
-  private readonly elementRef = inject(ElementRef<HTMLInputElement>);
-
   readonly indeterminate = input(false, { transform: booleanAttribute });
-
-  constructor() {
-    effect(() => {
-      this.elementRef.nativeElement.indeterminate = this.indeterminate();
-    });
-  }
 }
 
+/** Field slot for checkbox. */
 @Directive({
   selector: 'label[frCheckboxField]',
   host: {
@@ -28,6 +23,7 @@ export class FrCheckbox {
 })
 export class FrCheckboxField {}
 
+/** Label slot for checkbox. */
 @Directive({
   selector: '[frCheckboxLabel]',
   host: {
@@ -35,3 +31,4 @@ export class FrCheckboxField {}
   },
 })
 export class FrCheckboxLabel {}
+

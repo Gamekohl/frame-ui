@@ -55,6 +55,7 @@ const VALUE_ACCESSOR = {
   multi: true,
 };
 
+/** Calendar control for single-date and range selection. */
 @Component({
   selector: 'frame-calendar',
   imports: [NgTemplateOutlet],
@@ -396,6 +397,7 @@ export class FrCalendar implements ControlValueAccessor {
   private resolveActiveDate(): Date {
     const focused = this.focusedDate();
 
+    // Prefer the roving-focus target, then selection, then today, then first enabled day.
     if (focused && this.findDay(focused) && !this.isDayDisabled(focused)) {
       return cloneDate(focused);
     }
@@ -462,6 +464,7 @@ export class FrCalendar implements ControlValueAccessor {
       return;
     }
 
+    // Month navigation may render the target button one tick later.
     setTimeout(() => {
       this.focusDayElement(date);
     });
@@ -488,6 +491,7 @@ export class FrCalendar implements ControlValueAccessor {
     const gridStart = startOfWeek(start, this.firstDayOfWeek());
     const weeks: CalendarDay[][] = [];
 
+    // Always build a six-week grid so layout height stays stable across months.
     for (let week = 0; week < 6; week++) {
       const days: CalendarDay[] = [];
 
@@ -649,3 +653,4 @@ function isoWeekNumber(date: Date): number {
   const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
   return Math.ceil(((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
 }
+

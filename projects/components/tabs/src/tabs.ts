@@ -32,6 +32,7 @@ function coerceListVariant(value: unknown): FrTabsListVariant {
   return value === 'line' ? 'line' : 'default';
 }
 
+/** Tabs root that coordinates selected value state. */
 @Directive({
   selector: '[frTabs], frame-tabs',
   exportAs: 'frTabs',
@@ -68,6 +69,7 @@ export class FrTabs {
   }
 }
 
+/** List slot for tabs. */
 @Directive({
   selector: '[frTabsList], frame-tabs-list',
   host: {
@@ -141,6 +143,7 @@ export class FrTabsList {
   }
 }
 
+/** Trigger control for tabs. */
 @Directive({
   selector: 'button[frTabsTrigger], a[frTabsTrigger], [frTabsTrigger], frame-tabs-trigger',
   host: {
@@ -188,6 +191,7 @@ export class FrTabsTrigger {
   }
 }
 
+/** Content slot for tabs. */
 @Directive({
   selector: '[frTabsContent], frame-tabs-content',
   host: {
@@ -209,3 +213,4 @@ export class FrTabsContent {
   protected readonly isActive = computed(() => this.active() || !!this.root?.isSelected(this.value()));
   protected readonly contentId = computed(() => `frame-tabs-content-${this.value()}`);
 }
+

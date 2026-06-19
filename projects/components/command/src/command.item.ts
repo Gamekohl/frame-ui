@@ -1,11 +1,11 @@
 import {
   DestroyRef,
   Directive,
+  DoCheck,
   ElementRef,
   afterNextRender,
   booleanAttribute,
   computed,
-  effect,
   inject,
   input,
   output,
@@ -14,6 +14,7 @@ import {
 
 import { FR_COMMAND, FR_COMMAND_GROUP } from './command.tokens';
 
+/** Item slot for command. */
 @Directive({
   selector: 'button[frCommandItem]',
   exportAs: 'frCommandItem',
@@ -33,7 +34,7 @@ import { FR_COMMAND, FR_COMMAND_GROUP } from './command.tokens';
     '(mouseenter)': 'highlightSelf()',
   },
 })
-export class FrCommandItem {
+export class FrCommandItem implements DoCheck {
   private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly command = inject(FR_COMMAND);
@@ -56,6 +57,7 @@ export class FrCommandItem {
   });
   readonly value = computed(() => this.valueInput() ?? this.label());
   readonly visible = computed(() => this.command.filteredItemVisible(this.label(), this.keywords()));
+  private lastSearchKey = '';
 
   constructor() {
     this.command.registerItem(this);
@@ -71,11 +73,17 @@ export class FrCommandItem {
       this.observeTextChanges();
     });
 
-    effect(() => {
-      this.label();
-      this.keywords();
-      this.command.visibleCount();
-    });
+  }
+
+  ngDoCheck(): void {
+    const searchKey = `${this.label()}|${this.keywords().join('|')}|${this.disabled()}`;
+
+    if (searchKey === this.lastSearchKey) {
+      return;
+    }
+
+    this.lastSearchKey = searchKey;
+    this.command.refreshItems();
   }
 
   isVisible(): boolean {
@@ -120,6 +128,7 @@ export class FrCommandItem {
 
   private refreshResolvedLabel(): void {
     this.resolvedLabel.set(this.resolveLabel());
+    this.command.refreshItems();
   }
 
   private observeTextChanges(): void {
@@ -127,6 +136,7 @@ export class FrCommandItem {
       return;
     }
 
+    // Items without explicit labels derive search text from projected content.
     this.mutationObserver = new MutationObserver(() => this.refreshResolvedLabel());
     this.mutationObserver.observe(this.elementRef.nativeElement, {
       characterData: true,
@@ -136,6 +146,7 @@ export class FrCommandItem {
   }
 }
 
+/** Icon slot for command item. */
 @Directive({
   selector: '[frCommandItemIcon]',
   standalone: true,
@@ -146,6 +157,7 @@ export class FrCommandItem {
 })
 export class FrCommandItemIcon {}
 
+/** Shortcut slot for command. */
 @Directive({
   selector: '[frCommandShortcut]',
   standalone: true,

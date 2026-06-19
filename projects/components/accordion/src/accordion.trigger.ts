@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 
 import { ACCORDION_ITEM } from './accordion.tokens';
 
+/** Trigger control for accordion. */
 @Directive({
   selector: 'button[frAccordionTrigger]',
   standalone: true,
@@ -21,6 +22,7 @@ export class FrAccordionTrigger {
   protected readonly item = inject(ACCORDION_ITEM);
 }
 
+/** Icon slot for accordion. */
 @Directive({
   selector: '[frAccordionIcon]',
   standalone: true,

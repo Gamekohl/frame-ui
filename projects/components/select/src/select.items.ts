@@ -8,6 +8,7 @@ import {
 import { FrSelectContent } from './select.content';
 import { FrSelectItemIndicator } from './select.value';
 
+/** Group slot for select. */
 @Directive({
   selector: '[frSelectGroup], frame-select-group',
   host: {
@@ -16,6 +17,7 @@ import { FrSelectItemIndicator } from './select.value';
 })
 export class FrSelectGroup {}
 
+/** Label slot for select. */
 @Directive({
   selector: '[frSelectLabel], frame-select-label',
   hostDirectives: [FrDropdownMenuLabel],
@@ -25,6 +27,7 @@ export class FrSelectGroup {}
 })
 export class FrSelectLabel {}
 
+/** Separator slot for select. */
 @Directive({
   selector: '[frSelectSeparator], frame-select-separator',
   hostDirectives: [FrDropdownMenuSeparator],
@@ -34,6 +37,7 @@ export class FrSelectLabel {}
 })
 export class FrSelectSeparator {}
 
+/** Item slot for select. */
 @Directive({
   selector: 'button[frSelectItem]',
   hostDirectives: [FrDropdownMenuItem],

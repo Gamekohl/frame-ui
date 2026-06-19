@@ -4,6 +4,7 @@ export const FR_SPINNER_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export type FrSpinnerSize = (typeof FR_SPINNER_SIZES)[number];
 
+/** Spinner indicator with size variants. */
 @Directive({
   selector: '[frSpinner], frame-spinner',
   exportAs: 'frSpinner',
@@ -26,4 +27,5 @@ export class FrSpinner {
   readonly size = input<FrSpinnerSize>('md');
   readonly stroke = input<string | null>(null);
 }
+
 

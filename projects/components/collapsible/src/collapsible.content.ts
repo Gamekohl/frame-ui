@@ -1,7 +1,8 @@
-import { Directive, ElementRef, effect, inject } from '@angular/core';
+import { AfterViewInit, Directive, DoCheck, ElementRef, OnDestroy, inject } from '@angular/core';
 
 import { FR_COLLAPSIBLE } from './collapsible.tokens';
 
+/** Content slot for collapsible. */
 @Directive({
   selector: '[frCollapsibleContent]',
   standalone: true,
@@ -15,27 +16,33 @@ import { FR_COLLAPSIBLE } from './collapsible.tokens';
     role: 'region',
   },
 })
-export class FrCollapsibleContent {
+export class FrCollapsibleContent implements AfterViewInit, DoCheck, OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly collapsible = inject(FR_COLLAPSIBLE);
   private initialized = false;
+  private lastOpen = false;
   private rafId = -1;
 
-  constructor() {
-    effect((onCleanup) => {
-      const open = this.collapsible.open();
+  ngAfterViewInit(): void {
+    this.lastOpen = this.collapsible.open();
+    this.applyStaticState(this.lastOpen);
+    this.initialized = true;
+  }
 
-      this.cancelAnimationFrame();
+  ngDoCheck(): void {
+    const open = this.collapsible.open();
 
-      if (!this.initialized) {
-        this.applyStaticState(open);
-        this.initialized = true;
-        return;
-      }
+    if (!this.initialized || open === this.lastOpen) {
+      return;
+    }
 
-      this.animate(open);
-      onCleanup(() => this.cancelAnimationFrame());
-    });
+    this.cancelAnimationFrame();
+    this.lastOpen = open;
+    this.animate(open);
+  }
+
+  ngOnDestroy(): void {
+    this.cancelAnimationFrame();
   }
 
   onTransitionEnd(event: TransitionEvent): void {

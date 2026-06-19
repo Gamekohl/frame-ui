@@ -15,6 +15,7 @@ function coerceProgressMax(value: unknown): number {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 100;
 }
 
+/** Progress bar host with value and max state. */
 @Directive({
   selector: '[frProgress], frame-progress',
   exportAs: 'frProgress',
@@ -59,6 +60,7 @@ export class FrProgress {
   });
 }
 
+/** Indicator slot for progress. */
 @Directive({
   selector: '[frProgressIndicator], frame-progress-indicator',
   host: {
@@ -66,3 +68,4 @@ export class FrProgress {
   },
 })
 export class FrProgressIndicator {}
+

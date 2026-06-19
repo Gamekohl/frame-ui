@@ -1,8 +1,9 @@
 import { CdkMenuGroup, CdkMenuItem, CdkMenuItemCheckbox, CdkMenuItemRadio } from '@angular/cdk/menu';
-import { Directive, booleanAttribute, effect, inject, input } from '@angular/core';
+import { Directive, DoCheck, booleanAttribute, inject, input } from '@angular/core';
 
 import { FrDropdownMenuItemVariant } from '@frame-ui-ng/components/dropdown-menu';
 
+/** Item slot for context menu. */
 @Directive({
   selector: '[frContextMenuItem]',
   hostDirectives: [CdkMenuItem],
@@ -17,6 +18,7 @@ export class FrContextMenuItem {
   readonly variant = input<FrDropdownMenuItemVariant>('default');
 }
 
+/** Item slot for context menu checkbox. */
 @Directive({
   selector: 'button[frContextMenuCheckboxItem]',
   hostDirectives: [CdkMenuItemCheckbox],
@@ -27,8 +29,9 @@ export class FrContextMenuItem {
     '[attr.data-variant]': 'variant()',
   },
 })
-export class FrContextMenuCheckboxItem {
+export class FrContextMenuCheckboxItem implements DoCheck {
   protected readonly checkboxItem = inject(CdkMenuItemCheckbox);
+  private lastChecked = false;
 
   readonly checked = input(false, {
     alias: 'checked',
@@ -37,13 +40,19 @@ export class FrContextMenuCheckboxItem {
   readonly inset = input(false, { transform: booleanAttribute });
   readonly variant = input<FrDropdownMenuItemVariant>('default');
 
-  constructor() {
-    effect(() => {
-      this.checkboxItem.checked = this.checked();
-    });
+  ngDoCheck(): void {
+    const checked = this.checked();
+
+    if (checked === this.lastChecked) {
+      return;
+    }
+
+    this.lastChecked = checked;
+    this.checkboxItem.checked = checked;
   }
 }
 
+/** Group slot for context menu radio. */
 @Directive({
   selector: '[frContextMenuRadioGroup]',
   hostDirectives: [CdkMenuGroup],
@@ -53,6 +62,7 @@ export class FrContextMenuCheckboxItem {
 })
 export class FrContextMenuRadioGroup {}
 
+/** Item slot for context menu radio. */
 @Directive({
   selector: 'button[frContextMenuRadioItem]',
   hostDirectives: [CdkMenuItemRadio],
@@ -63,8 +73,9 @@ export class FrContextMenuRadioGroup {}
     '[attr.data-variant]': 'variant()',
   },
 })
-export class FrContextMenuRadioItem {
+export class FrContextMenuRadioItem implements DoCheck {
   protected readonly radioItem = inject(CdkMenuItemRadio);
+  private lastChecked = false;
 
   readonly checked = input(false, {
     alias: 'checked',
@@ -73,13 +84,19 @@ export class FrContextMenuRadioItem {
   readonly inset = input(false, { transform: booleanAttribute });
   readonly variant = input<FrDropdownMenuItemVariant>('default');
 
-  constructor() {
-    effect(() => {
-      this.radioItem.checked = this.checked();
-    });
+  ngDoCheck(): void {
+    const checked = this.checked();
+
+    if (checked === this.lastChecked) {
+      return;
+    }
+
+    this.lastChecked = checked;
+    this.radioItem.checked = checked;
   }
 }
 
+/** Label slot for context menu. */
 @Directive({
   selector: '[frContextMenuLabel]',
   host: {
@@ -91,6 +108,7 @@ export class FrContextMenuLabel {
   readonly inset = input(false, { transform: booleanAttribute });
 }
 
+/** Separator slot for context menu. */
 @Directive({
   selector: '[frContextMenuSeparator]',
   host: {
@@ -100,6 +118,7 @@ export class FrContextMenuLabel {
 })
 export class FrContextMenuSeparator {}
 
+/** Shortcut slot for context menu. */
 @Directive({
   selector: '[frContextMenuShortcut]',
   host: {
@@ -108,6 +127,7 @@ export class FrContextMenuSeparator {}
 })
 export class FrContextMenuShortcut {}
 
+/** Indicator slot for context menu item. */
 @Directive({
   selector: '[frContextMenuItemIndicator]',
   host: {

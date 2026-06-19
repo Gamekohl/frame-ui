@@ -1,0 +1,132 @@
+@import './_vars.css';
+
+[frDragDropGroup],
+frame-drag-drop-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--frame-drag-drop-group-gap);
+  align-items: flex-start;
+}
+
+[frDragDropGroup][data-disabled],
+frame-drag-drop-group[data-disabled] {
+  opacity: var(--frame-drop-list-disabled-opacity);
+}
+
+[frDropList],
+frame-drop-list {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--frame-drag-drop-gap);
+  min-height: var(--frame-drop-list-min-height);
+  width: 100%;
+  padding: var(--frame-drop-list-padding);
+  border: 1px solid var(--frame-drop-list-border);
+  border-radius: var(--frame-drop-list-radius);
+  background: var(--frame-drop-list-bg);
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    opacity 140ms ease;
+}
+
+[frDropList][data-orientation='horizontal'],
+frame-drop-list[data-orientation='horizontal'] {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow-x: auto;
+}
+
+[frDropList].cdk-drop-list-dragging,
+frame-drop-list.cdk-drop-list-dragging {
+  border-color: var(--frame-drop-list-hover-border);
+}
+
+[frDropList][data-disabled],
+frame-drop-list[data-disabled] {
+  opacity: var(--frame-drop-list-disabled-opacity);
+}
+
+[frDrag],
+frame-drag {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--frame-drag-gap);
+  min-width: 0;
+  padding: var(--frame-drag-padding);
+  border: 1px solid var(--frame-drag-border);
+  border-radius: var(--frame-drag-radius);
+  background: var(--frame-drag-bg);
+  color: var(--frame-drag-color);
+  box-shadow: var(--frame-drag-shadow);
+  cursor: grab;
+  touch-action: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    opacity 140ms ease;
+}
+
+[frDrag]:where(:not([data-disabled])):hover,
+frame-drag:where(:not([data-disabled])):hover {
+  background: var(--frame-drag-hover-bg);
+}
+
+[frDrag].cdk-drag-dragging,
+frame-drag.cdk-drag-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+[frDrag][data-disabled],
+frame-drag[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-drop-list-disabled-opacity);
+}
+
+[frDrag].cdk-drag-preview,
+frame-drag.cdk-drag-preview {
+  box-sizing: border-box;
+  background: var(--frame-drag-preview-bg);
+  box-shadow: var(--frame-drag-preview-shadow);
+}
+
+.cdk-drag-placeholder.frame-drag,
+.cdk-drag-placeholder[frDrag] {
+  opacity: var(--frame-drag-placeholder-opacity);
+  border-style: dashed;
+  border-color: var(--frame-drag-placeholder-border);
+  background: var(--frame-drag-placeholder-bg);
+  box-shadow: none;
+}
+
+[frDropList].cdk-drop-list-dragging [frDrag]:not(.cdk-drag-placeholder),
+frame-drop-list.cdk-drop-list-dragging frame-drag:not(.cdk-drag-placeholder) {
+  transition: transform var(--frame-drag-sort-duration) var(--frame-drag-sort-easing);
+}
+
+[frDragHandle],
+frame-drag-handle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--frame-drag-handle-color);
+  cursor: grab;
+  touch-action: none;
+  transition: color 140ms ease;
+}
+
+[frDragHandle]:where(:not([data-disabled])):hover,
+frame-drag-handle:where(:not([data-disabled])):hover {
+  color: var(--frame-drag-handle-hover-color);
+}
+
+[frDragHandle][data-disabled],
+frame-drag-handle[data-disabled] {
+  cursor: not-allowed;
+  opacity: var(--frame-drop-list-disabled-opacity);
+}

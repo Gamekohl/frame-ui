@@ -1,5 +1,6 @@
 import { Directive, TemplateRef, inject } from '@angular/core';
 
+/** Content slot for combobox. */
 @Directive({
   selector: 'ng-template[frComboboxContent]',
   exportAs: 'frComboboxContent',
@@ -8,6 +9,7 @@ export class FrComboboxContent {
   readonly templateRef = inject(TemplateRef<unknown>);
 }
 
+/** Panel slot for combobox. */
 @Directive({
   selector: '[frComboboxPanel], frame-combobox-panel',
   host: {
@@ -17,6 +19,7 @@ export class FrComboboxContent {
 })
 export class FrComboboxPanel {}
 
+/** List slot for combobox. */
 @Directive({
   selector: '[frComboboxList], frame-combobox-list',
   host: {
@@ -25,6 +28,7 @@ export class FrComboboxPanel {}
 })
 export class FrComboboxList {}
 
+/** Empty-state slot for combobox results. */
 @Directive({
   selector: '[frComboboxEmpty], frame-combobox-empty',
   host: {
@@ -40,6 +44,7 @@ export class FrComboboxEmpty {
   }
 }
 
+/** Group slot for combobox. */
 @Directive({
   selector: '[frComboboxGroup], frame-combobox-group',
   host: {
@@ -48,6 +53,7 @@ export class FrComboboxEmpty {
 })
 export class FrComboboxGroup {}
 
+/** Label slot for combobox. */
 @Directive({
   selector: '[frComboboxLabel], frame-combobox-label',
   host: {
@@ -56,6 +62,7 @@ export class FrComboboxGroup {}
 })
 export class FrComboboxLabel {}
 
+/** Separator slot for combobox. */
 @Directive({
   selector: '[frComboboxSeparator], frame-combobox-separator',
   host: {
@@ -65,6 +72,7 @@ export class FrComboboxLabel {}
 })
 export class FrComboboxSeparator {}
 
+/** Collection host for combobox options. */
 @Directive({
   selector: '[frComboboxCollection], frame-combobox-collection',
   host: {
@@ -74,6 +82,8 @@ export class FrComboboxSeparator {}
 export class FrComboboxCollection {}
 
 // Resolved by the root file to avoid a circular import in decorator metadata.
+/** Base API for combobox root lookup. */
 export abstract class FrComboboxRootLookup {
   abstract visibleCount(): number;
 }
+
