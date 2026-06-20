@@ -15,14 +15,20 @@ export function toChartLabel(value: string): string {
     .replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
-export function inferChartSeries(data: readonly FrChartDatum[], xKey: string): readonly FrChartSeries[] {
+export function inferChartSeries(
+  data: readonly FrChartDatum[],
+  xKey: string,
+  excludedKeys: readonly string[] = [],
+): readonly FrChartSeries[] {
   const first = data[0];
 
   if (!first) {
     return [];
   }
 
+  const excludedKeySet = new Set([xKey, ...excludedKeys]);
+
   return Object.keys(first)
-    .filter((key) => key !== xKey && Number.isFinite(Number(first[key])))
+    .filter((key) => !excludedKeySet.has(key) && Number.isFinite(Number(first[key])))
     .map((key) => ({ key, label: toChartLabel(key) }));
 }

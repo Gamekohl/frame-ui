@@ -29,6 +29,7 @@ export type ChartExample = {
   readonly curve?: FrChartCurve;
   readonly legendToggle?: boolean;
   readonly xKey?: string;
+  readonly yKey?: string;
   readonly data: readonly FrChartDatum[];
   readonly series: readonly FrChartSeries[];
   readonly code: readonly DocsCodeBlock[];
@@ -44,6 +45,7 @@ export const chartCategories: readonly ChartCategory[] = [
   { id: 'pie', label: 'Pie Charts' },
   { id: 'donut', label: 'Donut Charts' },
   { id: 'sparkline', label: 'Sparklines' },
+  { id: 'heatmap', label: 'Heatmap Charts' },
   { id: 'radar', label: 'Radar Charts', disabled: true },
   { id: 'radial', label: 'Radial Charts' },
 ];
@@ -112,6 +114,27 @@ const performanceData = [
   { month: 'May', revenue: 66, forecast: 72, conversion: 25 },
   { month: 'Jun', revenue: 88, forecast: 80, conversion: 31 },
 ];
+
+const supportLoadDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] as const;
+const supportLoadHours = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'] as const;
+const supportLoadData = supportLoadDays.flatMap((day, dayIndex) =>
+  supportLoadHours.map((hour, hourIndex) => ({
+    day,
+    hour,
+    tickets: 4 + ((dayIndex + 2) * (hourIndex + 3) + dayIndex * 5) % 31,
+  })),
+);
+
+const deploymentActivityData = Array.from({ length: 84 }, (_, index) => {
+  const date = new Date(Date.UTC(2026, 0, index + 1));
+  const weekday = date.getUTCDay();
+  const deploys = weekday === 0 || weekday === 6 ? 0 : ((index * 7 + weekday * 3) % 18) + 1;
+
+  return {
+    date: date.toISOString().slice(0, 10),
+    deploys,
+  };
+});
 
 const sparklineData = [
   { day: '1', value: 24 },
@@ -209,6 +232,32 @@ const sparklineTs = `sparklineData = [
 
 sparklineSeries = [{ key: 'value', label: 'Value' }];`;
 
+const deploymentActivityTs = `deploymentActivityData = Array.from({ length: 84 }, (_, index) => {
+  const date = new Date(Date.UTC(2026, 0, index + 1));
+  const weekday = date.getUTCDay();
+  const deploys = weekday === 0 || weekday === 6 ? 0 : ((index * 7 + weekday * 3) % 18) + 1;
+
+  return {
+    date: date.toISOString().slice(0, 10),
+    deploys,
+  };
+});
+
+deploymentSeries = [{ key: 'deploys', label: 'Deploys' }];`;
+
+const supportLoadTs = `supportLoadDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+supportLoadHours = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'];
+
+supportLoadData = supportLoadDays.flatMap((day, dayIndex) =>
+  supportLoadHours.map((hour, hourIndex) => ({
+    day,
+    hour,
+    tickets: 4 + ((dayIndex + 2) * (hourIndex + 3) + dayIndex * 5) % 31,
+  })),
+);
+
+supportLoadSeries = [{ key: 'tickets', label: 'Tickets' }];`;
+
 export const chartTokens = `[frChart],
 frame-chart {
   --frame-chart-height: 20rem;
@@ -230,6 +279,11 @@ frame-chart {
   --frame-chart-tooltip-motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
   --frame-chart-tooltip-motion-distance: 0.2rem;
   --frame-chart-tooltip-motion-scale: 0.98;
+  --frame-chart-heatmap-empty-bg: color-mix(in srgb, var(--frame-muted) 72%, transparent);
+  --frame-chart-heatmap-border: color-mix(in srgb, var(--frame-border) 72%, transparent);
+  --frame-chart-heatmap-radius: 0.35rem;
+  --frame-chart-heatmap-label-color: var(--frame-muted-foreground);
+  --frame-chart-heatmap-active-stroke: var(--frame-foreground);
 }`;
 
 export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
@@ -290,6 +344,19 @@ export const chartInspectorTargets: DocsTokenInspectorTarget[] = [
     selector: '.frame-chart__bar',
     description: 'Bar charts map each series to the chart color sequence.',
     tokens: ['--frame-chart-1', '--frame-chart-2', '--frame-chart-3', '--frame-chart-4', '--frame-chart-5'],
+  },
+  {
+    id: 'chart-heatmap',
+    label: 'Heatmap cells',
+    selector: '.frame-chart__heatmap-cell',
+    description: 'Heatmap cells blend the active chart color with the empty cell token based on value intensity.',
+    tokens: [
+      '--frame-chart-1',
+      '--frame-chart-heatmap-empty-bg',
+      '--frame-chart-heatmap-border',
+      '--frame-chart-heatmap-radius',
+      '--frame-chart-heatmap-active-stroke',
+    ],
   },
   {
     id: 'chart-pie',
@@ -756,6 +823,74 @@ export const chartExamples: readonly ChartExample[] = [
   font-weight: 800;
   transform: translateY(-50%);
 }`,
+      },
+    ],
+  },
+  {
+    id: 'heatmap-support-load',
+    category: 'heatmap',
+    title: 'Heatmap - Support Load',
+    description: 'Showing ticket intensity by weekday and support window.',
+    featured: true,
+    type: 'heatmap',
+    xKey: 'hour',
+    yKey: 'day',
+    data: supportLoadData,
+    series: [{ key: 'tickets', label: 'Tickets' }],
+    valueFormatter: (value) => `${value.toFixed(0)} tickets`,
+    code: [
+      {
+        language: 'ts',
+        code: `${importsCode}
+
+${supportLoadTs}
+
+ticketFormatter = (value: number) => \`\${value.toFixed(0)} tickets\`;`,
+      },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="heatmap"
+  xKey="hour"
+  yKey="day"
+  aria-label="Support load by weekday and hour"
+  [data]="supportLoadData"
+  [series]="supportLoadSeries"
+  [valueFormatter]="ticketFormatter"
+/>`,
+      },
+    ],
+  },
+  {
+    id: 'calendar-heatmap-deployments',
+    category: 'heatmap',
+    title: 'Calendar Heatmap - Deployment Activity',
+    description: 'Showing daily activity intensity across weeks with a compact calendar grid',
+    featured: true,
+    type: 'calendar-heatmap',
+    xKey: 'date',
+    data: deploymentActivityData,
+    series: [{ key: 'deploys', label: 'Deploys' }],
+    valueFormatter: (value) => `${value.toFixed(0)} deploys`,
+    code: [
+      {
+        language: 'ts',
+        code: `${importsCode}
+
+${deploymentActivityTs}
+
+deploymentFormatter = (value: number) => \`\${value.toFixed(0)} deploys\`;`,
+      },
+      {
+        language: 'html',
+        code: `<frame-chart
+  type="calendar-heatmap"
+  xKey="date"
+  aria-label="Deployment activity"
+  [data]="deploymentActivityData"
+  [series]="deploymentSeries"
+  [valueFormatter]="deploymentFormatter"
+/>`,
       },
     ],
   },

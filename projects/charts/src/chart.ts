@@ -11,6 +11,7 @@ import {
   input,
   model,
   numberAttribute,
+  output,
   signal,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -32,12 +33,15 @@ import {
 import { chartColor } from './chart-colors';
 import { formatChartLabel, inferChartSeries, toChartLabel } from './chart-format';
 import { svgPointFromPointer } from './chart-geometry';
+import { buildCalendarHeatmap } from './calendar-heatmap-chart';
 import { buildPieSlices, donutInnerRadius, pieIndexFromPoint, pieRadius } from './pie-chart';
 import { buildRadialSegments, radialIndexFromPoint } from './radial-chart';
+import { buildHeatmap, emptyHeatmapModel, heatmapIndexFromPoint } from './heatmap-chart';
 import {
   FrChartCurve,
   FrChartBarLayout,
   FrChartBarOrientation,
+  FrChartClickEvent,
   FrChartDatum,
   FrChartModel,
   FrChartSeries,
@@ -52,6 +56,7 @@ export type {
   FrChartBarOrientation,
   FrChartCurve,
   FrChartDatum,
+  FrChartClickEvent,
   FrChartSeries,
   FrChartSeriesType,
   FrChartType,
@@ -85,6 +90,7 @@ type ResolvedChartSeries = FrChartSeries & {
       [attr.viewBox]="'0 0 ' + viewBoxWidth() + ' ' + viewBoxHeight()"
       [attr.preserveAspectRatio]="isCircularChart() || type() === 'radial' ? 'xMidYMid meet' : 'none'"
       (pointermove)="handlePointerMove($event)"
+      (pointerup)="handleChartClick($event)"
       (focusout)="clearActiveIndex()"
     >
       <defs>
@@ -105,7 +111,7 @@ type ResolvedChartSeries = FrChartSeries & {
             <line [attr.x1]="tick.x" [attr.x2]="tick.x" [attr.y1]="model().plotY" [attr.y2]="model().plotY + model().plotHeight" />
           }
         </g>
-      } @else if (showGrid() && !isSparklineChart() && !isCircularChart() && type() !== 'radial') {
+      } @else if (showGrid() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
         <g class="frame-chart__grid" aria-hidden="true">
           @for (tick of model().yTicks; track tick.label) {
             <line [attr.x1]="model().plotX" [attr.x2]="model().plotX + model().plotWidth" [attr.y1]="tick.y" [attr.y2]="tick.y" />
@@ -131,7 +137,7 @@ type ResolvedChartSeries = FrChartSeries & {
           [attr.y2]="model().baselineY"
           aria-hidden="true"
         />
-      } @else if (model().showZeroBaseline && !isSparklineChart() && !isCircularChart() && type() !== 'radial') {
+      } @else if (model().showZeroBaseline && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
         <line
           class="frame-chart__zero-line"
           [attr.x1]="model().plotX"
@@ -142,7 +148,7 @@ type ResolvedChartSeries = FrChartSeries & {
         />
       }
 
-      @if (showYAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial') {
+      @if (showYAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
         <g class="frame-chart__axis frame-chart__axis--y" aria-hidden="true">
           @for (tick of model().yTicks; track tick.label) {
             <text [attr.x]="model().plotX - 10" [attr.y]="tick.y" text-anchor="end" dominant-baseline="middle">
@@ -203,6 +209,39 @@ type ResolvedChartSeries = FrChartSeries & {
             </text>
           }
         </g>
+      } @else if (isHeatmapChart()) {
+        <g class="frame-chart__heatmap" role="list">
+          @if (showXAxis()) {
+            <g class="frame-chart__heatmap-columns" aria-hidden="true">
+              @for (tick of model().heatmapColumnTicks; track tick.label + '-' + tick.x) {
+                <text [attr.x]="tick.x" [attr.y]="tick.y" text-anchor="middle">{{ tick.label }}</text>
+              }
+            </g>
+          }
+          @if (showYAxis()) {
+            <g class="frame-chart__heatmap-rows" aria-hidden="true">
+              @for (tick of model().heatmapRowTicks; track tick.label) {
+                <text [attr.x]="tick.x" [attr.y]="tick.y" text-anchor="end" dominant-baseline="middle">
+                  {{ tick.label }}
+                </text>
+              }
+            </g>
+          }
+          @for (cell of model().heatmapCells; track cell.key) {
+            <rect
+              class="frame-chart__heatmap-cell"
+              role="listitem"
+              [style.--frame-chart-heatmap-order]="cell.order"
+              [attr.data-active]="activeIndex() === cell.order ? '' : null"
+              [attr.x]="cell.x"
+              [attr.y]="cell.y"
+              [attr.width]="cell.width"
+              [attr.height]="cell.height"
+              [attr.fill]="cell.color"
+              [attr.aria-label]="cell.label + ': ' + formatValue(cell.value)"
+            />
+          }
+        </g>
       } @else if (isBarOnlyChart()) {
         <g class="frame-chart__bars">
           @for (bar of model().bars; track bar.key + '-' + $index) {
@@ -249,7 +288,7 @@ type ResolvedChartSeries = FrChartSeries & {
         </g>
       }
 
-      @if (activeIndex() !== null && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHorizontalBarChart()) {
+      @if (activeIndex() !== null && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHorizontalBarChart() && !isHeatmapChart()) {
         <line
           class="frame-chart__cursor"
           [attr.x1]="cursorX()"
@@ -279,7 +318,7 @@ type ResolvedChartSeries = FrChartSeries & {
         }
       }
 
-      @if (showXAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial') {
+      @if (showXAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
         <g class="frame-chart__axis frame-chart__axis--x" aria-hidden="true">
           @for (tick of model().xTicks; track tick.label) {
             <text
@@ -322,7 +361,15 @@ type ResolvedChartSeries = FrChartSeries & {
       </div>
     }
 
-    @if (showLegend() && !isSparklineChart()) {
+    @if (showLegend() && isHeatmapChart() && model().heatmapCells.length) {
+      <div class="frame-chart__heatmap-legend" aria-hidden="true">
+        <span>Less</span>
+        @for (step of heatmapLegendSteps(); track step) {
+          <span class="frame-chart__heatmap-legend-step" [style.background]="step"></span>
+        }
+        <span>More</span>
+      </div>
+    } @else if (showLegend() && !isSparklineChart() && !isHeatmapChart()) {
       <div class="frame-chart__legend" [attr.aria-hidden]="legendToggle() ? null : 'true'">
         @for (series of model().legendItems; track series.key) {
           @if (legendToggle() && series.type) {
@@ -357,6 +404,7 @@ export class FrChart implements AfterViewInit {
   readonly data = input<readonly FrChartDatum[]>([]);
   readonly series = input<readonly FrChartSeries[]>([]);
   readonly xKey = input('name');
+  readonly yKey = input<string | null>(null);
   readonly type = input<FrChartType>('area');
   readonly curve = input<FrChartCurve>('smooth');
   readonly barLayout = input<FrChartBarLayout>('grouped');
@@ -373,6 +421,7 @@ export class FrChart implements AfterViewInit {
   readonly valueFormatter = input<((value: number) => string) | null>(null);
   readonly activeIndex = model<number | null>(null);
   readonly hiddenSeriesKeys = model<readonly string[]>([]);
+  readonly chartClick = output<FrChartClickEvent>();
 
   private readonly pointerTooltipPosition = signal<{ xPercent: number; yPercent: number } | null>(null);
   protected readonly viewBoxWidth = signal(VIEWBOX_WIDTH);
@@ -398,6 +447,10 @@ export class FrChart implements AfterViewInit {
       return !model.radials.length;
     }
 
+    if (this.isHeatmapChart()) {
+      return !model.heatmapCells.length;
+    }
+
     return !model.series.some((series) => series.points.length > 0);
   });
   protected readonly activeTooltip = computed<FrChartTooltip | null>(() => {
@@ -411,6 +464,7 @@ export class FrChart implements AfterViewInit {
     const datum = this.data()[activeIndex];
     const activeSlice = model.slices[activeIndex];
     const activeRadial = model.radials[activeIndex];
+    const activeHeatmapCell = model.heatmapCells[activeIndex];
     const firstPoint = model.series[0]?.points[activeIndex];
 
     if (this.isCircularChart() && activeSlice) {
@@ -442,6 +496,23 @@ export class FrChart implements AfterViewInit {
             color: activeRadial.color,
             label: activeRadial.label,
             value: activeRadial.value,
+          },
+        ],
+      };
+    }
+
+    if (this.isHeatmapChart() && activeHeatmapCell) {
+      const heatmapSeries = this.resolveSeries(this.inputSeries(this.data()))[0];
+
+      return {
+        xPercent: activeHeatmapCell.xPercent,
+        yPercent: activeHeatmapCell.yPercent,
+        label: activeHeatmapCell.label,
+        values: [
+          {
+            color: activeHeatmapCell.color,
+            label: heatmapSeries?.label ?? 'Value',
+            value: activeHeatmapCell.value,
           },
         ],
       };
@@ -508,6 +579,11 @@ export class FrChart implements AfterViewInit {
       return;
     }
 
+    if (this.isHeatmapChart()) {
+      this.activeIndex.set(this.heatmapIndexFromPointer(event, rect));
+      return;
+    }
+
     const count = this.data().length;
     const model = this.model();
     const pointerX = ((event.clientX - rect.left) / rect.width) * this.viewBoxWidth();
@@ -522,6 +598,23 @@ export class FrChart implements AfterViewInit {
   protected clearActiveIndex(): void {
     this.activeIndex.set(null);
     this.pointerTooltipPosition.set(null);
+  }
+
+  protected handleChartClick(event: PointerEvent): void {
+    const element = event.currentTarget as SVGSVGElement;
+    const rect = element.getBoundingClientRect();
+
+    if (!rect.width) {
+      return;
+    }
+
+    const index = this.indexFromPointerEvent(event, rect);
+    const clickEvent = index === null ? null : this.chartClickEventForIndex(index);
+
+    if (clickEvent) {
+      this.activeIndex.set(index);
+      this.chartClick.emit(clickEvent);
+    }
   }
 
   protected formatValue(value: number): string {
@@ -567,6 +660,22 @@ export class FrChart implements AfterViewInit {
     return this.type() === 'pie' || this.type() === 'donut';
   }
 
+  protected isHeatmapChart(): boolean {
+    return this.type() === 'calendar-heatmap' || this.type() === 'heatmap';
+  }
+
+  protected isCalendarHeatmapChart(): boolean {
+    return this.type() === 'calendar-heatmap';
+  }
+
+  protected heatmapLegendSteps(): readonly string[] {
+    const color = this.resolveSeries(this.inputSeries(this.data()))[0]?.color ?? chartColor(0);
+
+    return [20, 40, 60, 80, 100].map(
+      (strength) => `color-mix(in srgb, ${color} ${strength}%, var(--frame-chart-heatmap-empty-bg))`,
+    );
+  }
+
   protected toggleSeries(key: string): void {
     const hiddenKeys = new Set(this.hiddenSeriesKeys());
 
@@ -581,7 +690,7 @@ export class FrChart implements AfterViewInit {
 
   private buildModel(): FrChartModel {
     const data = this.data();
-    const series = this.resolveSeries(this.series().length ? this.series() : inferChartSeries(data, this.xKey()));
+    const series = this.resolveSeries(this.inputSeries(data));
     const visibleSeries = series.filter((item) => !item.hidden);
     const values = this.valuesForDomain(data, visibleSeries);
     const hasVisibleBars = visibleSeries.some((item) => item.type === 'bar');
@@ -652,6 +761,32 @@ export class FrChart implements AfterViewInit {
       viewBoxWidth: this.viewBoxWidth(),
       xKey: this.xKey(),
     });
+    const heatmap = this.isCalendarHeatmapChart()
+      ? buildCalendarHeatmap({
+          data,
+          plotHeight,
+          plotWidth,
+          plotX,
+          plotY,
+          series: visibleSeries,
+          viewBoxHeight: this.viewBoxHeight(),
+          viewBoxWidth: this.viewBoxWidth(),
+          xKey: this.xKey(),
+        })
+      : this.type() === 'heatmap'
+        ? buildHeatmap({
+            data,
+            plotHeight,
+            plotWidth,
+            plotX,
+            plotY,
+            series: visibleSeries,
+            viewBoxHeight: this.viewBoxHeight(),
+            viewBoxWidth: this.viewBoxWidth(),
+            xKey: this.xKey(),
+            yKey: this.yKey(),
+          })
+        : emptyHeatmapModel();
 
     return {
       plotX,
@@ -676,6 +811,9 @@ export class FrChart implements AfterViewInit {
       }),
       slices,
       radials,
+      heatmapCells: heatmap.cells,
+      heatmapColumnTicks: heatmap.columnTicks,
+      heatmapRowTicks: heatmap.rowTicks,
       legendItems:
         this.isCircularChart()
           ? slices.map((slice) => ({
@@ -689,6 +827,12 @@ export class FrChart implements AfterViewInit {
                 label: radial.label,
                 color: radial.color,
               }))
+          : this.isHeatmapChart()
+            ? visibleSeries.slice(0, 1).map((item) => ({
+                key: item.key,
+                label: item.label,
+                color: item.color,
+              }))
           : series.map((item) => ({
               key: item.key,
               label: item.label,
@@ -696,10 +840,14 @@ export class FrChart implements AfterViewInit {
               hidden: item.hidden,
               type: item.type,
             })),
-      xTicks: this.isHorizontalBarChart()
+      xTicks: this.isHeatmapChart()
+        ? []
+        : this.isHorizontalBarChart()
         ? buildValueTicks(minValue, maxValue, xForValue, (value) => this.formatValue(value), 'x')
         : buildXTicks(data, this.xKey(), xForIndex),
-      yTicks: this.isHorizontalBarChart()
+      yTicks: this.isHeatmapChart()
+        ? []
+        : this.isHorizontalBarChart()
         ? buildCategoryTicks(data, this.xKey(), yForIndex)
         : buildYTicks(minValue, maxValue, yForValue, (value) => this.formatValue(value)),
     };
@@ -820,6 +968,135 @@ export class FrChart implements AfterViewInit {
     const centerY = model.plotY + model.plotHeight / 2;
 
     return radialIndexFromPoint(model.radials, pointer.x, pointer.y, centerX, centerY);
+  }
+
+  private inputSeries(data: readonly FrChartDatum[]): readonly FrChartSeries[] {
+    const series = this.series();
+
+    if (series.length) {
+      return series;
+    }
+
+    return inferChartSeries(data, this.xKey(), this.yKey() ? [this.yKey() as string] : []);
+  }
+
+  private heatmapIndexFromPointer(event: PointerEvent, rect: DOMRect): number | null {
+    const model = this.model();
+
+    if (!model.heatmapCells.length) {
+      return null;
+    }
+
+    const pointer = svgPointFromPointer(event, rect, this.viewBoxWidth(), this.viewBoxHeight());
+
+    return heatmapIndexFromPoint(model.heatmapCells, pointer.x, pointer.y);
+  }
+
+  private indexFromPointerEvent(event: PointerEvent, rect: DOMRect): number | null {
+    if (this.isCircularChart()) {
+      return this.pieIndexFromPointer(event, rect);
+    }
+
+    if (this.type() === 'radial') {
+      return this.radialIndexFromPointer(event, rect);
+    }
+
+    if (this.isHeatmapChart()) {
+      return this.heatmapIndexFromPointer(event, rect);
+    }
+
+    const count = this.data().length;
+
+    if (!count) {
+      return null;
+    }
+
+    const model = this.model();
+    const pointerX = ((event.clientX - rect.left) / rect.width) * this.viewBoxWidth();
+    const pointerY = ((event.clientY - rect.top) / rect.height) * this.viewBoxHeight();
+    const relative = this.isHorizontalBarChart()
+      ? clampNumber((pointerY - model.plotY) / model.plotHeight, 0, 1)
+      : clampNumber((pointerX - model.plotX) / model.plotWidth, 0, 1);
+
+    return count <= 1 ? 0 : Math.round(relative * (count - 1));
+  }
+
+  private chartClickEventForIndex(index: number): FrChartClickEvent | null {
+    const model = this.model();
+    const datum = this.data()[index];
+    const activeSlice = model.slices[index];
+    const activeRadial = model.radials[index];
+    const activeHeatmapCell = model.heatmapCells[index];
+
+    if (this.isCircularChart() && activeSlice) {
+      return {
+        datum,
+        index,
+        label: activeSlice.label,
+        type: this.type(),
+        values: [
+          {
+            color: activeSlice.color,
+            key: activeSlice.key,
+            label: activeSlice.label,
+            value: activeSlice.value,
+          },
+        ],
+      };
+    }
+
+    if (this.type() === 'radial' && activeRadial) {
+      return {
+        datum,
+        index,
+        label: activeRadial.label,
+        type: this.type(),
+        values: [
+          {
+            color: activeRadial.color,
+            key: activeRadial.key,
+            label: activeRadial.label,
+            value: activeRadial.value,
+          },
+        ],
+      };
+    }
+
+    if (this.isHeatmapChart() && activeHeatmapCell) {
+      const heatmapSeries = this.resolveSeries(this.inputSeries(this.data()))[0];
+
+      return {
+        datum,
+        index,
+        label: activeHeatmapCell.label,
+        type: this.type(),
+        values: [
+          {
+            color: activeHeatmapCell.color,
+            key: heatmapSeries?.key ?? 'value',
+            label: heatmapSeries?.label ?? 'Value',
+            value: activeHeatmapCell.value,
+          },
+        ],
+      };
+    }
+
+    if (!datum) {
+      return null;
+    }
+
+    return {
+      datum,
+      index,
+      label: formatChartLabel(datum[this.xKey()] ?? index + 1),
+      type: this.type(),
+      values: model.series.map((series) => ({
+        color: series.color,
+        key: series.key,
+        label: series.label,
+        value: series.points[index]?.value ?? 0,
+      })),
+    };
   }
 
   private tooltipPositionFromPointer(event: PointerEvent, rect: DOMRect): { xPercent: number; yPercent: number } {

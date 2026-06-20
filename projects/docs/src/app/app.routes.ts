@@ -55,6 +55,11 @@ export const routes: Routes = [
           import('./pages/charts/pages/sparkline-chart.page').then((m) => m.SparklineChartPageComponent),
       },
       {
+        path: 'heatmap',
+        loadComponent: () =>
+          import('./pages/charts/pages/heatmap-chart.page').then((m) => m.HeatmapChartPageComponent),
+      },
+      {
         path: 'radial',
         loadComponent: () =>
           import('./pages/charts/pages/radial-chart.page').then((m) => m.RadialChartPageComponent),

@@ -324,6 +324,85 @@ export class RadialChartZeroValuesHost {
   imports: [FrChart],
   template: `
     <frame-chart
+      type="calendar-heatmap"
+      xKey="date"
+      aria-label="Daily activity"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class CalendarHeatmapChartHost {
+  readonly data = [
+    { date: '2026-06-01', commits: 2 },
+    { date: '2026-06-02', commits: 6 },
+    { date: '2026-06-05', commits: 10 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'commits', label: 'Commits' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="calendar-heatmap"
+      xKey="date"
+      aria-label="Empty activity"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class CalendarHeatmapEmptyHost {
+  readonly data: { date: string; commits: number }[] = [];
+  readonly series: FrChartSeries[] = [{ key: 'commits', label: 'Commits' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="heatmap"
+      xKey="hour"
+      yKey="day"
+      aria-label="Support load"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class HeatmapChartHost {
+  readonly data = [
+    { day: 'Mon', hour: '09:00', requests: 12 },
+    { day: 'Mon', hour: '12:00', requests: 22 },
+    { day: 'Tue', hour: '09:00', requests: 7 },
+    { day: 'Tue', hour: '12:00', requests: 18 },
+  ];
+  readonly series: FrChartSeries[] = [{ key: 'requests', label: 'Requests' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
+      type="heatmap"
+      xKey="hour"
+      yKey="day"
+      aria-label="Empty support load"
+      [data]="data"
+      [series]="series"
+    />
+  `,
+})
+export class HeatmapEmptyHost {
+  readonly data: { day: string; hour: string; requests: number }[] = [];
+  readonly series: FrChartSeries[] = [{ key: 'requests', label: 'Requests' }];
+}
+
+@Component({
+  imports: [FrChart],
+  template: `
+    <frame-chart
       type="area-sparkline"
       xKey="day"
       aria-label="Weekly visitors"

@@ -6,6 +6,8 @@ export type FrChartType =
   | 'column-sparkline'
   | 'composed'
   | 'donut'
+  | 'calendar-heatmap'
+  | 'heatmap'
   | 'line'
   | 'line-sparkline'
   | 'pie'
@@ -84,6 +86,26 @@ export interface FrChartRadialSegmentModel {
   readonly yPercent: number;
 }
 
+export interface FrChartHeatmapCellModel {
+  readonly key: string;
+  readonly label: string;
+  readonly color: string;
+  readonly order: number;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly value: number;
+  readonly xPercent: number;
+  readonly yPercent: number;
+}
+
+export interface FrChartHeatmapTick {
+  readonly label: string;
+  readonly x?: number;
+  readonly y?: number;
+}
+
 export interface FrChartLegendItem {
   readonly key: string;
   readonly label: string;
@@ -110,6 +132,9 @@ export interface FrChartModel {
   readonly bars: readonly FrChartBarModel[];
   readonly slices: readonly FrChartPieSliceModel[];
   readonly radials: readonly FrChartRadialSegmentModel[];
+  readonly heatmapCells: readonly FrChartHeatmapCellModel[];
+  readonly heatmapColumnTicks: readonly FrChartHeatmapTick[];
+  readonly heatmapRowTicks: readonly FrChartHeatmapTick[];
   readonly legendItems: readonly FrChartLegendItem[];
   readonly xTicks: readonly FrChartTick[];
   readonly yTicks: readonly FrChartTick[];
@@ -121,6 +146,19 @@ export interface FrChartTooltip {
   readonly label: string;
   readonly values: readonly {
     readonly color: string;
+    readonly label: string;
+    readonly value: number;
+  }[];
+}
+
+export interface FrChartClickEvent {
+  readonly datum?: FrChartDatum;
+  readonly index: number;
+  readonly label: string;
+  readonly type: FrChartType;
+  readonly values: readonly {
+    readonly color: string;
+    readonly key: string;
     readonly label: string;
     readonly value: number;
   }[];

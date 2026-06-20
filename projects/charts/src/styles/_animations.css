@@ -20,14 +20,34 @@
     stroke-dashoffset: 0;
   }
 
+  .frame-chart__heatmap-cell {
+    animation: frame-chart-heatmap-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(min(var(--frame-chart-heatmap-order, 0), 40) * 12ms);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
   .frame-chart__line,
   .frame-chart__area,
   .frame-chart__bar,
+  .frame-chart__heatmap-cell,
   .frame-chart__radial-segment {
     transition:
       opacity 160ms ease,
       fill 160ms ease,
       stroke 160ms ease;
+  }
+}
+
+@keyframes frame-chart-heatmap-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

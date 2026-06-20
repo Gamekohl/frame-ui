@@ -80,6 +80,7 @@ import type { ChartCategoryId } from './chart-examples.data';
               [barOrientation]="featured.barOrientation ?? 'vertical'"
               [curve]="featured.curve ?? 'smooth'"
               [xKey]="featured.xKey ?? 'month'"
+              [yKey]="featured.yKey ?? null"
               [data]="featured.data"
               [series]="featured.series"
               [legendToggle]="featured.legendToggle ?? false"
@@ -128,6 +129,7 @@ import type { ChartCategoryId } from './chart-examples.data';
                     [barOrientation]="example.barOrientation ?? 'vertical'"
                     [curve]="example.curve ?? 'smooth'"
                     [xKey]="example.xKey ?? 'month'"
+                    [yKey]="example.yKey ?? null"
                     [data]="example.data"
                     [series]="example.series"
                     [legendToggle]="example.legendToggle ?? false"
@@ -143,6 +145,7 @@ import type { ChartCategoryId } from './chart-examples.data';
                   [barOrientation]="example.barOrientation ?? 'vertical'"
                   [curve]="example.curve ?? 'smooth'"
                   [xKey]="example.xKey ?? 'month'"
+                  [yKey]="example.yKey ?? null"
                   [data]="example.data"
                   [series]="example.series"
                   [legendToggle]="example.legendToggle ?? false"
@@ -349,6 +352,7 @@ export class ChartExamplesComponent {
       barOrientation: example.barOrientation ?? 'vertical',
       curve: example.curve ?? 'smooth',
       xKey: example.xKey ?? 'month',
+      yKey: example.yKey ?? null,
       data: example.data,
       series: example.series,
       legendToggle: example.legendToggle ?? false,
