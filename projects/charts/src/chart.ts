@@ -33,10 +33,14 @@ import {
 import { chartColor } from './chart-colors';
 import { formatChartLabel, inferChartSeries, toChartLabel } from './chart-format';
 import { svgPointFromPointer } from './chart-geometry';
+import { FrCartesianChartRenderer } from './renderer/cartesian-chart-renderer';
 import { buildCalendarHeatmap } from './calendar-heatmap-chart';
+import { FrCircularChartRenderer } from './renderer/circular-chart-renderer';
 import { buildPieSlices, donutInnerRadius, pieIndexFromPoint, pieRadius } from './pie-chart';
 import { buildRadialSegments, radialIndexFromPoint } from './radial-chart';
+import { FrRadialChartRenderer } from './renderer/radial-chart-renderer';
 import { buildHeatmap, emptyHeatmapModel, heatmapIndexFromPoint } from './heatmap-chart';
+import { FrHeatmapChartRenderer } from './renderer/heatmap-chart-renderer';
 import {
   FrChartCurve,
   FrChartBarLayout,
@@ -74,6 +78,12 @@ type ResolvedChartSeries = FrChartSeries & {
 @Component({
   selector: 'frame-chart, [frChart]',
   exportAs: 'frChart',
+  imports: [
+    FrCartesianChartRenderer,
+    FrCircularChartRenderer,
+    FrHeatmapChartRenderer,
+    FrRadialChartRenderer,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'frame-chart',
@@ -101,238 +111,41 @@ type ResolvedChartSeries = FrChartSeries & {
             [attr.y]="model().plotY"
             [attr.width]="model().plotWidth"
             [attr.height]="model().plotHeight"
-          />
+          ></rect>
         </clipPath>
       </defs>
 
-      @if (showGrid() && !isSparklineChart() && isHorizontalBarChart()) {
-        <g class="frame-chart__grid" aria-hidden="true">
-          @for (tick of model().xTicks; track tick.label) {
-            <line [attr.x1]="tick.x" [attr.x2]="tick.x" [attr.y1]="model().plotY" [attr.y2]="model().plotY + model().plotHeight" />
-          }
-        </g>
-      } @else if (showGrid() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
-        <g class="frame-chart__grid" aria-hidden="true">
-          @for (tick of model().yTicks; track tick.label) {
-            <line [attr.x1]="model().plotX" [attr.x2]="model().plotX + model().plotWidth" [attr.y1]="tick.y" [attr.y2]="tick.y" />
-          }
-        </g>
-      }
-
-      @if (model().showZeroBaseline && !isSparklineChart() && isHorizontalBarChart()) {
-        <line
-          class="frame-chart__zero-line"
-          [attr.x1]="model().baselineX"
-          [attr.x2]="model().baselineX"
-          [attr.y1]="model().plotY"
-          [attr.y2]="model().plotY + model().plotHeight"
-          aria-hidden="true"
-        />
-      } @else if (model().showZeroBaseline && isSparklineChart() && !isHorizontalBarChart()) {
-        <line
-          class="frame-chart__zero-line frame-chart__sparkline-zero-line"
-          [attr.x1]="model().plotX"
-          [attr.x2]="model().plotX + model().plotWidth"
-          [attr.y1]="model().baselineY"
-          [attr.y2]="model().baselineY"
-          aria-hidden="true"
-        />
-      } @else if (model().showZeroBaseline && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
-        <line
-          class="frame-chart__zero-line"
-          [attr.x1]="model().plotX"
-          [attr.x2]="model().plotX + model().plotWidth"
-          [attr.y1]="model().baselineY"
-          [attr.y2]="model().baselineY"
-          aria-hidden="true"
-        />
-      }
-
-      @if (showYAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
-        <g class="frame-chart__axis frame-chart__axis--y" aria-hidden="true">
-          @for (tick of model().yTicks; track tick.label) {
-            <text [attr.x]="model().plotX - 10" [attr.y]="tick.y" text-anchor="end" dominant-baseline="middle">
-              {{ tick.label }}
-            </text>
-          }
-        </g>
-      }
-
       @if (isCircularChart()) {
-        <g class="frame-chart__pie">
-          @for (slice of model().slices; track slice.key) {
-            <g class="frame-chart__pie-slice-frame" [style.--frame-chart-slice-order]="slice.order">
-              <path
-                class="frame-chart__pie-slice"
-                [attr.d]="slice.path"
-                [attr.fill]="slice.color"
-                [attr.aria-label]="slice.label + ': ' + formatValue(slice.value)"
-              />
-            </g>
-          }
-        </g>
+        <g frCircularChartRenderer [model]="model()" [valueFormatter]="valueFormatter()"></g>
       } @else if (type() === 'radial') {
-        <g class="frame-chart__radial">
-          @for (segment of model().radials; track segment.key) {
-            <path
-              class="frame-chart__radial-track"
-              [attr.d]="segment.trackPath"
-              [attr.stroke-width]="segment.strokeWidth"
-            />
-            <path
-              class="frame-chart__radial-segment"
-              [style.--frame-chart-radial-order]="segment.order"
-              [style.--frame-chart-radial-stroke-width]="segment.strokeWidth + 'px'"
-              [attr.d]="segment.path"
-              [attr.stroke]="segment.color"
-              [attr.stroke-width]="segment.strokeWidth"
-              pathLength="1"
-              [attr.aria-label]="segment.label + ': ' + formatValue(segment.value)"
-            />
-          }
-          @if (model().radials[0]; as firstRadial) {
-            <text
-              class="frame-chart__radial-value"
-              [attr.x]="model().plotX + model().plotWidth / 2"
-              [attr.y]="model().plotY + model().plotHeight / 2 - 4"
-              text-anchor="middle"
-            >
-              {{ formatValue(firstRadial.value) }}
-            </text>
-            <text
-              class="frame-chart__radial-label"
-              [attr.x]="model().plotX + model().plotWidth / 2"
-              [attr.y]="model().plotY + model().plotHeight / 2 + 20"
-              text-anchor="middle"
-            >
-              {{ firstRadial.label }}
-            </text>
-          }
-        </g>
+        <g frRadialChartRenderer [model]="model()" [valueFormatter]="valueFormatter()"></g>
       } @else if (isHeatmapChart()) {
-        <g class="frame-chart__heatmap" role="list">
-          @if (showXAxis()) {
-            <g class="frame-chart__heatmap-columns" aria-hidden="true">
-              @for (tick of model().heatmapColumnTicks; track tick.label + '-' + tick.x) {
-                <text [attr.x]="tick.x" [attr.y]="tick.y" text-anchor="middle">{{ tick.label }}</text>
-              }
-            </g>
-          }
-          @if (showYAxis()) {
-            <g class="frame-chart__heatmap-rows" aria-hidden="true">
-              @for (tick of model().heatmapRowTicks; track tick.label) {
-                <text [attr.x]="tick.x" [attr.y]="tick.y" text-anchor="end" dominant-baseline="middle">
-                  {{ tick.label }}
-                </text>
-              }
-            </g>
-          }
-          @for (cell of model().heatmapCells; track cell.key) {
-            <rect
-              class="frame-chart__heatmap-cell"
-              role="listitem"
-              [style.--frame-chart-heatmap-order]="cell.order"
-              [attr.data-active]="activeIndex() === cell.order ? '' : null"
-              [attr.x]="cell.x"
-              [attr.y]="cell.y"
-              [attr.width]="cell.width"
-              [attr.height]="cell.height"
-              [attr.fill]="cell.color"
-              [attr.aria-label]="cell.label + ': ' + formatValue(cell.value)"
-            />
-          }
-        </g>
-      } @else if (isBarOnlyChart()) {
-        <g class="frame-chart__bars">
-          @for (bar of model().bars; track bar.key + '-' + $index) {
-            <rect
-              class="frame-chart__bar"
-              [style.--frame-chart-bar-order]="bar.order"
-              [attr.x]="bar.x"
-              [attr.y]="bar.y"
-              [attr.width]="bar.width"
-              [attr.height]="bar.height"
-              [attr.fill]="bar.color"
-              [attr.aria-label]="bar.label + ': ' + formatValue(bar.value)"
-            />
-          }
-        </g>
+        <g
+          frHeatmapChartRenderer
+          [activeIndex]="activeIndex()"
+          [model]="model()"
+          [showXAxis]="showXAxis()"
+          [showYAxis]="showYAxis()"
+          [valueFormatter]="valueFormatter()"
+        ></g>
       } @else {
-        @if (isComposedChart()) {
-          <g class="frame-chart__bars">
-            @for (bar of model().bars; track bar.key + '-' + $index) {
-              <rect
-                class="frame-chart__bar"
-                [style.--frame-chart-bar-order]="bar.order"
-                [attr.x]="bar.x"
-                [attr.y]="bar.y"
-                [attr.width]="bar.width"
-                [attr.height]="bar.height"
-                [attr.fill]="bar.color"
-                [attr.aria-label]="bar.label + ': ' + formatValue(bar.value)"
-              />
-            }
-          </g>
-        }
-        <g class="frame-chart__series" [attr.clip-path]="'url(#' + revealClipId + ')'">
-          @for (series of model().series; track series.key) {
-            @if (series.type === 'area') {
-              @for (areaPath of series.areaPaths; track areaPath) {
-                <path class="frame-chart__area" [attr.d]="areaPath" [attr.fill]="series.color" />
-              }
-            }
-            @if (series.type === 'area' || series.type === 'line') {
-              <path class="frame-chart__line" [attr.d]="series.path" [attr.stroke]="series.color" />
-            }
-          }
-        </g>
-      }
-
-      @if (activeIndex() !== null && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHorizontalBarChart() && !isHeatmapChart()) {
-        <line
-          class="frame-chart__cursor"
-          [attr.x1]="cursorX()"
-          [attr.x2]="cursorX()"
-          [attr.y1]="model().plotY"
-          [attr.y2]="model().plotY + model().plotHeight"
-          aria-hidden="true"
-        />
-        @for (series of model().series; track series.key) {
-          @if (series.type !== 'bar' && series.points[activeIndex() ?? 0]; as point) {
-            <circle class="frame-chart__dot" [attr.cx]="point.x" [attr.cy]="point.y" r="4" [attr.fill]="series.color" />
-          }
-        }
-      }
-
-      @if (activeIndex() !== null && isSparklinePointIndicatorChart()) {
-        @for (series of model().series; track series.key) {
-          @if (series.points[activeIndex() ?? 0]; as point) {
-            <circle
-              class="frame-chart__dot frame-chart__sparkline-dot"
-              [attr.cx]="point.x"
-              [attr.cy]="point.y"
-              r="3.5"
-              [attr.fill]="series.color"
-            />
-          }
-        }
-      }
-
-      @if (showXAxis() && !isSparklineChart() && !isCircularChart() && type() !== 'radial' && !isHeatmapChart()) {
-        <g class="frame-chart__axis frame-chart__axis--x" aria-hidden="true">
-          @for (tick of model().xTicks; track tick.label) {
-            <text
-              [attr.x]="tick.x"
-              [attr.y]="model().plotY + model().plotHeight + 30"
-              text-anchor="middle"
-            >
-              {{ formatAxisLabel(tick.label) }}
-              @if (axisLabelTooltip(tick.label)) {
-                <title>{{ axisLabelTooltip(tick.label) }}</title>
-              }
-            </text>
-          }
-        </g>
+        <g
+          frCartesianChartRenderer
+          [activeIndex]="activeIndex()"
+          [cursorX]="cursorX()"
+          [isBarOnly]="isBarOnlyChart()"
+          [isComposed]="isComposedChart()"
+          [isHorizontalBar]="isHorizontalBarChart()"
+          [isSparkline]="isSparklineChart()"
+          [isSparklinePointIndicator]="isSparklinePointIndicatorChart()"
+          [model]="model()"
+          [revealClipId]="revealClipId"
+          [showGrid]="showGrid()"
+          [showXAxis]="showXAxis()"
+          [showYAxis]="showYAxis()"
+          [valueFormatter]="valueFormatter()"
+          [viewBoxWidth]="viewBoxWidth()"
+        ></g>
       }
     </svg>
 
@@ -619,16 +432,6 @@ export class FrChart implements AfterViewInit {
 
   protected formatValue(value: number): string {
     return this.valueFormatter()?.(value) ?? new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(value);
-  }
-
-  protected formatAxisLabel(label: string): string {
-    const maxLength = this.viewBoxWidth() < 520 ? 10 : 16;
-
-    return label.length > maxLength ? `${label.slice(0, maxLength - 1)}…` : label;
-  }
-
-  protected axisLabelTooltip(label: string): string {
-    return this.formatAxisLabel(label) === label ? '' : label;
   }
 
   protected isHorizontalBarChart(): boolean {

@@ -13,6 +13,7 @@ describe('FrChart area chart', () => {
 
     expect(host.getAttribute('data-type')).toBe('area');
     expect(paths.length).toBe(2);
+    expect(paths[0].namespaceURI).toBe('http://www.w3.org/2000/svg');
     expect(legend.textContent).toContain('Desktop');
     expect(legend.textContent).toContain('Mobile');
   });
