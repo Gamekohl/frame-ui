@@ -1,0 +1,23 @@
+{
+  "version": "0.4.2-beta.0",
+  "label": "Component fixes",
+  "status": "Next",
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Added the --frame-calendar-width token so Calendar width can be configured through the component token contract.",
+        "Added the --frame-calendar-month-flex token to opt into fluid month layouts without making the compact Calendar default stretch in wide containers."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Calendar layout now keeps the default month grid content-sized while still allowing responsive day resizing through explicit width and flex token overrides.",
+        "Calendar Select examples now render the calendar panel at a compact fit-content size without introducing internal scrolling.",
+        "Date Picker calendar overlays now handle multi-month layouts and viewport-constrained overflow more consistently.",
+        "Modal width, height, min, and max size options now apply to the rendered modal panel as well as the overlay pane."
+      ]
+    }
+  ]
+}

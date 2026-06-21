@@ -27,7 +27,22 @@ export type CalendarPreviewConfig = {
   tokenPrefix?: string;
 };
 
+function startOfToday(): Date {
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+function addDays(date: Date, days: number): Date {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+
 @Component({
+  host: {
+    'class': 'flex justify-center items-center',
+  },
   selector: 'docs-calendar-preview',
   imports: [
     FrButtonModule,
@@ -76,7 +91,7 @@ export type CalendarPreviewConfig = {
         }
 
         @case ('date-time') {
-          <div class="grid gap-4 lg:grid-cols-[auto_13rem]">
+          <div class="flex flex-col gap-4">
             <frame-calendar [month]="june2026" [selected]="date()" (selectedChange)="date.set($any($event))" />
             <div class="grid content-start gap-4">
               <div frField>
@@ -122,7 +137,7 @@ export type CalendarPreviewConfig = {
           </button>
 
           <ng-template #calendarSelect="frSelectContent" frSelectContent position="popper" [sideOffset]="8">
-            <div frSelectPanel class="docs-calendar-select-panel">
+            <div frSelectPanel>
               <frame-calendar
                 [month]="june2026"
                 [selected]="date()"
@@ -202,13 +217,6 @@ export type CalendarPreviewConfig = {
     .docs-calendar-custom-size {
       --frame-calendar-cell-size: 3rem;
     }
-
-    .docs-calendar-select-panel {
-      padding: 0;
-      border: 0;
-      background: transparent;
-      box-shadow: none;
-    }
   `,
 })
 export class DocsCalendarPreviewComponent {
@@ -232,12 +240,14 @@ export class DocsCalendarPreviewComponent {
       : null,
   );
 
+  private readonly today = startOfToday();
+
   readonly presets = [
-    { label: 'Today', date: new Date(2026, 5, 6) },
-    { label: 'Tomorrow', date: new Date(2026, 5, 7) },
-    { label: 'In 3 days', date: new Date(2026, 5, 9) },
-    { label: 'In a week', date: new Date(2026, 5, 13) },
-    { label: 'In 2 weeks', date: new Date(2026, 5, 20) },
+    { label: 'Today', date: this.today },
+    { label: 'Tomorrow', date: addDays(this.today, 1) },
+    { label: 'In 3 days', date: addDays(this.today, 3) },
+    { label: 'In a week', date: addDays(this.today, 7) },
+    { label: 'In 2 weeks', date: addDays(this.today, 14) },
   ];
 
   readonly disabledDates = [

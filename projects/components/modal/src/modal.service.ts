@@ -5,6 +5,7 @@ import {
   DialogRef,
 } from '@angular/cdk/dialog';
 import { Injectable, TemplateRef, Type, inject } from '@angular/core';
+import { valueToCssSize } from '../../utils/src/string';
 
 import { FrModalFooterAction, FrModalShell, FrModalShellOptions } from './modal-shell';
 import { FrModalRef } from './modal.ref';
@@ -255,10 +256,6 @@ function modalPanelLayoutFromConfig<Data, Result, Component>(
   const hasLayout = Object.values(layout).some((value) => value !== undefined);
 
   return hasLayout ? layout : null;
-}
-
-function valueToCssSize(value: number | string | undefined): string | undefined {
-  return typeof value === 'number' ? `${value}px` : value;
 }
 
 function withModalProviders<Data, Result, Component>(

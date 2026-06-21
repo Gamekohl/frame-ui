@@ -15,6 +15,7 @@ import {
   FrSelectSeparator,
   FrSelectValue,
 } from '../select';
+import { FrCalendar } from '@frame-ui-ng/components/calendar';
 
 @Component({
   imports: [
@@ -94,6 +95,25 @@ class TestHostComponent {
 })
 class ReactiveFormsHostComponent {
   readonly control = new FormControl<string | null>('apple');
+}
+
+@Component({
+  imports: [FrCalendar, FrSelect, FrSelectContent, FrSelectPanel, FrSelectValue],
+  standalone: true,
+  template: `
+    <button [frSelect]="menu">
+      <frame-select-value placeholder="Pick a date"></frame-select-value>
+    </button>
+
+    <ng-template #menu="frSelectContent" frSelectContent position="popper">
+      <div frSelectPanel>
+        <frame-calendar [month]="month" />
+      </div>
+    </ng-template>
+  `,
+})
+class CalendarSelectHostComponent {
+  month = new Date(2026, 5, 1);
 }
 
 describe('FrSelect', () => {
@@ -188,6 +208,23 @@ describe('FrSelect', () => {
 
     expect(error.classList.contains('frame-select__error')).toBe(true);
     expect(error.getAttribute('aria-live')).toBe('polite');
+  });
+
+  it('supports rendering a calendar inside a select panel', async () => {
+    const fixture = TestBed.createComponent(CalendarSelectHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const trigger = fixture.debugElement.query(By.directive(FrSelect)).nativeElement as HTMLElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const panel = document.body.querySelector('.cdk-overlay-pane [frselectpanel]') as HTMLElement;
+
+    expect(panel).not.toBeNull();
+    expect(panel.querySelector('frame-calendar')).not.toBeNull();
+    expect(panel.getAttribute('data-position')).toBe('popper');
   });
 
   it('preserves debugVisible on FrSelectContent when the root select does not force it', async () => {

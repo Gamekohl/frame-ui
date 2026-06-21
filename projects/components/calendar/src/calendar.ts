@@ -66,6 +66,8 @@ const VALUE_ACCESSOR = {
     '[attr.data-mode]': 'mode()',
     '[attr.data-caption-layout]': 'captionLayout()',
     '[attr.data-disabled]': 'isDisabled() ? "" : null',
+    '[attr.data-week-number]': 'showWeekNumber() ? "" : null',
+    '[attr.data-date-labels]': 'hasDateLabels() ? "" : null',
     '[attr.dir]': 'dir()',
   },
   template: `
@@ -143,6 +145,14 @@ const VALUE_ACCESSOR = {
           }
 
           <table class="frame-calendar__table" role="grid" [attr.aria-readonly]="true">
+            <colgroup>
+              @if (showWeekNumber()) {
+                <col class="frame-calendar__week-number-column" />
+              }
+              @for (weekday of weekdayLabels(); track weekday) {
+                <col class="frame-calendar__day-column" />
+              }
+            </colgroup>
             <thead>
               <tr>
                 @if (showWeekNumber()) {
@@ -274,6 +284,7 @@ export class FrCalendar implements ControlValueAccessor {
     ),
   );
   readonly activeDate = computed(() => this.resolveActiveDate());
+  readonly hasDateLabels = computed(() => Object.keys(this.dateLabels()).length > 0);
 
   private onTouched: () => void = () => undefined;
   private onChange: (value: Date | FrCalendarDateRange | null) => void = () => undefined;
