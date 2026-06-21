@@ -1,9 +1,9 @@
 @import './_vars.css';
 
-.frame-calendar {
+:where(.frame-calendar) {
   display: inline-grid;
   gap: var(--frame-calendar-gap);
-  width: fit-content;
+  width: var(--frame-calendar-width);
   max-width: 100%;
   padding: var(--frame-calendar-padding);
   border: 1px solid var(--frame-calendar-border);
@@ -107,22 +107,26 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--frame-calendar-gap);
+  inline-size: 100%;
 }
 
 .frame-calendar__month {
+  flex: 1 1 calc(var(--frame-calendar-cell-size) * 7);
   min-width: 0;
 }
 
 .frame-calendar__table {
+  inline-size: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-block-start: 0.25rem;
+  table-layout: fixed;
 }
 
 .frame-calendar__weekday,
 .frame-calendar__week-number-header,
 .frame-calendar__week-number {
-  inline-size: var(--frame-calendar-cell-size);
+  min-inline-size: var(--frame-calendar-cell-size);
   block-size: 1.75rem;
   color: var(--frame-calendar-muted-color);
   font-size: 0.75rem;
@@ -145,8 +149,10 @@
   position: relative;
   z-index: 1;
   display: inline-flex;
-  inline-size: var(--frame-calendar-cell-size);
-  block-size: var(--frame-calendar-cell-size);
+  inline-size: 100%;
+  min-inline-size: var(--frame-calendar-cell-size);
+  min-block-size: var(--frame-calendar-cell-size);
+  aspect-ratio: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;

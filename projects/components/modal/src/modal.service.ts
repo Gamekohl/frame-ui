@@ -8,6 +8,7 @@ import { Injectable, TemplateRef, Type, inject } from '@angular/core';
 
 import { FrModalFooterAction, FrModalShell, FrModalShellOptions } from './modal-shell';
 import { FrModalRef } from './modal.ref';
+import { FR_MODAL_PANEL_LAYOUT, FrModalPanelLayout } from './modal.tokens';
 
 export type FrModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 export type FrModalConfig<Data = unknown, Result = unknown, Component = unknown> = DialogConfig<
@@ -34,6 +35,7 @@ export type FrModalConfig<Data = unknown, Result = unknown, Component = unknown>
 
 const DEFAULT_PANEL_CLASS = 'frame-modal__overlay-pane';
 const DEFAULT_BACKDROP_CLASS = 'frame-modal__backdrop';
+const DEFAULT_MAX_WIDTH = 'calc(100vw - 2rem)';
 
 /** Service for opening modal dialogs. */
 @Injectable({ providedIn: 'root' })
@@ -103,11 +105,11 @@ export class FrModalService {
       ariaModal: true,
       autoFocus: 'first-tabbable',
       restoreFocus: true,
-      maxWidth: 'calc(100vw - 2rem)',
+      maxWidth: DEFAULT_MAX_WIDTH,
       ...config,
       panelClass: mergeClassList(config.panelClass, DEFAULT_PANEL_CLASS),
       backdropClass: mergeClassList(config.backdropClass, DEFAULT_BACKDROP_CLASS),
-      providers: withModalRefProvider(config.providers),
+      providers: withModalProviders(config.providers, modalPanelLayoutFromConfig(config)),
     };
   }
 }
@@ -239,18 +241,42 @@ function mergeClassList(
   return Array.from(new Set([defaultClass, ...classes].filter(Boolean)));
 }
 
-function withModalRefProvider<Data, Result, Component>(
+function modalPanelLayoutFromConfig<Data, Result, Component>(
+  config: DialogConfig<Data, DialogRef<Result, Component>>,
+): FrModalPanelLayout | null {
+  const layout: FrModalPanelLayout = {
+    height: valueToCssSize(config.height),
+    maxHeight: valueToCssSize(config.maxHeight),
+    maxWidth: valueToCssSize(config.maxWidth ?? (config.width ? DEFAULT_MAX_WIDTH : undefined)),
+    minHeight: valueToCssSize(config.minHeight),
+    minWidth: valueToCssSize(config.minWidth),
+    width: valueToCssSize(config.width),
+  };
+  const hasLayout = Object.values(layout).some((value) => value !== undefined);
+
+  return hasLayout ? layout : null;
+}
+
+function valueToCssSize(value: number | string | undefined): string | undefined {
+  return typeof value === 'number' ? `${value}px` : value;
+}
+
+function withModalProviders<Data, Result, Component>(
   providers: DialogConfig<Data, DialogRef<Result, Component>>['providers'],
+  panelLayout: FrModalPanelLayout | null,
 ): DialogConfig<Data, DialogRef<Result, Component>>['providers'] {
-  const modalRefProvider = { provide: FrModalRef, useExisting: DialogRef };
+  const defaultProviders = [
+    { provide: FrModalRef, useExisting: DialogRef },
+    ...(panelLayout ? [{ provide: FR_MODAL_PANEL_LAYOUT, useValue: panelLayout }] : []),
+  ];
 
   if (typeof providers === 'function') {
     return (dialogRef, config, container) => [
-      modalRefProvider,
+      ...defaultProviders,
       ...providers(dialogRef, config, container),
     ];
   }
 
-  return [modalRefProvider, ...(providers ?? [])];
+  return [...defaultProviders, ...(providers ?? [])];
 }
 
