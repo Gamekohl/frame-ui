@@ -107,6 +107,13 @@ class ProgrammaticContentComponent {
 @Component({
   imports: [FrModalPanel],
   standalone: true,
+  template: `<div frModalPanel class="w-full max-w-2xl">Wide modal</div>`,
+})
+class ProgrammaticWideContentComponent {}
+
+@Component({
+  imports: [FrModalPanel],
+  standalone: true,
   template: `
     <frame-modal-panel>
       {{ data.message }}
@@ -262,6 +269,22 @@ describe('FrModal', () => {
     await new Promise((resolve) => setTimeout(resolve));
 
     expect(closedResults).toEqual(['done']);
+  });
+
+  it('applies configured dimensions to the modal panel, not only the overlay pane', async () => {
+    const modal = TestBed.inject(FrModalService);
+
+    const modalRef = modal.open(ProgrammaticWideContentComponent, undefined, {
+      width: '60vw',
+    });
+    modalRef.componentRef?.changeDetectorRef.detectChanges();
+
+    const overlayPane = document.body.querySelector('.frame-modal__overlay-pane') as HTMLElement;
+    const panel = document.body.querySelector('.frame-modal__panel') as HTMLElement;
+
+    expect(overlayPane.style.width).toBe('60vw');
+    expect(panel.style.width).toBe('60vw');
+    expect(panel.style.maxWidth).toBe('calc(100vw - 2rem)');
   });
 
   it('opens template content programmatically', async () => {

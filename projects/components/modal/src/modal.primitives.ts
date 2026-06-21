@@ -1,6 +1,8 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Directive, booleanAttribute, inject, input } from '@angular/core';
 
+import { FR_MODAL_PANEL_LAYOUT } from './modal.tokens';
+
 /** Close control for modal. */
 @Directive({
   selector: '[frModalClose]',
@@ -26,6 +28,12 @@ export class FrModalClose {
     '[attr.data-scrollable]': 'scrollable() ? "" : null',
     '[attr.data-sticky-footer]': 'stickyFooter() ? "" : null',
     '[attr.data-size]': 'size()',
+    '[style.height]': 'panelLayout?.height ?? null',
+    '[style.max-height]': 'panelLayout?.maxHeight ?? null',
+    '[style.max-width]': 'panelLayout?.maxWidth ?? null',
+    '[style.min-height]': 'panelLayout?.minHeight ?? null',
+    '[style.min-width]': 'panelLayout?.minWidth ?? null',
+    '[style.width]': 'panelLayout?.width ?? null',
   },
   template: `
     <ng-content />
@@ -43,6 +51,8 @@ export class FrModalClose {
   imports: [FrModalClose],
 })
 export class FrModalPanel {
+  protected readonly panelLayout = inject(FR_MODAL_PANEL_LAYOUT, { optional: true });
+
   readonly scrollable = input(false, { transform: booleanAttribute });
   readonly showCloseButton = input(true, { transform: booleanAttribute });
   readonly size = input<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');

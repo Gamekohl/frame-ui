@@ -70,8 +70,12 @@ date = new FormControl<Date | null>(new Date());`,
             '--frame-calendar-color',
             '--frame-calendar-border',
             '--frame-calendar-radius',
+            '--frame-calendar-width',
             '--frame-calendar-padding',
             '--frame-calendar-cell-size',
+            '--frame-calendar-effective-cell-size',
+            '--frame-calendar-column-count',
+            '--frame-calendar-month-flex',
           ],
         },
         {
@@ -374,7 +378,7 @@ dateLabels = {
         'Use the select trigger and panel primitives to present a compact date-picker style calendar.',
       preview: {
         component: DocsCalendarPreviewComponent,
-        inputs: { config: { mode: 'select-trigger' } },
+        inputs: { config: { mode: 'select-trigger', className: 'inline-block' } },
       },
       code: [
         {
@@ -487,9 +491,13 @@ date: Date | null = new Date(2026, 5, 10);`,
   --frame-calendar-color: var(--frame-surface-foreground);
   --frame-calendar-border: var(--frame-border);
   --frame-calendar-radius: var(--frame-radius-lg);
+  --frame-calendar-width: fit-content;
   --frame-calendar-padding: 0.875rem;
   --frame-calendar-gap: 1rem;
   --frame-calendar-cell-size: 2.25rem;
+  --frame-calendar-effective-cell-size: var(--frame-calendar-cell-size);
+  --frame-calendar-column-count: 7;
+  --frame-calendar-month-flex: 0 0 calc(var(--frame-calendar-effective-cell-size) * var(--frame-calendar-column-count));
   --frame-calendar-cell-radius: var(--frame-radius-md);
   --frame-calendar-muted-color: var(--frame-muted-foreground);
   --frame-calendar-day-hover-bg: var(--frame-muted);

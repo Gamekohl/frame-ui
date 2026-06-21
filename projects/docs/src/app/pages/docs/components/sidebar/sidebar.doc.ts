@@ -300,7 +300,7 @@ export const SIDEBAR_DOC: ComponentDoc = {
     id: 'token-inspector',
     title: 'Token inspector',
     description:
-      'Hover the provider, sidebar, header, content, menu, active button, badge, rail, trigger, or inset to inspect the tokens used by the composed shell.',
+      'Hover the provider, sidebar, header, content, menu, active button, badge, rail, or inset to inspect the tokens used by the composed shell.',
     preview: {
       component: DocsSidebarPreviewComponent,
       containerClass: 'block',
@@ -371,13 +371,6 @@ export const SIDEBAR_DOC: ComponentDoc = {
           selector: '[data-token-target="sidebar-menu-sub"]',
           description: 'Submenus use the sidebar border and muted text to create secondary hierarchy.',
           tokens: ['--frame-sidebar-border', '--frame-sidebar-muted-color'],
-        },
-        {
-          id: 'trigger',
-          label: 'Trigger',
-          selector: '[data-token-target="sidebar-trigger"]',
-          description: 'The trigger toggles provider state and follows the sidebar surface and border tokens.',
-          tokens: ['--frame-sidebar-bg', '--frame-sidebar-border', '--frame-sidebar-color'],
         },
         {
           id: 'rail',
