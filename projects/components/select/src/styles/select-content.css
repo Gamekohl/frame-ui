@@ -17,3 +17,11 @@ frame-select-panel[data-position='item-aligned'] {
 frame-select-panel[data-position='popper'] {
   box-shadow: var(--frame-select-content-popper-shadow);
 }
+
+.frame-select__content:has(.frame-calendar),
+[frSelectPanel]:has(.frame-calendar),
+frame-select-panel:has(.frame-calendar) {
+  max-height: none;
+  max-width: calc(100vw - 1.5rem);
+  overflow: visible;
+}

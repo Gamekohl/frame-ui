@@ -11,6 +11,7 @@ import changelog020 from './entries/0.2.0-beta.0.json';
 import changelog030 from './entries/0.3.0-beta.0.json';
 import changelog040 from './entries/0.4.0-beta.0.json';
 import changelog041 from './entries/0.4.1-beta.0.json';
+import changelog042 from './entries/0.4.2-beta.0.json';
 
 type ChangelogSection = {
   readonly title: string;
@@ -31,6 +32,7 @@ type ChangelogEntry = {
 })
 export class Changelog {
   protected readonly entries: readonly ChangelogEntry[] = [
+    changelog042 as ChangelogEntry,
     changelog041 as ChangelogEntry,
     changelog040 as ChangelogEntry,
     changelog030 as ChangelogEntry,

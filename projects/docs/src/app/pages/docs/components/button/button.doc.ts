@@ -75,8 +75,8 @@ const linkConfig: ButtonPreviewConfig = {
 const iconButtonConfig: ButtonPreviewConfig = {
   items: [
     { icon: 'tablerPlus', iconButton: true, appearance: 'primary', ariaLabel: 'Add item' },
-    { icon: 'tablerArrowRight', iconButton: true, appearance: 'outline', size: 'sm', ariaLabel: 'Next step' },
-    { icon: 'tablerX', iconButton: true, appearance: 'ghost', size: 'lg', ariaLabel: 'Close dialog' },
+    { icon: 'tablerArrowRight', iconButton: true, appearance: 'outline', ariaLabel: 'Next step' },
+    { icon: 'tablerX', iconButton: true, appearance: 'ghost', ariaLabel: 'Close dialog' },
   ],
 };
 

@@ -57,6 +57,18 @@ class DropdownCalendarHostComponent {
 }
 
 @Component({
+  imports: [FrCalendar],
+  standalone: true,
+  template: `<frame-calendar [month]="month" [dateLabels]="dateLabels" />`,
+})
+class DateLabelsCalendarHostComponent {
+  month = new Date(2026, 5, 1);
+  dateLabels = {
+    '2026-06-10': '$100',
+  };
+}
+
+@Component({
   imports: [FrCalendar, ReactiveFormsModule],
   standalone: true,
   template: `<frame-calendar [formControl]="control" [month]="month" />`,
@@ -144,8 +156,23 @@ describe('FrCalendar', () => {
       from: new Date(2026, 0, 5),
       to: new Date(2026, 0, 9),
     });
+    expect(fixture.nativeElement.querySelector('frame-calendar')?.hasAttribute('data-week-number')).toBe(true);
     expect(fixture.nativeElement.querySelector('.frame-calendar__week-number')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.frame-calendar__week-number-column')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.frame-calendar__table')?.querySelectorAll('col').length).toBe(8);
     expect(fixture.nativeElement.querySelectorAll('.frame-calendar__month').length).toBe(2);
+  });
+
+  it('marks calendars with date labels for label-aware sizing', () => {
+    const fixture = TestBed.createComponent(DateLabelsCalendarHostComponent);
+    fixture.detectChanges();
+
+    const calendar = fixture.nativeElement.querySelector('frame-calendar') as HTMLElement;
+    const label = fixture.nativeElement.querySelector('.frame-calendar__day-meta') as HTMLElement;
+
+    expect(calendar.hasAttribute('data-date-labels')).toBe(true);
+    expect(fixture.nativeElement.querySelector('.frame-calendar__table')?.querySelectorAll('col').length).toBe(7);
+    expect(label.textContent?.trim()).toBe('$100');
   });
 
   it('renders month and year dropdowns', () => {

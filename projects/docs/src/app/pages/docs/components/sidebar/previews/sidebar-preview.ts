@@ -78,7 +78,7 @@ export type SidebarPreviewConfig = {
           [side]="mode() === 'right' || mode() === 'rtl' ? 'right' : 'left'"
           [variant]="variant()"
           [collapsible]="collapsible()"
-          [resizable]="mode() !== 'resize-disabled'"
+          [resizable]="mode() !== 'resize-disabled' && mode() !== 'inspector'"
           [attr.dir]="mode() === 'rtl' ? 'rtl' : null"
           data-token-target="sidebar-root"
         >
@@ -171,9 +171,11 @@ export type SidebarPreviewConfig = {
 
         <main frSidebarInset class="docs-sidebar-main" data-token-target="sidebar-inset">
           <div class="docs-sidebar-toolbar">
-            <button frSidebarTrigger type="button" aria-label="Toggle sidebar" data-token-target="sidebar-trigger">
-              <ng-icon name="tablerLayoutSidebar" size="17" />
-            </button>
+            @if (mode() !== 'inspector') {
+              <button frSidebarTrigger type="button" aria-label="Toggle sidebar" data-token-target="sidebar-trigger">
+                <ng-icon name="tablerLayoutSidebar" size="17" />
+              </button>
+            }
             @if (mode() === 'controlled') {
               <button frButton appearance="outline" type="button" (click)="controlledOpen.set(!controlledOpen())">
                 <span frButtonLabel>{{ controlledOpen() ? 'Collapse' : 'Expand' }}</span>
@@ -325,6 +327,10 @@ export class DocsSidebarPreviewComponent {
   }
 
   protected collapsible(): 'offcanvas' | 'icon' | 'none' {
+    if (this.mode() === 'inspector') {
+      return 'none';
+    }
+
     if (this.mode() === 'icon') {
       return 'icon';
     }
