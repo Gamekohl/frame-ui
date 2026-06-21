@@ -5,7 +5,7 @@ import {
   DialogRef,
 } from '@angular/cdk/dialog';
 import { Injectable, TemplateRef, Type, inject } from '@angular/core';
-import { valueToCssSize } from '../../utils/src/string';
+import { valueToCssSize } from '@frame-ui-ng/components/utils';
 
 import { FrModalFooterAction, FrModalShell, FrModalShellOptions } from './modal-shell';
 import { FrModalRef } from './modal.ref';
