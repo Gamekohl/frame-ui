@@ -46,7 +46,6 @@ export const chartCategories: readonly ChartCategory[] = [
   { id: 'donut', label: 'Donut Charts' },
   { id: 'sparkline', label: 'Sparklines' },
   { id: 'heatmap', label: 'Heatmap Charts' },
-  { id: 'radar', label: 'Radar Charts', disabled: true },
   { id: 'radial', label: 'Radial Charts' },
 ];
 
