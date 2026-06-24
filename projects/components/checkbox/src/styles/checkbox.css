@@ -91,5 +91,5 @@
 }
 
 [frCheckbox][aria-invalid='true'] {
-  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border)));
+  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border)));
 }

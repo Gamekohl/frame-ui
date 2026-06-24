@@ -29,6 +29,12 @@ export class ThemeTokens {
   --color-border: oklch(0.92 0 0);
   --color-primary: oklch(0.21 0 0);
   --color-primary-foreground: oklch(0.98 0 0);
+  --color-success: oklch(0.62 0.18 149);
+  --color-success-foreground: oklch(0.98 0 0);
+  --color-warning: oklch(0.68 0.16 65);
+  --color-warning-foreground: oklch(0.15 0 0);
+  --color-info: oklch(0.58 0.19 255);
+  --color-info-foreground: oklch(0.98 0 0);
   --color-muted: oklch(0.96 0 0);
   --color-muted-foreground: oklch(0.45 0 0);
   --color-accent: oklch(0.96 0 0);
@@ -44,6 +50,12 @@ export class ThemeTokens {
   --frame-border: var(--color-border);
   --frame-primary: var(--color-primary);
   --frame-primary-foreground: var(--color-primary-foreground);
+  --frame-success: var(--color-success);
+  --frame-success-foreground: var(--color-success-foreground);
+  --frame-warning: var(--color-warning);
+  --frame-warning-foreground: var(--color-warning-foreground);
+  --frame-info: var(--color-info);
+  --frame-info-foreground: var(--color-info-foreground);
   --frame-muted: var(--color-muted);
   --frame-muted-foreground: var(--color-muted-foreground);
   --frame-accent: var(--color-accent);

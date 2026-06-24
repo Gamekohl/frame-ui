@@ -21,6 +21,12 @@
   --frame-accent-foreground: oklch(0.205 0 0);
   --frame-destructive: oklch(55.205% 0.18114 25.384);
   --frame-destructive-foreground: oklch(100% 0.00011 271.152);
+  --frame-success: oklch(0.62 0.18 149);
+  --frame-success-foreground: oklch(0.985 0 0);
+  --frame-warning: oklch(0.68 0.16 65);
+  --frame-warning-foreground: oklch(0.145 0 0);
+  --frame-info: oklch(0.58 0.19 255);
+  --frame-info-foreground: oklch(0.985 0 0);
 
   /* Structure and focus */
   --frame-border: oklch(0.87 0.006 247);
@@ -74,6 +80,14 @@
   --frame-primary-foreground: oklch(0.205 0 0);
   --frame-accent: oklch(0.269 0 0);
   --frame-accent-foreground: oklch(0.985 0 0);
+  --frame-destructive: oklch(0.704 0.191 22.216);
+  --frame-destructive-foreground: oklch(0.985 0 0);
+  --frame-success: oklch(0.72 0.17 149);
+  --frame-success-foreground: oklch(0.145 0 0);
+  --frame-warning: oklch(0.78 0.16 75);
+  --frame-warning-foreground: oklch(0.145 0 0);
+  --frame-info: oklch(0.72 0.15 255);
+  --frame-info-foreground: oklch(0.145 0 0);
 
   /* Structure and focus */
   --frame-border: oklch(1 0 0 / 0.08);

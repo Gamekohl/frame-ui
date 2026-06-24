@@ -97,6 +97,12 @@ export const appConfig = {
   --color-border: oklch(0.92 0 0);
   --color-primary: oklch(0.21 0 0);
   --color-primary-foreground: oklch(0.98 0 0);
+  --color-success: oklch(0.62 0.18 149);
+  --color-success-foreground: oklch(0.98 0 0);
+  --color-warning: oklch(0.68 0.16 65);
+  --color-warning-foreground: oklch(0.15 0 0);
+  --color-info: oklch(0.58 0.19 255);
+  --color-info-foreground: oklch(0.98 0 0);
   --color-accent: oklch(0.96 0 0);
   --color-accent-foreground: oklch(0.15 0 0);
   --color-input: oklch(0.92 0 0);
@@ -113,6 +119,12 @@ export const appConfig = {
   --frame-border: var(--color-border);
   --frame-primary: var(--color-primary);
   --frame-primary-foreground: var(--color-primary-foreground);
+  --frame-success: var(--color-success);
+  --frame-success-foreground: var(--color-success-foreground);
+  --frame-warning: var(--color-warning);
+  --frame-warning-foreground: var(--color-warning-foreground);
+  --frame-info: var(--color-info);
+  --frame-info-foreground: var(--color-info-foreground);
   --frame-accent: var(--color-accent);
   --frame-accent-foreground: var(--color-accent-foreground);
   --frame-input: var(--color-input);
@@ -129,6 +141,12 @@ export const appConfig = {
   --color-border: oklch(1 0 0 / 0.12);
   --color-primary: oklch(0.92 0 0);
   --color-primary-foreground: oklch(0.2 0 0);
+  --color-success: oklch(0.72 0.17 149);
+  --color-success-foreground: oklch(0.15 0 0);
+  --color-warning: oklch(0.78 0.16 75);
+  --color-warning-foreground: oklch(0.15 0 0);
+  --color-info: oklch(0.72 0.15 255);
+  --color-info-foreground: oklch(0.15 0 0);
   --color-accent: oklch(0.27 0 0);
   --color-accent-foreground: oklch(0.98 0 0);
   --color-input: oklch(1 0 0 / 0.15);

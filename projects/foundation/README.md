@@ -29,6 +29,14 @@ The foundation token contract is intentionally semantic and small.
 - `--frame-primary-foreground`: readable text on `primary`
 - `--frame-accent`: secondary emphasis or selection highlight
 - `--frame-accent-foreground`: readable text on `accent`
+- `--frame-destructive`: destructive or error emphasis
+- `--frame-destructive-foreground`: readable text on `destructive`
+- `--frame-success`: success emphasis
+- `--frame-success-foreground`: readable text on `success`
+- `--frame-warning`: warning emphasis
+- `--frame-warning-foreground`: readable text on `warning`
+- `--frame-info`: informational emphasis
+- `--frame-info-foreground`: readable text on `info`
 - `--frame-border`: default border color
 - `--frame-input`: input field chrome
 - `--frame-ring`: focus ring color

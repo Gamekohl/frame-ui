@@ -12,7 +12,7 @@
     --frame-checkbox-root-ring-color: var(--frame-ring);
     --frame-checkbox-root-focus-shadow: none;
     --frame-checkbox-root-disabled-opacity: 0.55;
-    --frame-checkbox-root-invalid-border: color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border));
+    --frame-checkbox-root-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
     --frame-checkbox-indicator-size: 0.5rem;
     --frame-checkbox-indeterminate-width: 0.5rem;
     --frame-checkbox-indeterminate-height: 0.125rem;
