@@ -136,7 +136,7 @@ const customStylingConfig: AccordionPreviewConfig = {
   border: true,
   className: 'docs-accordion-preview',
   style: `--frame-accordion-item-border: color-mix(in srgb, var(--frame-primary) 18%, transparent);
---frame-accordion-item-radius: 0;
+--frame-accordion-item-radius: var(--frame-radius-md);
 --frame-accordion-trigger-min-height: 3.5rem;
 --frame-accordion-trigger-padding-x: 1rem;
 --frame-accordion-trigger-color: red;
@@ -458,8 +458,9 @@ ${customStylingConfig.style}
   tokensDescription:
     'Use these CSS custom properties to tune spacing, typography, borders, motion, and icon behavior without changing the component markup. Override them globally for system-wide defaults or locally on a wrapper class for one-off variants.',
   tokens: `
+  --frame-accordion-radius: var(--frame-radius-md);
   --frame-accordion-item-border: var(--frame-border);
-  --frame-accordion-item-radius: 0;
+  --frame-accordion-item-radius: var(--frame-radius-md);
   --frame-accordion-item-padding-x: 0;
   --frame-accordion-trigger-min-height: 3.25rem;
   --frame-accordion-trigger-padding-y: 1rem;

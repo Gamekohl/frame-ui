@@ -24,7 +24,7 @@ const avatarHtml = `<div class="profile-placeholder">
 </div>`;
 
 const cardHtml = `<section class="metric-card">
-  <div frSkeleton height="8rem" radius="0.875rem"></div>
+  <div frSkeleton height="8rem" radius="var(--frame-radius-lg)"></div>
   <div frSkeleton width="65%" height="1rem"></div>
   <div frSkeleton width="92%" height="0.875rem"></div>
   <div frSkeleton width="74%" height="0.875rem"></div>
@@ -41,15 +41,15 @@ const textHtml = `<article aria-busy="true">
 const formHtml = `<form aria-label="Loading account settings">
   <div frField>
     <label frFieldLabel>Email</label>
-    <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+    <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
   </div>
 
   <div frField>
     <label frFieldLabel>Workspace URL</label>
-    <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+    <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
   </div>
 
-  <div frSkeleton width="7rem" height="2.25rem" radius="0.625rem"></div>
+  <div frSkeleton width="7rem" height="2.25rem" radius="var(--frame-radius-md)"></div>
 </form>`;
 
 const tableHtml = `<div role="table" aria-label="Loading deployment rows">

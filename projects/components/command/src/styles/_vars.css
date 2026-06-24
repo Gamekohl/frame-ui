@@ -2,7 +2,7 @@
   --frame-command-bg: var(--frame-surface);
   --frame-command-color: var(--frame-surface-foreground);
   --frame-command-border: var(--frame-border);
-  --frame-command-radius: 0px;
+  --frame-command-radius: var(--frame-radius-lg);
   --frame-command-shadow: none;
   --frame-command-input-height: 2.875rem;
   --frame-command-input-padding-inline: 0.875rem;
@@ -21,7 +21,7 @@
   --frame-command-item-height: 2.125rem;
   --frame-command-item-gap: 0.625rem;
   --frame-command-item-padding: 0.375rem;
-  --frame-command-item-radius: 0px;
+  --frame-command-item-radius: var(--frame-radius-sm);
   --frame-command-item-font-size: 0.875rem;
   --frame-command-item-highlighted-bg: var(--frame-accent);
   --frame-command-item-highlighted-color: var(--frame-accent-foreground);

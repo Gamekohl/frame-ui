@@ -67,7 +67,7 @@ const customCss = `.storage-progress {
 
 const tokens = `--frame-progress-height: 0.5rem;
 --frame-progress-width: 100%;
---frame-progress-radius: var(--frame-radius-full);
+--frame-progress-radius: var(--frame-radius-sm);
 --frame-progress-bg: var(--frame-accent);
 --frame-progress-border: transparent;
 --frame-progress-shadow: none;

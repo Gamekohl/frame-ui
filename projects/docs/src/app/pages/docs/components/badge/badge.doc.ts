@@ -392,7 +392,7 @@ ${customStylingConfig.style}
   tokens: `
   --frame-badge-root-gap: 0.25rem;
   --frame-badge-root-min-height: 1.375rem;
-  --frame-badge-root-radius: var(--frame-radius-full);
+  --frame-badge-root-radius: var(--frame-radius-sm);
   --frame-badge-root-font-size: 0.75rem;
   --frame-badge-root-font-weight: 600;
   --frame-badge-root-bg: var(--frame-primary);

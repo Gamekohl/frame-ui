@@ -596,7 +596,7 @@ frameworkControl = new FormControl<string | null>(null, {
   --frame-combobox-separator-bg: var(--frame-border);
   --frame-combobox-chip-gap: 0.25rem;
   --frame-combobox-chip-height: 1.375rem;
-  --frame-combobox-chip-radius: var(--frame-radius-full);
+  --frame-combobox-chip-radius: var(--frame-radius-sm);
   --frame-combobox-chip-bg: var(--frame-primary);
   --frame-combobox-chip-color: var(--frame-primary-foreground);
   --frame-combobox-chip-font-size: 0.75rem;
@@ -604,7 +604,7 @@ frameworkControl = new FormControl<string | null>(null, {
   --frame-combobox-chip-padding-block: 0.1875rem;
   --frame-combobox-chip-padding-inline: 0.625rem 0.25rem;
   --frame-combobox-chip-remove-size: 1rem;
-  --frame-combobox-chip-remove-radius: var(--frame-radius-full);
+  --frame-combobox-chip-remove-radius: var(--frame-radius-sm);
   --frame-combobox-chip-remove-bg: color-mix(in srgb, currentColor 12%, transparent);
   --frame-combobox-chip-remove-hover-bg: color-mix(in srgb, currentColor 20%, transparent);
   --frame-combobox-chips-gap: 0.375rem;

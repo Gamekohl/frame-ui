@@ -75,7 +75,7 @@ const tokens = `--frame-tooltip-content-bg: var(--frame-foreground, #09090b);
 --frame-tooltip-content-font-weight: 500;
 --frame-tooltip-content-line-height: 1.35;
 --frame-tooltip-shortcut-bg: color-mix(in srgb, currentColor 14%, transparent);
---frame-tooltip-shortcut-radius: 0.25rem;
+--frame-tooltip-shortcut-radius: var(--frame-radius-sm);
 --frame-tooltip-shortcut-padding: 0.0625rem 0.3125rem;
 --frame-tooltip-shortcut-font-size: 0.75rem;
 --frame-tooltip-arrow-size: 0.5rem;

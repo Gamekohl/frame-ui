@@ -16,7 +16,7 @@
   --frame-switch-sm-width: 1.75rem;
   --frame-switch-sm-height: 1rem;
   --frame-switch-sm-thumb-size: 0.75rem;
-  --frame-switch-radius: 0px;
+  --frame-switch-radius: var(--frame-radius-sm);
   --frame-switch-bg: var(--frame-input);
   --frame-switch-hover-bg: color-mix(in srgb, var(--frame-input) 82%, var(--frame-foreground));
   --frame-switch-checked-bg: var(--frame-primary);

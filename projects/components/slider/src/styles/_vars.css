@@ -13,5 +13,5 @@
   --frame-slider-thumb-shadow: none;
   --frame-slider-thumb-focus-shadow: none;
   --frame-slider-disabled-opacity: 0.5;
-  --frame-slider-radius: 0px;
+  --frame-slider-radius: var(--frame-radius-sm);
 }

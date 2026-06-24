@@ -460,7 +460,7 @@ export const NAVIGATION_MENU_DOC: ComponentDoc = {
   --frame-navigation-menu-trigger-height: 2.25rem;
   --frame-navigation-menu-trigger-padding-x: 0.875rem;
   --frame-navigation-menu-trigger-gap: 0.375rem;
-  --frame-navigation-menu-trigger-radius: calc(var(--frame-navigation-menu-radius) - 0.125rem);
+  --frame-navigation-menu-trigger-radius: var(--frame-radius-sm);
   --frame-navigation-menu-trigger-font-size: 0.875rem;
   --frame-navigation-menu-trigger-font-weight: 500;
   --frame-navigation-menu-trigger-bg: transparent;

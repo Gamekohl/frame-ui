@@ -572,10 +572,10 @@ export const DRAG_DROP_DOC: ComponentDoc = {
           config: {
             mode: 'reorder',
             style: `--frame-drop-list-padding: 0.375rem;
---frame-drop-list-radius: 0;
+--frame-drop-list-radius: var(--frame-radius-lg);
 --frame-drop-list-hover-border: var(--frame-primary);
 --frame-drag-padding: 0.75rem;
---frame-drag-radius: 0;
+--frame-drag-radius: var(--frame-radius-md);
 --frame-drag-shadow: none;`,
           },
         },
@@ -585,10 +585,10 @@ export const DRAG_DROP_DOC: ComponentDoc = {
           language: 'css',
           code: `.compact-board {
   --frame-drop-list-padding: 0.375rem;
-  --frame-drop-list-radius: 0;
+  --frame-drop-list-radius: var(--frame-radius-lg);
   --frame-drop-list-hover-border: var(--frame-primary);
   --frame-drag-padding: 0.75rem;
-  --frame-drag-radius: 0;
+  --frame-drag-radius: var(--frame-radius-md);
   --frame-drag-shadow: none;
 }`,
         },

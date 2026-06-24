@@ -19,7 +19,7 @@ class SkeletonHost {
   readonly animated = signal(true);
   readonly width = signal<string | null>('8rem');
   readonly height = signal<string | null>('2rem');
-  readonly radius = signal<string | null>('999px');
+  readonly radius = signal<string | null>('var(--frame-radius-full)');
 }
 
 describe('FrSkeleton', () => {
@@ -42,7 +42,7 @@ describe('FrSkeleton', () => {
     expect(skeleton.getAttribute('data-animated')).toBe('true');
     expect(skeleton.style.getPropertyValue('--frame-skeleton-width')).toBe('8rem');
     expect(skeleton.style.getPropertyValue('--frame-skeleton-height')).toBe('2rem');
-    expect(skeleton.style.getPropertyValue('--frame-skeleton-radius')).toBe('999px');
+    expect(skeleton.style.getPropertyValue('--frame-skeleton-radius')).toBe('var(--frame-radius-full)');
   });
 
   it('can disable animation', () => {

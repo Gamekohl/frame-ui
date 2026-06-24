@@ -48,8 +48,6 @@ frame-card > img:first-child,
 frame-card > picture:first-child img {
   display: block;
   width: 100%;
-  border-start-start-radius: calc(var(--frame-card-radius) - 1px);
-  border-start-end-radius: calc(var(--frame-card-radius) - 1px);
 }
 
 [frCard] > img:first-child,
@@ -57,14 +55,6 @@ frame-card > img:first-child,
 [frCard] > picture:first-child,
 frame-card > picture:first-child {
   margin-block-start: calc(var(--frame-card-spacing, 1rem) * -1);
-}
-
-[frCard] > img:last-child,
-frame-card > img:last-child,
-[frCard] > picture:last-child img,
-frame-card > picture:last-child img {
-  border-end-start-radius: calc(var(--frame-card-radius) - 1px);
-  border-end-end-radius: calc(var(--frame-card-radius) - 1px);
 }
 
 [frCardHeader] {

@@ -2,7 +2,7 @@
   --frame-select-trigger-height: 2.5rem;
   --frame-select-trigger-min-width: 12rem;
   --frame-select-trigger-gap: 0.5rem;
-  --frame-select-trigger-radius: 0px;
+  --frame-select-trigger-radius: var(--frame-radius-md);
   --frame-select-trigger-padding-inline: 1rem;
   --frame-select-trigger-font-size: 0.875rem;
   --frame-select-trigger-font-weight: 600;
