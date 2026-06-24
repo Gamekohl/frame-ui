@@ -102,7 +102,7 @@ const tokens = `--frame-slider-width: 100%;
 --frame-slider-thumb-shadow: 0 2px 10px rgb(0 0 0 / 0.16);
 --frame-slider-thumb-focus-shadow: 0 0 0 4px color-mix(in srgb, var(--frame-ring, #18181b) 24%, transparent);
 --frame-slider-disabled-opacity: 0.5;
---frame-slider-radius: 999px;`;
+--frame-slider-radius: var(--frame-radius-full);`;
 
 export const SLIDER_DOC: ComponentDoc = {
   slug: 'slider',

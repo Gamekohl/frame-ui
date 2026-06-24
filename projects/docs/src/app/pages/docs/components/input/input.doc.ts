@@ -589,7 +589,7 @@ disabledPasswordControl = new FormControl({ value: 'password', disabled: true })
   --frame-input-file-button-transition-duration: var(--frame-input-root-transition-duration);
   --frame-input-badge-height: 1.5rem;
   --frame-input-badge-padding-inline: 0.5rem;
-  --frame-input-badge-radius: 999px;
+  --frame-input-badge-radius: var(--frame-radius-full);
   --frame-input-badge-border: color-mix(in srgb, var(--frame-primary) 24%, transparent);
   --frame-input-badge-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-input-badge-color: var(--frame-primary);

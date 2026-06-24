@@ -5,12 +5,12 @@
 
 .frame-button {
   --frame-button-root-bg: var(--frame-primary);
-  --frame-button-root-border: color-mix(in srgb, var(--frame-primary) 84%, white);
+  --frame-button-root-border: color-mix(in srgb, var(--frame-primary) 84%, var(--frame-primary-foreground));
   --frame-button-root-color: var(--frame-primary-foreground);
-  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, black);
+  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-button-root-hover-border: var(--frame-button-root-border);
   --frame-button-root-hover-color: var(--frame-button-root-color);
-  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, black);
+  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, var(--frame-foreground));
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
   --frame-button-root-corner-color: color-mix(in srgb, var(--frame-primary-foreground) 88%, transparent);
@@ -102,7 +102,7 @@
   inline-size: var(--frame-spinner-size);
   block-size: var(--frame-spinner-size);
   border: var(--frame-spinner-stroke) solid var(--frame-spinner-track-color);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   border-top-color: var(--frame-spinner-indicator-color);
   opacity: 0;
   pointer-events: none;

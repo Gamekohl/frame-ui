@@ -4,14 +4,14 @@
   --frame-slider-vertical-width: 1.25rem;
   --frame-slider-vertical-height: 12rem;
   --frame-slider-track-size: 0.5rem;
-  --frame-slider-track-bg: var(--frame-muted, #f4f4f5);
-  --frame-slider-range-bg: var(--frame-primary, #18181b);
+  --frame-slider-track-bg: var(--frame-muted);
+  --frame-slider-range-bg: var(--frame-primary);
   --frame-slider-thumb-size: 1.25rem;
-  --frame-slider-thumb-bg: var(--frame-background, #fff);
-  --frame-slider-thumb-border: var(--frame-primary, #18181b);
+  --frame-slider-thumb-bg: var(--frame-background);
+  --frame-slider-thumb-border: var(--frame-primary);
   --frame-slider-thumb-border-width: 2px;
   --frame-slider-thumb-shadow: none;
   --frame-slider-thumb-focus-shadow: none;
   --frame-slider-disabled-opacity: 0.5;
-  --frame-slider-radius: 0;
+  --frame-slider-radius: 0px;
 }

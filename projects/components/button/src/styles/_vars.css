@@ -14,7 +14,7 @@
     --frame-button-root-disabled-shadow: none;
     --frame-button-loading-size: 1rem;
     --frame-button-loading-stroke: 2px;
-    --frame-button-loading-track: color-mix(in srgb, white 24%, transparent);
+    --frame-button-loading-track: color-mix(in srgb, currentColor 24%, transparent);
     --frame-button-icon-size: 1rem;
     --frame-button-label-weight: inherit;
 }

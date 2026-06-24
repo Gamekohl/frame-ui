@@ -417,7 +417,7 @@ body {
 }
 
 :where([frAvatar], frame-avatar, [frSpinner], frame-spinner, .frame-slider__thumb) {
-  border-radius: 999px !important;
+  border-radius: var(--frame-radius-full) !important;
 }
 
 :where(main h1, main h2, main h3) {

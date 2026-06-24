@@ -107,7 +107,7 @@ frame-tabs-list[data-variant='line'] frame-tabs-trigger::after {
   inset-inline: 0;
   inset-block-end: -1px;
   height: 2px;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-tabs-line-active-color);
   content: '';
   opacity: 0;

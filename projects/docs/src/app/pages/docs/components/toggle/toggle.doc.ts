@@ -93,7 +93,7 @@ const rtlHtml = `<div dir="rtl" lang="ar">
 const tokens = `--frame-toggle-height: 2.25rem;
 --frame-toggle-padding-x: 0.75rem;
 --frame-toggle-gap: 0.5rem;
---frame-toggle-radius: var(--frame-radius-md, 0.5rem);
+--frame-toggle-radius: var(--frame-radius-md);
 --frame-toggle-font-size: 0.875rem;
 --frame-toggle-font-weight: 600;
 --frame-toggle-bg: transparent;

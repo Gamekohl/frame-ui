@@ -216,7 +216,7 @@ export type HoverCardPreviewConfig = {
 
     .docs-hover-card-badge {
       width: max-content;
-      border-radius: 999px;
+      border-radius: var(--frame-radius-full);
       background: color-mix(in srgb, var(--frame-primary) 12%, transparent);
       color: var(--frame-primary);
       font-size: 0.75rem;

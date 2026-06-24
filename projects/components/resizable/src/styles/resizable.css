@@ -89,7 +89,7 @@ frame-resizable-handle::after {
   display: block;
   inline-size: var(--frame-resizable-handle-indicator-thickness);
   block-size: var(--frame-resizable-handle-indicator-size);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-resizable-handle-indicator-bg);
   opacity: 0;
   transition:

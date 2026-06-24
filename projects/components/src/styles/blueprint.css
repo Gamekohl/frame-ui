@@ -3,69 +3,6 @@
  * Loaded after component styles to give the library its technical frame language.
  */
 
-:root {
-  --frame-alert-root-radius: 0px;
-  --frame-breadcrumb-ellipsis-radius: 0px;
-  --frame-breadcrumb-link-radius: 0px;
-  --frame-button-root-radius: 0px;
-  --frame-calendar-radius: 0px;
-  --frame-calendar-cell-radius: 0px;
-  --frame-calendar-nav-radius: 0px;
-  --frame-calendar-select-radius: 0px;
-  --frame-card-radius: 0px;
-  --frame-carousel-viewport-radius: 0px;
-  --frame-checkbox-root-radius: 0px;
-  --frame-combobox-clear-radius: 0px;
-  --frame-combobox-control-radius: 0px;
-  --frame-combobox-item-radius: 0px;
-  --frame-combobox-panel-radius: 0px;
-  --frame-command-item-radius: 0px;
-  --frame-command-radius: 0px;
-  --frame-date-picker-content-radius: 0px;
-  --frame-date-picker-preset-radius: 0px;
-  --frame-date-picker-time-input-radius: 0px;
-  --frame-date-picker-trigger-radius: 0px;
-  --frame-dropdown-menu-item-radius: 0px;
-  --frame-dropdown-menu-panel-radius: 0px;
-  --frame-empty-media-radius: 0px;
-  --frame-empty-radius: 0px;
-  --frame-hover-card-content-radius: 0px;
-  --frame-input-group-radius: 0px;
-  --frame-input-otp-slot-radius: 0px;
-  --frame-input-root-radius: 0px;
-  --frame-item-media-radius: 0px;
-  --frame-item-radius: 0px;
-  --frame-menubar-radius: 0px;
-  --frame-menubar-trigger-radius: 0px;
-  --frame-modal-close-radius: 0px;
-  --frame-modal-radius: 0px;
-  --frame-navigation-menu-link-radius: 0px;
-  --frame-navigation-menu-radius: 0px;
-  --frame-navigation-menu-trigger-radius: 0px;
-  --frame-navigation-menu-viewport-radius: 0px;
-  --frame-pagination-link-radius: 0px;
-  --frame-popover-close-radius: 0px;
-  --frame-popover-content-radius: 0px;
-  --frame-radio-group-card-radius: 0px;
-  --frame-resizable-radius: 0px;
-  --frame-select-trigger-radius: 0px;
-  --frame-select-content-radius: 0px;
-  --frame-sheet-close-radius: 0px;
-  --frame-sheet-radius: 0px;
-  --frame-sidebar-menu-button-radius: 0px;
-  --frame-sidebar-radius: 0px;
-  --frame-skeleton-radius: 0px;
-  --frame-table-radius: 0px;
-  --frame-tabs-list-radius: 0px;
-  --frame-tabs-trigger-radius: 0px;
-  --frame-textarea-root-radius: 0px;
-  --frame-toast-action-radius: 0px;
-  --frame-toast-radius: 0px;
-  --frame-toggle-radius: 0px;
-  --frame-tooltip-content-radius: 0px;
-  --frame-virtual-list-radius: 0px;
-}
-
 :where(
   [frAccordion],
   [frAlert],
@@ -506,7 +443,7 @@
 }
 
 [frRadioGroupItem]::before {
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
 }
 
 .frame-input-otp__separator::before {
@@ -539,7 +476,7 @@
   frame-spinner,
   .frame-slider__thumb
 ) {
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
 }
 
 :where(

@@ -238,7 +238,7 @@ export type TooltipPreviewConfig = {
     .docs-tooltip-custom-trigger {
       --frame-tooltip-content-bg: linear-gradient(135deg, #16302b, #315c4f);
       --frame-tooltip-content-color: #f6fff9;
-      --frame-tooltip-content-radius: 999px;
+      --frame-tooltip-content-radius: var(--frame-radius-full);
       --frame-tooltip-content-padding: 0.5rem 0.875rem;
       --frame-tooltip-content-shadow: 0 16px 36px rgb(22 48 43 / 0.28);
     }

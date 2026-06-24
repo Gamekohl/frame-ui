@@ -35,7 +35,7 @@
   --frame-ring: #d71920;
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 48%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 54%, transparent);
-  --frame-frame-accent: #d71920;
+  --frame-frame-accent: var(--frame-ring);
   --frame-frame-tick-size: 0.375rem;
   --frame-frame-tick-inset: 0;
 
@@ -47,10 +47,9 @@
   --frame-spacing-xl: 1.25rem;
 
   /* Shape */
-  --frame-radius-xs: 0.125rem;
-  --frame-radius-sm: 0.375rem;
-  --frame-radius-md: 0.5rem;
-  --frame-radius-lg: 0.75rem;
+  --frame-radius-sm: 0px;
+  --frame-radius-md: 0px;
+  --frame-radius-lg: 0px;
   --frame-radius-full: 9999px;
 
   /* Elevation */
@@ -96,7 +95,7 @@
   --frame-ring: #ff4a4f;
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
-  --frame-frame-accent: #ff4a4f;
+  --frame-frame-accent: var(--frame-ring);
 
   /* Elevation */
   --frame-shadow-sm: none;

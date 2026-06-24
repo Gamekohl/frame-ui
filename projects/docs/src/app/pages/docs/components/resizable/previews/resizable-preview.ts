@@ -145,7 +145,7 @@ export type ResizablePreviewConfig = {
     }
 
     .docs-resizable-eyebrow {
-      border-radius: 999px;
+      border-radius: var(--frame-radius-full);
       background: var(--frame-muted);
       padding: 0.375rem 0.75rem;
     }

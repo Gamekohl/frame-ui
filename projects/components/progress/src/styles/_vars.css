@@ -1,7 +1,7 @@
 :root {
   --frame-progress-height: 0.5rem;
   --frame-progress-width: 100%;
-  --frame-progress-radius: 0;
+  --frame-progress-radius: 0px;
   --frame-progress-bg: var(--frame-accent);
   --frame-progress-border: transparent;
   --frame-progress-shadow: none;

@@ -195,7 +195,7 @@ export type ProgressPreviewConfig = {
 
     .docs-progress-custom {
       --frame-progress-height: 0.875rem;
-      --frame-progress-radius: 999px;
+      --frame-progress-radius: var(--frame-radius-full);
       --frame-progress-bg: color-mix(in srgb, var(--frame-primary) 12%, var(--frame-muted));
       --frame-progress-border: color-mix(in srgb, var(--frame-primary) 24%, transparent);
       --frame-progress-shadow: inset 0 1px 2px rgb(0 0 0 / 0.08);

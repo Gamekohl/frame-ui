@@ -252,7 +252,7 @@ export type PopoverPreviewConfig = {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      border-radius: 999px;
+      border-radius: var(--frame-radius-full);
       background: color-mix(in srgb, var(--frame-primary) 10%, transparent);
       color: var(--frame-primary);
       font-size: 0.8125rem;

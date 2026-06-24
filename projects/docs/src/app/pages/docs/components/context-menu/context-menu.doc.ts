@@ -558,7 +558,7 @@ export const CONTEXT_MENU_DOC: ComponentDoc = {
   --frame-dropdown-menu-separator-bg: var(--frame-border);
   --frame-dropdown-menu-item-gap: 0.5rem;
   --frame-dropdown-menu-item-height: 2rem;
-  --frame-dropdown-menu-item-radius: calc(var(--frame-radius-md) - 0.125rem);
+  --frame-dropdown-menu-item-radius: var(--frame-radius-sm);
   --frame-dropdown-menu-item-padding: 0.375rem 0.5rem;
   --frame-dropdown-menu-item-font-size: 0.875rem;
   --frame-dropdown-menu-item-hover-bg: var(--frame-accent);

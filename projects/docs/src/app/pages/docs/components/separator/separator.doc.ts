@@ -82,7 +82,7 @@ const rtlHtml = `<section dir="rtl" lang="ar">
 
 const tokens = `--frame-separator-color: var(--frame-border);
 --frame-separator-thickness: 1px;
---frame-separator-radius: 999px;
+--frame-separator-radius: var(--frame-radius-full);
 --frame-separator-horizontal-width: 100%;
 --frame-separator-horizontal-margin-block: 0;
 --frame-separator-vertical-height: 100%;

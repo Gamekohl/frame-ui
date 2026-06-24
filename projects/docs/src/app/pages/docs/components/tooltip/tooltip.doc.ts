@@ -53,7 +53,7 @@ const delayHtml = `<button
 const customCss = `.branded-tooltip {
   --frame-tooltip-content-bg: linear-gradient(135deg, #16302b, #315c4f);
   --frame-tooltip-content-color: #f6fff9;
-  --frame-tooltip-content-radius: 999px;
+  --frame-tooltip-content-radius: var(--frame-radius-full);
   --frame-tooltip-content-padding: 0.5rem 0.875rem;
   --frame-tooltip-content-shadow: 0 16px 36px rgb(22 48 43 / 0.28);
 }`;
@@ -67,7 +67,7 @@ const rtlHtml = `<div dir="rtl" lang="ar">
 const tokens = `--frame-tooltip-content-bg: var(--frame-foreground, #09090b);
 --frame-tooltip-content-color: var(--frame-background, #fff);
 --frame-tooltip-content-border: transparent;
---frame-tooltip-content-radius: var(--frame-radius-md, 0.5rem);
+--frame-tooltip-content-radius: var(--frame-radius-md);
 --frame-tooltip-content-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
 --frame-tooltip-content-padding: 0.375rem 0.625rem;
 --frame-tooltip-content-max-width: 18rem;

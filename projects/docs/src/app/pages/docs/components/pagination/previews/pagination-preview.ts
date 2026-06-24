@@ -251,7 +251,7 @@ export type PaginationPreviewConfig = {
     }
 
     .docs-pagination-custom {
-      --frame-pagination-link-radius: 999px;
+      --frame-pagination-link-radius: var(--frame-radius-full);
       --frame-pagination-link-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
       --frame-pagination-link-hover-color: var(--frame-primary);
       --frame-pagination-link-active-bg: var(--frame-primary);

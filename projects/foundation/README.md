@@ -46,6 +46,10 @@ The foundation token contract is intentionally semantic and small.
 - `--frame-radius-sm`
 - `--frame-radius-md`
 - `--frame-radius-lg`
+- `--frame-radius-full`
+
+The default FrameUI theme keeps `sm`, `md`, and `lg` at `0px` for the technical square look.
+Override these tokens in the host app when a rounder theme is wanted.
 
 ### Elevation tokens
 

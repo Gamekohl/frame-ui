@@ -22,7 +22,7 @@
   --frame-toast-status-bg: var(--frame-muted-foreground);
   --frame-toast-action-bg: var(--frame-primary);
   --frame-toast-action-color: var(--frame-primary-foreground);
-  --frame-toast-action-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, black);
+  --frame-toast-action-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-toast-action-radius: var(--frame-radius-md);
   --frame-toast-close-size: 1.75rem;
   --frame-toast-close-icon-size: 1rem;

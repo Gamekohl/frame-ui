@@ -135,7 +135,7 @@ const iconsHtml = `<div frMenuBar>
 </div>`;
 
 const customStylingCss = `.project-menubar {
-  --frame-menubar-radius: 999px;
+  --frame-menubar-radius: var(--frame-radius-full);
   --frame-menubar-bg: color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface));
   --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
   --frame-menubar-trigger-open-bg: var(--frame-primary);
@@ -350,7 +350,7 @@ export const MENUBAR_DOC: ComponentDoc = {
         inputs: {
           config: {
             mode: 'basic',
-            style: `--frame-menubar-radius: 999px;
+            style: `--frame-menubar-radius: var(--frame-radius-full);
 --frame-menubar-bg: color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface));
 --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
 --frame-menubar-trigger-open-bg: var(--frame-primary);
