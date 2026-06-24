@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-select-trigger-height: 2.5rem;
   --frame-select-trigger-min-width: 12rem;
   --frame-select-trigger-gap: 0.5rem;

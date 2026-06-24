@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-drag-drop-gap: 0.75rem;
   --frame-drag-drop-group-gap: 1rem;
   --frame-drop-list-min-height: 3.5rem;

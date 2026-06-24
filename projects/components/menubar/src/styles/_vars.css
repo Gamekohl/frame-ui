@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-menubar-bg: var(--frame-surface);
   --frame-menubar-color: var(--frame-surface-foreground);
   --frame-menubar-border: var(--frame-border);

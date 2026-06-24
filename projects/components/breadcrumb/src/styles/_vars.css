@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-breadcrumb-root-color: var(--frame-muted-foreground);
   --frame-breadcrumb-root-font-size: 0.875rem;
   --frame-breadcrumb-root-line-height: 1.25rem;

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-sheet-backdrop-blur: 2px;
   --frame-sheet-backdrop-bg: rgb(0 0 0 / 0.5);
   --frame-sheet-bg: var(--frame-background);

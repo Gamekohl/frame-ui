@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-input-field-gap: 0.5rem;
   --frame-input-header-gap: 0.75rem;
   --frame-input-field-group-gap: 1rem;

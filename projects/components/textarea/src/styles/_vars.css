@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-textarea-root-min-height: 5rem;
   --frame-textarea-root-radius: var(--frame-radius-md);
   --frame-textarea-root-bg: var(--frame-surface);

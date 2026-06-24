@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-field-set-gap: 1.5rem;
   --frame-field-group-gap: 1rem;
   --frame-field-gap: 0.5rem;

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-collapsible-trigger-gap: 0.5rem;
   --frame-collapsible-trigger-color: var(--frame-foreground);
   --frame-collapsible-trigger-disabled-opacity: 0.55;

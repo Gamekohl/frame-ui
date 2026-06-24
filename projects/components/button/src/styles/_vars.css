@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
     --frame-button-root-gap: 0.5rem;
     --frame-button-root-height: 2.25rem;
     --frame-button-root-padding-x: 1rem;

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-sidebar-width: 16rem;
   --frame-sidebar-width-icon: 3.5rem;
   --frame-sidebar-width-mobile: 18rem;

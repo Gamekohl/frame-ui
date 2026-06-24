@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-calendar-bg: var(--frame-surface);
   --frame-calendar-color: var(--frame-surface-foreground);
   --frame-calendar-border: var(--frame-border);

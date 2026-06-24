@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-navigation-menu-gap: 0.25rem;
   --frame-navigation-menu-padding: 0.25rem;
   --frame-navigation-menu-radius: var(--frame-radius-md);

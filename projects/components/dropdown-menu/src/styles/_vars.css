@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-dropdown-menu-panel-min-width: 13rem;
   --frame-dropdown-menu-panel-radius: var(--frame-radius-md);
   --frame-dropdown-menu-panel-bg: var(--frame-surface);

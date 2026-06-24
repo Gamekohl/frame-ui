@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-modal-backdrop-blur: 3px;
   --frame-modal-backdrop-bg: rgb(0 0 0 / 0.52);
   --frame-modal-bg: var(--frame-background);

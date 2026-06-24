@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-resizable-border: var(--frame-border);
   --frame-resizable-radius: var(--frame-radius-lg);
   --frame-resizable-bg: var(--frame-surface);

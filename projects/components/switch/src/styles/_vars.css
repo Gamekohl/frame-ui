@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-switch-field-gap: 0.75rem;
   --frame-switch-field-color: var(--frame-foreground);
   --frame-switch-field-disabled-color: var(--frame-muted-foreground);

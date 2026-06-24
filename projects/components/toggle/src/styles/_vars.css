@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-toggle-height: 2.25rem;
   --frame-toggle-padding-x: 0.75rem;
   --frame-toggle-gap: 0.5rem;

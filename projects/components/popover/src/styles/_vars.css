@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-popover-content-width: 20rem;
   --frame-popover-content-padding: 1rem;
   --frame-popover-content-radius: var(--frame-radius-md);

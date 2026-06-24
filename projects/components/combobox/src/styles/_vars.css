@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-combobox-control-height: 2.5rem;
   --frame-combobox-control-radius: var(--frame-radius-md);
   --frame-combobox-control-bg: var(--frame-surface);

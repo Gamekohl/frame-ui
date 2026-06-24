@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-tooltip-content-bg: var(--frame-surface);
   --frame-tooltip-content-color: var(--frame-foreground);
   --frame-tooltip-content-border: var(--frame-frame-line-muted, var(--frame-border));

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
     --frame-checkbox-root-size: 1rem;
     --frame-checkbox-root-bg: var(--frame-surface);
     --frame-checkbox-root-border: var(--frame-border);

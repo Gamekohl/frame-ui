@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-alert-root-bg: var(--frame-surface);
   --frame-alert-root-border: var(--frame-border);
   --frame-alert-root-color: var(--frame-surface-foreground);

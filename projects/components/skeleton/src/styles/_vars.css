@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-skeleton-bg: color-mix(in srgb, var(--frame-muted) 84%, var(--frame-foreground) 8%);
   --frame-skeleton-highlight: color-mix(in srgb, var(--frame-background) 64%, transparent);
   --frame-skeleton-radius: var(--frame-radius-md);

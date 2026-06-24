@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-input-otp-gap: 0.5rem;
   --frame-input-otp-group-gap: 0;
   --frame-input-otp-slot-size: 2.5rem;

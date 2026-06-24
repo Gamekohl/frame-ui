@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-item-gap: 0.875rem;
   --frame-item-padding: 1rem;
   --frame-item-radius: var(--frame-radius-lg);

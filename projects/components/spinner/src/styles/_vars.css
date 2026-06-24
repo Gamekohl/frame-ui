@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-spinner-size: 1rem;
   --frame-spinner-stroke: 2px;
   --frame-spinner-track-color: color-mix(in srgb, currentColor 24%, transparent);

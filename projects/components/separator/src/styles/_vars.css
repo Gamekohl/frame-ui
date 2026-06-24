@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-separator-color: var(--frame-border);
   --frame-separator-thickness: 1px;
   --frame-separator-radius: var(--frame-radius-sm);

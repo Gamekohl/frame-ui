@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-slider-width: 100%;
   --frame-slider-height: 1.25rem;
   --frame-slider-vertical-width: 1.25rem;

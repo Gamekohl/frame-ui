@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-date-picker-trigger-height: 2.5rem;
   --frame-date-picker-trigger-width: 17.5rem;
   --frame-date-picker-trigger-padding: 0 0.75rem;

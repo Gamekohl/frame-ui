@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-tabs-gap: 1rem;
   --frame-tabs-list-gap: 0.25rem;
   --frame-tabs-list-padding: 0.25rem;

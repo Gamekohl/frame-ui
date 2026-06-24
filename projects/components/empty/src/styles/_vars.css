@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-empty-padding: 3rem 1.5rem;
   --frame-empty-gap: 1.5rem;
   --frame-empty-radius: var(--frame-radius-lg);

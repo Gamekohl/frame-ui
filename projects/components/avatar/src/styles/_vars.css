@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-avatar-root-size: 2.5rem;
   --frame-avatar-root-radius: var(--frame-radius-full);
   --frame-avatar-root-bg: var(--frame-muted);

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-radio-group-gap: 0.75rem;
   --frame-radio-group-horizontal-gap: 1rem;
   --frame-radio-group-card-gap: 0.75rem;

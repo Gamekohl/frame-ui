@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-carousel-gap: 1rem;
   --frame-carousel-item-size: 100%;
   --frame-carousel-control-offset: -3rem;

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
   --frame-hover-card-content-width: 20rem;
   --frame-hover-card-content-padding: 1rem;
   --frame-hover-card-content-radius: var(--frame-radius-md);
