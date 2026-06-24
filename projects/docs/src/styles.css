@@ -19,7 +19,7 @@
   --color-destructive: oklch(55.205% 0.18114 25.384);
   --color-destructive-foreground: oklch(100% 0.00011 271.152);
   --color-input: oklch(0.84 0.008 247);
-  --color-ring: #d71920;
+  --color-ring: var(--color-primary);
 }
 
 html {
@@ -45,12 +45,12 @@ html {
   --frame-border-strong: oklch(0.68 0.012 247);
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 48%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 54%, transparent);
-  --frame-frame-accent: #d71920;
+  --frame-frame-accent: var(--frame-ring);
   --frame-frame-tick-size: 0.375rem;
 
   --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 6%, transparent);
   --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 10%, transparent);
-  --docs-blueprint-red: #d71920;
+  --docs-blueprint-red: var(--frame-frame-accent);
   --docs-blueprint-ink: #111827;
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
   --docs-header-height: 5.25rem;
@@ -70,21 +70,20 @@ html.dark {
   --color-border: oklch(1 0 0 / 0.1);
   --color-surface: oklch(0.205 0 0);
   --color-surface-foreground: oklch(0.985 0 0);
-  --color-primary: #ff4a4f;
-  --color-primary-foreground: oklch(0.205 0 0);
+  --color-primary-foreground: oklch(0.964 0 0);
   --color-accent: oklch(0.269 0 0);
   --color-accent-foreground: oklch(0.985 0 0);
   --color-destructive: oklch(0.704 0.191 22.216);
   --color-destructive-foreground: oklch(0.985 0 0);
   --color-input: oklch(1 0 0 / 0.15);
-  --color-ring: #ff4a4f;
   --frame-border-strong: oklch(1 0 0 / 0.24);
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
-  --frame-frame-accent: #ff4a4f;
+  --frame-ring: var(--color-ring);
+  --frame-frame-accent: var(--frame-ring);
   --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 8%, transparent);
   --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 12%, transparent);
-  --docs-blueprint-red: #ff4a4f;
+  --docs-blueprint-red: var(--frame-frame-accent);
   --docs-blueprint-ink: var(--frame-foreground);
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 96%, transparent);
   --orange-red: color-mix(in srgb, oklch(63.32% .24 31.68), white 60%);

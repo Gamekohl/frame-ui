@@ -1,5 +1,4 @@
-:root,
-[data-theme='light'] {
+:where(:root, [data-theme='light']) {
   /* Theme metadata */
   color-scheme: light;
 
@@ -58,8 +57,7 @@
   --frame-shadow-frame: none;
 }
 
-[data-theme='dark'],
-.dark {
+:where([data-theme='dark'], .dark) {
   /* Theme metadata */
   color-scheme: dark;
 
