@@ -21,15 +21,15 @@ export class Theming {
       id: 'source-of-truth',
       title: 'Choose a source of truth',
       children: [
-        { id: 'library-managed-via-data-theme', title: 'Library-managed via data-theme', level: 2 },
+        { id: 'frame-controls-data-theme', title: 'FrameUI controls data-theme', level: 2 },
         {
-          id: 'library-managed-via-shared-dark-class',
-          title: 'Library-managed via shared .dark class',
+          id: 'frame-controls-class',
+          title: 'FrameUI controls .dark',
           level: 2,
         },
         {
-          id: 'externally-managed-and-observed-by-the-library',
-          title: 'Externally managed and observed by the library',
+          id: 'app-controls-class',
+          title: 'App controls .dark',
           level: 2,
         },
       ],
@@ -40,35 +40,42 @@ export class Theming {
     { id: 'local-overrides', title: 'Local overrides' },
   ];
 
-  protected readonly managedAttributeCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+  protected readonly frameControlsDataThemeCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [
     provideFrameUI({
       defaultTheme: 'light',
+      theme: {
+        controlledBy: 'frame',
+        using: 'data-theme',
+      },
     }),
   ],
 };`;
 
-  protected readonly managedClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+  protected readonly frameControlsClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [
     provideFrameUI({
-      strategy: 'class',
-      className: 'dark',
+      theme: {
+        controlledBy: 'frame',
+        using: 'class',
+      },
     }),
   ],
 };`;
 
-  protected readonly observedClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+  protected readonly appControlsClassCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
   providers: [
     provideFrameUI({
-      strategy: 'class',
-      mode: 'observe',
-      className: 'dark',
+      theme: {
+        controlledBy: 'app',
+        using: 'class',
+      },
     }),
   ],
 };`;

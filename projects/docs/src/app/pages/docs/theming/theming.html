@@ -67,10 +67,9 @@
       <div class="space-y-3">
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Choose a source of truth</h2>
         <p class="text-base leading-8 text-foreground">
-          The recommended mental model is simple: your app's existing styling system should own the
-          tokens and theme switch, and the component library should follow that source of truth. If a
-          team prefers, the component library can also become the single source of truth, but that is
-          typically the secondary option rather than the default recommendation.
+          The decision is two small questions: who controls the light/dark state, and which DOM switch
+          does the app use? In existing apps, the host app should usually control the theme and FrameUI
+          should follow it. In new or isolated apps, FrameUI can control the switch directly.
         </p>
       </div>
 
@@ -79,7 +78,7 @@
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">
             Preferred
           </p>
-          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Host app owns the theme</h3>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">App controls the theme</h3>
           <p class="mt-2 text-sm leading-7 text-foreground">
             Tailwind, Bootstrap, or your app-level token system remains the single source of truth.
             The component library consumes that palette through <code>--frame-*</code> tokens.
@@ -90,7 +89,7 @@
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">
             Supported
           </p>
-          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Library owns the theme</h3>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">FrameUI controls the theme</h3>
           <p class="mt-2 text-sm leading-7 text-foreground">
             The component library can also manage theme state directly. This is useful when a team
             wants the library to coordinate theming, but it is usually not the first choice for
@@ -99,57 +98,51 @@
         </section>
       </div>
 
-      <section id="library-managed-via-data-theme" class="space-y-4">
+      <section id="frame-controls-data-theme" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via <code>data-theme</code></h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">FrameUI controls <code>data-theme</code></h3>
           <p class="text-sm leading-7 text-foreground">
-            Use this when your Angular app wants FrameUI to manage light/dark state directly. The
-            service writes an attribute such as <code>html[data-theme="dark"]</code>. This is fully
-            supported, but in apps that already use Tailwind, Bootstrap, or another token system, it
-            is usually preferable to keep the host app in charge instead.
+            Use this when FrameUI should manage light/dark state directly. The service writes
+            <code>html[data-theme="light"]</code> or <code>html[data-theme="dark"]</code>.
           </p>
         </div>
 
         <docs-code-block
-          [code]="managedAttributeCode"
+          [code]="frameControlsDataThemeCode"
           language="ts"
           title="App config"
           rounded
         />
       </section>
 
-      <section id="library-managed-via-shared-dark-class" class="space-y-4">
+      <section id="frame-controls-class" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via a shared <code>.dark</code> class</h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">FrameUI controls <code>.dark</code></h3>
           <p class="text-sm leading-7 text-foreground">
-            Use this when you want <code>ThemeService</code> to stay in charge, but Tailwind utilities
-            should react to the same switch. This works well when a team intentionally wants the
-            component library to drive theming, even though the preferred setup is usually for Tailwind
-            itself to remain the source of truth.
+            Use this when FrameUI should manage the theme, but the app expects the shared
+            <code>html.dark</code> selector, for example in a Tailwind setup.
           </p>
         </div>
 
         <docs-code-block
-          [code]="managedClassCode"
+          [code]="frameControlsClassCode"
           language="ts"
           title="App config"
           rounded
         />
       </section>
 
-      <section id="externally-managed-and-observed-by-the-library" class="space-y-4">
+      <section id="app-controls-class" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Externally managed and observed by the library</h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">App controls <code>.dark</code></h3>
           <p class="text-sm leading-7 text-foreground">
             Use this when a shell, CMS, Tailwind-based app, or another design layer already owns dark
-            mode. In observe mode FrameUI reads the DOM and does not write light/dark state. This
-            is the preferred setup for most existing applications because it keeps ownership with the
-            host app.
+            mode. FrameUI reads <code>html.dark</code> and does not write light/dark state.
           </p>
         </div>
 
         <docs-code-block
-          [code]="observedClassCode"
+          [code]="appControlsClassCode"
           language="ts"
           title="App config"
           rounded
@@ -197,8 +190,9 @@
       <p class="text-sm leading-7 text-foreground">
         In this setup, Tailwind owns the palette and the <code>.dark</code> selector, while the
         component library simply reads the same semantic values through its own token contract. If you
-        want the library to drive the same selector instead, the shared class strategy is still
-        available, but host-app-first remains the recommended baseline.
+        want FrameUI to drive the same selector instead, use
+        <code>theme: &#123; controlledBy: 'frame', using: 'class' &#125;</code>, but host-app-first remains the
+        recommended baseline.
       </p>
     </section>
 

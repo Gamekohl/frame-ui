@@ -12,29 +12,31 @@ import {
   signal,
 } from '@angular/core';
 
-export type ThemeBindingStrategy = 'attribute' | 'class';
-export type ThemeSyncMode = 'managed' | 'observe';
+export type FrameUIThemeController = 'frame' | 'app';
+export type FrameUIThemeSelector = 'data-theme' | 'class';
 export type FrameUITheme = 'light' | 'dark';
 export type FrameUIDensity = 'compact' | 'default' | 'comfortable';
 
+export interface FrameUIThemeConfig {
+  controlledBy: FrameUIThemeController;
+  using: FrameUIThemeSelector;
+}
+
 export interface FrameUIConfig {
-  attribute: string;
-  className: string;
   defaultTheme: FrameUITheme;
   density: FrameUIDensity | null;
   disableCornerHandles: boolean;
-  mode: ThemeSyncMode;
-  strategy: ThemeBindingStrategy;
+  theme: FrameUIThemeConfig;
 }
 
 const DEFAULT_CONFIG: FrameUIConfig = {
-  attribute: 'data-theme',
-  className: 'dark',
   defaultTheme: 'light',
   density: null,
   disableCornerHandles: false,
-  mode: 'managed',
-  strategy: 'attribute',
+  theme: {
+    controlledBy: 'frame',
+    using: 'data-theme',
+  },
 };
 
 const CORNER_HANDLES_ATTRIBUTE = 'data-frame-corner-handles';
@@ -48,13 +50,10 @@ export const FRAME_UI_CONFIG = new InjectionToken<FrameUIConfig>(
 );
 
 export interface FrameUIOptions {
-  attribute?: string;
-  className?: string;
   defaultTheme?: FrameUITheme;
   density?: FrameUIDensity;
   disableCornerHandles?: boolean;
-  mode?: ThemeSyncMode;
-  strategy?: ThemeBindingStrategy;
+  theme?: Partial<FrameUIThemeConfig>;
 }
 
 export function provideFrameUI(
@@ -82,14 +81,15 @@ export function createFrameUIConfig(
   const defaultTheme = options.defaultTheme ?? DEFAULT_CONFIG.defaultTheme;
 
   return {
-    attribute: options.attribute ?? DEFAULT_CONFIG.attribute,
-    className: options.className ?? DEFAULT_CONFIG.className,
     defaultTheme,
     density: options.density ?? DEFAULT_CONFIG.density,
     disableCornerHandles:
       options.disableCornerHandles ?? DEFAULT_CONFIG.disableCornerHandles,
-    mode: options.mode ?? DEFAULT_CONFIG.mode,
-    strategy: options.strategy ?? DEFAULT_CONFIG.strategy,
+    theme: {
+      controlledBy:
+        options.theme?.controlledBy ?? DEFAULT_CONFIG.theme.controlledBy,
+      using: options.theme?.using ?? DEFAULT_CONFIG.theme.using,
+    },
   };
 }
 
@@ -108,7 +108,7 @@ export class ThemeService implements OnDestroy {
     this.applyCornerHandlesPreference();
     this.applyDensityPreference();
 
-    if (this.config.mode === 'observe') {
+    if (this.config.theme.controlledBy === 'app') {
       this.syncFromDom();
       this.observeThemeChanges();
       return;
@@ -122,9 +122,9 @@ export class ThemeService implements OnDestroy {
       throw new Error(`Unknown theme "${name}".`);
     }
 
-    if (this.config.mode === 'observe') {
+    if (this.config.theme.controlledBy === 'app') {
       throw new Error(
-        'ThemeService is configured to observe external theme state and cannot set the theme.',
+        'ThemeService is configured to read app-controlled theme state and cannot set the theme.',
       );
     }
 
@@ -152,12 +152,12 @@ export class ThemeService implements OnDestroy {
       return;
     }
 
-    if (this.config.strategy === 'class') {
-      root.classList.toggle(this.config.className, name === 'dark');
+    if (this.config.theme.using === 'class') {
+      root.classList.toggle('dark', name === 'dark');
       return;
     }
 
-    root.setAttribute(this.config.attribute, name);
+    root.setAttribute('data-theme', name);
   }
 
   private applyCornerHandlesPreference(): void {
@@ -193,7 +193,7 @@ export class ThemeService implements OnDestroy {
     }
 
     const attributeFilter =
-      this.config.strategy === 'class' ? ['class'] : [this.config.attribute];
+      this.config.theme.using === 'class' ? ['class'] : ['data-theme'];
 
     this.observer = new MutationObserver(() => {
       this.syncFromDom();
@@ -215,11 +215,11 @@ export class ThemeService implements OnDestroy {
   }
 
   private readThemeFromDom(root: HTMLElement): FrameUITheme {
-    if (this.config.strategy === 'class') {
-      return root.classList.contains(this.config.className) ? 'dark' : 'light';
+    if (this.config.theme.using === 'class') {
+      return root.classList.contains('dark') ? 'dark' : 'light';
     }
 
-    const theme = root.getAttribute(this.config.attribute);
+    const theme = root.getAttribute('data-theme');
 
     return isFrameUITheme(theme) ? theme : this.config.defaultTheme;
   }
