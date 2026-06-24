@@ -1,7 +1,7 @@
 :where(:root) {
-  --frame-carousel-gap: 1rem;
+  --frame-carousel-gap: var(--frame-density-gap-xl);
   --frame-carousel-item-size: 100%;
   --frame-carousel-control-offset: -3rem;
-  --frame-carousel-control-size: 2.5rem;
+  --frame-carousel-control-size: var(--frame-density-control-height-lg);
   --frame-carousel-viewport-radius: var(--frame-radius-lg);
 }

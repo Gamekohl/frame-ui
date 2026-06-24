@@ -5,6 +5,14 @@
   --frame-card-radius: var(--frame-radius-md);
   --frame-card-shadow: none;
   --frame-card-font-size: 0.875rem;
+  --frame-card-spacing: var(--frame-density-panel-padding-md);
+  --frame-card-spacing-sm: var(--frame-density-gap-lg);
+  --frame-card-spacing-md: var(--frame-density-panel-padding-md);
+  --frame-card-spacing-lg: calc(var(--frame-density-panel-padding-md) + var(--frame-density-gap-sm));
+  --frame-card-spacing-xl: calc(var(--frame-density-panel-padding-md) + var(--frame-density-gap-xl));
+  --frame-card-header-gap: var(--frame-density-gap-sm);
+  --frame-card-action-gap: var(--frame-density-gap-xl);
+  --frame-card-footer-gap: var(--frame-density-gap-md);
   --frame-card-title-color: var(--frame-foreground);
   --frame-card-title-font-size: 1rem;
   --frame-card-title-font-weight: 600;

@@ -60,14 +60,14 @@
 }
 
 [frToggle][data-size='sm'] {
-  --frame-toggle-height: 2rem;
+  --frame-toggle-height: var(--frame-density-control-height-sm);
   --frame-toggle-padding-x: 0.625rem;
   --frame-toggle-font-size: 0.8125rem;
   --frame-toggle-icon-size: 0.9375rem;
 }
 
 [frToggle][data-size='lg'] {
-  --frame-toggle-height: 2.75rem;
+  --frame-toggle-height: var(--frame-density-control-height-xl);
   --frame-toggle-padding-x: 1rem;
   --frame-toggle-font-size: 0.9375rem;
   --frame-toggle-icon-size: 1.125rem;

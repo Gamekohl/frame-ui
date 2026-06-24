@@ -78,6 +78,7 @@ export const appConfig = {
 export const appConfig = {
   providers: [
     provideFrameUI({
+      density: 'compact',
       disableCornerHandles: true,
     }),
   ],

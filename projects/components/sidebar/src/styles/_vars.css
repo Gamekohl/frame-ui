@@ -12,10 +12,10 @@
   --frame-sidebar-primary-color: var(--frame-primary-foreground);
   --frame-sidebar-ring: var(--frame-ring);
   --frame-sidebar-radius: var(--frame-radius-lg);
-  --frame-sidebar-margin: 0.5rem;
-  --frame-sidebar-padding: 0.5rem;
-  --frame-sidebar-gap: 0.5rem;
-  --frame-sidebar-menu-button-height: 2rem;
+  --frame-sidebar-margin: var(--frame-density-gap-md);
+  --frame-sidebar-padding: var(--frame-density-gap-md);
+  --frame-sidebar-gap: var(--frame-density-gap-md);
+  --frame-sidebar-menu-button-height: var(--frame-density-item-height);
   --frame-sidebar-menu-button-radius: var(--frame-radius-md);
   --frame-sidebar-shadow: 0 20px 60px rgb(0 0 0 / 0.12);
   --frame-sidebar-transition-duration: 200ms;

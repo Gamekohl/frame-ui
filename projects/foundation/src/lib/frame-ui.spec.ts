@@ -33,7 +33,16 @@ describe('FrameUI', () => {
     expect(config.defaultTheme).toBe('dark');
     expect(config.attribute).toBe('data-theme');
     expect(config.className).toBe('dark');
+    expect(config.density).toBeNull();
     expect(config.disableCornerHandles).toBe(false);
+  });
+
+  it('creates a density config', () => {
+    const config = createFrameUIConfig({
+      density: 'compact',
+    });
+
+    expect(config.density).toBe('compact');
   });
 
   it('applies the active theme attribute', () => {
@@ -150,5 +159,33 @@ describe('FrameUI', () => {
     expect(document.documentElement.hasAttribute('data-frame-corner-handles')).toBe(
       false,
     );
+  });
+
+  it('can apply density globally', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideFrameUI({
+          density: 'comfortable',
+        }),
+      ],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.getAttribute('data-density')).toBe(
+      'comfortable',
+    );
+  });
+
+  it('does not write the density attribute by default', () => {
+    TestBed.configureTestingModule({
+      providers: [provideFrameUI()],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.hasAttribute('data-density')).toBe(false);
   });
 });

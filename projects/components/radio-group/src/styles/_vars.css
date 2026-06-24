@@ -1,8 +1,8 @@
 :where(:root) {
-  --frame-radio-group-gap: 0.75rem;
-  --frame-radio-group-horizontal-gap: 1rem;
-  --frame-radio-group-card-gap: 0.75rem;
-  --frame-radio-group-card-padding: 1rem;
+  --frame-radio-group-gap: var(--frame-density-gap-lg);
+  --frame-radio-group-horizontal-gap: var(--frame-density-gap-xl);
+  --frame-radio-group-card-gap: var(--frame-density-gap-lg);
+  --frame-radio-group-card-padding: var(--frame-density-panel-padding-md);
   --frame-radio-group-card-radius: var(--frame-radius-lg);
   --frame-radio-group-card-bg: var(--frame-surface);
   --frame-radio-group-card-border: var(--frame-border);

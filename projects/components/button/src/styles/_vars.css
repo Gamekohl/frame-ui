@@ -1,7 +1,7 @@
 :where(:root) {
-    --frame-button-root-gap: 0.5rem;
-    --frame-button-root-height: 2.25rem;
-    --frame-button-root-padding-x: 1rem;
+    --frame-button-root-gap: var(--frame-density-gap-md);
+    --frame-button-root-height: var(--frame-density-control-height-md);
+    --frame-button-root-padding-x: var(--frame-density-control-padding-x-lg);
     --frame-button-root-radius: var(--frame-radius-md);
     --frame-button-root-shadow: var(--frame-shadow-sm);
     --frame-button-root-font-size: 0.875rem;

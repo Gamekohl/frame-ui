@@ -211,14 +211,14 @@
 }
 
 .frame-button[data-size='sm'] {
-  --frame-button-root-height: 2rem;
+  --frame-button-root-height: var(--frame-density-control-height-sm);
   min-height: var(--frame-button-root-height);
   padding-inline: 0.75rem;
   font-size: 0.8125rem;
 }
 
 .frame-button[data-size='lg'] {
-  --frame-button-root-height: 2.75rem;
+  --frame-button-root-height: var(--frame-density-control-height-xl);
   min-height: var(--frame-button-root-height);
   padding-inline: 1.25rem;
   font-size: 0.9375rem;

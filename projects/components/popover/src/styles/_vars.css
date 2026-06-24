@@ -1,20 +1,20 @@
 :where(:root) {
   --frame-popover-content-width: 20rem;
-  --frame-popover-content-padding: 1rem;
+  --frame-popover-content-padding: var(--frame-density-panel-padding-md);
   --frame-popover-content-radius: var(--frame-radius-md);
   --frame-popover-content-bg: var(--frame-surface);
   --frame-popover-content-color: var(--frame-surface-foreground);
   --frame-popover-content-border: var(--frame-border);
   --frame-popover-content-shadow: var(--frame-shadow-md);
-  --frame-popover-content-gap: 0.875rem;
-  --frame-popover-header-gap: 0.25rem;
+  --frame-popover-content-gap: var(--frame-density-gap-lg);
+  --frame-popover-header-gap: var(--frame-density-gap-sm);
   --frame-popover-title-color: var(--frame-foreground);
   --frame-popover-title-font-size: 0.875rem;
   --frame-popover-title-font-weight: 600;
   --frame-popover-description-color: var(--frame-muted-foreground);
   --frame-popover-description-font-size: 0.875rem;
-  --frame-popover-body-gap: 0.75rem;
-  --frame-popover-footer-gap: 0.5rem;
+  --frame-popover-body-gap: var(--frame-density-gap-lg);
+  --frame-popover-footer-gap: var(--frame-density-gap-md);
   --frame-popover-close-radius: var(--frame-radius-sm);
   --frame-popover-close-hover-bg: var(--frame-accent);
   --frame-popover-motion-duration: 140ms;

@@ -1,6 +1,6 @@
 :where(:root) {
-  --frame-item-gap: 0.875rem;
-  --frame-item-padding: 1rem;
+  --frame-item-gap: var(--frame-density-gap-lg);
+  --frame-item-padding: var(--frame-density-panel-padding-md);
   --frame-item-radius: var(--frame-radius-lg);
   --frame-item-bg: transparent;
   --frame-item-color: var(--frame-foreground);
@@ -11,10 +11,10 @@
   --frame-item-hover-color: var(--frame-accent-foreground);
   --frame-item-focus-shadow: none;
   --frame-item-disabled-opacity: 0.5;
-  --frame-item-content-gap: 0.25rem;
-  --frame-item-header-gap: 0.625rem;
-  --frame-item-footer-gap: 0.5rem;
-  --frame-item-actions-gap: 0.5rem;
+  --frame-item-content-gap: var(--frame-density-gap-sm);
+  --frame-item-header-gap: var(--frame-density-gap-lg);
+  --frame-item-footer-gap: var(--frame-density-gap-md);
+  --frame-item-actions-gap: var(--frame-density-gap-md);
   --frame-item-media-size: 2.5rem;
   --frame-item-media-radius: var(--frame-radius-md);
   --frame-item-media-bg: var(--frame-muted);
@@ -25,10 +25,10 @@
   --frame-item-title-font-weight: 600;
   --frame-item-description-color: var(--frame-muted-foreground);
   --frame-item-description-font-size: 0.875rem;
-  --frame-item-sm-padding: 0.75rem;
+  --frame-item-sm-padding: var(--frame-density-gap-lg);
   --frame-item-sm-media-size: 2rem;
   --frame-item-sm-title-font-size: 0.875rem;
-  --frame-item-xs-padding: 0.5rem;
+  --frame-item-xs-padding: var(--frame-density-gap-md);
   --frame-item-xs-media-size: 1.75rem;
   --frame-item-xs-title-font-size: 0.8125rem;
 }

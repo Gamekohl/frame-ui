@@ -16,7 +16,7 @@
     --frame-checkbox-indicator-size: 0.5rem;
     --frame-checkbox-indeterminate-width: 0.5rem;
     --frame-checkbox-indeterminate-height: 0.125rem;
-    --frame-checkbox-field-gap: 0.75rem;
+    --frame-checkbox-field-gap: var(--frame-density-gap-lg);
     --frame-checkbox-label-color: var(--frame-foreground);
     --frame-checkbox-label-disabled-color: var(--frame-muted-foreground);
 }

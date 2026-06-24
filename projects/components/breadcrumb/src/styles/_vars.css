@@ -2,7 +2,7 @@
   --frame-breadcrumb-root-color: var(--frame-muted-foreground);
   --frame-breadcrumb-root-font-size: 0.875rem;
   --frame-breadcrumb-root-line-height: 1.25rem;
-  --frame-breadcrumb-list-gap: 0.375rem;
+  --frame-breadcrumb-list-gap: var(--frame-density-gap-md);
   --frame-breadcrumb-link-radius: var(--frame-radius-sm);
   --frame-breadcrumb-link-color: var(--frame-muted-foreground);
   --frame-breadcrumb-link-hover-color: var(--frame-foreground);

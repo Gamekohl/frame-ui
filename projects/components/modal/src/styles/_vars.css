@@ -7,8 +7,8 @@
   --frame-modal-muted-color: var(--frame-muted-foreground);
   --frame-modal-radius: var(--frame-radius-lg);
   --frame-modal-shadow: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
-  --frame-modal-padding: 1.5rem;
-  --frame-modal-gap: 1rem;
+  --frame-modal-padding: var(--frame-density-panel-padding-lg);
+  --frame-modal-gap: var(--frame-density-gap-xl);
   --frame-modal-scrollable-height: min(calc(100dvh - 2rem), 28rem);
   --frame-modal-close-bg: transparent;
   --frame-modal-close-color: var(--frame-muted-foreground);

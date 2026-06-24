@@ -15,11 +15,13 @@ import {
 export type ThemeBindingStrategy = 'attribute' | 'class';
 export type ThemeSyncMode = 'managed' | 'observe';
 export type FrameUITheme = 'light' | 'dark';
+export type FrameUIDensity = 'compact' | 'default' | 'comfortable';
 
 export interface FrameUIConfig {
   attribute: string;
   className: string;
   defaultTheme: FrameUITheme;
+  density: FrameUIDensity | null;
   disableCornerHandles: boolean;
   mode: ThemeSyncMode;
   strategy: ThemeBindingStrategy;
@@ -29,12 +31,14 @@ const DEFAULT_CONFIG: FrameUIConfig = {
   attribute: 'data-theme',
   className: 'dark',
   defaultTheme: 'light',
+  density: null,
   disableCornerHandles: false,
   mode: 'managed',
   strategy: 'attribute',
 };
 
 const CORNER_HANDLES_ATTRIBUTE = 'data-frame-corner-handles';
+const DENSITY_ATTRIBUTE = 'data-density';
 
 export const FRAME_UI_CONFIG = new InjectionToken<FrameUIConfig>(
   'FRAME_UI_CONFIG',
@@ -47,6 +51,7 @@ export interface FrameUIOptions {
   attribute?: string;
   className?: string;
   defaultTheme?: FrameUITheme;
+  density?: FrameUIDensity;
   disableCornerHandles?: boolean;
   mode?: ThemeSyncMode;
   strategy?: ThemeBindingStrategy;
@@ -80,6 +85,7 @@ export function createFrameUIConfig(
     attribute: options.attribute ?? DEFAULT_CONFIG.attribute,
     className: options.className ?? DEFAULT_CONFIG.className,
     defaultTheme,
+    density: options.density ?? DEFAULT_CONFIG.density,
     disableCornerHandles:
       options.disableCornerHandles ?? DEFAULT_CONFIG.disableCornerHandles,
     mode: options.mode ?? DEFAULT_CONFIG.mode,
@@ -100,6 +106,7 @@ export class ThemeService implements OnDestroy {
 
   constructor() {
     this.applyCornerHandlesPreference();
+    this.applyDensityPreference();
 
     if (this.config.mode === 'observe') {
       this.syncFromDom();
@@ -166,6 +173,16 @@ export class ThemeService implements OnDestroy {
     }
 
     root.removeAttribute(CORNER_HANDLES_ATTRIBUTE);
+  }
+
+  private applyDensityPreference(): void {
+    const root = this.document?.documentElement;
+
+    if (!root || !this.config.density) {
+      return;
+    }
+
+    root.setAttribute(DENSITY_ATTRIBUTE, this.config.density);
   }
 
   private observeThemeChanges(): void {

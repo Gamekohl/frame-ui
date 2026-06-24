@@ -1,7 +1,7 @@
 :where(:root) {
-  --frame-toggle-height: 2.25rem;
-  --frame-toggle-padding-x: 0.75rem;
-  --frame-toggle-gap: 0.5rem;
+  --frame-toggle-height: var(--frame-density-control-height-md);
+  --frame-toggle-padding-x: var(--frame-density-control-padding-x-sm);
+  --frame-toggle-gap: var(--frame-density-gap-md);
   --frame-toggle-radius: var(--frame-radius-md);
   --frame-toggle-font-size: 0.875rem;
   --frame-toggle-font-weight: 600;

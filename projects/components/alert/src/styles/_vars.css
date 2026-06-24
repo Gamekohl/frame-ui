@@ -3,9 +3,9 @@
   --frame-alert-root-border: var(--frame-border);
   --frame-alert-root-color: var(--frame-surface-foreground);
   --frame-alert-root-radius: var(--frame-radius-md);
-  --frame-alert-root-padding-y: 1rem;
-  --frame-alert-root-padding-x: 1rem;
-  --frame-alert-root-gap: 0.25rem;
+  --frame-alert-root-padding-y: var(--frame-density-panel-padding-md);
+  --frame-alert-root-padding-x: var(--frame-density-panel-padding-md);
+  --frame-alert-root-gap: var(--frame-density-gap-sm);
   --frame-alert-root-icon-size: 1rem;
   --frame-alert-root-shadow: none;
   --frame-alert-root-destructive-bg: color-mix(in srgb, var(--frame-destructive) 10%, var(--frame-surface));

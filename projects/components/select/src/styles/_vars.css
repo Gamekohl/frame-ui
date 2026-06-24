@@ -1,9 +1,9 @@
 :where(:root) {
-  --frame-select-trigger-height: 2.5rem;
+  --frame-select-trigger-height: var(--frame-density-control-height-lg);
   --frame-select-trigger-min-width: 12rem;
-  --frame-select-trigger-gap: 0.5rem;
+  --frame-select-trigger-gap: var(--frame-density-gap-md);
   --frame-select-trigger-radius: var(--frame-radius-md);
-  --frame-select-trigger-padding-inline: 1rem;
+  --frame-select-trigger-padding-inline: var(--frame-density-control-padding-x-lg);
   --frame-select-trigger-font-size: 0.875rem;
   --frame-select-trigger-font-weight: 600;
   --frame-select-trigger-focus-shadow: none;
@@ -16,12 +16,12 @@
   --frame-select-content-min-width: 12rem;
   --frame-select-content-max-height: min(18rem, 50vh);
   --frame-select-content-popper-shadow: 0 16px 32px -18px rgb(0 0 0 / 0.28);
-  --frame-select-group-gap: 0.125rem;
+  --frame-select-group-gap: var(--frame-density-gap-xs);
   --frame-select-item-indicator-size: 1rem;
   --frame-select-item-indicator-offset: 0.625rem;
   --frame-select-item-padding-start: 2rem;
   --frame-select-item-padding-end: 2rem;
-  --frame-select-item-padding-inline: 0.75rem;
+  --frame-select-item-padding-inline: var(--frame-density-control-padding-x-sm);
   --frame-select-item-indicator-font-size: 0.875rem;
   --frame-select-error-color: var(--frame-destructive);
   --frame-select-error-font-size: 0.8125rem;

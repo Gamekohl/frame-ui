@@ -1,10 +1,10 @@
 :where(:root) {
-  --frame-pagination-gap: 0.25rem;
+  --frame-pagination-gap: var(--frame-density-gap-sm);
   --frame-pagination-color: var(--frame-foreground);
-  --frame-pagination-link-size: 2.25rem;
-  --frame-pagination-link-min-width: 2.25rem;
-  --frame-pagination-link-padding-x: 0.75rem;
-  --frame-pagination-link-gap: 0.375rem;
+  --frame-pagination-link-size: var(--frame-density-control-height-md);
+  --frame-pagination-link-min-width: var(--frame-density-control-height-md);
+  --frame-pagination-link-padding-x: var(--frame-density-control-padding-x-sm);
+  --frame-pagination-link-gap: var(--frame-density-gap-md);
   --frame-pagination-link-radius: var(--frame-radius-md);
   --frame-pagination-link-bg: transparent;
   --frame-pagination-link-color: var(--frame-muted-foreground);

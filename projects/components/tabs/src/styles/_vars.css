@@ -1,12 +1,12 @@
 :where(:root) {
-  --frame-tabs-gap: 1rem;
-  --frame-tabs-list-gap: 0.25rem;
-  --frame-tabs-list-padding: 0.25rem;
+  --frame-tabs-gap: var(--frame-density-gap-xl);
+  --frame-tabs-list-gap: var(--frame-density-gap-sm);
+  --frame-tabs-list-padding: var(--frame-density-gap-sm);
   --frame-tabs-list-bg: var(--frame-muted);
   --frame-tabs-list-border: transparent;
   --frame-tabs-list-radius: var(--frame-radius-lg);
-  --frame-tabs-trigger-height: 2.25rem;
-  --frame-tabs-trigger-padding-x: 0.875rem;
+  --frame-tabs-trigger-height: var(--frame-density-control-height-md);
+  --frame-tabs-trigger-padding-x: var(--frame-density-control-padding-x-md);
   --frame-tabs-trigger-radius: var(--frame-radius-md);
   --frame-tabs-trigger-bg: transparent;
   --frame-tabs-trigger-color: var(--frame-muted-foreground);
@@ -19,5 +19,5 @@
   --frame-tabs-trigger-disabled-opacity: 0.5;
   --frame-tabs-line-color: var(--frame-border);
   --frame-tabs-line-active-color: var(--frame-primary);
-  --frame-tabs-content-padding: 1rem 0 0;
+  --frame-tabs-content-padding: var(--frame-density-gap-xl) 0 0;
 }

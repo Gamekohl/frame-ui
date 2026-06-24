@@ -1,7 +1,7 @@
 :where(:root) {
-  --frame-input-otp-gap: 0.5rem;
+  --frame-input-otp-gap: var(--frame-density-gap-md);
   --frame-input-otp-group-gap: 0;
-  --frame-input-otp-slot-size: 2.5rem;
+  --frame-input-otp-slot-size: var(--frame-density-control-height-lg);
   --frame-input-otp-slot-radius: var(--frame-input-root-radius);
   --frame-input-otp-slot-bg: var(--frame-input-root-bg);
   --frame-input-otp-slot-color: var(--frame-input-root-color);

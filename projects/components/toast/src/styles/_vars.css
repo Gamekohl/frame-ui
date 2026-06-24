@@ -1,14 +1,14 @@
 :where(:root) {
   --frame-toast-z-index: 2147483647;
-  --frame-toast-viewport-inset: 1rem;
+  --frame-toast-viewport-inset: var(--frame-density-gap-xl);
   --frame-toast-viewport-width: min(100vw - 2rem, 26rem);
   --frame-toast-stack-offset: 0.875rem;
   --frame-toast-stack-depth: 2.25rem;
   --frame-toast-stack-scale-step: 0.025;
-  --frame-toast-stack-expanded-gap: 0.75rem;
+  --frame-toast-stack-expanded-gap: var(--frame-density-gap-lg);
   --frame-toast-stack-expanded-depth: 28rem;
-  --frame-toast-padding: 0.875rem 0.5rem 0.875rem 0.875rem;
-  --frame-toast-gap: 0.75rem;
+  --frame-toast-padding: var(--frame-density-gap-lg) var(--frame-density-gap-md) var(--frame-density-gap-lg) var(--frame-density-gap-lg);
+  --frame-toast-gap: var(--frame-density-gap-lg);
   --frame-toast-radius: var(--frame-radius-lg);
   --frame-toast-bg: var(--frame-surface);
   --frame-toast-color: var(--frame-foreground);
@@ -24,7 +24,7 @@
   --frame-toast-action-color: var(--frame-primary-foreground);
   --frame-toast-action-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-toast-action-radius: var(--frame-radius-md);
-  --frame-toast-close-size: 1.75rem;
+  --frame-toast-close-size: var(--frame-density-item-height);
   --frame-toast-close-icon-size: 1rem;
   --frame-toast-close-color: var(--frame-muted-foreground);
   --frame-toast-close-hover-bg: var(--frame-accent);

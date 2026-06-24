@@ -17,6 +17,7 @@ export class ThemeTokens {
     { id: 'what-this-page-is', title: 'What this page is' },
     { id: 'shared-tokens', title: 'Shared tokens' },
     { id: 'component-tokens', title: 'Component tokens' },
+    { id: 'density', title: 'Density' },
     { id: 'override-scope', title: 'Override scope' },
     { id: 'where-to-look', title: 'Where to look' },
   ];
@@ -61,6 +62,42 @@ export class ThemeTokens {
   --frame-accent: var(--color-accent);
   --frame-accent-foreground: var(--color-accent-foreground);
   --frame-ring: var(--color-ring);
+}`;
+
+  protected readonly densityConfigCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+
+export const appConfig = {
+  providers: [
+    provideFrameUI({
+      density: 'compact',
+    }),
+  ],
+};`;
+
+  protected readonly densityTokensCode = `:root {
+  --frame-density-control-height-md: 2.25rem;
+  --frame-density-control-height-lg: 2.5rem;
+  --frame-density-control-padding-x-md: 0.875rem;
+  --frame-density-inline-height: 1.375rem;
+  --frame-density-item-height: 2rem;
+  --frame-density-overlay-padding-block: 0.375rem;
+  --frame-density-panel-padding-md: 1rem;
+  --frame-density-table-cell-padding-block: 0.75rem;
+  --frame-density-table-cell-padding-block-sm: 0.5rem;
+  --frame-density-table-cell-padding-block-lg: 1rem;
+}
+
+[data-density='compact'] {
+  --frame-density-control-height-md: 2rem;
+  --frame-density-control-height-lg: 2.25rem;
+  --frame-density-control-padding-x-md: 0.75rem;
+  --frame-density-inline-height: 1.25rem;
+  --frame-density-item-height: 1.75rem;
+  --frame-density-overlay-padding-block: 0.25rem;
+  --frame-density-panel-padding-md: 0.75rem;
+  --frame-density-table-cell-padding-block: 0.5rem;
+  --frame-density-table-cell-padding-block-sm: 0.375rem;
+  --frame-density-table-cell-padding-block-lg: 0.75rem;
 }`;
 
   protected readonly componentTokensCode = `.release-alert {
