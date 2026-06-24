@@ -19,7 +19,7 @@ export class Theming {
     { id: 'setup', title: 'Setup' },
     {
       id: 'source-of-truth',
-      title: 'Choose a source of truth',
+      title: 'Choose who controls the theme',
       children: [
         { id: 'frame-controls-data-theme', title: 'FrameUI controls data-theme', level: 2 },
         {
@@ -32,9 +32,15 @@ export class Theming {
           title: 'App controls .dark',
           level: 2,
         },
+        {
+          id: 'app-controls-data-theme',
+          title: 'App controls data-theme',
+          level: 2,
+        },
       ],
     },
     { id: 'global-appearance-options', title: 'Global appearance options' },
+    { id: 'migration', title: 'Migration' },
     { id: 'tailwind-css', title: 'Tailwind CSS' },
     { id: 'bootstrap-and-other-css-frameworks', title: 'Bootstrap and other CSS frameworks' },
     { id: 'local-overrides', title: 'Local overrides' },
@@ -80,6 +86,19 @@ export const appConfig = {
   ],
 };`;
 
+  protected readonly appControlsDataThemeCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+
+export const appConfig = {
+  providers: [
+    provideFrameUI({
+      theme: {
+        controlledBy: 'app',
+        using: 'data-theme',
+      },
+    }),
+  ],
+};`;
+
   protected readonly globalAppearanceCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
 
 export const appConfig = {
@@ -90,6 +109,20 @@ export const appConfig = {
     }),
   ],
 };`;
+
+  protected readonly migrationCode = `// Before
+provideFrameUI({
+  strategy: 'class',
+  mode: 'observe',
+});
+
+// After
+provideFrameUI({
+  theme: {
+    controlledBy: 'app',
+    using: 'class',
+  },
+});`;
 
   protected readonly tailwindCode = `@import "tailwindcss";
 
