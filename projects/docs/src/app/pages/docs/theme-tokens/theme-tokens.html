@@ -40,6 +40,13 @@
           Component tokens refine a specific primitive. Use them when a component needs local spacing,
           typography, border, or state adjustments without changing the whole system.
         </p>
+        <p class="text-base leading-8 text-foreground">
+          Start with the shared values first: color, background, text, surface, border, focus, status
+          colors, radius, density, and shadow. Component tokens are for precise overrides when one
+          component or one section needs a different treatment. FrameUI defines component defaults
+          with low specificity, so overrides can live on <code>:root</code>, <code>html</code>, a
+          theme selector, or a local wrapper.
+        </p>
       </div>
 
       <docs-code-block

@@ -79,8 +79,8 @@ const rtlHtml = `<div class="profile-placeholder" dir="rtl" lang="ar">
   </div>
 </div>`;
 
-const tokens = `--frame-skeleton-bg: color-mix(in srgb, var(--frame-muted, #f4f4f5) 84%, var(--frame-foreground, #09090b) 8%);
---frame-skeleton-highlight: color-mix(in srgb, var(--frame-background, #fff) 64%, transparent);
+const tokens = `--frame-skeleton-bg: color-mix(in srgb, var(--frame-muted) 84%, var(--frame-foreground) 8%);
+--frame-skeleton-highlight: color-mix(in srgb, var(--frame-background) 64%, transparent);
 --frame-skeleton-radius: var(--frame-radius-md);
 --frame-skeleton-width: 100%;
 --frame-skeleton-height: 1rem;

@@ -77,9 +77,9 @@ const disabledHtml = `<frame-slider
 
 const customCss = `.brand-slider {
   --frame-slider-track-bg: color-mix(in srgb, var(--frame-primary) 12%, var(--frame-muted));
-  --frame-slider-range-bg: linear-gradient(90deg, var(--frame-primary), #f59e0b);
+  --frame-slider-range-bg: linear-gradient(90deg, var(--frame-primary), var(--frame-warning));
   --frame-slider-thumb-size: 1.45rem;
-  --frame-slider-thumb-border: color-mix(in srgb, var(--frame-primary) 82%, #f59e0b);
+  --frame-slider-thumb-border: color-mix(in srgb, var(--frame-primary) 82%, var(--frame-warning));
   --frame-slider-thumb-shadow: 0 10px 30px color-mix(in srgb, var(--frame-primary) 26%, transparent);
 }`;
 
@@ -93,14 +93,14 @@ const tokens = `--frame-slider-width: 100%;
 --frame-slider-vertical-width: 1.25rem;
 --frame-slider-vertical-height: 12rem;
 --frame-slider-track-size: 0.5rem;
---frame-slider-track-bg: var(--frame-muted, #f4f4f5);
---frame-slider-range-bg: var(--frame-primary, #18181b);
+--frame-slider-track-bg: var(--frame-muted);
+--frame-slider-range-bg: var(--frame-primary);
 --frame-slider-thumb-size: 1.25rem;
---frame-slider-thumb-bg: var(--frame-background, #fff);
---frame-slider-thumb-border: var(--frame-primary, #18181b);
+--frame-slider-thumb-bg: var(--frame-background);
+--frame-slider-thumb-border: var(--frame-primary);
 --frame-slider-thumb-border-width: 2px;
 --frame-slider-thumb-shadow: 0 2px 10px rgb(0 0 0 / 0.16);
---frame-slider-thumb-focus-shadow: 0 0 0 4px color-mix(in srgb, var(--frame-ring, #18181b) 24%, transparent);
+--frame-slider-thumb-focus-shadow: 0 0 0 4px color-mix(in srgb, var(--frame-ring) 24%, transparent);
 --frame-slider-disabled-opacity: 0.5;
 --frame-slider-radius: var(--frame-radius-sm);`;
 

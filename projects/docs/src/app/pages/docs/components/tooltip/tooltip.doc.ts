@@ -51,11 +51,15 @@ const delayHtml = `<button
 </button>`;
 
 const customCss = `.branded-tooltip {
-  --frame-tooltip-content-bg: linear-gradient(135deg, #16302b, #315c4f);
-  --frame-tooltip-content-color: #f6fff9;
+  --frame-tooltip-content-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--frame-success) 32%, var(--frame-foreground)),
+    color-mix(in srgb, var(--frame-info) 28%, var(--frame-foreground))
+  );
+  --frame-tooltip-content-color: var(--frame-background);
   --frame-tooltip-content-radius: var(--frame-radius-full);
   --frame-tooltip-content-padding: 0.5rem 0.875rem;
-  --frame-tooltip-content-shadow: 0 16px 36px rgb(22 48 43 / 0.28);
+  --frame-tooltip-content-shadow: 0 16px 36px color-mix(in srgb, var(--frame-success) 24%, transparent);
 }`;
 
 const rtlHtml = `<div dir="rtl" lang="ar">
@@ -64,8 +68,8 @@ const rtlHtml = `<div dir="rtl" lang="ar">
   </button>
 </div>`;
 
-const tokens = `--frame-tooltip-content-bg: var(--frame-foreground, #09090b);
---frame-tooltip-content-color: var(--frame-background, #fff);
+const tokens = `--frame-tooltip-content-bg: var(--frame-foreground);
+--frame-tooltip-content-color: var(--frame-background);
 --frame-tooltip-content-border: transparent;
 --frame-tooltip-content-radius: var(--frame-radius-md);
 --frame-tooltip-content-shadow: 0 12px 32px rgb(0 0 0 / 0.18);

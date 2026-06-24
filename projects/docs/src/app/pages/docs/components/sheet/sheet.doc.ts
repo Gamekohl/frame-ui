@@ -175,19 +175,19 @@ const rtlHtml = `<div dir="rtl">
 
 const tokens = `--frame-sheet-backdrop-blur: 2px;
 --frame-sheet-backdrop-bg: rgb(0 0 0 / 0.5);
---frame-sheet-bg: var(--frame-background, #fff);
---frame-sheet-border: var(--frame-border, #e5e7eb);
---frame-sheet-color: var(--frame-foreground, #09090b);
---frame-sheet-muted-color: var(--frame-muted-foreground, #71717a);
+--frame-sheet-bg: var(--frame-background);
+--frame-sheet-border: var(--frame-border);
+--frame-sheet-color: var(--frame-foreground);
+--frame-sheet-muted-color: var(--frame-muted-foreground);
 --frame-sheet-shadow: 0 24px 80px rgb(0 0 0 / 0.2), 0 8px 24px rgb(0 0 0 / 0.14);
 --frame-sheet-padding: 1.5rem;
 --frame-sheet-gap: 1rem;
 --frame-sheet-inline-size: min(100vw, 28rem);
 --frame-sheet-block-size: min(100dvh, 28rem);
 --frame-sheet-close-bg: transparent;
---frame-sheet-close-color: var(--frame-muted-foreground, #71717a);
---frame-sheet-close-hover-bg: var(--frame-muted, #f4f4f5);
---frame-sheet-close-hover-color: var(--frame-foreground, #09090b);
+--frame-sheet-close-color: var(--frame-muted-foreground);
+--frame-sheet-close-hover-bg: var(--frame-muted);
+--frame-sheet-close-hover-color: var(--frame-foreground);
 --frame-sheet-z-index: 1000;`;
 
 export const SHEET_DOC: ComponentDoc = {

@@ -397,9 +397,9 @@ ${customStylingConfig.style}
   --frame-badge-root-font-weight: 600;
   --frame-badge-root-bg: var(--frame-primary);
   --frame-badge-root-color: var(--frame-primary-foreground);
-  --frame-badge-success-bg: color-mix(in srgb, #16a34a 16%, var(--frame-surface));
-  --frame-badge-success-border: color-mix(in srgb, #16a34a 32%, transparent);
-  --frame-badge-success-color: color-mix(in srgb, #16a34a 78%, var(--frame-foreground));
+  --frame-badge-success-bg: color-mix(in srgb, var(--frame-success) 16%, var(--frame-surface));
+  --frame-badge-success-border: color-mix(in srgb, var(--frame-success) 32%, transparent);
+  --frame-badge-success-color: color-mix(in srgb, var(--frame-success) 78%, var(--frame-foreground));
   --frame-badge-root-padding-block: 0.1875rem;
   --frame-badge-root-padding-inline: 0.625rem;
   --frame-badge-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);
