@@ -1,5 +1,14 @@
 import { NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, PLATFORM_ID, ViewContainerRef, inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  PLATFORM_ID,
+  ViewContainerRef,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -12,6 +21,7 @@ import {
 } from '@frame-ui-ng/components';
 import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -20,6 +30,7 @@ import {
   tablerBorderRadius,
   tablerBrandGithub,
   tablerCheck,
+  tablerCode,
   tablerCoffee,
   tablerComponents,
   tablerFileText,
@@ -30,6 +41,7 @@ import {
 
 import { ComponentCatalogEntry } from '../../pages/docs/shared/models/component-catalog-entry.model';
 import { ComponentsCatalogService } from '../../pages/docs/shared/services/components-catalog.service';
+import { DocsAppearanceExportModalComponent } from '../docs-appearance-export-modal/docs-appearance-export-modal.component';
 
 type DocsSearchPage = {
   readonly title: string;
@@ -62,6 +74,27 @@ type DocsRadiusPreset = {
 const DOCS_PALETTE_STORAGE_KEY = 'docs-palette';
 const DOCS_RADIUS_STORAGE_KEY = 'docs-radius';
 const DOCS_CORNER_HANDLES_STORAGE_KEY = 'docs-corner-handles';
+
+const DOCS_EXPORT_COLOR_TOKENS: readonly (readonly [frameToken: string, sourceToken: string])[] = [
+  ['--frame-background', '--color-background'],
+  ['--frame-foreground', '--color-foreground'],
+  ['--frame-muted', '--color-muted'],
+  ['--frame-muted-foreground', '--color-muted-foreground'],
+  ['--frame-border', '--color-border'],
+  ['--frame-surface', '--color-surface'],
+  ['--frame-surface-foreground', '--color-surface-foreground'],
+  ['--frame-primary', '--color-primary'],
+  ['--frame-primary-foreground', '--color-primary-foreground'],
+  ['--frame-accent', '--color-accent'],
+  ['--frame-accent-foreground', '--color-accent-foreground'],
+  ['--frame-input', '--color-input'],
+  ['--frame-ring', '--color-ring'],
+  ['--frame-border-strong', '--frame-border-strong'],
+  ['--frame-success', '--frame-success'],
+  ['--frame-warning', '--frame-warning'],
+  ['--frame-info', '--frame-info'],
+  ['--frame-destructive', '--frame-destructive'],
+];
 
 const DOCS_PALETTES: readonly DocsPalette[] = [
   {
@@ -215,6 +248,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerTools,
       tablerBrandGithub,
       tablerCheck,
+      tablerCode,
       tablerCoffee,
     }),
   ],
@@ -223,6 +257,7 @@ export class DocsHeaderComponent {
   private readonly commandService = inject(FrCommandService);
   private readonly componentsCatalog = inject(ComponentsCatalogService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly modalService = inject(FrModalService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly viewContainerRef = inject(ViewContainerRef);
@@ -235,6 +270,19 @@ export class DocsHeaderComponent {
   readonly selectedPalette = signal<DocsPaletteId>('frame');
   readonly selectedRadius = signal<DocsRadiusId>('none');
   readonly cornerHandlesEnabled = signal(true);
+  readonly appearanceExportCssCode = computed(() => {
+    this.selectedPalette();
+    this.selectedRadius();
+    this.cornerHandlesEnabled();
+    this.themeService.theme();
+
+    return this.buildAppearanceExportCssCode();
+  });
+  readonly appearanceExportTsCode = computed(() => {
+    this.cornerHandlesEnabled();
+
+    return this.buildAppearanceExportTsCode();
+  });
   readonly pages = DOCS_SEARCH_PAGES;
   readonly tools = DOCS_TOOLS_PAGES;
   readonly components = toSignal(this.componentsCatalog.entries$, {
@@ -275,6 +323,24 @@ export class DocsHeaderComponent {
 
   toggleCornerHandles(): void {
     this.setCornerHandlesEnabled(!this.cornerHandlesEnabled());
+  }
+
+  openExportModal(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.modalService.open(
+      DocsAppearanceExportModalComponent,
+      {
+        cssCode: this.appearanceExportCssCode(),
+        tsCode: this.appearanceExportTsCode(),
+      },
+      {
+        ariaLabel: 'Export appearance code',
+        height: '52rem',
+        width: 'min(48rem, calc(100vw - 2rem))',
+      },
+    );
   }
 
   openSearch(): void {
@@ -367,6 +433,56 @@ export class DocsHeaderComponent {
     }
 
     root.setAttribute('data-frame-corner-handles', 'false');
+  }
+
+  private buildAppearanceExportCssCode(): string {
+    if (!isPlatformBrowser(this.platformId)) {
+      return '';
+    }
+
+    const palette = DOCS_PALETTES.find((entry) => entry.id === this.selectedPalette()) ?? DOCS_PALETTES[0];
+    const radius = DOCS_RADIUS_PRESETS.find((entry) => entry.id === this.selectedRadius()) ?? DOCS_RADIUS_PRESETS[0];
+    const cornerHandles = this.cornerHandlesEnabled();
+
+    return [
+      `/* ${palette.label}, ${radius.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
+      ':root {',
+      ...DOCS_EXPORT_COLOR_TOKENS.map(
+        ([frameToken, sourceToken]) => `  ${frameToken}: ${this.readCssVariable(sourceToken)};`,
+      ),
+      `  --frame-radius-sm: ${radius.values.sm};`,
+      `  --frame-radius-md: ${radius.values.md};`,
+      `  --frame-radius-lg: ${radius.values.lg};`,
+      '}',
+    ].join('\n');
+  }
+
+  private buildAppearanceExportTsCode(): string {
+    const cornerHandles = this.cornerHandlesEnabled();
+
+    return [
+      "import { ApplicationConfig } from '@angular/core';",
+      "import { provideFrameUI } from '@frame-ui-ng/foundation';",
+      '',
+      'export const appConfig: ApplicationConfig = {',
+      '  providers: [',
+      '    // ...',
+      '    provideFrameUI({',
+      '      theme: {',
+      "        controlledBy: 'app',",
+      "        using: 'class',",
+      '      },',
+      `      disableCornerHandles: ${cornerHandles ? 'false' : 'true'},`,
+      '    }),',
+      '  ],',
+      '};',
+    ].join('\n');
+  }
+
+  private readCssVariable(name: string): string {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+    return value || 'initial';
   }
 
   private isDocsPalette(value: string | null): value is DocsPaletteId {

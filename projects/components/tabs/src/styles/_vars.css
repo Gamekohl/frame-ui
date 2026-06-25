@@ -17,6 +17,8 @@
   --frame-tabs-trigger-active-shadow: none;
   --frame-tabs-trigger-focus-shadow: none;
   --frame-tabs-trigger-disabled-opacity: 0.5;
+  --frame-tabs-line-list-gap: var(--frame-density-gap-xl);
+  --frame-tabs-line-trigger-padding-x: var(--frame-density-control-padding-x-sm);
   --frame-tabs-line-color: var(--frame-border);
   --frame-tabs-line-active-color: var(--frame-primary);
   --frame-tabs-content-padding: var(--frame-density-gap-xl) 0 0;

@@ -328,6 +328,13 @@
   content: none;
 }
 
+:where(
+  [frTabsList][data-variant='line'],
+  frame-tabs-list[data-variant='line']
+)::before {
+  content: none;
+}
+
 .frame-date-picker__content .frame-calendar::before {
   content: none;
 }
