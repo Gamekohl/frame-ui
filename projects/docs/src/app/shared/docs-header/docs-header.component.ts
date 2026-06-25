@@ -1,5 +1,5 @@
-import { NgOptimizedImage } from '@angular/common';
-import { Component, DestroyRef, ViewContainerRef, inject, viewChild } from '@angular/core';
+import { NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { Component, DestroyRef, PLATFORM_ID, ViewContainerRef, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -11,11 +11,15 @@ import {
   FrIconButton,
 } from '@frame-ui-ng/components';
 import { FrCommandModule } from '@frame-ui-ng/components/command';
+import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+  tablerBorderCorners,
+  tablerBorderRadius,
   tablerBrandGithub,
+  tablerCheck,
   tablerCoffee,
   tablerComponents,
   tablerFileText,
@@ -33,6 +37,101 @@ type DocsSearchPage = {
   readonly section: string;
   readonly keywords: readonly string[];
 };
+
+type DocsPaletteId = 'frame' | 'circuit' | 'signal' | 'plasma';
+type DocsRadiusId = 'none' | 'sm' | 'md' | 'lg';
+
+type DocsPalette = {
+  readonly id: DocsPaletteId;
+  readonly label: string;
+  readonly description: string;
+  readonly swatch: string;
+};
+
+type DocsRadiusPreset = {
+  readonly id: DocsRadiusId;
+  readonly label: string;
+  readonly description: string;
+  readonly values: {
+    readonly sm: string;
+    readonly md: string;
+    readonly lg: string;
+  };
+};
+
+const DOCS_PALETTE_STORAGE_KEY = 'docs-palette';
+const DOCS_RADIUS_STORAGE_KEY = 'docs-radius';
+const DOCS_CORNER_HANDLES_STORAGE_KEY = 'docs-corner-handles';
+
+const DOCS_PALETTES: readonly DocsPalette[] = [
+  {
+    id: 'frame',
+    label: 'Frame Red',
+    description: 'Default technical palette',
+    swatch: '#d71920',
+  },
+  {
+    id: 'circuit',
+    label: 'Circuit Green',
+    description: 'Sharper product tint',
+    swatch: 'oklch(0.58 0.18 153)',
+  },
+  {
+    id: 'signal',
+    label: 'Signal Blue',
+    description: 'Cooler app surface',
+    swatch: 'oklch(0.58 0.2 255)',
+  },
+  {
+    id: 'plasma',
+    label: 'Plasma Violet',
+    description: 'Louder neon system',
+    swatch: 'oklch(0.65 0.26 318)',
+  },
+];
+
+const DOCS_RADIUS_PRESETS: readonly DocsRadiusPreset[] = [
+  {
+    id: 'none',
+    label: 'Sharp',
+    description: 'No rounding',
+    values: {
+      sm: '0px',
+      md: '0px',
+      lg: '0px',
+    },
+  },
+  {
+    id: 'sm',
+    label: 'Small',
+    description: 'Subtle rounding',
+    values: {
+      sm: '0.125rem',
+      md: '0.25rem',
+      lg: '0.375rem',
+    },
+  },
+  {
+    id: 'md',
+    label: 'Medium',
+    description: 'Balanced rounding',
+    values: {
+      sm: '0.25rem',
+      md: '0.5rem',
+      lg: '0.75rem',
+    },
+  },
+  {
+    id: 'lg',
+    label: 'Large',
+    description: 'Soft surfaces',
+    values: {
+      sm: '0.375rem',
+      md: '0.75rem',
+      lg: '1rem',
+    },
+  }
+];
 
 const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
   {
@@ -97,6 +196,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     FrButtonIcon,
     NgIcon,
     FrCommandModule,
+    FrDropdownMenuModule,
     NgOptimizedImage,
     FrSeparator,
   ],
@@ -106,12 +206,15 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
   },
   viewProviders: [
     provideIcons({
+      tablerBorderCorners,
+      tablerBorderRadius,
       tablerComponents,
       tablerFileText,
       tablerSearch,
       tablerSunMoon,
       tablerTools,
       tablerBrandGithub,
+      tablerCheck,
       tablerCoffee,
     }),
   ],
@@ -120,17 +223,31 @@ export class DocsHeaderComponent {
   private readonly commandService = inject(FrCommandService);
   private readonly componentsCatalog = inject(ComponentsCatalogService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly searchDialog = viewChild.required<FrCommandDialog>('searchDialog');
   private searchDialogRef: FrCommandDialogRef | null = null;
 
   readonly themeService = inject(ThemeService);
+  readonly palettes = DOCS_PALETTES;
+  readonly radiusPresets = DOCS_RADIUS_PRESETS;
+  readonly selectedPalette = signal<DocsPaletteId>('frame');
+  readonly selectedRadius = signal<DocsRadiusId>('none');
+  readonly cornerHandlesEnabled = signal(true);
   readonly pages = DOCS_SEARCH_PAGES;
   readonly tools = DOCS_TOOLS_PAGES;
   readonly components = toSignal(this.componentsCatalog.entries$, {
     initialValue: [] as ComponentCatalogEntry[],
   });
+
+  constructor() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.restoreAppearancePreferences();
+  }
 
   toggleTheme(): void {
     const isDarkMode = document.documentElement.classList.contains('dark');
@@ -142,6 +259,22 @@ export class DocsHeaderComponent {
       localStorage.setItem('theme', 'dark');
       document.documentElement.classList.add('dark');
     }
+  }
+
+  setPalette(palette: DocsPaletteId): void {
+    this.selectedPalette.set(palette);
+    this.applyPalette(palette);
+    localStorage.setItem(DOCS_PALETTE_STORAGE_KEY, palette);
+  }
+
+  setRadius(radius: DocsRadiusId): void {
+    this.selectedRadius.set(radius);
+    this.applyRadius(radius);
+    localStorage.setItem(DOCS_RADIUS_STORAGE_KEY, radius);
+  }
+
+  toggleCornerHandles(): void {
+    this.setCornerHandlesEnabled(!this.cornerHandlesEnabled());
   }
 
   openSearch(): void {
@@ -181,5 +314,66 @@ export class DocsHeaderComponent {
 
     event.preventDefault();
     this.openSearch();
+  }
+
+  private restoreAppearancePreferences(): void {
+    const storedPalette = localStorage.getItem(DOCS_PALETTE_STORAGE_KEY);
+    const storedRadius = localStorage.getItem(DOCS_RADIUS_STORAGE_KEY);
+    const palette = this.isDocsPalette(storedPalette) ? storedPalette : 'frame';
+    const radius = this.isDocsRadius(storedRadius) ? storedRadius : 'none';
+    const cornerHandles = localStorage.getItem(DOCS_CORNER_HANDLES_STORAGE_KEY) !== 'false';
+
+    this.selectedPalette.set(palette);
+    this.selectedRadius.set(radius);
+    this.cornerHandlesEnabled.set(cornerHandles);
+    this.applyPalette(palette);
+    this.applyRadius(radius);
+    this.applyCornerHandles(cornerHandles);
+  }
+
+  private setCornerHandlesEnabled(enabled: boolean): void {
+    this.cornerHandlesEnabled.set(enabled);
+    this.applyCornerHandles(enabled);
+    localStorage.setItem(DOCS_CORNER_HANDLES_STORAGE_KEY, enabled ? 'true' : 'false');
+  }
+
+  private applyPalette(palette: DocsPaletteId): void {
+    const root = document.documentElement;
+
+    if (palette === 'frame') {
+      root.removeAttribute('data-docs-palette');
+      return;
+    }
+
+    root.setAttribute('data-docs-palette', palette);
+  }
+
+  private applyRadius(radius: DocsRadiusId): void {
+    const root = document.documentElement;
+    const preset = DOCS_RADIUS_PRESETS.find((entry) => entry.id === radius) ?? DOCS_RADIUS_PRESETS[0];
+
+    root.setAttribute('data-docs-radius', preset.id);
+    root.style.setProperty('--frame-radius-sm', preset.values.sm);
+    root.style.setProperty('--frame-radius-md', preset.values.md);
+    root.style.setProperty('--frame-radius-lg', preset.values.lg);
+  }
+
+  private applyCornerHandles(enabled: boolean): void {
+    const root = document.documentElement;
+
+    if (enabled) {
+      root.removeAttribute('data-frame-corner-handles');
+      return;
+    }
+
+    root.setAttribute('data-frame-corner-handles', 'false');
+  }
+
+  private isDocsPalette(value: string | null): value is DocsPaletteId {
+    return value === 'frame' || value === 'circuit' || value === 'signal' || value === 'plasma';
+  }
+
+  private isDocsRadius(value: string | null): value is DocsRadiusId {
+    return value === 'none' || value === 'sm' || value === 'md' || value === 'lg' || value === 'full';
   }
 }
