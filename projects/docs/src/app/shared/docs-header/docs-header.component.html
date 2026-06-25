@@ -115,6 +115,36 @@
             </div>
 
             <div frDropdownMenuSub>
+              <button [frDropdownMenuSubTrigger]="densityMenu" type="button">
+                <ng-icon class="shrink-0" name="tablerBaselineDensityMedium" size="16" aria-hidden="true" />
+                <span>Density</span>
+              </button>
+
+              <ng-template #densityMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+                <div frDropdownMenuPanel class="min-w-56">
+                  @for (density of densityPresets; track density.id) {
+                    <button
+                      frDropdownMenuItem
+                      type="button"
+                      [attr.aria-current]="selectedDensity() === density.id ? 'true' : null"
+                      (click)="setDensity(density.id)"
+                    >
+                      <span class="grid min-w-0 gap-0.5">
+                        <span class="truncate font-semibold">{{ density.label }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{ density.description }}</span>
+                      </span>
+                      @if (selectedDensity() === density.id) {
+                        <span frDropdownMenuShortcut>
+                          <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                        </span>
+                      }
+                    </button>
+                  }
+                </div>
+              </ng-template>
+            </div>
+
+            <div frDropdownMenuSub>
               <button [frDropdownMenuSubTrigger]="shadowMenu" type="button">
                 <ng-icon class="shrink-0" name="tablerShadow" size="16" aria-hidden="true" />
                 <span>Shadows</span>
@@ -144,20 +174,28 @@
               </ng-template>
             </div>
 
-            <button
-              frDropdownMenuCheckboxItem
-              type="button"
-              [checked]="cornerHandlesEnabled()"
-              (click)="toggleCornerHandles()"
+            <span
+              class="block"
+              [frTooltip]="cornerHandlesTooltip()"
+              frTooltipArrow
+              frTooltipSide="left"
             >
-              <ng-icon class="shrink-0" name="tablerBorderCorners" size="16" aria-hidden="true" />
-              <span>Corner handles</span>
-              @if (cornerHandlesEnabled()) {
-                <span frDropdownMenuShortcut>
-                  <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
-                </span>
-              }
-            </button>
+              <button
+                frDropdownMenuCheckboxItem
+                type="button"
+                [checked]="cornerHandlesEnabled()"
+                [disabled]="cornerHandlesLocked()"
+                (click)="toggleCornerHandles()"
+              >
+                <ng-icon class="shrink-0" name="tablerBorderCorners" size="16" aria-hidden="true" />
+                <span>Corner handles</span>
+                @if (cornerHandlesEnabled()) {
+                  <span frDropdownMenuShortcut>
+                    <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                  </span>
+                }
+              </button>
+            </span>
 
             <div frDropdownMenuSeparator></div>
 

@@ -23,9 +23,11 @@ import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
+import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+  tablerBaselineDensityMedium,
   tablerBorderCorners,
   tablerBorderRadius,
   tablerBrandGithub,
@@ -53,6 +55,7 @@ type DocsSearchPage = {
 
 type DocsPaletteId = 'frame' | 'circuit' | 'signal' | 'plasma';
 type DocsRadiusId = 'none' | 'sm' | 'md' | 'lg';
+type DocsDensityId = 'default' | 'compact' | 'comfortable';
 type DocsShadowId = 'flat' | 'default' | 'raised';
 
 type DocsPalette = {
@@ -73,16 +76,17 @@ type DocsRadiusPreset = {
   };
 };
 
+type DocsDensityPreset = {
+  readonly id: DocsDensityId;
+  readonly label: string;
+  readonly description: string;
+};
+
 type DocsShadowPreset = {
   readonly id: DocsShadowId;
   readonly label: string;
   readonly description: string;
 };
-
-const DOCS_PALETTE_STORAGE_KEY = 'docs-palette';
-const DOCS_RADIUS_STORAGE_KEY = 'docs-radius';
-const DOCS_SHADOW_STORAGE_KEY = 'docs-shadow';
-const DOCS_CORNER_HANDLES_STORAGE_KEY = 'docs-corner-handles';
 
 const DOCS_EXPORT_COLOR_TOKENS: readonly (readonly [frameToken: string, sourceToken: string])[] = [
   ['--frame-background', '--color-background'],
@@ -175,16 +179,34 @@ const DOCS_RADIUS_PRESETS: readonly DocsRadiusPreset[] = [
   }
 ];
 
-const DOCS_SHADOW_PRESETS: readonly DocsShadowPreset[] = [
+const DOCS_DENSITY_PRESETS: readonly DocsDensityPreset[] = [
   {
-    id: 'flat',
-    label: 'Flat',
-    description: 'No elevation',
+    id: 'default',
+    label: 'Default',
+    description: 'Balanced controls',
   },
+  {
+    id: 'compact',
+    label: 'Compact',
+    description: 'Tighter screens',
+  },
+  {
+    id: 'comfortable',
+    label: 'Comfortable',
+    description: 'More room',
+  },
+];
+
+const DOCS_SHADOW_PRESETS: readonly DocsShadowPreset[] = [
   {
     id: 'default',
     label: 'Default',
     description: 'Default elevation',
+  },
+  {
+    id: 'flat',
+    label: 'Flat',
+    description: 'No elevation',
   },
   {
     id: 'raised',
@@ -257,6 +279,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     NgIcon,
     FrCommandModule,
     FrDropdownMenuModule,
+    FrTooltipModule,
     NgOptimizedImage,
     FrSeparator,
   ],
@@ -266,6 +289,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
   },
   viewProviders: [
     provideIcons({
+      tablerBaselineDensityMedium,
       tablerBorderCorners,
       tablerBorderRadius,
       tablerComponents,
@@ -295,14 +319,23 @@ export class DocsHeaderComponent {
   readonly themeService = inject(ThemeService);
   readonly palettes = DOCS_PALETTES;
   readonly radiusPresets = DOCS_RADIUS_PRESETS;
+  readonly densityPresets = DOCS_DENSITY_PRESETS;
   readonly shadowPresets = DOCS_SHADOW_PRESETS;
   readonly selectedPalette = signal<DocsPaletteId>('frame');
   readonly selectedRadius = signal<DocsRadiusId>('none');
+  readonly selectedDensity = signal<DocsDensityId>('default');
   readonly selectedShadow = signal<DocsShadowId>('default');
   readonly cornerHandlesEnabled = signal(true);
+  readonly cornerHandlesLocked = computed(() => this.selectedRadius() !== 'none');
+  readonly cornerHandlesTooltip = computed(() =>
+    this.cornerHandlesLocked()
+      ? 'Corner handles are only available when Radius is set to Sharp.'
+      : null,
+  );
   readonly appearanceExportCssCode = computed(() => {
     this.selectedPalette();
     this.selectedRadius();
+    this.selectedDensity();
     this.selectedShadow();
     this.cornerHandlesEnabled();
     this.themeService.theme();
@@ -310,6 +343,7 @@ export class DocsHeaderComponent {
     return this.buildAppearanceExportCssCode();
   });
   readonly appearanceExportTsCode = computed(() => {
+    this.selectedDensity();
     this.selectedShadow();
     this.cornerHandlesEnabled();
 
@@ -326,7 +360,7 @@ export class DocsHeaderComponent {
       return;
     }
 
-    this.restoreAppearancePreferences();
+    this.resetAppearancePreview();
   }
 
   toggleTheme(): void {
@@ -344,22 +378,33 @@ export class DocsHeaderComponent {
   setPalette(palette: DocsPaletteId): void {
     this.selectedPalette.set(palette);
     this.applyPalette(palette);
-    localStorage.setItem(DOCS_PALETTE_STORAGE_KEY, palette);
   }
 
   setRadius(radius: DocsRadiusId): void {
     this.selectedRadius.set(radius);
     this.applyRadius(radius);
-    localStorage.setItem(DOCS_RADIUS_STORAGE_KEY, radius);
+
+    if (radius !== 'none') {
+      this.setCornerHandlesEnabled(false);
+    }
+  }
+
+  setDensity(density: DocsDensityId): void {
+    this.selectedDensity.set(density);
+    this.applyDensity(density);
   }
 
   setShadow(shadow: DocsShadowId): void {
     this.selectedShadow.set(shadow);
     this.applyShadow(shadow);
-    localStorage.setItem(DOCS_SHADOW_STORAGE_KEY, shadow);
   }
 
   toggleCornerHandles(): void {
+    if (this.cornerHandlesLocked()) {
+      this.setCornerHandlesEnabled(false);
+      return;
+    }
+
     this.setCornerHandlesEnabled(!this.cornerHandlesEnabled());
   }
 
@@ -420,29 +465,22 @@ export class DocsHeaderComponent {
     this.openSearch();
   }
 
-  private restoreAppearancePreferences(): void {
-    const storedPalette = localStorage.getItem(DOCS_PALETTE_STORAGE_KEY);
-    const storedRadius = localStorage.getItem(DOCS_RADIUS_STORAGE_KEY);
-    const storedShadow = localStorage.getItem(DOCS_SHADOW_STORAGE_KEY);
-    const palette = this.isDocsPalette(storedPalette) ? storedPalette : 'frame';
-    const radius = this.isDocsRadius(storedRadius) ? storedRadius : 'none';
-    const shadow = this.isDocsShadow(storedShadow) ? storedShadow : 'default';
-    const cornerHandles = localStorage.getItem(DOCS_CORNER_HANDLES_STORAGE_KEY) !== 'false';
-
-    this.selectedPalette.set(palette);
-    this.selectedRadius.set(radius);
-    this.selectedShadow.set(shadow);
-    this.cornerHandlesEnabled.set(cornerHandles);
-    this.applyPalette(palette);
-    this.applyRadius(radius);
-    this.applyShadow(shadow);
-    this.applyCornerHandles(cornerHandles);
+  private resetAppearancePreview(): void {
+    this.selectedPalette.set('frame');
+    this.selectedRadius.set('none');
+    this.selectedDensity.set('default');
+    this.selectedShadow.set('default');
+    this.cornerHandlesEnabled.set(true);
+    this.applyPalette('frame');
+    this.applyRadius('none');
+    this.applyDensity('default');
+    this.applyShadow('default');
+    this.applyCornerHandles(true);
   }
 
   private setCornerHandlesEnabled(enabled: boolean): void {
     this.cornerHandlesEnabled.set(enabled);
     this.applyCornerHandles(enabled);
-    localStorage.setItem(DOCS_CORNER_HANDLES_STORAGE_KEY, enabled ? 'true' : 'false');
   }
 
   private applyPalette(palette: DocsPaletteId): void {
@@ -464,6 +502,17 @@ export class DocsHeaderComponent {
     root.style.setProperty('--frame-radius-sm', preset.values.sm);
     root.style.setProperty('--frame-radius-md', preset.values.md);
     root.style.setProperty('--frame-radius-lg', preset.values.lg);
+  }
+
+  private applyDensity(density: DocsDensityId): void {
+    const root = document.documentElement;
+
+    if (density === 'default') {
+      root.removeAttribute('data-density');
+      return;
+    }
+
+    root.setAttribute('data-density', density);
   }
 
   private applyShadow(shadow: DocsShadowId): void {
@@ -495,11 +544,13 @@ export class DocsHeaderComponent {
 
     const palette = DOCS_PALETTES.find((entry) => entry.id === this.selectedPalette()) ?? DOCS_PALETTES[0];
     const radius = DOCS_RADIUS_PRESETS.find((entry) => entry.id === this.selectedRadius()) ?? DOCS_RADIUS_PRESETS[0];
+    const density =
+      DOCS_DENSITY_PRESETS.find((entry) => entry.id === this.selectedDensity()) ?? DOCS_DENSITY_PRESETS[0];
     const shadow = DOCS_SHADOW_PRESETS.find((entry) => entry.id === this.selectedShadow()) ?? DOCS_SHADOW_PRESETS[1];
     const cornerHandles = this.cornerHandlesEnabled();
 
     return [
-      `/* ${palette.label}, ${radius.label}, ${shadow.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
+      `/* ${palette.label}, ${radius.label}, ${density.label}, ${shadow.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
       ':root {',
       ...DOCS_EXPORT_COLOR_TOKENS.map(
         ([frameToken, sourceToken]) => `  ${frameToken}: ${this.readCssVariable(sourceToken)};`,
@@ -515,6 +566,7 @@ export class DocsHeaderComponent {
   }
 
   private buildAppearanceExportTsCode(): string {
+    const density = this.selectedDensity();
     const shadow = this.selectedShadow();
     const cornerHandles = this.cornerHandlesEnabled();
 
@@ -528,8 +580,9 @@ export class DocsHeaderComponent {
       '    provideFrameUI({',
       '      theme: {',
       "        controlledBy: 'app',",
-      "        using: 'class',",
-      '      },',
+        "        using: 'class',",
+        '      },',
+      `      density: '${density}',`,
       `      shadow: '${shadow}',`,
       `      disableCornerHandles: ${cornerHandles ? 'false' : 'true'},`,
       '    }),',
@@ -544,15 +597,4 @@ export class DocsHeaderComponent {
     return value || 'initial';
   }
 
-  private isDocsPalette(value: string | null): value is DocsPaletteId {
-    return value === 'frame' || value === 'circuit' || value === 'signal' || value === 'plasma';
-  }
-
-  private isDocsRadius(value: string | null): value is DocsRadiusId {
-    return value === 'none' || value === 'sm' || value === 'md' || value === 'lg';
-  }
-
-  private isDocsShadow(value: string | null): value is DocsShadowId {
-    return value === 'flat' || value === 'default' || value === 'raised';
-  }
 }

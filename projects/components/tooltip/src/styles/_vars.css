@@ -3,7 +3,7 @@
   --frame-tooltip-content-color: var(--frame-foreground);
   --frame-tooltip-content-border: var(--frame-frame-line-muted, var(--frame-border));
   --frame-tooltip-content-radius: var(--frame-radius-md);
-  --frame-tooltip-content-shadow: var(--frame-shadow-sm);
+  --frame-tooltip-content-shadow: var(--frame-shadow-md);
   --frame-tooltip-content-padding: var(--frame-density-overlay-padding-block) var(--frame-density-overlay-padding-inline);
   --frame-tooltip-content-max-width: 18rem;
   --frame-tooltip-content-font-size: 0.8125rem;
