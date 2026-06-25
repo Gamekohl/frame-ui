@@ -15,24 +15,113 @@
     >
       <div frCardHeader class="flex! flex-wrap items-start justify-between gap-4">
         <h2 frCardTitle class="mt-2 font-mono text-2xl! uppercase">{{ entry.version }}</h2>
+
+        <div class="flex flex-wrap items-center gap-2">
+          @for (section of entry.sections; track section.title) {
+            <span frBadge [variant]="badgeVariant(section.title)">
+              {{ section.title }}
+            </span>
+          }
+        </div>
       </div>
 
-      <div frCardContent class="space-y-8">
-        @for (section of entry.sections; track section.title) {
-          <section class="space-y-3">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-foreground">
-              {{ section.title }}
-            </h3>
-            <ul class="grid gap-3 text-sm leading-7 text-muted-foreground">
-              @for (item of section.items; track item) {
-                <li class="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-3">
-                  <span class="mt-3 h-1.5 w-1.5 bg-primary" aria-hidden="true"></span>
-                  <span>{{ item }}</span>
-                </li>
-              }
-            </ul>
-          </section>
+      <div frCardContent class="space-y-10">
+        @if (entry.highlights?.length) {
+          <div class="space-y-10">
+            @for (highlight of entry.highlights; track highlight.title) {
+              <section class="space-y-5 border-t border-border pt-8 first:border-t-0 first:pt-0">
+                <div class="space-y-2">
+                  <div class="flex flex-wrap items-center gap-3">
+                    @if (highlight.kind) {
+                      <span frBadge [variant]="badgeVariant(highlight.kind)">
+                        {{ highlight.kind }}
+                      </span>
+                    }
+                    <h3 class="font-mono text-xl font-semibold uppercase text-foreground">
+                      {{ highlight.title }}
+                    </h3>
+                  </div>
+                  <p class="max-w-3xl text-sm leading-7 text-muted-foreground">
+                    {{ highlight.description }}
+                  </p>
+                </div>
+
+                @if (highlight.items?.length) {
+                  <ul class="grid gap-3 text-sm leading-7 text-muted-foreground">
+                    @for (item of highlight.items; track item) {
+                      <li class="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-3">
+                        <span class="mt-3 h-1.5 w-1.5 bg-primary" aria-hidden="true"></span>
+                        <span>{{ item }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+
+                @if (highlight.code) {
+                  <docs-code-block
+                    [code]="highlight.code.code"
+                    [language]="highlight.code.language"
+                    [title]="highlight.code.title"
+                    rounded
+                  />
+                }
+
+                @if (highlight.comparison) {
+                  <div class="space-y-3">
+                    @if (highlight.comparison.title) {
+                      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                        {{ highlight.comparison.title }}
+                      </p>
+                    }
+                    <div class="grid min-w-0 gap-4 xl:grid-cols-2">
+                      <div class="min-w-0 space-y-2">
+                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          {{ highlight.comparison.beforeTitle }}
+                        </p>
+                        <docs-code-block
+                          [code]="highlight.comparison.before.code"
+                          [language]="highlight.comparison.before.language"
+                          [title]="highlight.comparison.before.title"
+                          rounded
+                        />
+                      </div>
+
+                      <div class="min-w-0 space-y-2">
+                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          {{ highlight.comparison.afterTitle }}
+                        </p>
+                        <docs-code-block
+                          [code]="highlight.comparison.after.code"
+                          [language]="highlight.comparison.after.language"
+                          [title]="highlight.comparison.after.title"
+                          rounded
+                        />
+                      </div>
+                    </div>
+                  </div>
+                }
+              </section>
+            }
+          </div>
         }
+
+        <div class="grid gap-8 border-t border-border pt-8 lg:grid-cols-2">
+          @for (section of entry.sections; track section.title) {
+            <section class="space-y-3">
+              <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-foreground">
+                {{ section.title }}
+              </h3>
+              <ul class="grid gap-3 text-sm leading-7 text-muted-foreground">
+                @for (item of section.items; track item) {
+                  <li class="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-3">
+                    <span class="mt-3 h-1.5 w-1.5 bg-primary" aria-hidden="true"></span>
+                    <span>{{ item }}</span>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+        </div>
       </div>
     </section>
   }
