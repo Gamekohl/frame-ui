@@ -97,11 +97,11 @@ const inspectorConfig: DropdownMenuPreviewConfig = {
 const customStylingConfig: DropdownMenuPreviewConfig = {
   className: 'flex items-start justify-center',
   triggerLabel: 'Styled workspace menu',
-  style: `--frame-dropdown-menu-panel-radius: 1rem;
+  style: `--frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
 --frame-dropdown-menu-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 16%, transparent);
 --frame-dropdown-menu-panel-padding: 0.375rem;
 --frame-dropdown-menu-item-height: 2.25rem;
---frame-dropdown-menu-item-radius: 0.875rem;
+--frame-dropdown-menu-item-radius: var(--frame-radius-lg);
 --frame-dropdown-menu-item-hover-bg: yellow;
 --frame-dropdown-menu-item-hover-color: color-mix(in srgb, var(--frame-primary) 55%, var(--frame-foreground));
 --frame-dropdown-menu-label-color: color-mix(in srgb, var(--frame-primary) 45%, var(--frame-muted-foreground));`,

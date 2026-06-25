@@ -222,6 +222,7 @@
       "--frame-accordion-item-border",
       "--frame-accordion-item-padding-x",
       "--frame-accordion-item-radius",
+      "--frame-accordion-radius",
       "--frame-accordion-trigger-color",
       "--frame-accordion-trigger-disabled-opacity",
       "--frame-accordion-trigger-font-size",
@@ -234,7 +235,8 @@
       "--frame-border",
       "--frame-foreground",
       "--frame-muted-foreground",
-      "--frame-primary"
+      "--frame-primary",
+      "--frame-radius-md"
     ]
   },
   {
@@ -438,11 +440,15 @@
       "--frame-alert-title-font-weight",
       "--frame-border",
       "--frame-destructive",
+      "--frame-info",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-success",
       "--frame-surface",
-      "--frame-surface-foreground"
+      "--frame-surface-foreground",
+      "--frame-warning"
     ]
   },
   {
@@ -713,6 +719,8 @@
       "--frame-muted-foreground",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-full",
+      "--frame-radius-lg",
       "--frame-surface"
     ]
   },
@@ -938,12 +946,15 @@
       "--frame-foreground",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-lg",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-spinner-duration",
       "--frame-spinner-indicator-color",
       "--frame-spinner-size",
       "--frame-spinner-stroke",
       "--frame-spinner-track-color",
+      "--frame-success",
       "--frame-surface"
     ]
   },
@@ -985,10 +996,6 @@
           {
             "name": "loadingDisplay",
             "type": "FrButtonLoadingDisplay"
-          },
-          {
-            "name": "radius",
-            "type": "FrButtonRadius"
           },
           {
             "name": "size",
@@ -1118,7 +1125,7 @@
       },
       {
         "title": "Basic",
-        "description": "Override button tokens on a local wrapper when a product area needs a different height, radius, or visual density while keeping the same button API and behavior.",
+        "description": "Override button tokens on a local wrapper when a product area needs a different height, radius, or visual density while keeping the same markup and behavior.",
         "code": [
           {
             "language": "css",
@@ -1132,7 +1139,7 @@
       },
       {
         "title": "Appearances",
-        "description": "This preview applies local token overrides to adjust height, radius, icon scale, and the filled button surface.",
+        "description": "This preview applies local token overrides to adjust height, radius, icon scale, and the filled button surface. For app-wide radius changes, set the shared radius tokens instead.",
         "code": [
           {
             "language": "ts",
@@ -1159,26 +1166,12 @@
         ]
       },
       {
-        "title": "Radius options",
+        "title": "Loading states",
         "description": "Switch appearances to control emphasis, from the filled primary action to lighter outline and ghost affordances.",
         "code": [
           {
             "language": "ts",
             "code": "<button frButton size=\"sm\" type=\"button\">Small</button>\r\n<button frButton size=\"md\" type=\"button\">Medium</button>\r\n<button frButton size=\"lg\" type=\"button\">Large</button>"
-          },
-          {
-            "language": "ts",
-            "code": "<button frButton radius=\"none\" appearance=\"outline\" type=\"button\">None</button>\r\n<button frButton radius=\"sm\" appearance=\"outline\" type=\"button\">Small</button>\r\n<button frButton radius=\"md\" appearance=\"outline\" type=\"button\">Medium</button>\r\n<button frButton radius=\"lg\" appearance=\"outline\" type=\"button\">Large</button>\r\n<button frButton radius=\"full\" appearance=\"outline\" type=\"button\">Full</button>"
-          }
-        ]
-      },
-      {
-        "title": "Loading states",
-        "description": "Use ",
-        "code": [
-          {
-            "language": "ts",
-            "code": "<button frButton radius=\"none\" appearance=\"outline\" type=\"button\">None</button>\r\n<button frButton radius=\"sm\" appearance=\"outline\" type=\"button\">Small</button>\r\n<button frButton radius=\"md\" appearance=\"outline\" type=\"button\">Medium</button>\r\n<button frButton radius=\"lg\" appearance=\"outline\" type=\"button\">Large</button>\r\n<button frButton radius=\"full\" appearance=\"outline\" type=\"button\">Full</button>"
           },
           {
             "language": "ts",
@@ -1188,7 +1181,7 @@
       },
       {
         "title": "Icon buttons",
-        "description": "Use radius presets when a button should feel squared, softly rounded, or fully pill-shaped. Blueprint corner handles are only shown when the radius is ",
+        "description": "Use ",
         "code": [
           {
             "language": "ts",
@@ -1238,6 +1231,7 @@
       "--frame-button-root-shadow",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-ring",
       "--frame-shadow-sm",
@@ -1418,7 +1412,8 @@
       "--frame-button-root-hover-filter",
       "--frame-button-root-padding-x",
       "--frame-button-root-radius",
-      "--frame-primary"
+      "--frame-primary",
+      "--frame-radius-lg"
     ]
   },
   {
@@ -1798,7 +1793,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate = new FormControl<Date | null>(new Date());"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate = new FormControl<Date | null>(new Date());"
           }
         ]
       },
@@ -1808,7 +1803,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate = new FormControl<Date | null>(new Date());"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate = new FormControl<Date | null>(new Date());"
           },
           {
             "language": "html",
@@ -1840,7 +1835,7 @@
           },
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\ndate: Date | null = new Date(2026, 5, 10);"
+            "code": "${calendarImportsCode}\r\n\r\ndate: Date | null = new Date(2026, 5, 10);"
           }
         ]
       },
@@ -1850,7 +1845,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\ndate: Date | null = new Date(2026, 5, 10);"
+            "code": "${calendarImportsCode}\r\n\r\ndate: Date | null = new Date(2026, 5, 10);"
           },
           {
             "language": "html",
@@ -1868,7 +1863,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\nmonth = new Date(2026, 5, 1);\nrange: FrCalendarDateRange = {\n  from: new Date(2026, 5, 8),\n  to: new Date(2026, 5, 13),\n};"
+            "code": "import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\nmonth = new Date(2026, 5, 1);\r\nrange: FrCalendarDateRange = {\r\n  from: new Date(2026, 5, 8),\r\n  to: new Date(2026, 5, 13),\r\n};"
           }
         ]
       },
@@ -1878,7 +1873,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\nmonth = new Date(2026, 5, 1);\nrange: FrCalendarDateRange = {\n  from: new Date(2026, 5, 8),\n  to: new Date(2026, 5, 13),\n};"
+            "code": "import { FrCalendarDateRange, FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\nmonth = new Date(2026, 5, 1);\r\nrange: FrCalendarDateRange = {\r\n  from: new Date(2026, 5, 8),\r\n  to: new Date(2026, 5, 13),\r\n};"
           },
           {
             "language": "html",
@@ -1896,7 +1891,7 @@
           },
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\nmonth = new Date(2026, 5, 1);"
+            "code": "${calendarImportsCode}\r\n\r\nmonth = new Date(2026, 5, 1);"
           }
         ]
       },
@@ -1906,7 +1901,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\nmonth = new Date(2026, 5, 1);"
+            "code": "${calendarImportsCode}\r\n\r\nmonth = new Date(2026, 5, 1);"
           },
           {
             "language": "html",
@@ -1924,7 +1919,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate: Date | null = new Date(2026, 5, 10);\ntomorrow = new Date(2026, 5, 7);"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate: Date | null = new Date(2026, 5, 10);\r\ntomorrow = new Date(2026, 5, 7);"
           }
         ]
       },
@@ -1934,7 +1929,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate: Date | null = new Date(2026, 5, 10);\ntomorrow = new Date(2026, 5, 7);"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate: Date | null = new Date(2026, 5, 10);\r\ntomorrow = new Date(2026, 5, 7);"
           },
           {
             "language": "html",
@@ -1952,7 +1947,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormsModule } from '@angular/forms';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate: Date | null = new Date(2026, 5, 10);\nstartTime = '09:00';\nendTime = '17:00';"
+            "code": "import { FormsModule } from '@angular/forms';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate: Date | null = new Date(2026, 5, 10);\r\nstartTime = '09:00';\r\nendTime = '17:00';"
           }
         ]
       },
@@ -1962,7 +1957,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormsModule } from '@angular/forms';\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\n\ndate: Date | null = new Date(2026, 5, 10);\nstartTime = '09:00';\nendTime = '17:00';"
+            "code": "import { FormsModule } from '@angular/forms';\r\nimport { FrCalendarModule } from '@frame-ui-ng/components/calendar';\r\n\r\ndate: Date | null = new Date(2026, 5, 10);\r\nstartTime = '09:00';\r\nendTime = '17:00';"
           },
           {
             "language": "html",
@@ -1980,7 +1975,7 @@
           },
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\ndisabledDates = [\n  new Date(2026, 1, 6),\n  new Date(2026, 1, 13),\n  new Date(2026, 1, 20),\n];"
+            "code": "${calendarImportsCode}\r\n\r\ndisabledDates = [\r\n  new Date(2026, 1, 6),\r\n  new Date(2026, 1, 13),\r\n  new Date(2026, 1, 20),\r\n];"
           }
         ]
       },
@@ -1990,7 +1985,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${calendarImportsCode}\n\ndisabledDates = [\n  new Date(2026, 1, 6),\n  new Date(2026, 1, 13),\n  new Date(2026, 1, 20),\n];"
+            "code": "${calendarImportsCode}\r\n\r\ndisabledDates = [\r\n  new Date(2026, 1, 6),\r\n  new Date(2026, 1, 13),\r\n  new Date(2026, 1, 20),\r\n];"
           },
           {
             "language": "html",
@@ -2006,6 +2001,7 @@
       "--frame-calendar-cell-radius",
       "--frame-calendar-cell-size",
       "--frame-calendar-color",
+      "--frame-calendar-column-count",
       "--frame-calendar-day-disabled-date-decoration",
       "--frame-calendar-day-disabled-opacity",
       "--frame-calendar-day-hover-bg",
@@ -2015,14 +2011,17 @@
       "--frame-calendar-day-selected-bg",
       "--frame-calendar-day-selected-color",
       "--frame-calendar-day-today-border",
+      "--frame-calendar-effective-cell-size",
       "--frame-calendar-focus-shadow",
       "--frame-calendar-gap",
+      "--frame-calendar-month-flex",
       "--frame-calendar-muted-color",
       "--frame-calendar-nav-hover-bg",
       "--frame-calendar-nav-radius",
       "--frame-calendar-nav-size",
       "--frame-calendar-padding",
       "--frame-calendar-radius",
+      "--frame-calendar-width",
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
@@ -2174,7 +2173,7 @@
           },
           {
             "language": "css",
-            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: 1.5rem;\r\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
+            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
           }
         ]
       },
@@ -2184,7 +2183,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: 1.5rem;\r\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
+            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
           },
           {
             "language": "ts",
@@ -2314,7 +2313,7 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
-      "--frame-radius-xl",
+      "--frame-radius-lg",
       "--frame-surface",
       "--frame-surface-foreground"
     ]
@@ -2466,7 +2465,7 @@
           },
           {
             "language": "css",
-            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: 1.5rem;\r\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
+            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
           }
         ]
       },
@@ -2476,7 +2475,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: 1.5rem;\r\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
+            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
           },
           {
             "language": "ts",
@@ -3342,7 +3341,7 @@
           },
           {
             "language": "css",
-            "code": ".custom-command {\r\n  --frame-command-radius: 1.25rem;\r\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
+            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
           }
         ]
       },
@@ -3352,7 +3351,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".custom-command {\r\n  --frame-command-radius: 1.25rem;\r\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
+            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
           },
           {
             "language": "ts",
@@ -3922,7 +3921,9 @@
       "--frame-muted-foreground",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-shadow-md",
       "--frame-surface",
@@ -4253,7 +4254,9 @@
       "--frame-dropdown-menu-shortcut-gap",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-shadow-md",
       "--frame-surface",
       "--frame-surface-foreground"
@@ -4338,6 +4341,174 @@
           {
             "language": "bash",
             "code": "npx your-cli add confirm-modal"
+          }
+        ]
+      }
+    ],
+    "tokens": []
+  },
+  {
+    "slug": "confirm-popover",
+    "name": "Confirm Popover",
+    "category": "Overlays",
+    "status": "Stable",
+    "summary": "Anchored confirmation prompt that can attach to buttons, cards, rows, and custom trigger components.",
+    "publicExport": null,
+    "importPath": "@frame-ui-ng/components",
+    "imports": [
+      "FrConfirmPopover",
+      "FrConfirmPopoverPanel"
+    ],
+    "docsImports": [],
+    "selectors": [
+      {
+        "className": "FrConfirmPopover",
+        "kind": "Directive",
+        "selector": "[frConfirmPopover],\r\n    [frConfirmPopoverAlign],\r\n    [frConfirmPopoverAlignOffset],\r\n    [frConfirmPopoverButtonSize],\r\n    [frConfirmPopoverCancelAppearance],\r\n    [frConfirmPopoverCancelLabel],\r\n    [frConfirmPopoverConfirmAppearance],\r\n    [frConfirmPopoverConfirmLabel],\r\n    [frConfirmPopoverDescription],\r\n    [frConfirmPopoverDisabled],\r\n    [frConfirmPopoverSide],\r\n    [frConfirmPopoverSideOffset],\r\n    [frConfirmPopoverTitle]",
+        "preferredSelector": "[frConfirmPopover]",
+        "inputs": [
+          {
+            "name": "config",
+            "type": "FrConfirmPopoverConfig | string"
+          },
+          {
+            "name": "align",
+            "type": "FrPopoverAlignment | undefined"
+          },
+          {
+            "name": "alignOffset",
+            "type": "number | undefined, unknown"
+          },
+          {
+            "name": "buttonSize",
+            "type": "FrButtonSize | undefined"
+          },
+          {
+            "name": "cancelAppearance",
+            "type": "FrButtonAppearance | undefined"
+          },
+          {
+            "name": "cancelLabel",
+            "type": "string | undefined"
+          },
+          {
+            "name": "confirmAppearance",
+            "type": "FrButtonAppearance | undefined"
+          },
+          {
+            "name": "confirmLabel",
+            "type": "string | undefined"
+          },
+          {
+            "name": "description",
+            "type": "string | undefined"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean | undefined, unknown"
+          },
+          {
+            "name": "side",
+            "type": "FrPopoverSide | undefined"
+          },
+          {
+            "name": "sideOffset",
+            "type": "number | undefined, unknown"
+          },
+          {
+            "name": "title",
+            "type": "string | undefined"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "closed",
+            "type": "FrConfirmPopoverResult | undefined"
+          },
+          {
+            "name": "cancelled",
+            "type": "void"
+          },
+          {
+            "name": "confirmed",
+            "type": "void"
+          }
+        ],
+        "sourceFile": "projects/components/confirm-popover/src/confirm-popover.ts"
+      },
+      {
+        "className": "FrConfirmPopoverPanel",
+        "kind": "Component",
+        "selector": "frame-confirm-popover-panel",
+        "preferredSelector": "frame-confirm-popover-panel",
+        "inputs": [
+          {
+            "name": "buttonSize",
+            "type": "FrButtonSize"
+          },
+          {
+            "name": "cancelAppearance",
+            "type": "FrButtonAppearance"
+          },
+          {
+            "name": "cancelLabel",
+            "type": null
+          },
+          {
+            "name": "confirmAppearance",
+            "type": "FrButtonAppearance"
+          },
+          {
+            "name": "confirmLabel",
+            "type": null
+          },
+          {
+            "name": "description",
+            "type": "string | undefined"
+          },
+          {
+            "name": "descriptionId",
+            "type": "string | null"
+          },
+          {
+            "name": "side",
+            "type": "FrPopoverSide"
+          },
+          {
+            "name": "title",
+            "type": null
+          },
+          {
+            "name": "titleId",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cancelled",
+            "type": "void"
+          },
+          {
+            "name": "confirmed",
+            "type": "void"
+          }
+        ],
+        "sourceFile": "projects/components/confirm-popover/src/confirm-popover.ts"
+      }
+    ],
+    "usageGuidance": [
+      "Import used primitives from @frame-ui-ng/components.",
+      "Prefer the preferredSelector value for each primitive.",
+      "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
+    ],
+    "examples": [
+      {
+        "title": "Ship release?",
+        "description": "This will notify everyone watching the release channel.",
+        "code": [
+          {
+            "language": "bash",
+            "code": "npx your-cli add confirm-popover"
           }
         ]
       }
@@ -4568,6 +4739,382 @@
       "--frame-shadow-md",
       "--frame-surface",
       "--frame-surface-foreground"
+    ]
+  },
+  {
+    "slug": "drag-drop",
+    "name": "Drag Drop",
+    "category": "Data display",
+    "status": "Preview",
+    "summary": "CDK-backed drag and drop primitives for sortable lists, connected lists, and swimlane boards.",
+    "publicExport": null,
+    "importPath": "@frame-ui-ng/components",
+    "imports": [
+      "FrDrag",
+      "FrDragDropGroup",
+      "FrDragHandle",
+      "FrDragPlaceholder",
+      "FrDragPreview",
+      "FrDropList"
+    ],
+    "docsImports": [],
+    "selectors": [
+      {
+        "className": "FrDrag",
+        "kind": "Directive",
+        "selector": "[frDrag], frame-drag",
+        "preferredSelector": "[frDrag]",
+        "inputs": [
+          {
+            "name": "data",
+            "type": "T | null"
+          },
+          {
+            "name": "lockAxis",
+            "type": "DragAxis | null"
+          },
+          {
+            "name": "rootElementSelector",
+            "type": "string | null"
+          },
+          {
+            "name": "boundaryElement",
+            "type": "string | HTMLElement | null"
+          },
+          {
+            "name": "dragStartDelay",
+            "type": "DragStartDelay | null"
+          },
+          {
+            "name": "freeDragPosition",
+            "type": "{ x: number; y: number } | null"
+          },
+          {
+            "name": "disabled",
+            "type": null
+          },
+          {
+            "name": "constrainPosition",
+            "type": "DragConstrainPosition | null"
+          },
+          {
+            "name": "previewClass",
+            "type": "string | string[] | null"
+          },
+          {
+            "name": "previewContainer",
+            "type": "PreviewContainer | null"
+          },
+          {
+            "name": "scale",
+            "type": "number | null"
+          }
+        ],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      },
+      {
+        "className": "FrDragDropGroup",
+        "kind": "Directive",
+        "selector": "[frDragDropGroup], frame-drag-drop-group",
+        "preferredSelector": "[frDragDropGroup]",
+        "inputs": [
+          {
+            "name": "disabled",
+            "type": null
+          }
+        ],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      },
+      {
+        "className": "FrDragHandle",
+        "kind": "Directive",
+        "selector": "[frDragHandle], frame-drag-handle",
+        "preferredSelector": "[frDragHandle]",
+        "inputs": [
+          {
+            "name": "disabled",
+            "type": null
+          }
+        ],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      },
+      {
+        "className": "FrDragPlaceholder",
+        "kind": "Directive",
+        "selector": "ng-template[frDragPlaceholder]",
+        "preferredSelector": "ng-template[frDragPlaceholder]",
+        "inputs": [],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      },
+      {
+        "className": "FrDragPreview",
+        "kind": "Directive",
+        "selector": "ng-template[frDragPreview]",
+        "preferredSelector": "ng-template[frDragPreview]",
+        "inputs": [],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      },
+      {
+        "className": "FrDropList",
+        "kind": "Directive",
+        "selector": "[frDropList], frame-drop-list",
+        "preferredSelector": "[frDropList]",
+        "inputs": [
+          {
+            "name": "data",
+            "type": "T | null"
+          },
+          {
+            "name": "orientation",
+            "type": "FrDropListOrientation"
+          },
+          {
+            "name": "id",
+            "type": "string | null"
+          },
+          {
+            "name": "lockAxis",
+            "type": "DragAxis | null"
+          },
+          {
+            "name": "disabled",
+            "type": null
+          },
+          {
+            "name": "sortingDisabled",
+            "type": null
+          },
+          {
+            "name": "autoScrollDisabled",
+            "type": null
+          },
+          {
+            "name": "autoScrollStep",
+            "type": "number | null"
+          },
+          {
+            "name": "elementContainerSelector",
+            "type": "string | null"
+          },
+          {
+            "name": "hasAnchor",
+            "type": null
+          }
+        ],
+        "outputs": [],
+        "sourceFile": "projects/components/drag-drop/src/drag-drop.ts"
+      }
+    ],
+    "usageGuidance": [
+      "Import used primitives from @frame-ui-ng/components.",
+      "Prefer the preferredSelector value for each primitive.",
+      "When both attribute and custom-element selectors exist, prefer the attribute/directive selector."
+    ],
+    "examples": [
+      {
+        "title": "Research interaction states",
+        "description": "The CDK moves DOM placeholders while dragging, but your data model still needs to be updated in the drop handler.",
+        "code": [
+          {
+            "language": "bash",
+            "code": "npx your-cli add drag-drop"
+          },
+          {
+            "language": "ts",
+            "code": "drop(event: CdkDragDrop<Task[]>): void {\r\n  if (event.previousContainer === event.container) {\r\n    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);\r\n  } else {\r\n    transferArrayItem(\r\n      event.previousContainer.data,\r\n      event.container.data,\r\n      event.previousIndex,\r\n      event.currentIndex,\r\n    );\r\n  }\r\n}"
+          }
+        ]
+      },
+      {
+        "title": "Map drag tokens",
+        "description": "Inspect the list surface, draggable item, placeholder, preview, and drag handle tokens that shape drag-and-drop density and interaction treatment.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "drop(event: CdkDragDrop<Task[]>): void {\r\n  if (event.previousContainer === event.container) {\r\n    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);\r\n  } else {\r\n    transferArrayItem(\r\n      event.previousContainer.data,\r\n      event.container.data,\r\n      event.previousIndex,\r\n      event.currentIndex,\r\n    );\r\n  }\r\n}"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"tasks\" (frDropListDropped)=\"drop($event)\">\r\n  @for (task of tasks; track task.id) {\r\n    <article frDrag [frDragData]=\"task\">\r\n      {{ task.title }}\r\n    </article>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Draft usage examples",
+        "description": "The drop list token set controls the receiving surface, spacing, minimum height, and active drag border.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"tasks\" (frDropListDropped)=\"drop($event)\">\r\n  @for (task of tasks; track task.id) {\r\n    <article frDrag [frDragData]=\"task\">\r\n      {{ task.title }}\r\n    </article>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Audit keyboard paths",
+        "description": "Drag item tokens control the row surface, spacing, shadow, radius, and hover state.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move item\">::</button>\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Review drag motion",
+        "description": "The handle provides a focused movement affordance while leaving the rest of the card available for content and actions.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move item\">::</button>\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move item\">::</button>\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Publish package",
+        "description": "Apply ",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"items\" (frDropListDropped)=\"drop($event)\">\r\n  @for (item of items; track item.id) {\r\n    <article frDrag [frDragData]=\"item\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move item\">::</button>\r\n      <span>{{ item.title }}</span>\r\n    </article>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "import { CdkDragDrop, moveItemInArray } from '@frame-ui-ng/components/drag-drop';"
+          }
+        ]
+      },
+      {
+        "title": "Backlog",
+        "description": "Add ",
+        "code": [
+          {
+            "language": "ts",
+            "code": "import { CdkDragDrop, moveItemInArray } from '@frame-ui-ng/components/drag-drop';"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDragDropGroup>\r\n  @for (list of lists; track list.id) {\r\n    <section>\r\n      <h3>{{ list.title }}</h3>\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"list.tasks\"\r\n        (frDropListDropped)=\"drop($event)\"\r\n      >\r\n        @for (task of list.tasks; track task.id) {\r\n          <article frDrag [frDragData]=\"task\">{{ task.title }}</article>\r\n        }\r\n      </div>\r\n    </section>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Add filter controls",
+        "description": "Start with a single drop list when you need a simple draggable collection with FrameUI surfaces.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDragDropGroup>\r\n  @for (list of lists; track list.id) {\r\n    <section>\r\n      <h3>{{ list.title }}</h3>\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"list.tasks\"\r\n        (frDropListDropped)=\"drop($event)\"\r\n      >\r\n        @for (task of list.tasks; track task.id) {\r\n          <article frDrag [frDragData]=\"task\">{{ task.title }}</article>\r\n        }\r\n      </div>\r\n    </section>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"cards\" (frDropListDropped)=\"dropCard($event)\">\r\n  @for (card of cards; track card.id) {\r\n    <article frDrag [frDragData]=\"card\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move card\">::</button>\r\n\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"card.children\"\r\n        (frDropListDropped)=\"dropChild(card.id, $event)\"\r\n      >\r\n        @for (child of card.children; track child.id) {\r\n          <div frDrag [frDragData]=\"child\">\r\n            <button frDragHandle type=\"button\" aria-label=\"Move child\">::</button>\r\n            {{ child.title }}\r\n          </div>\r\n        }\r\n      </div>\r\n    </article>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Design audit log",
+        "description": "Use ",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDropList [frDropListData]=\"cards\" (frDropListDropped)=\"dropCard($event)\">\r\n  @for (card of cards; track card.id) {\r\n    <article frDrag [frDragData]=\"card\">\r\n      <button frDragHandle type=\"button\" aria-label=\"Move card\">::</button>\r\n\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"card.children\"\r\n        (frDropListDropped)=\"dropChild(card.id, $event)\"\r\n      >\r\n        @for (child of card.children; track child.id) {\r\n          <div frDrag [frDragData]=\"child\">\r\n            <button frDragHandle type=\"button\" aria-label=\"Move child\">::</button>\r\n            {{ child.title }}\r\n          </div>\r\n        }\r\n      </div>\r\n    </article>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "ts",
+            "code": "<article frDrag [frDragData]=\"task\" [frDragDisabled]=\"task.locked\">\r\n  <button\r\n    frDragHandle\r\n    type=\"button\"\r\n    aria-label=\"Move task\"\r\n    [frDragHandleDisabled]=\"task.locked\"\r\n  >\r\n    ::\r\n  </button>\r\n  {{ task.title }}\r\n</article>"
+          }
+        ]
+      },
+      {
+        "title": "Done",
+        "description": "Wrap related lists in ",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<article frDrag [frDragData]=\"task\" [frDragDisabled]=\"task.locked\">\r\n  <button\r\n    frDragHandle\r\n    type=\"button\"\r\n    aria-label=\"Move task\"\r\n    [frDragHandleDisabled]=\"task.locked\"\r\n  >\r\n    ::\r\n  </button>\r\n  {{ task.title }}\r\n</article>"
+          },
+          {
+            "language": "ts",
+            "code": "<div frDragDropGroup class=\"board\">\r\n  @for (lane of lanes; track lane.id) {\r\n    <section class=\"lane\">\r\n      <h3>{{ lane.title }}</h3>\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"lane.tasks\"\r\n        (frDropListDropped)=\"dropLane($event)\"\r\n      >\r\n        @for (task of lane.tasks; track task.id) {\r\n          <article frDrag [frDragData]=\"task\">\r\n            <button frDragHandle type=\"button\" aria-label=\"Move card\">::</button>\r\n            {{ task.title }}\r\n          </article>\r\n        }\r\n      </div>\r\n    </section>\r\n  }\r\n</div>"
+          }
+        ]
+      },
+      {
+        "title": "Token migration",
+        "description": "Use handles on the outer draggable when a card contains its own nested draggable rows. This keeps child drag gestures from accidentally starting the parent drag.",
+        "code": [
+          {
+            "language": "ts",
+            "code": "<div frDragDropGroup class=\"board\">\r\n  @for (lane of lanes; track lane.id) {\r\n    <section class=\"lane\">\r\n      <h3>{{ lane.title }}</h3>\r\n      <div\r\n        frDropList\r\n        [frDropListData]=\"lane.tasks\"\r\n        (frDropListDropped)=\"dropLane($event)\"\r\n      >\r\n        @for (task of lane.tasks; track task.id) {\r\n          <article frDrag [frDragData]=\"task\">\r\n            <button frDragHandle type=\"button\" aria-label=\"Move card\">::</button>\r\n            {{ task.title }}\r\n          </article>\r\n        }\r\n      </div>\r\n    </section>\r\n  }\r\n</div>"
+          },
+          {
+            "language": "css",
+            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\n  --frame-drag-shadow: none;\r\n}"
+          }
+        ]
+      },
+      {
+        "title": "Profile card",
+        "description": "Disable a draggable item with ",
+        "code": [
+          {
+            "language": "css",
+            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\n  --frame-drag-shadow: none;\r\n}"
+          }
+        ]
+      }
+    ],
+    "tokens": [
+      "--frame-accent",
+      "--frame-background",
+      "--frame-border",
+      "--frame-drag-bg",
+      "--frame-drag-border",
+      "--frame-drag-color",
+      "--frame-drag-drop-gap",
+      "--frame-drag-drop-group-gap",
+      "--frame-drag-gap",
+      "--frame-drag-handle-color",
+      "--frame-drag-handle-hover-color",
+      "--frame-drag-hover-bg",
+      "--frame-drag-padding",
+      "--frame-drag-placeholder-opacity",
+      "--frame-drag-preview-shadow",
+      "--frame-drag-radius",
+      "--frame-drag-shadow",
+      "--frame-drag-sort-duration",
+      "--frame-drag-sort-easing",
+      "--frame-drop-list-bg",
+      "--frame-drop-list-border",
+      "--frame-drop-list-hover-border",
+      "--frame-drop-list-min-height",
+      "--frame-drop-list-padding",
+      "--frame-drop-list-radius",
+      "--frame-foreground",
+      "--frame-muted-foreground",
+      "--frame-primary",
+      "--frame-radius-lg",
+      "--frame-radius-md",
+      "--frame-shadow-xl",
+      "--frame-shadow-xs",
+      "--frame-surface"
     ]
   },
   {
@@ -5023,7 +5570,9 @@
       "--frame-foreground",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-shadow-md",
       "--frame-surface",
       "--frame-surface-foreground"
@@ -5304,6 +5853,8 @@
       "--frame-hover-card-title-font-weight",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-full",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-shadow-md",
       "--frame-surface",
@@ -5902,7 +6453,9 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-surface",
       "--frame-surface-foreground"
@@ -6519,7 +7072,10 @@
       "--frame-menubar-trigger-radius",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-full",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-surface",
       "--frame-surface-foreground"
@@ -6798,7 +7354,9 @@
       "--frame-navigation-menu-viewport-shadow",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-radius-sm",
       "--frame-surface"
     ]
   },
@@ -7035,6 +7593,7 @@
       "--frame-pagination-link-size",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-full",
       "--frame-radius-md",
       "--frame-surface"
     ]
@@ -7245,6 +7804,7 @@
       "--frame-popover-title-font-size",
       "--frame-popover-title-font-weight",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-radius-sm",
       "--frame-shadow-md",
@@ -7364,7 +7924,9 @@
       "--frame-progress-shadow",
       "--frame-progress-transition-duration",
       "--frame-progress-transition-easing",
-      "--frame-progress-width"
+      "--frame-progress-width",
+      "--frame-radius-full",
+      "--frame-radius-sm"
     ]
   },
   {
@@ -7806,6 +8368,7 @@
       "--frame-border",
       "--frame-primary",
       "--frame-radius-lg",
+      "--frame-radius-sm",
       "--frame-separator-color",
       "--frame-separator-horizontal-margin-block",
       "--frame-separator-horizontal-width",
@@ -8144,6 +8707,10 @@
           {
             "name": "maxSize",
             "type": "number | null, unknown"
+          },
+          {
+            "name": "resizable",
+            "type": null
           }
         ],
         "outputs": [],
@@ -8413,7 +8980,7 @@
     "examples": [
       {
         "title": "Preview",
-        "description": "Hover the provider, sidebar, header, content, menu, active button, badge, rail, trigger, or inset to inspect the tokens used by the composed shell.",
+        "description": "Hover the provider, sidebar, header, content, menu, active button, badge, rail, or inset to inspect the tokens used by the composed shell.",
         "code": [
           {
             "language": "bash",
@@ -8564,6 +9131,7 @@
       "--frame-muted",
       "--frame-primary",
       "--frame-primary-foreground",
+      "--frame-radius-full",
       "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-skeleton-animation-duration",
@@ -8672,6 +9240,7 @@
       "--frame-foreground",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-full",
       "--frame-spinner-duration",
       "--frame-spinner-indicator-color",
       "--frame-spinner-radius",
@@ -8805,6 +9374,7 @@
       "--frame-muted-foreground",
       "--frame-primary",
       "--frame-radius-lg",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-slider-disabled-opacity",
       "--frame-slider-height",
@@ -8821,7 +9391,8 @@
       "--frame-slider-vertical-height",
       "--frame-slider-vertical-width",
       "--frame-slider-width",
-      "--frame-surface"
+      "--frame-surface",
+      "--frame-warning"
     ]
   },
   {
@@ -9058,7 +9629,7 @@
           },
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype SettingsModalData = {\n  workspace: string;\n};\n\n@Component({\n  selector: 'app-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  templateUrl: './settings-modal.html',\n})\nclass SettingsModalComponent {\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\n\n  close(result: 'cancel' | 'saved'): void {\n    this.modalRef.close(result);\n  }\n}\n\nreadonly modal = inject(FrModalService);\n\nopenSettings(): void {\n  const modalRef = this.modal.open(SettingsModalComponent, {\n    workspace: 'Platform',\n  }, {\n    ariaLabel: 'Workspace settings',\n    width: '32rem',\n  });\n\n  modalRef.closed.subscribe((result) => {\n    // handle cancel or saved\n  });\n}"
+            "code": "import { Component, inject } from '@angular/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${importsCode}\r\n\r\ntype SettingsModalData = {\r\n  workspace: string;\r\n};\r\n\r\n@Component({\r\n  selector: 'app-settings-modal',\r\n  imports: [FrButtonModule, FrModalModule],\r\n  templateUrl: './settings-modal.html',\r\n})\r\nclass SettingsModalComponent {\r\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\r\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\r\n\r\n  close(result: 'cancel' | 'saved'): void {\r\n    this.modalRef.close(result);\r\n  }\r\n}\r\n\r\nreadonly modal = inject(FrModalService);\r\n\r\nopenSettings(): void {\r\n  const modalRef = this.modal.open(SettingsModalComponent, {\r\n    workspace: 'Platform',\r\n  }, {\r\n    ariaLabel: 'Workspace settings',\r\n    width: '32rem',\r\n  });\r\n\r\n  modalRef.closed.subscribe((result) => {\r\n    // handle cancel or saved\r\n  });\r\n}"
           }
         ]
       },
@@ -9068,7 +9639,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype SettingsModalData = {\n  workspace: string;\n};\n\n@Component({\n  selector: 'app-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  templateUrl: './settings-modal.html',\n})\nclass SettingsModalComponent {\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\n\n  close(result: 'cancel' | 'saved'): void {\n    this.modalRef.close(result);\n  }\n}\n\nreadonly modal = inject(FrModalService);\n\nopenSettings(): void {\n  const modalRef = this.modal.open(SettingsModalComponent, {\n    workspace: 'Platform',\n  }, {\n    ariaLabel: 'Workspace settings',\n    width: '32rem',\n  });\n\n  modalRef.closed.subscribe((result) => {\n    // handle cancel or saved\n  });\n}"
+            "code": "import { Component, inject } from '@angular/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${importsCode}\r\n\r\ntype SettingsModalData = {\r\n  workspace: string;\r\n};\r\n\r\n@Component({\r\n  selector: 'app-settings-modal',\r\n  imports: [FrButtonModule, FrModalModule],\r\n  templateUrl: './settings-modal.html',\r\n})\r\nclass SettingsModalComponent {\r\n  readonly data = inject<SettingsModalData>(FR_MODAL_DATA);\r\n  private readonly modalRef = inject(FrModalRef<SettingsModalComponent, 'cancel' | 'saved'>);\r\n\r\n  close(result: 'cancel' | 'saved'): void {\r\n    this.modalRef.close(result);\r\n  }\r\n}\r\n\r\nreadonly modal = inject(FrModalService);\r\n\r\nopenSettings(): void {\r\n  const modalRef = this.modal.open(SettingsModalComponent, {\r\n    workspace: 'Platform',\r\n  }, {\r\n    ariaLabel: 'Workspace settings',\r\n    width: '32rem',\r\n  });\r\n\r\n  modalRef.closed.subscribe((result) => {\r\n    // handle cancel or saved\r\n  });\r\n}"
           },
           {
             "language": "html",
@@ -9086,7 +9657,7 @@
           },
           {
             "language": "html",
-            "code": "<div frModalPanel>\n  <div frModalHeader>\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\n  </div>\n\n  <div frModalBody>\n    Modal content goes here.\n  </div>\n\n  <div frModalFooter>\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\n  </div>\n</div>"
+            "code": "<div frModalPanel>\r\n  <div frModalHeader>\r\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\r\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\r\n  </div>\r\n\r\n  <div frModalBody>\r\n    Modal content goes here.\r\n  </div>\r\n\r\n  <div frModalFooter>\r\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\r\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -9096,11 +9667,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<div frModalPanel>\n  <div frModalHeader>\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\n  </div>\n\n  <div frModalBody>\n    Modal content goes here.\n  </div>\n\n  <div frModalFooter>\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\n  </div>\n</div>"
+            "code": "<div frModalPanel>\r\n  <div frModalHeader>\r\n    <h2 frModalTitle>{{ data.workspace }} settings</h2>\r\n    <p frModalDescription>Make focused changes without leaving the current page.</p>\r\n  </div>\r\n\r\n  <div frModalBody>\r\n    Modal content goes here.\r\n  </div>\r\n\r\n  <div frModalFooter>\r\n    <button frButton appearance=\"outline\" type=\"button\" (click)=\"close('cancel')\">Cancel</button>\r\n    <button frButton type=\"button\" (click)=\"close('saved')\">Save changes</button>\r\n  </div>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-branded-modal',\n  imports: [FrModalModule],\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\r\n${buttonImportCode}\r\n${importsCode}\r\n\r\n@Component({\r\n  selector: 'app-branded-modal',\r\n  imports: [FrModalModule],\r\n  template: \\"
           }
         ]
       },
@@ -9110,11 +9681,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-branded-modal',\n  imports: [FrModalModule],\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\r\n${buttonImportCode}\r\n${importsCode}\r\n\r\n@Component({\r\n  selector: 'app-branded-modal',\r\n  imports: [FrModalModule],\r\n  template: \\"
           },
           {
             "language": "html",
-            "code": "<div class=\"modal-brand-demo\">\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\n</div>"
+            "code": "<div class=\"modal-brand-demo\">\r\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\r\n</div>"
           }
         ]
       },
@@ -9124,11 +9695,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<div class=\"modal-brand-demo\">\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\n</div>"
+            "code": "<div class=\"modal-brand-demo\">\r\n  <button frButton type=\"button\" (click)=\"openBrandedModal()\">Open modal</button>\r\n</div>"
           },
           {
             "language": "css",
-            "code": ".modal-brand-demo-panel {\n${customStylingConfig.style}\n}"
+            "code": ".modal-brand-demo-panel {\r\n${customStylingConfig.style}\r\n}"
           }
         ]
       },
@@ -9138,11 +9709,11 @@
         "code": [
           {
             "language": "css",
-            "code": ".modal-brand-demo-panel {\n${customStylingConfig.style}\n}"
+            "code": ".modal-brand-demo-panel {\r\n${customStylingConfig.style}\r\n}"
           },
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\r\n${buttonImportCode}\r\n${importsCode}\r\n\r\n@Component({\r\n  selector: 'app-workspace-settings-modal',\r\n  imports: [FrButtonModule, FrModalModule],\r\n  template: \\"
           }
         ]
       },
@@ -9152,11 +9723,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\n${buttonImportCode}\n${importsCode}\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\r\n${buttonImportCode}\r\n${importsCode}\r\n\r\n@Component({\r\n  selector: 'app-workspace-settings-modal',\r\n  imports: [FrButtonModule, FrModalModule],\r\n  template: \\"
           },
           {
             "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\n  Open modal\n</button>"
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\r\n  Open modal\r\n</button>"
           }
         ]
       },
@@ -9166,11 +9737,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\n  Open modal\n</button>"
+            "code": "<button frButton type=\"button\" (click)=\"openSettings()\">\r\n  Open modal\r\n</button>"
           },
           {
             "language": "ts",
-            "code": "import { Component, inject } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\n${importsCode}\n\ntype WorkspaceSettingsData = {\n  owner: string;\n};\n\n@Component({\n  selector: 'app-workspace-settings-modal',\n  imports: [FrButtonModule, FrModalModule],\n  template: \\"
+            "code": "import { Component, inject } from '@angular/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${importsCode}\r\n\r\ntype WorkspaceSettingsData = {\r\n  owner: string;\r\n};\r\n\r\n@Component({\r\n  selector: 'app-workspace-settings-modal',\r\n  imports: [FrButtonModule, FrModalModule],\r\n  template: \\"
           }
         ]
       }
@@ -9230,6 +9801,10 @@
         "selector": "button[frSelect]",
         "preferredSelector": "button[frSelect]",
         "inputs": [
+          {
+            "name": "menuContent",
+            "type": "FrSelectContent | null"
+          },
           {
             "name": "debugVisible",
             "type": null
@@ -9488,6 +10063,7 @@
       "--frame-border",
       "--frame-destructive",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-ring",
       "--frame-select-content-max-height",
@@ -9725,6 +10301,7 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-sm",
       "--frame-ring",
       "--frame-surface",
       "--frame-switch-bg",
@@ -10104,6 +10681,7 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-surface",
       "--frame-table-bg",
@@ -10444,6 +11022,7 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-radius-lg",
       "--frame-radius-md",
       "--frame-ring",
       "--frame-surface",
@@ -10701,7 +11280,11 @@
     "tokens": [
       "--frame-background",
       "--frame-foreground",
+      "--frame-info",
+      "--frame-radius-full",
       "--frame-radius-md",
+      "--frame-radius-sm",
+      "--frame-success",
       "--frame-tooltip-",
       "--frame-tooltip-arrow-size",
       "--frame-tooltip-content-bg",

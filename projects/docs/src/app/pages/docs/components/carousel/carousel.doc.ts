@@ -123,7 +123,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
           config: {
             style: `--frame-carousel-gap: 1.25rem;
 --frame-carousel-item-size: min(100%, 18rem);
---frame-carousel-viewport-radius: 1.5rem;
+--frame-carousel-viewport-radius: var(--frame-radius-lg);
 --frame-carousel-control-offset: 0.75rem;`,
           },
         },
@@ -144,7 +144,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
           code: `.feature-carousel {
   --frame-carousel-gap: 1.25rem;
   --frame-carousel-item-size: min(100%, 18rem);
-  --frame-carousel-viewport-radius: 1.5rem;
+  --frame-carousel-viewport-radius: var(--frame-radius-lg);
   --frame-carousel-control-offset: 0.75rem;
 }`,
         },

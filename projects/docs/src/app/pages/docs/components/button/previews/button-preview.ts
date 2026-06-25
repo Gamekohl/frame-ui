@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FrButtonModule, FrButtonAppearance, FrButtonLoadingDisplay, FrButtonRadius, FrButtonSize } from '@frame-ui-ng/components/button';
+import { FrButtonModule, FrButtonAppearance, FrButtonLoadingDisplay, FrButtonSize } from '@frame-ui-ng/components/button';
 import { FrSpinner } from '@frame-ui-ng/components/spinner';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { tablerArrowRight, tablerPlus, tablerX } from '@ng-icons/tabler-icons';
@@ -14,7 +14,6 @@ export type ButtonPreviewItem = {
   loading?: boolean;
   loadingDisplay?: FrButtonLoadingDisplay;
   loadingLabel?: string;
-  radius?: FrButtonRadius;
   size?: FrButtonSize;
   style?: string;
   className?: string;
@@ -45,7 +44,6 @@ export type ButtonPreviewConfig = {
             [loading]="item.loading ?? false"
             [loadingDisplay]="item.loadingDisplay ?? 'replace'"
             [appearance]="item.appearance ?? 'primary'"
-            [radius]="item.radius ?? 'none'"
             [size]="item.size ?? 'md'"
             [style]="item.style ?? null"
           >
@@ -80,7 +78,6 @@ export type ButtonPreviewConfig = {
             [loading]="item.loading ?? false"
             [loadingDisplay]="item.loadingDisplay ?? 'replace'"
             [appearance]="item.appearance ?? 'primary'"
-            [radius]="item.radius ?? 'none'"
             [size]="item.size ?? 'md'"
             [style]="item.style ?? null"
           >
@@ -106,7 +103,6 @@ export type ButtonPreviewConfig = {
             [disabled]="item.disabled ?? false"
             [loading]="item.loading ?? false"
             [loadingDisplay]="item.loadingDisplay ?? 'replace'"
-            [radius]="item.radius ?? 'none'"
             [size]="item.size ?? 'md'"
             [style]="item.style ?? null"
             [class]="item.className ?? ''"
@@ -135,7 +131,6 @@ export type ButtonPreviewConfig = {
             [disabled]="item.disabled ?? false"
             [loading]="item.loading ?? false"
             [loadingDisplay]="item.loadingDisplay ?? 'replace'"
-            [radius]="item.radius ?? 'none'"
             [size]="item.size ?? 'md'"
             [style]="item.style ?? null"
             [class]="item.className ?? ''"

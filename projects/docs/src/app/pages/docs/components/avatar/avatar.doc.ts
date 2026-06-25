@@ -176,7 +176,7 @@ const inspectorConfig: AvatarPreviewConfig = {
 
 const customStylingConfig: AvatarPreviewConfig = {
   className: 'grid w-full max-w-2xl gap-6',
-  style: `--frame-avatar-root-radius: 1rem;
+  style: `--frame-avatar-root-radius: var(--frame-radius-lg);
 --frame-avatar-root-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface));
 --frame-avatar-root-border: color-mix(in srgb, var(--frame-primary) 22%, transparent);
 --frame-avatar-root-color: var(--frame-primary);

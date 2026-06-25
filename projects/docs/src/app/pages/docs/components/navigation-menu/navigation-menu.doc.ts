@@ -99,7 +99,7 @@ const customStylingCss = `.product-navigation {
   --frame-navigation-menu-trigger-open-bg: var(--frame-primary);
   --frame-navigation-menu-trigger-open-color: var(--frame-primary-foreground);
   --frame-navigation-menu-link-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
-  --frame-dropdown-menu-panel-radius: 1.25rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
   --frame-dropdown-menu-panel-shadow: 0 24px 70px color-mix(in srgb, var(--frame-primary) 18%, transparent);
 }`;
 

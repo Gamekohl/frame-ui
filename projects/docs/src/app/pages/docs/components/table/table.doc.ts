@@ -280,7 +280,7 @@ const virtualHtml = `<div frTableVirtual style="--frame-table-virtual-columns: 8
 </div>`;
 
 const customCss = `.workspace-table {
-  --frame-table-radius: 1.25rem;
+  --frame-table-radius: var(--frame-radius-lg);
   --frame-table-header-bg: color-mix(in srgb, var(--frame-primary) 12%, var(--frame-surface));
   --frame-table-row-hover-bg: color-mix(in srgb, var(--frame-primary) 10%, transparent);
   --frame-table-row-border: color-mix(in srgb, var(--frame-primary) 20%, transparent);

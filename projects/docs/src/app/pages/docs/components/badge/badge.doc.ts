@@ -75,7 +75,7 @@ const customStylingConfig: BadgePreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
   style: `--frame-badge-root-gap: 0.375rem;
 --frame-badge-root-min-height: 1.5rem;
---frame-badge-root-radius: 0.75rem;
+--frame-badge-root-radius: var(--frame-radius-lg);
 --frame-badge-root-font-size: 0.8125rem;
 --frame-badge-root-bg: green;
 --frame-badge-root-color: white;

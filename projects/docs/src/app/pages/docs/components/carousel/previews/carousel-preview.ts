@@ -291,7 +291,7 @@ export type CarouselPreviewConfig = {
       min-block-size: 17rem;
       gap: 0.75rem;
       border: 1px solid var(--frame-border);
-      border-radius: var(--frame-radius-xl);
+      border-radius: var(--frame-radius-lg);
       background:
         radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--frame-primary) 18%, transparent), transparent 32%),
         linear-gradient(145deg, var(--frame-surface), color-mix(in srgb, var(--frame-muted) 70%, transparent));

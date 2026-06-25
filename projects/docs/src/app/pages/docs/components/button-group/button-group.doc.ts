@@ -73,7 +73,7 @@ const customStylingConfig: ButtonGroupPreviewConfig = {
   style: `--frame-button-root-height: 2.75rem;
 --frame-button-root-padding-x: 1.125rem;
 --frame-button-root-font-size: 0.9375rem;
---frame-button-root-radius: 1rem;
+--frame-button-root-radius: var(--frame-radius-lg);
 --frame-button-root-gap: 0.625rem;
 --frame-button-root-border: color-mix(in srgb, var(--frame-primary) 18%, transparent);
 --frame-button-root-hover-filter: brightness(1.01);

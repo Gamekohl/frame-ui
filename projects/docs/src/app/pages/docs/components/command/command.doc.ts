@@ -311,7 +311,7 @@ export const COMMAND_DOC: ComponentDoc = {
         component: DocsCommandPreviewComponent,
         inputs: {
           config: {
-            style: `--frame-command-radius: 1.25rem;
+            style: `--frame-command-radius: var(--frame-radius-lg);
 --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);
 --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);`,
           },
@@ -341,7 +341,7 @@ export const COMMAND_DOC: ComponentDoc = {
         {
           language: 'css',
           code: `.custom-command {
-  --frame-command-radius: 1.25rem;
+  --frame-command-radius: var(--frame-radius-lg);
   --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);
   --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);
 }`,

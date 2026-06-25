@@ -115,12 +115,12 @@ const customStylingConfig: ComboboxPreviewConfig = {
   multiple: true,
   initialValue: ['next', 'nuxt'],
   style: `--frame-combobox-control-height: 3rem;
---frame-combobox-control-radius: 1rem;
+--frame-combobox-control-radius: var(--frame-radius-lg);
 --frame-combobox-control-border: color-mix(in srgb, var(--frame-primary) 22%, var(--frame-border));
 --frame-combobox-control-focus-border: color-mix(in srgb, var(--frame-primary) 55%, var(--frame-border));
---frame-combobox-panel-radius: 1rem;
+--frame-combobox-panel-radius: var(--frame-radius-lg);
 --frame-combobox-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 12%, transparent);
---frame-combobox-item-radius: 0.875rem;
+--frame-combobox-item-radius: var(--frame-radius-lg);
 --frame-combobox-chip-bg: green;
 --frame-combobox-chip-color: white`,
   groups: frameworkGroups,

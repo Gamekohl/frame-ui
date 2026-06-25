@@ -89,7 +89,7 @@ const customStylingHtml = `<frame-hover-card>
 
 const customStylingCss = `.custom-hover-card-trigger {
   --frame-hover-card-content-width: 18rem;
-  --frame-hover-card-content-radius: 1rem;
+  --frame-hover-card-content-radius: var(--frame-radius-lg);
   --frame-hover-card-content-bg: linear-gradient(
     135deg,
     var(--frame-surface),

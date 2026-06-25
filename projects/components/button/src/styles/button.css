@@ -224,31 +224,6 @@
   font-size: 0.9375rem;
 }
 
-.frame-button[data-radius='none'] {
-  --frame-button-root-radius: 0px;
-  border-radius: 0;
-}
-
-.frame-button[data-radius='sm'] {
-  --frame-button-root-radius: var(--frame-radius-sm);
-  border-radius: var(--frame-radius-sm);
-}
-
-.frame-button[data-radius='md'] {
-  --frame-button-root-radius: var(--frame-radius-md);
-  border-radius: var(--frame-radius-md);
-}
-
-.frame-button[data-radius='lg'] {
-  --frame-button-root-radius: var(--frame-radius-lg);
-  border-radius: var(--frame-radius-lg);
-}
-
-.frame-button[data-radius='full'] {
-  --frame-button-root-radius: var(--frame-radius-full);
-  border-radius: var(--frame-radius-full);
-}
-
 [frButtonLoading] {
   position: absolute;
   inset-block-start: 50%;

@@ -140,7 +140,7 @@ const customStylingCss = `.project-menubar {
   --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
   --frame-menubar-trigger-open-bg: var(--frame-primary);
   --frame-menubar-trigger-open-color: var(--frame-primary-foreground);
-  --frame-dropdown-menu-panel-radius: 1rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
 }`;
 
 const rtlHtml = `<div dir="rtl">
@@ -355,7 +355,7 @@ export const MENUBAR_DOC: ComponentDoc = {
 --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
 --frame-menubar-trigger-open-bg: var(--frame-primary);
 --frame-menubar-trigger-open-color: var(--frame-primary-foreground);
---frame-dropdown-menu-panel-radius: 1rem;`,
+--frame-dropdown-menu-panel-radius: var(--frame-radius-lg);`,
           },
         },
       },

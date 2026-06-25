@@ -149,7 +149,7 @@ export const CARD_DOC: ComponentDoc = {
           config: {
             mode: 'basic',
             style: `--frame-card-spacing: 1.25rem;
---frame-card-radius: 1.5rem;
+--frame-card-radius: var(--frame-radius-lg);
 --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));
 --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);`,
           },
@@ -186,7 +186,7 @@ export const CARD_DOC: ComponentDoc = {
           language: 'css',
           code: `.account-card {
   --frame-card-spacing: 1.25rem;
-  --frame-card-radius: 1.5rem;
+  --frame-card-radius: var(--frame-radius-lg);
   --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));
   --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);
 }`,
@@ -390,7 +390,7 @@ export const CARD_DOC: ComponentDoc = {
   --frame-card-bg: var(--frame-surface);
   --frame-card-color: var(--frame-surface-foreground);
   --frame-card-border: var(--frame-border);
-  --frame-card-radius: var(--frame-radius-xl);
+  --frame-card-radius: var(--frame-radius-lg);
   --frame-card-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
   --frame-card-font-size: 0.875rem;
   --frame-card-title-color: var(--frame-foreground);

@@ -127,7 +127,7 @@ const inspectorConfig: InputPreviewConfig = {
 const customStylingConfig: InputPreviewConfig = {
   style: `--frame-input-field-gap: 0.625rem;
 --frame-input-root-height: 2.75rem;
---frame-input-root-radius: 1rem;
+--frame-input-root-radius: var(--frame-radius-lg);
 --frame-input-root-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
 --frame-input-root-focus-border: color-mix(in srgb, var(--frame-primary) 60%, var(--frame-border));
 --frame-input-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-primary) 18%, transparent);

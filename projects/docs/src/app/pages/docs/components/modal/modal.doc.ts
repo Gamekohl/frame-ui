@@ -9,7 +9,7 @@ const customStylingConfig = {
   panelClass: 'modal-brand-demo-panel',
   style: `--frame-modal-bg: color-mix(in srgb, var(--frame-background) 88%, var(--frame-primary));
 --frame-modal-border: color-mix(in srgb, var(--frame-primary) 36%, var(--frame-border));
---frame-modal-radius: 1.25rem;
+--frame-modal-radius: var(--frame-radius-lg);
 --frame-modal-padding: 1.75rem;
 --frame-modal-shadow: 0 32px 100px rgb(0 0 0 / 0.26), 0 0 0 1px color-mix(in srgb, var(--frame-primary) 16%, transparent);
 --frame-modal-close-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);

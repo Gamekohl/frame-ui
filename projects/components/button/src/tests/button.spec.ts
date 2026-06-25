@@ -9,7 +9,6 @@ import {
   FrButtonLabel,
   FrButtonLoadingDisplay,
   FrButtonLoading,
-  FrButtonRadius,
   FrButtonSize,
 } from '../button';
 
@@ -23,7 +22,6 @@ import {
       [disabled]="disabled()"
       [loading]="loading()"
       [loadingDisplay]="loadingDisplay()"
-      [radius]="radius()"
       [size]="size()"
       type="button"
     >
@@ -37,7 +35,6 @@ class TestHostComponent {
   readonly disabled = signal(false);
   readonly loading = signal(false);
   readonly loadingDisplay = signal<FrButtonLoadingDisplay>('replace');
-  readonly radius = signal<FrButtonRadius>('full');
   readonly size = signal<FrButtonSize>('lg');
 }
 
@@ -87,8 +84,8 @@ describe('FrButton', () => {
 
     expect(button.getAttribute('data-appearance')).toBe('ghost');
     expect(button.getAttribute('data-loading-display')).toBe('replace');
-    expect(button.getAttribute('data-radius')).toBe('full');
     expect(button.getAttribute('data-size')).toBe('lg');
+    expect(button.hasAttribute('data-radius')).toBe(false);
     expect(button.classList.contains('frame-button')).toBe(true);
   });
 
@@ -138,8 +135,8 @@ describe('FrButton', () => {
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     const loadingIndicator = fixture.nativeElement.querySelector('[frButtonLoading]') as HTMLElement;
 
-    expect(button.getAttribute('data-radius')).toBe('none');
     expect(button.getAttribute('data-has-custom-loading')).toBe('');
+    expect(button.hasAttribute('data-radius')).toBe(false);
     expect(loadingIndicator.classList.contains('frame-button__loading')).toBe(true);
   });
 
@@ -153,8 +150,8 @@ describe('FrButton', () => {
     expect(button.classList.contains('frame-button')).toBe(true);
     expect(button.classList.contains('frame-icon-button')).toBe(true);
     expect(button.getAttribute('data-appearance')).toBe('outline');
-    expect(button.getAttribute('data-radius')).toBe('none');
     expect(button.getAttribute('data-size')).toBe('sm');
+    expect(button.hasAttribute('data-radius')).toBe(false);
     expect(button.getAttribute('data-icon-button')).toBe('');
     expect(button.getAttribute('aria-label')).toBe('Add item');
   });

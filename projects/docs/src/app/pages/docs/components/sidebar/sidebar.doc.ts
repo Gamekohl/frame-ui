@@ -207,7 +207,7 @@ const customCss = `.workspace-shell {
   --frame-sidebar-accent: color-mix(in srgb, var(--frame-primary) 14%, var(--frame-background));
   --frame-sidebar-primary: var(--frame-primary);
   --frame-sidebar-border: color-mix(in srgb, var(--frame-primary) 28%, var(--frame-border));
-  --frame-sidebar-radius: 1.25rem;
+  --frame-sidebar-radius: var(--frame-radius-lg);
   --frame-sidebar-shadow: 0 24px 80px color-mix(in srgb, var(--frame-primary) 20%, transparent);
 }`;
 
