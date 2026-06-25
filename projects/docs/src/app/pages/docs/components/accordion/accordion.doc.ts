@@ -460,7 +460,7 @@ ${customStylingConfig.style}
   tokens: `
   --frame-accordion-radius: var(--frame-radius-md);
   --frame-accordion-item-border: var(--frame-border);
-  --frame-accordion-item-radius: var(--frame-radius-md);
+  --frame-accordion-item-radius: 0px;
   --frame-accordion-item-padding-x: 0;
   --frame-accordion-trigger-min-height: 3.25rem;
   --frame-accordion-trigger-padding-y: 1rem;

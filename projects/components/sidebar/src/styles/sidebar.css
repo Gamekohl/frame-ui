@@ -96,7 +96,7 @@ frame-sidebar[data-variant="inset"] {
   margin: var(--frame-sidebar-margin);
   border: 1px solid var(--frame-sidebar-border);
   border-radius: var(--frame-sidebar-radius);
-  box-shadow: var(--frame-sidebar-shadow), var(--frame-shadow-frame);
+  box-shadow: var(--frame-sidebar-shadow);
 }
 
 [frSidebar][data-collapsible="icon"][data-state="collapsed"],

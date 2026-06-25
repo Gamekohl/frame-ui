@@ -229,6 +229,7 @@ export const COMMAND_DOC: ComponentDoc = {
             '--frame-command-input-height',
             '--frame-command-input-padding-inline',
             '--frame-command-input-border',
+            '--frame-command-input-radius',
             '--frame-command-input-color',
             '--frame-command-input-placeholder-color',
           ],
@@ -547,8 +548,9 @@ readonly components = [
   --frame-command-color: var(--frame-surface-foreground);
   --frame-command-border: var(--frame-border);
   --frame-command-radius: var(--frame-radius-lg);
-  --frame-command-shadow: 0 16px 48px rgb(0 0 0 / 0.14);
+  --frame-command-shadow: var(--frame-shadow-sm);
   --frame-command-input-height: 3.25rem;
+  --frame-command-input-radius: var(--frame-radius-md);
   --frame-command-list-max-height: 20rem;
   --frame-command-item-height: 2.5rem;
   --frame-command-item-highlighted-bg: var(--frame-accent);

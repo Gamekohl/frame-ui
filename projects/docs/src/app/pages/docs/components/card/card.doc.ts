@@ -391,7 +391,7 @@ export const CARD_DOC: ComponentDoc = {
   --frame-card-color: var(--frame-surface-foreground);
   --frame-card-border: var(--frame-border);
   --frame-card-radius: var(--frame-radius-lg);
-  --frame-card-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  --frame-card-shadow: var(--frame-shadow-sm);
   --frame-card-font-size: 0.875rem;
   --frame-card-title-color: var(--frame-foreground);
   --frame-card-title-font-size: 1rem;

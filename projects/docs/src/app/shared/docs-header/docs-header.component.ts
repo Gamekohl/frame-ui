@@ -35,6 +35,7 @@ import {
   tablerComponents,
   tablerFileText,
   tablerSearch,
+  tablerShadow,
   tablerSunMoon,
   tablerTools,
 } from '@ng-icons/tabler-icons';
@@ -52,6 +53,7 @@ type DocsSearchPage = {
 
 type DocsPaletteId = 'frame' | 'circuit' | 'signal' | 'plasma';
 type DocsRadiusId = 'none' | 'sm' | 'md' | 'lg';
+type DocsShadowId = 'flat' | 'default' | 'raised';
 
 type DocsPalette = {
   readonly id: DocsPaletteId;
@@ -71,8 +73,15 @@ type DocsRadiusPreset = {
   };
 };
 
+type DocsShadowPreset = {
+  readonly id: DocsShadowId;
+  readonly label: string;
+  readonly description: string;
+};
+
 const DOCS_PALETTE_STORAGE_KEY = 'docs-palette';
 const DOCS_RADIUS_STORAGE_KEY = 'docs-radius';
+const DOCS_SHADOW_STORAGE_KEY = 'docs-shadow';
 const DOCS_CORNER_HANDLES_STORAGE_KEY = 'docs-corner-handles';
 
 const DOCS_EXPORT_COLOR_TOKENS: readonly (readonly [frameToken: string, sourceToken: string])[] = [
@@ -166,6 +175,24 @@ const DOCS_RADIUS_PRESETS: readonly DocsRadiusPreset[] = [
   }
 ];
 
+const DOCS_SHADOW_PRESETS: readonly DocsShadowPreset[] = [
+  {
+    id: 'flat',
+    label: 'Flat',
+    description: 'No elevation',
+  },
+  {
+    id: 'default',
+    label: 'Default',
+    description: 'Default elevation',
+  },
+  {
+    id: 'raised',
+    label: 'Raised',
+    description: 'Stronger elevation',
+  },
+];
+
 const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
   {
     title: 'Overview',
@@ -244,6 +271,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerComponents,
       tablerFileText,
       tablerSearch,
+      tablerShadow,
       tablerSunMoon,
       tablerTools,
       tablerBrandGithub,
@@ -267,18 +295,22 @@ export class DocsHeaderComponent {
   readonly themeService = inject(ThemeService);
   readonly palettes = DOCS_PALETTES;
   readonly radiusPresets = DOCS_RADIUS_PRESETS;
+  readonly shadowPresets = DOCS_SHADOW_PRESETS;
   readonly selectedPalette = signal<DocsPaletteId>('frame');
   readonly selectedRadius = signal<DocsRadiusId>('none');
+  readonly selectedShadow = signal<DocsShadowId>('default');
   readonly cornerHandlesEnabled = signal(true);
   readonly appearanceExportCssCode = computed(() => {
     this.selectedPalette();
     this.selectedRadius();
+    this.selectedShadow();
     this.cornerHandlesEnabled();
     this.themeService.theme();
 
     return this.buildAppearanceExportCssCode();
   });
   readonly appearanceExportTsCode = computed(() => {
+    this.selectedShadow();
     this.cornerHandlesEnabled();
 
     return this.buildAppearanceExportTsCode();
@@ -319,6 +351,12 @@ export class DocsHeaderComponent {
     this.selectedRadius.set(radius);
     this.applyRadius(radius);
     localStorage.setItem(DOCS_RADIUS_STORAGE_KEY, radius);
+  }
+
+  setShadow(shadow: DocsShadowId): void {
+    this.selectedShadow.set(shadow);
+    this.applyShadow(shadow);
+    localStorage.setItem(DOCS_SHADOW_STORAGE_KEY, shadow);
   }
 
   toggleCornerHandles(): void {
@@ -385,15 +423,19 @@ export class DocsHeaderComponent {
   private restoreAppearancePreferences(): void {
     const storedPalette = localStorage.getItem(DOCS_PALETTE_STORAGE_KEY);
     const storedRadius = localStorage.getItem(DOCS_RADIUS_STORAGE_KEY);
+    const storedShadow = localStorage.getItem(DOCS_SHADOW_STORAGE_KEY);
     const palette = this.isDocsPalette(storedPalette) ? storedPalette : 'frame';
     const radius = this.isDocsRadius(storedRadius) ? storedRadius : 'none';
+    const shadow = this.isDocsShadow(storedShadow) ? storedShadow : 'default';
     const cornerHandles = localStorage.getItem(DOCS_CORNER_HANDLES_STORAGE_KEY) !== 'false';
 
     this.selectedPalette.set(palette);
     this.selectedRadius.set(radius);
+    this.selectedShadow.set(shadow);
     this.cornerHandlesEnabled.set(cornerHandles);
     this.applyPalette(palette);
     this.applyRadius(radius);
+    this.applyShadow(shadow);
     this.applyCornerHandles(cornerHandles);
   }
 
@@ -424,6 +466,17 @@ export class DocsHeaderComponent {
     root.style.setProperty('--frame-radius-lg', preset.values.lg);
   }
 
+  private applyShadow(shadow: DocsShadowId): void {
+    const root = document.documentElement;
+
+    if (shadow === 'default') {
+      root.removeAttribute('data-shadow');
+      return;
+    }
+
+    root.setAttribute('data-shadow', shadow);
+  }
+
   private applyCornerHandles(enabled: boolean): void {
     const root = document.documentElement;
 
@@ -442,10 +495,11 @@ export class DocsHeaderComponent {
 
     const palette = DOCS_PALETTES.find((entry) => entry.id === this.selectedPalette()) ?? DOCS_PALETTES[0];
     const radius = DOCS_RADIUS_PRESETS.find((entry) => entry.id === this.selectedRadius()) ?? DOCS_RADIUS_PRESETS[0];
+    const shadow = DOCS_SHADOW_PRESETS.find((entry) => entry.id === this.selectedShadow()) ?? DOCS_SHADOW_PRESETS[1];
     const cornerHandles = this.cornerHandlesEnabled();
 
     return [
-      `/* ${palette.label}, ${radius.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
+      `/* ${palette.label}, ${radius.label}, ${shadow.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
       ':root {',
       ...DOCS_EXPORT_COLOR_TOKENS.map(
         ([frameToken, sourceToken]) => `  ${frameToken}: ${this.readCssVariable(sourceToken)};`,
@@ -453,11 +507,15 @@ export class DocsHeaderComponent {
       `  --frame-radius-sm: ${radius.values.sm};`,
       `  --frame-radius-md: ${radius.values.md};`,
       `  --frame-radius-lg: ${radius.values.lg};`,
+      `  --frame-shadow-sm: ${this.readCssVariable('--frame-shadow-sm')};`,
+      `  --frame-shadow-md: ${this.readCssVariable('--frame-shadow-md')};`,
+      `  --frame-shadow-lg: ${this.readCssVariable('--frame-shadow-lg')};`,
       '}',
     ].join('\n');
   }
 
   private buildAppearanceExportTsCode(): string {
+    const shadow = this.selectedShadow();
     const cornerHandles = this.cornerHandlesEnabled();
 
     return [
@@ -472,6 +530,7 @@ export class DocsHeaderComponent {
       "        controlledBy: 'app',",
       "        using: 'class',",
       '      },',
+      `      shadow: '${shadow}',`,
       `      disableCornerHandles: ${cornerHandles ? 'false' : 'true'},`,
       '    }),',
       '  ],',
@@ -490,6 +549,10 @@ export class DocsHeaderComponent {
   }
 
   private isDocsRadius(value: string | null): value is DocsRadiusId {
-    return value === 'none' || value === 'sm' || value === 'md' || value === 'lg' || value === 'full';
+    return value === 'none' || value === 'sm' || value === 'md' || value === 'lg';
+  }
+
+  private isDocsShadow(value: string | null): value is DocsShadowId {
+    return value === 'flat' || value === 'default' || value === 'raised';
   }
 }

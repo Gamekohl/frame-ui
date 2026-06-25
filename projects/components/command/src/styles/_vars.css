@@ -3,10 +3,11 @@
   --frame-command-color: var(--frame-surface-foreground);
   --frame-command-border: var(--frame-border);
   --frame-command-radius: var(--frame-radius-lg);
-  --frame-command-shadow: none;
+  --frame-command-shadow: var(--frame-shadow-sm);
   --frame-command-input-height: var(--frame-density-control-height-xl);
   --frame-command-input-padding-inline: var(--frame-density-control-padding-x-md);
   --frame-command-input-border: var(--frame-border);
+  --frame-command-input-radius: var(--frame-radius-md);
   --frame-command-input-color: var(--frame-foreground);
   --frame-command-input-placeholder-color: var(--frame-muted-foreground);
   --frame-command-list-max-height: 20rem;

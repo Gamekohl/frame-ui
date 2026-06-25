@@ -16,6 +16,21 @@
       </div>
     </header>
 
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 130ms" id="what-this-page-is" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">What this page is</h2>
+        <p class="text-base leading-8 text-foreground">
+          This page lists the shared CSS variables that shape FrameUI. Change these first when the
+          whole app should look different. Use component variables only when one primitive needs a
+          local adjustment.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          The most important shared values are primary color, background, text, surface, border,
+          focus color, status colors, light/dark values, radius, density, and shadow.
+        </p>
+      </div>
+    </section>
+
     <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" id="shared-tokens" class="scroll-mt-24 space-y-5">
       <div class="space-y-3">
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Shared tokens</h2>
@@ -109,19 +124,31 @@
       />
     </section>
 
-    <section id="override-scope" class="scroll-mt-24 space-y-5">
+    <section id="shadows" class="scroll-mt-24 space-y-5">
       <div class="space-y-3">
-        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Override scope</h2>
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Shadows</h2>
         <p class="text-base leading-8 text-foreground">
-          Put tokens on <code>:root</code> when the change should be global. Put them on a wrapper
-          when the change should affect only one section, page, or component group.
+          Shadows change how much overlays and raised surfaces stand out without changing color,
+          shape, or spacing. Set <code>shadow: 'flat'</code> in <code>provideFrameUI</code> for a
+          flatter interface, or <code>shadow: 'raised'</code> when overlays need more separation.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          For most apps, switch the shadow preset first. Override individual
+          <code>--frame-shadow-*</code> values only when the presets are close but not quite right.
         </p>
       </div>
 
       <docs-code-block
-        [code]="localOverrideCode"
+        [code]="shadowConfigCode"
+        language="ts"
+        title="App shadows"
+        rounded
+      />
+
+      <docs-code-block
+        [code]="shadowTokensCode"
         language="css"
-        title="Scoped override"
+        title="Shadow values"
         rounded
       />
     </section>

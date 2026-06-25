@@ -25,7 +25,7 @@
   border: 1px solid var(--frame-modal-border);
   border-radius: var(--frame-modal-radius);
   background: var(--frame-modal-bg);
-  box-shadow: var(--frame-modal-shadow), var(--frame-shadow-frame);
+  box-shadow: var(--frame-modal-shadow);
   color: var(--frame-modal-color);
   animation: frame-modal-enter 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }

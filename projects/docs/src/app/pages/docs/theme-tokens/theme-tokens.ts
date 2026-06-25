@@ -19,7 +19,7 @@ export class ThemeTokens {
     { id: 'component-tokens', title: 'Component tokens' },
     { id: 'radius', title: 'Radius' },
     { id: 'density', title: 'Density' },
-    { id: 'override-scope', title: 'Override scope' },
+    { id: 'shadows', title: 'Shadows' },
     { id: 'where-to-look', title: 'Where to look' },
   ];
 
@@ -28,9 +28,13 @@ export class ThemeTokens {
   --color-foreground: oklch(0.15 0 0);
   --color-surface: oklch(1 0 0);
   --color-surface-foreground: oklch(0.15 0 0);
+  --color-surface-raised: oklch(0.985 0.002 247);
   --color-border: oklch(0.92 0 0);
+  --color-border-strong: oklch(0.72 0 0);
   --color-primary: oklch(0.21 0 0);
   --color-primary-foreground: oklch(0.98 0 0);
+  --color-destructive: oklch(0.58 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
   --color-success: oklch(0.62 0.18 149);
   --color-success-foreground: oklch(0.98 0 0);
   --color-warning: oklch(0.68 0.16 65);
@@ -41,7 +45,11 @@ export class ThemeTokens {
   --color-muted-foreground: oklch(0.45 0 0);
   --color-accent: oklch(0.96 0 0);
   --color-accent-foreground: oklch(0.15 0 0);
+  --color-input: oklch(0.92 0 0);
   --color-ring: oklch(0.7 0 0);
+  --shadow-frame-sm: none;
+  --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-frame-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
 }
 
 :root {
@@ -49,9 +57,13 @@ export class ThemeTokens {
   --frame-foreground: var(--color-foreground);
   --frame-surface: var(--color-surface);
   --frame-surface-foreground: var(--color-surface-foreground);
+  --frame-surface-raised: var(--color-surface-raised);
   --frame-border: var(--color-border);
+  --frame-border-strong: var(--color-border-strong);
   --frame-primary: var(--color-primary);
   --frame-primary-foreground: var(--color-primary-foreground);
+  --frame-destructive: var(--color-destructive);
+  --frame-destructive-foreground: var(--color-destructive-foreground);
   --frame-success: var(--color-success);
   --frame-success-foreground: var(--color-success-foreground);
   --frame-warning: var(--color-warning);
@@ -62,7 +74,11 @@ export class ThemeTokens {
   --frame-muted-foreground: var(--color-muted-foreground);
   --frame-accent: var(--color-accent);
   --frame-accent-foreground: var(--color-accent-foreground);
+  --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
+  --frame-shadow-sm: var(--shadow-frame-sm);
+  --frame-shadow-md: var(--shadow-frame-md);
+  --frame-shadow-lg: var(--shadow-frame-lg);
 }`;
 
   protected readonly radiusTokensCode = `:root {
@@ -116,6 +132,34 @@ export const appConfig = {
   --frame-density-table-cell-padding-block-lg: 0.75rem;
 }`;
 
+  protected readonly shadowConfigCode = `import { provideFrameUI } from '@frame-ui-ng/foundation';
+
+export const appConfig = {
+  providers: [
+    provideFrameUI({
+      shadow: 'flat',
+    }),
+  ],
+};`;
+
+  protected readonly shadowTokensCode = `:root {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+html[data-shadow='flat'] {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: none;
+  --frame-shadow-lg: none;
+}
+
+html[data-shadow='raised'] {
+  --frame-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.1);
+  --frame-shadow-md: 0 16px 32px -12px rgb(0 0 0 / 0.22);
+  --frame-shadow-lg: 0 32px 90px rgb(0 0 0 / 0.24), 0 12px 32px rgb(0 0 0 / 0.16);
+}`;
+
   protected readonly componentTokensCode = `.release-alert {
   --frame-alert-root-bg: color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface));
   --frame-alert-root-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
@@ -123,12 +167,4 @@ export const appConfig = {
   --frame-alert-title-font-size: 1rem;
 }`;
 
-  protected readonly localOverrideCode = `.settings-panel {
-  --frame-surface: oklch(0.98 0 0);
-  --frame-border: oklch(0.9 0 0);
-}
-
-.settings-panel .danger-zone {
-  --frame-alert-root-destructive-bg: color-mix(in srgb, var(--frame-destructive) 12%, var(--frame-surface));
-}`;
 }

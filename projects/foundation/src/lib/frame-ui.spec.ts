@@ -61,6 +61,14 @@ describe('FrameUI', () => {
     expect(config.density).toBe('compact');
   });
 
+  it('creates a shadow config', () => {
+    const config = createFrameUIConfig({
+      shadow: 'raised',
+    });
+
+    expect(config.shadow).toBe('raised');
+  });
+
   it('applies the active theme attribute', () => {
     TestBed.configureTestingModule({
       providers: [
@@ -212,5 +220,31 @@ describe('FrameUI', () => {
     TestBed.inject(ThemeService);
 
     expect(document.documentElement.hasAttribute('data-density')).toBe(false);
+  });
+
+  it('can apply shadow globally', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideFrameUI({
+          shadow: 'flat',
+        }),
+      ],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.getAttribute('data-shadow')).toBe('flat');
+  });
+
+  it('does not write the shadow attribute by default', () => {
+    TestBed.configureTestingModule({
+      providers: [provideFrameUI()],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.hasAttribute('data-shadow')).toBe(false);
   });
 });

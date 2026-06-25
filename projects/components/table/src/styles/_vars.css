@@ -3,7 +3,7 @@
   --frame-table-color: var(--frame-foreground);
   --frame-table-border: var(--frame-border);
   --frame-table-radius: var(--frame-radius-lg);
-  --frame-table-shadow: none;
+  --frame-table-shadow: var(--frame-shadow-sm);
   --frame-table-caption-color: var(--frame-muted-foreground);
   --frame-table-caption-padding-block: var(--frame-density-gap-lg);
   --frame-table-caption-font-size: 0.875rem;

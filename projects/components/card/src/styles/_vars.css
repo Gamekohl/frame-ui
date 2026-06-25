@@ -3,7 +3,7 @@
   --frame-card-color: var(--frame-surface-foreground);
   --frame-card-border: var(--frame-border);
   --frame-card-radius: var(--frame-radius-md);
-  --frame-card-shadow: none;
+  --frame-card-shadow: var(--frame-shadow-sm);
   --frame-card-font-size: 0.875rem;
   --frame-card-spacing: var(--frame-density-panel-padding-md);
   --frame-card-spacing-sm: var(--frame-density-gap-lg);

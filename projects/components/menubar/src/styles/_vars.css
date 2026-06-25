@@ -5,7 +5,7 @@
   --frame-menubar-radius: var(--frame-radius-md);
   --frame-menubar-padding: var(--frame-density-panel-padding-sm);
   --frame-menubar-gap: var(--frame-density-gap-sm);
-  --frame-menubar-shadow: none;
+  --frame-menubar-shadow: var(--frame-shadow-sm);
   --frame-menubar-trigger-height: var(--frame-density-item-height);
   --frame-menubar-trigger-padding-x: 0.75rem;
   --frame-menubar-trigger-gap: var(--frame-density-gap-md);

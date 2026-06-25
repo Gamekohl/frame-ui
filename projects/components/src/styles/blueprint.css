@@ -177,6 +177,12 @@
 }
 
 :where(
+  frame-input-otp
+) {
+  --frame-blueprint-radius: var(--frame-input-otp-slot-radius);
+}
+
+:where(
   [frVirtualList],
   frame-virtual-list
 ) {

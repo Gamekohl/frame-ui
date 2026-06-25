@@ -5,8 +5,8 @@
   --frame-sheet-border: var(--frame-border);
   --frame-sheet-color: var(--frame-foreground);
   --frame-sheet-muted-color: var(--frame-muted-foreground);
-  --frame-sheet-shadow: 0 24px 80px rgb(0 0 0 / 0.2), 0 8px 24px rgb(0 0 0 / 0.14);
-  --frame-sheet-radius: var(--frame-radius-lg);
+  --frame-sheet-shadow: var(--frame-shadow-lg);
+  --frame-sheet-radius: 0px;
   --frame-sheet-padding: var(--frame-density-panel-padding-lg);
   --frame-sheet-gap: var(--frame-density-gap-xl);
   --frame-sheet-inline-size: min(100vw, 28rem);

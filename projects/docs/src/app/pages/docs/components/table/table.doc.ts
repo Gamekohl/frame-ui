@@ -313,7 +313,7 @@ const tokens = `--frame-table-bg: var(--frame-background);
 --frame-table-color: var(--frame-foreground);
 --frame-table-border: var(--frame-border);
 --frame-table-radius: var(--frame-radius-md);
---frame-table-shadow: none;
+--frame-table-shadow: var(--frame-shadow-sm);
 --frame-table-caption-color: var(--frame-muted-foreground);
 --frame-table-caption-font-size: 0.875rem;
 --frame-table-header-bg: transparent;

@@ -4,11 +4,12 @@
   display: grid;
   border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
   background: var(--frame-surface);
+  border-radius: var(--frame-accordion-radius, var(--frame-radius-md));
+  overflow: hidden;
 }
 
 [frAccordion][data-border='true'] {
   border-color: var(--frame-border);
-  border-radius: var(--frame-accordion-radius, var(--frame-radius-md));
   padding-inline: 0;
 }
 

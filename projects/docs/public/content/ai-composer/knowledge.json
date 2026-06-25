@@ -5112,8 +5112,8 @@
       "--frame-primary",
       "--frame-radius-lg",
       "--frame-radius-md",
-      "--frame-shadow-xl",
-      "--frame-shadow-xs",
+      "--frame-shadow-lg",
+      "--frame-shadow-sm",
       "--frame-surface"
     ]
   },

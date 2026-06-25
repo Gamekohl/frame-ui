@@ -17,7 +17,7 @@
   --frame-sidebar-gap: var(--frame-density-gap-md);
   --frame-sidebar-menu-button-height: var(--frame-density-item-height);
   --frame-sidebar-menu-button-radius: var(--frame-radius-md);
-  --frame-sidebar-shadow: 0 20px 60px rgb(0 0 0 / 0.12);
+  --frame-sidebar-shadow: var(--frame-shadow-lg);
   --frame-sidebar-transition-duration: 200ms;
   --frame-sidebar-z-index: 40;
   --frame-sidebar-mobile-backdrop: rgb(0 0 0 / 0.42);

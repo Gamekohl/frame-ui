@@ -112,6 +112,36 @@
               </ng-template>
             </div>
 
+            <div frDropdownMenuSub>
+              <button [frDropdownMenuSubTrigger]="shadowMenu" type="button">
+                <ng-icon class="shrink-0" name="tablerShadow" size="16" aria-hidden="true" />
+                <span>Shadows</span>
+              </button>
+
+              <ng-template #shadowMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+                <div frDropdownMenuPanel class="min-w-56">
+                  @for (shadow of shadowPresets; track shadow.id) {
+                    <button
+                      frDropdownMenuItem
+                      type="button"
+                      [attr.aria-current]="selectedShadow() === shadow.id ? 'true' : null"
+                      (click)="setShadow(shadow.id)"
+                    >
+                      <span class="grid min-w-0 gap-0.5">
+                        <span class="truncate font-semibold">{{ shadow.label }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{ shadow.description }}</span>
+                      </span>
+                      @if (selectedShadow() === shadow.id) {
+                        <span frDropdownMenuShortcut>
+                          <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                        </span>
+                      }
+                    </button>
+                  }
+                </div>
+              </ng-template>
+            </div>
+
             <div frDropdownMenuSeparator></div>
 
             <button

@@ -1,11 +1,13 @@
 .frame-button-group,
 [frButtonGroup],
 frame-button-group {
+  --frame-button-group-radius: var(--frame-button-root-radius, var(--frame-radius-md));
   position: relative;
   display: inline-flex;
   align-items: stretch;
   width: 100%;
   border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
+  border-radius: var(--frame-button-group-radius);
   background: var(--frame-surface);
 }
 
@@ -74,18 +76,23 @@ frame-button-group[data-orientation='vertical'] > :not(:first-child):not(:last-c
 .frame-button-group::before,
 [frButtonGroup]::before,
 frame-button-group::before {
+  --frame-button-group-corner-size: clamp(
+    0px,
+    calc((1px - var(--frame-button-group-radius, 0px)) * 9999),
+    var(--frame-frame-tick-size, 0.375rem)
+  );
   position: absolute;
   inset: 0;
   z-index: 2;
   background:
     linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
-      left top / var(--frame-frame-tick-size, 0.375rem) 1px no-repeat,
+      left top / var(--frame-button-group-corner-size) 1px no-repeat,
     linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
-      left top / 1px var(--frame-frame-tick-size, 0.375rem) no-repeat,
+      left top / 1px var(--frame-button-group-corner-size) no-repeat,
     linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
-      right bottom / var(--frame-frame-tick-size, 0.375rem) 1px no-repeat,
+      right bottom / var(--frame-button-group-corner-size) 1px no-repeat,
     linear-gradient(var(--frame-blueprint-corner-color, var(--frame-frame-accent)), var(--frame-blueprint-corner-color, var(--frame-frame-accent)))
-      right bottom / 1px var(--frame-frame-tick-size, 0.375rem) no-repeat;
+      right bottom / 1px var(--frame-button-group-corner-size) no-repeat;
   content: "";
   pointer-events: none;
 }

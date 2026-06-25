@@ -15,7 +15,7 @@
   --frame-select-trigger-transition-duration: 150ms;
   --frame-select-content-min-width: 12rem;
   --frame-select-content-max-height: min(18rem, 50vh);
-  --frame-select-content-popper-shadow: 0 16px 32px -18px rgb(0 0 0 / 0.28);
+  --frame-select-content-popper-shadow: var(--frame-shadow-md);
   --frame-select-group-gap: var(--frame-density-gap-xs);
   --frame-select-item-indicator-size: 1rem;
   --frame-select-item-indicator-offset: 0.625rem;

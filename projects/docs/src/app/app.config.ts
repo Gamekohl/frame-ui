@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         controlledBy: 'app',
         using: 'class',
-      },
+      }
     }),
   ],
 };

@@ -14,10 +14,10 @@
   --frame-drag-bg: var(--frame-background);
   --frame-drag-color: var(--frame-foreground);
   --frame-drag-border: var(--frame-border);
-  --frame-drag-shadow: var(--frame-shadow-xs);
+  --frame-drag-shadow: var(--frame-shadow-sm);
   --frame-drag-hover-bg: var(--frame-accent);
   --frame-drag-preview-bg: var(--frame-background);
-  --frame-drag-preview-shadow: var(--frame-shadow-xl);
+  --frame-drag-preview-shadow: var(--frame-shadow-lg);
   --frame-drag-placeholder-opacity: 0.24;
   --frame-drag-placeholder-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-drag-placeholder-border: color-mix(in srgb, var(--frame-primary) 45%, transparent);

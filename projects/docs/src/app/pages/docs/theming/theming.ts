@@ -16,7 +16,7 @@ import { DocsTocItem } from '../shared/components/docs-toc/docs-toc.types';
 export class Theming {
   protected readonly toc: DocsTocItem[] = [
     { id: 'how-it-works', title: 'How it works' },
-    { id: 'setup', title: 'Setup' },
+    { id: 'what-you-can-change', title: 'What you can change' },
     {
       id: 'source-of-truth',
       title: 'Choose who controls the theme',
@@ -105,6 +105,7 @@ export const appConfig = {
   providers: [
     provideFrameUI({
       density: 'compact',
+      shadow: 'flat',
       disableCornerHandles: true,
     }),
   ],
@@ -136,8 +137,11 @@ provideFrameUI({
   --color-surface: oklch(1 0 0);
   --color-surface-foreground: oklch(0.15 0 0);
   --color-border: oklch(0.92 0 0);
+  --color-border-strong: oklch(0.72 0 0);
   --color-primary: oklch(0.21 0 0);
   --color-primary-foreground: oklch(0.98 0 0);
+  --color-destructive: oklch(0.58 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
   --color-success: oklch(0.62 0.18 149);
   --color-success-foreground: oklch(0.98 0 0);
   --color-warning: oklch(0.68 0.16 65);
@@ -148,6 +152,9 @@ provideFrameUI({
   --color-accent-foreground: oklch(0.15 0 0);
   --color-input: oklch(0.92 0 0);
   --color-ring: oklch(0.7 0 0);
+  --shadow-frame-sm: none;
+  --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-frame-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
 }
 
 :root {
@@ -158,8 +165,11 @@ provideFrameUI({
   --frame-surface: var(--color-surface);
   --frame-surface-foreground: var(--color-surface-foreground);
   --frame-border: var(--color-border);
+  --frame-border-strong: var(--color-border-strong);
   --frame-primary: var(--color-primary);
   --frame-primary-foreground: var(--color-primary-foreground);
+  --frame-destructive: var(--color-destructive);
+  --frame-destructive-foreground: var(--color-destructive-foreground);
   --frame-success: var(--color-success);
   --frame-success-foreground: var(--color-success-foreground);
   --frame-warning: var(--color-warning);
@@ -170,6 +180,9 @@ provideFrameUI({
   --frame-accent-foreground: var(--color-accent-foreground);
   --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
+  --frame-shadow-sm: var(--shadow-frame-sm);
+  --frame-shadow-md: var(--shadow-frame-md);
+  --frame-shadow-lg: var(--shadow-frame-lg);
 }
 
 .dark {
@@ -180,8 +193,11 @@ provideFrameUI({
   --color-surface: oklch(0.2 0 0);
   --color-surface-foreground: oklch(0.98 0 0);
   --color-border: oklch(1 0 0 / 0.12);
+  --color-border-strong: oklch(1 0 0 / 0.24);
   --color-primary: oklch(0.92 0 0);
   --color-primary-foreground: oklch(0.2 0 0);
+  --color-destructive: oklch(0.7 0.19 22);
+  --color-destructive-foreground: oklch(0.98 0 0);
   --color-success: oklch(0.72 0.17 149);
   --color-success-foreground: oklch(0.15 0 0);
   --color-warning: oklch(0.78 0.16 75);
@@ -192,6 +208,8 @@ provideFrameUI({
   --color-accent-foreground: oklch(0.98 0 0);
   --color-input: oklch(1 0 0 / 0.15);
   --color-ring: oklch(0.56 0 0);
+  --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
+  --shadow-frame-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);
 }`;
 
   protected readonly bootstrapCode = `:root {

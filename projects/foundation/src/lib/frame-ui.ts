@@ -16,6 +16,7 @@ export type FrameUIThemeController = 'frame' | 'app';
 export type FrameUIThemeSelector = 'data-theme' | 'class';
 export type FrameUITheme = 'light' | 'dark';
 export type FrameUIDensity = 'compact' | 'default' | 'comfortable';
+export type FrameUIShadow = 'flat' | 'default' | 'raised';
 
 export interface FrameUIThemeConfig {
   controlledBy: FrameUIThemeController;
@@ -26,6 +27,7 @@ export interface FrameUIConfig {
   defaultTheme: FrameUITheme;
   density: FrameUIDensity | null;
   disableCornerHandles: boolean;
+  shadow: FrameUIShadow | null;
   theme: FrameUIThemeConfig;
 }
 
@@ -33,6 +35,7 @@ const DEFAULT_CONFIG: FrameUIConfig = {
   defaultTheme: 'light',
   density: null,
   disableCornerHandles: false,
+  shadow: null,
   theme: {
     controlledBy: 'frame',
     using: 'data-theme',
@@ -41,6 +44,7 @@ const DEFAULT_CONFIG: FrameUIConfig = {
 
 const CORNER_HANDLES_ATTRIBUTE = 'data-frame-corner-handles';
 const DENSITY_ATTRIBUTE = 'data-density';
+const SHADOW_ATTRIBUTE = 'data-shadow';
 
 export const FRAME_UI_CONFIG = new InjectionToken<FrameUIConfig>(
   'FRAME_UI_CONFIG',
@@ -53,6 +57,7 @@ export interface FrameUIOptions {
   defaultTheme?: FrameUITheme;
   density?: FrameUIDensity;
   disableCornerHandles?: boolean;
+  shadow?: FrameUIShadow;
   theme?: Partial<FrameUIThemeConfig>;
 }
 
@@ -85,6 +90,7 @@ export function createFrameUIConfig(
     density: options.density ?? DEFAULT_CONFIG.density,
     disableCornerHandles:
       options.disableCornerHandles ?? DEFAULT_CONFIG.disableCornerHandles,
+    shadow: options.shadow ?? DEFAULT_CONFIG.shadow,
     theme: {
       controlledBy:
         options.theme?.controlledBy ?? DEFAULT_CONFIG.theme.controlledBy,
@@ -107,6 +113,7 @@ export class ThemeService implements OnDestroy {
   constructor() {
     this.applyCornerHandlesPreference();
     this.applyDensityPreference();
+    this.applyShadowPreference();
 
     if (this.config.theme.controlledBy === 'app') {
       this.syncFromDom();
@@ -183,6 +190,16 @@ export class ThemeService implements OnDestroy {
     }
 
     root.setAttribute(DENSITY_ATTRIBUTE, this.config.density);
+  }
+
+  private applyShadowPreference(): void {
+    const root = this.document?.documentElement;
+
+    if (!root || !this.config.shadow) {
+      return;
+    }
+
+    root.setAttribute(SHADOW_ATTRIBUTE, this.config.shadow);
   }
 
   private observeThemeChanges(): void {

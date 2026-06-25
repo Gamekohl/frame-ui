@@ -55,6 +55,15 @@ Override these tokens in the host app when a rounder theme is wanted.
 
 - `--frame-shadow-sm`
 - `--frame-shadow-md`
+- `--frame-shadow-lg`
+
+Use `shadow` in `provideFrameUI` when the whole app should be flatter or more raised:
+
+```ts
+provideFrameUI({
+  shadow: 'flat', // 'flat' | 'default' | 'raised'
+});
+```
 
 ## Token Rules
 

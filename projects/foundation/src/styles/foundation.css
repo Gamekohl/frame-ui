@@ -87,7 +87,7 @@
   /* Elevation */
   --frame-shadow-sm: none;
   --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --frame-shadow-frame: none;
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
 }
 
 :where([data-theme='dark'], .dark) {
@@ -131,7 +131,36 @@
   /* Elevation */
   --frame-shadow-sm: none;
   --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
-  --frame-shadow-frame: none;
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);
+}
+
+:where([data-shadow='flat']) {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: none;
+  --frame-shadow-lg: none;
+}
+
+:where([data-shadow='default']) {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+:where([data-theme='dark'], .dark):where([data-shadow='default']) {
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);
+}
+
+:where([data-shadow='raised']) {
+  --frame-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.1);
+  --frame-shadow-md: 0 16px 32px -12px rgb(0 0 0 / 0.22);
+  --frame-shadow-lg: 0 32px 90px rgb(0 0 0 / 0.24), 0 12px 32px rgb(0 0 0 / 0.16);
+}
+
+:where([data-theme='dark'], .dark):where([data-shadow='raised']) {
+  --frame-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.32);
+  --frame-shadow-md: 0 16px 32px -12px rgb(0 0 0 / 0.52);
+  --frame-shadow-lg: 0 32px 90px rgb(0 0 0 / 0.58), 0 12px 32px rgb(0 0 0 / 0.36);
 }
 
 :where([data-density='compact']) {

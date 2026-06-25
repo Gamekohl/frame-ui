@@ -1,7 +1,7 @@
 :where(:root) {
   --frame-accordion-radius: var(--frame-radius-md);
   --frame-accordion-item-border: var(--frame-border);
-  --frame-accordion-item-radius: var(--frame-radius-md);
+  --frame-accordion-item-radius: 0px;
   --frame-accordion-item-padding-x: 0;
   --frame-accordion-trigger-min-height: calc(var(--frame-density-control-height-lg) + var(--frame-density-gap-lg));
   --frame-accordion-trigger-padding-y: var(--frame-density-panel-padding-md);

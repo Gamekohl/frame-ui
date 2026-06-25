@@ -467,7 +467,7 @@ ${basicHtml}
   --frame-menubar-radius: var(--frame-radius-md);
   --frame-menubar-padding: 0.25rem;
   --frame-menubar-gap: 0.25rem;
-  --frame-menubar-shadow: none;
+  --frame-menubar-shadow: var(--frame-shadow-sm);
   --frame-menubar-trigger-height: 2rem;
   --frame-menubar-trigger-padding-x: 0.75rem;
   --frame-menubar-trigger-gap: 0.375rem;
