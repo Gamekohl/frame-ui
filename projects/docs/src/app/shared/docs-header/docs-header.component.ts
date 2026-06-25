@@ -550,7 +550,7 @@ export class DocsHeaderComponent {
     const cornerHandles = this.cornerHandlesEnabled();
 
     return [
-      `/* ${palette.label}, ${radius.label}, ${density.label}, ${shadow.label}, corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
+      `/* ${palette.label}, Radius: ${radius.label}, Density: ${density.label}, Shadow: ${shadow.label}, Corner handles ${cornerHandles ? 'enabled' : 'disabled'} */`,
       ':root {',
       ...DOCS_EXPORT_COLOR_TOKENS.map(
         ([frameToken, sourceToken]) => `  ${frameToken}: ${this.readCssVariable(sourceToken)};`,
