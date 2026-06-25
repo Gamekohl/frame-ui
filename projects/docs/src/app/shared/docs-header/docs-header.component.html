@@ -55,7 +55,7 @@
 
         <ng-template #appearanceMenu="frDropdownMenuContent" frDropdownMenuContent side="bottom" align="end">
           <div frDropdownMenuPanel class="min-w-70">
-            <div frDropdownMenuLabel>Preview Palette</div>
+            <span frDropdownMenuLabel>Preview Palette</span>
 
             @for (palette of palettes; track palette.id) {
               <button
@@ -81,6 +81,8 @@
             }
 
             <div frDropdownMenuSeparator></div>
+
+            <span frDropdownMenuLabel>Theme Options</span>
 
             <div frDropdownMenuSub>
               <button [frDropdownMenuSubTrigger]="radiusMenu" type="button">
@@ -141,8 +143,6 @@
                 </div>
               </ng-template>
             </div>
-
-            <div frDropdownMenuSeparator></div>
 
             <button
               frDropdownMenuCheckboxItem
