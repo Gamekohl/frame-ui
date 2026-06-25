@@ -16,6 +16,21 @@
       </div>
     </header>
 
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 130ms" id="what-this-page-is" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">What this page is</h2>
+        <p class="text-base leading-8 text-foreground">
+          This page lists the shared CSS variables that shape FrameUI. Change these first when the
+          whole app should look different. Use component variables only when one primitive needs a
+          local adjustment.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          The most important shared values are primary color, background, text, surface, border,
+          focus color, status colors, light/dark values, radius, density, and shadow.
+        </p>
+      </div>
+    </section>
+
     <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" id="shared-tokens" class="scroll-mt-24 space-y-5">
       <div class="space-y-3">
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Shared tokens</h2>
@@ -40,6 +55,13 @@
           Component tokens refine a specific primitive. Use them when a component needs local spacing,
           typography, border, or state adjustments without changing the whole system.
         </p>
+        <p class="text-base leading-8 text-foreground">
+          Start with the shared values first: color, background, text, surface, border, focus, status
+          colors, radius, density, and shadow. Component tokens are for precise overrides when one
+          component or one section needs a different treatment. FrameUI defines component defaults
+          with low specificity, so overrides can live on <code>:root</code>, <code>html</code>, a
+          theme selector, or a local wrapper.
+        </p>
       </div>
 
       <docs-code-block
@@ -50,19 +72,83 @@
       />
     </section>
 
-    <section id="override-scope" class="scroll-mt-24 space-y-5">
+    <section id="radius" class="scroll-mt-24 space-y-5">
       <div class="space-y-3">
-        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Override scope</h2>
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Radius</h2>
         <p class="text-base leading-8 text-foreground">
-          Put tokens on <code>:root</code> when the change should be global. Put them on a wrapper
-          when the change should affect only one section, page, or component group.
+          FrameUI starts with square corners. <code>--frame-radius-sm</code>,
+          <code>--frame-radius-md</code>, and <code>--frame-radius-lg</code> are <code>0px</code> by
+          default so components keep the technical look. <code>--frame-radius-full</code> stays
+          available for circles and pill-shaped elements.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          If an app needs softer corners, change the shared radius values once. Components that expose
+          radius tokens read from these shared values unless a local override says otherwise.
         </p>
       </div>
 
       <docs-code-block
-        [code]="localOverrideCode"
+        [code]="radiusTokensCode"
         language="css"
-        title="Scoped override"
+        title="Radius values"
+        rounded
+      />
+    </section>
+
+    <section id="density" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Density</h2>
+        <p class="text-base leading-8 text-foreground">
+          Density changes how compact controls, menus, panels, and tables feel without changing color
+          or shape. Set <code>density: 'compact'</code> in <code>provideFrameUI</code> for tighter
+          screens, or <code>density: 'comfortable'</code> when controls need more room.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          For most apps, switch the density attribute first. Override individual
+          <code>--frame-density-*</code> values only when the presets are close but not quite right.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="densityConfigCode"
+        language="ts"
+        title="App density"
+        rounded
+      />
+
+      <docs-code-block
+        [code]="densityTokensCode"
+        language="css"
+        title="Density values"
+        rounded
+      />
+    </section>
+
+    <section id="shadows" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Shadows</h2>
+        <p class="text-base leading-8 text-foreground">
+          Shadows change how much overlays and raised surfaces stand out without changing color,
+          shape, or spacing. Set <code>shadow: 'flat'</code> in <code>provideFrameUI</code> for a
+          flatter interface, or <code>shadow: 'raised'</code> when overlays need more separation.
+        </p>
+        <p class="text-base leading-8 text-foreground">
+          For most apps, switch the shadow preset first. Override individual
+          <code>--frame-shadow-*</code> values only when the presets are close but not quite right.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="shadowConfigCode"
+        language="ts"
+        title="App shadows"
+        rounded
+      />
+
+      <docs-code-block
+        [code]="shadowTokensCode"
+        language="css"
+        title="Shadow values"
         rounded
       />
     </section>

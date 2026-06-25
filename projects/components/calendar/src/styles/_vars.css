@@ -1,12 +1,12 @@
-:root {
+:where(:root) {
   --frame-calendar-bg: var(--frame-surface);
   --frame-calendar-color: var(--frame-surface-foreground);
   --frame-calendar-border: var(--frame-border);
   --frame-calendar-radius: var(--frame-radius-lg);
   --frame-calendar-width: fit-content;
-  --frame-calendar-padding: 0.875rem;
-  --frame-calendar-gap: 1rem;
-  --frame-calendar-cell-size: 2.25rem;
+  --frame-calendar-padding: var(--frame-density-control-padding-x-md);
+  --frame-calendar-gap: var(--frame-density-gap-xl);
+  --frame-calendar-cell-size: var(--frame-density-control-height-md);
   --frame-calendar-effective-cell-size: var(--frame-calendar-cell-size);
   --frame-calendar-column-count: 7;
   --frame-calendar-month-flex: 0 0 calc(var(--frame-calendar-effective-cell-size) * var(--frame-calendar-column-count));
@@ -21,10 +21,10 @@
   --frame-calendar-day-today-border: color-mix(in srgb, var(--frame-primary) 55%, var(--frame-border));
   --frame-calendar-day-disabled-date-decoration: var(--frame-destructive);
   --frame-calendar-day-disabled-opacity: 0.38;
-  --frame-calendar-nav-size: 2rem;
+  --frame-calendar-nav-size: var(--frame-density-item-height);
   --frame-calendar-nav-radius: var(--frame-radius-md);
   --frame-calendar-nav-hover-bg: var(--frame-muted);
-  --frame-calendar-select-height: 2rem;
+  --frame-calendar-select-height: var(--frame-density-item-height);
   --frame-calendar-select-radius: var(--frame-radius-md);
   --frame-calendar-select-border: var(--frame-border);
   --frame-calendar-select-bg: var(--frame-background);

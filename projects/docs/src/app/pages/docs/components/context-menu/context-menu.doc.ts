@@ -118,7 +118,7 @@ const destructiveHtml = `<button frContextMenuItem variant="destructive" type="b
 
 const customStylingHtml = `<div
   frContextMenu
-  style="--frame-dropdown-menu-panel-radius: 1rem; --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);"
+  style="--frame-dropdown-menu-panel-radius: var(--frame-radius-lg); --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);"
 >
   <div [frContextMenuTrigger]="menu">Right click here</div>
 
@@ -131,7 +131,7 @@ const customStylingHtml = `<div
 </div>`;
 
 const customStylingCss = `[frContextMenu] {
-  --frame-dropdown-menu-panel-radius: 1rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
   --frame-dropdown-menu-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 16%, transparent);
   --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-dropdown-menu-item-hover-color: var(--frame-primary);
@@ -220,7 +220,7 @@ const tokenInspectorConfig: ContextMenuPreviewConfig = {
 };
 
 const customStylingConfig: ContextMenuPreviewConfig = {
-  style: `--frame-dropdown-menu-panel-radius: 1rem;
+  style: `--frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
 --frame-dropdown-menu-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 16%, transparent);
 --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
 --frame-dropdown-menu-item-hover-color: var(--frame-primary);
@@ -558,7 +558,7 @@ export const CONTEXT_MENU_DOC: ComponentDoc = {
   --frame-dropdown-menu-separator-bg: var(--frame-border);
   --frame-dropdown-menu-item-gap: 0.5rem;
   --frame-dropdown-menu-item-height: 2rem;
-  --frame-dropdown-menu-item-radius: calc(var(--frame-radius-md) - 0.125rem);
+  --frame-dropdown-menu-item-radius: var(--frame-radius-sm);
   --frame-dropdown-menu-item-padding: 0.375rem 0.5rem;
   --frame-dropdown-menu-item-font-size: 0.875rem;
   --frame-dropdown-menu-item-hover-bg: var(--frame-accent);

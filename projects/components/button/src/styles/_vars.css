@@ -1,7 +1,7 @@
-:root {
-    --frame-button-root-gap: 0.5rem;
-    --frame-button-root-height: 2.25rem;
-    --frame-button-root-padding-x: 1rem;
+:where(:root) {
+    --frame-button-root-gap: var(--frame-density-gap-md);
+    --frame-button-root-height: var(--frame-density-control-height-md);
+    --frame-button-root-padding-x: var(--frame-density-control-padding-x-lg);
     --frame-button-root-radius: var(--frame-radius-md);
     --frame-button-root-shadow: var(--frame-shadow-sm);
     --frame-button-root-font-size: 0.875rem;
@@ -14,7 +14,7 @@
     --frame-button-root-disabled-shadow: none;
     --frame-button-loading-size: 1rem;
     --frame-button-loading-stroke: 2px;
-    --frame-button-loading-track: color-mix(in srgb, white 24%, transparent);
+    --frame-button-loading-track: color-mix(in srgb, currentColor 24%, transparent);
     --frame-button-icon-size: 1rem;
     --frame-button-label-weight: inherit;
 }

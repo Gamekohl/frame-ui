@@ -44,6 +44,7 @@
   position: absolute;
   inline-size: var(--frame-tooltip-arrow-size);
   block-size: var(--frame-tooltip-arrow-size);
+  border: 1px solid var(--frame-tooltip-content-border);
   background: var(--frame-tooltip-content-bg);
   transform: rotate(45deg);
 }
@@ -51,21 +52,29 @@
 .frame-tooltip__content[data-arrow][data-side='top']::after {
   inset-block-end: calc(var(--frame-tooltip-arrow-size) / -2);
   inset-inline-start: var(--frame-tooltip-arrow-x, calc(50% - var(--frame-tooltip-arrow-size) / 2));
+  border-block-start: 0;
+  border-inline-start: 0;
 }
 
 .frame-tooltip__content[data-arrow][data-side='bottom']::after {
   inset-block-start: calc(var(--frame-tooltip-arrow-size) / -2);
   inset-inline-start: var(--frame-tooltip-arrow-x, calc(50% - var(--frame-tooltip-arrow-size) / 2));
+  border-block-end: 0;
+  border-inline-end: 0;
 }
 
 .frame-tooltip__content[data-arrow][data-side='left']::after {
   inset-block-start: var(--frame-tooltip-arrow-y, calc(50% - var(--frame-tooltip-arrow-size) / 2));
   inset-inline-end: calc(var(--frame-tooltip-arrow-size) / -2);
+  border-block-end: 0;
+  border-inline-start: 0;
 }
 
 .frame-tooltip__content[data-arrow][data-side='right']::after {
   inset-block-start: var(--frame-tooltip-arrow-y, calc(50% - var(--frame-tooltip-arrow-size) / 2));
   inset-inline-start: calc(var(--frame-tooltip-arrow-size) / -2);
+  border-block-start: 0;
+  border-inline-end: 0;
 }
 
 [frTooltipShortcut],

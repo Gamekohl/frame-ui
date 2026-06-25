@@ -79,7 +79,7 @@
   inline-size: var(--frame-checkbox-indeterminate-width, 0.5rem);
   block-size: var(--frame-checkbox-indeterminate-height, 0.125rem);
   transform: scale(1);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   clip-path: none;
   box-shadow: none;
   background: currentColor;
@@ -91,5 +91,5 @@
 }
 
 [frCheckbox][aria-invalid='true'] {
-  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border)));
+  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border)));
 }

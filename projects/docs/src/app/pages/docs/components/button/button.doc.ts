@@ -34,16 +34,6 @@ const sizesConfig: ButtonPreviewConfig = {
   ],
 };
 
-const radiusConfig: ButtonPreviewConfig = {
-  items: [
-    { label: 'None', radius: 'none', appearance: 'outline' },
-    { label: 'Small', radius: 'sm', appearance: 'outline' },
-    { label: 'Medium', radius: 'md', appearance: 'outline' },
-    { label: 'Large', radius: 'lg', appearance: 'outline' },
-    { label: 'Full', radius: 'full', appearance: 'outline' },
-  ],
-};
-
 const loadingConfig: ButtonPreviewConfig = {
   items: [
     {
@@ -99,7 +89,7 @@ const customStylingConfig: ButtonPreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
   style: `--frame-button-root-height: 2.75rem;
 --frame-button-root-padding-x: 1.25rem;
---frame-button-root-radius: 1rem;
+--frame-button-root-radius: var(--frame-radius-lg);
 --frame-button-root-font-size: 0.9375rem;
 --frame-button-root-gap: 0.625rem;
   --frame-button-root-bg: color-mix(in srgb, var(--frame-primary) 90%, black);
@@ -245,12 +235,12 @@ viewProviders: [provideIcons({ tablerPlus, tablerArrowRight, tablerX })]`,
 
   styling: {
     description:
-      'Override button tokens on a local wrapper when a product area needs a different height, radius, or visual density while keeping the same button API and behavior.',
+      'Override button tokens on a local wrapper when a product area needs a different height, radius, or visual density while keeping the same markup and behavior.',
     preview: {
       id: 'custom-styling-preview',
       title: 'Custom Styling Preview',
       description:
-        'This preview applies local token overrides to adjust height, radius, icon scale, and the filled button surface.',
+        'This preview applies local token overrides to adjust height, radius, icon scale, and the filled button surface. For app-wide radius changes, set the shared radius tokens instead.',
       preview: {
         component: DocsButtonPreviewComponent,
         inputs: {
@@ -356,32 +346,6 @@ ${customStylingConfig.style}
           code: `<button frButton size="sm" type="button">Small</button>
 <button frButton size="md" type="button">Medium</button>
 <button frButton size="lg" type="button">Large</button>`,
-        },
-      ],
-    },
-    {
-      id: 'radii',
-      title: 'Radius options',
-      description:
-        'Use radius presets when a button should feel squared, softly rounded, or fully pill-shaped. Blueprint corner handles are only shown when the radius is `none` / `0`.',
-      preview: {
-        component: DocsButtonPreviewComponent,
-        inputs: {
-          config: radiusConfig,
-        },
-      },
-      code: [
-        {
-          language: 'ts',
-          code: buttonImportsCode,
-        },
-        {
-          language: 'html',
-          code: `<button frButton radius="none" appearance="outline" type="button">None</button>
-<button frButton radius="sm" appearance="outline" type="button">Small</button>
-<button frButton radius="md" appearance="outline" type="button">Medium</button>
-<button frButton radius="lg" appearance="outline" type="button">Large</button>
-<button frButton radius="full" appearance="outline" type="button">Full</button>`,
         },
       ],
     },

@@ -1,5 +1,5 @@
-:root {
-  --frame-collapsible-trigger-gap: 0.5rem;
+:where(:root) {
+  --frame-collapsible-trigger-gap: var(--frame-density-gap-md);
   --frame-collapsible-trigger-color: var(--frame-foreground);
   --frame-collapsible-trigger-disabled-opacity: 0.55;
   --frame-collapsible-content-color: var(--frame-muted-foreground);

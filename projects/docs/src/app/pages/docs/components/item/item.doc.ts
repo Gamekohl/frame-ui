@@ -129,7 +129,7 @@ const customStylingHtml = `<div frItem class="docs-item-featured">
 const customStylingCss = `.docs-item-featured {
   --frame-item-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface));
   --frame-item-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
-  --frame-item-radius: 1.25rem;
+  --frame-item-radius: var(--frame-radius-lg);
   --frame-item-media-bg: var(--frame-primary);
   --frame-item-media-color: var(--frame-primary-foreground);
 }`;
@@ -317,7 +317,7 @@ export const ITEM_DOC: ComponentDoc = {
             mode: 'basic',
             style: `--frame-item-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface));
 --frame-item-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
---frame-item-radius: 1.25rem;
+--frame-item-radius: var(--frame-radius-lg);
 --frame-item-media-bg: var(--frame-primary);
 --frame-item-media-color: var(--frame-primary-foreground);`,
           },

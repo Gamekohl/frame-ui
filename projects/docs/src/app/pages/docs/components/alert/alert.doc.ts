@@ -93,7 +93,7 @@ const customStylingConfig: AlertPreviewConfig = {
   className: 'grid w-full max-w-2xl gap-4',
   style: `--frame-alert-root-bg: color-mix(in srgb, var(--frame-primary) 9%, var(--frame-surface));
 --frame-alert-root-border: color-mix(in srgb, var(--frame-primary) 24%, transparent);
---frame-alert-root-radius: 1rem;
+--frame-alert-root-radius: var(--frame-radius-lg);
 --frame-alert-root-padding-y: 1.125rem;
 --frame-alert-root-padding-x: 1.125rem;
 --frame-alert-root-gap: 0.875rem;
@@ -387,14 +387,14 @@ ${customStylingConfig.style}
   --frame-alert-root-destructive-bg: color-mix(in srgb, var(--frame-destructive) 10%, var(--frame-surface));
   --frame-alert-root-destructive-border: color-mix(in srgb, var(--frame-destructive) 28%, var(--frame-border));
   --frame-alert-root-destructive-color: var(--frame-surface-foreground);
-  --frame-alert-root-success-bg: color-mix(in srgb, #16a34a 10%, var(--frame-surface));
-  --frame-alert-root-success-border: color-mix(in srgb, #16a34a 28%, var(--frame-border));
+  --frame-alert-root-success-bg: color-mix(in srgb, var(--frame-success) 10%, var(--frame-surface));
+  --frame-alert-root-success-border: color-mix(in srgb, var(--frame-success) 28%, var(--frame-border));
   --frame-alert-root-success-color: var(--frame-surface-foreground);
-  --frame-alert-root-danger-bg: color-mix(in srgb, #d97706 10%, var(--frame-surface));
-  --frame-alert-root-danger-border: color-mix(in srgb, #d97706 30%, var(--frame-border));
+  --frame-alert-root-danger-bg: color-mix(in srgb, var(--frame-warning) 10%, var(--frame-surface));
+  --frame-alert-root-danger-border: color-mix(in srgb, var(--frame-warning) 30%, var(--frame-border));
   --frame-alert-root-danger-color: var(--frame-surface-foreground);
-  --frame-alert-root-info-bg: color-mix(in srgb, #2563eb 10%, var(--frame-surface));
-  --frame-alert-root-info-border: color-mix(in srgb, #2563eb 28%, var(--frame-border));
+  --frame-alert-root-info-bg: color-mix(in srgb, var(--frame-info) 10%, var(--frame-surface));
+  --frame-alert-root-info-border: color-mix(in srgb, var(--frame-info) 28%, var(--frame-border));
   --frame-alert-root-info-color: var(--frame-surface-foreground);
   --frame-alert-title-font-size: 0.9375rem;
   --frame-alert-title-font-weight: 600;

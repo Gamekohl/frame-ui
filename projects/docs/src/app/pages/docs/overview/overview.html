@@ -84,7 +84,7 @@
     <section animate.enter="slide-in-enter" class="mt-6" style="--docs-enter-delay: 260ms">
       <article>
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Project status</h2>
-        <div class="mt-4 grid gap-4">
+        <div class="mt-4 grid grid-cols-2 gap-4">
           @for (item of status; track item.title) {
             <div class="docs-blueprint-sheet border border-border bg-background px-4 py-4">
               <div class="flex items-center gap-2">
@@ -98,7 +98,7 @@
       </article>
     </section>
 
-    <section animate.enter="slide-in-enter" class="mt-14" style="--docs-enter-delay: 330ms">
+    <section animate.enter="slide-in-enter" class="mt-6" style="--docs-enter-delay: 330ms">
       <div class="max-w-2xl">
         <h1 class="text-4xl font-semibold tracking-tight text-foreground">Organized around practical building blocks</h1>
         <p class="mt-3 text-muted-foreground">
@@ -125,7 +125,7 @@
 
     <section
       animate.enter="slide-in-enter"
-      class="mt-14"
+      class="mt-6"
       style="--docs-enter-delay: 410ms"
     >
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

@@ -93,13 +93,23 @@ nav[frPagination] {
 
 [frPaginationLink][data-active]::before,
 .frame-pagination__link[data-active]::before {
+  --frame-pagination-link-corner-size: clamp(
+    0px,
+    calc((1px - var(--frame-pagination-link-radius, 0px)) * 9999),
+    0.3125rem
+  );
+  --frame-pagination-link-corner-border-width: clamp(
+    0px,
+    calc((1px - var(--frame-pagination-link-radius, 0px)) * 9999),
+    1px
+  );
   position: absolute;
   inset-block-start: 0.1875rem;
   inset-inline-start: 0.1875rem;
-  inline-size: 0.3125rem;
-  block-size: 0.3125rem;
-  border-block-start: 1px solid currentColor;
-  border-inline-start: 1px solid currentColor;
+  inline-size: var(--frame-pagination-link-corner-size);
+  block-size: var(--frame-pagination-link-corner-size);
+  border-block-start: var(--frame-pagination-link-corner-border-width) solid currentColor;
+  border-inline-start: var(--frame-pagination-link-corner-border-width) solid currentColor;
   content: "";
   pointer-events: none;
 }

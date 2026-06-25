@@ -28,7 +28,7 @@
   border: 1px solid var(--frame-sheet-border);
   border-radius: var(--frame-sheet-radius);
   background: var(--frame-sheet-bg);
-  box-shadow: var(--frame-sheet-shadow), var(--frame-shadow-frame);
+  box-shadow: var(--frame-sheet-shadow);
   color: var(--frame-sheet-color);
 }
 

@@ -1,22 +1,22 @@
-:root {
-  --frame-toggle-height: 2.25rem;
-  --frame-toggle-padding-x: 0.75rem;
-  --frame-toggle-gap: 0.5rem;
-  --frame-toggle-radius: var(--frame-radius-md, 0.5rem);
+:where(:root) {
+  --frame-toggle-height: var(--frame-density-control-height-md);
+  --frame-toggle-padding-x: var(--frame-density-control-padding-x-sm);
+  --frame-toggle-gap: var(--frame-density-gap-md);
+  --frame-toggle-radius: var(--frame-radius-md);
   --frame-toggle-font-size: 0.875rem;
   --frame-toggle-font-weight: 600;
   --frame-toggle-bg: transparent;
-  --frame-toggle-color: var(--frame-foreground, #09090b);
+  --frame-toggle-color: var(--frame-foreground);
   --frame-toggle-border: transparent;
-  --frame-toggle-hover-bg: var(--frame-muted, #f4f4f5);
-  --frame-toggle-hover-color: var(--frame-foreground, #09090b);
-  --frame-toggle-pressed-bg: var(--frame-accent, var(--frame-muted, #f4f4f5));
-  --frame-toggle-pressed-color: var(--frame-accent-foreground, var(--frame-foreground, #09090b));
+  --frame-toggle-hover-bg: var(--frame-muted);
+  --frame-toggle-hover-color: var(--frame-foreground);
+  --frame-toggle-pressed-bg: var(--frame-accent);
+  --frame-toggle-pressed-color: var(--frame-accent-foreground);
   --frame-toggle-pressed-shadow: none;
-  --frame-toggle-outline-bg: var(--frame-background, #fff);
-  --frame-toggle-outline-border: var(--frame-border, #e5e7eb);
-  --frame-toggle-outline-hover-bg: var(--frame-muted, #f4f4f5);
-  --frame-toggle-outline-pressed-bg: var(--frame-muted, #f4f4f5);
+  --frame-toggle-outline-bg: var(--frame-background);
+  --frame-toggle-outline-border: var(--frame-border);
+  --frame-toggle-outline-hover-bg: var(--frame-muted);
+  --frame-toggle-outline-pressed-bg: var(--frame-muted);
   --frame-toggle-focus-shadow: none;
   --frame-toggle-disabled-opacity: 0.5;
   --frame-toggle-transition-duration: 160ms;

@@ -1,8 +1,8 @@
-:root {
-  --frame-field-set-gap: 1.5rem;
-  --frame-field-group-gap: 1rem;
-  --frame-field-gap: 0.5rem;
-  --frame-field-content-gap: 0.375rem;
+:where(:root) {
+  --frame-field-set-gap: var(--frame-density-panel-padding-lg);
+  --frame-field-group-gap: var(--frame-density-gap-xl);
+  --frame-field-gap: var(--frame-density-gap-md);
+  --frame-field-content-gap: var(--frame-density-gap-md);
   --frame-field-legend-color: var(--frame-foreground);
   --frame-field-legend-font-size: 1rem;
   --frame-field-legend-font-weight: 700;
@@ -13,7 +13,7 @@
   --frame-field-description-font-size: 0.8125rem;
   --frame-field-error-color: var(--frame-destructive);
   --frame-field-error-font-size: 0.6125rem;
-  --frame-field-separator-gap: 0.75rem;
+  --frame-field-separator-gap: var(--frame-density-gap-lg);
   --frame-field-separator-color: var(--frame-muted-foreground);
   --frame-field-separator-bg: var(--frame-border);
   --frame-field-separator-font-size: 0.75rem;

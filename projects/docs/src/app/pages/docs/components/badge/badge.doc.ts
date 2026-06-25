@@ -75,7 +75,7 @@ const customStylingConfig: BadgePreviewConfig = {
   className: 'flex flex-wrap items-center gap-3',
   style: `--frame-badge-root-gap: 0.375rem;
 --frame-badge-root-min-height: 1.5rem;
---frame-badge-root-radius: 0.75rem;
+--frame-badge-root-radius: var(--frame-radius-lg);
 --frame-badge-root-font-size: 0.8125rem;
 --frame-badge-root-bg: green;
 --frame-badge-root-color: white;
@@ -392,14 +392,14 @@ ${customStylingConfig.style}
   tokens: `
   --frame-badge-root-gap: 0.25rem;
   --frame-badge-root-min-height: 1.375rem;
-  --frame-badge-root-radius: 999px;
+  --frame-badge-root-radius: var(--frame-radius-sm);
   --frame-badge-root-font-size: 0.75rem;
   --frame-badge-root-font-weight: 600;
   --frame-badge-root-bg: var(--frame-primary);
   --frame-badge-root-color: var(--frame-primary-foreground);
-  --frame-badge-success-bg: color-mix(in srgb, #16a34a 16%, var(--frame-surface));
-  --frame-badge-success-border: color-mix(in srgb, #16a34a 32%, transparent);
-  --frame-badge-success-color: color-mix(in srgb, #16a34a 78%, var(--frame-foreground));
+  --frame-badge-success-bg: color-mix(in srgb, var(--frame-success) 16%, var(--frame-surface));
+  --frame-badge-success-border: color-mix(in srgb, var(--frame-success) 32%, transparent);
+  --frame-badge-success-color: color-mix(in srgb, var(--frame-success) 78%, var(--frame-foreground));
   --frame-badge-root-padding-block: 0.1875rem;
   --frame-badge-root-padding-inline: 0.625rem;
   --frame-badge-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 24%, transparent);

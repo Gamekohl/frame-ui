@@ -5,12 +5,12 @@
 
 .frame-button {
   --frame-button-root-bg: var(--frame-primary);
-  --frame-button-root-border: color-mix(in srgb, var(--frame-primary) 84%, white);
+  --frame-button-root-border: color-mix(in srgb, var(--frame-primary) 84%, var(--frame-primary-foreground));
   --frame-button-root-color: var(--frame-primary-foreground);
-  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, black);
+  --frame-button-root-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-button-root-hover-border: var(--frame-button-root-border);
   --frame-button-root-hover-color: var(--frame-button-root-color);
-  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, black);
+  --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, var(--frame-foreground));
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
   --frame-button-root-corner-color: color-mix(in srgb, var(--frame-primary-foreground) 88%, transparent);
@@ -37,7 +37,7 @@
   border: 1px solid var(--frame-button-root-border);
   border-radius: var(--frame-button-root-radius, var(--frame-radius-md));
   background: var(--frame-button-root-bg);
-  /* box-shadow: var(--frame-button-root-shadow, var(--frame-shadow-sm)); */
+  box-shadow: var(--frame-button-root-shadow, var(--frame-shadow-sm));
   color: var(--frame-button-root-color);
   cursor: pointer;
   font: inherit;
@@ -102,7 +102,7 @@
   inline-size: var(--frame-spinner-size);
   block-size: var(--frame-spinner-size);
   border: var(--frame-spinner-stroke) solid var(--frame-spinner-track-color);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   border-top-color: var(--frame-spinner-indicator-color);
   opacity: 0;
   pointer-events: none;
@@ -132,7 +132,7 @@
 .frame-button:focus-visible {
   outline: 1px solid var(--frame-button-root-ring-color, var(--frame-ring));
   outline-offset: 2px;
-  box-shadow: none;
+  box-shadow: var(--frame-button-root-focus-shadow, none);
 }
 
 .frame-button[data-loading]::after {
@@ -167,7 +167,7 @@
   filter: none;
   transform: none;
   transition: none;
-  /* box-shadow: var(--frame-button-root-disabled-shadow, none); */
+  box-shadow: var(--frame-button-root-disabled-shadow, none);
 }
 
 .frame-button:where(:disabled, [data-disabled])::before {
@@ -198,7 +198,7 @@
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
   --frame-button-root-corner-color: var(--frame-frame-accent);
-  /* box-shadow: var(--frame-button-root-shadow, none); */
+  --frame-button-root-shadow: none;
 }
 
 .frame-button[data-appearance='ghost']::before {
@@ -211,42 +211,17 @@
 }
 
 .frame-button[data-size='sm'] {
-  --frame-button-root-height: 2rem;
+  --frame-button-root-height: var(--frame-density-control-height-sm);
   min-height: var(--frame-button-root-height);
   padding-inline: 0.75rem;
   font-size: 0.8125rem;
 }
 
 .frame-button[data-size='lg'] {
-  --frame-button-root-height: 2.75rem;
+  --frame-button-root-height: var(--frame-density-control-height-xl);
   min-height: var(--frame-button-root-height);
   padding-inline: 1.25rem;
   font-size: 0.9375rem;
-}
-
-.frame-button[data-radius='none'] {
-  --frame-button-root-radius: 0px;
-  border-radius: 0;
-}
-
-.frame-button[data-radius='sm'] {
-  --frame-button-root-radius: var(--frame-radius-sm);
-  border-radius: var(--frame-radius-sm);
-}
-
-.frame-button[data-radius='md'] {
-  --frame-button-root-radius: var(--frame-radius-md);
-  border-radius: var(--frame-radius-md);
-}
-
-.frame-button[data-radius='lg'] {
-  --frame-button-root-radius: var(--frame-radius-lg);
-  border-radius: var(--frame-radius-lg);
-}
-
-.frame-button[data-radius='full'] {
-  --frame-button-root-radius: var(--frame-radius-full);
-  border-radius: var(--frame-radius-full);
 }
 
 [frButtonLoading] {

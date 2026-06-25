@@ -47,11 +47,6 @@ frame-input-control::before {
   content: '';
 }
 
-[frInputControl]:focus-within,
-frame-input-control:focus-within {
-  --frame-input-frame-color: var(--frame-frame-accent);
-}
-
 [frInputFieldGroup],
 frame-input-field-group {
   display: grid;

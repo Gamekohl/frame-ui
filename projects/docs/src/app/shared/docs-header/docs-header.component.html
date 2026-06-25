@@ -40,6 +40,173 @@
         </kbd>
       </button>
 
+      <div frDropdownMenu>
+        <button
+          [frDropdownMenuTrigger]="appearanceMenu"
+          frIconButton
+          appearance="outline"
+          size="sm"
+          aria-label="Customize preview"
+          type="button"
+          title="Customize Preview"
+        >
+          <ng-icon name="tablerTools" size="18" frButtonIcon />
+        </button>
+
+        <ng-template #appearanceMenu="frDropdownMenuContent" frDropdownMenuContent side="bottom" align="end">
+          <div frDropdownMenuPanel class="min-w-70">
+            <span frDropdownMenuLabel>Preview Palette</span>
+
+            @for (palette of palettes; track palette.id) {
+              <button
+                frDropdownMenuItem
+                type="button"
+                [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
+                (click)="setPalette(palette.id)"
+              >
+                <span
+                  class="inline-block size-3 shrink-0 border border-border"
+                  [style.background]="palette.swatch"
+                ></span>
+                <span class="grid min-w-0 gap-0.5">
+                  <span class="truncate font-semibold">{{ palette.label }}</span>
+                  <span class="truncate text-xs text-muted-foreground">{{ palette.description }}</span>
+                </span>
+                @if (selectedPalette() === palette.id) {
+                  <span frDropdownMenuShortcut>
+                    <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                  </span>
+                }
+              </button>
+            }
+
+            <div frDropdownMenuSeparator></div>
+
+            <span frDropdownMenuLabel>Theme Options</span>
+
+            <div frDropdownMenuSub>
+              <button [frDropdownMenuSubTrigger]="radiusMenu" type="button">
+                <ng-icon class="shrink-0" name="tablerBorderRadius" size="16" aria-hidden="true" />
+                <span>Radius</span>
+              </button>
+
+              <ng-template #radiusMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+                <div frDropdownMenuPanel class="min-w-56">
+                  @for (radius of radiusPresets; track radius.id) {
+                    <button
+                      frDropdownMenuItem
+                      type="button"
+                      [attr.aria-current]="selectedRadius() === radius.id ? 'true' : null"
+                      (click)="setRadius(radius.id)"
+                    >
+                      <span class="grid min-w-0 gap-0.5">
+                        <span class="truncate font-semibold">{{ radius.label }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{ radius.description }}</span>
+                      </span>
+                      @if (selectedRadius() === radius.id) {
+                        <span frDropdownMenuShortcut>
+                          <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                        </span>
+                      }
+                    </button>
+                  }
+                </div>
+              </ng-template>
+            </div>
+
+            <div frDropdownMenuSub>
+              <button [frDropdownMenuSubTrigger]="densityMenu" type="button">
+                <ng-icon class="shrink-0" name="tablerBaselineDensityMedium" size="16" aria-hidden="true" />
+                <span>Density</span>
+              </button>
+
+              <ng-template #densityMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+                <div frDropdownMenuPanel class="min-w-56">
+                  @for (density of densityPresets; track density.id) {
+                    <button
+                      frDropdownMenuItem
+                      type="button"
+                      [attr.aria-current]="selectedDensity() === density.id ? 'true' : null"
+                      (click)="setDensity(density.id)"
+                    >
+                      <span class="grid min-w-0 gap-0.5">
+                        <span class="truncate font-semibold">{{ density.label }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{ density.description }}</span>
+                      </span>
+                      @if (selectedDensity() === density.id) {
+                        <span frDropdownMenuShortcut>
+                          <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                        </span>
+                      }
+                    </button>
+                  }
+                </div>
+              </ng-template>
+            </div>
+
+            <div frDropdownMenuSub>
+              <button [frDropdownMenuSubTrigger]="shadowMenu" type="button">
+                <ng-icon class="shrink-0" name="tablerShadow" size="16" aria-hidden="true" />
+                <span>Shadows</span>
+              </button>
+
+              <ng-template #shadowMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+                <div frDropdownMenuPanel class="min-w-56">
+                  @for (shadow of shadowPresets; track shadow.id) {
+                    <button
+                      frDropdownMenuItem
+                      type="button"
+                      [attr.aria-current]="selectedShadow() === shadow.id ? 'true' : null"
+                      (click)="setShadow(shadow.id)"
+                    >
+                      <span class="grid min-w-0 gap-0.5">
+                        <span class="truncate font-semibold">{{ shadow.label }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{ shadow.description }}</span>
+                      </span>
+                      @if (selectedShadow() === shadow.id) {
+                        <span frDropdownMenuShortcut>
+                          <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                        </span>
+                      }
+                    </button>
+                  }
+                </div>
+              </ng-template>
+            </div>
+
+            <span
+              class="block"
+              [frTooltip]="cornerHandlesTooltip()"
+              frTooltipArrow
+              frTooltipSide="left"
+            >
+              <button
+                frDropdownMenuCheckboxItem
+                type="button"
+                [checked]="cornerHandlesEnabled()"
+                [disabled]="cornerHandlesLocked()"
+                (click)="toggleCornerHandles()"
+              >
+                <ng-icon class="shrink-0" name="tablerBorderCorners" size="16" aria-hidden="true" />
+                <span>Corner handles</span>
+                @if (cornerHandlesEnabled()) {
+                  <span frDropdownMenuShortcut>
+                    <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                  </span>
+                }
+              </button>
+            </span>
+
+            <div frDropdownMenuSeparator></div>
+
+            <button frDropdownMenuItem type="button" (click)="openExportModal($event)">
+              <ng-icon class="shrink-0" name="tablerCode" size="16" aria-hidden="true" />
+              <span>Export...</span>
+            </button>
+          </div>
+        </ng-template>
+      </div>
+
       <button
         (click)="toggleTheme()"
         frIconButton

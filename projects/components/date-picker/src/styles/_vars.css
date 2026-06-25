@@ -1,8 +1,8 @@
-:root {
-  --frame-date-picker-trigger-height: 2.5rem;
+:where(:root) {
+  --frame-date-picker-trigger-height: var(--frame-density-control-height-lg);
   --frame-date-picker-trigger-width: 17.5rem;
   --frame-date-picker-trigger-padding: 0 0.75rem;
-  --frame-date-picker-trigger-gap: 0.5rem;
+  --frame-date-picker-trigger-gap: var(--frame-density-gap-md);
   --frame-date-picker-trigger-radius: var(--frame-radius-md);
   --frame-date-picker-trigger-bg: var(--frame-background);
   --frame-date-picker-trigger-color: var(--frame-foreground);
@@ -17,14 +17,14 @@
   --frame-date-picker-content-border: var(--frame-border);
   --frame-date-picker-content-radius: var(--frame-radius-lg);
   --frame-date-picker-content-shadow: var(--frame-shadow-md);
-  --frame-date-picker-content-padding: 0.25rem;
+  --frame-date-picker-content-padding: var(--frame-density-panel-padding-sm);
   --frame-date-picker-presets-border: var(--frame-border);
-  --frame-date-picker-preset-height: 2rem;
+  --frame-date-picker-preset-height: var(--frame-density-item-height);
   --frame-date-picker-preset-radius: var(--frame-radius-md);
   --frame-date-picker-preset-hover-bg: var(--frame-muted);
   --frame-date-picker-time-border: var(--frame-border);
   --frame-date-picker-time-input-radius: var(--frame-radius-md);
-  --frame-date-picker-time-padding: 0.75rem;
+  --frame-date-picker-time-padding: var(--frame-density-gap-lg);
   --frame-date-picker-motion-duration: 140ms;
   --frame-date-picker-motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
 }

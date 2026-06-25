@@ -1,12 +1,12 @@
-:root {
-  --frame-textarea-root-min-height: 5rem;
+:where(:root) {
+  --frame-textarea-root-min-height: calc(var(--frame-density-control-height-lg) + var(--frame-density-control-height-lg));
   --frame-textarea-root-radius: var(--frame-radius-md);
   --frame-textarea-root-bg: var(--frame-surface);
   --frame-textarea-root-color: var(--frame-surface-foreground);
   --frame-textarea-root-border: var(--frame-border);
   --frame-textarea-root-font-size: 0.875rem;
-  --frame-textarea-root-padding-block: 0.625rem;
-  --frame-textarea-root-padding-inline: 0.875rem;
+  --frame-textarea-root-padding-block: var(--frame-density-gap-md);
+  --frame-textarea-root-padding-inline: var(--frame-density-control-padding-x-md);
   --frame-textarea-root-placeholder-color: var(--frame-muted-foreground);
   --frame-textarea-root-hover-border: color-mix(in srgb, var(--frame-border) 80%, var(--frame-foreground));
   --frame-textarea-root-focus-border: color-mix(in srgb, var(--frame-ring) 70%, var(--frame-border));

@@ -1,4 +1,4 @@
-:root {
+:where(:root) {
     --frame-checkbox-root-size: 1rem;
     --frame-checkbox-root-bg: var(--frame-surface);
     --frame-checkbox-root-border: var(--frame-border);
@@ -12,11 +12,11 @@
     --frame-checkbox-root-ring-color: var(--frame-ring);
     --frame-checkbox-root-focus-shadow: none;
     --frame-checkbox-root-disabled-opacity: 0.55;
-    --frame-checkbox-root-invalid-border: color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border));
+    --frame-checkbox-root-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
     --frame-checkbox-indicator-size: 0.5rem;
     --frame-checkbox-indeterminate-width: 0.5rem;
     --frame-checkbox-indeterminate-height: 0.125rem;
-    --frame-checkbox-field-gap: 0.75rem;
+    --frame-checkbox-field-gap: var(--frame-density-gap-lg);
     --frame-checkbox-label-color: var(--frame-foreground);
     --frame-checkbox-label-disabled-color: var(--frame-muted-foreground);
 }

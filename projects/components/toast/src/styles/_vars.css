@@ -1,19 +1,19 @@
-:root {
+:where(:root) {
   --frame-toast-z-index: 2147483647;
-  --frame-toast-viewport-inset: 1rem;
+  --frame-toast-viewport-inset: var(--frame-density-gap-xl);
   --frame-toast-viewport-width: min(100vw - 2rem, 26rem);
   --frame-toast-stack-offset: 0.875rem;
   --frame-toast-stack-depth: 2.25rem;
   --frame-toast-stack-scale-step: 0.025;
-  --frame-toast-stack-expanded-gap: 0.75rem;
+  --frame-toast-stack-expanded-gap: var(--frame-density-gap-lg);
   --frame-toast-stack-expanded-depth: 28rem;
-  --frame-toast-padding: 0.875rem 0.5rem 0.875rem 0.875rem;
-  --frame-toast-gap: 0.75rem;
+  --frame-toast-padding: var(--frame-density-gap-lg) var(--frame-density-gap-md) var(--frame-density-gap-lg) var(--frame-density-gap-lg);
+  --frame-toast-gap: var(--frame-density-gap-lg);
   --frame-toast-radius: var(--frame-radius-lg);
   --frame-toast-bg: var(--frame-surface);
   --frame-toast-color: var(--frame-foreground);
   --frame-toast-border: var(--frame-border);
-  --frame-toast-shadow: 0 18px 45px rgb(0 0 0 / 0.14);
+  --frame-toast-shadow: var(--frame-shadow-md);
   --frame-toast-title-font-size: 0.875rem;
   --frame-toast-title-font-weight: 650;
   --frame-toast-description-font-size: 0.8125rem;
@@ -22,9 +22,9 @@
   --frame-toast-status-bg: var(--frame-muted-foreground);
   --frame-toast-action-bg: var(--frame-primary);
   --frame-toast-action-color: var(--frame-primary-foreground);
-  --frame-toast-action-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, black);
+  --frame-toast-action-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-toast-action-radius: var(--frame-radius-md);
-  --frame-toast-close-size: 1.75rem;
+  --frame-toast-close-size: var(--frame-density-item-height);
   --frame-toast-close-icon-size: 1rem;
   --frame-toast-close-color: var(--frame-muted-foreground);
   --frame-toast-close-hover-bg: var(--frame-accent);
@@ -32,17 +32,17 @@
   --frame-toast-motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
   --frame-toast-stack-transition-duration: 220ms;
   --frame-toast-stack-transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
-  --frame-toast-success-bg: color-mix(in srgb, #16a34a 10%, var(--frame-surface));
-  --frame-toast-success-border: color-mix(in srgb, #16a34a 26%, var(--frame-border));
-  --frame-toast-success-status-bg: #16a34a;
-  --frame-toast-info-bg: color-mix(in srgb, #2563eb 10%, var(--frame-surface));
-  --frame-toast-info-border: color-mix(in srgb, #2563eb 26%, var(--frame-border));
-  --frame-toast-info-status-bg: #2563eb;
-  --frame-toast-warning-bg: color-mix(in srgb, #f59e0b 12%, var(--frame-surface));
-  --frame-toast-warning-border: color-mix(in srgb, #f59e0b 30%, var(--frame-border));
-  --frame-toast-warning-status-bg: #f59e0b;
-  --frame-toast-error-bg: color-mix(in srgb, #dc2626 10%, var(--frame-surface));
-  --frame-toast-error-border: color-mix(in srgb, #dc2626 30%, var(--frame-border));
-  --frame-toast-error-status-bg: #dc2626;
+  --frame-toast-success-bg: color-mix(in srgb, var(--frame-success) 10%, var(--frame-surface));
+  --frame-toast-success-border: color-mix(in srgb, var(--frame-success) 26%, var(--frame-border));
+  --frame-toast-success-status-bg: var(--frame-success);
+  --frame-toast-info-bg: color-mix(in srgb, var(--frame-info) 10%, var(--frame-surface));
+  --frame-toast-info-border: color-mix(in srgb, var(--frame-info) 26%, var(--frame-border));
+  --frame-toast-info-status-bg: var(--frame-info);
+  --frame-toast-warning-bg: color-mix(in srgb, var(--frame-warning) 12%, var(--frame-surface));
+  --frame-toast-warning-border: color-mix(in srgb, var(--frame-warning) 30%, var(--frame-border));
+  --frame-toast-warning-status-bg: var(--frame-warning);
+  --frame-toast-error-bg: color-mix(in srgb, var(--frame-destructive) 10%, var(--frame-surface));
+  --frame-toast-error-border: color-mix(in srgb, var(--frame-destructive) 30%, var(--frame-border));
+  --frame-toast-error-status-bg: var(--frame-destructive);
   --frame-toast-loading-status-bg: var(--frame-primary);
 }

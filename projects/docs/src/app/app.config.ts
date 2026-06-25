@@ -19,8 +19,10 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     provideFrameUI({
-      strategy: 'class',
-      mode: 'observe'
+      theme: {
+        controlledBy: 'app',
+        using: 'class',
+      }
     }),
   ],
 };

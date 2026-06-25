@@ -182,9 +182,9 @@ export type SliderPreviewConfig = {
 
     .docs-slider-card--custom {
       --frame-slider-track-bg: color-mix(in srgb, var(--frame-primary) 12%, var(--frame-muted));
-      --frame-slider-range-bg: linear-gradient(90deg, var(--frame-primary), color-mix(in srgb, var(--frame-primary) 55%, #f59e0b));
+      --frame-slider-range-bg: linear-gradient(90deg, var(--frame-primary), color-mix(in srgb, var(--frame-primary) 55%, var(--frame-warning)));
       --frame-slider-thumb-size: 1.45rem;
-      --frame-slider-thumb-border: color-mix(in srgb, var(--frame-primary) 82%, #f59e0b);
+      --frame-slider-thumb-border: color-mix(in srgb, var(--frame-primary) 82%, var(--frame-warning));
       --frame-slider-thumb-shadow: 0 10px 30px color-mix(in srgb, var(--frame-primary) 26%, transparent);
       background:
         radial-gradient(circle at top right, color-mix(in srgb, var(--frame-primary) 14%, transparent), transparent 38%),

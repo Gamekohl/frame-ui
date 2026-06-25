@@ -14,7 +14,7 @@ describe('FrameUI', () => {
     const root = document.documentElement;
 
     root.removeAttribute('data-theme');
-    root.removeAttribute('data-mode');
+    root.classList.remove('dark');
 
     for (const name of root.getAttributeNames()) {
       if (name.startsWith('data-')) {
@@ -31,16 +31,52 @@ describe('FrameUI', () => {
     });
 
     expect(config.defaultTheme).toBe('dark');
-    expect(config.attribute).toBe('data-theme');
-    expect(config.className).toBe('dark');
+    expect(config.theme).toEqual({
+      controlledBy: 'frame',
+      using: 'data-theme',
+    });
+    expect(config.density).toBeNull();
     expect(config.disableCornerHandles).toBe(false);
+  });
+
+  it('creates a theme config', () => {
+    const config = createFrameUIConfig({
+      theme: {
+        controlledBy: 'app',
+        using: 'class',
+      },
+    });
+
+    expect(config.theme).toEqual({
+      controlledBy: 'app',
+      using: 'class',
+    });
+  });
+
+  it('creates a density config', () => {
+    const config = createFrameUIConfig({
+      density: 'compact',
+    });
+
+    expect(config.density).toBe('compact');
+  });
+
+  it('creates a shadow config', () => {
+    const config = createFrameUIConfig({
+      shadow: 'raised',
+    });
+
+    expect(config.shadow).toBe('raised');
   });
 
   it('applies the active theme attribute', () => {
     TestBed.configureTestingModule({
       providers: [
         provideFrameUI({
-          attribute: 'data-mode',
+          theme: {
+            controlledBy: 'frame',
+            using: 'data-theme',
+          },
         }),
       ],
     });
@@ -51,12 +87,12 @@ describe('FrameUI', () => {
     const root = document.documentElement;
 
     expect(config.defaultTheme).toBe('light');
-    expect(root.getAttribute('data-mode')).toBe('light');
+    expect(root.getAttribute('data-theme')).toBe('light');
 
     themeService.setTheme('dark');
 
     expect(themeService.theme()).toBe('dark');
-    expect(root.getAttribute('data-mode')).toBe('dark');
+    expect(root.getAttribute('data-theme')).toBe('dark');
   });
 
   it('ignores unsupported externally managed theme names', () => {
@@ -67,7 +103,10 @@ describe('FrameUI', () => {
     TestBed.configureTestingModule({
       providers: [
         provideFrameUI({
-          mode: 'observe',
+          theme: {
+            controlledBy: 'app',
+            using: 'data-theme',
+          },
         }),
       ],
     });
@@ -82,8 +121,10 @@ describe('FrameUI', () => {
     TestBed.configureTestingModule({
       providers: [
         provideFrameUI({
-          strategy: 'class',
-          className: 'dark',
+          theme: {
+            controlledBy: 'frame',
+            using: 'class',
+          },
         }),
       ],
     });
@@ -109,9 +150,10 @@ describe('FrameUI', () => {
     TestBed.configureTestingModule({
       providers: [
         provideFrameUI({
-          strategy: 'class',
-          mode: 'observe',
-          className: 'dark',
+          theme: {
+            controlledBy: 'app',
+            using: 'class',
+          },
         }),
       ],
     });
@@ -150,5 +192,59 @@ describe('FrameUI', () => {
     expect(document.documentElement.hasAttribute('data-frame-corner-handles')).toBe(
       false,
     );
+  });
+
+  it('can apply density globally', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideFrameUI({
+          density: 'comfortable',
+        }),
+      ],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.getAttribute('data-density')).toBe(
+      'comfortable',
+    );
+  });
+
+  it('does not write the density attribute by default', () => {
+    TestBed.configureTestingModule({
+      providers: [provideFrameUI()],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.hasAttribute('data-density')).toBe(false);
+  });
+
+  it('can apply shadow globally', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideFrameUI({
+          shadow: 'flat',
+        }),
+      ],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.getAttribute('data-shadow')).toBe('flat');
+  });
+
+  it('does not write the shadow attribute by default', () => {
+    TestBed.configureTestingModule({
+      providers: [provideFrameUI()],
+    });
+
+    const document = TestBed.inject(DOCUMENT);
+    TestBed.inject(ThemeService);
+
+    expect(document.documentElement.hasAttribute('data-shadow')).toBe(false);
   });
 });

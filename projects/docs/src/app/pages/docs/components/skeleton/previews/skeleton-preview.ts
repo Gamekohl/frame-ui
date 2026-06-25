@@ -28,7 +28,7 @@ export type SkeletonPreviewConfig = {
     @switch (config().mode) {
       @case ('basic') {
         <div class="docs-skeleton-row">
-          <div frSkeleton width="3rem" height="3rem" radius="999px"></div>
+          <div frSkeleton width="3rem" height="3rem" radius="var(--frame-radius-full)"></div>
           <div class="docs-skeleton-stack">
             <div frSkeleton width="12rem" height="1rem"></div>
             <div frSkeleton width="8rem" height="0.875rem"></div>
@@ -38,7 +38,7 @@ export type SkeletonPreviewConfig = {
 
       @case ('avatar') {
         <div class="docs-skeleton-card docs-skeleton-profile">
-          <div frSkeleton width="4rem" height="4rem" radius="999px"></div>
+          <div frSkeleton width="4rem" height="4rem" radius="var(--frame-radius-full)"></div>
           <div class="docs-skeleton-stack">
             <div frSkeleton width="11rem" height="1.125rem"></div>
             <div frSkeleton width="15rem" height="0.875rem"></div>
@@ -49,7 +49,7 @@ export type SkeletonPreviewConfig = {
 
       @case ('card') {
         <section class="docs-skeleton-dashboard-card">
-          <div frSkeleton height="8rem" radius="0.875rem"></div>
+          <div frSkeleton height="8rem" radius="var(--frame-radius-lg)"></div>
           <div class="docs-skeleton-stack">
             <div frSkeleton width="65%" height="1rem"></div>
             <div frSkeleton width="92%" height="0.875rem"></div>
@@ -74,13 +74,13 @@ export type SkeletonPreviewConfig = {
         <form class="docs-skeleton-form" aria-label="Loading account settings">
           <div frField>
             <label frFieldLabel>Email</label>
-            <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+            <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
           </div>
           <div frField>
             <label frFieldLabel>Workspace URL</label>
-            <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+            <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
           </div>
-          <div frSkeleton width="7rem" height="2.25rem" radius="0.625rem"></div>
+          <div frSkeleton width="7rem" height="2.25rem" radius="var(--frame-radius-md)"></div>
         </form>
       }
 
@@ -98,7 +98,7 @@ export type SkeletonPreviewConfig = {
 
       @case ('custom-styling') {
         <section class="docs-skeleton-dashboard-card docs-skeleton-dashboard-card--custom">
-          <div frSkeleton height="7rem" radius="1rem"></div>
+          <div frSkeleton height="7rem" radius="var(--frame-radius-lg)"></div>
           <div class="docs-skeleton-stack">
             <div frSkeleton width="55%" height="1rem"></div>
             <div frSkeleton width="88%" height="0.875rem"></div>
@@ -109,7 +109,7 @@ export type SkeletonPreviewConfig = {
 
       @case ('rtl') {
         <div class="docs-skeleton-card docs-skeleton-profile" dir="rtl" lang="ar">
-          <div frSkeleton width="4rem" height="4rem" radius="999px"></div>
+          <div frSkeleton width="4rem" height="4rem" radius="var(--frame-radius-full)"></div>
           <div class="docs-skeleton-stack">
             <div frSkeleton width="10rem" height="1.125rem"></div>
             <div frSkeleton width="14rem" height="0.875rem"></div>
@@ -124,7 +124,7 @@ export type SkeletonPreviewConfig = {
             frSkeleton
             width="3.5rem"
             height="3.5rem"
-            radius="999px"
+            radius="var(--frame-radius-full)"
             data-token-target="skeleton-avatar"
           ></div>
           <div class="docs-skeleton-stack">

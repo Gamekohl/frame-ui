@@ -5,12 +5,10 @@
       <div class="space-y-3">
         <h1 class="text-4xl font-semibold tracking-tight text-foreground">Theming</h1>
         <p class="max-w-3xl text-base leading-8 text-foreground">
-          FrameUI is token-driven. Components do not hardcode light or dark colors. They
-          read semantic CSS variables such as <code>--frame-background</code>,
-          <code>--frame-foreground</code>, and <code>--frame-primary</code>, so you can decide where theme
-          state lives and how it should integrate with the rest of your app. In most cases, the host
-          app should remain the single source of truth and the component library should align with that
-          existing styling system.
+          FrameUI components read CSS variables. Change the variables and the components follow.
+          The main values are primary color, background, text, surfaces, borders, focus color,
+          status colors, radius, density, and shadows. Your app can own those values, or FrameUI can
+          manage the light/dark selector for smaller setups.
         </p>
       </div>
     </header>
@@ -19,20 +17,18 @@
       <div class="space-y-3">
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">How it works</h2>
         <p class="text-base leading-8 text-foreground">
-          The foundation package defines the token contract. Light and dark fill that contract with
-          different values. The component package then consumes those tokens. That split is what makes
-          the library work well with Tailwind CSS, Bootstrap, app-specific utility classes, and plain
-          CSS without trying to replace them.
+          The foundation package defines CSS variables. Light and dark provide different values for
+          those variables. Components read the variables and do not need to know whether Tailwind,
+          Bootstrap, your app, or FrameUI changed them.
         </p>
       </div>
 
       <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:items-stretch">
         <section class="rounded-xl border border-border bg-surface p-5">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">1. Source of truth</p>
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">1. Theme owner</p>
           <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Host app</h3>
           <p class="mt-3 text-sm leading-7 text-foreground">
-            Owns the main token system, brand palette, and dark mode strategy that the components
-            should align with.
+            Usually owns brand colors, dark mode, and app-level CSS variables.
           </p>
         </section>
 
@@ -44,8 +40,7 @@
           <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">2. Bridge layer</p>
           <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Foundation</h3>
           <p class="mt-3 text-sm leading-7 text-foreground">
-            Maps the host app tokens into the FrameUI contract and optionally provides Angular
-            light/dark helpers.
+            Provides FrameUI variables, density, radii and shadow layers.
           </p>
         </section>
 
@@ -57,20 +52,69 @@
           <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">3. Consumption</p>
           <h3 class="mt-2 text-sm font-semibold uppercase tracking-wide text-foreground">Components</h3>
           <p class="mt-3 text-sm leading-7 text-foreground">
-            Read token values and stay visually consistent without needing to know who owns dark mode.
+            Read token values and stay visually consistent.
           </p>
         </section>
       </div>
     </section>
 
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 190ms" id="what-you-can-change" class="scroll-mt-24 space-y-5">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">What you can change</h2>
+        <p class="text-base leading-8 text-foreground">
+          Start with the shared values below. They cover the parts users usually expect to adjust
+          without breaking the FrameUI style. Component-specific variables are still available for
+          precise cases, but most apps should not need to start there.
+        </p>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Primary color</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Action color and active states.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Background and text</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Page background and readable foreground color.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Surfaces and borders</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Cards, panels, inputs, overlays, and lines.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Focus color</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Keyboard focus and technical frame accents.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Status colors</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Success, warning, info, and destructive states.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Light and dark</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Either your app or FrameUI controls the selector.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Radius</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Square by default, with shared softer steps when needed.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Density</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Compact, default, or comfortable spacing.</p>
+        </div>
+        <div class="border border-border bg-surface p-4">
+          <h3 class="text-sm font-semibold text-foreground">Shadows</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">Controlled elevation for overlays and raised surfaces.</p>
+        </div>
+      </div>
+    </section>
+
     <section animate.enter="slide-in-enter" style="--docs-enter-delay: 220ms" id="source-of-truth" class="scroll-mt-24 space-y-6">
       <div class="space-y-3">
-        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Choose a source of truth</h2>
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Choose who controls the theme</h2>
         <p class="text-base leading-8 text-foreground">
-          The recommended mental model is simple: your app's existing styling system should own the
-          tokens and theme switch, and the component library should follow that source of truth. If a
-          team prefers, the component library can also become the single source of truth, but that is
-          typically the secondary option rather than the default recommendation.
+          The decision is two small questions: who controls the light/dark state, and which DOM switch
+          does the app use? In existing apps, the host app should usually control the theme and FrameUI
+          should follow it. In new or isolated apps, FrameUI can control the switch directly.
         </p>
       </div>
 
@@ -79,10 +123,10 @@
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">
             Preferred
           </p>
-          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Host app owns the theme</h3>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">App controls the theme</h3>
           <p class="mt-2 text-sm leading-7 text-foreground">
-            Tailwind, Bootstrap, or your app-level token system remains the single source of truth.
-            The component library consumes that palette through <code>--frame-*</code> tokens.
+            Tailwind, Bootstrap, or your app-level CSS keeps writing light/dark values. FrameUI reads
+            the resulting <code>--frame-*</code> variables.
           </p>
         </section>
 
@@ -90,66 +134,79 @@
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">
             Supported
           </p>
-          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">Library owns the theme</h3>
+          <h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground">FrameUI controls the theme</h3>
           <p class="mt-2 text-sm leading-7 text-foreground">
-            The component library can also manage theme state directly. This is useful when a team
-            wants the library to coordinate theming, but it is usually not the first choice for
-            existing applications.
+            FrameUI can write the root selector directly. This is useful for smaller apps or apps
+            without an existing theme switch.
           </p>
         </section>
       </div>
 
-      <section id="library-managed-via-data-theme" class="space-y-4">
+      <section id="frame-controls-data-theme" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via <code>data-theme</code></h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">FrameUI controls <code>data-theme</code></h3>
           <p class="text-sm leading-7 text-foreground">
-            Use this when your Angular app wants FrameUI to manage light/dark state directly. The
-            service writes an attribute such as <code>html[data-theme="dark"]</code>. This is fully
-            supported, but in apps that already use Tailwind, Bootstrap, or another token system, it
-            is usually preferable to keep the host app in charge instead.
+            Use this when FrameUI should manage light/dark state directly. The service writes
+            <code>html[data-theme="light"]</code> or <code>html[data-theme="dark"]</code>.
           </p>
         </div>
 
         <docs-code-block
-          [code]="managedAttributeCode"
+          [code]="frameControlsDataThemeCode"
           language="ts"
           title="App config"
           rounded
         />
       </section>
 
-      <section id="library-managed-via-shared-dark-class" class="space-y-4">
+      <section id="frame-controls-class" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Library-managed via a shared <code>.dark</code> class</h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">FrameUI controls <code>.dark</code></h3>
           <p class="text-sm leading-7 text-foreground">
-            Use this when you want <code>ThemeService</code> to stay in charge, but Tailwind utilities
-            should react to the same switch. This works well when a team intentionally wants the
-            component library to drive theming, even though the preferred setup is usually for Tailwind
-            itself to remain the source of truth.
+            Use this when FrameUI should manage the theme, but the app expects the shared
+            <code>html.dark</code> selector, for example in a Tailwind setup.
           </p>
         </div>
 
         <docs-code-block
-          [code]="managedClassCode"
+          [code]="frameControlsClassCode"
           language="ts"
           title="App config"
           rounded
         />
       </section>
 
-      <section id="externally-managed-and-observed-by-the-library" class="space-y-4">
+      <section id="app-controls-class" class="space-y-4">
         <div class="space-y-2">
-          <h3 class="text-xl font-semibold tracking-tight text-foreground">Externally managed and observed by the library</h3>
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">App controls <code>.dark</code></h3>
           <p class="text-sm leading-7 text-foreground">
             Use this when a shell, CMS, Tailwind-based app, or another design layer already owns dark
-            mode. In observe mode FrameUI reads the DOM and does not write light/dark state. This
-            is the preferred setup for most existing applications because it keeps ownership with the
-            host app.
+            mode. FrameUI reads <code>html.dark</code> and does not write light/dark state. In this
+            setup, <code>ThemeService.theme()</code> can be read, but <code>ThemeService.setTheme()</code>
+            throws because the app owns the switch.
           </p>
         </div>
 
         <docs-code-block
-          [code]="observedClassCode"
+          [code]="appControlsClassCode"
+          language="ts"
+          title="App config"
+          rounded
+        />
+      </section>
+
+      <section id="app-controls-data-theme" class="space-y-4">
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold tracking-tight text-foreground">App controls <code>data-theme</code></h3>
+          <p class="text-sm leading-7 text-foreground">
+            Use this when the app already writes <code>html[data-theme="light"]</code> or
+            <code>html[data-theme="dark"]</code>. FrameUI reads that attribute and keeps
+            <code>ThemeService.theme()</code> in sync without changing it.
+          </p>
+        </div>
+
+        <docs-code-block
+          [code]="appControlsDataThemeCode"
           language="ts"
           title="App config"
           rounded
@@ -162,9 +219,10 @@
         <h2 class="text-2xl font-semibold tracking-tight text-foreground">Global appearance options</h2>
         <p class="text-base leading-8 text-foreground">
           Use <code>provideFrameUI</code> for appearance choices that should apply to every
-          component in the app. Corner handles are enabled by default as part of the FrameUI
-          blueprint treatment. Disable them once at the foundation layer when your product should use
-          quieter surfaces without editing each component.
+          component in the app. Density belongs here because it changes the feel of controls, menus,
+          panels, and tables across the app. Corner handles are enabled by default as part of the
+          FrameUI technical style. Disable them once at the foundation layer when your product should
+          use quieter surfaces without editing each component.
         </p>
       </div>
 
@@ -172,6 +230,25 @@
         [code]="globalAppearanceCode"
         language="ts"
         title="App config"
+        rounded
+      />
+    </section>
+
+    <section id="migration" class="scroll-mt-24 space-y-6">
+      <div class="space-y-3">
+        <h2 class="text-2xl font-semibold tracking-tight text-foreground">Migration</h2>
+        <p class="text-base leading-8 text-foreground">
+          The old <code>strategy</code>, <code>mode</code>, <code>attribute</code>, and
+          <code>className</code> options were replaced by <code>theme.controlledBy</code> and
+          <code>theme.using</code>. The new names describe the actual decision instead of the internal
+          implementation.
+        </p>
+      </div>
+
+      <docs-code-block
+        [code]="migrationCode"
+        language="ts"
+        title="Before and after"
         rounded
       />
     </section>
@@ -195,9 +272,10 @@
 
       <p class="text-sm leading-7 text-foreground">
         In this setup, Tailwind owns the palette and the <code>.dark</code> selector, while the
-        component library simply reads the same semantic values through its own token contract. If you
-        want the library to drive the same selector instead, the shared class strategy is still
-        available, but host-app-first remains the recommended baseline.
+        component library reads the same values through FrameUI variables. If you want FrameUI to
+        drive the same selector instead, use
+        <code>theme: &#123; controlledBy: 'frame', using: 'class' &#125;</code>, but host-app-first remains the
+        recommended baseline.
       </p>
     </section>
 
@@ -219,8 +297,9 @@
       />
 
       <p class="text-sm leading-7 text-foreground">
-        The important part is to bridge the component library into the host app's semantic token layer
-        rather than duplicating light and dark values in multiple places.
+        Bootstrap usually writes <code>data-bs-theme</code>. FrameUI does not need to observe that
+        attribute for visual theming. Let Bootstrap keep controlling the page and map the FrameUI
+        variables to Bootstrap variables in CSS.
       </p>
     </section>
 

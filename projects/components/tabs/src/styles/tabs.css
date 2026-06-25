@@ -3,6 +3,7 @@
 [frTabs],
 frame-tabs {
   display: grid;
+  align-content: start;
   gap: var(--frame-tabs-gap);
 }
 
@@ -15,6 +16,7 @@ frame-tabs[data-orientation='vertical'] {
 [frTabsList],
 frame-tabs-list {
   display: inline-flex;
+  align-self: start;
   align-items: center;
   gap: var(--frame-tabs-list-gap);
   width: fit-content;
@@ -32,7 +34,7 @@ frame-tabs-list[data-orientation='vertical'] {
 
 [frTabsList][data-variant='line'],
 frame-tabs-list[data-variant='line'] {
-  gap: 1rem;
+  gap: var(--frame-tabs-line-list-gap);
   padding: 0;
   border-block-end: 1px solid var(--frame-tabs-line-color);
   border-radius: 0;
@@ -96,7 +98,7 @@ frame-tabs-trigger[data-disabled] {
 [frTabsList][data-variant='line'] [frTabsTrigger],
 frame-tabs-list[data-variant='line'] frame-tabs-trigger {
   min-height: calc(var(--frame-tabs-trigger-height) + 0.125rem);
-  padding-inline: 0;
+  padding-inline: var(--frame-tabs-line-trigger-padding-x);
   border-radius: 0;
   transform: none;
 }
@@ -107,7 +109,7 @@ frame-tabs-list[data-variant='line'] frame-tabs-trigger::after {
   inset-inline: 0;
   inset-block-end: -1px;
   height: 2px;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-tabs-line-active-color);
   content: '';
   opacity: 0;

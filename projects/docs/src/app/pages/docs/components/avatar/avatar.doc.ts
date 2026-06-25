@@ -176,7 +176,7 @@ const inspectorConfig: AvatarPreviewConfig = {
 
 const customStylingConfig: AvatarPreviewConfig = {
   className: 'grid w-full max-w-2xl gap-6',
-  style: `--frame-avatar-root-radius: 1rem;
+  style: `--frame-avatar-root-radius: var(--frame-radius-lg);
 --frame-avatar-root-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface));
 --frame-avatar-root-border: color-mix(in srgb, var(--frame-primary) 22%, transparent);
 --frame-avatar-root-color: var(--frame-primary);
@@ -563,7 +563,7 @@ ${customStylingConfig.style}
     'Use these CSS custom properties to tune avatar sizing, fallback spacing, badge styling, and group overlap without changing the component markup.',
   tokens: `
   --frame-avatar-root-size: 2.5rem;
-  --frame-avatar-root-radius: 999px;
+  --frame-avatar-root-radius: var(--frame-radius-full);
   --frame-avatar-root-bg: var(--frame-muted);
   --frame-avatar-root-border: transparent;
   --frame-avatar-root-color: var(--frame-muted-foreground);
@@ -582,7 +582,7 @@ ${customStylingConfig.style}
   --frame-avatar-fallback-padding: 0.25rem;
   --frame-avatar-icon-size: 1rem;
   --frame-avatar-badge-size: 0.875rem;
-  --frame-avatar-badge-radius: 999px;
+  --frame-avatar-badge-radius: var(--frame-radius-full);
   --frame-avatar-badge-bg: var(--frame-primary);
   --frame-avatar-badge-border: var(--frame-surface);
   --frame-avatar-badge-color: var(--frame-primary-foreground);

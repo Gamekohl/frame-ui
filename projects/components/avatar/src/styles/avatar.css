@@ -18,7 +18,7 @@
   overflow: visible;
   flex: 0 0 auto;
   border: 1px solid var(--frame-avatar-root-border, transparent);
-  border-radius: var(--frame-avatar-root-radius, 999px);
+  border-radius: var(--frame-avatar-root-radius, var(--frame-radius-full));
   background: var(--frame-avatar-root-bg, var(--frame-muted));
   box-shadow: var(--frame-avatar-root-shadow, none);
   color: var(--frame-avatar-root-color, var(--frame-muted-foreground));
@@ -121,7 +121,7 @@
   justify-content: center;
   padding-inline: 0.25rem;
   border: 2px solid var(--frame-avatar-badge-border, var(--frame-surface));
-  border-radius: var(--frame-avatar-badge-radius, 999px);
+  border-radius: var(--frame-avatar-badge-radius, var(--frame-radius-full));
   background: var(--frame-avatar-badge-bg, var(--frame-primary));
   color: var(--frame-avatar-badge-color, var(--frame-primary-foreground));
   font-size: var(--frame-avatar-badge-font-size-current);
@@ -201,7 +201,7 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--frame-avatar-group-count-border, var(--frame-border));
-  border-radius: var(--frame-avatar-root-radius, 999px);
+  border-radius: var(--frame-avatar-root-radius, var(--frame-radius-full));
   background: var(--frame-avatar-group-count-bg, var(--frame-surface));
   color: var(--frame-avatar-group-count-color, var(--frame-muted-foreground));
   font-weight: var(--frame-avatar-root-font-weight, 600);

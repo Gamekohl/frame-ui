@@ -486,7 +486,7 @@ export class FrCarouselItem implements AfterViewInit {
   hostDirectives: [
     {
       directive: FrButton,
-      inputs: ['appearance', 'disabled', 'radius', 'size'],
+      inputs: ['appearance', 'disabled', 'size'],
     },
   ],
   host: {
@@ -508,7 +508,7 @@ export class FrCarouselPrevious {
   hostDirectives: [
     {
       directive: FrButton,
-      inputs: ['appearance', 'disabled', 'radius', 'size'],
+      inputs: ['appearance', 'disabled', 'size'],
     },
   ],
   host: {
