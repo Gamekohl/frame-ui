@@ -37,9 +37,16 @@ export type AccordionPreviewConfig = {
     FrCheckboxModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `
+    :host {
+      display: block;
+      inline-size: 100%;
+      max-inline-size: 100%;
+      min-inline-size: 0;
+    }
+  `,
   template: `
-    <div
-      frAccordion
+    <frame-accordion
       [attr.dir]="config().dir ?? null"
       [type]="config().type"
       [collapsible]="config().collapsible ?? false"
@@ -49,25 +56,25 @@ export type AccordionPreviewConfig = {
       [style]="config().style ?? null"
     >
       @for (item of config().items; track item.value) {
-        <section
-          frAccordionItem
+        <frame-accordion-item
           [value]="item.value"
           [disabled]="item.disabled ?? false"
           [attr.data-token-target]="'item-border'"
           [class]="config().itemClassName ?? ''"
         >
-          <button frAccordionTrigger type="button" [attr.data-token-target]="'trigger'">
+          <button frameAccordionTrigger type="button" [attr.data-token-target]="'trigger'">
             <span [attr.data-token-target]="'trigger-label'">{{ item.trigger }}</span>
 
             <ng-icon
-              frAccordionIcon
+              frameAccordionIcon
               name="tablerChevronDown"
               size="18"
               [attr.data-token-target]="'icon'"
             />
           </button>
 
-          <div frAccordionContent [attr.data-token-target]="'content'">
+          <ng-template frameAccordionContent>
+            <div [attr.data-token-target]="'content'">
             @if (item.options?.length) {
               <div class="grid gap-3 py-1">
                 @for (option of item.options; track option.label) {
@@ -80,10 +87,11 @@ export type AccordionPreviewConfig = {
             } @else {
               {{ item.content }}
             }
-          </div>
-        </section>
+            </div>
+          </ng-template>
+        </frame-accordion-item>
       }
-    </div>
+    </frame-accordion>
   `,
   viewProviders: [provideIcons({ tablerChevronDown })],
 })

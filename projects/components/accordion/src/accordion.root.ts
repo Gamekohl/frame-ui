@@ -1,72 +1,80 @@
 import {
-  Directive,
+  Component,
   booleanAttribute,
+  computed,
+  effect,
+  inject,
   input,
-  linkedSignal,
   output,
+  signal,
 } from '@angular/core';
+import { CdkAccordion } from '@angular/cdk/accordion';
 
 import { ACCORDION_ROOT } from './accordion.tokens';
 import { FrAccordionType } from './accordion.types';
 
-/** Accordion component primitive. */
-@Directive({
-  selector: '[frAccordion]',
-  exportAs: 'frAccordion',
+/** Accordion root powered by Angular CDK accordion state management. */
+@Component({
+  selector: 'frame-accordion',
+  exportAs: 'frameAccordion',
   standalone: true,
+  hostDirectives: [CdkAccordion],
   providers: [{ provide: ACCORDION_ROOT, useExisting: FrAccordion }],
   host: {
     class: 'frame-accordion',
     '[attr.data-border]': 'border() ? "true" : "false"',
     '[attr.data-type]': 'type()',
   },
+  template: `<ng-content />`,
 })
 export class FrAccordion {
+  private readonly cdkAccordion = inject(CdkAccordion, { self: true });
+
   readonly type = input<FrAccordionType>('single');
-  readonly border = input(true, { transform: booleanAttribute });
+  readonly border = input(false, { transform: booleanAttribute });
   readonly collapsible = input(false, { transform: booleanAttribute });
   readonly defaultValue = input<string | readonly string[] | null>(null);
   readonly valueChange = output<string | string[] | null>();
 
-  private readonly openItems = linkedSignal(() => this.normalizeValues(this.defaultValue(), this.type()));
+  private readonly defaultOpenValues = computed(() =>
+    this.normalizeValues(this.defaultValue(), this.type()),
+  );
+  private readonly currentOpenValues = signal<string[]>([]);
+  private readonly openValues = computed(() => new Set(this.currentOpenValues()));
 
-  isItemOpen(value: string): boolean {
-    return this.openItems().includes(value);
+  constructor() {
+    effect(() => {
+      this.cdkAccordion.multi = this.type() === 'multiple';
+      this.currentOpenValues.set(this.defaultOpenValues());
+    });
   }
 
-  toggleItem(value: string): void {
-    const current = this.openItems();
-    const isOpen = current.includes(value);
-
-    if (this.type() === 'multiple') {
-      const next = isOpen
-        ? current.filter((item) => item !== value)
-        : [...current, value];
-      this.commit(next);
-      return;
-    }
-
-    if (isOpen) {
-      if (!this.collapsible()) {
-        return;
-      }
-
-      this.commit([]);
-      return;
-    }
-
-    this.commit([value]);
+  isDefaultItemOpen(value: string): boolean {
+    return this.currentOpenValues().includes(value);
   }
 
-  private commit(next: string[]): void {
-    this.openItems.set(next);
+  itemExpansionChanged(value: string, expanded: boolean): void {
+    const current = this.openValues();
+    const next = expanded
+      ? this.type() === 'multiple'
+        ? [...new Set([...current, value])]
+        : [value]
+      : [...current].filter((item) => item !== value);
 
-    if (this.type() === 'multiple') {
-      this.valueChange.emit(next);
-      return;
-    }
+    this.currentOpenValues.set(next);
+    this.valueChange.emit(this.type() === 'multiple' ? next : (next[0] ?? null));
+  }
 
-    this.valueChange.emit(next[0] ?? null);
+  openAll(): void {
+    this.cdkAccordion.openAll();
+  }
+
+  closeAll(): void {
+    this.cdkAccordion.closeAll();
+  }
+
+  syncCdkMode(): void {
+    this.cdkAccordion.multi = this.type() === 'multiple';
   }
 
   private normalizeValues(

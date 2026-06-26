@@ -69,38 +69,44 @@
         </div>
       </div>
 
-      <div frAccordion type="multiple" collapsible defaultValue="ts" class="docs-accordion-preview ai-composer-snippets">
-        <section frAccordionItem value="ts" class="min-w-0">
-          <button frAccordionTrigger type="button">
+      <frame-accordion type="multiple" collapsible defaultValue="ts" class="docs-accordion-preview ai-composer-snippets">
+        <frame-accordion-item value="ts" class="min-w-0">
+          <button frameAccordionTrigger type="button">
             <span>TypeScript</span>
-            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+            <ng-icon frameAccordionIcon name="tablerChevronDown" size="18" />
           </button>
 
-          <div frAccordionContent class="min-w-0">
-            <docs-code-block title="generated.ts" language="ts" [code]="snippet.typescript" rounded />
-          </div>
-        </section>
-        <section frAccordionItem value="html" class="min-w-0">
-          <button frAccordionTrigger type="button">
+          <ng-template frameAccordionContent>
+            <div class="min-w-0">
+              <docs-code-block title="generated.ts" language="ts" [code]="snippet.typescript" rounded />
+            </div>
+          </ng-template>
+        </frame-accordion-item>
+        <frame-accordion-item value="html" class="min-w-0">
+          <button frameAccordionTrigger type="button">
             <span>HTML</span>
-            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+            <ng-icon frameAccordionIcon name="tablerChevronDown" size="18" />
           </button>
 
-          <div frAccordionContent class="min-w-0">
-            <docs-code-block title="generated.html" language="html" [code]="snippet.template" rounded />
-          </div>
-        </section>
-        <section frAccordionItem value="css" class="min-w-0">
-          <button frAccordionTrigger type="button">
+          <ng-template frameAccordionContent>
+            <div class="min-w-0">
+              <docs-code-block title="generated.html" language="html" [code]="snippet.template" rounded />
+            </div>
+          </ng-template>
+        </frame-accordion-item>
+        <frame-accordion-item value="css" class="min-w-0">
+          <button frameAccordionTrigger type="button">
             <span>CSS</span>
-            <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+            <ng-icon frameAccordionIcon name="tablerChevronDown" size="18" />
           </button>
 
-          <div frAccordionContent class="min-w-0">
-            <docs-code-block title="generated.css" language="scss" [code]="snippet.styles" rounded />
-          </div>
-        </section>
-      </div>
+          <ng-template frameAccordionContent>
+            <div class="min-w-0">
+              <docs-code-block title="generated.css" language="scss" [code]="snippet.styles" rounded />
+            </div>
+          </ng-template>
+        </frame-accordion-item>
+      </frame-accordion>
     </section>
 
     @if (snippet.notes.length) {

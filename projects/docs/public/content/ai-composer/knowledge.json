@@ -18,9 +18,9 @@
     "selectors": [
       {
         "className": "FrAccordion",
-        "kind": "Directive",
-        "selector": "[frAccordion]",
-        "preferredSelector": "[frAccordion]",
+        "kind": "Component",
+        "selector": "frame-accordion",
+        "preferredSelector": "frame-accordion",
         "inputs": [
           {
             "name": "type",
@@ -50,8 +50,8 @@
       {
         "className": "FrAccordionContent",
         "kind": "Directive",
-        "selector": "[frAccordionContent]",
-        "preferredSelector": "[frAccordionContent]",
+        "selector": "ng-template[frameAccordionContent]",
+        "preferredSelector": "ng-template[frameAccordionContent]",
         "inputs": [],
         "outputs": [],
         "sourceFile": "projects/components/accordion/src/accordion.content.ts"
@@ -59,17 +59,17 @@
       {
         "className": "FrAccordionIcon",
         "kind": "Directive",
-        "selector": "[frAccordionIcon]",
-        "preferredSelector": "[frAccordionIcon]",
+        "selector": "[frameAccordionIcon]",
+        "preferredSelector": "[frameAccordionIcon]",
         "inputs": [],
         "outputs": [],
         "sourceFile": "projects/components/accordion/src/accordion.trigger.ts"
       },
       {
         "className": "FrAccordionItem",
-        "kind": "Directive",
-        "selector": "[frAccordionItem]",
-        "preferredSelector": "[frAccordionItem]",
+        "kind": "Component",
+        "selector": "frame-accordion-item",
+        "preferredSelector": "frame-accordion-item",
         "inputs": [
           {
             "name": "value",
@@ -86,8 +86,8 @@
       {
         "className": "FrAccordionTrigger",
         "kind": "Directive",
-        "selector": "button[frAccordionTrigger]",
-        "preferredSelector": "button[frAccordionTrigger]",
+        "selector": "button[frameAccordionTrigger]",
+        "preferredSelector": "button[frameAccordionTrigger]",
         "inputs": [],
         "outputs": [],
         "sourceFile": "projects/components/accordion/src/accordion.trigger.ts"
@@ -122,7 +122,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Can the trigger include custom content?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Yes. Triggers can wrap labels, icons, counters, or other inline elements as long as the button stays clear and readable.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'item-1'\">\n  <frame-accordion-item value=\"item-1\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Can the trigger include custom content?</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Yes. Triggers can wrap labels, icons, counters, or other inline elements as long as the button stays clear and readable.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       },
@@ -132,11 +132,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Can the trigger include custom content?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Yes. Triggers can wrap labels, icons, counters, or other inline elements as long as the button stays clear and readable.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'item-1'\">\n  <frame-accordion-item value=\"item-1\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Can the trigger include custom content?</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Yes. Triggers can wrap labels, icons, counters, or other inline elements as long as the button stays clear and readable.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           },
           {
             "language": "ts",
-            "code": "<div\r\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion\n  class=\"support-accordion\"\n  type=\"single\"\n  collapsible\n  [defaultValue]=\"'contact'\"\n  border\n>\n  <frame-accordion-item value=\"contact\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Support channels</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       },
@@ -146,7 +146,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div\r\n  class=\"support-accordion\"\r\n  frAccordion\r\n  type=\"single\"\r\n  collapsible\r\n  [defaultValue]=\"'contact'\"\r\n  border\r\n>\r\n  <section frAccordionItem value=\"contact\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Support channels</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion\n  class=\"support-accordion\"\n  type=\"single\"\n  collapsible\n  [defaultValue]=\"'contact'\"\n  border\n>\n  <frame-accordion-item value=\"contact\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Support channels</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           },
           {
             "language": "css",
@@ -156,7 +156,7 @@
       },
       {
         "title": "Custom Styling Preview",
-        "description": "Each item container defines the divider treatment and horizontal spacing.",
+        "description": "Each item container defines the divider and corner treatment.",
         "code": [
           {
             "language": "css",
@@ -164,7 +164,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\n  <frame-accordion-item value=\"item-1\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>When should I use an accordion?</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       },
@@ -174,11 +174,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"item-1\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>When should I use an accordion?</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'item-1'\" class=\"docs-accordion-preview\">\n  <frame-accordion-item value=\"item-1\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>When should I use an accordion?</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Use an accordion when related details should stay available on the page without overwhelming the default layout.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\n  <frame-accordion-item value=\"notifications\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Display preferences</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Let people expand related controls together, like density, label visibility, and surface styling options.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       },
@@ -188,11 +188,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\r\n  <section frAccordionItem value=\"notifications\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Display preferences</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Let people expand related controls together, like density, label visibility, and surface styling options.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"multiple\" [defaultValue]=\"['notifications']\" class=\"docs-accordion-preview\">\n  <frame-accordion-item value=\"notifications\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Display preferences</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Let people expand related controls together, like density, label visibility, and surface styling options.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           },
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\n  <frame-accordion-item value=\"appearance\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Use dividers between items</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Turn borders on when each item should read as a distinct row.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>\n\n<frame-accordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\n  <frame-accordion-item value=\"appearance\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Remove borders in lighter layouts</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       },
@@ -202,7 +202,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Use dividers between items</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Turn borders on when each item should read as a distinct row.\r\n    </div>\r\n  </section>\r\n</div>\r\n\r\n<div frAccordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\r\n  <section frAccordionItem value=\"appearance\">\r\n    <button frAccordionTrigger type=\"button\">\r\n      <span>Remove borders in lighter layouts</span>\r\n      <ng-icon frAccordionIcon name=\"tablerChevronDown\" size=\"18\" />\r\n    </button>\r\n\r\n    <div frAccordionContent>\r\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\r\n    </div>\r\n  </section>\r\n</div>"
+            "code": "<frame-accordion type=\"single\" collapsible [defaultValue]=\"'appearance'\" border>\n  <frame-accordion-item value=\"appearance\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Use dividers between items</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Turn borders on when each item should read as a distinct row.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>\n\n<frame-accordion type=\"single\" collapsible [defaultValue]=\"'appearance'\">\n  <frame-accordion-item value=\"appearance\">\n    <button frameAccordionTrigger type=\"button\">\n      <span>Remove borders in lighter layouts</span>\n      <ng-icon frameAccordionIcon name=\"tablerChevronDown\" size=\"18\"></ng-icon>\n    </button>\n\n    <ng-template frameAccordionContent>\n      Leave borders off when surrounding spacing or surfaces already define the grouping.\n    </ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
           }
         ]
       }
@@ -211,16 +211,13 @@
       "--frame-accordion-content-color",
       "--frame-accordion-content-font-size",
       "--frame-accordion-content-line-height",
-      "--frame-accordion-content-opacity-closed",
-      "--frame-accordion-content-opacity-open",
+      "--frame-accordion-content-motion-duration",
+      "--frame-accordion-content-motion-timing",
       "--frame-accordion-content-padding-bottom",
       "--frame-accordion-content-padding-inline",
-      "--frame-accordion-content-transition-duration",
-      "--frame-accordion-content-transition-timing",
       "--frame-accordion-icon-rotation",
       "--frame-accordion-icon-size",
       "--frame-accordion-item-border",
-      "--frame-accordion-item-padding-x",
       "--frame-accordion-item-radius",
       "--frame-accordion-radius",
       "--frame-accordion-trigger-color",
@@ -340,7 +337,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"release-alert\">\n  <section frAlert [variant]=\"'info'\">\r\n    <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n    <h3 frAlertTitle>Release notes available</h3>\r\n    <p frAlertDescription>\r\n      Highlight launch details with a softer branded surface while keeping the core alert structure intact.\r\n    </p>\r\n  </section>\r\n</div>"
+            "code": "<div class=\"release-alert\">\r\n  <section frAlert [variant]=\"'info'\">\r\n    <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n    <h3 frAlertTitle>Release notes available</h3>\r\n    <p frAlertDescription>\r\n      Highlight launch details with a softer branded surface while keeping the core alert structure intact.\r\n    </p>\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -350,7 +347,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"release-alert\">\n  <section frAlert [variant]=\"'info'\">\r\n    <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n    <h3 frAlertTitle>Release notes available</h3>\r\n    <p frAlertDescription>\r\n      Highlight launch details with a softer branded surface while keeping the core alert structure intact.\r\n    </p>\r\n  </section>\r\n</div>"
+            "code": "<div class=\"release-alert\">\r\n  <section frAlert [variant]=\"'info'\">\r\n    <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n    <h3 frAlertTitle>Release notes available</h3>\r\n    <p frAlertDescription>\r\n      Highlight launch details with a softer branded surface while keeping the core alert structure intact.\r\n    </p>\r\n  </section>\r\n</div>"
           },
           {
             "language": "css",
@@ -368,7 +365,7 @@
           },
           {
             "language": "ts",
-            "code": "<section frAlert>\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Heads up</h3>\r\n  <p frAlertDescription>\r\n    Use alerts for important context, status changes, or system guidance that should remain visible near the related workflow.\r\n  </p>\r\n</section>"
+            "code": "<section frAlert>\r\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Heads up</h3>\r\n  <p frAlertDescription>\r\n    Use alerts for important context, status changes, or system guidance that should remain visible near the related workflow.\r\n  </p>\r\n</section>"
           }
         ]
       },
@@ -378,11 +375,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section frAlert>\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Heads up</h3>\r\n  <p frAlertDescription>\r\n    Use alerts for important context, status changes, or system guidance that should remain visible near the related workflow.\r\n  </p>\r\n</section>"
+            "code": "<section frAlert>\r\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Heads up</h3>\r\n  <p frAlertDescription>\r\n    Use alerts for important context, status changes, or system guidance that should remain visible near the related workflow.\r\n  </p>\r\n</section>"
           },
           {
             "language": "ts",
-            "code": "<section frAlert [variant]=\"'info'\">\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Information</h3>\r\n  <p frAlertDescription>Share neutral system context before someone makes a decision.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'success'\">\r\n  <ng-icon frAlertIcon name=\"tablerCheck\" />\r\n  <h3 frAlertTitle>Success</h3>\r\n  <p frAlertDescription>Confirm completed work or successful submissions.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Caution</h3>\r\n  <p frAlertDescription>Warn about risky steps or incomplete setup.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'destructive'\">\r\n  <ng-icon frAlertIcon name=\"tablerX\" />\r\n  <h3 frAlertTitle>Destructive</h3>\r\n  <p frAlertDescription>Call out failed operations or permanent loss.</p>\r\n</section>"
+            "code": "<section frAlert [variant]=\"'info'\">\r\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Information</h3>\r\n  <p frAlertDescription>Share neutral system context before someone makes a decision.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'success'\">\r\n  <ng-icon frAlertIcon name=\"tablerCheck\" />\r\n  <h3 frAlertTitle>Success</h3>\r\n  <p frAlertDescription>Confirm completed work or successful submissions.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Caution</h3>\r\n  <p frAlertDescription>Warn about risky steps or incomplete setup.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'destructive'\">\r\n  <ng-icon frAlertIcon name=\"tablerX\" />\r\n  <h3 frAlertTitle>Destructive</h3>\r\n  <p frAlertDescription>Call out failed operations or permanent loss.</p>\r\n</section>"
           }
         ]
       },
@@ -392,11 +389,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section frAlert [variant]=\"'info'\">\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Information</h3>\r\n  <p frAlertDescription>Share neutral system context before someone makes a decision.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'success'\">\r\n  <ng-icon frAlertIcon name=\"tablerCheck\" />\r\n  <h3 frAlertTitle>Success</h3>\r\n  <p frAlertDescription>Confirm completed work or successful submissions.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Caution</h3>\r\n  <p frAlertDescription>Warn about risky steps or incomplete setup.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'destructive'\">\r\n  <ng-icon frAlertIcon name=\"tablerX\" />\r\n  <h3 frAlertTitle>Destructive</h3>\r\n  <p frAlertDescription>Call out failed operations or permanent loss.</p>\r\n</section>"
+            "code": "<section frAlert [variant]=\"'info'\">\r\n  <ng-icon frAlertIcon name=\"tablerInfoCircle\" />\r\n  <h3 frAlertTitle>Information</h3>\r\n  <p frAlertDescription>Share neutral system context before someone makes a decision.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'success'\">\r\n  <ng-icon frAlertIcon name=\"tablerCheck\" />\r\n  <h3 frAlertTitle>Success</h3>\r\n  <p frAlertDescription>Confirm completed work or successful submissions.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Caution</h3>\r\n  <p frAlertDescription>Warn about risky steps or incomplete setup.</p>\r\n</section>\r\n\r\n<section frAlert [variant]=\"'destructive'\">\r\n  <ng-icon frAlertIcon name=\"tablerX\" />\r\n  <h3 frAlertTitle>Destructive</h3>\r\n  <p frAlertDescription>Call out failed operations or permanent loss.</p>\r\n</section>"
           },
           {
             "language": "ts",
-            "code": "<section frAlert [variant]=\"'danger'\">\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Payment verification needed</h3>\r\n  <p frAlertDescription>\r\n    This workspace cannot invite new members until the billing contact confirms the updated card details.\r\n  </p>\r\n  <p class=\"mt-3 text-sm text-muted-foreground\">\r\n    Remind owners before the renewal date to avoid access interruptions.\r\n  </p>\r\n</section>"
+            "code": "<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Payment verification needed</h3>\r\n  <p frAlertDescription>\r\n    This workspace cannot invite new members until the billing contact confirms the updated card details.\r\n  </p>\r\n  <p class=\"mt-3 text-sm text-muted-foreground\">\r\n    Remind owners before the renewal date to avoid access interruptions.\r\n  </p>\r\n</section>"
           }
         ]
       },
@@ -406,7 +403,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section frAlert [variant]=\"'danger'\">\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Payment verification needed</h3>\r\n  <p frAlertDescription>\r\n    This workspace cannot invite new members until the billing contact confirms the updated card details.\r\n  </p>\r\n  <p class=\"mt-3 text-sm text-muted-foreground\">\r\n    Remind owners before the renewal date to avoid access interruptions.\r\n  </p>\r\n</section>"
+            "code": "<section frAlert [variant]=\"'danger'\">\r\n  <ng-icon frAlertIcon name=\"tablerExclamationCircle\" />\r\n  <h3 frAlertTitle>Payment verification needed</h3>\r\n  <p frAlertDescription>\r\n    This workspace cannot invite new members until the billing contact confirms the updated card details.\r\n  </p>\r\n  <p class=\"mt-3 text-sm text-muted-foreground\">\r\n    Remind owners before the renewal date to avoid access interruptions.\r\n  </p>\r\n</section>"
           }
         ]
       }
@@ -1286,7 +1283,7 @@
           },
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';"
           }
         ]
       },
@@ -1296,7 +1293,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';"
+            "code": "import { NgIconComponent, provideIcons } from '@ng-icons/core';\r\nimport { tablerArrowRight, tablerLayoutGrid, tablerList, tablerPlus, tablerX } from '@ng-icons/tabler-icons';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrButtonGroupModule } from '@frame-ui-ng/components/button-group';"
           },
           {
             "language": "ts",
@@ -2173,7 +2170,7 @@
           },
           {
             "language": "css",
-            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
+            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\r\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
           }
         ]
       },
@@ -2183,7 +2180,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
+            "code": ".account-card {\r\n  --frame-card-spacing: 1.25rem;\r\n  --frame-card-radius: var(--frame-radius-lg);\r\n  --frame-card-bg: color-mix(in srgb, var(--frame-surface) 86%, var(--frame-primary));\r\n  --frame-card-shadow: 0 18px 48px rgb(0 0 0 / 0.14);\r\n}"
           },
           {
             "language": "ts",
@@ -2314,6 +2311,7 @@
       "--frame-muted-foreground",
       "--frame-primary",
       "--frame-radius-lg",
+      "--frame-shadow-sm",
       "--frame-surface",
       "--frame-surface-foreground"
     ]
@@ -2465,7 +2463,7 @@
           },
           {
             "language": "css",
-            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
+            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\r\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
           }
         ]
       },
@@ -2475,7 +2473,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
+            "code": ".feature-carousel {\r\n  --frame-carousel-gap: 1.25rem;\r\n  --frame-carousel-item-size: min(100%, 18rem);\r\n  --frame-carousel-viewport-radius: var(--frame-radius-lg);\r\n  --frame-carousel-control-offset: 0.75rem;\r\n}"
           },
           {
             "language": "ts",
@@ -2549,7 +2547,7 @@
           },
           {
             "language": "ts",
-            "code": "<section frCarousel orientation=\"vertical\">\n  <div frCarouselContent>\r\n    <article frCarouselItem>Slide 1</article>\r\n    <article frCarouselItem>Slide 2</article>\r\n  </div>\r\n</section>"
+            "code": "<section frCarousel orientation=\"vertical\">\r\n  <div frCarouselContent>\r\n    <article frCarouselItem>Slide 1</article>\r\n    <article frCarouselItem>Slide 2</article>\r\n  </div>\r\n</section>"
           }
         ]
       },
@@ -2559,11 +2557,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section frCarousel orientation=\"vertical\">\n  <div frCarouselContent>\r\n    <article frCarouselItem>Slide 1</article>\r\n    <article frCarouselItem>Slide 2</article>\r\n  </div>\r\n</section>"
+            "code": "<section frCarousel orientation=\"vertical\">\r\n  <div frCarouselContent>\r\n    <article frCarouselItem>Slide 1</article>\r\n    <article frCarouselItem>Slide 2</article>\r\n  </div>\r\n</section>"
           },
           {
             "language": "ts",
-            "code": "import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';\n\nreadonly carouselOptions = {\n  align: 'center',\n  loop: true,\n} satisfies FrCarouselOptions;"
+            "code": "import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';\r\n\r\nreadonly carouselOptions = {\r\n  align: 'center',\r\n  loop: true,\r\n} satisfies FrCarouselOptions;"
           }
         ]
       },
@@ -2573,7 +2571,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';\n\nreadonly carouselOptions = {\n  align: 'center',\n  loop: true,\n} satisfies FrCarouselOptions;"
+            "code": "import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';\r\n\r\nreadonly carouselOptions = {\r\n  align: 'center',\r\n  loop: true,\r\n} satisfies FrCarouselOptions;"
           },
           {
             "language": "html",
@@ -2591,7 +2589,7 @@
           },
           {
             "language": "ts",
-            "code": "import { signal } from '@angular/core';\nimport { FrCarouselApi, FrCarouselModule } from '@frame-ui-ng/components/carousel';\n\nreadonly selected = signal(0);\n\nhandleApiReady(api: FrCarouselApi) {\n  api.on('select', () => {\r\n    this.selected.set(api.selectedScrollSnap());\r\n  });\r\n}"
+            "code": "import { signal } from '@angular/core';\r\nimport { FrCarouselApi, FrCarouselModule } from '@frame-ui-ng/components/carousel';\r\n\r\nreadonly selected = signal(0);\r\n\r\nhandleApiReady(api: FrCarouselApi) {\r\n  api.on('select', () => {\r\n    this.selected.set(api.selectedScrollSnap());\r\n  });\r\n}"
           }
         ]
       }
@@ -2948,7 +2946,7 @@
           },
           {
             "language": "ts",
-            "code": "import { signal } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrCardModule } from '@frame-ui-ng/components/card';\nimport { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';\n\nreadonly detailsOpen = signal(false);"
+            "code": "import { signal } from '@angular/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrCardModule } from '@frame-ui-ng/components/card';\r\nimport { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';\r\n\r\nreadonly detailsOpen = signal(false);"
           }
         ]
       },
@@ -2958,7 +2956,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { signal } from '@angular/core';\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrCardModule } from '@frame-ui-ng/components/card';\nimport { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';\n\nreadonly detailsOpen = signal(false);"
+            "code": "import { signal } from '@angular/core';\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrCardModule } from '@frame-ui-ng/components/card';\r\nimport { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';\r\n\r\nreadonly detailsOpen = signal(false);"
           },
           {
             "language": "html",
@@ -3341,7 +3339,7 @@
           },
           {
             "language": "css",
-            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
+            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\r\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
           }
         ]
       },
@@ -3351,7 +3349,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
+            "code": ".custom-command {\r\n  --frame-command-radius: var(--frame-radius-lg);\r\n  --frame-command-shadow: 0 24px 60px rgb(0 0 0 / 0.18);\r\n  --frame-command-item-highlighted-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);\r\n}"
           },
           {
             "language": "ts",
@@ -3439,6 +3437,7 @@
       "--frame-command-input-height",
       "--frame-command-input-padding-inline",
       "--frame-command-input-placeholder-color",
+      "--frame-command-input-radius",
       "--frame-command-item-gap",
       "--frame-command-item-height",
       "--frame-command-item-highlighted-bg",
@@ -3455,6 +3454,8 @@
       "--frame-muted-foreground",
       "--frame-primary",
       "--frame-radius-lg",
+      "--frame-radius-md",
+      "--frame-shadow-sm",
       "--frame-surface",
       "--frame-surface-foreground"
     ]
@@ -3753,7 +3754,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"team-picker\">\n  <div frCombobox multiple>\r\n    <div frComboboxChips>\r\n      <div #values=\"frComboboxValue\" frComboboxValue>\n        @for (item of values.values(); track item) {\n          <span frComboboxChip [value]=\"item\">\r\n            {{ item }}\r\n            <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n              <ng-icon name=\"tablerX\" size=\"12\" />\r\n            </button>\r\n          </span>\r\n        }\r\n      </div>\r\n\r\n      <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n    </div>\r\n\r\n    <ng-template frComboboxContent>\r\n      <div frComboboxPanel>\r\n        <div frComboboxList>\r\n          <button frComboboxItem value=\"next\">Next.js</button>\r\n          <button frComboboxItem value=\"nuxt\">Nuxt</button>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"team-picker\">\r\n  <div frCombobox multiple>\r\n    <div frComboboxChips>\r\n      <div #values=\"frComboboxValue\" frComboboxValue>\r\n        @for (item of values.values(); track item) {\r\n          <span frComboboxChip [value]=\"item\">\r\n            {{ item }}\r\n            <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n              <ng-icon name=\"tablerX\" size=\"12\" />\r\n            </button>\r\n          </span>\r\n        }\r\n      </div>\r\n\r\n      <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n    </div>\r\n\r\n    <ng-template frComboboxContent>\r\n      <div frComboboxPanel>\r\n        <div frComboboxList>\r\n          <button frComboboxItem value=\"next\">Next.js</button>\r\n          <button frComboboxItem value=\"nuxt\">Nuxt</button>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -3763,7 +3764,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"team-picker\">\n  <div frCombobox multiple>\r\n    <div frComboboxChips>\r\n      <div #values=\"frComboboxValue\" frComboboxValue>\n        @for (item of values.values(); track item) {\n          <span frComboboxChip [value]=\"item\">\r\n            {{ item }}\r\n            <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n              <ng-icon name=\"tablerX\" size=\"12\" />\r\n            </button>\r\n          </span>\r\n        }\r\n      </div>\r\n\r\n      <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n    </div>\r\n\r\n    <ng-template frComboboxContent>\r\n      <div frComboboxPanel>\r\n        <div frComboboxList>\r\n          <button frComboboxItem value=\"next\">Next.js</button>\r\n          <button frComboboxItem value=\"nuxt\">Nuxt</button>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"team-picker\">\r\n  <div frCombobox multiple>\r\n    <div frComboboxChips>\r\n      <div #values=\"frComboboxValue\" frComboboxValue>\r\n        @for (item of values.values(); track item) {\r\n          <span frComboboxChip [value]=\"item\">\r\n            {{ item }}\r\n            <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n              <ng-icon name=\"tablerX\" size=\"12\" />\r\n            </button>\r\n          </span>\r\n        }\r\n      </div>\r\n\r\n      <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n    </div>\r\n\r\n    <ng-template frComboboxContent>\r\n      <div frComboboxPanel>\r\n        <div frComboboxList>\r\n          <button frComboboxItem value=\"next\">Next.js</button>\r\n          <button frComboboxItem value=\"nuxt\">Nuxt</button>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n  </div>\r\n</div>"
           },
           {
             "language": "css",
@@ -3823,7 +3824,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frCombobox multiple>\r\n  <div frComboboxChips>\r\n    <div #values=\"frComboboxValue\" frComboboxValue>\n      @for (item of values.values(); track item) {\n        <span frComboboxChip [value]=\"item\">\r\n          {{ item }}\r\n          <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n            <ng-icon name=\"tablerX\" size=\"12\" />\r\n          </button>\r\n        </span>\r\n      }\r\n    </div>\r\n\r\n    <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n  </div>\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxList>\r\n        <button frComboboxItem value=\"next\">Next.js</button>\r\n        <button frComboboxItem value=\"astro\">Astro</button>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frCombobox multiple>\r\n  <div frComboboxChips>\r\n    <div #values=\"frComboboxValue\" frComboboxValue>\r\n      @for (item of values.values(); track item) {\r\n        <span frComboboxChip [value]=\"item\">\r\n          {{ item }}\r\n          <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n            <ng-icon name=\"tablerX\" size=\"12\" />\r\n          </button>\r\n        </span>\r\n      }\r\n    </div>\r\n\r\n    <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n  </div>\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxList>\r\n        <button frComboboxItem value=\"next\">Next.js</button>\r\n        <button frComboboxItem value=\"astro\">Astro</button>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       },
@@ -3833,11 +3834,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frCombobox multiple>\r\n  <div frComboboxChips>\r\n    <div #values=\"frComboboxValue\" frComboboxValue>\n      @for (item of values.values(); track item) {\n        <span frComboboxChip [value]=\"item\">\r\n          {{ item }}\r\n          <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n            <ng-icon name=\"tablerX\" size=\"12\" />\r\n          </button>\r\n        </span>\r\n      }\r\n    </div>\r\n\r\n    <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n  </div>\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxList>\r\n        <button frComboboxItem value=\"next\">Next.js</button>\r\n        <button frComboboxItem value=\"astro\">Astro</button>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frCombobox multiple>\r\n  <div frComboboxChips>\r\n    <div #values=\"frComboboxValue\" frComboboxValue>\r\n      @for (item of values.values(); track item) {\r\n        <span frComboboxChip [value]=\"item\">\r\n          {{ item }}\r\n          <button frComboboxChipRemove aria-label=\"Remove selected framework\">\r\n            <ng-icon name=\"tablerX\" size=\"12\" />\r\n          </button>\r\n        </span>\r\n      }\r\n    </div>\r\n\r\n    <input frComboboxChipsInput placeholder=\"Add frameworks\" />\r\n  </div>\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxList>\r\n        <button frComboboxItem value=\"next\">Next.js</button>\r\n        <button frComboboxItem value=\"astro\">Astro</button>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\n\nframeworkControl = new FormControl<string | null>(null, {\n  validators: [Validators.required],\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\r\n\r\nframeworkControl = new FormControl<string | null>(null, {\r\n  validators: [Validators.required],\r\n});"
           }
         ]
       },
@@ -3847,7 +3848,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\n\nframeworkControl = new FormControl<string | null>(null, {\n  validators: [Validators.required],\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\r\n\r\nframeworkControl = new FormControl<string | null>(null, {\r\n  validators: [Validators.required],\r\n});"
           },
           {
             "language": "html",
@@ -5066,7 +5067,7 @@
           },
           {
             "language": "css",
-            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\n  --frame-drag-shadow: none;\r\n}"
+            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\r\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\r\n  --frame-drag-shadow: none;\r\n}"
           }
         ]
       },
@@ -5076,7 +5077,7 @@
         "code": [
           {
             "language": "css",
-            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\n  --frame-drag-shadow: none;\r\n}"
+            "code": ".compact-board {\r\n  --frame-drop-list-padding: 0.375rem;\r\n  --frame-drop-list-radius: var(--frame-radius-lg);\r\n  --frame-drop-list-hover-border: var(--frame-primary);\r\n  --frame-drag-padding: 0.75rem;\r\n  --frame-drag-radius: var(--frame-radius-md);\r\n  --frame-drag-shadow: none;\r\n}"
           }
         ]
       }
@@ -6017,7 +6018,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"campaign-field\">\n  <fieldset frFieldSet>\r\n    <legend frFieldLegend variant=\"label\">Campaign settings</legend>\r\n\r\n    <div frFieldGroup>\r\n      <div frField>\r\n        <label frFieldLabel for=\"campaign-owner\">Campaign owner</label>\r\n\r\n        <div frFieldContent>\r\n          <input frInput id=\"campaign-owner\" />\r\n          <p frFieldDescription>\r\n            This preview applies softer field spacing and branded supporting colors.\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </fieldset>\r\n</div>"
+            "code": "<div class=\"campaign-field\">\r\n  <fieldset frFieldSet>\r\n    <legend frFieldLegend variant=\"label\">Campaign settings</legend>\r\n\r\n    <div frFieldGroup>\r\n      <div frField>\r\n        <label frFieldLabel for=\"campaign-owner\">Campaign owner</label>\r\n\r\n        <div frFieldContent>\r\n          <input frInput id=\"campaign-owner\" />\r\n          <p frFieldDescription>\r\n            This preview applies softer field spacing and branded supporting colors.\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </fieldset>\r\n</div>"
           }
         ]
       },
@@ -6027,7 +6028,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"campaign-field\">\n  <fieldset frFieldSet>\r\n    <legend frFieldLegend variant=\"label\">Campaign settings</legend>\r\n\r\n    <div frFieldGroup>\r\n      <div frField>\r\n        <label frFieldLabel for=\"campaign-owner\">Campaign owner</label>\r\n\r\n        <div frFieldContent>\r\n          <input frInput id=\"campaign-owner\" />\r\n          <p frFieldDescription>\r\n            This preview applies softer field spacing and branded supporting colors.\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </fieldset>\r\n</div>"
+            "code": "<div class=\"campaign-field\">\r\n  <fieldset frFieldSet>\r\n    <legend frFieldLegend variant=\"label\">Campaign settings</legend>\r\n\r\n    <div frFieldGroup>\r\n      <div frField>\r\n        <label frFieldLabel for=\"campaign-owner\">Campaign owner</label>\r\n\r\n        <div frFieldContent>\r\n          <input frInput id=\"campaign-owner\" />\r\n          <p frFieldDescription>\r\n            This preview applies softer field spacing and branded supporting colors.\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </fieldset>\r\n</div>"
           },
           {
             "language": "css",
@@ -6045,7 +6046,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frField>\n  <label frFieldLabel for=\"workspace-name\">Workspace name</label>\r\n\r\n  <div frFieldContent>\r\n    <input frInput id=\"workspace-name\" />\r\n    <p frFieldDescription>Visible in share links and the global workspace switcher.</p>\r\n  </div>\r\n</div>"
+            "code": "<div frField>\r\n  <label frFieldLabel for=\"workspace-name\">Workspace name</label>\r\n\r\n  <div frFieldContent>\r\n    <input frInput id=\"workspace-name\" />\r\n    <p frFieldDescription>Visible in share links and the global workspace switcher.</p>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -6055,11 +6056,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frField>\n  <label frFieldLabel for=\"workspace-name\">Workspace name</label>\r\n\r\n  <div frFieldContent>\r\n    <input frInput id=\"workspace-name\" />\r\n    <p frFieldDescription>Visible in share links and the global workspace switcher.</p>\r\n  </div>\r\n</div>"
+            "code": "<div frField>\r\n  <label frFieldLabel for=\"workspace-name\">Workspace name</label>\r\n\r\n  <div frFieldContent>\r\n    <input frInput id=\"workspace-name\" />\r\n    <p frFieldDescription>Visible in share links and the global workspace switcher.</p>\r\n  </div>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nsummaryControl = new FormControl('Spring campaign launch', {\n  validators: [Validators.required],\n  nonNullable: true,\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nsummaryControl = new FormControl('Spring campaign launch', {\r\n  validators: [Validators.required],\r\n  nonNullable: true,\r\n});"
           }
         ]
       },
@@ -6069,7 +6070,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\nimport { FrInputModule } from '@frame-ui-ng/components/input';\n\nsummaryControl = new FormControl('Spring campaign launch', {\n  validators: [Validators.required],\n  nonNullable: true,\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\r\nimport { FrInputModule } from '@frame-ui-ng/components/input';\r\n\r\nsummaryControl = new FormControl('Spring campaign launch', {\r\n  validators: [Validators.required],\r\n  nonNullable: true,\r\n});"
           },
           {
             "language": "html",
@@ -6087,7 +6088,7 @@
           },
           {
             "language": "ts",
-            "code": "<fieldset frFieldSet>\n  <legend frFieldLegend>Contact preferences</legend>\r\n\r\n  <div frFieldGroup>\r\n    <div frField>\r\n      <label frFieldLabel for=\"primary-email\">Primary email</label>\r\n      <div frFieldContent>\r\n        <input frInput id=\"primary-email\" type=\"email\" />\r\n        <p frFieldDescription>Reach the release owner directly.</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div frFieldSeparator>or</div>\r\n\r\n    <div frField>\r\n      <label frFieldLabel for=\"support-inbox\">Shared support inbox</label>\r\n      <div frFieldContent>\r\n        <input frInput id=\"support-inbox\" type=\"email\" />\r\n        <p frFieldDescription>Use a shared mailbox when coverage rotates between teammates.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</fieldset>"
+            "code": "<fieldset frFieldSet>\r\n  <legend frFieldLegend>Contact preferences</legend>\r\n\r\n  <div frFieldGroup>\r\n    <div frField>\r\n      <label frFieldLabel for=\"primary-email\">Primary email</label>\r\n      <div frFieldContent>\r\n        <input frInput id=\"primary-email\" type=\"email\" />\r\n        <p frFieldDescription>Reach the release owner directly.</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div frFieldSeparator>or</div>\r\n\r\n    <div frField>\r\n      <label frFieldLabel for=\"support-inbox\">Shared support inbox</label>\r\n      <div frFieldContent>\r\n        <input frInput id=\"support-inbox\" type=\"email\" />\r\n        <p frFieldDescription>Use a shared mailbox when coverage rotates between teammates.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</fieldset>"
           }
         ]
       }
@@ -6569,7 +6570,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl } from '@angular/forms';\n\nreadonly pin = new FormControl(\"\");"
+            "code": "import { FormControl } from '@angular/forms';\r\n\r\nreadonly pin = new FormControl(\"\");"
           }
         ]
       },
@@ -6579,7 +6580,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl } from '@angular/forms';\n\nreadonly pin = new FormControl(\"\");"
+            "code": "import { FormControl } from '@angular/forms';\r\n\r\nreadonly pin = new FormControl(\"\");"
           }
         ]
       }
@@ -7006,7 +7007,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"project-menubar\">\n${basicHtml}\r\n</div>"
+            "code": "<div class=\"project-menubar\">\r\n${basicHtml}\r\n</div>"
           }
         ]
       },
@@ -7016,7 +7017,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"project-menubar\">\n${basicHtml}\r\n</div>"
+            "code": "<div class=\"project-menubar\">\r\n${basicHtml}\r\n</div>"
           }
         ]
       }
@@ -7077,6 +7078,7 @@
       "--frame-radius-md",
       "--frame-radius-sm",
       "--frame-ring",
+      "--frame-shadow-sm",
       "--frame-surface",
       "--frame-surface-foreground"
     ]
@@ -7269,7 +7271,7 @@
           },
           {
             "language": "ts",
-            "code": "<nav frNavigationMenu class=\"product-navigation\">\n  ...\r\n</nav>"
+            "code": "<nav frNavigationMenu class=\"product-navigation\">\r\n  ...\r\n</nav>"
           }
         ]
       },
@@ -7279,7 +7281,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<nav frNavigationMenu class=\"product-navigation\">\n  ...\r\n</nav>"
+            "code": "<nav frNavigationMenu class=\"product-navigation\">\r\n  ...\r\n</nav>"
           },
           {
             "language": "css",
@@ -7538,7 +7540,7 @@
           },
           {
             "language": "ts",
-            "code": "<nav frPagination class=\"product-pagination\">\n  ...\r\n</nav>"
+            "code": "<nav frPagination class=\"product-pagination\">\r\n  ...\r\n</nav>"
           }
         ]
       },
@@ -7548,11 +7550,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<nav frPagination class=\"product-pagination\">\n  ...\r\n</nav>"
+            "code": "<nav frPagination class=\"product-pagination\">\r\n  ...\r\n</nav>"
           },
           {
             "language": "css",
-            "code": "${importsCode}\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';"
+            "code": "${importsCode}\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';"
           }
         ]
       },
@@ -7562,7 +7564,7 @@
         "code": [
           {
             "language": "css",
-            "code": "${importsCode}\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\nimport { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';"
+            "code": "${importsCode}\r\nimport { FrButtonModule } from '@frame-ui-ng/components/button';\r\nimport { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';"
           }
         ]
       }
@@ -7761,7 +7763,7 @@
           },
           {
             "language": "ts",
-            "code": "<frame-popover class=\"review-popover-trigger\">\n  <button frButton [frPopoverTrigger]=\"panel\" type=\"button\">\n  Review status\n  </button>\n\n  <ng-template #panel=\"frPopoverContent\" frPopoverContent>\n    <div frPopoverPanel>\n      <div frPopoverHeader>\n        <h3 frPopoverTitle>Review status</h3>\n        <p frPopoverDescription>Check the warmer panel surface and rounded corners.</p>\n      </div>\n    </div>\n  </ng-template>\n</frame-popover>"
+            "code": "<frame-popover class=\"review-popover-trigger\">\r\n  <button frButton [frPopoverTrigger]=\"panel\" type=\"button\">\r\n  Review status\r\n  </button>\r\n\r\n  <ng-template #panel=\"frPopoverContent\" frPopoverContent>\r\n    <div frPopoverPanel>\r\n      <div frPopoverHeader>\r\n        <h3 frPopoverTitle>Review status</h3>\r\n        <p frPopoverDescription>Check the warmer panel surface and rounded corners.</p>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</frame-popover>"
           }
         ]
       },
@@ -7771,7 +7773,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<frame-popover class=\"review-popover-trigger\">\n  <button frButton [frPopoverTrigger]=\"panel\" type=\"button\">\n  Review status\n  </button>\n\n  <ng-template #panel=\"frPopoverContent\" frPopoverContent>\n    <div frPopoverPanel>\n      <div frPopoverHeader>\n        <h3 frPopoverTitle>Review status</h3>\n        <p frPopoverDescription>Check the warmer panel surface and rounded corners.</p>\n      </div>\n    </div>\n  </ng-template>\n</frame-popover>"
+            "code": "<frame-popover class=\"review-popover-trigger\">\r\n  <button frButton [frPopoverTrigger]=\"panel\" type=\"button\">\r\n  Review status\r\n  </button>\r\n\r\n  <ng-template #panel=\"frPopoverContent\" frPopoverContent>\r\n    <div frPopoverPanel>\r\n      <div frPopoverHeader>\r\n        <h3 frPopoverTitle>Review status</h3>\r\n        <p frPopoverDescription>Check the warmer panel surface and rounded corners.</p>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</frame-popover>"
           }
         ]
       }
@@ -7870,7 +7872,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"storage-progress\" frProgress aria-label=\"Storage budget\" [value]=\"82\">\n  <div frProgressIndicator></div>\r\n</div>"
+            "code": "<div class=\"storage-progress\" frProgress aria-label=\"Storage budget\" [value]=\"82\">\r\n  <div frProgressIndicator></div>\r\n</div>"
           }
         ]
       },
@@ -7880,11 +7882,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"storage-progress\" frProgress aria-label=\"Storage budget\" [value]=\"82\">\n  <div frProgressIndicator></div>\r\n</div>"
+            "code": "<div class=\"storage-progress\" frProgress aria-label=\"Storage budget\" [value]=\"82\">\r\n  <div frProgressIndicator></div>\r\n</div>"
           },
           {
             "language": "css",
-            "code": "<div dir=\"rtl\">\n  <div frProgress aria-label=\"تقدم المزامنة\" [value]=\"66\">\r\n    <div frProgressIndicator></div>\r\n  </div>\r\n</div>"
+            "code": "<div dir=\"rtl\">\r\n  <div frProgress aria-label=\"تقدم المزامنة\" [value]=\"66\">\r\n    <div frProgressIndicator></div>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -7894,7 +7896,7 @@
         "code": [
           {
             "language": "css",
-            "code": "<div dir=\"rtl\">\n  <div frProgress aria-label=\"تقدم المزامنة\" [value]=\"66\">\r\n    <div frProgressIndicator></div>\r\n  </div>\r\n</div>"
+            "code": "<div dir=\"rtl\">\r\n  <div frProgress aria-label=\"تقدم المزامنة\" [value]=\"66\">\r\n    <div frProgressIndicator></div>\r\n  </div>\r\n</div>"
           }
         ]
       }
@@ -8030,7 +8032,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frRadioGroup class=\"accent-radios\" aria-label=\"Theme accent\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"accent\" value=\"ocean\" checked />\n    <span frFieldContent>\n      <span frFieldLabel>Ocean</span>\n      <span frFieldDescription>Use a cool highlight for dense data views.</span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div frRadioGroup class=\"accent-radios\" aria-label=\"Theme accent\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"accent\" value=\"ocean\" checked />\r\n    <span frFieldContent>\r\n      <span frFieldLabel>Ocean</span>\r\n      <span frFieldDescription>Use a cool highlight for dense data views.</span>\r\n    </span>\r\n  </label>\r\n</div>"
           }
         ]
       },
@@ -8040,11 +8042,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frRadioGroup class=\"accent-radios\" aria-label=\"Theme accent\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"accent\" value=\"ocean\" checked />\n    <span frFieldContent>\n      <span frFieldLabel>Ocean</span>\n      <span frFieldDescription>Use a cool highlight for dense data views.</span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div frRadioGroup class=\"accent-radios\" aria-label=\"Theme accent\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"accent\" value=\"ocean\" checked />\r\n    <span frFieldContent>\r\n      <span frFieldLabel>Ocean</span>\r\n      <span frFieldDescription>Use a cool highlight for dense data views.</span>\r\n    </span>\r\n  </label>\r\n</div>"
           },
           {
             "language": "css",
-            "code": "<div frRadioGroup aria-label=\"Region\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"eu\" disabled />\n    <span frFieldLabel>Europe locked by policy</span>\n  </label>\n\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"us\" checked />\n    <span frFieldLabel>United States</span>\n  </label>\n</div>"
+            "code": "<div frRadioGroup aria-label=\"Region\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"eu\" disabled />\r\n    <span frFieldLabel>Europe locked by policy</span>\r\n  </label>\r\n\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"us\" checked />\r\n    <span frFieldLabel>United States</span>\r\n  </label>\r\n</div>"
           }
         ]
       },
@@ -8054,11 +8056,11 @@
         "code": [
           {
             "language": "css",
-            "code": "<div frRadioGroup aria-label=\"Region\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"eu\" disabled />\n    <span frFieldLabel>Europe locked by policy</span>\n  </label>\n\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"us\" checked />\n    <span frFieldLabel>United States</span>\n  </label>\n</div>"
+            "code": "<div frRadioGroup aria-label=\"Region\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"eu\" disabled />\r\n    <span frFieldLabel>Europe locked by policy</span>\r\n  </label>\r\n\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"region\" value=\"us\" checked />\r\n    <span frFieldLabel>United States</span>\r\n  </label>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div dir=\"rtl\" frRadioGroup aria-label=\"كثافة العرض\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"density\" value=\"standard\" checked />\n    <span frFieldContent>\n      <span frFieldLabel>قياسي</span>\n      <span frFieldDescription>تباعد مناسب لمعظم شاشات الإعدادات.</span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div dir=\"rtl\" frRadioGroup aria-label=\"كثافة العرض\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"density\" value=\"standard\" checked />\r\n    <span frFieldContent>\r\n      <span frFieldLabel>قياسي</span>\r\n      <span frFieldDescription>تباعد مناسب لمعظم شاشات الإعدادات.</span>\r\n    </span>\r\n  </label>\r\n</div>"
           }
         ]
       },
@@ -8068,7 +8070,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div dir=\"rtl\" frRadioGroup aria-label=\"كثافة العرض\">\n  <label frRadioGroupField>\n    <input frRadioGroupItem type=\"radio\" name=\"density\" value=\"standard\" checked />\n    <span frFieldContent>\n      <span frFieldLabel>قياسي</span>\n      <span frFieldDescription>تباعد مناسب لمعظم شاشات الإعدادات.</span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div dir=\"rtl\" frRadioGroup aria-label=\"كثافة العرض\">\r\n  <label frRadioGroupField>\r\n    <input frRadioGroupItem type=\"radio\" name=\"density\" value=\"standard\" checked />\r\n    <span frFieldContent>\r\n      <span frFieldLabel>قياسي</span>\r\n      <span frFieldDescription>تباعد مناسب لمعظم شاشات الإعدادات.</span>\r\n    </span>\r\n  </label>\r\n</div>"
           }
         ]
       }
@@ -8217,7 +8219,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frResizablePanelGroup class=\"review-resizable\" aria-label=\"Custom resizable view\">\n  <section frResizablePanel [defaultSize]=\"38\" [minSize]=\"24\">Queue</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"62\" [minSize]=\"32\">Review board</section>\r\n</div>"
+            "code": "<div frResizablePanelGroup class=\"review-resizable\" aria-label=\"Custom resizable view\">\r\n  <section frResizablePanel [defaultSize]=\"38\" [minSize]=\"24\">Queue</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"62\" [minSize]=\"32\">Review board</section>\r\n</div>"
           }
         ]
       },
@@ -8227,11 +8229,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frResizablePanelGroup class=\"review-resizable\" aria-label=\"Custom resizable view\">\n  <section frResizablePanel [defaultSize]=\"38\" [minSize]=\"24\">Queue</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"62\" [minSize]=\"32\">Review board</section>\r\n</div>"
+            "code": "<div frResizablePanelGroup class=\"review-resizable\" aria-label=\"Custom resizable view\">\r\n  <section frResizablePanel [defaultSize]=\"38\" [minSize]=\"24\">Queue</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"62\" [minSize]=\"32\">Review board</section>\r\n</div>"
           },
           {
             "language": "css",
-            "code": "<div frResizablePanelGroup aria-label=\"Constrained split view\">\n  <!-- No minSize: this panel can collapse completely and expand again. -->\r\n  <section frResizablePanel [defaultSize]=\"24\">\r\n    Optional navigation\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n\r\n  <section frResizablePanel [defaultSize]=\"30\" [minSize]=\"18\" [maxSize]=\"45\" collapsible [collapsedSize]=\"8\">\r\n    Pinned filters\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"46\" [minSize]=\"40\">\r\n    Content\r\n  </section>\r\n</div>"
+            "code": "<div frResizablePanelGroup aria-label=\"Constrained split view\">\r\n  <!-- No minSize: this panel can collapse completely and expand again. -->\r\n  <section frResizablePanel [defaultSize]=\"24\">\r\n    Optional navigation\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n\r\n  <section frResizablePanel [defaultSize]=\"30\" [minSize]=\"18\" [maxSize]=\"45\" collapsible [collapsedSize]=\"8\">\r\n    Pinned filters\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"46\" [minSize]=\"40\">\r\n    Content\r\n  </section>\r\n</div>"
           }
         ]
       },
@@ -8241,11 +8243,11 @@
         "code": [
           {
             "language": "css",
-            "code": "<div frResizablePanelGroup aria-label=\"Constrained split view\">\n  <!-- No minSize: this panel can collapse completely and expand again. -->\r\n  <section frResizablePanel [defaultSize]=\"24\">\r\n    Optional navigation\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n\r\n  <section frResizablePanel [defaultSize]=\"30\" [minSize]=\"18\" [maxSize]=\"45\" collapsible [collapsedSize]=\"8\">\r\n    Pinned filters\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"46\" [minSize]=\"40\">\r\n    Content\r\n  </section>\r\n</div>"
+            "code": "<div frResizablePanelGroup aria-label=\"Constrained split view\">\r\n  <!-- No minSize: this panel can collapse completely and expand again. -->\r\n  <section frResizablePanel [defaultSize]=\"24\">\r\n    Optional navigation\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n\r\n  <section frResizablePanel [defaultSize]=\"30\" [minSize]=\"18\" [maxSize]=\"45\" collapsible [collapsedSize]=\"8\">\r\n    Pinned filters\r\n  </section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"46\" [minSize]=\"40\">\r\n    Content\r\n  </section>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "<div dir=\"rtl\" frResizablePanelGroup aria-label=\"واجهة قابلة لتغيير الحجم\">\n  <section frResizablePanel [defaultSize]=\"34\" [minSize]=\"20\">القائمة</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"66\" [minSize]=\"30\">المحتوى</section>\r\n</div>"
+            "code": "<div dir=\"rtl\" frResizablePanelGroup aria-label=\"واجهة قابلة لتغيير الحجم\">\r\n  <section frResizablePanel [defaultSize]=\"34\" [minSize]=\"20\">القائمة</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"66\" [minSize]=\"30\">المحتوى</section>\r\n</div>"
           }
         ]
       },
@@ -8255,7 +8257,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div dir=\"rtl\" frResizablePanelGroup aria-label=\"واجهة قابلة لتغيير الحجم\">\n  <section frResizablePanel [defaultSize]=\"34\" [minSize]=\"20\">القائمة</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"66\" [minSize]=\"30\">المحتوى</section>\r\n</div>"
+            "code": "<div dir=\"rtl\" frResizablePanelGroup aria-label=\"واجهة قابلة لتغيير الحجم\">\r\n  <section frResizablePanel [defaultSize]=\"34\" [minSize]=\"20\">القائمة</section>\r\n  <div frResizableHandle withHandle></div>\r\n  <section frResizablePanel [defaultSize]=\"66\" [minSize]=\"30\">المحتوى</section>\r\n</div>"
           }
         ]
       }
@@ -8349,7 +8351,7 @@
           },
           {
             "language": "ts",
-            "code": "<section class=\"health-card\">\n  <h3>Repository health</h3>\r\n\r\n  <div>\r\n    <span>Checks passing</span>\r\n    <div frSeparator orientation=\"vertical\"></div>\r\n    <strong>98%</strong>\r\n  </div>\r\n\r\n  <div frSeparator></div>\r\n</section>"
+            "code": "<section class=\"health-card\">\r\n  <h3>Repository health</h3>\r\n\r\n  <div>\r\n    <span>Checks passing</span>\r\n    <div frSeparator orientation=\"vertical\"></div>\r\n    <strong>98%</strong>\r\n  </div>\r\n\r\n  <div frSeparator></div>\r\n</section>"
           }
         ]
       },
@@ -8359,7 +8361,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section class=\"health-card\">\n  <h3>Repository health</h3>\r\n\r\n  <div>\r\n    <span>Checks passing</span>\r\n    <div frSeparator orientation=\"vertical\"></div>\r\n    <strong>98%</strong>\r\n  </div>\r\n\r\n  <div frSeparator></div>\r\n</section>"
+            "code": "<section class=\"health-card\">\r\n  <h3>Repository health</h3>\r\n\r\n  <div>\r\n    <span>Checks passing</span>\r\n    <div frSeparator orientation=\"vertical\"></div>\r\n    <strong>98%</strong>\r\n  </div>\r\n\r\n  <div frSeparator></div>\r\n</section>"
           }
         ]
       }
@@ -8609,7 +8611,7 @@
           },
           {
             "language": "ts",
-            "code": "<button class=\"settings-launcher\" frButton type=\"button\" [frSheetTrigger]=\"sheet\">\n  <span frButtonLabel>Open sheet</span>\n</button>\n\n<ng-template #sheet=\"frSheetContent\" frSheetContent aria-label=\"Settings\">\n  <div frSheetPanel>\n    <div frSheetHeader>\n      <h2 frSheetTitle>Settings</h2>\n      <p frSheetDescription>Token overrides apply to this sheet surface.</p>\n    </div>\n  </div>\n</ng-template>"
+            "code": "<button class=\"settings-launcher\" frButton type=\"button\" [frSheetTrigger]=\"sheet\">\r\n  <span frButtonLabel>Open sheet</span>\r\n</button>\r\n\r\n<ng-template #sheet=\"frSheetContent\" frSheetContent aria-label=\"Settings\">\r\n  <div frSheetPanel>\r\n    <div frSheetHeader>\r\n      <h2 frSheetTitle>Settings</h2>\r\n      <p frSheetDescription>Token overrides apply to this sheet surface.</p>\r\n    </div>\r\n  </div>\r\n</ng-template>"
           }
         ]
       },
@@ -8619,7 +8621,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<button class=\"settings-launcher\" frButton type=\"button\" [frSheetTrigger]=\"sheet\">\n  <span frButtonLabel>Open sheet</span>\n</button>\n\n<ng-template #sheet=\"frSheetContent\" frSheetContent aria-label=\"Settings\">\n  <div frSheetPanel>\n    <div frSheetHeader>\n      <h2 frSheetTitle>Settings</h2>\n      <p frSheetDescription>Token overrides apply to this sheet surface.</p>\n    </div>\n  </div>\n</ng-template>"
+            "code": "<button class=\"settings-launcher\" frButton type=\"button\" [frSheetTrigger]=\"sheet\">\r\n  <span frButtonLabel>Open sheet</span>\r\n</button>\r\n\r\n<ng-template #sheet=\"frSheetContent\" frSheetContent aria-label=\"Settings\">\r\n  <div frSheetPanel>\r\n    <div frSheetHeader>\r\n      <h2 frSheetTitle>Settings</h2>\r\n      <p frSheetDescription>Token overrides apply to this sheet surface.</p>\r\n    </div>\r\n  </div>\r\n</ng-template>"
           }
         ]
       }
@@ -8631,6 +8633,7 @@
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
+      "--frame-shadow-lg",
       "--frame-sheet-backdrop-bg",
       "--frame-sheet-backdrop-blur",
       "--frame-sheet-bg",
@@ -8645,6 +8648,7 @@
       "--frame-sheet-inline-size",
       "--frame-sheet-muted-color",
       "--frame-sheet-padding",
+      "--frame-sheet-radius",
       "--frame-sheet-shadow",
       "--frame-sheet-z-index"
     ]
@@ -9109,7 +9113,7 @@
           },
           {
             "language": "ts",
-            "code": "${importsCode}\n\n${tableTs}"
+            "code": "${importsCode}\r\n\r\n${tableTs}"
           }
         ]
       },
@@ -9119,7 +9123,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${importsCode}\n\n${tableTs}"
+            "code": "${importsCode}\r\n\r\n${tableTs}"
           }
         ]
       }
@@ -9221,7 +9225,7 @@
           },
           {
             "language": "css",
-            "code": "<div dir=\"rtl\">\n  <span frSpinner decorative size=\"sm\"></span>\n  <span>جار تحضير البيانات</span>\n</div>"
+            "code": "<div dir=\"rtl\">\r\n  <span frSpinner decorative size=\"sm\"></span>\r\n  <span>جار تحضير البيانات</span>\r\n</div>"
           }
         ]
       },
@@ -9231,7 +9235,7 @@
         "code": [
           {
             "language": "css",
-            "code": "<div dir=\"rtl\">\n  <span frSpinner decorative size=\"sm\"></span>\n  <span>جار تحضير البيانات</span>\n</div>"
+            "code": "<div dir=\"rtl\">\r\n  <span frSpinner decorative size=\"sm\"></span>\r\n  <span>جار تحضير البيانات</span>\r\n</div>"
           }
         ]
       }
@@ -9337,7 +9341,7 @@
           },
           {
             "language": "ts",
-            "code": "import { ReactiveFormsModule } from '@angular/forms';\n${importsCode}"
+            "code": "import { ReactiveFormsModule } from '@angular/forms';\r\n${importsCode}"
           }
         ]
       },
@@ -9347,11 +9351,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { ReactiveFormsModule } from '@angular/forms';\n${importsCode}"
+            "code": "import { ReactiveFormsModule } from '@angular/forms';\r\n${importsCode}"
           },
           {
             "language": "ts",
-            "code": "<section class=\"brand-slider\">\n  <frame-slider [defaultValue]=\"58\" aria-label=\"Accent strength\" />\n</section>"
+            "code": "<section class=\"brand-slider\">\r\n  <frame-slider [defaultValue]=\"58\" aria-label=\"Accent strength\" />\r\n</section>"
           }
         ]
       },
@@ -9361,7 +9365,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<section class=\"brand-slider\">\n  <frame-slider [defaultValue]=\"58\" aria-label=\"Accent strength\" />\n</section>"
+            "code": "<section class=\"brand-slider\">\r\n  <frame-slider [defaultValue]=\"58\" aria-label=\"Accent strength\" />\r\n</section>"
           }
         ]
       }
@@ -10189,7 +10193,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSwitchModule } from '@frame-ui-ng/components/switch';\n\nnotificationsControl = new FormControl(true, { nonNullable: true });"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSwitchModule } from '@frame-ui-ng/components/switch';\r\n\r\nnotificationsControl = new FormControl(true, { nonNullable: true });"
           }
         ]
       },
@@ -10199,7 +10203,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSwitchModule } from '@frame-ui-ng/components/switch';\n\nnotificationsControl = new FormControl(true, { nonNullable: true });"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSwitchModule } from '@frame-ui-ng/components/switch';\r\n\r\nnotificationsControl = new FormControl(true, { nonNullable: true });"
           },
           {
             "language": "html",
@@ -10217,7 +10221,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nguidedSetupControl = new FormControl(true, { nonNullable: true });"
+            "code": "${formImportsCode}\r\n\r\nguidedSetupControl = new FormControl(true, { nonNullable: true });"
           }
         ]
       },
@@ -10227,11 +10231,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nguidedSetupControl = new FormControl(true, { nonNullable: true });"
+            "code": "${formImportsCode}\r\n\r\nguidedSetupControl = new FormControl(true, { nonNullable: true });"
           },
           {
             "language": "html",
-            "code": "<div class=\"guided-setup-switch\">\n  <label frSwitchField>\r\n    <input frSwitch type=\"checkbox\" [formControl]=\"guidedSetupControl\" />\r\n\r\n    <span frSwitchContent>\r\n      <span frSwitchLabel>Enable guided setup</span>\r\n      <span frSwitchDescription>\r\n        This preview applies local spacing, sizing, thumb, and checked-state overrides.\r\n      </span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div class=\"guided-setup-switch\">\r\n  <label frSwitchField>\r\n    <input frSwitch type=\"checkbox\" [formControl]=\"guidedSetupControl\" />\r\n\r\n    <span frSwitchContent>\r\n      <span frSwitchLabel>Enable guided setup</span>\r\n      <span frSwitchDescription>\r\n        This preview applies local spacing, sizing, thumb, and checked-state overrides.\r\n      </span>\r\n    </span>\r\n  </label>\r\n</div>"
           }
         ]
       },
@@ -10241,7 +10245,7 @@
         "code": [
           {
             "language": "html",
-            "code": "<div class=\"guided-setup-switch\">\n  <label frSwitchField>\r\n    <input frSwitch type=\"checkbox\" [formControl]=\"guidedSetupControl\" />\r\n\r\n    <span frSwitchContent>\r\n      <span frSwitchLabel>Enable guided setup</span>\r\n      <span frSwitchDescription>\r\n        This preview applies local spacing, sizing, thumb, and checked-state overrides.\r\n      </span>\r\n    </span>\r\n  </label>\r\n</div>"
+            "code": "<div class=\"guided-setup-switch\">\r\n  <label frSwitchField>\r\n    <input frSwitch type=\"checkbox\" [formControl]=\"guidedSetupControl\" />\r\n\r\n    <span frSwitchContent>\r\n      <span frSwitchLabel>Enable guided setup</span>\r\n      <span frSwitchDescription>\r\n        This preview applies local spacing, sizing, thumb, and checked-state overrides.\r\n      </span>\r\n    </span>\r\n  </label>\r\n</div>"
           },
           {
             "language": "css",
@@ -10259,7 +10263,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nnotificationsControl = new FormControl(true, { nonNullable: true });"
+            "code": "${formImportsCode}\r\n\r\nnotificationsControl = new FormControl(true, { nonNullable: true });"
           }
         ]
       },
@@ -10269,7 +10273,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nnotificationsControl = new FormControl(true, { nonNullable: true });"
+            "code": "${formImportsCode}\r\n\r\nnotificationsControl = new FormControl(true, { nonNullable: true });"
           },
           {
             "language": "html",
@@ -10287,7 +10291,7 @@
           },
           {
             "language": "ts",
-            "code": "<label frSwitchField>\n  <input frSwitch type=\"checkbox\" checked />\r\n  <span frSwitchContent>\r\n    <span frSwitchLabel>Default switch size</span>\r\n    <span frSwitchDescription>Use the default size for full-size form rows and settings pages.</span>\r\n  </span>\r\n</label>\r\n\r\n<label frSwitchField>\r\n  <input frSwitch type=\"checkbox\" size=\"sm\" checked />\r\n  <span frSwitchContent>\r\n    <span frSwitchLabel>Small switch size</span>\r\n    <span frSwitchDescription>Use the compact size when space is limited inside dense toolbars or filters.</span>\r\n  </span>\r\n</label>"
+            "code": "<label frSwitchField>\r\n  <input frSwitch type=\"checkbox\" checked />\r\n  <span frSwitchContent>\r\n    <span frSwitchLabel>Default switch size</span>\r\n    <span frSwitchDescription>Use the default size for full-size form rows and settings pages.</span>\r\n  </span>\r\n</label>\r\n\r\n<label frSwitchField>\r\n  <input frSwitch type=\"checkbox\" size=\"sm\" checked />\r\n  <span frSwitchContent>\r\n    <span frSwitchLabel>Small switch size</span>\r\n    <span frSwitchDescription>Use the compact size when space is limited inside dense toolbars or filters.</span>\r\n  </span>\r\n</label>"
           }
         ]
       }
@@ -10683,6 +10687,7 @@
       "--frame-primary",
       "--frame-radius-lg",
       "--frame-radius-md",
+      "--frame-shadow-sm",
       "--frame-surface",
       "--frame-table-bg",
       "--frame-table-border",
@@ -10824,7 +10829,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frTabs defaultValue=\"overview\" class=\"workspace-tabs\">\n  <div frTabsList>\n    <button frTabsTrigger value=\"overview\">Overview</button>\n    <button frTabsTrigger value=\"activity\">Activity</button>\n  </div>\n</div>"
+            "code": "<div frTabs defaultValue=\"overview\" class=\"workspace-tabs\">\r\n  <div frTabsList>\r\n    <button frTabsTrigger value=\"overview\">Overview</button>\r\n    <button frTabsTrigger value=\"activity\">Activity</button>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -10834,7 +10839,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frTabs defaultValue=\"overview\" class=\"workspace-tabs\">\n  <div frTabsList>\n    <button frTabsTrigger value=\"overview\">Overview</button>\n    <button frTabsTrigger value=\"activity\">Activity</button>\n  </div>\n</div>"
+            "code": "<div frTabs defaultValue=\"overview\" class=\"workspace-tabs\">\r\n  <div frTabsList>\r\n    <button frTabsTrigger value=\"overview\">Overview</button>\r\n    <button frTabsTrigger value=\"activity\">Activity</button>\r\n  </div>\r\n</div>"
           }
         ]
       }
@@ -10911,7 +10916,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\n\nsummaryControl = new FormControl(\n  'Northwind now supports shared rollout planning and reusable release notes.',\r\n  { nonNullable: true },\r\n);"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\r\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\r\n\r\nsummaryControl = new FormControl(\r\n  'Northwind now supports shared rollout planning and reusable release notes.',\r\n  { nonNullable: true },\r\n);"
           }
         ]
       },
@@ -10921,7 +10926,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\n\nsummaryControl = new FormControl(\n  'Northwind now supports shared rollout planning and reusable release notes.',\r\n  { nonNullable: true },\r\n);"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\r\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\r\n\r\nsummaryControl = new FormControl(\r\n  'Northwind now supports shared rollout planning and reusable release notes.',\r\n  { nonNullable: true },\r\n);"
           },
           {
             "language": "html",
@@ -10939,7 +10944,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"release-memo-textarea\">\n  <div frField>\r\n    <div frInputHeader>\r\n      <label frFieldLabel for=\"internal-memo\">Internal release memo</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frFieldContent>\r\n      <textarea frTextarea id=\"internal-memo\" rows=\"5\"></textarea>\r\n      <p frFieldDescription>\r\n        This preview applies local height, radius, focus-ring, padding, and helper-text overrides.\r\n      </p>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"release-memo-textarea\">\r\n  <div frField>\r\n    <div frInputHeader>\r\n      <label frFieldLabel for=\"internal-memo\">Internal release memo</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frFieldContent>\r\n      <textarea frTextarea id=\"internal-memo\" rows=\"5\"></textarea>\r\n      <p frFieldDescription>\r\n        This preview applies local height, radius, focus-ring, padding, and helper-text overrides.\r\n      </p>\r\n    </div>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -10949,7 +10954,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"release-memo-textarea\">\n  <div frField>\r\n    <div frInputHeader>\r\n      <label frFieldLabel for=\"internal-memo\">Internal release memo</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frFieldContent>\r\n      <textarea frTextarea id=\"internal-memo\" rows=\"5\"></textarea>\r\n      <p frFieldDescription>\r\n        This preview applies local height, radius, focus-ring, padding, and helper-text overrides.\r\n      </p>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"release-memo-textarea\">\r\n  <div frField>\r\n    <div frInputHeader>\r\n      <label frFieldLabel for=\"internal-memo\">Internal release memo</label>\r\n      <span frInputBadge>Team</span>\r\n    </div>\r\n\r\n    <div frFieldContent>\r\n      <textarea frTextarea id=\"internal-memo\" rows=\"5\"></textarea>\r\n      <p frFieldDescription>\r\n        This preview applies local height, radius, focus-ring, padding, and helper-text overrides.\r\n      </p>\r\n    </div>\r\n  </div>\r\n</div>"
           },
           {
             "language": "css",
@@ -10967,7 +10972,7 @@
           },
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nnotesControl = new FormControl(\n  'Share the migration checklist with support before the staged rollout begins.',\n  { nonNullable: true },\n);"
+            "code": "${formImportsCode}\r\n\r\nnotesControl = new FormControl(\r\n  'Share the migration checklist with support before the staged rollout begins.',\r\n  { nonNullable: true },\r\n);"
           }
         ]
       },
@@ -10977,7 +10982,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "${formImportsCode}\n\nnotesControl = new FormControl(\n  'Share the migration checklist with support before the staged rollout begins.',\n  { nonNullable: true },\n);"
+            "code": "${formImportsCode}\r\n\r\nnotesControl = new FormControl(\r\n  'Share the migration checklist with support before the staged rollout begins.',\r\n  { nonNullable: true },\r\n);"
           },
           {
             "language": "html",
@@ -10995,7 +11000,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\n\nmessageControl = new FormControl('The release is scheduled for Tuesday at 10:00 CET.', {\n  nonNullable: true,\r\n  validators: [Validators.required],\r\n});"
+            "code": "import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\r\nimport { FrFieldModule } from '@frame-ui-ng/components/field';\r\nimport { FrTextareaModule } from '@frame-ui-ng/components/textarea';\r\n\r\nmessageControl = new FormControl('The release is scheduled for Tuesday at 10:00 CET.', {\r\n  nonNullable: true,\r\n  validators: [Validators.required],\r\n});"
           }
         ]
       }
@@ -11135,7 +11140,7 @@
           },
           {
             "language": "ts",
-            "code": "<button frToggle defaultPressed class=\"favorite-toggle\">\n  <ng-icon frToggleIcon name=\"tablerStar\" />\n  <span frToggleLabel>Starred</span>\n</button>"
+            "code": "<button frToggle defaultPressed class=\"favorite-toggle\">\r\n  <ng-icon frToggleIcon name=\"tablerStar\" />\r\n  <span frToggleLabel>Starred</span>\r\n</button>"
           }
         ]
       },
@@ -11145,7 +11150,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<button frToggle defaultPressed class=\"favorite-toggle\">\n  <ng-icon frToggleIcon name=\"tablerStar\" />\n  <span frToggleLabel>Starred</span>\n</button>"
+            "code": "<button frToggle defaultPressed class=\"favorite-toggle\">\r\n  <ng-icon frToggleIcon name=\"tablerStar\" />\r\n  <span frToggleLabel>Starred</span>\r\n</button>"
           }
         ]
       }
@@ -11358,7 +11363,7 @@
           },
           {
             "language": "ts",
-            "code": "<ng-template #toastCloseIcon>\n  <ng-icon name=\"tablerX\" />\n</ng-template>\n\n<div class=\"branded-toasts\">\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\n</div>"
+            "code": "<ng-template #toastCloseIcon>\r\n  <ng-icon name=\"tablerX\" />\r\n</ng-template>\r\n\r\n<div class=\"branded-toasts\">\r\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\r\n</div>"
           }
         ]
       },
@@ -11368,11 +11373,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<ng-template #toastCloseIcon>\n  <ng-icon name=\"tablerX\" />\n</ng-template>\n\n<div class=\"branded-toasts\">\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\n</div>"
+            "code": "<ng-template #toastCloseIcon>\r\n  <ng-icon name=\"tablerX\" />\r\n</ng-template>\r\n\r\n<div class=\"branded-toasts\">\r\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\r\n</div>"
           },
           {
             "language": "css",
-            "code": "this.toast.info('Import started', { duration: 0 });\nthis.toast.success('Assets optimized', { duration: 0 });\nthis.toast.warning('Two rows need review', { duration: 0 });"
+            "code": "this.toast.info('Import started', { duration: 0 });\r\nthis.toast.success('Assets optimized', { duration: 0 });\r\nthis.toast.warning('Two rows need review', { duration: 0 });"
           }
         ]
       },
@@ -11382,11 +11387,11 @@
         "code": [
           {
             "language": "css",
-            "code": "this.toast.info('Import started', { duration: 0 });\nthis.toast.success('Assets optimized', { duration: 0 });\nthis.toast.warning('Two rows need review', { duration: 0 });"
+            "code": "this.toast.info('Import started', { duration: 0 });\r\nthis.toast.success('Assets optimized', { duration: 0 });\r\nthis.toast.warning('Two rows need review', { duration: 0 });"
           },
           {
             "language": "ts",
-            "code": "<ng-template #toastCloseIcon>\n  <ng-icon name=\"tablerX\" />\n</ng-template>\n\n<div dir=\"rtl\" lang=\"ar\">\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\n</div>"
+            "code": "<ng-template #toastCloseIcon>\r\n  <ng-icon name=\"tablerX\" />\r\n</ng-template>\r\n\r\n<div dir=\"rtl\" lang=\"ar\">\r\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\r\n</div>"
           }
         ]
       },
@@ -11396,7 +11401,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<ng-template #toastCloseIcon>\n  <ng-icon name=\"tablerX\" />\n</ng-template>\n\n<div dir=\"rtl\" lang=\"ar\">\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\n</div>"
+            "code": "<ng-template #toastCloseIcon>\r\n  <ng-icon name=\"tablerX\" />\r\n</ng-template>\r\n\r\n<div dir=\"rtl\" lang=\"ar\">\r\n  <frame-toast-viewport [closeIcon]=\"toastCloseIcon\" />\r\n</div>"
           }
         ]
       }
@@ -11577,7 +11582,7 @@
           },
           {
             "language": "ts",
-            "code": "<div class=\"release-feed\">\n  <div frVirtualList>\r\n    <div frVirtualViewport [height]=\"'18rem'\" [itemSize]=\"56\">\r\n      <div frVirtualContent>\r\n        <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n          <span>{{ item.label }}</span>\r\n          <span frVirtualItemMeta>{{ item.meta }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"release-feed\">\r\n  <div frVirtualList>\r\n    <div frVirtualViewport [height]=\"'18rem'\" [itemSize]=\"56\">\r\n      <div frVirtualContent>\r\n        <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n          <span>{{ item.label }}</span>\r\n          <span frVirtualItemMeta>{{ item.meta }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -11587,7 +11592,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div class=\"release-feed\">\n  <div frVirtualList>\r\n    <div frVirtualViewport [height]=\"'18rem'\" [itemSize]=\"56\">\r\n      <div frVirtualContent>\r\n        <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n          <span>{{ item.label }}</span>\r\n          <span frVirtualItemMeta>{{ item.meta }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div class=\"release-feed\">\r\n  <div frVirtualList>\r\n    <div frVirtualViewport [height]=\"'18rem'\" [itemSize]=\"56\">\r\n      <div frVirtualContent>\r\n        <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n          <span>{{ item.label }}</span>\r\n          <span frVirtualItemMeta>{{ item.meta }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
           },
           {
             "language": "css",
@@ -11605,7 +11610,7 @@
           },
           {
             "language": "ts",
-            "code": "<div frVirtualList>\n  <div frVirtualViewport [height]=\"'20rem'\" [itemSize]=\"56\" [overscan]=\"4\">\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n        <span frVirtualItemMeta>{{ item.meta }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div frVirtualList>\r\n  <div frVirtualViewport [height]=\"'20rem'\" [itemSize]=\"56\" [overscan]=\"4\">\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n        <span frVirtualItemMeta>{{ item.meta }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -11615,11 +11620,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "<div frVirtualList>\n  <div frVirtualViewport [height]=\"'20rem'\" [itemSize]=\"56\" [overscan]=\"4\">\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n        <span frVirtualItemMeta>{{ item.meta }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<div frVirtualList>\r\n  <div frVirtualViewport [height]=\"'20rem'\" [itemSize]=\"56\" [overscan]=\"4\">\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n        <span frVirtualItemMeta>{{ item.meta }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\n${itemsTs}"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${itemsTs}"
           }
         ]
       },
@@ -11629,11 +11634,11 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\n${itemsTs}"
+            "code": "import { FrButtonModule } from '@frame-ui-ng/components/button';\r\n${itemsTs}"
           },
           {
             "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"viewport.scrollToIndex(0, 'start')\">\n  <span frButtonLabel>Top</span>\r\n</button>\r\n\r\n<div frVirtualList>\r\n  <div\r\n    #viewport=\"frVirtualViewport\"\r\n    frVirtualViewport\r\n    [height]=\"'18rem'\"\r\n    [itemSize]=\"52\"\r\n    [overscan]=\"6\"\r\n  >\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<button frButton type=\"button\" (click)=\"viewport.scrollToIndex(0, 'start')\">\r\n  <span frButtonLabel>Top</span>\r\n</button>\r\n\r\n<div frVirtualList>\r\n  <div\r\n    #viewport=\"frVirtualViewport\"\r\n    frVirtualViewport\r\n    [height]=\"'18rem'\"\r\n    [itemSize]=\"52\"\r\n    [overscan]=\"6\"\r\n  >\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
           }
         ]
       },
@@ -11643,11 +11648,11 @@
         "code": [
           {
             "language": "html",
-            "code": "<button frButton type=\"button\" (click)=\"viewport.scrollToIndex(0, 'start')\">\n  <span frButtonLabel>Top</span>\r\n</button>\r\n\r\n<div frVirtualList>\r\n  <div\r\n    #viewport=\"frVirtualViewport\"\r\n    frVirtualViewport\r\n    [height]=\"'18rem'\"\r\n    [itemSize]=\"52\"\r\n    [overscan]=\"6\"\r\n  >\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
+            "code": "<button frButton type=\"button\" (click)=\"viewport.scrollToIndex(0, 'start')\">\r\n  <span frButtonLabel>Top</span>\r\n</button>\r\n\r\n<div frVirtualList>\r\n  <div\r\n    #viewport=\"frVirtualViewport\"\r\n    frVirtualViewport\r\n    [height]=\"'18rem'\"\r\n    [itemSize]=\"52\"\r\n    [overscan]=\"6\"\r\n  >\r\n    <div frVirtualContent>\r\n      <button frVirtualItem *frVirtualFor=\"let item of items; trackBy: trackItem\">\r\n        <span>{{ item.label }}</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\n${importsCode}\n\nsurfaceControl = new FormControl<string | null>(null);\n\nsurfaceOptions = Array.from({ length: 150 }, (_, index) => ({\n  value: \\"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\r\n${importsCode}\r\n\r\nsurfaceControl = new FormControl<string | null>(null);\r\n\r\nsurfaceOptions = Array.from({ length: 150 }, (_, index) => ({\r\n  value: \\"
           }
         ]
       },
@@ -11657,7 +11662,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\n${importsCode}\n\nsurfaceControl = new FormControl<string | null>(null);\n\nsurfaceOptions = Array.from({ length: 150 }, (_, index) => ({\n  value: \\"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrSelectModule } from '@frame-ui-ng/components/select';\r\n${importsCode}\r\n\r\nsurfaceControl = new FormControl<string | null>(null);\r\n\r\nsurfaceOptions = Array.from({ length: 150 }, (_, index) => ({\r\n  value: \\"
           },
           {
             "language": "html",
@@ -11675,7 +11680,7 @@
           },
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\n${importsCode}\n\nresultControl = new FormControl<string | null>(null);\n\nresults = Array.from({ length: 200 }, (_, index) => ({\n  value: \\"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\r\n${importsCode}\r\n\r\nresultControl = new FormControl<string | null>(null);\r\n\r\nresults = Array.from({ length: 200 }, (_, index) => ({\r\n  value: \\"
           }
         ]
       },
@@ -11685,7 +11690,7 @@
         "code": [
           {
             "language": "ts",
-            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\n${importsCode}\n\nresultControl = new FormControl<string | null>(null);\n\nresults = Array.from({ length: 200 }, (_, index) => ({\n  value: \\"
+            "code": "import { FormControl, ReactiveFormsModule } from '@angular/forms';\r\nimport { FrComboboxModule } from '@frame-ui-ng/components/combobox';\r\n${importsCode}\r\n\r\nresultControl = new FormControl<string | null>(null);\r\n\r\nresults = Array.from({ length: 200 }, (_, index) => ({\r\n  value: \\"
           },
           {
             "language": "html",

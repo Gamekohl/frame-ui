@@ -2,7 +2,6 @@
   --frame-accordion-radius: var(--frame-radius-md);
   --frame-accordion-item-border: var(--frame-border);
   --frame-accordion-item-radius: 0px;
-  --frame-accordion-item-padding-x: 0;
   --frame-accordion-trigger-min-height: calc(var(--frame-density-control-height-lg) + var(--frame-density-gap-lg));
   --frame-accordion-trigger-padding-y: var(--frame-density-panel-padding-md);
   --frame-accordion-trigger-padding-x: var(--frame-density-panel-padding-md);
@@ -17,10 +16,8 @@
   --frame-accordion-content-color: var(--frame-muted-foreground);
   --frame-accordion-content-font-size: 0.875rem;
   --frame-accordion-content-line-height: 1.6;
-  --frame-accordion-content-opacity-closed: 0;
-  --frame-accordion-content-opacity-open: 1;
-  --frame-accordion-content-transition-duration: 240ms;
-  --frame-accordion-content-transition-timing: cubic-bezier(0.2, 0, 0, 1);
+  --frame-accordion-content-motion-duration: 220ms;
+  --frame-accordion-content-motion-timing: cubic-bezier(0.2, 0, 0, 1);
   --frame-accordion-icon-size: 1rem;
   --frame-accordion-icon-rotation: 180deg;
 }

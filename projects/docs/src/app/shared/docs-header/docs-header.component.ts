@@ -23,7 +23,7 @@ import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
-import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
+import { FrTooltipDirective, FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { ThemeService } from '@frame-ui-ng/foundation';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -281,6 +281,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     FrDropdownMenuModule,
     FrTooltipModule,
     NgOptimizedImage,
+    FrTooltipDirective,
     FrSeparator,
   ],
   templateUrl: './docs-header.component.html',

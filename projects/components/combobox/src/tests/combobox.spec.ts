@@ -79,6 +79,61 @@ class ReactiveFormsHostComponent {
 }
 
 @Component({
+  imports: [
+    FrCombobox,
+    FrComboboxContent,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value" debugVisible>
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="angular" label="Angular">angular</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class LabelRegistrationHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+}
+
+@Component({
+  imports: [
+    FrCombobox,
+    FrComboboxContent,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value" [itemToStringValue]="stringifyValue">
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="angular" label="Angular">angular</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class StringifierHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+  readonly stringifyValue = (value: unknown): string => (value === 'angular' ? 'Angular' : String(value ?? ''));
+}
+
+@Component({
   imports: [FrCombobox, FrComboboxChip, FrComboboxChips, FrComboboxChipsInput, FrComboboxValueList],
   standalone: true,
   template: `
@@ -170,6 +225,27 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
 
     expect(input.disabled).toBe(true);
+  });
+
+  it('updates the displayed value when a selected item label is registered', async () => {
+    const fixture = TestBed.createComponent(LabelRegistrationHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('Angular');
+  });
+
+  it('uses itemToStringValue for initial values before lazy items are rendered', async () => {
+    const fixture = TestBed.createComponent(StringifierHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('Angular');
   });
 
   it('renders a default remove button for chips', async () => {

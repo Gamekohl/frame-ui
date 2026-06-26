@@ -93,6 +93,7 @@ export class FrCombobox
   private readonly items = new Set<FrComboboxItem>();
   private readonly itemsVersion = signal(0);
   private readonly selectedLabels = new Map<FrComboboxValue, string>();
+  private readonly selectedLabelsVersion = signal(0);
   private lastAutoHighlight = false;
   private lastItemsVersion = -1;
   private lastQuery = '';
@@ -130,6 +131,7 @@ export class FrCombobox
     }
 
     const value = this.value();
+    this.selectedLabelsVersion();
 
     if (value === null || Array.isArray(value)) {
       return this.query();
@@ -223,7 +225,12 @@ export class FrCombobox
   }
 
   rememberItemLabel(value: FrComboboxValue, label: string): void {
+    if (this.selectedLabels.get(value) === label) {
+      return;
+    }
+
     this.selectedLabels.set(value, label);
+    this.selectedLabelsVersion.update((version) => version + 1);
   }
 
   itemVisible(label: string): boolean {
@@ -261,7 +268,7 @@ export class FrCombobox
   }
 
   selectItem(value: FrComboboxValue, label: string): void {
-    this.selectedLabels.set(value, label);
+    this.rememberItemLabel(value, label);
 
     if (this.multiple()) {
       const current = this.selectedValues();

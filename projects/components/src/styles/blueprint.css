@@ -4,7 +4,7 @@
  */
 
 :where(
-  [frAccordion],
+  frame-accordion,
   [frAlert],
   [frCard],
   frame-card,
@@ -59,7 +59,7 @@
 }
 
 :where(
-  [frAccordion],
+  frame-accordion,
   [frCarousel],
   frame-carousel,
   .frame-calendar,
@@ -405,7 +405,6 @@
   [frBreadcrumbEllipsis],
   frame-breadcrumb-ellipsis,
   [frCheckbox],
-  [frCombobox],
   [frComboboxInput],
   [frDatePickerTrigger],
   .frame-date-picker__trigger,
@@ -497,7 +496,6 @@
   [frBreadcrumbLink],
   [frBreadcrumbEllipsis],
   [frCheckbox],
-  [frCombobox],
   [frDatePickerTrigger],
   .frame-date-picker__trigger,
   [frDropdownMenuItem],
@@ -534,7 +532,6 @@
   [frBreadcrumbLink],
   [frBreadcrumbEllipsis],
   [frCheckbox],
-  [frCombobox],
   [frDatePickerTrigger],
   .frame-date-picker__trigger,
   [frMenuBarTrigger],
@@ -562,7 +559,6 @@
   [frBreadcrumbLink],
   [frBreadcrumbEllipsis],
   [frCheckbox],
-  [frCombobox],
   [frDatePickerTrigger],
   .frame-date-picker__trigger,
   [frMenuBarTrigger],
@@ -587,7 +583,6 @@
 
 :where(
   .frame-button,
-  [frCombobox],
   [frDatePickerTrigger],
   .frame-date-picker__trigger,
   [frDropdownMenuItem],
@@ -610,7 +605,7 @@
 
 :root[data-frame-corner-handles='false']
   :where(
-    [frAccordion],
+    frame-accordion,
     [frAlert],
     frame-alert,
     [frAvatar],
@@ -623,8 +618,6 @@
     frame-calendar,
     [frCard],
     frame-card,
-    [frCheckbox],
-    frame-checkbox,
     [frCombobox],
     [frCommand],
     [frCommandInput],
