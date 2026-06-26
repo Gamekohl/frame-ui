@@ -496,6 +496,8 @@ date: Date | null = new Date(2026, 5, 10);`,
   --frame-calendar-gap: 1rem;
   --frame-calendar-cell-size: 2.25rem;
   --frame-calendar-effective-cell-size: var(--frame-calendar-cell-size);
+  --frame-calendar-cell-gap-block: 0.125rem;
+  --frame-calendar-cell-gap-inline: 0.125rem;
   --frame-calendar-column-count: 7;
   --frame-calendar-month-flex: 0 0 calc(var(--frame-calendar-effective-cell-size) * var(--frame-calendar-column-count));
   --frame-calendar-cell-radius: var(--frame-radius-md);
@@ -506,6 +508,8 @@ date: Date | null = new Date(2026, 5, 10);`,
   --frame-calendar-day-range-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);
   --frame-calendar-day-today-border: color-mix(in srgb, var(--frame-primary) 55%, var(--frame-border));
   --frame-calendar-day-disabled-opacity: 0.38;
+  --frame-calendar-select-min-width: 5rem;
+  --frame-calendar-select-padding-inline: 0.75rem;
   `,
 };
 

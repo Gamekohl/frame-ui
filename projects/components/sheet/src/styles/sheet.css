@@ -156,6 +156,11 @@
   transform: scale(0.96);
 }
 
+.frame-sheet__close svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .frame-sheet__close:focus-visible,
 .frame-sheet__close-control:focus-visible {
   outline: 2px solid var(--frame-ring, currentColor);

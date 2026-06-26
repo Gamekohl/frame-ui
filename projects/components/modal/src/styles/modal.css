@@ -176,6 +176,11 @@
   transform: scale(0.96);
 }
 
+.frame-modal__close svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .frame-modal__close:focus-visible,
 .frame-modal__close-control:focus-visible {
   outline: 2px solid var(--frame-ring, currentColor);

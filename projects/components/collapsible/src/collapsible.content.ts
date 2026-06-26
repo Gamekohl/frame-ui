@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, DoCheck, ElementRef, OnDestroy, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, effect, inject } from '@angular/core';
 
 import { FR_COLLAPSIBLE } from './collapsible.tokens';
 
@@ -16,33 +16,42 @@ import { FR_COLLAPSIBLE } from './collapsible.tokens';
     role: 'region',
   },
 })
-export class FrCollapsibleContent implements AfterViewInit, DoCheck, OnDestroy {
+export class FrCollapsibleContent implements AfterViewInit, OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly collapsible = inject(FR_COLLAPSIBLE);
+  private animationFrameId = -1;
   private initialized = false;
   private lastOpen = false;
-  private rafId = -1;
+  private mutationObserver?: MutationObserver;
+  private resizeFrameId = -1;
+  private resizeObserver?: ResizeObserver;
+
+  constructor() {
+    effect(() => {
+      const open = this.collapsible.open();
+
+      if (!this.initialized || open === this.lastOpen) {
+        this.lastOpen = open;
+        return;
+      }
+
+      this.lastOpen = open;
+      this.animate(open);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.lastOpen = this.collapsible.open();
     this.applyStaticState(this.lastOpen);
+    this.observeContentSize();
     this.initialized = true;
-  }
-
-  ngDoCheck(): void {
-    const open = this.collapsible.open();
-
-    if (!this.initialized || open === this.lastOpen) {
-      return;
-    }
-
-    this.cancelAnimationFrame();
-    this.lastOpen = open;
-    this.animate(open);
   }
 
   ngOnDestroy(): void {
     this.cancelAnimationFrame();
+    this.cancelResizeFrame();
+    this.mutationObserver?.disconnect();
+    this.resizeObserver?.disconnect();
   }
 
   onTransitionEnd(event: TransitionEvent): void {
@@ -55,31 +64,34 @@ export class FrCollapsibleContent implements AfterViewInit, DoCheck, OnDestroy {
       return;
     }
 
-    this.host.nativeElement.style.height = 'auto';
+    this.setOpenHeight();
   }
 
   private animate(open: boolean): void {
     const element = this.host.nativeElement;
+
+    this.cancelAnimationFrame();
+    this.cancelResizeFrame();
 
     if (open) {
       element.style.visibility = 'visible';
       element.style.height = '0px';
       element.style.opacity = '0';
 
-      this.rafId = requestAnimationFrame(() => {
+      this.animationFrameId = requestAnimationFrame(() => {
         element.style.height = `${element.scrollHeight}px`;
         element.style.opacity = '1';
       });
       return;
     }
 
-    element.style.height = `${element.scrollHeight}px`;
+    element.style.height = `${element.getBoundingClientRect().height || element.scrollHeight}px`;
     element.style.opacity = '1';
 
-    this.rafId = requestAnimationFrame(() => {
-      element.style.height = '0px';
-      element.style.opacity = '0';
-    });
+    void element.offsetHeight;
+
+    element.style.height = '0px';
+    element.style.opacity = '0';
   }
 
   private applyStaticState(open: boolean): void {
@@ -91,11 +103,74 @@ export class FrCollapsibleContent implements AfterViewInit, DoCheck, OnDestroy {
   }
 
   private cancelAnimationFrame(): void {
-    if (this.rafId === -1) {
+    if (this.animationFrameId === -1) {
       return;
     }
 
-    cancelAnimationFrame(this.rafId);
-    this.rafId = -1;
+    cancelAnimationFrame(this.animationFrameId);
+    this.animationFrameId = -1;
+  }
+
+  private cancelResizeFrame(): void {
+    if (this.resizeFrameId === -1) {
+      return;
+    }
+
+    cancelAnimationFrame(this.resizeFrameId);
+    this.resizeFrameId = -1;
+  }
+
+  private observeContentSize(): void {
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    this.resizeObserver = new ResizeObserver(() => this.scheduleOpenHeightSync());
+    this.observeResizeTargets();
+
+    if (typeof MutationObserver === 'undefined') {
+      return;
+    }
+
+    this.mutationObserver = new MutationObserver(() => {
+      this.observeResizeTargets();
+      this.scheduleOpenHeightSync();
+    });
+    this.mutationObserver.observe(this.host.nativeElement, { childList: true });
+  }
+
+  private observeResizeTargets(): void {
+    if (!this.resizeObserver) {
+      return;
+    }
+
+    const element = this.host.nativeElement;
+    const targets = Array.from(element.children);
+
+    this.resizeObserver.disconnect();
+
+    if (targets.length === 0) {
+      this.resizeObserver.observe(element);
+      return;
+    }
+
+    targets.forEach((target) => this.resizeObserver?.observe(target));
+  }
+
+  private scheduleOpenHeightSync(): void {
+    if (!this.initialized || !this.collapsible.open()) {
+      return;
+    }
+
+    this.cancelResizeFrame();
+    this.resizeFrameId = requestAnimationFrame(() => this.setOpenHeight());
+  }
+
+  private setOpenHeight(): void {
+    if (!this.collapsible.open()) {
+      return;
+    }
+
+    this.host.nativeElement.style.height = `${this.host.nativeElement.scrollHeight}px`;
   }
 }

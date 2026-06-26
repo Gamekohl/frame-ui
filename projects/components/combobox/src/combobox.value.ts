@@ -75,18 +75,39 @@ export class FrComboboxChip {
     }
 
     const button = this.renderer.createElement('button') as HTMLButtonElement;
-    const label = this.renderer.createText('×');
+    const icon = this.createRemoveIcon();
     this.renderer.setAttribute(button, 'type', 'button');
     this.renderer.setAttribute(button, 'aria-label', 'Remove selected item');
     this.renderer.setAttribute(button, 'data-default-remove', '');
     this.renderer.addClass(button, 'frame-combobox__chip-remove');
-    this.renderer.appendChild(button, label);
+    this.renderer.appendChild(button, icon);
     this.renderer.listen(button, 'click', (event: MouseEvent) => {
       event.preventDefault();
       event.stopPropagation();
       this.remove();
     });
     this.renderer.appendChild(element, button);
+  }
+
+  private createRemoveIcon(): SVGElement {
+    const svg = this.renderer.createElement('svg', 'svg') as SVGElement;
+    const firstPath = this.renderer.createElement('path', 'svg') as SVGPathElement;
+    const secondPath = this.renderer.createElement('path', 'svg') as SVGPathElement;
+
+    this.renderer.setAttribute(svg, 'aria-hidden', 'true');
+    this.renderer.setAttribute(svg, 'viewBox', '0 0 24 24');
+    this.renderer.setAttribute(svg, 'fill', 'none');
+    this.renderer.setAttribute(svg, 'stroke', 'currentColor');
+    this.renderer.setAttribute(svg, 'stroke-width', '2');
+    this.renderer.setAttribute(svg, 'stroke-linecap', 'round');
+    this.renderer.setAttribute(svg, 'stroke-linejoin', 'round');
+    this.renderer.addClass(svg, 'frame-combobox__chip-remove-icon');
+    this.renderer.setAttribute(firstPath, 'd', 'M18 6 6 18');
+    this.renderer.setAttribute(secondPath, 'd', 'm6 6 12 12');
+    this.renderer.appendChild(svg, firstPath);
+    this.renderer.appendChild(svg, secondPath);
+
+    return svg;
   }
 }
 

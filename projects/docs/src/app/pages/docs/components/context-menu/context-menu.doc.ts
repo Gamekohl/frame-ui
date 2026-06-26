@@ -8,6 +8,9 @@ import {
 const importsCode = `import { FrContextMenuModule } from '@frame-ui-ng/components/context-menu';`;
 const signalImportsCode = `import { signal } from '@angular/core';
 ${importsCode}`;
+const checkIcon = `<svg frContextMenuItemIndicator viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 6 9 17l-5-5"></path>
+</svg>`;
 
 const basicHtml = `<div frContextMenu>
   <div [frContextMenuTrigger]="menu">Right click here</div>
@@ -46,7 +49,7 @@ const submenuHtml = `<div frContextMenu>
 </div>`;
 
 const checkboxHtml = `<button frContextMenuCheckboxItem [checked]="showBookmarks()" type="button">
-  <span frContextMenuItemIndicator>✓</span>
+  ${checkIcon}
   Show bookmarks
 </button>`;
 const checkboxTs = `${signalImportsCode}
@@ -55,11 +58,11 @@ showBookmarks = signal(true);`;
 
 const radioHtml = `<div frContextMenuRadioGroup>
   <button frContextMenuRadioItem [checked]="density() === 'comfortable'" type="button">
-    <span frContextMenuItemIndicator>✓</span>
+    ${checkIcon}
     Comfortable
   </button>
   <button frContextMenuRadioItem [checked]="density() === 'compact'" type="button">
-    <span frContextMenuItemIndicator>✓</span>
+    ${checkIcon}
     Compact
   </button>
 </div>`;
@@ -95,7 +98,7 @@ const groupsHtml = `<div frContextMenu>
       <div frContextMenuSeparator></div>
       <div frContextMenuLabel>View</div>
       <button frContextMenuCheckboxItem checked type="button">
-        <span frContextMenuItemIndicator>✓</span>
+        ${checkIcon}
         Show preview
       </button>
     </div>

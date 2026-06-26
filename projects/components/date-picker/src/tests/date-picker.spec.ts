@@ -65,6 +65,23 @@ describe('FrDatePicker', () => {
     expect(fixture.componentInstance.value).toEqual(new Date(2026, 5, 10));
   });
 
+  it('shows month and year selects by default', async () => {
+    const fixture = TestBed.createComponent(DatePickerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.frame-date-picker__trigger') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const overlay = document.querySelector('.frame-date-picker__content') as HTMLElement;
+    const selects = Array.from(overlay.querySelectorAll('.frame-calendar__select')) as HTMLButtonElement[];
+
+    expect(selects.length).toBe(2);
+    expect(selects[0].textContent?.trim()).toContain('Jun');
+    expect(selects[1].textContent?.trim()).toContain('2026');
+  });
+
   it('focuses the calendar day grid when opened for arrow key navigation', async () => {
     const fixture = TestBed.createComponent(DatePickerHostComponent);
     fixture.detectChanges();

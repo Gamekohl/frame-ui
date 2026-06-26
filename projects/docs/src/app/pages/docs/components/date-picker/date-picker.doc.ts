@@ -29,7 +29,6 @@ const dobTs = `import { FormControl } from '@angular/forms';
 readonly birthday = new FormControl<Date | null>(null);`;
 
 const dobHtml = `<frame-date-picker
-  captionLayout="dropdown"
   placeholder="Select date"
   [fromYear]="1926"
   [toYear]="2026"
@@ -121,7 +120,6 @@ const rtlHtml = `<div dir="rtl">
   <frame-date-picker
     dir="rtl"
     locale="ar-SA"
-    captionLayout="dropdown"
     placeholder="اختر تاريخًا"
     [formControl]="date"
   />
@@ -228,7 +226,7 @@ export const DATE_PICKER_DOC: ComponentDoc = {
     {
       id: 'basic',
       title: 'Basic',
-      description: 'A basic date picker bound to an Angular reactive form control.',
+      description: 'A basic date picker with built-in month and year selection.',
       preview: {
         component: DocsDatePickerPreviewComponent,
       },
@@ -254,7 +252,7 @@ export const DATE_PICKER_DOC: ComponentDoc = {
     {
       id: 'date-of-birth',
       title: 'Date of Birth',
-      description: 'Use the dropdown caption layout and a constrained year range for birthday-style selection.',
+      description: 'Constrain the available year range for birthday-style selection.',
       preview: {
         component: DocsDatePickerPreviewComponent,
         inputs: { config: { mode: 'dob' } },

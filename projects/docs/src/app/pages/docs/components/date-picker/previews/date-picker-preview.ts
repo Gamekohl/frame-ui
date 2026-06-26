@@ -53,7 +53,6 @@ export type DatePickerPreviewConfig = {
             <label frFieldLabel>Date of birth</label>
             <div frFieldContent>
               <frame-date-picker
-                captionLayout="dropdown"
                 placeholder="Select date"
                 [fromYear]="1926"
                 [toYear]="2026"
@@ -124,11 +123,15 @@ export type DatePickerPreviewConfig = {
           />
 
           <ng-template #previousIcon>
-            <span aria-hidden="true">←</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
           </ng-template>
 
           <ng-template #nextIcon>
-            <span aria-hidden="true">→</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
           </ng-template>
         }
 
@@ -141,7 +144,6 @@ export type DatePickerPreviewConfig = {
             <frame-date-picker
               dir="rtl"
               locale="ar-SA"
-              captionLayout="dropdown"
               placeholder="اختر تاريخًا"
               [month]="june2026"
               [formControl]="dateControl"

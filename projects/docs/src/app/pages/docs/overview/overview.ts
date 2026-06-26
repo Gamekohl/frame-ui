@@ -96,7 +96,7 @@ export class Overview {
 
   protected readonly whatItIsNot = [
     'Not an all-in-one CSS framework. It is meant to complement tools like Tailwind CSS or Bootstrap rather than replace them.',
-    'Not a complete FrameUI out of the box. Teams still bring their own brand, content, and product-specific guidance.',
+    'Not a complete design system out of the box. Teams still bring their own brand, content, and product-specific guidance.',
   ];
 
   protected readonly status: IntroStatus[] = [

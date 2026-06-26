@@ -1,7 +1,8 @@
 import { ComponentDoc } from '../../shared/models/component-doc.model';
 import { DocsCollapsiblePreviewComponent } from './previews/collapsible-preview';
 
-const collapsibleImportsCode = `import { FrButtonModule } from '@frame-ui-ng/components/button';
+const collapsibleImportsCode = `import { FrBadgeModule } from '@frame-ui-ng/components/badge';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
 import { FrInputModule } from '@frame-ui-ng/components/input';`;
@@ -44,9 +45,12 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
     {
       language: 'html',
       code: `<section frCollapsible>
-  <button frCollapsibleTrigger>Can I use this in my project?</button>
+  <button frCollapsibleTrigger type="button">
+    <span>Can I use this in my project?</span>
+    <ng-icon name="tablerChevronDown" size="18" />
+  </button>
   <div frCollapsibleContent>
-    Yes. Free to use for personal and commercial projects.
+    Yes. Use collapsible when a short answer or supporting details should stay one click away.
   </div>
 </section>`,
     },
@@ -83,6 +87,7 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
           tokens: [
             '--frame-collapsible-trigger-gap',
             '--frame-collapsible-trigger-color',
+            '--frame-collapsible-trigger-open-color',
             '--frame-collapsible-trigger-disabled-opacity',
           ],
         },
@@ -128,29 +133,28 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
         },
         {
           language: 'html',
-          code: `<section frCollapsible defaultOpen class="order-collapsible">
-  <div class="order-collapsible__row">
-    <div>
-      <p class="order-collapsible__eyebrow">Order #4189</p>
-      <p class="order-collapsible__title">Product details</p>
-    </div>
-    <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-      Toggle details
-    </button>
-  </div>
+          code: `<section
+  frCollapsible
+  defaultOpen
+  style="--frame-collapsible-content-color: var(--frame-foreground); --frame-collapsible-content-padding-block-start: 1rem; --frame-collapsible-content-transition-duration: 320ms;"
+>
+  <button frCollapsibleTrigger type="button">
+    <span>
+      <span>Approval policy</span>
+      <span>Show the exact rules used before a release can ship.</span>
+    </span>
+    <ng-icon name="tablerChevronDown" size="18" />
+  </button>
+
   <div frCollapsibleContent>
-    <div frCard>
-      <div frCardContent class="order-collapsible__status">
-        <span>Status</span>
-        <strong>Shipped</strong>
-      </div>
-    </div>
+    Two maintainers must approve the release. Security-sensitive changes also require a
+    production readiness review from the platform team.
   </div>
 </section>`,
         },
         {
           language: 'css',
-          code: `.order-collapsible {
+          code: `[frCollapsible] {
   --frame-collapsible-content-color: var(--frame-foreground);
   --frame-collapsible-content-padding-block-start: 1rem;
   --frame-collapsible-content-transition-duration: 320ms;
@@ -164,7 +168,7 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
     {
       id: 'basic',
       title: 'Basic',
-      description: 'An uncontrolled collapsible that starts open and can be toggled by the trigger.',
+      description: 'A compact disclosure row for short answers and supporting details.',
       preview: {
         component: DocsCollapsiblePreviewComponent,
       },
@@ -175,23 +179,15 @@ export const COLLAPSIBLE_DOC: ComponentDoc = {
         },
         {
           language: 'html',
-          code: `<section frCollapsible defaultOpen class="order-collapsible">
-  <div class="order-collapsible__row">
-    <div>
-      <p>Order #4189</p>
-      <h3>Product details</h3>
-    </div>
-    <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-      Toggle details
-    </button>
-  </div>
+          code: `<section frCollapsible>
+  <button frCollapsibleTrigger type="button">
+    <span>Can I use this in my project?</span>
+    <ng-icon name="tablerChevronDown" size="18" />
+  </button>
+
   <div frCollapsibleContent>
-    <div frCard>
-      <div frCardContent class="order-collapsible__status">
-        <span>Status</span>
-        <strong>Shipped</strong>
-      </div>
-    </div>
+    Yes. Use collapsible when a short answer or supporting details should stay one click away
+    without sending people to a new page.
   </div>
 </section>`,
         },
@@ -222,22 +218,46 @@ readonly detailsOpen = signal(false);`,
   [open]="detailsOpen()"
   (openChange)="detailsOpen.set($event)"
 >
-  <div class="order-collapsible__row">
+  <div>
     <div>
-      <p>Order #4189</p>
-      <h3>Toggle shipping details</h3>
+      <p>Support handoff</p>
+      <h3>Escalate checkout issue</h3>
     </div>
     <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-      {{ detailsOpen() ? 'Hide' : 'Show' }}
+      {{ detailsOpen() ? 'Hide notes' : 'Show notes' }}
     </button>
   </div>
+
   <div frCollapsibleContent>
-    <div frCard>
-      <div frCardContent class="order-collapsible__status">
-        <span>Status</span>
-        <strong>Shipped</strong>
-      </div>
-    </div>
+    Customer already tried a second card. Ask billing to verify the latest payment attempt.
+  </div>
+</section>`,
+        },
+      ],
+    },
+    {
+      id: 'disabled',
+      title: 'Disabled',
+      description: 'Disable the root when the disclosure should stay visible but not interactive.',
+      preview: {
+        component: DocsCollapsiblePreviewComponent,
+        inputs: { config: { mode: 'disabled' } },
+      },
+      code: [
+        {
+          language: 'ts',
+          code: collapsibleImportsCode,
+        },
+        {
+          language: 'html',
+          code: `<section frCollapsible disabled>
+  <button frCollapsibleTrigger type="button">
+    <span>Can the rules be changed right now?</span>
+    <ng-icon name="tablerChevronDown" size="18" />
+  </button>
+
+  <div frCollapsibleContent>
+    This disclosure is disabled while the workspace policy is locked by an active deployment.
   </div>
 </section>`,
         },
@@ -246,7 +266,7 @@ readonly detailsOpen = signal(false);`,
     {
       id: 'settings-panel',
       title: 'Settings Panel',
-      description: 'Use a trigger button to reveal additional settings without leaving the page.',
+      description: 'Reveal advanced controls without making the default form feel heavy.',
       preview: {
         component: DocsCollapsiblePreviewComponent,
         inputs: { config: { mode: 'settings' } },
@@ -258,19 +278,18 @@ readonly detailsOpen = signal(false);`,
         },
         {
           language: 'html',
-          code: `<section frCollapsible defaultOpen class="settings-collapsible">
+          code: `<section frCollapsible defaultOpen>
   <button
     frButton
     frCollapsibleTrigger
     appearance="ghost"
-    class="settings-collapsible__trigger"
     type="button"
   >
     <span>Advanced radius settings</span>
     <ng-icon name="tablerChevronDown" size="16" />
   </button>
   <div frCollapsibleContent>
-    <div class="settings-collapsible__grid">
+    <div>
       <label>
         <span>Radius X</span>
         <input frInput value="12px" />
@@ -286,12 +305,12 @@ readonly detailsOpen = signal(false);`,
       ],
     },
     {
-      id: 'file-tree',
-      title: 'File Tree',
-      description: 'Nest collapsibles to build disclosure-based trees and outline panels.',
+      id: 'metadata-card',
+      title: 'Metadata card',
+      description: 'Use a collapsible card when secondary metadata should stay available but quiet.',
       preview: {
         component: DocsCollapsiblePreviewComponent,
-        inputs: { config: { mode: 'file-tree' } },
+        inputs: { config: { mode: 'metadata' } },
       },
       code: [
         {
@@ -300,33 +319,30 @@ readonly detailsOpen = signal(false);`,
         },
         {
           language: 'html',
-          code: `<section frCollapsible defaultOpen class="file-tree">
-  <button frCollapsibleTrigger class="file-tree__trigger" type="button">
-    <ng-icon name="tablerChevronRight" size="16" />
-    <span>components</span>
+          code: `<section frCollapsible defaultOpen>
+  <button frCollapsibleTrigger type="button">
+    <span>
+      <span>Release metadata</span>
+      <span>Build target, owner, and rollout gate for the current deploy.</span>
+    </span>
+    <ng-icon name="tablerChevronDown" size="18" />
   </button>
+
   <div frCollapsibleContent>
-    <section frCollapsible defaultOpen class="file-tree__branch">
-      <button frCollapsibleTrigger class="file-tree__trigger" type="button">
-        <ng-icon name="tablerChevronRight" size="16" />
-        <span>collapsible</span>
-      </button>
-      <div frCollapsibleContent class="file-tree__files">
-        <span>collapsible.ts</span>
-        <span>collapsible.css</span>
-        <span>collapsible.spec.ts</span>
+    <dl>
+      <div>
+        <dt>Environment</dt>
+        <dd>Production</dd>
       </div>
-    </section>
-    <section frCollapsible class="file-tree__branch">
-      <button frCollapsibleTrigger class="file-tree__trigger" type="button">
-        <ng-icon name="tablerChevronRight" size="16" />
-        <span>button</span>
-      </button>
-      <div frCollapsibleContent class="file-tree__files">
-        <span>button.ts</span>
-        <span>button.css</span>
+      <div>
+        <dt>Owner</dt>
+        <dd>Platform team</dd>
       </div>
-    </section>
+      <div>
+        <dt>Status</dt>
+        <dd><span frBadge variant="success">Ready</span></dd>
+      </div>
+    </dl>
   </div>
 </section>`,
         },
@@ -347,23 +363,14 @@ readonly detailsOpen = signal(false);`,
         },
         {
           language: 'html',
-          code: `<section frCollapsible defaultOpen dir="rtl" class="order-collapsible">
-  <div class="order-collapsible__row">
-    <div>
-      <p>الطلب #4189</p>
-      <h3>تفاصيل الشحن</h3>
-    </div>
-    <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-      تبديل
-    </button>
-  </div>
+          code: `<section frCollapsible defaultOpen dir="rtl">
+  <button frCollapsibleTrigger type="button">
+    <span>هل يمكن استخدامه داخل لوحة إعدادات؟</span>
+    <ng-icon name="tablerChevronDown" size="18" />
+  </button>
+
   <div frCollapsibleContent>
-    <div frCard>
-      <div frCardContent class="order-collapsible__status">
-        <span>الحالة</span>
-        <strong>تم الشحن</strong>
-      </div>
-    </div>
+    نعم، تستخدم المسافات خصائص منطقية حتى تتكيف مع اتجاه النص.
   </div>
 </section>`,
         },
@@ -377,6 +384,7 @@ readonly detailsOpen = signal(false);`,
   tokens: `
   --frame-collapsible-trigger-gap: 0.5rem;
   --frame-collapsible-trigger-color: var(--frame-foreground);
+  --frame-collapsible-trigger-open-color: var(--frame-foreground);
   --frame-collapsible-trigger-disabled-opacity: 0.55;
   --frame-collapsible-content-color: var(--frame-muted-foreground);
   --frame-collapsible-content-font-size: 0.875rem;

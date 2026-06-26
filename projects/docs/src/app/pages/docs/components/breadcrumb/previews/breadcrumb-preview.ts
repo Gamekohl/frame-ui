@@ -103,11 +103,19 @@ export type BreadcrumbPreviewConfig = {
               <li frBreadcrumbItem>
                 <a frBreadcrumbLink href="#">Docs</a>
               </li>
-              <li frBreadcrumbSeparator>→</li>
+              <li frBreadcrumbSeparator>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </li>
               <li frBreadcrumbItem>
                 <a frBreadcrumbLink href="#">Components</a>
               </li>
-              <li frBreadcrumbSeparator>→</li>
+              <li frBreadcrumbSeparator>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </li>
               <li frBreadcrumbItem>
                 <span frBreadcrumbPage>Breadcrumb</span>
               </li>

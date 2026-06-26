@@ -37,7 +37,10 @@ export class FrSheetClose {
     <ng-content />
     @if (showCloseButton()) {
       <button class="frame-sheet__close" type="button" aria-label="Close sheet" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
       </button>
     }
   `,

@@ -134,8 +134,12 @@ nav[frPagination] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25em;
-  line-height: 0.75;
+  line-height: 1;
+}
+
+.frame-pagination__control-icon svg {
+  inline-size: 1em;
+  block-size: 1em;
 }
 
 [dir='rtl'] .frame-pagination__previous .frame-pagination__control-icon,

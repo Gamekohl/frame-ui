@@ -60,8 +60,15 @@
 .frame-date-picker__icon {
   display: inline-flex;
   flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
   color: var(--frame-date-picker-trigger-placeholder-color);
   line-height: 1;
+}
+
+.frame-date-picker__icon svg {
+  inline-size: 1rem;
+  block-size: 1rem;
 }
 
 .frame-date-picker__trigger-label {
