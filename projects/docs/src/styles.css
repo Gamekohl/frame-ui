@@ -53,6 +53,7 @@ html {
   --docs-blueprint-red: var(--frame-frame-accent);
   --docs-blueprint-ink: #111827;
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
+  --docs-layout-radius: var(--frame-radius-lg, 0px);
   --docs-header-height: 5.25rem;
   --docs-page-padding-y: 2rem;
 
@@ -257,6 +258,7 @@ body {
 .docs-blueprint-sheet {
   position: relative;
   border: 1px solid var(--frame-frame-line);
+  border-radius: var(--docs-layout-radius);
   background: var(--docs-blueprint-sheet);
   box-shadow: none;
   isolation: isolate;
@@ -321,6 +323,30 @@ body {
   background-attachment: local;
 }
 
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-blueprint-sheet::before,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-blueprint-sheet::after,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > header::before,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > header::after,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > section::before,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > section::after,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > section a.group::before,
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-article > section a.group::after {
+  content: none;
+}
+
+:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
+  .docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto) {
+  background-image: none;
+}
+
 .docs-blueprint-title {
   display: inline-flex;
   align-items: center;
@@ -360,6 +386,7 @@ body {
 .docs-article > section {
   position: relative;
   border: 1px solid var(--frame-frame-line);
+  border-radius: var(--docs-layout-radius);
   background: var(--docs-blueprint-sheet);
   padding: clamp(1.25rem, 2vw, 2rem);
   isolation: isolate;
@@ -433,6 +460,7 @@ body {
   display: block;
   min-block-size: 100%;
   border: 1px solid var(--frame-frame-line-muted);
+  border-radius: var(--frame-radius-md);
   background: var(--frame-surface);
   padding: 1rem;
   text-decoration: none;
@@ -535,10 +563,13 @@ body {
   .rounded-lg,
   .rounded-xl,
   .rounded-2xl,
-  .rounded-3xl,
-  .rounded-full
+  .rounded-3xl
 ) {
-  border-radius: 0 !important;
+  border-radius: var(--docs-layout-radius) !important;
+}
+
+:where(.rounded-full) {
+  border-radius: var(--frame-radius-full) !important;
 }
 
 :where([frAvatar], frame-avatar, [frSpinner], frame-spinner, .frame-slider__thumb) {
@@ -554,7 +585,7 @@ body {
 }
 
 :where(pre, docs-code-block, .shiki) {
-  border-radius: 0 !important;
+  border-radius: var(--docs-layout-radius) !important;
 }
 
 .slide-in-enter {
