@@ -41,14 +41,14 @@
       "style": "./styles/components.css",
       "default": "./styles/components.css"
     },
-    "./styles/blueprint.css": {
-      "style": "./styles/blueprint.css",
-      "default": "./styles/blueprint.css"
+    "./styles/corner-handles.css": {
+      "style": "./styles/corner-handles.css",
+      "default": "./styles/corner-handles.css"
     }
   },
   "sideEffects": [
     "./styles.css",
     "./styles/components.css",
-    "./styles/blueprint.css"
+    "./styles/corner-handles.css"
   ]
 }

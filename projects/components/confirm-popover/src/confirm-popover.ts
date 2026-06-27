@@ -338,7 +338,8 @@ export class FrConfirmPopover {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      class="frame-popover__content frame-confirm-popover__content"
+      class="frame-popover__content frame-confirm-popover__content frame-corner-handles"
+      data-frame-corner-handles-mode="auto"
       role="alertdialog"
       [attr.aria-describedby]="descriptionId()"
       [attr.aria-labelledby]="titleId()"

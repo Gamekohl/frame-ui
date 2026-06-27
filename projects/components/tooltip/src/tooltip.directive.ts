@@ -435,7 +435,8 @@ export class FrTooltipShortcut {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      class="frame-tooltip__content"
+      class="frame-tooltip__content frame-corner-handles"
+      data-frame-corner-handles-mode="auto"
       role="tooltip"
       [id]="id()"
       [attr.data-side]="side()"

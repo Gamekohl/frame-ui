@@ -73,7 +73,8 @@ export class FrTabs {
 @Directive({
   selector: '[frTabsList], frame-tabs-list',
   host: {
-    class: 'frame-tabs__list',
+    class: 'frame-tabs__list frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     role: 'tablist',
     '[attr.aria-orientation]': 'root?.orientation() ?? "horizontal"',
     '[attr.data-orientation]': 'root?.orientation() ?? "horizontal"',

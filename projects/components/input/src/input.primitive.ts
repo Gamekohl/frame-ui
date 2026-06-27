@@ -31,7 +31,8 @@ export class FrInputHeader {}
 @Directive({
   selector: '[frInputControl], frame-input-control',
   host: {
-    class: 'frame-input-control',
+    class: 'frame-input-control frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrInputControl {}

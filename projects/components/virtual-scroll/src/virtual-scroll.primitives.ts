@@ -4,7 +4,8 @@ import { Directive } from '@angular/core';
 @Directive({
   selector: '[frVirtualList], frame-virtual-list',
   host: {
-    class: 'frame-virtual-scroll__list',
+    class: 'frame-virtual-scroll__list frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrVirtualList {}

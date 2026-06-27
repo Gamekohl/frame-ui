@@ -30,7 +30,8 @@ export const FR_NAVIGATION_MENU_PARENT = new InjectionToken<FrNavigationMenu>(
     },
   ],
   host: {
-    class: 'frame-navigation-menu',
+    class: 'frame-navigation-menu frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     role: 'navigation',
   },
 })
@@ -178,7 +179,8 @@ export class FrNavigationMenuIndicator {}
 @Directive({
   selector: '[frNavigationMenuViewport], frame-navigation-menu-viewport',
   host: {
-    class: 'frame-navigation-menu__viewport',
+    class: 'frame-navigation-menu__viewport frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrNavigationMenuViewport {}

@@ -63,7 +63,8 @@ const VALUE_ACCESSOR = {
   providers: [VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'frame-calendar',
+    class: 'frame-calendar frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-mode]': 'mode()',
     '[attr.data-caption-layout]': 'captionLayout()',
     '[attr.data-disabled]': 'isDisabled() ? "" : null',

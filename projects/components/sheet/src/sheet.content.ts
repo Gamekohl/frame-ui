@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { FrSheetConfig } from './sheet.service';
+import { FrSheetSide, coerceSheetSide } from './sheet.primitives';
 
 /** Content slot for sheet. */
 @Directive({
@@ -34,6 +35,7 @@ export class FrSheetContent {
   readonly minWidth = input<string | null>(null);
   readonly panelClass = input<string | string[] | null>(null);
   readonly role = input<'dialog' | 'alertdialog'>('dialog');
+  readonly side = input<FrSheetSide, unknown>('right', { transform: coerceSheetSide });
   readonly width = input<string | null>(null);
 
   buildConfig(viewContainerRef: ViewContainerRef): FrSheetConfig {
@@ -54,6 +56,7 @@ export class FrSheetContent {
       minWidth: this.minWidth() ?? undefined,
       panelClass: this.panelClass() ?? undefined,
       role: this.role(),
+      side: this.side(),
       viewContainerRef,
       width: this.width() ?? undefined,
     };

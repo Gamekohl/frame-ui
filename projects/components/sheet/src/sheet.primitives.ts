@@ -4,7 +4,7 @@ import { Component, Directive, booleanAttribute, inject, input } from '@angular/
 export const FR_SHEET_SIDES = ['top', 'right', 'bottom', 'left'] as const;
 export type FrSheetSide = (typeof FR_SHEET_SIDES)[number];
 
-function coerceSheetSide(value: unknown): FrSheetSide {
+export function coerceSheetSide(value: unknown): FrSheetSide {
   return value === 'top' || value === 'bottom' || value === 'left' ? value : 'right';
 }
 
@@ -29,7 +29,8 @@ export class FrSheetClose {
 @Component({
   selector: '[frSheetPanel], frame-sheet-panel',
   host: {
-    class: 'frame-sheet__panel',
+    class: 'frame-sheet__panel frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-scrollable]': 'scrollable() ? "" : null',
     '[attr.data-side]': 'side()',
   },

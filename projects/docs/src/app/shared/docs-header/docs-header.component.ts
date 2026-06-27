@@ -502,6 +502,7 @@ export class DocsHeaderComponent {
     root.style.setProperty('--frame-radius-sm', preset.values.sm);
     root.style.setProperty('--frame-radius-md', preset.values.md);
     root.style.setProperty('--frame-radius-lg', preset.values.lg);
+    root.style.setProperty('--frame-button-root-radius', preset.values.md);
   }
 
   private applyDensity(density: DocsDensityId): void {

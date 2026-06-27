@@ -17,6 +17,7 @@ frame-popover {
 }
 
 .frame-popover__content {
+  --frame-corner-handle-radius: var(--frame-popover-content-radius);
   display: grid;
   gap: var(--frame-popover-content-gap);
   width: var(--frame-popover-content-width);

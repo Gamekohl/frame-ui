@@ -33,7 +33,8 @@ export class FrHoverCardContent {
 @Directive({
   selector: '[frHoverCardPanel]',
   host: {
-    class: 'frame-hover-card__content',
+    class: 'frame-hover-card__content frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-side]': 'content.side()',
     '(mouseenter)': 'handleMouseEnter()',
     '(mouseleave)': 'handleMouseLeave()',

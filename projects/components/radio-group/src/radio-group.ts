@@ -53,7 +53,8 @@ export class FrRadioGroupField {
 @Directive({
   selector: 'label[frRadioGroupCard]',
   host: {
-    class: 'frame-radio-group__card',
+    class: 'frame-radio-group__card frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrRadioGroupCard {}

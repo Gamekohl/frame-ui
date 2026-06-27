@@ -24,7 +24,8 @@ export class FrModalClose {
 @Component({
   selector: '[frModalPanel], frame-modal-panel',
   host: {
-    class: 'frame-modal__panel',
+    class: 'frame-modal__panel frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-scrollable]': 'scrollable() ? "" : null',
     '[attr.data-sticky-footer]': 'stickyFooter() ? "" : null',
     '[attr.data-size]': 'size()',

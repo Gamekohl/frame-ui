@@ -29,7 +29,8 @@ import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.type
         >
           @for (toast of positionToasts; track toast.id; let toastIndex = $index) {
             <article
-              class="frame-toast"
+              class="frame-toast frame-corner-handles"
+              data-frame-corner-handles-mode="auto"
               [attr.data-variant]="toast.variant"
               [attr.data-loading]="toast.loading"
               [attr.data-dismissible]="toast.dismissible"

@@ -7,7 +7,8 @@ export type FrButtonGroupOrientation = (typeof FR_BUTTON_GROUP_ORIENTATIONS)[num
 @Directive({
   selector: '[frButtonGroup], frame-button-group',
   host: {
-    class: 'frame-button-group',
+    class: 'frame-button-group frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-orientation]': 'orientation()',
     role: 'group',
   },

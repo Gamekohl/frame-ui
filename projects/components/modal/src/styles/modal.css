@@ -30,25 +30,6 @@
   animation: frame-modal-enter 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.frame-modal__panel::before {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  background:
-    linear-gradient(var(--frame-frame-accent), var(--frame-frame-accent)) left 0.5rem top 0.5rem /
-      var(--frame-frame-tick-size) 1px no-repeat,
-    linear-gradient(var(--frame-frame-accent), var(--frame-frame-accent)) left 0.5rem top 0.5rem / 1px
-      var(--frame-frame-tick-size) no-repeat,
-    linear-gradient(var(--frame-frame-accent), var(--frame-frame-accent)) right 0.5rem bottom 0.5rem /
-      var(--frame-frame-tick-size) 1px no-repeat,
-    linear-gradient(var(--frame-frame-accent), var(--frame-frame-accent)) right 0.5rem bottom 0.5rem / 1px
-      var(--frame-frame-tick-size)
-      no-repeat;
-  pointer-events: none;
-  content: "";
-}
-
 .frame-modal__panel[data-size="sm"] {
   width: min(calc(100vw - 2rem), 24rem);
 }

@@ -1,4 +1,5 @@
 import { Dialog, DialogConfig, DialogRef } from '@angular/cdk/dialog';
+import { Overlay, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable, TemplateRef, Type, inject } from '@angular/core';
 
@@ -27,6 +28,7 @@ const DEFAULT_BACKDROP_CLASS = 'frame-sheet__backdrop';
 @Injectable({ providedIn: 'root' })
 export class FrSheetService {
   private readonly dialog = inject(Dialog);
+  private readonly overlay = inject(Overlay);
 
   open<Result = unknown, Data = unknown, Component = unknown>(
     content: ComponentType<Component>,
@@ -61,13 +63,13 @@ export class FrSheetService {
 
       return this.dialog.open<Result, FrSheetShellOptions, FrSheetShell>(
         FrSheetShell,
-        this.withDefaultClasses(shellConfig),
+        this.withDefaultClasses(shellConfig, config.side),
       ) as unknown as FrSheetRef<Result, ComponentOrContext>;
     }
 
     return this.dialog.open<Result, Data, ComponentOrContext>(
       content,
-      this.withDefaultClasses(config),
+      this.withDefaultClasses(config, config.side),
     );
   }
 
@@ -77,6 +79,7 @@ export class FrSheetService {
 
   private withDefaultClasses<Data, Result, Component>(
     config: DialogConfig<Data, DialogRef<Result, Component>>,
+    side: FrSheetSide = 'right',
   ): DialogConfig<Data, DialogRef<Result, Component>> {
     return {
       ariaModal: true,
@@ -85,9 +88,30 @@ export class FrSheetService {
       ...config,
       maxHeight: config.maxHeight ?? '100dvh',
       maxWidth: config.maxWidth ?? '100vw',
-      panelClass: mergeClassList(config.panelClass, DEFAULT_PANEL_CLASS),
+      positionStrategy: config.positionStrategy ?? this.getSheetPositionStrategy(side),
+      panelClass: mergeClassList(
+        config.panelClass,
+        DEFAULT_PANEL_CLASS,
+        `${DEFAULT_PANEL_CLASS}--${side}`,
+      ),
       backdropClass: mergeClassList(config.backdropClass, DEFAULT_BACKDROP_CLASS),
     };
+  }
+
+  private getSheetPositionStrategy(side: FrSheetSide): PositionStrategy {
+    const strategy = this.overlay.position().global();
+
+    switch (side) {
+      case 'bottom':
+        return strategy.bottom('0').left('0');
+      case 'left':
+        return strategy.left('0').top('0');
+      case 'top':
+        return strategy.left('0').top('0');
+      case 'right':
+      default:
+        return strategy.right('0').top('0');
+    }
   }
 }
 
@@ -128,7 +152,7 @@ function withoutShellOptions<Data, Result, Component>(
 
 function mergeClassList(
   classList: string | string[] | undefined,
-  defaultClass: string,
+  ...defaultClasses: Array<string | null | undefined>
 ): string[] {
   const classes = Array.isArray(classList)
     ? classList
@@ -136,6 +160,8 @@ function mergeClassList(
       ? classList.split(/\s+/)
       : [];
 
-  return Array.from(new Set([defaultClass, ...classes].filter(Boolean)));
+  return Array.from(
+    new Set([...defaultClasses, ...classes].filter((className): className is string => !!className)),
+  );
 }
 

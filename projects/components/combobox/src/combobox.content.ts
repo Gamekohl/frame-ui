@@ -13,7 +13,8 @@ export class FrComboboxContent {
 @Directive({
   selector: '[frComboboxPanel], frame-combobox-panel',
   host: {
-    class: 'frame-combobox__panel',
+    class: 'frame-combobox__panel frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     role: 'listbox',
   },
 })

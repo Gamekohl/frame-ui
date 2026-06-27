@@ -11,7 +11,7 @@ import {
   FrBreadcrumbLink,
   FrBreadcrumbList,
   FrBreadcrumbPage,
-  FrBreadcrumbSeparator,
+  FrBreadcrumbSeparator, FrCornerHandles,
 } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerAlertTriangle } from '@ng-icons/tabler-icons';
@@ -43,6 +43,7 @@ import { DocsTokenInspectorComponent } from '../docs-token-inspector/docs-token-
     FrBreadcrumbPage,
     FrBreadcrumbSeparator,
     RouterLink,
+    FrCornerHandles,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './docs-component-page.html',

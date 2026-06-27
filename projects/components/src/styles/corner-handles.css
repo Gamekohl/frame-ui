@@ -1,0 +1,168 @@
+/*
+ * Shared corner-handle renderer.
+ * Components opt in by applying `.frame-corner-handles`.
+ */
+
+.frame-corner-handles {
+  --frame-corner-handle-auto-size: var(--frame-frame-tick-size, 0.375rem);
+  position: relative;
+}
+
+@supports (width: calc(1px * 1)) {
+  .frame-corner-handles[data-frame-corner-handles-mode='auto'] {
+    --frame-corner-handle-auto-size: clamp(
+      0px,
+      calc((1px - var(--frame-corner-handle-radius, var(--frame-radius, 0px))) * 9999),
+      var(--frame-frame-tick-size, 0.375rem)
+    );
+  }
+}
+
+.frame-corner-handles::before {
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-corner-handle-auto-size)
+  );
+  position: absolute;
+  display: block;
+  inset: var(--frame-corner-handle-offset);
+  z-index: 1;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left top,
+    left top,
+    right bottom,
+    right bottom;
+  background-repeat: no-repeat;
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+  content: "";
+  pointer-events: none;
+}
+
+.frame-corner-handles[data-frame-corner-handles-mode='always']::before {
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+}
+
+.frame-corner-handles[data-frame-corner-handles-mode='never']::before,
+:root[data-frame-corner-handles='false'] .frame-corner-handles::before {
+  content: none;
+}
+
+.frame-button.frame-corner-handles::before {
+  content: none;
+}
+
+.frame-button.frame-corner-handles {
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-corner-handle-auto-size)
+  );
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset);
+  background-repeat: no-repeat;
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+}
+
+:root[data-frame-corner-handles='false'] .frame-button.frame-corner-handles {
+  background-image: none;
+}
+
+.frame-corner-handles:where(
+  .frame-table-container,
+  .frame-table-virtual,
+  .frame-virtual-scroll__viewport,
+  .frame-virtual-scroll__list,
+  .frame-combobox__panel,
+  .frame-dropdown-menu__content,
+  .frame-navigation-menu__viewport,
+  .frame-select__content
+)::before,
+.frame-corner-handles.frame-tabs__list[data-variant='line']::before,
+.frame-date-picker__content .frame-calendar::before {
+  content: none;
+}
+
+.frame-corner-handles:where(
+  .frame-table-container,
+  .frame-table-virtual,
+  .frame-virtual-scroll__viewport,
+  .frame-virtual-scroll__list,
+  .frame-combobox__panel,
+  .frame-navigation-menu__viewport
+) {
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-corner-handle-auto-size)
+  );
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset);
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+  background-repeat: no-repeat;
+  background-attachment: local;
+}
+
+:root[data-frame-corner-handles='false']
+  .frame-corner-handles:where(
+    .frame-table-container,
+    .frame-table-virtual,
+    .frame-virtual-scroll__viewport,
+    .frame-virtual-scroll__list,
+    .frame-combobox__panel,
+    .frame-navigation-menu__viewport
+  ) {
+  background-image: none;
+}
+
+:where(
+  .frame-combobox__panel,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-sheet__panel,
+  .frame-toast,
+  .frame-tooltip__content
+) {
+  --frame-corner-handle-inset: 0.5rem;
+}

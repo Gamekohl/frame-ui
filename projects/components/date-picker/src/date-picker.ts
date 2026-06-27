@@ -146,7 +146,7 @@ const POSITIONS: ConnectedPosition[] = [
       (detach)="close()"
       (positionChange)="handlePositionChange($event)"
     >
-      <div class="frame-date-picker__content" role="dialog" [attr.aria-label]="dialogLabel()">
+      <div class="frame-date-picker__content frame-corner-handles" data-frame-corner-handles-mode="auto" role="dialog" [attr.aria-label]="dialogLabel()">
         @if (presets().length) {
           <div class="frame-date-picker__presets" aria-label="Date presets">
             @for (preset of presets(); track preset.label) {

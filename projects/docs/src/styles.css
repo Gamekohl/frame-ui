@@ -272,79 +272,11 @@ body {
   background-size: 32px 32px, 32px 32px, auto;
 }
 
-.docs-blueprint-sheet::before,
-.docs-blueprint-sheet::after {
-  position: absolute;
-  z-index: 2;
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  pointer-events: none;
-  content: "";
-}
-
-.docs-blueprint-sheet::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
-}
-
 .docs-blueprint-sheet::after {
   inset-block-end: 0;
   inset-inline-end: 0;
   border-block-end: 1px solid;
   border-inline-end: 1px solid;
-}
-
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::before,
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::after {
-  content: none;
-}
-
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto) {
-  background-image:
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red));
-  background-position:
-    left top,
-    left top,
-    right bottom,
-    right bottom;
-  background-size:
-    0.75rem 1px,
-    1px 0.75rem,
-    0.75rem 1px,
-    1px 0.75rem;
-  background-repeat: no-repeat;
-  background-attachment: local;
-}
-
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-blueprint-sheet::before,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-blueprint-sheet::after,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > header::before,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > header::after,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > section::before,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > section::after,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > section a.group::before,
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-article > section a.group::after {
-  content: none;
-}
-
-:root:where([data-frame-corner-handles='false'], [data-docs-radius='sm'], [data-docs-radius='md'], [data-docs-radius='lg'])
-  .docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto) {
-  background-image: none;
 }
 
 .docs-blueprint-title {
@@ -357,13 +289,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.docs-blueprint-title::before {
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
 }
 
 .docs-shell {
@@ -392,28 +317,6 @@ body {
   isolation: isolate;
 }
 
-.docs-article > header::before,
-.docs-article > header::after,
-.docs-article > section::before,
-.docs-article > section::after {
-  position: absolute;
-  z-index: 2;
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  pointer-events: none;
-  content: "";
-}
-
-.docs-article > header::before,
-.docs-article > section::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
-}
-
 .docs-article > header::after,
 .docs-article > section::after {
   inset-block-end: 0;
@@ -432,13 +335,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.docs-article > header > p:first-child::before {
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
 }
 
 .docs-article > header h1 {
@@ -476,24 +372,6 @@ body {
   outline: none;
   transform: translate(-2px, -2px);
   box-shadow: 3px 3px 0 color-mix(in srgb, var(--frame-frame-line-muted) 90%, transparent);
-}
-
-.docs-article > section a.group::before,
-.docs-article > section a.group::after {
-  position: absolute;
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  content: "";
-  pointer-events: none;
-}
-
-.docs-article > section a.group::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
 }
 
 .docs-article > section a.group::after {
@@ -536,20 +414,6 @@ body {
   block-size: 1px;
   min-inline-size: 4rem;
   background: var(--docs-blueprint-red);
-}
-
-.docs-blueprint-measure::before,
-.docs-blueprint-measure::after {
-  position: absolute;
-  inset-block-start: -0.25rem;
-  inline-size: 1px;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
-}
-
-.docs-blueprint-measure::before {
-  inset-inline-start: 0;
 }
 
 .docs-blueprint-measure::after {

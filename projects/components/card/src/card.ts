@@ -19,9 +19,10 @@ const FR_CARD_SPACING_VALUES: Record<FrCardSpacing, string> = {
 @Directive({
   selector: '[frCard], frame-card',
   host: {
-    class: 'frame-card',
+    class: 'frame-card frame-corner-handles',
     '[attr.data-size]': 'size()',
     '[attr.data-spacing]': 'spacing()',
+    'data-frame-corner-handles-mode': 'auto',
     '[style.--frame-card-spacing]': 'spacingValue()',
   },
 })

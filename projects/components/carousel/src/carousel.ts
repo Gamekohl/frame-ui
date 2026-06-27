@@ -51,7 +51,8 @@ const FR_CAROUSEL = new InjectionToken<FrCarousel>('FrCarousel');
   selector: '[frCarousel], frame-carousel',
   exportAs: 'frCarousel',
   host: {
-    class: 'frame-carousel',
+    class: 'frame-carousel frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     role: 'region',
     tabindex: '0',
     '[attr.aria-roledescription]': '"carousel"',

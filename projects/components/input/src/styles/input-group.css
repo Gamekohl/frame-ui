@@ -93,18 +93,12 @@ frame-input-group-addon:has(> .frame-button) {
 .frame-input-group__addon > .frame-button,
 [frInputGroupAddon] > .frame-button,
 frame-input-group-addon > .frame-button {
-  --frame-button-root-corner-size: 0;
+  --frame-corner-handle-size: 0;
   block-size: 100%;
   min-block-size: 100%;
   border: 0;
   border-radius: 0;
   box-shadow: none;
-}
-
-.frame-input-group__addon > .frame-button::before,
-[frInputGroupAddon] > .frame-button::before,
-frame-input-group-addon > .frame-button::before {
-  display: none;
 }
 
 .frame-input-group__addon > .frame-button:focus-visible,

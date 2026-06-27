@@ -48,7 +48,8 @@ const FR_INPUT_OTP_CONTROLLER = new InjectionToken<FrInputOtpController>('FrInpu
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'frame-input-otp',
+    class: 'frame-input-otp frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     role: 'group',
     '[attr.data-disabled]': 'disabled() ? "" : null',
     '[attr.data-invalid]': 'invalid() ? "" : null',

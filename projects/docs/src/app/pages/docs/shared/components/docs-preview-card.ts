@@ -1,15 +1,15 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { FrButton } from '@frame-ui-ng/components';
+import { FrButton, FrCornerHandles } from '@frame-ui-ng/components';
 import { DocsExample } from '../models/component-doc.model';
 import { DocsCodeBlockComponent } from './docs-code-block/docs-code-block';
 
 @Component({
   selector: 'docs-preview-card',
-  imports: [NgComponentOutlet, DocsCodeBlockComponent, FrButton],
+  imports: [NgComponentOutlet, DocsCodeBlockComponent, FrButton, FrCornerHandles],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="docs-blueprint-sheet overflow-hidden">
+    <div frCornerHandles class="docs-blueprint-sheet overflow-hidden">
       <div class="flex items-center justify-between border-b border-border px-4 py-3">
         <p class="docs-blueprint-meta">
           {{ label() ?? 'Component Sheet' }}
@@ -43,7 +43,10 @@ import { DocsCodeBlockComponent } from './docs-code-block/docs-code-block';
           </div>
         }
       }
-      <div aria-hidden="true" class="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t border-border px-4 py-3">
+      <div
+        aria-hidden="true"
+        class="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t border-border px-4 py-3"
+      >
         <span class="docs-blueprint-measure"></span>
         <span class="docs-blueprint-meta">Blueprint Preview</span>
         <span class="docs-blueprint-measure"></span>

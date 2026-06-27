@@ -19,7 +19,8 @@ import {
   selector: '[frVirtualViewport], frame-virtual-viewport',
   exportAs: 'frVirtualViewport',
   host: {
-    class: 'frame-virtual-scroll__viewport',
+    class: 'frame-virtual-scroll__viewport frame-corner-handles',
+    'data-frame-corner-handles-mode': 'auto',
     '(scroll)': 'handleScroll()',
     '[style.block-size]': 'height()',
   },

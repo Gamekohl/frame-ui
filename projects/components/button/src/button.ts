@@ -17,7 +17,8 @@ export type FrButtonSize = (typeof FR_BUTTON_SIZES)[number];
 @Directive({
   selector: 'a[frButton], button[frButton]',
   host: {
-    class: 'frame-button',
+    class: 'frame-button frame-corner-handles',
+    '[attr.data-frame-corner-handles-mode]': '"auto"',
     '[attr.data-appearance]': 'appearance()',
     '[attr.data-disabled]': 'disabled() ? "" : null',
     '[attr.data-has-custom-loading]': 'hasCustomLoadingIndicator() ? "" : null',

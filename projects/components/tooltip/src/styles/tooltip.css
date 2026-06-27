@@ -8,7 +8,7 @@
 
 .frame-tooltip__content {
   position: relative;
-  --frame-blueprint-corner-inset: 0.125rem;
+  --frame-corner-handle-inset: 0.125rem;
   max-width: min(var(--frame-tooltip-content-max-width), calc(100vw - 1rem));
   border: 1px solid var(--frame-tooltip-content-border);
   border-radius: var(--frame-tooltip-content-radius);
