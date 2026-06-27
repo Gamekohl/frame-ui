@@ -147,16 +147,6 @@ const POSITIONS: ConnectedPosition[] = [
       (positionChange)="handlePositionChange($event)"
     >
       <div class="frame-date-picker__content frame-corner-handles" data-frame-corner-handles-mode="auto" role="dialog" [attr.aria-label]="dialogLabel()">
-        @if (presets().length) {
-          <div class="frame-date-picker__presets" aria-label="Date presets">
-            @for (preset of presets(); track preset.label) {
-              <button class="frame-date-picker__preset" type="button" (click)="selectPreset(preset)">
-                {{ preset.label }}
-              </button>
-            }
-          </div>
-        }
-
         <ng-container [ngTemplateOutlet]="headerTemplate() ?? null" />
 
         <frame-calendar
@@ -197,6 +187,16 @@ const POSITIONS: ConnectedPosition[] = [
               (change)="setTime($any($event.target).value)"
             />
           </label>
+        }
+
+        @if (presets().length) {
+          <div class="frame-date-picker__presets" aria-label="Date presets">
+            @for (preset of presets(); track preset.label) {
+              <button class="frame-date-picker__preset" type="button" (click)="selectPreset(preset)">
+                {{ preset.label }}
+              </button>
+            }
+          </div>
         }
 
         <ng-container [ngTemplateOutlet]="footerTemplate() ?? null" />

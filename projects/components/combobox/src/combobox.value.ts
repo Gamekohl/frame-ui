@@ -167,6 +167,12 @@ export class FrComboboxChipsInput {
       this.root.moveHighlight(1);
     }
 
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.root.open();
+      this.root.moveHighlight(-1);
+    }
+
     if (event.key === 'Enter') {
       event.preventDefault();
       this.root.selectHighlighted();

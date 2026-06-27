@@ -23,6 +23,28 @@ export type DatePickerPreviewConfig = {
   style?: string;
 };
 
+function startOfToday(): Date {
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
+function startOfMonth(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function addDays(date: Date, days: number): Date {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+
+function withTime(date: Date, hours: number, minutes: number): Date {
+  const next = new Date(date);
+  next.setHours(hours, minutes, 0, 0);
+  return next;
+}
+
 @Component({
   selector: 'docs-date-picker-preview',
   imports: [
@@ -55,8 +77,8 @@ export type DatePickerPreviewConfig = {
               <frame-date-picker
                 placeholder="Select date"
                 [fromYear]="1926"
-                [toYear]="2026"
-                [month]="june2026"
+                [toYear]="currentYear"
+                [month]="currentMonth"
                 [formControl]="dateControl"
               />
             </div>
@@ -70,7 +92,7 @@ export type DatePickerPreviewConfig = {
               <frame-date-picker
                 editable
                 placeholder="Select date"
-                [month]="june2026"
+                [month]="currentMonth"
                 [formControl]="emptyDateControl"
               />
             </div>
@@ -85,7 +107,7 @@ export type DatePickerPreviewConfig = {
               <frame-date-picker
                 showTime
                 placeholder="Select date"
-                [month]="june2026"
+                [month]="currentMonth"
                 [formControl]="timeControl"
               />
             </div>
@@ -98,7 +120,7 @@ export type DatePickerPreviewConfig = {
             <div frFieldContent>
               <frame-date-picker
                 placeholder="Select date"
-                [month]="june2026"
+                [month]="currentMonth"
                 [formControl]="requiredDateControl"
               />
             </div>
@@ -114,7 +136,7 @@ export type DatePickerPreviewConfig = {
 
         @case ('custom-nav') {
           <frame-date-picker
-            [month]="june2026"
+            [month]="currentMonth"
             [formControl]="dateControl"
             [previousMonthTemplate]="previousIcon"
             [nextMonthTemplate]="nextIcon"
@@ -136,7 +158,7 @@ export type DatePickerPreviewConfig = {
         }
 
         @case ('presets') {
-          <frame-date-picker [presets]="presets" [month]="june2026" [formControl]="dateControl" />
+          <frame-date-picker [presets]="presets" [month]="currentMonth" [formControl]="dateControl" />
         }
 
         @case ('rtl') {
@@ -145,7 +167,7 @@ export type DatePickerPreviewConfig = {
               dir="rtl"
               locale="ar-SA"
               placeholder="اختر تاريخًا"
-              [month]="june2026"
+              [month]="currentMonth"
               [formControl]="dateControl"
             />
           </div>
@@ -153,6 +175,13 @@ export type DatePickerPreviewConfig = {
 
         @case ('inspector') {
           <div class="docs-date-picker-inspector frame-date-picker__content">
+            <frame-calendar [month]="currentMonth" [selected]="timeControl.value" />
+
+            <label class="frame-date-picker__time">
+              <span class="frame-date-picker__time-label">Time</span>
+              <input class="frame-date-picker__time-input" type="time" value="09:00" />
+            </label>
+
             <div class="frame-date-picker__presets" aria-label="Date presets">
               @for (preset of presets; track preset.label) {
                 <button class="frame-date-picker__preset" type="button">
@@ -160,18 +189,11 @@ export type DatePickerPreviewConfig = {
                 </button>
               }
             </div>
-
-            <frame-calendar [month]="june2026" [selected]="timeControl.value" />
-
-            <label class="frame-date-picker__time">
-              <span class="frame-date-picker__time-label">Time</span>
-              <input class="frame-date-picker__time-input" type="time" value="09:00" />
-            </label>
           </div>
         }
 
         @default {
-          <frame-date-picker [month]="june2026" [formControl]="dateControl" />
+          <frame-date-picker [month]="currentMonth" [formControl]="dateControl" />
         }
       }
     </div>
@@ -180,11 +202,13 @@ export type DatePickerPreviewConfig = {
 export class DocsDatePickerPreviewComponent {
   readonly config = input<DatePickerPreviewConfig>({});
 
-  readonly june2026 = new Date(2026, 5, 1);
   readonly january2026 = new Date(2026, 0, 1);
-  readonly dateControl = new FormControl<Date | null>(new Date(2026, 5, 10));
+  private readonly today = startOfToday();
+  readonly currentYear = this.today.getFullYear();
+  readonly currentMonth = startOfMonth(this.today);
+  readonly dateControl = new FormControl<Date | null>(this.today);
   readonly emptyDateControl = new FormControl<Date | null>(null);
-  readonly timeControl = new FormControl<Date | null>(new Date(2026, 5, 10, 9, 0));
+  readonly timeControl = new FormControl<Date | null>(withTime(this.today, 9, 0));
   readonly requiredDateControl = new FormControl<Date | null>(null, {
     validators: Validators.required,
   });
@@ -194,9 +218,9 @@ export class DocsDatePickerPreviewComponent {
   });
 
   readonly presets: FrDatePickerPreset[] = [
-    { label: 'Today', value: () => new Date(2026, 5, 7) },
-    { label: 'Tomorrow', value: () => new Date(2026, 5, 8) },
-    { label: 'In 7 days', value: () => new Date(2026, 5, 14) },
+    { label: 'Today', value: () => startOfToday() },
+    { label: 'Tomorrow', value: () => addDays(startOfToday(), 1) },
+    { label: 'In 7 days', value: () => addDays(startOfToday(), 7) },
   ];
 }
 

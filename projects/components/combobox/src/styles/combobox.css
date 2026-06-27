@@ -163,7 +163,6 @@ frame-combobox[data-disabled] .frame-combobox__chips {
 .frame-combobox__item:hover {
   background: var(--frame-accent);
   color: var(--frame-accent-foreground);
-  transform: translateX(0.25rem);
 }
 
 .frame-combobox__item[disabled] {

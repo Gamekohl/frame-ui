@@ -154,19 +154,16 @@
   inline-size: calc(var(--frame-calendar-cell-size) * 7);
 }
 
-.frame-date-picker__content .frame-calendar__day {
-  inline-size: var(--frame-calendar-cell-size);
-  block-size: var(--frame-calendar-cell-size);
-}
-
 .frame-date-picker__presets {
-  display: grid;
-  gap: 0.125rem;
-  border-block-end: 1px solid var(--frame-date-picker-presets-border);
+  display: flex;
+  gap: 0.25rem;
+  border-block-start: 1px solid var(--frame-date-picker-presets-border);
+  overflow-x: auto;
   padding: 0.25rem;
 }
 
 .frame-date-picker__preset {
+  flex: 1 0 max-content;
   min-block-size: var(--frame-date-picker-preset-height);
   border: 1px solid transparent;
   border-radius: var(--frame-date-picker-preset-radius);
@@ -175,7 +172,8 @@
   cursor: pointer;
   font: inherit;
   padding-inline: 0.5rem;
-  text-align: start;
+  text-align: center;
+  white-space: nowrap;
   transition:
     background-color 140ms ease,
     border-color 140ms ease,
@@ -188,7 +186,7 @@
   background: var(--frame-date-picker-preset-hover-bg);
   border-color: var(--frame-frame-line-muted, var(--frame-border));
   outline: none;
-  transform: translateX(0.25rem);
+  transform: translateY(-1px);
   box-shadow: none;
 }
 
