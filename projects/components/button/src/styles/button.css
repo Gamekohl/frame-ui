@@ -13,9 +13,6 @@
   --frame-button-root-active-bg: color-mix(in srgb, var(--frame-primary) 84%, var(--frame-foreground));
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
-  --frame-button-root-corner-color: color-mix(in srgb, var(--frame-primary-foreground) 88%, transparent);
-  --frame-button-root-corner-inset: var(--frame-frame-tick-inset, 0px);
-  --frame-corner-handle-color: var(--frame-button-root-corner-color);
   --frame-spinner-size: var(--frame-button-loading-size, 1rem);
   --frame-spinner-stroke: var(--frame-button-loading-stroke, 2px);
   --frame-spinner-track-color: var(
@@ -152,7 +149,6 @@
   --frame-button-root-active-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
-  --frame-button-root-corner-color: var(--frame-frame-accent);
 }
 
 .frame-button[data-appearance='ghost'] {
@@ -165,14 +161,7 @@
   --frame-button-root-active-bg: color-mix(in srgb, var(--frame-muted) 80%, transparent);
   --frame-button-root-active-border: var(--frame-button-root-hover-border);
   --frame-button-root-active-color: var(--frame-button-root-hover-color);
-  --frame-button-root-corner-color: var(--frame-frame-accent);
-  --frame-corner-handle-size: 0px;
   --frame-button-root-shadow: none;
-}
-
-.frame-button[data-appearance='ghost']:where(:not(:disabled, [data-disabled])):hover,
-.frame-button[data-appearance='ghost'].frame-corner-handles:focus-visible {
-  --frame-corner-handle-size: var(--frame-corner-handle-auto-size);
 }
 
 .frame-button[data-size='sm'] {

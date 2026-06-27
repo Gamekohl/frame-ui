@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FrCornerHandles } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerArrowRight } from '@ng-icons/tabler-icons';
 
@@ -8,7 +9,7 @@ import { DocsTocItem } from '../shared/components/docs-toc/docs-toc.types';
 
 @Component({
   selector: 'app-theming',
-  imports: [DocsCodeBlockComponent, DocsTocComponent, NgIcon],
+  imports: [DocsCodeBlockComponent, DocsTocComponent, NgIcon, FrCornerHandles],
   templateUrl: './theming.html',
   styleUrl: './theming.scss',
   viewProviders: [provideIcons({ tablerArrowRight })],

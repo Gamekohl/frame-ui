@@ -73,15 +73,3 @@ frame-button-group[data-orientation='vertical'] > :not(:first-child):not(:last-c
   position: relative;
 }
 
-.frame-button-group.frame-corner-handles {
-  --frame-corner-handle-radius: var(--frame-button-group-radius);
-}
-
-.frame-button-group > .frame-button.frame-corner-handles,
-.frame-button-group > [frButton].frame-corner-handles,
-[frButtonGroup] > .frame-button.frame-corner-handles,
-[frButtonGroup] > [frButton].frame-corner-handles,
-frame-button-group > .frame-button.frame-corner-handles,
-frame-button-group > [frButton].frame-corner-handles {
-  --frame-corner-handle-size: 0;
-}

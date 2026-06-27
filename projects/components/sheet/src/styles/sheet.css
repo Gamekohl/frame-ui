@@ -23,7 +23,6 @@
 }
 
 .frame-sheet__panel {
-  --frame-corner-handle-radius: var(--frame-sheet-radius);
   position: relative;
   z-index: var(--frame-sheet-z-index);
   display: flex;

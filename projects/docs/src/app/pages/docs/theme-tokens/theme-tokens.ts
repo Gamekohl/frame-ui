@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton } from '@frame-ui-ng/components';
+import { FrButton, FrCornerHandles } from '@frame-ui-ng/components';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';
 import { DocsTocComponent } from '../shared/components/docs-toc/docs-toc';
@@ -8,7 +8,7 @@ import { DocsTocItem } from '../shared/components/docs-toc/docs-toc.types';
 
 @Component({
   selector: 'app-theme-tokens',
-  imports: [DocsCodeBlockComponent, DocsTocComponent, RouterLink, FrButton],
+  imports: [DocsCodeBlockComponent, DocsTocComponent, RouterLink, FrButton, FrCornerHandles],
   templateUrl: './theme-tokens.html',
   styleUrl: './theme-tokens.scss',
 })
@@ -166,5 +166,4 @@ html[data-shadow='raised'] {
   --frame-alert-root-icon-size: 1.125rem;
   --frame-alert-title-font-size: 1rem;
 }`;
-
 }

@@ -93,7 +93,6 @@ frame-input-group-addon:has(> .frame-button) {
 .frame-input-group__addon > .frame-button,
 [frInputGroupAddon] > .frame-button,
 frame-input-group-addon > .frame-button {
-  --frame-corner-handle-size: 0;
   block-size: 100%;
   min-block-size: 100%;
   border: 0;

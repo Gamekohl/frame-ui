@@ -5,7 +5,7 @@ import {
   FrCard,
   FrCardContent,
   FrCardHeader,
-  FrCardTitle,
+  FrCardTitle, FrCornerHandles,
 } from '@frame-ui-ng/components';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';
@@ -58,7 +58,15 @@ type ChangelogEntry = {
 
 @Component({
   selector: 'app-changelog',
-  imports: [DocsCodeBlockComponent, FrBadge, FrCard, FrCardContent, FrCardHeader, FrCardTitle],
+  imports: [
+    DocsCodeBlockComponent,
+    FrBadge,
+    FrCard,
+    FrCardContent,
+    FrCardHeader,
+    FrCardTitle,
+    FrCornerHandles,
+  ],
   templateUrl: './changelog.html',
 })
 export class Changelog {

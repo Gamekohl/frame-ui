@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components';
+import { FrButton, FrButtonIcon, FrButtonLabel, FrCornerHandles } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,
@@ -30,7 +30,7 @@ interface IntroStatus {
 
 @Component({
   selector: 'app-overview',
-  imports: [FrButton, FrButtonIcon, FrButtonLabel, NgIcon, RouterLink],
+  imports: [FrButton, FrButtonIcon, FrButtonLabel, NgIcon, RouterLink, FrCornerHandles],
   templateUrl: './overview.html',
   viewProviders: [
     provideIcons({

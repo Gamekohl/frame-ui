@@ -18,9 +18,6 @@ frame-input-header {
 [frInputControl],
 frame-input-control {
   --frame-input-frame-color: var(--frame-frame-line-muted);
-  --frame-corner-handle-color: var(--frame-input-frame-color);
-  --frame-corner-handle-inset: var(--frame-frame-tick-inset, 0.25rem);
-  --frame-corner-handle-radius: var(--frame-input-root-radius);
   position: relative;
   display: flex;
   align-items: center;

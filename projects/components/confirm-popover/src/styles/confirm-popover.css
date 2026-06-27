@@ -3,7 +3,6 @@
 }
 
 .frame-confirm-popover__content {
-  --frame-corner-handle-radius: var(--frame-popover-content-radius);
   gap: var(--frame-confirm-popover-gap, var(--frame-popover-content-gap));
 }
 
