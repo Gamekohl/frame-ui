@@ -1,7 +1,6 @@
 {
   "version": "0.5.0-beta.0",
   "label": "Theme system foundation",
-  "status": "Next",
   "highlights": [
     {
       "title": "Shared base values",

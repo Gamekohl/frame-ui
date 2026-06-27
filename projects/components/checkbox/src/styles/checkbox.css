@@ -58,6 +58,8 @@
 [frCheckbox]:where(:not(:disabled)):hover {
   background: var(--frame-checkbox-root-hover-bg, var(--frame-checkbox-root-bg, var(--frame-surface)));
   border-color: var(--frame-checkbox-root-hover-border, var(--frame-checkbox-root-border, var(--frame-border)));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frCheckbox]:focus-visible {

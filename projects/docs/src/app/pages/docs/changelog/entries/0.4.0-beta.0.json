@@ -1,7 +1,6 @@
 {
   "version": "0.4.0-beta.0",
   "label": "Confirm modal",
-  "status": "Next",
   "sections": [
     {
       "title": "Added",

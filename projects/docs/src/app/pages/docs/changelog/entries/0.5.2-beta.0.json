@@ -1,0 +1,89 @@
+{
+  "version": "0.5.2-beta.0",
+  "label": "Interaction and corner handle polish",
+  "highlights": [
+    {
+      "title": "Reusable corner handles",
+      "kind": "Added",
+      "description": "Corner handles are now rendered from one shared directive and stylesheet instead of being duplicated inside individual component styles. Use frCornerHandles on custom surfaces, or import the dedicated corner-handles stylesheet when only the renderer is needed.",
+      "code": {
+        "title": "custom-surface.html",
+        "language": "html",
+        "code": "<section frCornerHandles class=\"settings-panel\">\n  ...\n</section>"
+      }
+    },
+    {
+      "title": "Accordion component composition",
+      "kind": "Breaking",
+      "description": "Accordion now uses component hosts backed by Angular CDK accordion state. The public composition moved from attribute-only item and content directives to frame-accordion, frame-accordion-item, and ng-template based content.",
+      "comparison": {
+        "beforeTitle": "Before",
+        "afterTitle": "After",
+        "before": {
+          "title": "accordion.html",
+          "language": "html",
+          "code": "<div frAccordion type=\"single\" collapsible>\n  <section frAccordionItem value=\"details\">\n    <button frAccordionTrigger type=\"button\">Details</button>\n    <div frAccordionContent>More information.</div>\n  </section>\n</div>"
+        },
+        "after": {
+          "title": "accordion.html",
+          "language": "html",
+          "code": "<frame-accordion type=\"single\" collapsible>\n  <frame-accordion-item value=\"details\">\n    <button frameAccordionTrigger type=\"button\">Details</button>\n    <ng-template frameAccordionContent>More information.</ng-template>\n  </frame-accordion-item>\n</frame-accordion>"
+        }
+      }
+    },
+    {
+      "title": "Date picker dropdown caption",
+      "kind": "Changed",
+      "description": "Date Picker now opens with month and year selectors by default, uses the Frame UI Select primitives for those controls, places presets below the calendar, and uses SVG calendar/navigation icons instead of text glyph defaults."
+    },
+    {
+      "title": "Combobox state fixes",
+      "kind": "Fixed",
+      "description": "Combobox now keeps selected labels reactive, preserves typed queries while searching from a selected value, scrolls highlighted items into view during keyboard navigation, and supports ArrowUp navigation from the chips input."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Breaking",
+      "items": [
+        "Accordion markup now uses <frame-accordion> and <frame-accordion-item> instead of frAccordion and frAccordionItem host directives.",
+        "Accordion content now uses ng-template[frameAccordionContent] instead of an inline element with frAccordionContent.",
+        "Accordion trigger and icon selectors were renamed to frameAccordionTrigger and frameAccordionIcon.",
+        "Calendar and Date Picker no longer expose previousMonthIcon and nextMonthIcon text inputs; use previousMonthTemplate and nextMonthTemplate for custom navigation icons."
+      ]
+    },
+    {
+      "title": "Added",
+      "items": [
+        "Added the FrCornerHandles directive for applying Frame UI corner handles to custom boxes.",
+        "Added a standalone styles/corner-handles.css export and included it in the component styles bundle.",
+        "Added Accordion openAll and closeAll helpers through the CDK-backed root component.",
+        "Added grouped Combobox filtering coverage, chip keyboard navigation coverage, Date Picker caption layout coverage, and Sheet positioning coverage."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Accordion state, default values, single versus multiple behavior, and content height transitions now run through CDK accordion primitives.",
+        "Accordion borders are opt-in by default, and the docs/examples now show the new component composition.",
+        "Calendar dropdown captions now use Frame UI Select controls and inline SVG chevrons.",
+        "Date Picker now defaults captionLayout to dropdown and moves preset actions below the calendar.",
+        "Sheet overlays now use side-aware CDK global positioning and side-specific panel classes.",
+        "Docs surfaces were updated to use the shared corner-handle directive, and component examples were refreshed for Accordion, Collapsible, Date Picker, Sheet, and related pages."
+      ]
+    },
+    {
+      "title": "Fixed",
+      "items": [
+        "Fixed Combobox selected-value display updates when item labels are registered after an initial value is set.",
+        "Fixed Combobox query editing so deleting the typed query from a selected value keeps the input empty instead of restoring the previous label too early.",
+        "Fixed Combobox keyboard navigation so highlighted options scroll into view and chip inputs can move upward as well as downward.",
+        "Fixed grouped Combobox filtering so empty groups are hidden and the empty state is shown when no grouped item matches.",
+        "Fixed Date Picker overlay layout and focus expectations for the new default dropdown caption.",
+        "Fixed Sheet side positioning for service-opened sheets, including left and RTL examples.",
+        "Fixed Checkbox checked and indeterminate indicator motion so state changes render more cleanly.",
+        "Fixed Button, Modal, Sheet, Input, and overlay-adjacent components to use the shared corner-handle renderer instead of duplicated pseudo-element rules."
+      ]
+    }
+  ]
+}

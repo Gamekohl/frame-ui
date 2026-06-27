@@ -1,14 +1,16 @@
 @import './_vars.css';
 
 [frCarousel],
-frame-carousel {
+frame-carousel,
+.frame-carousel {
   position: relative;
   display: block;
   width: 100%;
   box-sizing: border-box;
 }
 
-[frCarouselContent] {
+[frCarouselContent],
+.frame-carousel__content {
   display: flex;
   gap: var(--frame-carousel-gap);
   overflow: auto;
@@ -19,18 +21,21 @@ frame-carousel {
   border-radius: var(--frame-carousel-viewport-radius);
 }
 
-[frCarouselContent]::-webkit-scrollbar {
+[frCarouselContent]::-webkit-scrollbar,
+.frame-carousel__content::-webkit-scrollbar {
   display: none;
 }
 
-[frCarouselContent][data-orientation='vertical'] {
+[frCarouselContent][data-orientation='vertical'],
+.frame-carousel__content[data-orientation='vertical'] {
   max-block-size: var(--frame-carousel-vertical-size, 20rem);
   flex-direction: column;
   scroll-snap-type: y mandatory;
 }
 
 [frCarouselItem],
-[data-frame-carousel-clone] {
+[data-frame-carousel-clone],
+.frame-carousel__item {
   flex: 0 0 var(--frame-carousel-item-size);
   min-width: 0;
   min-height: 0;
@@ -40,19 +45,24 @@ frame-carousel {
 [frCarousel][data-align='center'] [frCarouselItem],
 [frCarousel][data-align='center'] [data-frame-carousel-clone],
 frame-carousel[data-align='center'] [frCarouselItem],
-frame-carousel[data-align='center'] [data-frame-carousel-clone] {
+frame-carousel[data-align='center'] [data-frame-carousel-clone],
+.frame-carousel[data-align='center'] .frame-carousel__item,
+.frame-carousel[data-align='center'] [data-frame-carousel-clone] {
   --frame-carousel-snap-align: center;
 }
 
 [frCarousel][data-align='end'] [frCarouselItem],
 [frCarousel][data-align='end'] [data-frame-carousel-clone],
 frame-carousel[data-align='end'] [frCarouselItem],
-frame-carousel[data-align='end'] [data-frame-carousel-clone] {
+frame-carousel[data-align='end'] [data-frame-carousel-clone],
+.frame-carousel[data-align='end'] .frame-carousel__item,
+.frame-carousel[data-align='end'] [data-frame-carousel-clone] {
   --frame-carousel-snap-align: end;
 }
 
 [frCarouselPrevious],
-[frCarouselNext] {
+[frCarouselNext],
+.frame-carousel__control {
   position: absolute;
   z-index: 1;
   inline-size: var(--frame-carousel-control-size);
@@ -61,28 +71,32 @@ frame-carousel[data-align='end'] [data-frame-carousel-clone] {
 }
 
 [frCarousel][data-orientation='horizontal'] [frCarouselPrevious],
-frame-carousel[data-orientation='horizontal'] [frCarouselPrevious] {
+frame-carousel[data-orientation='horizontal'] [frCarouselPrevious],
+.frame-carousel[data-orientation='horizontal'] .frame-carousel__control--previous {
   inset-block-start: 50%;
   inset-inline-start: var(--frame-carousel-control-offset);
   transform: translateY(-50%);
 }
 
 [frCarousel][data-orientation='horizontal'] [frCarouselNext],
-frame-carousel[data-orientation='horizontal'] [frCarouselNext] {
+frame-carousel[data-orientation='horizontal'] [frCarouselNext],
+.frame-carousel[data-orientation='horizontal'] .frame-carousel__control--next {
   inset-block-start: 50%;
   inset-inline-end: var(--frame-carousel-control-offset);
   transform: translateY(-50%);
 }
 
 [frCarousel][data-orientation='vertical'] [frCarouselPrevious],
-frame-carousel[data-orientation='vertical'] [frCarouselPrevious] {
+frame-carousel[data-orientation='vertical'] [frCarouselPrevious],
+.frame-carousel[data-orientation='vertical'] .frame-carousel__control--previous {
   inset-block-start: var(--frame-carousel-control-offset);
   inset-inline-start: 50%;
   transform: translateX(-50%) rotate(90deg);
 }
 
 [frCarousel][data-orientation='vertical'] [frCarouselNext],
-frame-carousel[data-orientation='vertical'] [frCarouselNext] {
+frame-carousel[data-orientation='vertical'] [frCarouselNext],
+.frame-carousel[data-orientation='vertical'] .frame-carousel__control--next {
   inset-block-end: var(--frame-carousel-control-offset);
   inset-inline-start: 50%;
   transform: translateX(-50%) rotate(90deg);
