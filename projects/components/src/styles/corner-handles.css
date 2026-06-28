@@ -4,25 +4,14 @@
  */
 
 .frame-corner-handles {
-  --frame-corner-handle-auto-size: var(--frame-frame-tick-size, 0.375rem);
   position: relative;
-}
-
-@supports (width: calc(1px * 1)) {
-  .frame-corner-handles[data-frame-corner-handles-mode='auto'] {
-    --frame-corner-handle-auto-size: clamp(
-      0px,
-      calc((1px - var(--frame-corner-handle-radius, var(--frame-radius, 0px))) * 9999),
-      var(--frame-frame-tick-size, 0.375rem)
-    );
-  }
 }
 
 .frame-corner-handles::before {
   --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
   --frame-corner-handle-active-size: var(
     --frame-corner-handle-size,
-    var(--frame-corner-handle-auto-size)
+    var(--frame-frame-tick-size, 0.375rem)
   );
   position: absolute;
   display: block;
@@ -49,14 +38,6 @@
   pointer-events: none;
 }
 
-.frame-corner-handles[data-frame-corner-handles-mode='always']::before {
-  --frame-corner-handle-active-size: var(
-    --frame-corner-handle-size,
-    var(--frame-frame-tick-size, 0.375rem)
-  );
-}
-
-.frame-corner-handles[data-frame-corner-handles-mode='never']::before,
 :root[data-frame-corner-handles='false'] .frame-corner-handles::before {
   content: none;
 }
@@ -70,7 +51,7 @@
   --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
   --frame-corner-handle-active-size: var(
     --frame-corner-handle-size,
-    var(--frame-corner-handle-auto-size)
+    var(--frame-frame-tick-size, 0.375rem)
   );
   background-image:
     linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
@@ -109,7 +90,7 @@
 
 .frame-button.frame-corner-handles[data-appearance='ghost']:where(:not(:disabled, [data-disabled])):hover,
 .frame-button.frame-corner-handles[data-appearance='ghost']:focus-visible {
-  --frame-corner-handle-size: var(--frame-corner-handle-auto-size);
+  --frame-corner-handle-size: var(--frame-frame-tick-size, 0.375rem);
 }
 
 .frame-button-group.frame-corner-handles {
@@ -169,7 +150,7 @@ frame-input-control.frame-corner-handles {
   --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
   --frame-corner-handle-active-size: var(
     --frame-corner-handle-size,
-    var(--frame-corner-handle-auto-size)
+    var(--frame-frame-tick-size, 0.375rem)
   );
   background-image:
     linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),

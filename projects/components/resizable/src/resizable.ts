@@ -21,7 +21,6 @@ let nextResizableId = 0;
   exportAs: 'frResizablePanelGroup',
   host: {
     class: 'frame-resizable frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-orientation]': 'orientation()',
     '[attr.data-disabled]': 'disabled() ? "" : null',
   },

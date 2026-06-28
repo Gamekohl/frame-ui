@@ -15,7 +15,6 @@ export type FrAlertVariant = (typeof FR_ALERT_VARIANTS)[number];
   selector: '[frAlert]',
   host: {
     class: 'frame-alert frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-variant]': 'variant()',
     'role': 'alert',
   },

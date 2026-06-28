@@ -22,7 +22,6 @@ const FR_CARD_SPACING_VALUES: Record<FrCardSpacing, string> = {
     class: 'frame-card frame-corner-handles',
     '[attr.data-size]': 'size()',
     '[attr.data-spacing]': 'spacing()',
-    'data-frame-corner-handles-mode': 'auto',
     '[style.--frame-card-spacing]': 'spacingValue()',
   },
 })

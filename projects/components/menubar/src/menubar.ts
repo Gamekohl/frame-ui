@@ -39,7 +39,6 @@ export const FR_MENUBAR_PARENT = new InjectionToken<FrMenuBar>('FrMenuBarParent'
   ],
   host: {
     class: 'frame-menubar frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     role: 'menubar',
   },
 })

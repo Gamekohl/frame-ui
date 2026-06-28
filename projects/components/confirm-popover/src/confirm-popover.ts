@@ -337,10 +337,9 @@ export class FrConfirmPopover {
   imports: [FrButton, FrButtonLabel],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      class="frame-popover__content frame-confirm-popover__content frame-corner-handles"
-      data-frame-corner-handles-mode="auto"
-      role="alertdialog"
+      <div
+        class="frame-popover__content frame-confirm-popover__content frame-corner-handles"
+        role="alertdialog"
       [attr.aria-describedby]="descriptionId()"
       [attr.aria-labelledby]="titleId()"
       [attr.data-side]="side()"

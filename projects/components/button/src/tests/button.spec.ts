@@ -88,7 +88,6 @@ describe('FrButton', () => {
     expect(button.hasAttribute('data-radius')).toBe(false);
     expect(button.classList.contains('frame-button')).toBe(true);
     expect(button.classList.contains('frame-corner-handles')).toBe(true);
-    expect(button.getAttribute('data-frame-corner-handles-mode')).toBe('auto');
   });
 
   it('updates disabled state and keeps optional slot markers stable', async () => {

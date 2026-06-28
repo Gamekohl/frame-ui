@@ -15,7 +15,6 @@ export type FrEmptyVariant = (typeof FR_EMPTY_VARIANTS)[number];
     class: 'frame-empty frame-corner-handles',
     '[attr.data-orientation]': 'orientation()',
     '[attr.data-variant]': 'variant()',
-    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrEmpty {

@@ -31,7 +31,20 @@
       </section>
 
       <section>
-        <p class="docs-blueprint-meta mb-3">03 Components</p>
+        <p class="docs-blueprint-meta mb-3">03 Utilities</p>
+        <nav class="grid gap-1 text-sm">
+          <a
+            class="group flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
+            routerLink="/docs/utilities/corner-handles"
+            routerLinkActive="border-primary/50 bg-muted font-medium !text-foreground"
+          >
+            <span>Corner Handles</span>
+          </a>
+        </nav>
+      </section>
+
+      <section>
+        <p class="docs-blueprint-meta mb-3">04 Components</p>
         <nav class="grid gap-1 text-sm">
           @for (item of components(); track item.name) {
             <a

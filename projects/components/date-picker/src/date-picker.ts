@@ -146,7 +146,7 @@ const POSITIONS: ConnectedPosition[] = [
       (detach)="close()"
       (positionChange)="handlePositionChange($event)"
     >
-      <div class="frame-date-picker__content frame-corner-handles" data-frame-corner-handles-mode="auto" role="dialog" [attr.aria-label]="dialogLabel()">
+      <div class="frame-date-picker__content frame-corner-handles" role="dialog" [attr.aria-label]="dialogLabel()">
         <ng-container [ngTemplateOutlet]="headerTemplate() ?? null" />
 
         <frame-calendar

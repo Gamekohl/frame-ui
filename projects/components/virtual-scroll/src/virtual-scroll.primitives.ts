@@ -5,7 +5,6 @@ import { Directive } from '@angular/core';
   selector: '[frVirtualList], frame-virtual-list',
   host: {
     class: 'frame-virtual-scroll__list frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrVirtualList {}

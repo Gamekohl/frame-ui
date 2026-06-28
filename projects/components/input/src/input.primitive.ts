@@ -32,7 +32,6 @@ export class FrInputHeader {}
   selector: '[frInputControl], frame-input-control',
   host: {
     class: 'frame-input-control frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrInputControl {}

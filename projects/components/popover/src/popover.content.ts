@@ -34,7 +34,6 @@ export class FrPopoverContent {
   selector: '[frPopoverPanel]',
   host: {
     class: 'frame-popover__content frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-side]': 'content.side()',
     role: 'dialog',
     tabindex: '-1',

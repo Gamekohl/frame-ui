@@ -30,7 +30,6 @@ export class FrSheetClose {
   selector: '[frSheetPanel], frame-sheet-panel',
   host: {
     class: 'frame-sheet__panel frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-scrollable]': 'scrollable() ? "" : null',
     '[attr.data-side]': 'side()',
   },

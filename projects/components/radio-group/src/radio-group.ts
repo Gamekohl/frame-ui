@@ -54,7 +54,6 @@ export class FrRadioGroupField {
   selector: 'label[frRadioGroupCard]',
   host: {
     class: 'frame-radio-group__card frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
   },
 })
 export class FrRadioGroupCard {}

@@ -13,7 +13,6 @@ export type FrItemMediaVariant = (typeof FR_ITEM_MEDIA_VARIANTS)[number];
   selector: '[frItem], frame-item',
   host: {
     class: 'frame-item frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '[attr.data-disabled]': 'disabled() ? "" : null',
     '[attr.data-interactive]': 'interactive() ? "" : null',
     '[attr.data-size]': 'size()',

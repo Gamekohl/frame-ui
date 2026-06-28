@@ -22,6 +22,11 @@ export default [
         loadComponent: () => import('./all-components/all-components').then((m) => m.AllComponents),
       },
       {
+        path: 'utilities',
+        pathMatch: 'full',
+        redirectTo: 'utilities/corner-handles',
+      },
+      {
         path: 'theme-tokens',
         loadComponent: () => import('./theme-tokens/theme-tokens').then((m) => m.ThemeTokens),
       },
@@ -45,6 +50,13 @@ export default [
         path: 'components/accordion',
         loadComponent: () =>
           import('./components/accordion/accordion.page').then((m) => m.AccordionPageComponent),
+      },
+      {
+        path: 'utilities/corner-handles',
+        loadComponent: () =>
+          import('./utilities/corner-handles/corner-handles.page').then(
+            (m) => m.CornerHandlesPageComponent,
+          ),
       },
       {
         path: 'components/alert',

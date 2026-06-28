@@ -20,7 +20,6 @@ import {
   exportAs: 'frVirtualViewport',
   host: {
     class: 'frame-virtual-scroll__viewport frame-corner-handles',
-    'data-frame-corner-handles-mode': 'auto',
     '(scroll)': 'handleScroll()',
     '[style.block-size]': 'height()',
   },

@@ -299,10 +299,9 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const panel = document.body.querySelector('.frame-combobox__panel') as HTMLElement;
-    expect(panel.classList.contains('frame-corner-handles')).toBe(false);
-    expect(panel.hasAttribute('data-frame-corner-handles-mode')).toBe(false);
-  });
+      const panel = document.body.querySelector('.frame-combobox__panel') as HTMLElement;
+      expect(panel.classList.contains('frame-corner-handles')).toBe(false);
+    });
 
   it('hides grouped sections without visible filter matches', async () => {
     const fixture = TestBed.createComponent(GroupedComboboxHostComponent);
