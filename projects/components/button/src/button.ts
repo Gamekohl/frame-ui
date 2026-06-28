@@ -7,25 +7,22 @@ export const FR_BUTTON_APPEARANCES = [
   'primary',
 ] as const;
 export const FR_BUTTON_LOADING_DISPLAYS = ['inline', 'replace'] as const;
-export const FR_BUTTON_RADII = ['full', 'lg', 'md', 'none', 'sm'] as const;
 export const FR_BUTTON_SIZES = ['sm', 'md', 'lg'] as const;
 
 export type FrButtonAppearance = (typeof FR_BUTTON_APPEARANCES)[number];
 export type FrButtonLoadingDisplay = (typeof FR_BUTTON_LOADING_DISPLAYS)[number];
-export type FrButtonRadius = (typeof FR_BUTTON_RADII)[number];
 export type FrButtonSize = (typeof FR_BUTTON_SIZES)[number];
 
 /** Button host with FrameUI size and appearance variants. */
 @Directive({
   selector: 'a[frButton], button[frButton]',
   host: {
-    class: 'frame-button',
+    class: 'frame-button frame-corner-handles',
     '[attr.data-appearance]': 'appearance()',
     '[attr.data-disabled]': 'disabled() ? "" : null',
     '[attr.data-has-custom-loading]': 'hasCustomLoadingIndicator() ? "" : null',
     '[attr.data-loading]': 'loading() ? "" : null',
     '[attr.data-loading-display]': 'loadingDisplay()',
-    '[attr.data-radius]': 'radius()',
     '[attr.data-size]': 'size()',
     '[attr.aria-busy]': 'loading() ? "true" : null',
     '[attr.aria-disabled]': 'disabled() ? "true" : null',
@@ -42,7 +39,6 @@ export class FrButton {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly loading = input(false, { transform: booleanAttribute });
   readonly loadingDisplay = input<FrButtonLoadingDisplay>('replace');
-  readonly radius = input<FrButtonRadius>('none');
   readonly size = input<FrButtonSize>('md');
   protected readonly hasCustomLoadingIndicator = computed(
     () => !!this.loadingIndicator() || !!this.spinnerIndicator(),
@@ -56,7 +52,7 @@ export class FrButton {
   hostDirectives: [
     {
       directive: FrButton,
-      inputs: ['appearance', 'disabled', 'loading', 'loadingDisplay', 'radius', 'size'],
+      inputs: ['appearance', 'disabled', 'loading', 'loadingDisplay', 'size'],
     },
   ],
   host: {

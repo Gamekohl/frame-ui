@@ -89,7 +89,7 @@ const inspectorConfig: TextareaPreviewConfig = {
 
 const customStylingConfig: TextareaPreviewConfig = {
   style: `--frame-textarea-root-min-height: 8rem;
---frame-textarea-root-radius: 1rem;
+--frame-textarea-root-radius: var(--frame-radius-lg);
 --frame-textarea-root-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
 --frame-textarea-root-focus-border: color-mix(in srgb, var(--frame-primary) 60%, var(--frame-border));
 --frame-textarea-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-primary) 18%, transparent);

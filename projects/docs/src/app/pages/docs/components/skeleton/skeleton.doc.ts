@@ -6,7 +6,7 @@ const fieldImportsCode = `import { FrFieldModule } from '@frame-ui-ng/components
 ${importsCode}`;
 
 const basicHtml = `<div class="loading-user">
-  <div frSkeleton width="3rem" height="3rem" radius="999px"></div>
+  <div frSkeleton width="3rem" height="3rem" radius="var(--frame-radius-full)"></div>
 
   <div class="loading-user__content">
     <div frSkeleton width="12rem" height="1rem"></div>
@@ -15,7 +15,7 @@ const basicHtml = `<div class="loading-user">
 </div>`;
 
 const avatarHtml = `<div class="profile-placeholder">
-  <div frSkeleton width="4rem" height="4rem" radius="999px"></div>
+  <div frSkeleton width="4rem" height="4rem" radius="var(--frame-radius-full)"></div>
   <div>
     <div frSkeleton width="11rem" height="1.125rem"></div>
     <div frSkeleton width="15rem" height="0.875rem"></div>
@@ -24,7 +24,7 @@ const avatarHtml = `<div class="profile-placeholder">
 </div>`;
 
 const cardHtml = `<section class="metric-card">
-  <div frSkeleton height="8rem" radius="0.875rem"></div>
+  <div frSkeleton height="8rem" radius="var(--frame-radius-lg)"></div>
   <div frSkeleton width="65%" height="1rem"></div>
   <div frSkeleton width="92%" height="0.875rem"></div>
   <div frSkeleton width="74%" height="0.875rem"></div>
@@ -41,15 +41,15 @@ const textHtml = `<article aria-busy="true">
 const formHtml = `<form aria-label="Loading account settings">
   <div frField>
     <label frFieldLabel>Email</label>
-    <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+    <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
   </div>
 
   <div frField>
     <label frFieldLabel>Workspace URL</label>
-    <div frSkeleton height="2.5rem" radius="0.625rem"></div>
+    <div frSkeleton height="2.5rem" radius="var(--frame-radius-md)"></div>
   </div>
 
-  <div frSkeleton width="7rem" height="2.25rem" radius="0.625rem"></div>
+  <div frSkeleton width="7rem" height="2.25rem" radius="var(--frame-radius-md)"></div>
 </form>`;
 
 const tableHtml = `<div role="table" aria-label="Loading deployment rows">
@@ -71,7 +71,7 @@ const customCss = `.metric-card {
 }`;
 
 const rtlHtml = `<div class="profile-placeholder" dir="rtl" lang="ar">
-  <div frSkeleton width="4rem" height="4rem" radius="999px"></div>
+  <div frSkeleton width="4rem" height="4rem" radius="var(--frame-radius-full)"></div>
   <div>
     <div frSkeleton width="10rem" height="1.125rem"></div>
     <div frSkeleton width="14rem" height="0.875rem"></div>
@@ -79,9 +79,9 @@ const rtlHtml = `<div class="profile-placeholder" dir="rtl" lang="ar">
   </div>
 </div>`;
 
-const tokens = `--frame-skeleton-bg: color-mix(in srgb, var(--frame-muted, #f4f4f5) 84%, var(--frame-foreground, #09090b) 8%);
---frame-skeleton-highlight: color-mix(in srgb, var(--frame-background, #fff) 64%, transparent);
---frame-skeleton-radius: var(--frame-radius-md, 0.5rem);
+const tokens = `--frame-skeleton-bg: color-mix(in srgb, var(--frame-muted) 84%, var(--frame-foreground) 8%);
+--frame-skeleton-highlight: color-mix(in srgb, var(--frame-background) 64%, transparent);
+--frame-skeleton-radius: var(--frame-radius-md);
 --frame-skeleton-width: 100%;
 --frame-skeleton-height: 1rem;
 --frame-skeleton-animation-duration: 1.4s;`;

@@ -47,6 +47,7 @@ export type FrTableVariant = (typeof FR_TABLE_VARIANTS)[number];
   ],
   host: {
     class: 'cdk-table frame-table',
+    '[class.frame-corner-handles]': 'variant() === "outline" || variant() === "card"',
     '[class.cdk-table-fixed-layout]': 'fixedLayout',
     '[attr.data-density]': 'density()',
     '[attr.data-variant]': 'variant()',
@@ -107,7 +108,7 @@ export class FrTable<T> extends CdkTable<T> {
 @Directive({
   selector: '[frTableContainer], frame-table-container',
   host: {
-    class: 'frame-table-container',
+    class: 'frame-table-container frame-corner-handles',
   },
 })
 export class FrTableContainer {}
@@ -333,7 +334,7 @@ export class FrTableMuted {}
 @Directive({
   selector: '[frTableVirtual], frame-table-virtual',
   host: {
-    class: 'frame-table-virtual',
+    class: 'frame-table-virtual frame-corner-handles',
   },
 })
 export class FrTableVirtual {}

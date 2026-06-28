@@ -242,7 +242,7 @@ export type PopoverPreviewConfig = {
 
     .docs-popover-custom-trigger {
       --frame-popover-content-width: 22rem;
-      --frame-popover-content-radius: 1.25rem;
+      --frame-popover-content-radius: var(--frame-radius-lg);
       --frame-popover-content-bg: linear-gradient(135deg, var(--frame-surface), color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface)));
       --frame-popover-content-shadow: 0 26px 80px color-mix(in srgb, var(--frame-primary) 20%, transparent);
       --frame-popover-title-color: var(--frame-primary);
@@ -252,7 +252,7 @@ export type PopoverPreviewConfig = {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      border-radius: 999px;
+      border-radius: var(--frame-radius-full);
       background: color-mix(in srgb, var(--frame-primary) 10%, transparent);
       color: var(--frame-primary);
       font-size: 0.8125rem;

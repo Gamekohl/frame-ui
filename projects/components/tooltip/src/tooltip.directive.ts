@@ -434,9 +434,9 @@ export class FrTooltipShortcut {}
   imports: [NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      class="frame-tooltip__content"
-      role="tooltip"
+      <div
+        class="frame-tooltip__content frame-corner-handles"
+        role="tooltip"
       [id]="id()"
       [attr.data-side]="side()"
       [attr.data-arrow]="arrow() ? '' : null"

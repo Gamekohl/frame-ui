@@ -24,22 +24,21 @@ frame-select-group {
   justify-content: center;
   inline-size: var(--frame-select-item-indicator-size);
   block-size: var(--frame-select-item-indicator-size);
-  color: currentColor;
-  font-size: var(--frame-select-item-indicator-font-size);
-  font-weight: 700;
-  line-height: 1;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E") center / contain no-repeat;
   opacity: 0;
   transform: translateY(-50%);
 }
 
 .frame-select__item[data-state='checked']:not([data-has-custom-indicator])[data-indicator-position='start']::before {
-  content: '✓';
+  content: '';
   inset-inline-start: var(--frame-select-item-indicator-offset);
   opacity: 1;
 }
 
 .frame-select__item[data-state='checked']:not([data-has-custom-indicator])[data-indicator-position='end']::after {
-  content: '✓';
+  content: '';
   inset-inline-end: var(--frame-select-item-indicator-offset);
   opacity: 1;
 }

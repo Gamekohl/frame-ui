@@ -28,9 +28,9 @@ import { FR_TOAST_POSITIONS, FrToastPosition, FrToastRecord } from './toast.type
           [style.--frame-toast-count]="positionToasts.length"
         >
           @for (toast of positionToasts; track toast.id; let toastIndex = $index) {
-            <article
-              class="frame-toast"
-              [attr.data-variant]="toast.variant"
+              <article
+                class="frame-toast frame-corner-handles"
+                [attr.data-variant]="toast.variant"
               [attr.data-loading]="toast.loading"
               [attr.data-dismissible]="toast.dismissible"
               [attr.data-has-description]="toast.description ? 'true' : 'false'"

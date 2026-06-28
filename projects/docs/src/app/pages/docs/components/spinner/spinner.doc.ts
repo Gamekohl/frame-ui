@@ -70,7 +70,7 @@ const tokens = `--frame-spinner-size: 1rem;
 --frame-spinner-stroke: 2px;
 --frame-spinner-track-color: color-mix(in srgb, currentColor 24%, transparent);
 --frame-spinner-indicator-color: currentColor;
---frame-spinner-radius: 999px;
+--frame-spinner-radius: var(--frame-radius-full);
 --frame-spinner-duration: 700ms;`;
 
 export const SPINNER_DOC: ComponentDoc = {

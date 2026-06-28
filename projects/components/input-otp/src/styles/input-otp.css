@@ -111,6 +111,6 @@ frame-input-otp[data-disabled] .frame-input-otp__slot {
   content: '';
   inline-size: var(--frame-input-otp-separator-size);
   block-size: var(--frame-input-otp-separator-size);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: currentColor;
 }

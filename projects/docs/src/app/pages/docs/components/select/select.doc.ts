@@ -146,7 +146,7 @@ const inspectorConfig: SelectPreviewConfig = {
 };
 
 const customStylingConfig: SelectPreviewConfig = {
-  style: `--frame-select-trigger-radius: 1rem;
+  style: `--frame-select-trigger-radius: var(--frame-radius-lg);
 --frame-select-trigger-height: 2.75rem;
 --frame-select-trigger-border: color-mix(in srgb, var(--frame-primary) 26%, var(--frame-border));
 --frame-select-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-primary) 18%, transparent);

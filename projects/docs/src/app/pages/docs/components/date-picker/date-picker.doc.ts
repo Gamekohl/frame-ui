@@ -26,13 +26,13 @@ const rangeHtml = `<frame-date-picker
 
 const dobTs = `import { FormControl } from '@angular/forms';
 
+readonly currentYear = new Date().getFullYear();
 readonly birthday = new FormControl<Date | null>(null);`;
 
 const dobHtml = `<frame-date-picker
-  captionLayout="dropdown"
   placeholder="Select date"
   [fromYear]="1926"
-  [toYear]="2026"
+  [toYear]="currentYear"
   [formControl]="birthday"
 />`;
 
@@ -48,9 +48,7 @@ const inputHtml = `<frame-date-picker
 
 const timeTs = `import { FormControl } from '@angular/forms';
 
-readonly startsAt = new FormControl<Date | null>(
-  new Date(2026, 5, 10, 9, 0),
-);`;
+readonly startsAt = new FormControl<Date | null>(new Date());`;
 
 const timeHtml = `<frame-date-picker
   showTime
@@ -105,12 +103,18 @@ const presetsHtml = `<frame-date-picker
 const presetsTs = `import { FormControl } from '@angular/forms';
 import { FrDatePickerPreset } from '@frame-ui-ng/components/date-picker';
 
+const addDays = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date;
+};
+
 readonly date = new FormControl<Date | null>(new Date());
 
 readonly presets: FrDatePickerPreset[] = [
-  { label: 'Today', value: () => new Date(2026, 5, 7) },
-  { label: 'Tomorrow', value: () => new Date(2026, 5, 8) },
-  { label: 'In 7 days', value: () => new Date(2026, 5, 14) },
+  { label: 'Today', value: () => new Date() },
+  { label: 'Tomorrow', value: () => addDays(1) },
+  { label: 'In 7 days', value: () => addDays(7) },
 ];`;
 
 const rtlTs = `import { FormControl } from '@angular/forms';
@@ -121,7 +125,6 @@ const rtlHtml = `<div dir="rtl">
   <frame-date-picker
     dir="rtl"
     locale="ar-SA"
-    captionLayout="dropdown"
     placeholder="اختر تاريخًا"
     [formControl]="date"
   />
@@ -166,9 +169,9 @@ export const DATE_PICKER_DOC: ComponentDoc = {
   composition: `DatePicker
 └── Trigger / Editable input
     └── CDK Overlay
-        ├── Presets
         ├── Calendar
-        └── Time input`,
+        ├── Time input
+        └── Presets`,
 
   tokenInspector: {
     id: 'token-inspector',
@@ -199,7 +202,7 @@ export const DATE_PICKER_DOC: ComponentDoc = {
           id: 'preset',
           label: 'Preset',
           selector: '.docs-date-picker-inspector .frame-date-picker__preset',
-          description: 'Preset buttons provide quick relative date choices above the calendar.',
+          description: 'Preset buttons provide quick relative date choices in a footer row below the calendar.',
           tokens: [
             '--frame-date-picker-preset-height',
             '--frame-date-picker-preset-radius',
@@ -228,7 +231,7 @@ export const DATE_PICKER_DOC: ComponentDoc = {
     {
       id: 'basic',
       title: 'Basic',
-      description: 'A basic date picker bound to an Angular reactive form control.',
+      description: 'A basic date picker with built-in month and year selection.',
       preview: {
         component: DocsDatePickerPreviewComponent,
       },
@@ -254,7 +257,7 @@ export const DATE_PICKER_DOC: ComponentDoc = {
     {
       id: 'date-of-birth',
       title: 'Date of Birth',
-      description: 'Use the dropdown caption layout and a constrained year range for birthday-style selection.',
+      description: 'Constrain the available year range for birthday-style selection.',
       preview: {
         component: DocsDatePickerPreviewComponent,
         inputs: { config: { mode: 'dob' } },

@@ -5,8 +5,9 @@
 
 .ai-composer-panel,
 .ai-composer-snippets,
-.ai-composer-snippets [frAccordionItem],
-.ai-composer-snippets [frAccordionContent] {
+.ai-composer-snippets frame-accordion-item,
+.ai-composer-snippets .frame-accordion__content,
+.ai-composer-snippets .frame-accordion__content-inner {
   max-width: 100%;
   min-width: 0;
 }

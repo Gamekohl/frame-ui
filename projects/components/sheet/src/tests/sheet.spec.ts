@@ -62,6 +62,18 @@ class TriggerHostComponent {}
 class NoCloseHostComponent {}
 
 @Component({
+  imports: [FrSheetContent, FrSheetPanel, FrSheetTrigger],
+  template: `
+    <button [frSheetTrigger]="sheet">Open</button>
+
+    <ng-template #sheet="frSheetContent" frSheetContent side="bottom">
+      <div frSheetPanel side="bottom">Bottom sheet</div>
+    </ng-template>
+  `,
+})
+class BottomSideHostComponent {}
+
+@Component({
   imports: [FrSheetPanel],
   template: `<div frSheetPanel>{{ data.message }}</div>`,
 })
@@ -149,6 +161,22 @@ describe('FrSheet', () => {
     await fixture.whenStable();
 
     expect(document.body.querySelector('.frame-sheet__close')).toBeNull();
+  });
+
+  it('applies the configured template side to the overlay pane', async () => {
+    const fixture = TestBed.createComponent(BottomSideHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.debugElement.query(By.directive(FrSheetTrigger)).nativeElement as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const overlayPane = document.body.querySelector('.frame-sheet__overlay-pane') as HTMLElement;
+    const panel = document.body.querySelector('.frame-sheet__panel') as HTMLElement;
+
+    expect(overlayPane.classList.contains('frame-sheet__overlay-pane--bottom')).toBe(true);
+    expect(panel.getAttribute('data-side')).toBe('bottom');
   });
 
   it('opens component content programmatically with data', async () => {

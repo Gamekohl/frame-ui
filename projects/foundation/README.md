@@ -6,16 +6,16 @@ Documentation: https://frame-ui.com
 
 Current scope:
 
-- CSS-variable token contract
+- CSS variables
 - Angular theme switching via `data-theme` or a shared `.dark` class
 - class merge helpers for future slot-based primitives
 - Vitest unit tests
 
 No primitives or complex components are included here.
 
-## Token Contract
+## Tokens
 
-The foundation token contract is intentionally semantic and small.
+The foundation tokens are intentionally semantic and small.
 
 ### Color tokens
 
@@ -29,6 +29,14 @@ The foundation token contract is intentionally semantic and small.
 - `--frame-primary-foreground`: readable text on `primary`
 - `--frame-accent`: secondary emphasis or selection highlight
 - `--frame-accent-foreground`: readable text on `accent`
+- `--frame-destructive`: destructive or error emphasis
+- `--frame-destructive-foreground`: readable text on `destructive`
+- `--frame-success`: success emphasis
+- `--frame-success-foreground`: readable text on `success`
+- `--frame-warning`: warning emphasis
+- `--frame-warning-foreground`: readable text on `warning`
+- `--frame-info`: informational emphasis
+- `--frame-info-foreground`: readable text on `info`
 - `--frame-border`: default border color
 - `--frame-input`: input field chrome
 - `--frame-ring`: focus ring color
@@ -38,13 +46,26 @@ The foundation token contract is intentionally semantic and small.
 - `--frame-radius-sm`
 - `--frame-radius-md`
 - `--frame-radius-lg`
+- `--frame-radius-full`
+
+The default FrameUI theme keeps `sm`, `md`, and `lg` at `0px` for the technical square look.
+Override these tokens in the host app when a rounder theme is wanted.
 
 ### Elevation tokens
 
 - `--frame-shadow-sm`
 - `--frame-shadow-md`
+- `--frame-shadow-lg`
 
-## Contract Rules
+Use `shadow` in `provideFrameUI` when the whole app should be flatter or more raised:
+
+```ts
+provideFrameUI({
+  shadow: 'flat', // 'flat' | 'default' | 'raised'
+});
+```
+
+## Token Rules
 
 - Tokens must describe purpose, not implementation.
 - Components should consume semantic tokens, never hardcoded theme colors.
@@ -87,49 +108,70 @@ Brand, product, or campaign differences should be handled by the host app's toke
 
 ## Theme Ownership
 
-The foundation layer should expose a token contract, not force itself to be the only dark mode owner.
+The foundation layer should expose CSS tokens, not force itself to be the only dark mode owner.
 
-There are two recommended ownership models:
+There are two questions:
 
-- library-managed: the FrameUI writes the active theme to the root element
-- externally managed: another system such as Tailwind owns the root selector and the FrameUI follows it
+- Who controls light/dark: FrameUI or the app?
+- Which root selector is used: `data-theme` or `.dark`?
 
-### Library-managed with `data-theme`
+### FrameUI controls `data-theme`
 
 This is the current default:
 
 ```ts
 provideFrameUI({
   defaultTheme: 'light',
+  theme: {
+    controlledBy: 'frame',
+    using: 'data-theme',
+  },
 });
 ```
 
-### Library-managed with Tailwind's `.dark` class
+`ThemeService.setTheme('dark')` writes `html[data-theme="dark"]`.
 
-If you want the FrameUI service to be the single source of truth, but Tailwind utilities should respond too, switch to class strategy:
+### FrameUI controls `.dark`
+
+Use this when FrameUI should control the theme, but the app expects a shared `.dark` selector:
 
 ```ts
 provideFrameUI({
-  strategy: 'class',
-  className: 'dark',
+  theme: {
+    controlledBy: 'frame',
+    using: 'class',
+  },
 });
 ```
 
-`ThemeService.setTheme('dark')` now adds `.dark` to the root element, so both the FrameUI tokens and Tailwind `dark:` utilities react to the same switch.
+`ThemeService.setTheme('dark')` adds `.dark` to the root element, so both FrameUI tokens and Tailwind `dark:` utilities can react to the same switch.
 
-### Externally managed by Tailwind or another app shell
+### App controls `.dark`
 
-If the host app already owns dark mode, let the FrameUI observe instead of write:
+Use this when Tailwind, an app shell, or another design layer already owns dark mode:
 
 ```ts
 provideFrameUI({
-  strategy: 'class',
-  mode: 'observe',
-  className: 'dark',
+  theme: {
+    controlledBy: 'app',
+    using: 'class',
+  },
 });
 ```
 
-In this mode the library does not write to the DOM. It reads the current root class and keeps `ThemeService.theme()` in sync with that external source of truth.
+In this setup, FrameUI does not write light/dark state. It reads `html.dark` and keeps `ThemeService.theme()` in sync. Calling `ThemeService.setTheme()` throws because the app owns the switch.
+
+### Bootstrap
+
+Bootstrap apps usually use `data-bs-theme`. FrameUI does not need to observe that attribute for visual theming. Map FrameUI tokens to Bootstrap variables in CSS instead:
+
+```css
+:root {
+  --frame-background: var(--bs-body-bg);
+  --frame-foreground: var(--bs-body-color);
+  --frame-border: var(--bs-border-color);
+}
+```
 
 ## Global Appearance Options
 

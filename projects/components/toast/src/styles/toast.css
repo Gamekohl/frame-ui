@@ -174,7 +174,7 @@
   inline-size: var(--frame-toast-status-size);
   block-size: var(--frame-toast-status-size);
   margin-block-start: 0.25rem;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-toast-status-bg);
 }
 
@@ -240,7 +240,7 @@
   block-size: var(--frame-toast-close-size);
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: transparent;
   color: var(--frame-toast-close-color);
   line-height: 1;

@@ -1,60 +1,53 @@
-export const accordionUsageTs = String.raw`import {
-  FrAccordionDirective,
-  FrAccordionItemDirective,
-  FrAccordionTriggerDirective,
-  FrAccordionContentDirective,
-  FrAccordionIconDirective,
-} from '@your-FrameUI/accordion';`;
+export const accordionUsageTs = String.raw`import { FrAccordionModule } from '@frame-ui-ng/components/accordion';`;
 
-export const accordionUsageHtml = String.raw`<div frAccordion type="single" collapsible>
-  <section frAccordionItem value="item-1">
-    <button frAccordionTrigger type="button">
+export const accordionUsageHtml = String.raw`<frame-accordion type="single" collapsible>
+  <frame-accordion-item value="item-1">
+    <button frameAccordionTrigger type="button">
       <span>Is it accessible?</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Yes. It follows the expected accordion interaction pattern.
-    </div>
-  </section>
-</div>`;
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`;
 
-export const accordionBasicCode = String.raw`<div frAccordion type="single" collapsible [defaultValue]="'item-1'">
-  <section frAccordionItem value="item-1">
-    <button frAccordionTrigger type="button">
+export const accordionBasicCode = String.raw`<frame-accordion type="single" collapsible [defaultValue]="'item-1'">
+  <frame-accordion-item value="item-1">
+    <button frameAccordionTrigger type="button">
       <span>How do I reset my password?</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Click on "Forgot Password", enter your email, and we will send you a reset link.
-    </div>
-  </section>
-</div>`;
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`;
 
-export const accordionMultipleCode = String.raw`<div frAccordion type="multiple" [defaultValue]="['notifications']">
-  <section frAccordionItem value="notifications">
-    <button frAccordionTrigger type="button">
+export const accordionMultipleCode = String.raw`<frame-accordion type="multiple" [defaultValue]="['notifications']">
+  <frame-accordion-item value="notifications">
+    <button frameAccordionTrigger type="button">
       <span>Notification Settings</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Manage how you receive product and account notifications.
-    </div>
-  </section>
-</div>`;
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`;
 
-export const accordionDisabledCode = String.raw`<div frAccordion type="single" collapsible>
-  <section frAccordionItem value="premium" disabled>
-    <button frAccordionTrigger type="button">
+export const accordionDisabledCode = String.raw`<frame-accordion type="single" collapsible>
+  <frame-accordion-item value="premium" disabled>
+    <button frameAccordionTrigger type="button">
       <span>Premium feature information</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       This item is disabled.
-    </div>
-  </section>
-</div>`;
-
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`;

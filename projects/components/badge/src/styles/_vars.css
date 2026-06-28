@@ -1,16 +1,16 @@
-:root {
-  --frame-badge-root-gap: 0.25rem;
-  --frame-badge-root-min-height: 1.375rem;
-  --frame-badge-root-radius: 0;
+:where(:root) {
+  --frame-badge-root-gap: var(--frame-density-gap-sm);
+  --frame-badge-root-min-height: var(--frame-density-inline-height);
+  --frame-badge-root-radius: var(--frame-radius-sm);
   --frame-badge-root-font-size: 0.75rem;
   --frame-badge-root-font-weight: 600;
   --frame-badge-root-bg: var(--frame-primary);
   --frame-badge-root-color: var(--frame-primary-foreground);
-  --frame-badge-success-bg: color-mix(in srgb, #16a34a 16%, var(--frame-surface));
-  --frame-badge-success-border: color-mix(in srgb, #16a34a 32%, transparent);
-  --frame-badge-success-color: color-mix(in srgb, #16a34a 78%, var(--frame-foreground));
-  --frame-badge-root-padding-block: 0.1875rem;
-  --frame-badge-root-padding-inline: 0.625rem;
+  --frame-badge-success-bg: color-mix(in srgb, var(--frame-success) 16%, var(--frame-surface));
+  --frame-badge-success-border: color-mix(in srgb, var(--frame-success) 32%, transparent);
+  --frame-badge-success-color: color-mix(in srgb, var(--frame-success) 78%, var(--frame-foreground));
+  --frame-badge-root-padding-block: var(--frame-density-inline-padding-block);
+  --frame-badge-root-padding-inline: var(--frame-density-inline-padding-inline);
   --frame-badge-root-focus-shadow: none;
   --frame-badge-root-transition-duration: 150ms;
   --frame-badge-link-underline-offset: 0.1875rem;

@@ -23,7 +23,7 @@ import { CopyState, DocsCodeLanguage, DocsCodeTheme } from './docs-code-block.ty
   encapsulation: ViewEncapsulation.None,
   template: `
     <figure
-      class="docs-code-block overflow-hidden border border-border bg-[#f7f7f7] dark:bg-surface text-sm"
+      class="docs-code-block overflow-hidden border border-border bg-muted dark:bg-surface text-sm"
       [ngClass]="{
         'docs-code-block--line-numbers': showLineNumbers(),
         'rounded-xl': rounded(),

@@ -20,6 +20,7 @@ frame-command {
   inline-size: 100%;
   min-block-size: var(--frame-command-input-height, 2.75rem);
   border: 1px solid var(--frame-command-input-border, var(--frame-border));
+  border-radius: var(--frame-command-input-radius, var(--frame-radius-md));
   background: transparent;
   color: var(--frame-command-input-color, var(--frame-foreground));
   font: inherit;

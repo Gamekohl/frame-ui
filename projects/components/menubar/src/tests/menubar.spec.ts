@@ -44,7 +44,9 @@ import {
             </button>
             <div frMenuBarSeparator></div>
             <button frMenuBarCheckboxItem [checked]="checked()" type="button">
-              <span frMenuBarItemIndicator>✓</span>
+              <svg frMenuBarItemIndicator aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
               Show sidebar
             </button>
 

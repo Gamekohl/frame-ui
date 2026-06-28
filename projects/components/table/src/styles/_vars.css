@@ -1,10 +1,11 @@
-:root {
+:where(:root) {
   --frame-table-bg: var(--frame-surface);
   --frame-table-color: var(--frame-foreground);
   --frame-table-border: var(--frame-border);
   --frame-table-radius: var(--frame-radius-lg);
-  --frame-table-shadow: none;
+  --frame-table-shadow: var(--frame-shadow-sm);
   --frame-table-caption-color: var(--frame-muted-foreground);
+  --frame-table-caption-padding-block: var(--frame-density-gap-lg);
   --frame-table-caption-font-size: 0.875rem;
   --frame-table-header-bg: color-mix(in srgb, var(--frame-muted) 70%, var(--frame-table-bg));
   --frame-table-header-color: var(--frame-muted-foreground);
@@ -14,8 +15,8 @@
   --frame-table-row-hover-bg: color-mix(in srgb, var(--frame-accent) 72%, var(--frame-table-bg));
   --frame-table-row-selected-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-table-bg));
   --frame-table-row-striped-bg: color-mix(in srgb, var(--frame-muted) 36%, var(--frame-table-bg));
-  --frame-table-cell-padding-block: 0.75rem;
-  --frame-table-cell-padding-inline: 1rem;
+  --frame-table-cell-padding-block: var(--frame-density-table-cell-padding-block);
+  --frame-table-cell-padding-inline: var(--frame-density-table-cell-padding-inline);
   --frame-table-cell-font-size: 0.875rem;
   --frame-table-cell-line-height: 1.45;
   --frame-table-footer-bg: color-mix(in srgb, var(--frame-muted) 50%, var(--frame-table-bg));

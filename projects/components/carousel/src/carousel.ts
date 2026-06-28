@@ -51,7 +51,7 @@ const FR_CAROUSEL = new InjectionToken<FrCarousel>('FrCarousel');
   selector: '[frCarousel], frame-carousel',
   exportAs: 'frCarousel',
   host: {
-    class: 'frame-carousel',
+    class: 'frame-carousel frame-corner-handles',
     role: 'region',
     tabindex: '0',
     '[attr.aria-roledescription]': '"carousel"',
@@ -486,7 +486,7 @@ export class FrCarouselItem implements AfterViewInit {
   hostDirectives: [
     {
       directive: FrButton,
-      inputs: ['appearance', 'disabled', 'radius', 'size'],
+      inputs: ['appearance', 'disabled', 'size'],
     },
   ],
   host: {
@@ -508,7 +508,7 @@ export class FrCarouselPrevious {
   hostDirectives: [
     {
       directive: FrButton,
-      inputs: ['appearance', 'disabled', 'radius', 'size'],
+      inputs: ['appearance', 'disabled', 'size'],
     },
   ],
   host: {

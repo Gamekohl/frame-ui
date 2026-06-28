@@ -139,23 +139,23 @@ const rtlHtml = `<div frTabs defaultValue="overview" dir="rtl" lang="ar">
 const tokens = `--frame-tabs-gap: 1rem;
 --frame-tabs-list-gap: 0.25rem;
 --frame-tabs-list-padding: 0.25rem;
---frame-tabs-list-bg: var(--frame-muted, #f4f4f5);
+--frame-tabs-list-bg: var(--frame-muted);
 --frame-tabs-list-border: transparent;
---frame-tabs-list-radius: var(--frame-radius-lg, 0.75rem);
+--frame-tabs-list-radius: var(--frame-radius-lg);
 --frame-tabs-trigger-height: 2.25rem;
 --frame-tabs-trigger-padding-x: 0.875rem;
---frame-tabs-trigger-radius: var(--frame-radius-md, 0.5rem);
+--frame-tabs-trigger-radius: var(--frame-radius-md);
 --frame-tabs-trigger-bg: transparent;
---frame-tabs-trigger-color: var(--frame-muted-foreground, #71717a);
---frame-tabs-trigger-hover-bg: color-mix(in srgb, var(--frame-background, #fff) 62%, transparent);
---frame-tabs-trigger-hover-color: var(--frame-foreground, #09090b);
---frame-tabs-trigger-active-bg: var(--frame-background, #fff);
---frame-tabs-trigger-active-color: var(--frame-foreground, #09090b);
+--frame-tabs-trigger-color: var(--frame-muted-foreground);
+--frame-tabs-trigger-hover-bg: color-mix(in srgb, var(--frame-background) 62%, transparent);
+--frame-tabs-trigger-hover-color: var(--frame-foreground);
+--frame-tabs-trigger-active-bg: var(--frame-background);
+--frame-tabs-trigger-active-color: var(--frame-foreground);
 --frame-tabs-trigger-active-shadow: 0 1px 3px rgb(0 0 0 / 0.12);
---frame-tabs-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring, #18181b) 28%, transparent);
+--frame-tabs-trigger-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-ring) 28%, transparent);
 --frame-tabs-trigger-disabled-opacity: 0.5;
---frame-tabs-line-color: var(--frame-border, #e5e7eb);
---frame-tabs-line-active-color: var(--frame-primary, #18181b);
+--frame-tabs-line-color: var(--frame-border);
+--frame-tabs-line-active-color: var(--frame-primary);
 --frame-tabs-content-padding: 1rem 0 0;`;
 
 export const TABS_DOC: ComponentDoc = {

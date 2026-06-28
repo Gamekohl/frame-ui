@@ -73,7 +73,18 @@ const POSITIONS: ConnectedPosition[] = [
     <span cdkOverlayOrigin #origin="cdkOverlayOrigin" class="frame-date-picker__anchor">
       @if (editable()) {
         <span class="frame-date-picker__input-wrap">
-          <span class="frame-date-picker__icon" aria-hidden="true">{{ icon() }}</span>
+          <span class="frame-date-picker__icon" aria-hidden="true">
+            @if (icon(); as customIcon) {
+              {{ customIcon }}
+            } @else {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2v4"></path>
+                <path d="M16 2v4"></path>
+                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                <path d="M3 10h18"></path>
+              </svg>
+            }
+          </span>
           <input
             class="frame-date-picker__input"
             type="text"
@@ -103,7 +114,18 @@ const POSITIONS: ConnectedPosition[] = [
           (click)="toggle()"
           (keydown)="handleTriggerKeydown($event)"
         >
-          <span class="frame-date-picker__icon" aria-hidden="true">{{ icon() }}</span>
+          <span class="frame-date-picker__icon" aria-hidden="true">
+            @if (icon(); as customIcon) {
+              {{ customIcon }}
+            } @else {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2v4"></path>
+                <path d="M16 2v4"></path>
+                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                <path d="M3 10h18"></path>
+              </svg>
+            }
+          </span>
           <span class="frame-date-picker__trigger-label" [attr.data-placeholder]="hasValue() ? null : ''">
             {{ displayValue() || placeholder() }}
           </span>
@@ -124,17 +146,7 @@ const POSITIONS: ConnectedPosition[] = [
       (detach)="close()"
       (positionChange)="handlePositionChange($event)"
     >
-      <div class="frame-date-picker__content" role="dialog" [attr.aria-label]="dialogLabel()">
-        @if (presets().length) {
-          <div class="frame-date-picker__presets" aria-label="Date presets">
-            @for (preset of presets(); track preset.label) {
-              <button class="frame-date-picker__preset" type="button" (click)="selectPreset(preset)">
-                {{ preset.label }}
-              </button>
-            }
-          </div>
-        }
-
+      <div class="frame-date-picker__content frame-corner-handles" role="dialog" [attr.aria-label]="dialogLabel()">
         <ng-container [ngTemplateOutlet]="headerTemplate() ?? null" />
 
         <frame-calendar
@@ -156,8 +168,6 @@ const POSITIONS: ConnectedPosition[] = [
           [cellTemplate]="cellTemplate()"
           [previousMonthTemplate]="previousMonthTemplate()"
           [nextMonthTemplate]="nextMonthTemplate()"
-          [previousMonthIcon]="previousMonthIcon()"
-          [nextMonthIcon]="nextMonthIcon()"
           [previousMonthLabel]="previousMonthLabel()"
           [nextMonthLabel]="nextMonthLabel()"
           [month]="month()"
@@ -179,6 +189,16 @@ const POSITIONS: ConnectedPosition[] = [
           </label>
         }
 
+        @if (presets().length) {
+          <div class="frame-date-picker__presets" aria-label="Date presets">
+            @for (preset of presets(); track preset.label) {
+              <button class="frame-date-picker__preset" type="button" (click)="selectPreset(preset)">
+                {{ preset.label }}
+              </button>
+            }
+          </div>
+        }
+
         <ng-container [ngTemplateOutlet]="footerTemplate() ?? null" />
       </div>
     </ng-template>
@@ -186,7 +206,7 @@ const POSITIONS: ConnectedPosition[] = [
 })
 export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
   readonly mode = input<FrCalendarMode>('single');
-  readonly captionLayout = input<FrCalendarCaptionLayout>('label');
+  readonly captionLayout = input<FrCalendarCaptionLayout>('dropdown');
   readonly numberOfMonths = input(1);
   readonly firstDayOfWeek = input(0);
   readonly locale = input('en-US');
@@ -205,15 +225,13 @@ export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
   readonly showTime = input(false, { transform: booleanAttribute });
   readonly placeholder = input('Pick a date');
   readonly dialogLabel = input('Choose date');
-  readonly icon = input('◷');
+  readonly icon = input<string | null>(null);
   readonly disabledDates = input<Date[]>([]);
   readonly dateLabels = input<Record<string, string>>({});
   readonly disabledMatcher = input<FrCalendarDisabledMatcher | null>(null);
   readonly cellTemplate = input<TemplateRef<FrCalendarCellContext> | null>(null);
   readonly previousMonthTemplate = input<TemplateRef<unknown> | null>(null);
   readonly nextMonthTemplate = input<TemplateRef<unknown> | null>(null);
-  readonly previousMonthIcon = input('‹');
-  readonly nextMonthIcon = input('›');
   readonly previousMonthLabel = input('Previous month');
   readonly nextMonthLabel = input('Next month');
   readonly headerTemplate = input<TemplateRef<unknown> | null>(null);

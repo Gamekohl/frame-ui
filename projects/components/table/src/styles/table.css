@@ -42,7 +42,7 @@ frame-table-caption,
 caption[frTableCaption],
 .frame-table__caption {
   caption-side: bottom;
-  padding-block: 0.75rem;
+  padding-block: var(--frame-table-caption-padding-block);
   color: var(--frame-table-caption-color);
   font-size: var(--frame-table-caption-font-size);
   text-align: start;
@@ -137,16 +137,16 @@ frame-footer-cell,
 [frTable][data-density='sm'],
 frame-table[data-density='sm'],
 .frame-table[data-density='sm'] {
-  --frame-table-cell-padding-block: 0.5rem;
-  --frame-table-cell-padding-inline: 0.75rem;
+  --frame-table-cell-padding-block: var(--frame-density-table-cell-padding-block-sm);
+  --frame-table-cell-padding-inline: var(--frame-density-table-cell-padding-inline-sm);
   --frame-table-cell-font-size: 0.8125rem;
 }
 
 [frTable][data-density='lg'],
 frame-table[data-density='lg'],
 .frame-table[data-density='lg'] {
-  --frame-table-cell-padding-block: 1rem;
-  --frame-table-cell-padding-inline: 1.125rem;
+  --frame-table-cell-padding-block: var(--frame-density-table-cell-padding-block-lg);
+  --frame-table-cell-padding-inline: var(--frame-density-table-cell-padding-inline-lg);
   --frame-table-cell-font-size: 0.9375rem;
 }
 

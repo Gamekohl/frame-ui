@@ -136,7 +136,7 @@ const customStylingConfig: AccordionPreviewConfig = {
   border: true,
   className: 'docs-accordion-preview',
   style: `--frame-accordion-item-border: color-mix(in srgb, var(--frame-primary) 18%, transparent);
---frame-accordion-item-radius: 0;
+--frame-accordion-item-radius: var(--frame-radius-md);
 --frame-accordion-trigger-min-height: 3.5rem;
 --frame-accordion-trigger-padding-x: 1rem;
 --frame-accordion-trigger-color: red;
@@ -203,18 +203,18 @@ export const ACCORDION_DOC: ComponentDoc = {
     },
     {
       language: 'html',
-      code: `<div frAccordion type="single" collapsible [defaultValue]="'item-1'">
-  <section frAccordionItem value="item-1">
-    <button frAccordionTrigger type="button">
+      code: `<frame-accordion type="single" collapsible [defaultValue]="'item-1'">
+  <frame-accordion-item value="item-1">
+    <button frameAccordionTrigger type="button">
       <span>Can the trigger include custom content?</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Yes. Triggers can wrap labels, icons, counters, or other inline elements as long as the button stays clear and readable.
-    </div>
-  </section>
-</div>`,
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`,
     },
   ],
 
@@ -263,14 +263,16 @@ export const ACCORDION_DOC: ComponentDoc = {
             '--frame-accordion-content-padding-bottom',
             '--frame-accordion-content-padding-inline',
             '--frame-accordion-content-line-height',
+            '--frame-accordion-content-motion-duration',
+            '--frame-accordion-content-motion-timing',
           ],
         },
         {
           id: 'item-border',
           label: 'Item container',
           selector: '[data-token-target="item-border"]',
-          description: 'Each item container defines the divider treatment and horizontal spacing.',
-          tokens: ['--frame-accordion-item-border', '--frame-accordion-item-padding-x'],
+          description: 'Each item container defines the divider and corner treatment.',
+          tokens: ['--frame-accordion-item-border', '--frame-accordion-item-radius'],
         },
         {
           id: 'icon',
@@ -304,25 +306,24 @@ export const ACCORDION_DOC: ComponentDoc = {
         },
         {
           language: 'html',
-          code: `<div
+          code: `<frame-accordion
   class="support-accordion"
-  frAccordion
   type="single"
   collapsible
   [defaultValue]="'contact'"
   border
 >
-  <section frAccordionItem value="contact">
-    <button frAccordionTrigger type="button">
+  <frame-accordion-item value="contact">
+    <button frameAccordionTrigger type="button">
       <span>Support channels</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Route urgent issues to chat, send account questions by email, and reserve callbacks for verification-heavy requests.
-    </div>
-  </section>
-</div>`,
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`,
         },
         {
           language: 'css',
@@ -334,13 +335,13 @@ ${customStylingConfig.style}
     },
   },
 
-  composition: `Accordion
-├── AccordionItem
-│   ├── AccordionTrigger
-│   └── AccordionContent
-└── AccordionItem
-    ├── AccordionTrigger
-    └── AccordionContent`,
+  composition: `frame-accordion
+├── frame-accordion-item
+│   ├── button[frameAccordionTrigger]
+│   └── ng-template[frameAccordionContent]
+└── frame-accordion-item
+    ├── button[frameAccordionTrigger]
+    └── ng-template[frameAccordionContent]`,
 
   examples: [
     {
@@ -360,18 +361,18 @@ ${customStylingConfig.style}
         },
         {
           language: 'html',
-          code: `<div frAccordion type="single" collapsible [defaultValue]="'item-1'" class="docs-accordion-preview">
-  <section frAccordionItem value="item-1">
-    <button frAccordionTrigger type="button">
+          code: `<frame-accordion type="single" collapsible [defaultValue]="'item-1'" class="docs-accordion-preview">
+  <frame-accordion-item value="item-1">
+    <button frameAccordionTrigger type="button">
       <span>When should I use an accordion?</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Use an accordion when related details should stay available on the page without overwhelming the default layout.
-    </div>
-  </section>
-</div>`,
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`,
         },
       ],
     },
@@ -392,18 +393,18 @@ ${customStylingConfig.style}
         },
         {
           language: 'html',
-          code: `<div frAccordion type="multiple" [defaultValue]="['notifications']" class="docs-accordion-preview">
-  <section frAccordionItem value="notifications">
-    <button frAccordionTrigger type="button">
+          code: `<frame-accordion type="multiple" [defaultValue]="['notifications']" class="docs-accordion-preview">
+  <frame-accordion-item value="notifications">
+    <button frameAccordionTrigger type="button">
       <span>Display preferences</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Let people expand related controls together, like density, label visibility, and surface styling options.
-    </div>
-  </section>
-</div>`,
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`,
         },
       ],
     },
@@ -425,31 +426,31 @@ ${customStylingConfig.style}
         },
         {
           language: 'html',
-          code: `<div frAccordion type="single" collapsible [defaultValue]="'appearance'" border>
-  <section frAccordionItem value="appearance">
-    <button frAccordionTrigger type="button">
+          code: `<frame-accordion type="single" collapsible [defaultValue]="'appearance'" border>
+  <frame-accordion-item value="appearance">
+    <button frameAccordionTrigger type="button">
       <span>Use dividers between items</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Turn borders on when each item should read as a distinct row.
-    </div>
-  </section>
-</div>
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>
 
-<div frAccordion type="single" collapsible [defaultValue]="'appearance'">
-  <section frAccordionItem value="appearance">
-    <button frAccordionTrigger type="button">
+<frame-accordion type="single" collapsible [defaultValue]="'appearance'">
+  <frame-accordion-item value="appearance">
+    <button frameAccordionTrigger type="button">
       <span>Remove borders in lighter layouts</span>
-      <ng-icon frAccordionIcon name="tablerChevronDown" size="18" />
+      <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
     </button>
 
-    <div frAccordionContent>
+    <ng-template frameAccordionContent>
       Leave borders off when surrounding spacing or surfaces already define the grouping.
-    </div>
-  </section>
-</div>`,
+    </ng-template>
+  </frame-accordion-item>
+</frame-accordion>`,
         },
       ],
     },
@@ -458,9 +459,9 @@ ${customStylingConfig.style}
   tokensDescription:
     'Use these CSS custom properties to tune spacing, typography, borders, motion, and icon behavior without changing the component markup. Override them globally for system-wide defaults or locally on a wrapper class for one-off variants.',
   tokens: `
+  --frame-accordion-radius: var(--frame-radius-md);
   --frame-accordion-item-border: var(--frame-border);
-  --frame-accordion-item-radius: 0;
-  --frame-accordion-item-padding-x: 0;
+  --frame-accordion-item-radius: 0px;
   --frame-accordion-trigger-min-height: 3.25rem;
   --frame-accordion-trigger-padding-y: 1rem;
   --frame-accordion-trigger-padding-x: 1rem;
@@ -475,10 +476,8 @@ ${customStylingConfig.style}
   --frame-accordion-content-color: var(--frame-muted-foreground);
   --frame-accordion-content-font-size: 0.875rem;
   --frame-accordion-content-line-height: 1.6;
-  --frame-accordion-content-opacity-closed: 0;
-  --frame-accordion-content-opacity-open: 1;
-  --frame-accordion-content-transition-duration: 240ms;
-  --frame-accordion-content-transition-timing: cubic-bezier(0.2, 0, 0, 1);
+  --frame-accordion-content-motion-duration: 220ms;
+  --frame-accordion-content-motion-timing: cubic-bezier(0.2, 0, 0, 1);
   --frame-accordion-icon-size: 1rem;
   --frame-accordion-icon-rotation: 180deg;
   `,

@@ -96,7 +96,7 @@ frame-sidebar[data-variant="inset"] {
   margin: var(--frame-sidebar-margin);
   border: 1px solid var(--frame-sidebar-border);
   border-radius: var(--frame-sidebar-radius);
-  box-shadow: var(--frame-sidebar-shadow), var(--frame-shadow-frame);
+  box-shadow: var(--frame-sidebar-shadow);
 }
 
 [frSidebar][data-collapsible="icon"][data-state="collapsed"],
@@ -404,7 +404,7 @@ frame-sidebar-menu-badge {
   inset-block-start: 0.375rem;
   inset-inline-end: 0.5rem;
   min-width: 1.25rem;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   color: var(--frame-sidebar-muted-color);
   font-size: 0.75rem;
   font-weight: 650;
@@ -439,7 +439,7 @@ frame-sidebar-menu-skeleton {
 frame-sidebar-menu-skeleton::after {
   width: var(--frame-sidebar-skeleton-width, 72%);
   height: 0.75rem;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-sidebar-accent);
   content: "";
 }
@@ -449,7 +449,7 @@ frame-sidebar-menu-skeleton[data-show-icon]::before {
   width: 1rem;
   height: 1rem;
   flex: 0 0 auto;
-  border-radius: 0.25rem;
+  border-radius: var(--frame-radius-sm);
   background: var(--frame-sidebar-accent);
   content: "";
 }
@@ -499,7 +499,7 @@ frame-sidebar-rail::after {
   inset-block: 1rem;
   inset-inline-start: 50%;
   width: 2px;
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: transparent;
   content: "";
   transform: translateX(-50%);

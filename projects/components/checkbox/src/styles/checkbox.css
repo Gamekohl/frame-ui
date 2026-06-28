@@ -37,15 +37,20 @@
     border-color 150ms ease,
     box-shadow 150ms ease,
     color 150ms ease,
-    opacity 150ms ease;
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
 [frCheckbox]::before {
   content: '';
   inline-size: var(--frame-checkbox-indicator-size, 0.625rem);
   block-size: var(--frame-checkbox-indicator-size, 0.625rem);
-  transform: scale(0);
-  transition: transform 120ms ease;
+  opacity: 0;
+  transform: scale(0.65) rotate(-8deg);
+  transform-origin: center;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
   clip-path: polygon(14% 44%, 0 59%, 43% 100%, 100% 18%, 84% 4%, 43% 62%);
   box-shadow: inset 1rem 1rem currentColor;
 }
@@ -53,6 +58,8 @@
 [frCheckbox]:where(:not(:disabled)):hover {
   background: var(--frame-checkbox-root-hover-bg, var(--frame-checkbox-root-bg, var(--frame-surface)));
   border-color: var(--frame-checkbox-root-hover-border, var(--frame-checkbox-root-border, var(--frame-border)));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
 [frCheckbox]:focus-visible {
@@ -72,14 +79,16 @@
 }
 
 [frCheckbox]:checked::before {
-  transform: scale(1);
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
 [frCheckbox]:indeterminate::before {
   inline-size: var(--frame-checkbox-indeterminate-width, 0.5rem);
   block-size: var(--frame-checkbox-indeterminate-height, 0.125rem);
-  transform: scale(1);
-  border-radius: 999px;
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  border-radius: var(--frame-radius-full);
   clip-path: none;
   box-shadow: none;
   background: currentColor;
@@ -91,5 +100,5 @@
 }
 
 [frCheckbox][aria-invalid='true'] {
-  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-primary) 45%, var(--frame-border)));
+  border-color: var(--frame-checkbox-root-invalid-border, color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border)));
 }

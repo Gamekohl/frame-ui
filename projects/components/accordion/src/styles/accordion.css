@@ -1,30 +1,40 @@
 @import './_vars.css';
 
-[frAccordion] {
-  display: grid;
-  border: 1px solid var(--frame-frame-line-muted, var(--frame-border));
+frame-accordion {
+  display: block;
+  inline-size: 100%;
+  width: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  border: 0;
   background: var(--frame-surface);
+  border-radius: var(--frame-accordion-radius, var(--frame-radius-md));
+  overflow: hidden;
 }
 
-[frAccordion][data-border='true'] {
-  border-color: var(--frame-border);
-  border-radius: 0;
-  padding-inline: 0;
+frame-accordion[data-border='true'] {
+  border: 1px solid var(--frame-border);
 }
 
-[frAccordionItem] {
-  position: relative;
+frame-accordion-item {
+  display: block;
+  inline-size: 100%;
+  width: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   border-bottom: 1px solid var(--frame-accordion-item-border, var(--frame-border));
-  border-radius: var(--frame-accordion-item-radius, 0);
-  padding-inline: 0;
+  border-radius: var(--frame-accordion-item-radius, 0px);
 }
 
-[frAccordionItem]:last-child {
+frame-accordion-item:last-child {
   border-bottom: 0;
 }
 
-[frAccordionTrigger] {
+button[frameAccordionTrigger] {
   inline-size: 100%;
+  width: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   min-block-size: var(--frame-accordion-trigger-min-height, 3.25rem);
   display: inline-flex;
   align-items: center;
@@ -46,50 +56,55 @@
     background-color 160ms ease;
 }
 
-[frAccordionTrigger]:where(:not([data-disabled])):hover {
+button[frameAccordionTrigger]:where(:not([data-disabled])):hover {
   color: var(--frame-accordion-trigger-hover-color, var(--frame-foreground));
   background: color-mix(in srgb, var(--frame-muted) 42%, transparent);
 }
 
-[frAccordionTrigger]:focus-visible {
+button[frameAccordionTrigger]:focus-visible {
   outline: 1px solid var(--frame-frame-accent, var(--frame-ring));
   outline-offset: -1px;
 }
 
-[frAccordionTrigger][data-state='open'] {
+button[frameAccordionTrigger][data-state='open'] {
   color: var(--frame-frame-accent, var(--frame-primary));
 }
 
-[frAccordionTrigger]:where(:disabled, [data-disabled]) {
+button[frameAccordionTrigger]:where(:disabled, [data-disabled]) {
   cursor: not-allowed;
   opacity: var(--frame-accordion-trigger-disabled-opacity, 0.55);
 }
 
-[frAccordionContent] {
+.frame-accordion__content {
   box-sizing: border-box;
+  inline-size: 100%;
+  width: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  overflow: hidden;
+  opacity: 0;
   color: var(--frame-accordion-content-color, var(--frame-muted-foreground));
   font-size: var(--frame-accordion-content-font-size, 0.875rem);
   line-height: var(--frame-accordion-content-line-height, 1.6);
-  overflow: hidden;
-  padding-block: 0 var(--frame-accordion-content-padding-bottom, 1rem);
-  padding-inline: var(--frame-accordion-content-padding-inline, 1rem);
   transition:
-    height var(--frame-accordion-content-transition-duration, 240ms)
-      var(--frame-accordion-content-transition-timing, cubic-bezier(0.2, 0, 0, 1)),
-    opacity var(--frame-accordion-content-transition-duration, 220ms)
-      var(--frame-accordion-content-transition-timing, ease);
-  will-change: height, opacity;
+    height var(--frame-accordion-content-motion-duration, 220ms)
+      var(--frame-accordion-content-motion-timing, cubic-bezier(0.2, 0, 0, 1)),
+    opacity var(--frame-accordion-content-motion-duration, 220ms)
+      var(--frame-accordion-content-motion-timing, cubic-bezier(0.2, 0, 0, 1));
 }
 
-[frAccordionContent][data-state='closed'] {
-  opacity: var(--frame-accordion-content-opacity-closed, 0);
+.frame-accordion__content[data-state='open'] {
+  opacity: 1;
 }
 
-[frAccordionContent][data-state='open'] {
-  opacity: var(--frame-accordion-content-opacity-open, 1);
+.frame-accordion__content-inner {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  padding-block: var(--frame-accordion-content-padding-bottom, 1rem);
+  padding-inline: var(--frame-accordion-content-padding-inline, 1rem);
 }
 
-[frAccordionIcon] {
+[frameAccordionIcon] {
   inline-size: var(--frame-accordion-icon-size, 1rem);
   block-size: var(--frame-accordion-icon-size, 1rem);
   flex: 0 0 auto;
@@ -99,7 +114,7 @@
     transform 180ms ease;
 }
 
-[frAccordionTrigger][data-state='open'] [frAccordionIcon] {
+button[frameAccordionTrigger][data-state='open'] [frameAccordionIcon] {
   color: var(--frame-frame-accent, var(--frame-primary));
   transform: rotate(var(--frame-accordion-icon-rotation, 180deg));
 }

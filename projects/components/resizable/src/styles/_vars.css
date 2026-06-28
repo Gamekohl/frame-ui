@@ -1,9 +1,9 @@
-:root {
+:where(:root) {
   --frame-resizable-border: var(--frame-border);
   --frame-resizable-radius: var(--frame-radius-lg);
   --frame-resizable-bg: var(--frame-surface);
   --frame-resizable-color: var(--frame-foreground);
-  --frame-resizable-panel-padding: 1rem;
+  --frame-resizable-panel-padding: var(--frame-density-panel-padding-md);
   --frame-resizable-panel-min-size: 0;
   --frame-resizable-handle-size: 0.625rem;
   --frame-resizable-handle-hit-size: 1rem;

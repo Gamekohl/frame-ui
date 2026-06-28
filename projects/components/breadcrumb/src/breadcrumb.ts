@@ -68,7 +68,11 @@ export class FrBreadcrumbSeparator {}
     'role': 'presentation',
   },
   template: `
-    <span aria-hidden="true">...</span>
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="5" cy="12" r="1.75"></circle>
+      <circle cx="12" cy="12" r="1.75"></circle>
+      <circle cx="19" cy="12" r="1.75"></circle>
+    </svg>
     <span class="frame-breadcrumb__sr-only">{{ label() }}</span>
   `,
 })

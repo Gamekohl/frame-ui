@@ -1,13 +1,13 @@
-:root {
-  --frame-navigation-menu-gap: 0.25rem;
-  --frame-navigation-menu-padding: 0.25rem;
+:where(:root) {
+  --frame-navigation-menu-gap: var(--frame-density-gap-sm);
+  --frame-navigation-menu-padding: var(--frame-density-panel-padding-sm);
   --frame-navigation-menu-radius: var(--frame-radius-md);
   --frame-navigation-menu-bg: transparent;
   --frame-navigation-menu-color: var(--frame-foreground);
-  --frame-navigation-menu-trigger-height: 2.25rem;
+  --frame-navigation-menu-trigger-height: var(--frame-density-control-height-md);
   --frame-navigation-menu-trigger-padding-x: 0.875rem;
-  --frame-navigation-menu-trigger-gap: 0.375rem;
-  --frame-navigation-menu-trigger-radius: calc(var(--frame-navigation-menu-radius) - 0.125rem);
+  --frame-navigation-menu-trigger-gap: var(--frame-density-gap-md);
+  --frame-navigation-menu-trigger-radius: var(--frame-radius-sm);
   --frame-navigation-menu-trigger-font-size: 0.875rem;
   --frame-navigation-menu-trigger-font-weight: 500;
   --frame-navigation-menu-trigger-bg: transparent;
@@ -18,9 +18,9 @@
   --frame-navigation-menu-trigger-open-color: var(--frame-accent-foreground);
   --frame-navigation-menu-trigger-focus-shadow: none;
   --frame-navigation-menu-content-width: 36rem;
-  --frame-navigation-menu-content-gap: 0.25rem;
-  --frame-navigation-menu-link-gap: 0.25rem;
-  --frame-navigation-menu-link-padding: 0.75rem;
+  --frame-navigation-menu-content-gap: var(--frame-density-gap-sm);
+  --frame-navigation-menu-link-gap: var(--frame-density-gap-sm);
+  --frame-navigation-menu-link-padding: var(--frame-density-gap-lg);
   --frame-navigation-menu-link-radius: var(--frame-radius-md);
   --frame-navigation-menu-link-bg: transparent;
   --frame-navigation-menu-link-color: var(--frame-foreground);

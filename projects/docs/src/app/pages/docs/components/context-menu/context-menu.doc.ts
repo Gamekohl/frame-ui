@@ -8,6 +8,9 @@ import {
 const importsCode = `import { FrContextMenuModule } from '@frame-ui-ng/components/context-menu';`;
 const signalImportsCode = `import { signal } from '@angular/core';
 ${importsCode}`;
+const checkIcon = `<svg frContextMenuItemIndicator viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 6 9 17l-5-5"></path>
+</svg>`;
 
 const basicHtml = `<div frContextMenu>
   <div [frContextMenuTrigger]="menu">Right click here</div>
@@ -46,7 +49,7 @@ const submenuHtml = `<div frContextMenu>
 </div>`;
 
 const checkboxHtml = `<button frContextMenuCheckboxItem [checked]="showBookmarks()" type="button">
-  <span frContextMenuItemIndicator>✓</span>
+  ${checkIcon}
   Show bookmarks
 </button>`;
 const checkboxTs = `${signalImportsCode}
@@ -55,11 +58,11 @@ showBookmarks = signal(true);`;
 
 const radioHtml = `<div frContextMenuRadioGroup>
   <button frContextMenuRadioItem [checked]="density() === 'comfortable'" type="button">
-    <span frContextMenuItemIndicator>✓</span>
+    ${checkIcon}
     Comfortable
   </button>
   <button frContextMenuRadioItem [checked]="density() === 'compact'" type="button">
-    <span frContextMenuItemIndicator>✓</span>
+    ${checkIcon}
     Compact
   </button>
 </div>`;
@@ -95,7 +98,7 @@ const groupsHtml = `<div frContextMenu>
       <div frContextMenuSeparator></div>
       <div frContextMenuLabel>View</div>
       <button frContextMenuCheckboxItem checked type="button">
-        <span frContextMenuItemIndicator>✓</span>
+        ${checkIcon}
         Show preview
       </button>
     </div>
@@ -118,7 +121,7 @@ const destructiveHtml = `<button frContextMenuItem variant="destructive" type="b
 
 const customStylingHtml = `<div
   frContextMenu
-  style="--frame-dropdown-menu-panel-radius: 1rem; --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);"
+  style="--frame-dropdown-menu-panel-radius: var(--frame-radius-lg); --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);"
 >
   <div [frContextMenuTrigger]="menu">Right click here</div>
 
@@ -131,7 +134,7 @@ const customStylingHtml = `<div
 </div>`;
 
 const customStylingCss = `[frContextMenu] {
-  --frame-dropdown-menu-panel-radius: 1rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
   --frame-dropdown-menu-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 16%, transparent);
   --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-dropdown-menu-item-hover-color: var(--frame-primary);
@@ -220,7 +223,7 @@ const tokenInspectorConfig: ContextMenuPreviewConfig = {
 };
 
 const customStylingConfig: ContextMenuPreviewConfig = {
-  style: `--frame-dropdown-menu-panel-radius: 1rem;
+  style: `--frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
 --frame-dropdown-menu-panel-shadow: 0 24px 60px color-mix(in srgb, var(--frame-primary) 16%, transparent);
 --frame-dropdown-menu-item-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
 --frame-dropdown-menu-item-hover-color: var(--frame-primary);
@@ -558,7 +561,7 @@ export const CONTEXT_MENU_DOC: ComponentDoc = {
   --frame-dropdown-menu-separator-bg: var(--frame-border);
   --frame-dropdown-menu-item-gap: 0.5rem;
   --frame-dropdown-menu-item-height: 2rem;
-  --frame-dropdown-menu-item-radius: calc(var(--frame-radius-md) - 0.125rem);
+  --frame-dropdown-menu-item-radius: var(--frame-radius-sm);
   --frame-dropdown-menu-item-padding: 0.375rem 0.5rem;
   --frame-dropdown-menu-item-font-size: 0.875rem;
   --frame-dropdown-menu-item-hover-bg: var(--frame-accent);

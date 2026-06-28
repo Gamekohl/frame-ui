@@ -198,7 +198,7 @@ export type ToastPreviewConfig = {
     .docs-toast-custom {
       --frame-toast-bg: color-mix(in srgb, var(--frame-primary) 10%, var(--frame-surface));
       --frame-toast-border: color-mix(in srgb, var(--frame-primary) 38%, var(--frame-border));
-      --frame-toast-radius: 1.25rem;
+      --frame-toast-radius: var(--frame-radius-lg);
       --frame-toast-shadow: 0 24px 70px color-mix(in srgb, var(--frame-primary) 22%, transparent);
       --frame-toast-status-bg: var(--frame-primary);
       --frame-toast-action-bg: var(--frame-foreground);

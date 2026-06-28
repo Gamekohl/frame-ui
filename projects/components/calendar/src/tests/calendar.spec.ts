@@ -175,15 +175,33 @@ describe('FrCalendar', () => {
     expect(label.textContent?.trim()).toBe('$100');
   });
 
-  it('renders month and year dropdowns', () => {
+  it('renders month and year dropdowns', async () => {
     const fixture = TestBed.createComponent(DropdownCalendarHostComponent);
     fixture.detectChanges();
+    await fixture.whenStable();
 
-    const selects = fixture.nativeElement.querySelectorAll('select');
+    const selects = Array.from(
+      fixture.nativeElement.querySelectorAll('.frame-calendar__select'),
+    ) as HTMLButtonElement[];
 
     expect(selects.length).toBe(2);
-    expect(selects[0].value).toBe('5');
-    expect(selects[1].value).toBe('2026');
+    expect(selects[0].textContent?.trim()).toContain('Jun');
+    expect(selects[1].textContent?.trim()).toContain('2026');
+
+    selects[0].click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const july = Array.from(document.body.querySelectorAll('.frame-select__item')).find(
+      (item) => item.textContent?.trim() === 'Jul',
+    ) as HTMLButtonElement;
+    july.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(fixture.nativeElement.querySelector('.frame-calendar__month-caption')?.textContent?.trim()).toBe(
+      'July 2026',
+    );
   });
 
   it('works with reactive forms', async () => {

@@ -59,7 +59,7 @@ const inspectorConfig: CheckboxPreviewConfig = {
 
 const customStylingConfig: CheckboxPreviewConfig = {
   style: `--frame-checkbox-root-size: 1.125rem;
---frame-checkbox-root-radius: 0.375rem;
+--frame-checkbox-root-radius: var(--frame-radius-sm);
 --frame-checkbox-root-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
 --frame-checkbox-root-hover-border: color-mix(in srgb, var(--frame-primary) 50%, var(--frame-border));
 --frame-checkbox-root-checked-bg: green;

@@ -104,7 +104,7 @@ const controlledHtml = `<button frButton appearance="outline" type="button" (cli
 
 const customStylingCss = `.review-popover-trigger {
   --frame-popover-content-width: 22rem;
-  --frame-popover-content-radius: 1.25rem;
+  --frame-popover-content-radius: var(--frame-radius-lg);
   --frame-popover-content-bg: linear-gradient(
     135deg,
     var(--frame-surface),

@@ -1,15 +1,15 @@
-:root {
+:where(:root) {
   --frame-menubar-bg: var(--frame-surface);
   --frame-menubar-color: var(--frame-surface-foreground);
   --frame-menubar-border: var(--frame-border);
   --frame-menubar-radius: var(--frame-radius-md);
-  --frame-menubar-padding: 0.25rem;
-  --frame-menubar-gap: 0.25rem;
-  --frame-menubar-shadow: none;
-  --frame-menubar-trigger-height: 2rem;
+  --frame-menubar-padding: var(--frame-density-panel-padding-sm);
+  --frame-menubar-gap: var(--frame-density-gap-sm);
+  --frame-menubar-shadow: var(--frame-shadow-sm);
+  --frame-menubar-trigger-height: var(--frame-density-item-height);
   --frame-menubar-trigger-padding-x: 0.75rem;
-  --frame-menubar-trigger-gap: 0.375rem;
-  --frame-menubar-trigger-radius: calc(var(--frame-menubar-radius) - 0.125rem);
+  --frame-menubar-trigger-gap: var(--frame-density-gap-md);
+  --frame-menubar-trigger-radius: var(--frame-radius-sm);
   --frame-menubar-trigger-font-size: 0.875rem;
   --frame-menubar-trigger-font-weight: 500;
   --frame-menubar-trigger-bg: transparent;

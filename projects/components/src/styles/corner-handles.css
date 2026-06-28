@@ -1,0 +1,217 @@
+/*
+ * Shared corner-handle renderer.
+ * Components opt in by applying `.frame-corner-handles`.
+ */
+
+.frame-corner-handles {
+  position: relative;
+}
+
+.frame-corner-handles::before {
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+  position: absolute;
+  display: block;
+  inset: var(--frame-corner-handle-offset);
+  z-index: 1;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left top,
+    left top,
+    right bottom,
+    right bottom;
+  background-repeat: no-repeat;
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+  content: "";
+  pointer-events: none;
+}
+
+:root[data-frame-corner-handles='false'] .frame-corner-handles::before {
+  content: none;
+}
+
+.frame-button.frame-corner-handles::before {
+  content: none;
+}
+
+.frame-button.frame-corner-handles {
+  --frame-corner-handle-color: color-mix(in srgb, var(--frame-primary-foreground) 88%, transparent);
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset);
+  background-repeat: no-repeat;
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+}
+
+.frame-button.frame-corner-handles.frame-carousel__control {
+  position: absolute;
+}
+
+:root[data-frame-corner-handles='false'] .frame-button.frame-corner-handles {
+  background-image: none;
+}
+
+.frame-button.frame-corner-handles[data-appearance='outline'],
+.frame-button.frame-corner-handles[data-appearance='ghost'] {
+  --frame-corner-handle-color: var(--frame-frame-accent);
+}
+
+.frame-button.frame-corner-handles[data-appearance='ghost'] {
+  --frame-corner-handle-size: 0px;
+}
+
+.frame-button.frame-corner-handles[data-appearance='ghost']:where(:not(:disabled, [data-disabled])):hover,
+.frame-button.frame-corner-handles[data-appearance='ghost']:focus-visible {
+  --frame-corner-handle-size: var(--frame-frame-tick-size, 0.375rem);
+}
+
+.frame-button-group.frame-corner-handles {
+  --frame-corner-handle-radius: var(--frame-button-group-radius);
+}
+
+.frame-button-group > .frame-button.frame-corner-handles,
+.frame-button-group > [frButton].frame-corner-handles,
+[frButtonGroup] > .frame-button.frame-corner-handles,
+[frButtonGroup] > [frButton].frame-corner-handles,
+frame-button-group > .frame-button.frame-corner-handles,
+frame-button-group > [frButton].frame-corner-handles,
+.frame-input-group__addon > .frame-button.frame-corner-handles,
+[frInputGroupAddon] > .frame-button.frame-corner-handles,
+frame-input-group-addon > .frame-button.frame-corner-handles {
+  --frame-corner-handle-size: 0;
+}
+
+[frInputControl].frame-corner-handles,
+frame-input-control.frame-corner-handles {
+  --frame-corner-handle-color: var(--frame-input-frame-color);
+  --frame-corner-handle-inset: var(--frame-frame-tick-inset, 0.25rem);
+  --frame-corner-handle-radius: var(--frame-input-root-radius);
+}
+
+.frame-popover__content.frame-corner-handles {
+  --frame-corner-handle-radius: var(--frame-popover-content-radius);
+}
+
+.frame-sheet__panel.frame-corner-handles {
+  --frame-corner-handle-radius: var(--frame-sheet-radius);
+}
+
+.frame-corner-handles:where(
+  .frame-table-container,
+  .frame-table-virtual,
+  .frame-virtual-scroll__viewport,
+  .frame-virtual-scroll__list,
+  .frame-combobox__panel,
+  .frame-dropdown-menu__content,
+  .frame-navigation-menu__viewport,
+  .frame-select__content
+)::before,
+.frame-corner-handles.frame-tabs__list[data-variant='line']::before,
+.frame-date-picker__content .frame-calendar::before {
+  content: none;
+}
+
+.frame-corner-handles:where(
+  .frame-table-container,
+  .frame-table-virtual,
+  .frame-virtual-scroll__viewport,
+  .frame-virtual-scroll__list,
+  .frame-combobox__panel,
+  .frame-navigation-menu__viewport
+) {
+  --frame-corner-handle-offset: var(--frame-corner-handle-inset, 0px);
+  --frame-corner-handle-active-size: var(
+    --frame-corner-handle-size,
+    var(--frame-frame-tick-size, 0.375rem)
+  );
+  background-image:
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent))),
+    linear-gradient(var(--frame-corner-handle-color, var(--frame-frame-accent)), var(--frame-corner-handle-color, var(--frame-frame-accent)));
+  background-position:
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    left var(--frame-corner-handle-offset) top var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset),
+    right var(--frame-corner-handle-offset) bottom var(--frame-corner-handle-offset);
+  background-size:
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size),
+    var(--frame-corner-handle-active-size) 1px,
+    1px var(--frame-corner-handle-active-size);
+  background-repeat: no-repeat;
+  background-attachment: local;
+}
+
+:root[data-frame-corner-handles='false']
+  .frame-corner-handles:where(
+    .frame-table-container,
+    .frame-table-virtual,
+    .frame-virtual-scroll__viewport,
+    .frame-virtual-scroll__list,
+    .frame-combobox__panel,
+    .frame-navigation-menu__viewport
+  ) {
+  background-image: none;
+}
+
+:where(
+  .frame-combobox__panel,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-sheet__panel,
+  .frame-toast,
+  .frame-tooltip__content
+) :where(.frame-corner-handles) {
+  --frame-corner-handle-inset: 0px;
+}
+
+:where(
+  .frame-combobox__panel,
+  .frame-date-picker__content,
+  .frame-dropdown-menu__content,
+  .frame-hover-card__content,
+  .frame-modal__panel,
+  .frame-navigation-menu__viewport,
+  .frame-popover__content,
+  .frame-sheet__panel,
+  .frame-toast
+) {
+  --frame-corner-handle-inset: 0.5rem;
+}
+
+.frame-tooltip__content.frame-corner-handles {
+  --frame-corner-handle-inset: 0.125rem;
+}

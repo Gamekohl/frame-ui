@@ -1,12 +1,12 @@
-:root {
+:where(:root) {
   --frame-hover-card-content-width: 20rem;
-  --frame-hover-card-content-padding: 1rem;
+  --frame-hover-card-content-padding: var(--frame-density-panel-padding-md);
   --frame-hover-card-content-radius: var(--frame-radius-md);
   --frame-hover-card-content-bg: var(--frame-surface);
   --frame-hover-card-content-color: var(--frame-surface-foreground);
   --frame-hover-card-content-border: var(--frame-border);
   --frame-hover-card-content-shadow: var(--frame-shadow-md);
-  --frame-hover-card-content-gap: 0.75rem;
+  --frame-hover-card-content-gap: var(--frame-density-gap-lg);
   --frame-hover-card-title-color: var(--frame-foreground);
   --frame-hover-card-title-font-size: 0.875rem;
   --frame-hover-card-title-font-weight: 600;

@@ -135,12 +135,12 @@ const iconsHtml = `<div frMenuBar>
 </div>`;
 
 const customStylingCss = `.project-menubar {
-  --frame-menubar-radius: 999px;
+  --frame-menubar-radius: var(--frame-radius-full);
   --frame-menubar-bg: color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface));
   --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
   --frame-menubar-trigger-open-bg: var(--frame-primary);
   --frame-menubar-trigger-open-color: var(--frame-primary-foreground);
-  --frame-dropdown-menu-panel-radius: 1rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
 }`;
 
 const rtlHtml = `<div dir="rtl">
@@ -350,12 +350,12 @@ export const MENUBAR_DOC: ComponentDoc = {
         inputs: {
           config: {
             mode: 'basic',
-            style: `--frame-menubar-radius: 999px;
+            style: `--frame-menubar-radius: var(--frame-radius-full);
 --frame-menubar-bg: color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface));
 --frame-menubar-border: color-mix(in srgb, var(--frame-primary) 20%, var(--frame-border));
 --frame-menubar-trigger-open-bg: var(--frame-primary);
 --frame-menubar-trigger-open-color: var(--frame-primary-foreground);
---frame-dropdown-menu-panel-radius: 1rem;`,
+--frame-dropdown-menu-panel-radius: var(--frame-radius-lg);`,
           },
         },
       },
@@ -467,11 +467,11 @@ ${basicHtml}
   --frame-menubar-radius: var(--frame-radius-md);
   --frame-menubar-padding: 0.25rem;
   --frame-menubar-gap: 0.25rem;
-  --frame-menubar-shadow: none;
+  --frame-menubar-shadow: var(--frame-shadow-sm);
   --frame-menubar-trigger-height: 2rem;
   --frame-menubar-trigger-padding-x: 0.75rem;
   --frame-menubar-trigger-gap: 0.375rem;
-  --frame-menubar-trigger-radius: calc(var(--frame-menubar-radius) - 0.125rem);
+  --frame-menubar-trigger-radius: var(--frame-radius-sm);
   --frame-menubar-trigger-font-size: 0.875rem;
   --frame-menubar-trigger-font-weight: 500;
   --frame-menubar-trigger-bg: transparent;

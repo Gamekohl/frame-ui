@@ -32,7 +32,11 @@ import {
         <li frBreadcrumbItem>
           <span frBreadcrumbEllipsis label="More sections"></span>
         </li>
-        <li frBreadcrumbSeparator>›</li>
+        <li frBreadcrumbSeparator>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </li>
         <li frBreadcrumbItem>
           <span frBreadcrumbPage>Components</span>
         </li>
@@ -70,7 +74,7 @@ describe('FrBreadcrumb', () => {
     const ellipsis = fixture.nativeElement.querySelector('[frBreadcrumbEllipsis]') as HTMLElement;
 
     expect(ellipsis.classList.contains('frame-breadcrumb__ellipsis')).toBe(true);
-    expect(ellipsis.textContent).toContain('...');
+    expect(ellipsis.querySelector('svg')).not.toBeNull();
     expect(ellipsis.textContent).toContain('More sections');
   });
 });

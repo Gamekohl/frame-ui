@@ -95,7 +95,7 @@ frame-slider[data-orientation='vertical'] .frame-slider__native {
   inline-size: var(--frame-slider-thumb-size);
   block-size: var(--frame-slider-thumb-size);
   border: var(--frame-slider-thumb-border-width) solid var(--frame-slider-thumb-border);
-  border-radius: 999px;
+  border-radius: var(--frame-radius-full);
   background: var(--frame-slider-thumb-bg);
   box-shadow: var(--frame-slider-thumb-shadow);
   cursor: grab;
@@ -142,6 +142,6 @@ frame-slider[data-orientation='vertical'][data-inverted='true'] .frame-slider__t
 }
 
 frame-slider[data-invalid] {
-  --frame-slider-range-bg: var(--frame-destructive, #dc2626);
-  --frame-slider-thumb-border: var(--frame-destructive, #dc2626);
+  --frame-slider-range-bg: var(--frame-destructive);
+  --frame-slider-thumb-border: var(--frame-destructive);
 }

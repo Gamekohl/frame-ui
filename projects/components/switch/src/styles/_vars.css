@@ -1,8 +1,8 @@
-:root {
-  --frame-switch-field-gap: 0.75rem;
+:where(:root) {
+  --frame-switch-field-gap: var(--frame-density-gap-lg);
   --frame-switch-field-color: var(--frame-foreground);
   --frame-switch-field-disabled-color: var(--frame-muted-foreground);
-  --frame-switch-content-gap: 0.25rem;
+  --frame-switch-content-gap: var(--frame-density-gap-sm);
   --frame-switch-label-font-size: 0.875rem;
   --frame-switch-label-font-weight: 600;
   --frame-switch-description-color: var(--frame-muted-foreground);
@@ -16,7 +16,7 @@
   --frame-switch-sm-width: 1.75rem;
   --frame-switch-sm-height: 1rem;
   --frame-switch-sm-thumb-size: 0.75rem;
-  --frame-switch-radius: 0;
+  --frame-switch-radius: var(--frame-radius-sm);
   --frame-switch-bg: var(--frame-input);
   --frame-switch-hover-bg: color-mix(in srgb, var(--frame-input) 82%, var(--frame-foreground));
   --frame-switch-checked-bg: var(--frame-primary);

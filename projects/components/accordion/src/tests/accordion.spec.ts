@@ -20,29 +20,28 @@ import {
   ],
   standalone: true,
   template: `
-    <div
-      frAccordion
+    <frame-accordion
       [type]="type()"
       [border]="border()"
       [collapsible]="collapsible()"
       [defaultValue]="defaultValue()"
     >
-      <section frAccordionItem value="item-1">
-        <button frAccordionTrigger>
+      <frame-accordion-item value="item-1">
+        <button frameAccordionTrigger>
           <span>First item</span>
-          <span frAccordionIcon>+</span>
+          <span frameAccordionIcon>+</span>
         </button>
-        <div frAccordionContent>First content</div>
-      </section>
+        <ng-template frameAccordionContent>First content</ng-template>
+      </frame-accordion-item>
 
-      <section frAccordionItem value="item-2" [disabled]="disabledSecond()">
-        <button frAccordionTrigger>
+      <frame-accordion-item value="item-2" [disabled]="disabledSecond()">
+        <button frameAccordionTrigger>
           <span>Second item</span>
-          <span frAccordionIcon>+</span>
+          <span frameAccordionIcon>+</span>
         </button>
-        <div frAccordionContent>Second content</div>
-      </section>
-    </div>
+        <ng-template frameAccordionContent>Second content</ng-template>
+      </frame-accordion-item>
+    </frame-accordion>
   `,
 })
 class TestHostComponent {
@@ -53,20 +52,36 @@ class TestHostComponent {
   readonly disabledSecond = signal(false);
 }
 
+@Component({
+  imports: [FrAccordion],
+  standalone: true,
+  template: `<frame-accordion></frame-accordion>`,
+})
+class DefaultAccordionHostComponent {}
+
 describe('FrAccordion', () => {
+  it('is borderless by default', async () => {
+    const fixture = TestBed.createComponent(DefaultAccordionHostComponent);
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const root = fixture.nativeElement.querySelector('frame-accordion') as HTMLElement;
+    expect(root.getAttribute('data-border')).toBe('false');
+  });
+
   it('opens the default item in single mode', async () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const items = fixture.nativeElement.querySelectorAll('[frAccordionItem]');
-    const firstContent = items[0].querySelector('[frAccordionContent]') as HTMLElement;
-    const secondContent = items[1].querySelector('[frAccordionContent]') as HTMLElement;
+    const items = fixture.nativeElement.querySelectorAll('frame-accordion-item');
 
     expect(items[0].getAttribute('data-state')).toBe('open');
     expect(items[1].getAttribute('data-state')).toBe('closed');
-    expect(firstContent.getAttribute('aria-hidden')).toBe('false');
-    expect(secondContent.getAttribute('aria-hidden')).toBe('true');
+    expect(items[0].querySelector('.frame-accordion__content')).not.toBeNull();
+    expect(items[1].querySelector('.frame-accordion__content')?.getAttribute('aria-hidden')).toBe(
+      'true',
+    );
   });
 
   it('exposes the border setting on the accordion root', async () => {
@@ -77,7 +92,7 @@ describe('FrAccordion', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const root = fixture.nativeElement.querySelector('[frAccordion]') as HTMLElement;
+    const root = fixture.nativeElement.querySelector('frame-accordion') as HTMLElement;
     expect(root.getAttribute('data-border')).toBe('false');
   });
 
@@ -89,12 +104,23 @@ describe('FrAccordion', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const firstTrigger = fixture.nativeElement.querySelector('[frAccordionTrigger]') as HTMLButtonElement;
+    const firstTrigger = fixture.nativeElement.querySelector('[frameAccordionTrigger]') as HTMLButtonElement;
     firstTrigger.click();
     fixture.detectChanges();
 
-    const firstItem = fixture.nativeElement.querySelector('[frAccordionItem]') as HTMLElement;
+    const firstItem = fixture.nativeElement.querySelector('frame-accordion-item') as HTMLElement;
     expect(firstItem.getAttribute('data-state')).toBe('closed');
+    const closingContent = firstItem.querySelector('.frame-accordion__content') as HTMLElement;
+    expect(closingContent).not.toBeNull();
+
+    const transitionEnd = new Event('transitionend', { bubbles: true });
+    Object.defineProperty(transitionEnd, 'propertyName', { value: 'height' });
+    closingContent.dispatchEvent(transitionEnd);
+    fixture.detectChanges();
+
+    expect(firstItem.querySelector('.frame-accordion__content')?.getAttribute('aria-hidden')).toBe(
+      'true',
+    );
   });
 
   it('allows multiple items to be open in multiple mode', async () => {
@@ -103,14 +129,15 @@ describe('FrAccordion', () => {
 
     component.type.set('multiple');
     component.defaultValue.set(['item-1']);
+    fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const triggers = fixture.nativeElement.querySelectorAll('[frAccordionTrigger]') as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll('[frameAccordionTrigger]') as NodeListOf<HTMLButtonElement>;
     triggers[1].click();
     fixture.detectChanges();
 
-    const items = fixture.nativeElement.querySelectorAll('[frAccordionItem]');
+    const items = fixture.nativeElement.querySelectorAll('frame-accordion-item');
     expect(items[0].getAttribute('data-state')).toBe('open');
     expect(items[1].getAttribute('data-state')).toBe('open');
   });
@@ -124,11 +151,11 @@ describe('FrAccordion', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const triggers = fixture.nativeElement.querySelectorAll('[frAccordionTrigger]') as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll('[frameAccordionTrigger]') as NodeListOf<HTMLButtonElement>;
     triggers[1].click();
     fixture.detectChanges();
 
-    const items = fixture.nativeElement.querySelectorAll('[frAccordionItem]');
+    const items = fixture.nativeElement.querySelectorAll('frame-accordion-item');
     expect(items[1].getAttribute('data-state')).toBe('closed');
     expect(triggers[1].hasAttribute('disabled')).toBe(true);
   });

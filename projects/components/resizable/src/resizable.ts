@@ -20,7 +20,7 @@ let nextResizableId = 0;
   selector: '[frResizablePanelGroup], frame-resizable-panel-group',
   exportAs: 'frResizablePanelGroup',
   host: {
-    class: 'frame-resizable',
+    class: 'frame-resizable frame-corner-handles',
     '[attr.data-orientation]': 'orientation()',
     '[attr.data-disabled]': 'disabled() ? "" : null',
   },

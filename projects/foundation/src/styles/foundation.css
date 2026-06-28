@@ -1,5 +1,4 @@
-:root,
-[data-theme='light'] {
+:where(:root, [data-theme='light']) {
   /* Theme metadata */
   color-scheme: light;
 
@@ -21,6 +20,12 @@
   --frame-accent-foreground: oklch(0.205 0 0);
   --frame-destructive: oklch(55.205% 0.18114 25.384);
   --frame-destructive-foreground: oklch(100% 0.00011 271.152);
+  --frame-success: oklch(0.62 0.18 149);
+  --frame-success-foreground: oklch(0.985 0 0);
+  --frame-warning: oklch(0.68 0.16 65);
+  --frame-warning-foreground: oklch(0.145 0 0);
+  --frame-info: oklch(0.58 0.19 255);
+  --frame-info-foreground: oklch(0.985 0 0);
 
   /* Structure and focus */
   --frame-border: oklch(0.87 0.006 247);
@@ -29,7 +34,7 @@
   --frame-ring: #d71920;
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 48%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 54%, transparent);
-  --frame-frame-accent: #d71920;
+  --frame-frame-accent: var(--frame-ring);
   --frame-frame-tick-size: 0.375rem;
   --frame-frame-tick-inset: 0;
 
@@ -40,21 +45,52 @@
   --frame-spacing-lg: 1rem;
   --frame-spacing-xl: 1.25rem;
 
+  /* Density */
+  --frame-density-gap-xs: 0.125rem;
+  --frame-density-gap-sm: 0.25rem;
+  --frame-density-gap-md: 0.5rem;
+  --frame-density-gap-lg: 0.75rem;
+  --frame-density-gap-xl: 1rem;
+  --frame-density-control-height-sm: 2rem;
+  --frame-density-control-height-md: 2.25rem;
+  --frame-density-control-height-lg: 2.5rem;
+  --frame-density-control-height-xl: 2.875rem;
+  --frame-density-control-padding-x-sm: 0.75rem;
+  --frame-density-control-padding-x-md: 0.875rem;
+  --frame-density-control-padding-x-lg: 1rem;
+  --frame-density-inline-height: 1.375rem;
+  --frame-density-inline-padding-block: 0.1875rem;
+  --frame-density-inline-padding-inline: 0.625rem;
+  --frame-density-item-height: 2rem;
+  --frame-density-item-padding: 0.375rem 0.5rem;
+  --frame-density-file-padding-block: 0.375rem;
+  --frame-density-overlay-padding-block: 0.375rem;
+  --frame-density-overlay-padding-inline: 0.625rem;
+  --frame-density-shortcut-padding-block: 0.0625rem;
+  --frame-density-shortcut-padding-inline: 0.3125rem;
+  --frame-density-panel-padding-sm: 0.25rem;
+  --frame-density-panel-padding-md: 1rem;
+  --frame-density-panel-padding-lg: 1.5rem;
+  --frame-density-table-cell-padding-block: 0.75rem;
+  --frame-density-table-cell-padding-inline: 1rem;
+  --frame-density-table-cell-padding-block-sm: 0.5rem;
+  --frame-density-table-cell-padding-inline-sm: 0.75rem;
+  --frame-density-table-cell-padding-block-lg: 1rem;
+  --frame-density-table-cell-padding-inline-lg: 1.125rem;
+
   /* Shape */
-  --frame-radius-xs: 0.125rem;
-  --frame-radius-sm: 0.375rem;
-  --frame-radius-md: 0.5rem;
-  --frame-radius-lg: 0.75rem;
+  --frame-radius-sm: 0px;
+  --frame-radius-md: 0px;
+  --frame-radius-lg: 0px;
   --frame-radius-full: 9999px;
 
   /* Elevation */
   --frame-shadow-sm: none;
   --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --frame-shadow-frame: none;
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
 }
 
-[data-theme='dark'],
-.dark {
+:where([data-theme='dark'], .dark) {
   /* Theme metadata */
   color-scheme: dark;
 
@@ -74,6 +110,14 @@
   --frame-primary-foreground: oklch(0.205 0 0);
   --frame-accent: oklch(0.269 0 0);
   --frame-accent-foreground: oklch(0.985 0 0);
+  --frame-destructive: oklch(0.704 0.191 22.216);
+  --frame-destructive-foreground: oklch(0.985 0 0);
+  --frame-success: oklch(0.72 0.17 149);
+  --frame-success-foreground: oklch(0.145 0 0);
+  --frame-warning: oklch(0.78 0.16 75);
+  --frame-warning-foreground: oklch(0.145 0 0);
+  --frame-info: oklch(0.72 0.15 255);
+  --frame-info-foreground: oklch(0.145 0 0);
 
   /* Structure and focus */
   --frame-border: oklch(1 0 0 / 0.08);
@@ -82,10 +126,107 @@
   --frame-ring: #ff4a4f;
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
-  --frame-frame-accent: #ff4a4f;
+  --frame-frame-accent: var(--frame-ring);
 
   /* Elevation */
   --frame-shadow-sm: none;
   --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
-  --frame-shadow-frame: none;
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);
+}
+
+:where([data-shadow='flat']) {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: none;
+  --frame-shadow-lg: none;
+}
+
+:where([data-shadow='default']) {
+  --frame-shadow-sm: none;
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.18), 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+:where([data-theme='dark'], .dark):where([data-shadow='default']) {
+  --frame-shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
+  --frame-shadow-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);
+}
+
+:where([data-shadow='raised']) {
+  --frame-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.1);
+  --frame-shadow-md: 0 16px 32px -12px rgb(0 0 0 / 0.22);
+  --frame-shadow-lg: 0 32px 90px rgb(0 0 0 / 0.24), 0 12px 32px rgb(0 0 0 / 0.16);
+}
+
+:where([data-theme='dark'], .dark):where([data-shadow='raised']) {
+  --frame-shadow-sm: 0 2px 8px rgb(0 0 0 / 0.32);
+  --frame-shadow-md: 0 16px 32px -12px rgb(0 0 0 / 0.52);
+  --frame-shadow-lg: 0 32px 90px rgb(0 0 0 / 0.58), 0 12px 32px rgb(0 0 0 / 0.36);
+}
+
+:where([data-density='compact']) {
+  --frame-density-gap-xs: 0.0625rem;
+  --frame-density-gap-sm: 0.1875rem;
+  --frame-density-gap-md: 0.375rem;
+  --frame-density-gap-lg: 0.5rem;
+  --frame-density-gap-xl: 0.75rem;
+  --frame-density-control-height-sm: 1.75rem;
+  --frame-density-control-height-md: 2rem;
+  --frame-density-control-height-lg: 2.25rem;
+  --frame-density-control-height-xl: 2.5rem;
+  --frame-density-control-padding-x-sm: 0.5rem;
+  --frame-density-control-padding-x-md: 0.75rem;
+  --frame-density-control-padding-x-lg: 0.875rem;
+  --frame-density-inline-height: 1.25rem;
+  --frame-density-inline-padding-block: 0.125rem;
+  --frame-density-inline-padding-inline: 0.5rem;
+  --frame-density-item-height: 1.75rem;
+  --frame-density-item-padding: 0.25rem 0.5rem;
+  --frame-density-file-padding-block: 0.25rem;
+  --frame-density-overlay-padding-block: 0.25rem;
+  --frame-density-overlay-padding-inline: 0.5rem;
+  --frame-density-shortcut-padding-block: 0.0625rem;
+  --frame-density-shortcut-padding-inline: 0.25rem;
+  --frame-density-panel-padding-sm: 0.1875rem;
+  --frame-density-panel-padding-md: 0.75rem;
+  --frame-density-panel-padding-lg: 1rem;
+  --frame-density-table-cell-padding-block: 0.5rem;
+  --frame-density-table-cell-padding-inline: 0.75rem;
+  --frame-density-table-cell-padding-block-sm: 0.375rem;
+  --frame-density-table-cell-padding-inline-sm: 0.5rem;
+  --frame-density-table-cell-padding-block-lg: 0.75rem;
+  --frame-density-table-cell-padding-inline-lg: 0.875rem;
+}
+
+:where([data-density='comfortable']) {
+  --frame-density-gap-xs: 0.1875rem;
+  --frame-density-gap-sm: 0.375rem;
+  --frame-density-gap-md: 0.625rem;
+  --frame-density-gap-lg: 0.875rem;
+  --frame-density-gap-xl: 1.25rem;
+  --frame-density-control-height-sm: 2.25rem;
+  --frame-density-control-height-md: 2.5rem;
+  --frame-density-control-height-lg: 2.75rem;
+  --frame-density-control-height-xl: 3.125rem;
+  --frame-density-control-padding-x-sm: 0.875rem;
+  --frame-density-control-padding-x-md: 1rem;
+  --frame-density-control-padding-x-lg: 1.125rem;
+  --frame-density-inline-height: 1.5rem;
+  --frame-density-inline-padding-block: 0.25rem;
+  --frame-density-inline-padding-inline: 0.75rem;
+  --frame-density-item-height: 2.25rem;
+  --frame-density-item-padding: 0.5rem 0.625rem;
+  --frame-density-file-padding-block: 0.5rem;
+  --frame-density-overlay-padding-block: 0.5rem;
+  --frame-density-overlay-padding-inline: 0.75rem;
+  --frame-density-shortcut-padding-block: 0.125rem;
+  --frame-density-shortcut-padding-inline: 0.375rem;
+  --frame-density-panel-padding-sm: 0.375rem;
+  --frame-density-panel-padding-md: 1.25rem;
+  --frame-density-panel-padding-lg: 1.75rem;
+  --frame-density-table-cell-padding-block: 1rem;
+  --frame-density-table-cell-padding-inline: 1.125rem;
+  --frame-density-table-cell-padding-block-sm: 0.625rem;
+  --frame-density-table-cell-padding-inline-sm: 0.875rem;
+  --frame-density-table-cell-padding-block-lg: 1.125rem;
+  --frame-density-table-cell-padding-inline-lg: 1.25rem;
 }

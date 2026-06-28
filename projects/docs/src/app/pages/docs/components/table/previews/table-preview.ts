@@ -459,7 +459,7 @@ const DEPLOYMENTS: Deployment[] = [
     }
 
     .docs-table-custom {
-      --frame-table-radius: 1.25rem;
+      --frame-table-radius: var(--frame-radius-lg);
       --frame-table-header-bg: color-mix(in srgb, var(--frame-primary) 12%, var(--frame-surface));
       --frame-table-header-color: var(--frame-foreground);
       --frame-table-row-hover-bg: color-mix(in srgb, var(--frame-primary) 10%, transparent);

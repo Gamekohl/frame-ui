@@ -93,6 +93,7 @@ export class FrCombobox
   private readonly items = new Set<FrComboboxItem>();
   private readonly itemsVersion = signal(0);
   private readonly selectedLabels = new Map<FrComboboxValue, string>();
+  private readonly selectedLabelsVersion = signal(0);
   private lastAutoHighlight = false;
   private lastItemsVersion = -1;
   private lastQuery = '';
@@ -114,6 +115,7 @@ export class FrCombobox
   readonly invalid = computed(() => this.invalidInput() || this.formInvalid());
   readonly isOpen = signal(false);
   readonly query = signal('');
+  readonly queryActive = signal(false);
   readonly anchorWidth = signal<number | null>(null);
   readonly highlightedIndex = signal(0);
   readonly overlaySide = signal<'bottom' | 'top'>('bottom');
@@ -130,8 +132,9 @@ export class FrCombobox
     }
 
     const value = this.value();
+    this.selectedLabelsVersion();
 
-    if (value === null || Array.isArray(value)) {
+    if (this.queryActive() || value === null || Array.isArray(value)) {
       return this.query();
     }
 
@@ -223,7 +226,12 @@ export class FrCombobox
   }
 
   rememberItemLabel(value: FrComboboxValue, label: string): void {
+    if (this.selectedLabels.get(value) === label) {
+      return;
+    }
+
     this.selectedLabels.set(value, label);
+    this.selectedLabelsVersion.update((version) => version + 1);
   }
 
   itemVisible(label: string): boolean {
@@ -246,6 +254,9 @@ export class FrCombobox
     }
 
     this.isOpen.set(false);
+    if (!this.query()) {
+      this.queryActive.set(false);
+    }
     this.markAsTouched();
   }
 
@@ -255,13 +266,14 @@ export class FrCombobox
 
   clear(): void {
     this.query.set('');
+    this.queryActive.set(false);
     this.value.set(this.multiple() ? [] : null);
     this.notifyValueChange(this.value());
     this.markAsTouched();
   }
 
   selectItem(value: FrComboboxValue, label: string): void {
-    this.selectedLabels.set(value, label);
+    this.rememberItemLabel(value, label);
 
     if (this.multiple()) {
       const current = this.selectedValues();
@@ -270,6 +282,7 @@ export class FrCombobox
       this.value.set(next);
       this.notifyValueChange(next);
       this.query.set('');
+      this.queryActive.set(false);
       this.open();
       return;
     }
@@ -277,6 +290,7 @@ export class FrCombobox
     this.value.set(value);
     this.notifyValueChange(value);
     this.query.set('');
+    this.queryActive.set(false);
     this.close();
   }
 
@@ -294,6 +308,7 @@ export class FrCombobox
 
   updateQuery(value: string): void {
     this.query.set(value);
+    this.queryActive.set(true);
     this.highlightedIndex.set(0);
     this.open();
   }
@@ -307,6 +322,7 @@ export class FrCombobox
     }
 
     this.highlightedIndex.set((this.highlightedIndex() + delta + count) % count);
+    this.scrollHighlightedItemIntoView();
   }
 
   selectHighlighted(): void {
@@ -321,10 +337,17 @@ export class FrCombobox
   protected setViewValue(value: FrComboboxValue | FrComboboxValue[] | null): void {
     this.value.set(value);
     this.query.set('');
+    this.queryActive.set(false);
   }
 
   private bumpItems(): void {
     this.itemsVersion.update((value) => value + 1);
+  }
+
+  private scrollHighlightedItemIntoView(): void {
+    queueMicrotask(() => {
+      this.visibleItems()[this.highlightedIndex()]?.scrollIntoView();
+    });
   }
 
   private measureAnchor(): void {

@@ -127,7 +127,7 @@ const inspectorConfig: InputPreviewConfig = {
 const customStylingConfig: InputPreviewConfig = {
   style: `--frame-input-field-gap: 0.625rem;
 --frame-input-root-height: 2.75rem;
---frame-input-root-radius: 1rem;
+--frame-input-root-radius: var(--frame-radius-lg);
 --frame-input-root-border: color-mix(in srgb, var(--frame-primary) 24%, var(--frame-border));
 --frame-input-root-focus-border: color-mix(in srgb, var(--frame-primary) 60%, var(--frame-border));
 --frame-input-root-focus-shadow: 0 0 0 3px color-mix(in srgb, var(--frame-primary) 18%, transparent);
@@ -579,7 +579,7 @@ disabledPasswordControl = new FormControl({ value: 'password', disabled: true })
   --frame-input-root-readonly-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
   --frame-input-root-transition-duration: 150ms;
   --frame-input-file-padding-block: 0.375rem;
-  --frame-input-file-button-radius: calc(var(--frame-radius-md) - 2px);
+  --frame-input-file-button-radius: var(--frame-radius-sm);
   --frame-input-file-button-bg: color-mix(in srgb, var(--frame-surface) 80%, var(--frame-muted));
   --frame-input-file-button-hover-bg: color-mix(in srgb, var(--frame-surface) 65%, var(--frame-muted));
   --frame-input-file-button-font-size: 0.8125rem;
@@ -589,7 +589,7 @@ disabledPasswordControl = new FormControl({ value: 'password', disabled: true })
   --frame-input-file-button-transition-duration: var(--frame-input-root-transition-duration);
   --frame-input-badge-height: 1.5rem;
   --frame-input-badge-padding-inline: 0.5rem;
-  --frame-input-badge-radius: 999px;
+  --frame-input-badge-radius: var(--frame-radius-sm);
   --frame-input-badge-border: color-mix(in srgb, var(--frame-primary) 24%, transparent);
   --frame-input-badge-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
   --frame-input-badge-color: var(--frame-primary);

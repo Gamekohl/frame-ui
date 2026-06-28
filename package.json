@@ -28,9 +28,9 @@
     "pack:foundation": "cd dist/foundation && npm pack --dry-run",
     "pack:components": "cd dist/components && npm pack --dry-run",
     "pack:charts": "cd dist/charts && npm pack --dry-run",
-    "publish:foundation": "cd dist/foundation && npm publish --access public --tag latest",
-    "publish:components": "cd dist/components && npm publish --access public --tag latest",
     "publish:charts": "cd dist/charts && npm publish --access public --tag latest"
+    "publish:foundation": "ng build foundation --configuration production && cd dist/foundation && npm publish --access public --tag latest",
+    "publish:components": "ng build components --configuration production && cd dist/components && npm publish --access public --tag latest"
   },
   "private": true,
   "packageManager": "npm@11.16.0",
@@ -46,6 +46,7 @@
     "@angular/ssr": "^21.2.14",
     "@ng-icons/core": "^33.2.3",
     "@ng-icons/tabler-icons": "^33.2.3",
+    "@vercel/analytics": "^2.0.1",
     "dotenv": "^17.4.2",
     "express": "^5.1.0",
     "openai": "^6.42.0",

@@ -99,7 +99,7 @@ const customStylingCss = `.product-navigation {
   --frame-navigation-menu-trigger-open-bg: var(--frame-primary);
   --frame-navigation-menu-trigger-open-color: var(--frame-primary-foreground);
   --frame-navigation-menu-link-hover-bg: color-mix(in srgb, var(--frame-primary) 12%, transparent);
-  --frame-dropdown-menu-panel-radius: 1.25rem;
+  --frame-dropdown-menu-panel-radius: var(--frame-radius-lg);
   --frame-dropdown-menu-panel-shadow: 0 24px 70px color-mix(in srgb, var(--frame-primary) 18%, transparent);
 }`;
 
@@ -460,7 +460,7 @@ export const NAVIGATION_MENU_DOC: ComponentDoc = {
   --frame-navigation-menu-trigger-height: 2.25rem;
   --frame-navigation-menu-trigger-padding-x: 0.875rem;
   --frame-navigation-menu-trigger-gap: 0.375rem;
-  --frame-navigation-menu-trigger-radius: calc(var(--frame-navigation-menu-radius) - 0.125rem);
+  --frame-navigation-menu-trigger-radius: var(--frame-radius-sm);
   --frame-navigation-menu-trigger-font-size: 0.875rem;
   --frame-navigation-menu-trigger-font-weight: 500;
   --frame-navigation-menu-trigger-bg: transparent;

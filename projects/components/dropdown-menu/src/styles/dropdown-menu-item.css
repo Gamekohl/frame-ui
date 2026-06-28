@@ -80,8 +80,12 @@
 }
 
 .frame-dropdown-menu__sub-trigger::after {
-  content: '›';
+  content: '';
+  inline-size: 1rem;
+  block-size: 1rem;
   margin-left: auto;
   padding-left: var(--frame-dropdown-menu-shortcut-gap);
-  color: var(--frame-dropdown-menu-shortcut-color);
+  background: var(--frame-dropdown-menu-shortcut-color);
+  mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27m9%2018%206-6-6-6%27/%3E%3C/svg%3E") center / 1rem 1rem no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27m9%2018%206-6-6-6%27/%3E%3C/svg%3E") center / 1rem 1rem no-repeat;
 }

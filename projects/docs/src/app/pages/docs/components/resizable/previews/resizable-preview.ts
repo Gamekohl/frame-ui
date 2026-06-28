@@ -145,7 +145,7 @@ export type ResizablePreviewConfig = {
     }
 
     .docs-resizable-eyebrow {
-      border-radius: 999px;
+      border-radius: var(--frame-radius-full);
       background: var(--frame-muted);
       padding: 0.375rem 0.75rem;
     }
@@ -158,7 +158,7 @@ export type ResizablePreviewConfig = {
     }
 
     .docs-resizable-custom {
-      --frame-resizable-radius: 1.25rem;
+      --frame-resizable-radius: var(--frame-radius-lg);
       --frame-resizable-border: color-mix(in srgb, var(--frame-primary) 22%, var(--frame-border));
       --frame-resizable-bg: linear-gradient(135deg, var(--frame-surface), color-mix(in srgb, var(--frame-primary) 8%, var(--frame-surface)));
       --frame-resizable-handle-size: 0.75rem;
