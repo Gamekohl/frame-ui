@@ -53,6 +53,7 @@ html {
   --docs-blueprint-red: var(--frame-frame-accent);
   --docs-blueprint-ink: #111827;
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
+  --docs-layout-radius: var(--frame-radius-lg, 0px);
   --docs-header-height: 5.25rem;
   --docs-page-padding-y: 2rem;
 
@@ -257,6 +258,7 @@ body {
 .docs-blueprint-sheet {
   position: relative;
   border: 1px solid var(--frame-frame-line);
+  border-radius: var(--docs-layout-radius);
   background: var(--docs-blueprint-sheet);
   box-shadow: none;
   isolation: isolate;
@@ -270,55 +272,11 @@ body {
   background-size: 32px 32px, 32px 32px, auto;
 }
 
-.docs-blueprint-sheet::before,
-.docs-blueprint-sheet::after {
-  position: absolute;
-  z-index: 2;
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  pointer-events: none;
-  content: "";
-}
-
-.docs-blueprint-sheet::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
-}
-
 .docs-blueprint-sheet::after {
   inset-block-end: 0;
   inset-inline-end: 0;
   border-block-end: 1px solid;
   border-inline-end: 1px solid;
-}
-
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::before,
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto)::after {
-  content: none;
-}
-
-.docs-blueprint-sheet:where(.overflow-auto, .overflow-y-auto) {
-  background-image:
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red)),
-    linear-gradient(var(--docs-blueprint-red), var(--docs-blueprint-red));
-  background-position:
-    left top,
-    left top,
-    right bottom,
-    right bottom;
-  background-size:
-    0.75rem 1px,
-    1px 0.75rem,
-    0.75rem 1px,
-    1px 0.75rem;
-  background-repeat: no-repeat;
-  background-attachment: local;
 }
 
 .docs-blueprint-title {
@@ -331,13 +289,6 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.docs-blueprint-title::before {
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
 }
 
 .docs-shell {
@@ -360,31 +311,10 @@ body {
 .docs-article > section {
   position: relative;
   border: 1px solid var(--frame-frame-line);
+  border-radius: var(--docs-layout-radius);
   background: var(--docs-blueprint-sheet);
   padding: clamp(1.25rem, 2vw, 2rem);
   isolation: isolate;
-}
-
-.docs-article > header::before,
-.docs-article > header::after,
-.docs-article > section::before,
-.docs-article > section::after {
-  position: absolute;
-  z-index: 2;
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  pointer-events: none;
-  content: "";
-}
-
-.docs-article > header::before,
-.docs-article > section::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
 }
 
 .docs-article > header::after,
@@ -407,13 +337,6 @@ body {
   text-transform: uppercase;
 }
 
-.docs-article > header > p:first-child::before {
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
-}
-
 .docs-article > header h1 {
   font-family: var(--font-mono), monospace;
   letter-spacing: 0.04em;
@@ -433,6 +356,7 @@ body {
   display: block;
   min-block-size: 100%;
   border: 1px solid var(--frame-frame-line-muted);
+  border-radius: var(--frame-radius-md);
   background: var(--frame-surface);
   padding: 1rem;
   text-decoration: none;
@@ -448,24 +372,6 @@ body {
   outline: none;
   transform: translate(-2px, -2px);
   box-shadow: 3px 3px 0 color-mix(in srgb, var(--frame-frame-line-muted) 90%, transparent);
-}
-
-.docs-article > section a.group::before,
-.docs-article > section a.group::after {
-  position: absolute;
-  inline-size: 0.5rem;
-  block-size: 0.5rem;
-  border-color: var(--docs-blueprint-red);
-  background: none;
-  content: "";
-  pointer-events: none;
-}
-
-.docs-article > section a.group::before {
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  border-block-start: 1px solid;
-  border-inline-start: 1px solid;
 }
 
 .docs-article > section a.group::after {
@@ -510,20 +416,6 @@ body {
   background: var(--docs-blueprint-red);
 }
 
-.docs-blueprint-measure::before,
-.docs-blueprint-measure::after {
-  position: absolute;
-  inset-block-start: -0.25rem;
-  inline-size: 1px;
-  block-size: 0.5rem;
-  background: var(--docs-blueprint-red);
-  content: "";
-}
-
-.docs-blueprint-measure::before {
-  inset-inline-start: 0;
-}
-
 .docs-blueprint-measure::after {
   inset-inline-end: 0;
 }
@@ -535,10 +427,13 @@ body {
   .rounded-lg,
   .rounded-xl,
   .rounded-2xl,
-  .rounded-3xl,
-  .rounded-full
+  .rounded-3xl
 ) {
-  border-radius: 0 !important;
+  border-radius: var(--docs-layout-radius) !important;
+}
+
+:where(.rounded-full) {
+  border-radius: var(--frame-radius-full) !important;
 }
 
 :where([frAvatar], frame-avatar, [frSpinner], frame-spinner, .frame-slider__thumb) {
@@ -554,7 +449,7 @@ body {
 }
 
 :where(pre, docs-code-block, .shiki) {
-  border-radius: 0 !important;
+  border-radius: var(--docs-layout-radius) !important;
 }
 
 .slide-in-enter {

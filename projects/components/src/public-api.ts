@@ -15,6 +15,7 @@ export * from '@frame-ui-ng/components/command';
 export * from '@frame-ui-ng/components/context-menu';
 export * from '@frame-ui-ng/components/confirm-modal';
 export * from '@frame-ui-ng/components/confirm-popover';
+export * from './corner-handles';
 export * from '@frame-ui-ng/components/date-picker';
 export * from '@frame-ui-ng/components/drag-drop';
 export * from '@frame-ui-ng/components/dropdown-menu';

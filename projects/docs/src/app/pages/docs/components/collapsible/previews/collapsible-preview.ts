@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerChevronDown, tablerChevronRight } from '@ng-icons/tabler-icons';
+import { tablerChevronDown } from '@ng-icons/tabler-icons';
 
 export type CollapsiblePreviewMode =
   | 'basic'
   | 'controlled'
+  | 'disabled'
   | 'settings'
-  | 'file-tree'
+  | 'metadata'
   | 'inspector'
   | 'rtl';
 
@@ -23,6 +25,7 @@ export type CollapsiblePreviewConfig = {
 @Component({
   selector: 'docs-collapsible-preview',
   imports: [
+    FrBadgeModule,
     FrButtonModule,
     FrCardModule,
     FrCollapsibleModule,
@@ -30,7 +33,7 @@ export type CollapsiblePreviewConfig = {
     NgIcon,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ tablerChevronDown, tablerChevronRight })],
+  viewProviders: [provideIcons({ tablerChevronDown })],
   template: `
     <div
       [class]="config().className ?? 'w-full flex justify-center py-2'"
@@ -42,177 +45,142 @@ export type CollapsiblePreviewConfig = {
             frCollapsible
             [open]="controlledOpen()"
             (openChange)="controlledOpen.set($event)"
-            class="docs-collapsible-order"
+            class="docs-collapsible-surface"
           >
-            <div class="docs-collapsible-row">
+            <div class="docs-collapsible-surface__header">
               <div>
-                <p class="docs-collapsible-eyebrow">Order #4189</p>
-                <p class="docs-collapsible-title">Toggle shipping details</p>
+                <p class="docs-collapsible-eyebrow">Support handoff</p>
+                <h3 class="docs-collapsible-title">Escalate checkout issue</h3>
               </div>
               <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-                <span frButtonLabel>{{ controlledOpen() ? 'Hide' : 'Show' }}</span>
+                <span frButtonLabel>{{ controlledOpen() ? 'Hide notes' : 'Show notes' }}</span>
               </button>
             </div>
+
             <div frCollapsibleContent>
-              <div frCard>
-                <div frCardContent class="docs-collapsible-card-content">
-                  <span>Status</span>
-                  <strong>Shipped</strong>
-                </div>
+              <div class="docs-collapsible-note">
+                Customer already tried a second card. Ask billing to verify the latest payment
+                attempt before creating a replacement order.
               </div>
+            </div>
+          </section>
+        }
+
+        @case ('disabled') {
+          <section frCollapsible disabled class="docs-collapsible-faq docs-collapsible-faq--disabled">
+            <button frCollapsibleTrigger class="docs-collapsible-faq__trigger" type="button">
+              <span>Can the rules be changed right now?</span>
+              <ng-icon name="tablerChevronDown" size="18" />
+            </button>
+            <div frCollapsibleContent>
+              This disclosure is disabled while the workspace policy is locked by an active
+              deployment.
             </div>
           </section>
         }
 
         @case ('settings') {
-          <section frCollapsible defaultOpen class="docs-collapsible-panel">
-            <button
-              frButton
-              frCollapsibleTrigger
-              appearance="ghost"
-              type="button"
-              class="docs-collapsible-panel-trigger"
-            >
-              <span frButtonLabel>Advanced radius settings</span>
-              <ng-icon name="tablerChevronDown" size="16" />
+          <section frCollapsible defaultOpen class="docs-collapsible-settings">
+            <button frCollapsibleTrigger class="docs-collapsible-trigger" type="button">
+              <span>
+                <span class="docs-collapsible-title">Advanced matching rules</span>
+                <span class="docs-collapsible-description">
+                  Tune how strict search should be for this workspace.
+                </span>
+              </span>
+              <ng-icon name="tablerChevronDown" size="18" />
             </button>
+
             <div frCollapsibleContent>
-              <div class="docs-collapsible-settings-grid">
+              <div class="docs-collapsible-settings__grid">
                 <label>
-                  <span>Radius X</span>
-                  <input frInput value="12px" />
+                  <span>Minimum score</span>
+                  <input frInput value="82" />
                 </label>
                 <label>
-                  <span>Radius Y</span>
-                  <input frInput value="16px" />
+                  <span>Fallback region</span>
+                  <input frInput value="Europe" />
                 </label>
               </div>
             </div>
           </section>
         }
 
-        @case ('file-tree') {
-          <div class="docs-collapsible-tree" aria-label="Project files">
-            <section frCollapsible defaultOpen>
-              <button frCollapsibleTrigger class="docs-collapsible-tree-trigger" type="button">
-                <ng-icon
-                  name="tablerChevronRight"
-                  size="16"
-                />
-                <span>components</span>
-              </button>
-              <div frCollapsibleContent>
-                <section frCollapsible defaultOpen class="group docs-collapsible-tree-branch">
-                  <button frCollapsibleTrigger class="docs-collapsible-tree-trigger" type="button">
-                    <ng-icon
-                      class="group-data-[state=open]:rotate-90"
-                      name="tablerChevronRight"
-                      size="16"
-                    />
-                    <span>collapsible</span>
-                  </button>
-                  <div frCollapsibleContent class="docs-collapsible-tree-files">
-                    <span>collapsible.ts</span>
-                    <span>collapsible.css</span>
-                    <span>collapsible.spec.ts</span>
-                  </div>
-                </section>
-                <section frCollapsible class="group docs-collapsible-tree-branch">
-                  <button frCollapsibleTrigger class="docs-collapsible-tree-trigger" type="button">
-                    <ng-icon
-                      class="group-data-[state=open]:rotate-90"
-                      name="tablerChevronRight"
-                      size="16"
-                    />
-                    <span>button</span>
-                  </button>
-                  <div frCollapsibleContent class="docs-collapsible-tree-files">
-                    <span>button.ts</span>
-                    <span>button.css</span>
-                  </div>
-                </section>
-              </div>
-            </section>
-          </div>
+        @case ('metadata') {
+          <section frCollapsible defaultOpen class="docs-collapsible-surface">
+            <button frCollapsibleTrigger class="docs-collapsible-trigger" type="button">
+              <span>
+                <span class="docs-collapsible-title">Release metadata</span>
+                <span class="docs-collapsible-description">
+                  Build target, owner, and rollout gate for the current deploy.
+                </span>
+              </span>
+              <ng-icon name="tablerChevronDown" size="18" />
+            </button>
+
+            <div frCollapsibleContent>
+              <dl class="docs-collapsible-metadata">
+                <div>
+                  <dt>Environment</dt>
+                  <dd>Production</dd>
+                </div>
+                <div>
+                  <dt>Owner</dt>
+                  <dd>Platform team</dd>
+                </div>
+                <div>
+                  <dt>Status</dt>
+                  <dd><span frBadge variant="success">Ready</span></dd>
+                </div>
+              </dl>
+            </div>
+          </section>
         }
 
         @case ('inspector') {
           <section
             frCollapsible
             defaultOpen
-            class="docs-collapsible-order"
+            class="docs-collapsible-faq"
             data-token-target="collapsible-root"
           >
-            <div class="docs-collapsible-row">
-              <div>
-                <p class="docs-collapsible-eyebrow">Order #4189</p>
-                <p class="docs-collapsible-title">Toggle details</p>
-              </div>
-              <button
-                frButton
-                frCollapsibleTrigger
-                appearance="outline"
-                size="sm"
-                type="button"
-                data-token-target="collapsible-trigger"
-              >
-                <span frButtonLabel>Details</span>
-                <ng-icon name="tablerChevronDown" size="16" />
-              </button>
-            </div>
+            <button
+              frCollapsibleTrigger
+              class="docs-collapsible-faq__trigger"
+              type="button"
+              data-token-target="collapsible-trigger"
+            >
+              <span>Can I use this in production?</span>
+              <ng-icon name="tablerChevronDown" size="18" />
+            </button>
             <div frCollapsibleContent data-token-target="collapsible-content">
-              <div frCard>
-                <div frCardContent class="docs-collapsible-card-content">
-                  <span>Status</span>
-                  <strong>Shipped</strong>
-                </div>
-              </div>
+              Yes. Keep the content concise and use the controlled API when the surrounding view
+              owns the disclosure state.
             </div>
           </section>
         }
 
         @case ('rtl') {
-          <section frCollapsible defaultOpen class="docs-collapsible-order" dir="rtl">
-            <div class="docs-collapsible-row">
-              <div>
-                <p class="docs-collapsible-eyebrow">الطلب #4189</p>
-                <p class="docs-collapsible-title">تفاصيل الشحن</p>
-              </div>
-              <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-                <span frButtonLabel>تبديل</span>
-                <ng-icon name="tablerChevronDown" size="16" />
-              </button>
-            </div>
+          <section frCollapsible defaultOpen class="docs-collapsible-faq" dir="rtl">
+            <button frCollapsibleTrigger class="docs-collapsible-faq__trigger" type="button">
+              <span>هل يمكن استخدامه داخل لوحة إعدادات؟</span>
+              <ng-icon name="tablerChevronDown" size="18" />
+            </button>
             <div frCollapsibleContent>
-              <div frCard>
-                <div frCardContent class="docs-collapsible-card-content">
-                  <span>الحالة</span>
-                  <strong>تم الشحن</strong>
-                </div>
-              </div>
+              نعم، تستخدم المسافات خصائص منطقية حتى تتكيف مع اتجاه النص.
             </div>
           </section>
         }
 
         @default {
-          <section frCollapsible defaultOpen class="docs-collapsible-order">
-            <div class="docs-collapsible-row">
-              <div>
-                <p class="docs-collapsible-eyebrow">Order #4189</p>
-                <p class="docs-collapsible-title">Product details</p>
-              </div>
-              <button frButton frCollapsibleTrigger appearance="outline" size="sm" type="button">
-                <span frButtonLabel>Toggle details</span>
-                <ng-icon name="tablerChevronDown" size="16" />
-              </button>
-            </div>
+          <section frCollapsible class="docs-collapsible-faq">
+            <button frCollapsibleTrigger class="docs-collapsible-faq__trigger" type="button">
+              <span>Can I use this in my project?</span>
+              <ng-icon name="tablerChevronDown" size="18" />
+            </button>
             <div frCollapsibleContent>
-              <div frCard>
-                <div frCardContent class="docs-collapsible-card-content">
-                  <span>Status</span>
-                  <strong>Shipped</strong>
-                </div>
-              </div>
+              Yes. Use collapsible when a short answer or supporting details should stay one click
+              away without sending people to a new page.
             </div>
           </section>
         }
@@ -220,62 +188,98 @@ export type CollapsiblePreviewConfig = {
     </div>
   `,
   styles: `
-    .docs-collapsible-order,
-    .docs-collapsible-panel,
-    .docs-collapsible-tree {
-      width: min(100%, 28rem);
+    .docs-collapsible-faq,
+    .docs-collapsible-settings,
+    .docs-collapsible-surface {
+      width: min(100%, 42rem);
     }
 
-    .docs-collapsible-order {
-      display: grid;
-      gap: 0.75rem;
-      padding-block: 0.125rem;
+    .docs-collapsible-surface {
+      padding-block: 1rem;  
+    }
+    
+    .docs-collapsible-faq {
+      border-bottom: 1px solid var(--frame-border);
     }
 
-    .docs-collapsible-row {
+    .docs-collapsible-faq--disabled {
+      opacity: 0.72;
+    }
+
+    .docs-collapsible-faq__trigger,
+    .docs-collapsible-trigger {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      border: 0;
+      background: transparent;
+      color: var(--frame-foreground);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+      padding: 1rem 0;
+      text-align: start;
     }
 
-    .docs-collapsible-eyebrow {
-      margin: 0;
+    .docs-collapsible-faq__trigger:disabled,
+    .docs-collapsible-trigger:disabled {
+      cursor: not-allowed;
+    }
+
+    .docs-collapsible-faq__trigger ng-icon,
+    .docs-collapsible-trigger ng-icon {
       color: var(--frame-muted-foreground);
-      font-size: 0.8125rem;
+      transition: transform 180ms ease;
+    }
+
+    .docs-collapsible-faq__trigger[data-state='open'] ng-icon,
+    .docs-collapsible-trigger[data-state='open'] ng-icon {
+      transform: rotate(180deg);
     }
 
     .docs-collapsible-title {
-      margin: 0;
+      display: block;
       color: var(--frame-foreground);
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 650;
+      line-height: 1.35;
     }
 
-    .docs-collapsible-card-content {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
+    .docs-collapsible-description {
+      display: block;
+      margin-block-start: 0.25rem;
+      color: var(--frame-muted-foreground);
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.45;
     }
 
-    .docs-collapsible-panel {
+    .docs-collapsible-eyebrow {
+      margin: 0 0 0.25rem;
+      color: var(--frame-muted-foreground);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .docs-collapsible-settings,
+    .docs-collapsible-surface {
       border: 1px solid var(--frame-border);
-      border-radius: var(--frame-radius-lg);
-      padding: 0.5rem;
+      border-radius: var(--frame-radius-xl);
+      background: var(--frame-surface);
+      padding-inline: 1rem;
     }
 
-    .docs-collapsible-panel-trigger {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    .docs-collapsible-settings-grid {
+    .docs-collapsible-settings__grid {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.75rem;
-      padding-inline: 0.5rem;
     }
 
-    .docs-collapsible-settings-grid label {
+    .docs-collapsible-settings__grid label {
       display: grid;
       gap: 0.375rem;
       color: var(--frame-foreground);
@@ -283,36 +287,54 @@ export type CollapsiblePreviewConfig = {
       font-weight: 500;
     }
 
-    .docs-collapsible-tree {
+    .docs-collapsible-surface__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .docs-collapsible-note {
       border: 1px solid var(--frame-border);
-      border-radius: var(--frame-radius-lg);
-      padding: 1rem;
-      font-size: 0.875rem;
-    }
-
-    .docs-collapsible-tree-trigger {
-      inline-size: 100%;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      border: 0;
-      background: transparent;
+      background: var(--frame-muted);
       color: var(--frame-foreground);
-      cursor: pointer;
-      font: inherit;
-      padding: 0.25rem 0;
-      text-align: start;
+      padding: 0.875rem;
     }
 
-    .docs-collapsible-tree-branch {
-      margin-inline-start: 1.25rem;
-    }
-
-    .docs-collapsible-tree-files {
+    .docs-collapsible-metadata {
       display: grid;
-      gap: 0.25rem;
-      margin-inline-start: 2.75rem;
+      gap: 0.5rem;
+      margin: 0;
+    }
+
+    .docs-collapsible-metadata div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--frame-border);
+      padding-block: 0.625rem;
+    }
+
+    .docs-collapsible-metadata dt {
       color: var(--frame-muted-foreground);
+    }
+
+    .docs-collapsible-metadata dd {
+      margin: 0;
+      color: var(--frame-foreground);
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      .docs-collapsible-settings__grid,
+      .docs-collapsible-surface__header {
+        grid-template-columns: 1fr;
+      }
+
+      .docs-collapsible-surface__header {
+        display: grid;
+      }
     }
   `,
 })
@@ -320,4 +342,3 @@ export class DocsCollapsiblePreviewComponent {
   readonly config = input<CollapsiblePreviewConfig>({});
   readonly controlledOpen = signal(false);
 }
-

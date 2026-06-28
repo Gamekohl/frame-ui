@@ -65,23 +65,66 @@ class DocsProgrammaticSheetBodyComponent {
   template: `
     @if (mode() === 'side') {
       <div class="docs-sheet-side-grid">
-        @for (side of sides; track side) {
-          <button frButton appearance="outline" type="button" [frSheetTrigger]="sideSheet">
-            <span frButtonLabel>{{ side }}</span>
-          </button>
+        <button frButton appearance="outline" type="button" [frSheetTrigger]="topSheet">
+          <span frButtonLabel>top</span>
+        </button>
+        <button frButton appearance="outline" type="button" [frSheetTrigger]="rightSheet">
+          <span frButtonLabel>right</span>
+        </button>
+        <button frButton appearance="outline" type="button" [frSheetTrigger]="bottomSheet">
+          <span frButtonLabel>bottom</span>
+        </button>
+        <button frButton appearance="outline" type="button" [frSheetTrigger]="leftSheet">
+          <span frButtonLabel>left</span>
+        </button>
 
-          <ng-template #sideSheet="frSheetContent" frSheetContent [attr.aria-label]="side + ' sheet'">
-            <div frSheetPanel [side]="side">
-              <div frSheetHeader>
-                <h2 frSheetTitle>{{ sideLabel(side) }} sheet</h2>
-                <p frSheetDescription>Sheets can enter from any screen edge.</p>
-              </div>
-              <div frSheetBody>
-                <p class="docs-sheet-copy">Use the side that best preserves the current page context.</p>
-              </div>
+        <ng-template #topSheet="frSheetContent" frSheetContent side="top" aria-label="top sheet">
+          <div frSheetPanel side="top">
+            <div frSheetHeader>
+              <h2 frSheetTitle>Top sheet</h2>
+              <p frSheetDescription>Sheets can enter from any screen edge.</p>
             </div>
-          </ng-template>
-        }
+            <div frSheetBody>
+              <p class="docs-sheet-copy">Use the side that best preserves the current page context.</p>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #rightSheet="frSheetContent" frSheetContent side="right" aria-label="right sheet">
+          <div frSheetPanel side="right">
+            <div frSheetHeader>
+              <h2 frSheetTitle>Right sheet</h2>
+              <p frSheetDescription>Sheets can enter from any screen edge.</p>
+            </div>
+            <div frSheetBody>
+              <p class="docs-sheet-copy">Use the side that best preserves the current page context.</p>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #bottomSheet="frSheetContent" frSheetContent side="bottom" aria-label="bottom sheet">
+          <div frSheetPanel side="bottom">
+            <div frSheetHeader>
+              <h2 frSheetTitle>Bottom sheet</h2>
+              <p frSheetDescription>Sheets can enter from any screen edge.</p>
+            </div>
+            <div frSheetBody>
+              <p class="docs-sheet-copy">Use the side that best preserves the current page context.</p>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #leftSheet="frSheetContent" frSheetContent side="left" aria-label="left sheet">
+          <div frSheetPanel side="left">
+            <div frSheetHeader>
+              <h2 frSheetTitle>Left sheet</h2>
+              <p frSheetDescription>Sheets can enter from any screen edge.</p>
+            </div>
+            <div frSheetBody>
+              <p class="docs-sheet-copy">Use the side that best preserves the current page context.</p>
+            </div>
+          </div>
+        </ng-template>
       </div>
     } @else if (mode() === 'programmatic') {
       <div class="docs-sheet-center">
@@ -111,6 +154,7 @@ class DocsProgrammaticSheetBodyComponent {
         frSheetContent
         [attr.aria-label]="ariaLabel()"
         [direction]="mode() === 'rtl' ? 'rtl' : null"
+        [side]="side()"
       >
         <div
           frSheetPanel
@@ -246,7 +290,6 @@ export class DocsSheetPreviewComponent {
 
   private readonly sheet = inject(FrSheetService);
 
-  protected readonly sides: FrSheetSide[] = ['top', 'right', 'bottom', 'left'];
   protected readonly scrollItems = [
     {
       title: 'Unread activity',
@@ -368,10 +411,6 @@ export class DocsSheetPreviewComponent {
 
   protected ariaLabel(): string {
     return this.mode() === 'rtl' ? 'إعدادات المساحة' : this.title();
-  }
-
-  protected sideLabel(side: FrSheetSide): string {
-    return side[0].toUpperCase() + side.slice(1);
   }
 
   protected openProgrammatic(): void {

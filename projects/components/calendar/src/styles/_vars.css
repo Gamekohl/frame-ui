@@ -8,6 +8,8 @@
   --frame-calendar-gap: var(--frame-density-gap-xl);
   --frame-calendar-cell-size: var(--frame-density-control-height-md);
   --frame-calendar-effective-cell-size: var(--frame-calendar-cell-size);
+  --frame-calendar-cell-gap-block: 0.125rem;
+  --frame-calendar-cell-gap-inline: 0.125rem;
   --frame-calendar-column-count: 7;
   --frame-calendar-month-flex: 0 0 calc(var(--frame-calendar-effective-cell-size) * var(--frame-calendar-column-count));
   --frame-calendar-cell-radius: var(--frame-radius-md);
@@ -28,6 +30,8 @@
   --frame-calendar-select-radius: var(--frame-radius-md);
   --frame-calendar-select-border: var(--frame-border);
   --frame-calendar-select-bg: var(--frame-background);
+  --frame-calendar-select-min-width: 5rem;
+  --frame-calendar-select-padding-inline: 0.75rem;
   --frame-calendar-focus-shadow: none;
   --frame-calendar-transition-duration: 150ms;
 }

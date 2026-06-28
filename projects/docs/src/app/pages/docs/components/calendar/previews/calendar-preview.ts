@@ -33,6 +33,10 @@ function startOfToday(): Date {
   return date;
 }
 
+function startOfMonth(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
 function addDays(date: Date, days: number): Date {
   const next = new Date(date);
   next.setDate(next.getDate() + days);
@@ -79,7 +83,7 @@ function addDays(date: Date, days: number): Date {
 
         @case ('presets') {
           <div class="grid gap-4">
-            <frame-calendar [month]="june2026" [selected]="date()" (selectedChange)="date.set($any($event))" />
+            <frame-calendar [month]="currentMonth" [selected]="date()" (selectedChange)="date.set($any($event))" />
             <div class="flex flex-wrap gap-2">
               @for (preset of presets; track preset.label) {
                 <button frButton appearance="outline" size="sm" type="button" (click)="date.set(preset.date)">
@@ -92,7 +96,7 @@ function addDays(date: Date, days: number): Date {
 
         @case ('date-time') {
           <div class="flex flex-col gap-4">
-            <frame-calendar [month]="june2026" [selected]="date()" (selectedChange)="date.set($any($event))" />
+            <frame-calendar [month]="currentMonth" [selected]="date()" (selectedChange)="date.set($any($event))" />
             <div class="grid content-start gap-4">
               <div frField>
                 <label frFieldLabel for="calendar-start-time">Start Time</label>
@@ -139,7 +143,7 @@ function addDays(date: Date, days: number): Date {
           <ng-template #calendarSelect="frSelectContent" frSelectContent position="popper" [sideOffset]="8">
             <div frSelectPanel>
               <frame-calendar
-                [month]="june2026"
+                [month]="currentMonth"
                 [selected]="date()"
                 (selectedChange)="date.set($any($event))"
               />
@@ -168,7 +172,7 @@ function addDays(date: Date, days: number): Date {
         @case ('timezone') {
           <div class="grid gap-3">
             <frame-calendar
-              [month]="june2026"
+              [month]="currentMonth"
               [selected]="date()"
               [timeZone]="timeZone()"
               (selectedChange)="date.set($any($event))"
@@ -185,7 +189,7 @@ function addDays(date: Date, days: number): Date {
               dir="rtl"
               locale="ar-SA"
               captionLayout="dropdown"
-              [month]="june2026"
+              [month]="currentMonth"
               [selected]="date()"
               (selectedChange)="date.set($any($event))"
             />
@@ -194,7 +198,7 @@ function addDays(date: Date, days: number): Date {
 
         @default {
           <frame-calendar
-            [month]="june2026"
+            [month]="currentMonth"
             [selected]="date()"
             [attr.data-token-target]="tokenTarget('root')"
             (selectedChange)="date.set($any($event))"
@@ -226,8 +230,10 @@ export class DocsCalendarPreviewComponent {
   readonly january2026 = new Date(2026, 0, 1);
   readonly february2026 = new Date(2026, 1, 1);
   readonly december2026 = new Date(2026, 11, 1);
+  private readonly today = startOfToday();
+  readonly currentMonth = startOfMonth(this.today);
 
-  readonly date = signal<Date | null>(new Date(2026, 5, 10));
+  readonly date = signal<Date | null>(this.today);
   readonly range = signal<FrCalendarDateRange>({ from: new Date(2026, 5, 8), to: new Date(2026, 5, 13) });
   readonly timeZone = signal(Intl.DateTimeFormat().resolvedOptions().timeZone);
   readonly dateLabel = computed(() =>
@@ -239,8 +245,6 @@ export class DocsCalendarPreviewComponent {
         }).format(this.date()!)
       : null,
   );
-
-  private readonly today = startOfToday();
 
   readonly presets = [
     { label: 'Today', date: this.today },

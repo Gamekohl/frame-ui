@@ -1,8 +1,13 @@
 import { InjectionToken, Signal } from '@angular/core';
 
+import { FrAccordionType } from './accordion.types';
+
 export interface FrAccordionRootContext {
-  isItemOpen(value: string): boolean;
-  toggleItem(value: string): void;
+  readonly collapsible: Signal<boolean>;
+  readonly type: Signal<FrAccordionType>;
+  isDefaultItemOpen(value: string): boolean;
+  itemExpansionChanged(value: string, expanded: boolean): void;
+  syncCdkMode(): void;
 }
 
 export interface FrAccordionItemContext {

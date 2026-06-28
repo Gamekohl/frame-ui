@@ -163,7 +163,6 @@ frame-combobox[data-disabled] .frame-combobox__chips {
 .frame-combobox__item:hover {
   background: var(--frame-accent);
   color: var(--frame-accent-foreground);
-  transform: translateX(0.25rem);
 }
 
 .frame-combobox__item[disabled] {
@@ -172,9 +171,14 @@ frame-combobox[data-disabled] .frame-combobox__chips {
 }
 
 .frame-combobox__item:not(:has([frComboboxItemIndicator], .frame-combobox__item-indicator))::before {
-  content: '✓';
+  content: '';
   position: absolute;
   inset-inline-start: var(--frame-combobox-item-indicator-offset);
+  inline-size: 1rem;
+  block-size: 1rem;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E") center / contain no-repeat;
   opacity: 0;
 }
 
@@ -262,6 +266,11 @@ frame-combobox[data-disabled] .frame-combobox__chips {
 
 .frame-combobox__chip button:hover {
   background: var(--frame-combobox-chip-remove-hover-bg);
+}
+
+.frame-combobox__chip-remove-icon {
+  inline-size: 1em;
+  block-size: 1em;
 }
 
 .frame-combobox__chips-input {

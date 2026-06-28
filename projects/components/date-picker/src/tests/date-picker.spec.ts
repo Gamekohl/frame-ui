@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { FrCalendarDateRange } from '@frame-ui-ng/components/calendar';
-import { FrDatePicker } from '../date-picker';
+import { FrDatePicker, FrDatePickerPreset } from '../date-picker';
 
 @Component({
   imports: [FrDatePicker],
@@ -45,6 +45,20 @@ class EditableDatePickerHostComponent {
   control = new FormControl<Date | null>(null);
 }
 
+@Component({
+  imports: [FrDatePicker, ReactiveFormsModule],
+  standalone: true,
+  template: `<frame-date-picker [formControl]="control" [month]="month" [presets]="presets" />`,
+})
+class PresetsDatePickerHostComponent {
+  month = new Date(2026, 5, 1);
+  control = new FormControl<Date | null>(new Date(2026, 5, 10));
+  presets: FrDatePickerPreset[] = [
+    { label: 'Today', value: new Date(2026, 5, 10) },
+    { label: 'Tomorrow', value: new Date(2026, 5, 11) },
+  ];
+}
+
 describe('FrDatePicker', () => {
   it('opens a calendar overlay and emits selected dates', async () => {
     const fixture = TestBed.createComponent(DatePickerHostComponent);
@@ -63,6 +77,23 @@ describe('FrDatePicker', () => {
     fixture.detectChanges();
 
     expect(fixture.componentInstance.value).toEqual(new Date(2026, 5, 10));
+  });
+
+  it('shows month and year selects by default', async () => {
+    const fixture = TestBed.createComponent(DatePickerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.frame-date-picker__trigger') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const overlay = document.querySelector('.frame-date-picker__content') as HTMLElement;
+    const selects = Array.from(overlay.querySelectorAll('.frame-calendar__select')) as HTMLButtonElement[];
+
+    expect(selects.length).toBe(2);
+    expect(selects[0].textContent?.trim()).toContain('Jun');
+    expect(selects[1].textContent?.trim()).toContain('2026');
   });
 
   it('focuses the calendar day grid when opened for arrow key navigation', async () => {
@@ -143,6 +174,22 @@ describe('FrDatePicker', () => {
     fixture.detectChanges();
 
     expect(fixture.componentInstance.control.value).toEqual(new Date(2026, 5, 12));
+  });
+
+  it('renders presets as footer actions after the calendar', async () => {
+    const fixture = TestBed.createComponent(PresetsDatePickerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.frame-date-picker__trigger') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const overlay = document.querySelector('.frame-date-picker__content') as HTMLElement;
+    const calendar = overlay.querySelector('.frame-calendar') as HTMLElement;
+    const presets = overlay.querySelector('.frame-date-picker__presets') as HTMLElement;
+
+    expect(presets.compareDocumentPosition(calendar) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
   });
 });
 

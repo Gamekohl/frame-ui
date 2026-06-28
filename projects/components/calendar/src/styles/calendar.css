@@ -52,21 +52,23 @@
 }
 
 .frame-calendar__select {
-  min-height: var(--frame-calendar-select-height);
-  border: 1px solid var(--frame-calendar-select-border);
-  border-radius: var(--frame-calendar-select-radius);
-  background: var(--frame-calendar-select-bg);
-  color: inherit;
-  font: inherit;
-  font-size: 0.8125rem;
-  padding-inline: 0.5rem;
-  transition:
-    border-color var(--frame-calendar-transition-duration) ease,
-    transform var(--frame-calendar-transition-duration) ease,
-    box-shadow var(--frame-calendar-transition-duration) ease;
+  --frame-select-trigger-height: var(--frame-calendar-select-height);
+  --frame-select-trigger-min-width: auto;
+  --frame-select-trigger-radius: var(--frame-calendar-select-radius);
+  --frame-select-trigger-padding-inline: var(--frame-calendar-select-padding-inline);
+  --frame-select-trigger-font-size: 0.8125rem;
+  --frame-select-trigger-font-weight: 400;
+  --frame-select-content-min-width: 100%;
+
+  min-width: var(--frame-calendar-select-min-width);
 }
 
-.frame-calendar__select:focus-visible,
+.frame-calendar__select-icon {
+  display: block;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .frame-calendar__nav-button:focus-visible,
 .frame-calendar__day:focus-visible {
   outline: none;
@@ -105,8 +107,14 @@
   box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
 }
 
+.frame-calendar__nav-icon {
+  display: block;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .frame-calendar__nav-button:disabled,
-.frame-calendar__select:disabled {
+.frame-calendar__select[data-disabled] {
   cursor: not-allowed;
   opacity: var(--frame-calendar-day-disabled-opacity);
 }
@@ -157,8 +165,8 @@
   position: relative;
   box-sizing: border-box;
   inline-size: var(--frame-calendar-effective-cell-size);
-  padding-block: 0.125rem;
-  padding-inline: 0;
+  padding-block: var(--frame-calendar-cell-gap-block);
+  padding-inline: var(--frame-calendar-cell-gap-inline);
   text-align: center;
 }
 
@@ -168,8 +176,8 @@
   box-sizing: border-box;
   display: inline-flex;
   inline-size: 100%;
-  min-inline-size: var(--frame-calendar-effective-cell-size);
-  min-block-size: var(--frame-calendar-effective-cell-size);
+  min-inline-size: calc(var(--frame-calendar-effective-cell-size) - (var(--frame-calendar-cell-gap-inline) * 2));
+  min-block-size: calc(var(--frame-calendar-effective-cell-size) - (var(--frame-calendar-cell-gap-block) * 2));
   aspect-ratio: 1;
   flex-direction: column;
   align-items: center;

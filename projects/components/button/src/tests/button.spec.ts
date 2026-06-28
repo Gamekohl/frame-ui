@@ -87,6 +87,7 @@ describe('FrButton', () => {
     expect(button.getAttribute('data-size')).toBe('lg');
     expect(button.hasAttribute('data-radius')).toBe(false);
     expect(button.classList.contains('frame-button')).toBe(true);
+    expect(button.classList.contains('frame-corner-handles')).toBe(true);
   });
 
   it('updates disabled state and keeps optional slot markers stable', async () => {

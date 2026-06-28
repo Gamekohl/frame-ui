@@ -13,6 +13,7 @@ import {
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 
 export type FrCalendarMode = 'single' | 'range';
 export type FrCalendarCaptionLayout = 'label' | 'dropdown';
@@ -58,11 +59,11 @@ const VALUE_ACCESSOR = {
 /** Calendar control for single-date and range selection. */
 @Component({
   selector: 'frame-calendar',
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, FrSelectModule],
   providers: [VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'frame-calendar',
+    class: 'frame-calendar frame-corner-handles',
     '[attr.data-mode]': 'mode()',
     '[attr.data-caption-layout]': 'captionLayout()',
     '[attr.data-disabled]': 'isDisabled() ? "" : null',
@@ -82,39 +83,100 @@ const VALUE_ACCESSOR = {
         @if (previousMonthTemplate(); as template) {
           <ng-container [ngTemplateOutlet]="template" />
         } @else {
-          {{ previousMonthIcon() }}
+          <svg
+            class="frame-calendar__nav-icon"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
         }
       </button>
 
       @if (captionLayout() === 'dropdown') {
         <div class="frame-calendar__caption-controls">
-          <select
+          <button
             class="frame-calendar__select"
+            [frSelect]="monthMenu"
             [disabled]="isDisabled()"
-            [value]="currentMonth().getMonth()"
+            [value]="currentMonthValue()"
+            (valueChange)="setMonth($event)"
+            indicatorPosition="end"
             aria-label="Month"
-            (change)="setMonth($any($event.target).value)"
+            type="button"
           >
-            @for (month of monthOptions(); track month.value) {
-              <option [value]="month.value" [selected]="month.value === currentMonth().getMonth()">
-                {{ month.label }}
-              </option>
-            }
-          </select>
+            <frame-select-value></frame-select-value>
+            <span frSelectIcon>
+              <svg
+                class="frame-calendar__select-icon"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </span>
+          </button>
 
-          <select
+          <ng-template #monthMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+              @for (month of monthOptions(); track month.value) {
+                <button frSelectItem [value]="month.value" [label]="month.label" type="button">
+                  {{ month.label }}
+                </button>
+              }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
+
+          <button
             class="frame-calendar__select"
+            [frSelect]="yearMenu"
             [disabled]="isDisabled()"
-            [value]="currentMonth().getFullYear()"
+            [value]="currentYearValue()"
+            (valueChange)="setYear($event)"
+            indicatorPosition="end"
             aria-label="Year"
-            (change)="setYear($any($event.target).value)"
+            type="button"
           >
-            @for (year of yearOptions(); track year) {
-              <option [value]="year" [selected]="year === currentMonth().getFullYear()">
-                {{ year }}
-              </option>
-            }
-          </select>
+            <frame-select-value></frame-select-value>
+            <span frSelectIcon>
+              <svg
+                class="frame-calendar__select-icon"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </span>
+          </button>
+
+          <ng-template #yearMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+              @for (year of yearOptions(); track year) {
+                <button frSelectItem [value]="year" [label]="year" type="button">
+                  {{ year }}
+                </button>
+              }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
         </div>
       } @else {
         <div class="frame-calendar__caption" aria-live="polite">
@@ -132,7 +194,18 @@ const VALUE_ACCESSOR = {
         @if (nextMonthTemplate(); as template) {
           <ng-container [ngTemplateOutlet]="template" />
         } @else {
-          {{ nextMonthIcon() }}
+          <svg
+            class="frame-calendar__nav-icon"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
         }
       </button>
     </div>
@@ -236,8 +309,6 @@ export class FrCalendar implements ControlValueAccessor {
   readonly cellTemplate = input<TemplateRef<FrCalendarCellContext> | null>(null);
   readonly previousMonthTemplate = input<TemplateRef<unknown> | null>(null);
   readonly nextMonthTemplate = input<TemplateRef<unknown> | null>(null);
-  readonly previousMonthIcon = input('‹');
-  readonly nextMonthIcon = input('›');
   readonly previousMonthLabel = input('Previous month');
   readonly nextMonthLabel = input('Next month');
   readonly month = input<Date | null | undefined>(undefined);
@@ -255,6 +326,8 @@ export class FrCalendar implements ControlValueAccessor {
   readonly currentMonth = computed(() =>
     startOfMonth(this.navigatedMonth() ?? this.month() ?? new Date()),
   );
+  readonly currentMonthValue = computed(() => String(this.currentMonth().getMonth()));
+  readonly currentYearValue = computed(() => String(this.currentMonth().getFullYear()));
   readonly isDisabled = computed(() => this.disabled() || this.cvaDisabled());
   readonly value = computed(() => {
     const selected = this.selected();
@@ -265,7 +338,7 @@ export class FrCalendar implements ControlValueAccessor {
   );
   readonly monthOptions = computed(() =>
     Array.from({ length: 12 }, (_, value) => ({
-      value,
+      value: String(value),
       label: new Intl.DateTimeFormat(this.locale(), {
         month: 'short',
         timeZone: this.timeZone(),
@@ -275,7 +348,7 @@ export class FrCalendar implements ControlValueAccessor {
   readonly yearOptions = computed(() =>
     Array.from(
       { length: Math.max(0, this.toYear() - this.fromYear() + 1) },
-      (_, index) => this.fromYear() + index,
+      (_, index) => String(this.fromYear() + index),
     ),
   );
   readonly months = computed(() =>
@@ -319,12 +392,20 @@ export class FrCalendar implements ControlValueAccessor {
     this.updateMonth(addMonths(this.currentMonth(), 1));
   }
 
-  setMonth(value: string): void {
+  setMonth(value: string | null): void {
+    if (value === null) {
+      return;
+    }
+
     const month = new Date(this.currentMonth().getFullYear(), Number(value), 1);
     this.updateMonth(month);
   }
 
-  setYear(value: string): void {
+  setYear(value: string | null): void {
+    if (value === null) {
+      return;
+    }
+
     const month = new Date(Number(value), this.currentMonth().getMonth(), 1);
     this.updateMonth(month);
   }

@@ -14,7 +14,7 @@ export type FrAlertVariant = (typeof FR_ALERT_VARIANTS)[number];
 @Directive({
   selector: '[frAlert]',
   host: {
-    class: 'frame-alert',
+    class: 'frame-alert frame-corner-handles',
     '[attr.data-variant]': 'variant()',
     'role': 'alert',
   },

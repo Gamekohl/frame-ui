@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FrButton, FrButtonIcon, FrButtonLabel } from '@frame-ui-ng/components';
+import { FrButton, FrButtonIcon, FrButtonLabel, FrCornerHandles } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerArrowRight,
@@ -30,7 +30,7 @@ interface IntroStatus {
 
 @Component({
   selector: 'app-overview',
-  imports: [FrButton, FrButtonIcon, FrButtonLabel, NgIcon, RouterLink],
+  imports: [FrButton, FrButtonIcon, FrButtonLabel, NgIcon, RouterLink, FrCornerHandles],
   templateUrl: './overview.html',
   viewProviders: [
     provideIcons({
@@ -96,7 +96,7 @@ export class Overview {
 
   protected readonly whatItIsNot = [
     'Not an all-in-one CSS framework. It is meant to complement tools like Tailwind CSS or Bootstrap rather than replace them.',
-    'Not a complete FrameUI out of the box. Teams still bring their own brand, content, and product-specific guidance.',
+    'Not a complete design system out of the box. Teams still bring their own brand, content, and product-specific guidance.',
   ];
 
   protected readonly status: IntroStatus[] = [

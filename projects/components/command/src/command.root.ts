@@ -37,7 +37,7 @@ const DEFAULT_FILTER: FrCommandFilter = (query, label, keywords) => {
   standalone: true,
   providers: [{ provide: FR_COMMAND, useExisting: FrCommand }],
   host: {
-    class: 'frame-command',
+    class: 'frame-command frame-corner-handles',
     '[attr.data-disabled]': 'disabled() ? "" : null',
     '[attr.data-state]': 'visibleCount() > 0 ? "results" : "empty"',
     '(keydown)': 'handleKeydown($event)',

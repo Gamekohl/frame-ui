@@ -57,7 +57,7 @@ export class FrDropdownMenuContent {
   selector: '[frDropdownMenuPanel]',
   hostDirectives: [CdkMenu, CdkTargetMenuAim],
   host: {
-    class: 'frame-dropdown-menu__content',
+    class: 'frame-dropdown-menu__content frame-corner-handles',
     '[attr.data-side]': 'side()',
     tabindex: '-1',
     '(mouseenter)': 'handleMouseEnter()',

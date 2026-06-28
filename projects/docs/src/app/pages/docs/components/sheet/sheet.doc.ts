@@ -45,7 +45,7 @@ const sideHtml = `<button frButton type="button" [frSheetTrigger]="leftSheet">
   <span frButtonLabel>Open left sheet</span>
 </button>
 
-<ng-template #leftSheet="frSheetContent" frSheetContent aria-label="Left sheet">
+<ng-template #leftSheet="frSheetContent" frSheetContent side="left" aria-label="Left sheet">
   <div frSheetPanel side="left">
     <div frSheetHeader>
       <h2 frSheetTitle>Left sheet</h2>
@@ -163,7 +163,7 @@ const rtlHtml = `<div dir="rtl">
     <span frButtonLabel>فتح</span>
   </button>
 
-  <ng-template #sheet="frSheetContent" frSheetContent direction="rtl" aria-label="إعدادات المساحة">
+  <ng-template #sheet="frSheetContent" frSheetContent side="left" direction="rtl" aria-label="إعدادات المساحة">
     <div frSheetPanel side="left">
       <div frSheetHeader>
         <h2 frSheetTitle>إعدادات المساحة</h2>

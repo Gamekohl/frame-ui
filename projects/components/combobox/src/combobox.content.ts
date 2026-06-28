@@ -1,4 +1,4 @@
-import { Directive, TemplateRef, inject } from '@angular/core';
+import { Directive, ElementRef, TemplateRef, inject } from '@angular/core';
 
 /** Content slot for combobox. */
 @Directive({
@@ -49,9 +49,20 @@ export class FrComboboxEmpty {
   selector: '[frComboboxGroup], frame-combobox-group',
   host: {
     class: 'frame-combobox__group',
+    '[attr.hidden]': 'hidden() ? "" : null',
   },
 })
-export class FrComboboxGroup {}
+export class FrComboboxGroup {
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly root = inject(FrComboboxRootLookup);
+
+  protected hidden(): boolean {
+    this.root.visibleCount();
+
+    const items = Array.from(this.elementRef.nativeElement.querySelectorAll('.frame-combobox__item'));
+    return items.length > 0 && items.every((item) => item.hasAttribute('data-hidden'));
+  }
+}
 
 /** Label slot for combobox. */
 @Directive({

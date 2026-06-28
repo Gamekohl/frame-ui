@@ -5,7 +5,7 @@ import {
   FrCard,
   FrCardContent,
   FrCardHeader,
-  FrCardTitle,
+  FrCardTitle, FrCornerHandles,
 } from '@frame-ui-ng/components';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -45,7 +45,17 @@ type RoadmapGroup = {
 
 @Component({
   selector: 'app-roadmap',
-  imports: [NgClass, FrBadge, FrCard, FrCardContent, FrCardHeader, FrCardTitle, NgIcon, FrButton],
+  imports: [
+    NgClass,
+    FrBadge,
+    FrCard,
+    FrCardContent,
+    FrCardHeader,
+    FrCardTitle,
+    NgIcon,
+    FrButton,
+    FrCornerHandles,
+  ],
   templateUrl: './roadmap.html',
   viewProviders: [
     provideIcons({
@@ -108,8 +118,7 @@ export class Roadmap {
       items: [
         {
           title: 'Contributing',
-          description:
-            "If you'd like to contribute, hit me up per mail or Discord @gamekohl.",
+          description: "If you'd like to contribute, hit me up per mail or Discord @gamekohl.",
           status: 'Exploring',
           actions: [
             {

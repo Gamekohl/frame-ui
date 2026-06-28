@@ -2,9 +2,9 @@ import { Directive, inject } from '@angular/core';
 
 import { ACCORDION_ITEM } from './accordion.tokens';
 
-/** Trigger control for accordion. */
+/** Trigger control for accordion items. */
 @Directive({
-  selector: 'button[frAccordionTrigger]',
+  selector: 'button[frameAccordionTrigger]',
   standalone: true,
   host: {
     class: 'frame-accordion__trigger',
@@ -22,9 +22,9 @@ export class FrAccordionTrigger {
   protected readonly item = inject(ACCORDION_ITEM);
 }
 
-/** Icon slot for accordion. */
+/** Optional icon slot for accordion triggers. */
 @Directive({
-  selector: '[frAccordionIcon]',
+  selector: '[frameAccordionIcon]',
   standalone: true,
   host: {
     class: 'frame-accordion__icon',

@@ -24,29 +24,6 @@ frame-input-control {
   width: 100%;
 }
 
-[frInputControl]::before,
-frame-input-control::before {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: var(--frame-input-root-radius);
-  background:
-    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
-      left var(--frame-frame-tick-inset, 0.25rem) top var(--frame-frame-tick-inset, 0.25rem) /
-      var(--frame-frame-tick-size, 0.5rem) 1px no-repeat,
-    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
-      left var(--frame-frame-tick-inset, 0.25rem) top var(--frame-frame-tick-inset, 0.25rem) / 1px
-      var(--frame-frame-tick-size, 0.5rem) no-repeat,
-    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
-      right var(--frame-frame-tick-inset, 0.25rem) bottom var(--frame-frame-tick-inset, 0.25rem) /
-      var(--frame-frame-tick-size, 0.5rem) 1px no-repeat,
-    linear-gradient(var(--frame-input-frame-color), var(--frame-input-frame-color))
-      right var(--frame-frame-tick-inset, 0.25rem) bottom var(--frame-frame-tick-inset, 0.25rem) / 1px
-      var(--frame-frame-tick-size, 0.5rem) no-repeat;
-  pointer-events: none;
-  content: '';
-}
-
 [frInputFieldGroup],
 frame-input-field-group {
   display: grid;

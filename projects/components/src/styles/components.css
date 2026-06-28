@@ -1,5 +1,5 @@
-@import '../../alert/src/styles/alert.css';
 @import '../../accordion/src/styles/accordion.css';
+@import '../../alert/src/styles/alert.css';
 @import '../../avatar/src/styles/avatar.css';
 @import '../../button/src/styles/button.css';
 @import '../../button-group/src/styles/button-group.css';
@@ -46,4 +46,4 @@
 @import '../../toast/src/styles/toast.css';
 @import '../../virtual-scroll/src/styles/virtual-scroll.css';
 @import '../../badge/src/styles/badge.css';
-@import './blueprint.css';
+@import './corner-handles.css';

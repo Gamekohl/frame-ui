@@ -91,6 +91,10 @@ export class FrComboboxItem implements DoCheck {
     }
   }
 
+  scrollIntoView(): void {
+    this.elementRef.nativeElement.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+  }
+
   protected highlightSelf(): void {
     const index = this.root.visibleItems().indexOf(this);
 

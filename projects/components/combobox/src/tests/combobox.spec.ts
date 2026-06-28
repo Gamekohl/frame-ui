@@ -10,10 +10,13 @@ import {
   FrComboboxChipsInput,
   FrComboboxContent,
   FrComboboxEmpty,
+  FrComboboxGroup,
   FrComboboxInput,
   FrComboboxItem,
+  FrComboboxLabel,
   FrComboboxList,
   FrComboboxPanel,
+  FrComboboxCollection,
   FrComboboxValueList,
 } from '../combobox';
 
@@ -79,6 +82,89 @@ class ReactiveFormsHostComponent {
 }
 
 @Component({
+  imports: [
+    FrCombobox,
+    FrComboboxContent,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value" debugVisible>
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="angular" label="Angular">angular</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class LabelRegistrationHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+}
+
+@Component({
+  imports: [
+    FrCombobox,
+    FrComboboxContent,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value" [itemToStringValue]="stringifyValue">
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="angular" label="Angular">angular</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class StringifierHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+  readonly stringifyValue = (value: unknown): string => (value === 'angular' ? 'Angular' : String(value ?? ''));
+}
+
+@Component({
+  imports: [
+    FrCombobox,
+    FrComboboxContent,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value">
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="angular" label="Angular">Angular</button>
+            <button frComboboxItem value="remix" label="Remix">Remix</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class SelectedSearchHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+}
+
+@Component({
   imports: [FrCombobox, FrComboboxChip, FrComboboxChips, FrComboboxChipsInput, FrComboboxValueList],
   standalone: true,
   template: `
@@ -97,6 +183,87 @@ class ReactiveFormsHostComponent {
 class MultipleChipsHostComponent {
   readonly value = signal<unknown | unknown[] | null>(['Next.js']);
 }
+
+@Component({
+  imports: [
+    FrCombobox,
+    FrComboboxChip,
+    FrComboboxChips,
+    FrComboboxChipsInput,
+    FrComboboxContent,
+    FrComboboxItem,
+    FrComboboxList,
+    FrComboboxPanel,
+    FrComboboxValueList,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox multiple [(value)]="value">
+      <div frComboboxChips>
+        <div #values="frComboboxValue" frComboboxValue>
+          @for (item of values.values(); track item) {
+            <span frComboboxChip [value]="item">{{ item }}</span>
+          }
+        </div>
+        <input frComboboxChipsInput />
+      </div>
+
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <div frComboboxList>
+            <button frComboboxItem value="next" label="Next.js">Next.js</button>
+            <button frComboboxItem value="svelte" label="SvelteKit">SvelteKit</button>
+            <button frComboboxItem value="remix" label="Remix">Remix</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class ChipsNavigationHostComponent {
+  readonly value = signal<unknown | unknown[] | null>(['Next.js']);
+}
+
+@Component({
+  imports: [
+    FrCombobox,
+    FrComboboxCollection,
+    FrComboboxContent,
+    FrComboboxEmpty,
+    FrComboboxGroup,
+    FrComboboxInput,
+    FrComboboxItem,
+    FrComboboxLabel,
+    FrComboboxList,
+    FrComboboxPanel,
+  ],
+  standalone: true,
+  template: `
+    <div frCombobox>
+      <input frComboboxInput />
+      <ng-template frComboboxContent>
+        <div frComboboxPanel>
+          <p frComboboxEmpty>No matches found.</p>
+          <div frComboboxCollection>
+            <section frComboboxGroup data-testid="frontend-group">
+              <p frComboboxLabel>Frontend</p>
+              <div frComboboxList>
+                <button frComboboxItem value="angular" label="Angular">Angular</button>
+              </div>
+            </section>
+            <section frComboboxGroup data-testid="fullstack-group">
+              <p frComboboxLabel>Full-stack</p>
+              <div frComboboxList>
+                <button frComboboxItem value="remix" label="Remix">Remix</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  `,
+})
+class GroupedComboboxHostComponent {}
 
 describe('FrCombobox', () => {
   afterEach(() => {
@@ -123,6 +290,57 @@ describe('FrCombobox', () => {
     expect(items[3].getAttribute('data-hidden')).toBe('');
   });
 
+  it('does not render corner handles on the dropdown panel', async () => {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    input.dispatchEvent(new FocusEvent('focus'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+      const panel = document.body.querySelector('.frame-combobox__panel') as HTMLElement;
+      expect(panel.classList.contains('frame-corner-handles')).toBe(false);
+    });
+
+  it('hides grouped sections without visible filter matches', async () => {
+    const fixture = TestBed.createComponent(GroupedComboboxHostComponent);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    input.dispatchEvent(new FocusEvent('focus'));
+    input.value = 'rem';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const frontendGroup = document.body.querySelector('[data-testid="frontend-group"]') as HTMLElement;
+    const fullstackGroup = document.body.querySelector('[data-testid="fullstack-group"]') as HTMLElement;
+
+    expect(frontendGroup.hasAttribute('hidden')).toBe(true);
+    expect(fullstackGroup.hasAttribute('hidden')).toBe(false);
+  });
+
+  it('shows only the empty text when grouped filtering has no matches', async () => {
+    const fixture = TestBed.createComponent(GroupedComboboxHostComponent);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    input.dispatchEvent(new FocusEvent('focus'));
+    input.value = 'sxx';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const empty = document.body.querySelector('.frame-combobox__empty') as HTMLElement;
+    const labels = Array.from(document.body.querySelectorAll('.frame-combobox__label')) as HTMLElement[];
+
+    expect(empty.hasAttribute('hidden')).toBe(false);
+    expect(labels.every((label) => label.closest('.frame-combobox__group')?.hasAttribute('hidden'))).toBe(true);
+  });
+
   it('keeps every matching item visible while filtering', async () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
@@ -139,6 +357,55 @@ describe('FrCombobox', () => {
     );
 
     expect(visibleItems.map((item) => item.textContent?.trim())).toEqual(['Next.js', 'SvelteKit', 'Remix']);
+  });
+
+  it('scrolls the highlighted item into view during keyboard navigation', async () => {
+    const scrollIntoView = vi.fn();
+    const previousScrollIntoView = HTMLElement.prototype.scrollIntoView;
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+    try {
+      const fixture = TestBed.createComponent(TestHostComponent);
+      fixture.detectChanges();
+
+      const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+      input.dispatchEvent(new FocusEvent('focus'));
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      fixture.detectChanges();
+      await fixture.whenStable();
+      await new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
+
+      expect(scrollIntoView).toHaveBeenCalledWith({ block: 'nearest', inline: 'nearest' });
+    } finally {
+      HTMLElement.prototype.scrollIntoView = previousScrollIntoView;
+    }
+  });
+
+  it('moves the highlighted item up and down from the chips input', async () => {
+    const fixture = TestBed.createComponent(ChipsNavigationHostComponent);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxChipsInput)).nativeElement as HTMLInputElement;
+    input.dispatchEvent(new FocusEvent('focus'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    let highlighted = document.body.querySelector('.frame-combobox__item[data-highlighted]') as HTMLElement;
+    expect(highlighted.textContent?.trim()).toBe('SvelteKit');
+
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    highlighted = document.body.querySelector('.frame-combobox__item[data-highlighted]') as HTMLElement;
+    expect(highlighted.textContent?.trim()).toBe('Next.js');
   });
 
   it('selects an item and updates value state', async () => {
@@ -170,6 +437,48 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
 
     expect(input.disabled).toBe(true);
+  });
+
+  it('updates the displayed value when a selected item label is registered', async () => {
+    const fixture = TestBed.createComponent(LabelRegistrationHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('Angular');
+  });
+
+  it('uses itemToStringValue for initial values before lazy items are rendered', async () => {
+    const fixture = TestBed.createComponent(StringifierHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('Angular');
+  });
+
+  it('keeps the input empty when the user deletes the last query character from a selected value', async () => {
+    const fixture = TestBed.createComponent(SelectedSearchHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    expect(input.value).toBe('angular');
+
+    input.dispatchEvent(new FocusEvent('focus'));
+    input.value = 'A';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(input.value).toBe('');
   });
 
   it('renders a default remove button for chips', async () => {

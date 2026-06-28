@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FrBadge } from '@frame-ui-ng/components';
+import { FrBadge, FrCornerHandles } from '@frame-ui-ng/components';
 
 type McpBenefit = {
   readonly title: string;
@@ -8,7 +8,7 @@ type McpBenefit = {
 
 @Component({
   selector: 'app-mcp-page',
-  imports: [FrBadge],
+  imports: [FrBadge, FrCornerHandles],
   templateUrl: './mcp.html',
 })
 export class McpPage {

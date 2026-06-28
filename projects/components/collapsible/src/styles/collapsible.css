@@ -11,16 +11,16 @@ frame-collapsible {
   color: var(--frame-collapsible-trigger-color, var(--frame-foreground));
   transition:
     color 160ms ease,
-    transform 160ms ease,
     box-shadow 160ms ease;
 }
 
-[frCollapsibleTrigger]:where(:not(:disabled, [data-disabled])):hover,
-[frCollapsibleTrigger]:focus-visible,
 [frCollapsibleTrigger][data-state='open'] {
-  outline: none;
-  transform: translateX(0.25rem);
-  box-shadow: none;
+  color: var(--frame-collapsible-trigger-open-color, var(--frame-collapsible-trigger-color, var(--frame-foreground)));
+}
+
+[frCollapsibleTrigger]:focus-visible {
+  outline: 1px solid var(--frame-ring);
+  outline-offset: 2px;
 }
 
 [frCollapsibleTrigger]:where(:disabled, [data-disabled]) {
@@ -29,27 +29,31 @@ frame-collapsible {
 }
 
 [frCollapsibleContent] {
+  box-sizing: border-box;
   color: var(--frame-collapsible-content-color, var(--frame-muted-foreground));
+  display: flow-root;
   font-size: var(--frame-collapsible-content-font-size, 0.875rem);
   line-height: var(--frame-collapsible-content-line-height, 1.6);
-  overflow: clip;
+  overflow: hidden;
   padding-block-start: 0;
   transition:
     height var(--frame-collapsible-content-transition-duration, 220ms)
       var(--frame-collapsible-content-transition-timing, ease),
     opacity var(--frame-collapsible-content-transition-duration, 220ms)
-      var(--frame-collapsible-content-transition-timing, ease),
-    padding-block-start var(--frame-collapsible-content-transition-duration, 220ms)
       var(--frame-collapsible-content-transition-timing, ease);
   will-change: height, opacity;
 }
 
+[frCollapsibleContent]::after {
+  content: '';
+  display: block;
+  height: var(--frame-collapsible-content-padding-block-start, 0.75rem);
+}
+
 [frCollapsibleContent][data-state='closed'] {
   opacity: var(--frame-collapsible-content-opacity-closed, 0);
-  padding-block-start: 0;
 }
 
 [frCollapsibleContent][data-state='open'] {
   opacity: var(--frame-collapsible-content-opacity-open, 1);
-  padding-block-start: var(--frame-collapsible-content-padding-block-start, 0.75rem);
 }
