@@ -2,11 +2,13 @@ import blocksCatalog from '../../../../public/content/blocks/blocks.json';
 
 import { AUTHENTICATION_BLOCK_IMPLEMENTATIONS } from './authentication/auth-blocks.data';
 import { DASHBOARD_BLOCK_IMPLEMENTATIONS } from './dashboard/dashboard-blocks.data';
+import { SETTINGS_BLOCK_IMPLEMENTATIONS } from './settings/settings-blocks.data';
 import { BlockCatalogBlock, BlockCatalogCategory, BlockCategory, BlockImplementation } from './blocks.models';
 
 const BLOCK_IMPLEMENTATIONS: Record<string, BlockImplementation> = {
   ...AUTHENTICATION_BLOCK_IMPLEMENTATIONS,
   ...DASHBOARD_BLOCK_IMPLEMENTATIONS,
+  ...SETTINGS_BLOCK_IMPLEMENTATIONS,
 };
 
 function hydrateBlock(block: BlockCatalogBlock) {

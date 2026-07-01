@@ -51,23 +51,30 @@
       {
         "id": "metrics-overview",
         "category": "Dashboard",
-        "title": "Metrics overview",
-        "description": "A compact executive surface for daily product health, KPIs, and one active focus.",
-        "componentName": "MetricsOverview"
+        "title": "Store overview",
+        "description": "A shop dashboard for orders, conversion, inventory sync, and support issues.",
+        "componentName": "StoreOverview"
       },
       {
         "id": "revenue-snapshot",
         "category": "Dashboard",
-        "title": "Revenue snapshot",
-        "description": "Billing-focused cards and progress lines for month-close tracking.",
-        "componentName": "RevenueSnapshot"
+        "title": "Invoice tracker",
+        "description": "Billing cards and progress lines for paid, overdue, and due invoices.",
+        "componentName": "InvoiceTracker"
       },
       {
         "id": "review-queue",
         "category": "Dashboard",
-        "title": "Review queue",
-        "description": "A prioritized approval list with status badges and compact row actions.",
-        "componentName": "ReviewQueue"
+        "title": "Refund queue",
+        "description": "A customer support queue for refunds, returns, and damaged order reviews.",
+        "componentName": "RefundQueue"
+      },
+      {
+        "id": "order-fulfillment",
+        "category": "Dashboard",
+        "title": "Order fulfillment",
+        "description": "A tabbed shipping desk with order table, delivery status, and row actions.",
+        "componentName": "OrderFulfillment"
       }
     ]
   },
@@ -76,6 +83,35 @@
     "title": "Settings",
     "description": "Account, billing, team, security, and preference screens.",
     "icon": "tablerSettings",
-    "blocks": []
+    "blocks": [
+      {
+        "id": "profile-settings",
+        "category": "Settings",
+        "title": "Profile settings",
+        "description": "Account identity, contact details, role context, and a short profile note.",
+        "componentName": "ProfileSettings"
+      },
+      {
+        "id": "notification-preferences",
+        "category": "Settings",
+        "title": "Order notifications",
+        "description": "Notification settings for low stock, large orders, and weekly store summaries.",
+        "componentName": "OrderNotifications"
+      },
+      {
+        "id": "team-access",
+        "category": "Settings",
+        "title": "Team access",
+        "description": "Invite teammates, review active roles, and keep security ownership visible.",
+        "componentName": "TeamAccess"
+      },
+      {
+        "id": "login-security",
+        "category": "Settings",
+        "title": "Login security",
+        "description": "A concrete account security screen with alert, session timeout, and grouped login rules.",
+        "componentName": "LoginSecurity"
+      }
+    ]
   }
 ]
