@@ -47,7 +47,29 @@
     "title": "Dashboard",
     "description": "Operational shells, KPI panels, tables, and command surfaces.",
     "icon": "tablerLayoutDashboard",
-    "blocks": []
+    "blocks": [
+      {
+        "id": "metrics-overview",
+        "category": "Dashboard",
+        "title": "Metrics overview",
+        "description": "A compact executive surface for daily product health, KPIs, and one active focus.",
+        "componentName": "MetricsOverview"
+      },
+      {
+        "id": "revenue-snapshot",
+        "category": "Dashboard",
+        "title": "Revenue snapshot",
+        "description": "Billing-focused cards and progress lines for month-close tracking.",
+        "componentName": "RevenueSnapshot"
+      },
+      {
+        "id": "review-queue",
+        "category": "Dashboard",
+        "title": "Review queue",
+        "description": "A prioritized approval list with status badges and compact row actions.",
+        "componentName": "ReviewQueue"
+      }
+    ]
   },
   {
     "id": "settings",

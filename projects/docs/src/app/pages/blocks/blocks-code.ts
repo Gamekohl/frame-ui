@@ -1,32 +1,48 @@
-export type ComponentCodeOptions = {
-  readonly frameImports: readonly string[];
-  readonly iconImports?: readonly string[];
+export type ComponentCodeModule = {
+  readonly name: string;
+  readonly path: string;
 };
+
+export type ComponentCodeOptions = {
+  readonly frameModules: readonly ComponentCodeModule[];
+  readonly iconImports?: readonly string[];
+  readonly usesReactiveForms?: boolean;
+};
+
+function buildFrameModuleImports(modules: readonly ComponentCodeModule[]): string[] {
+  return modules.map((module) => `import { ${module.name} } from '@frame-ui-ng/components/${module.path}';`);
+}
 
 function buildImportBlock(options: ComponentCodeOptions): string {
   const iconImports = options.iconImports ?? [];
-  const imports = [
-    `import { ChangeDetectionStrategy, Component } from '@angular/core';`,
-    `import { FormControl, ReactiveFormsModule } from '@angular/forms';`,
+  const coreImports = [
+    'ChangeDetectionStrategy',
+    'Component',
+    ...(options.usesReactiveForms ? ['inject'] : []),
   ];
+  const imports = [
+    `import { ${coreImports.join(', ')} } from '@angular/core';`,
+  ];
+
+  if (options.usesReactiveForms) {
+    imports.push(`import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';`);
+  }
 
   if (iconImports.length > 0) {
     imports.push(`import { NgIcon, provideIcons } from '@ng-icons/core';`);
     imports.push(`import { ${iconImports.join(', ')} } from '@ng-icons/tabler-icons';`);
   }
 
-  imports.push(`import {
-${options.frameImports.map((entry) => `  ${entry},`).join('\n')}
-} from '@frame-ui-ng/components';`);
+  imports.push(...buildFrameModuleImports(options.frameModules));
 
   return imports.join('\n');
 }
 
 function buildComponentImportsArray(options: ComponentCodeOptions): string {
   const imports = [
-    ...options.frameImports,
+    ...options.frameModules.map((module) => module.name),
     ...((options.iconImports?.length ?? 0) > 0 ? ['NgIcon'] : []),
-    'ReactiveFormsModule',
+    ...(options.usesReactiveForms ? ['ReactiveFormsModule'] : []),
   ];
 
   return `[

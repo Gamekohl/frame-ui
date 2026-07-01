@@ -1,61 +1,57 @@
-import { buildComponentCode } from '../blocks-code';
+import { buildComponentCode, type ComponentCodeModule } from '../blocks-code';
 import { BlockImplementation } from '../blocks.models';
 import { AuthBlockPreview, AuthBlockVariant } from './auth-block-preview';
 
 type AuthenticationBlockImplementation = BlockImplementation<AuthBlockVariant>;
 
-const buttonImports = ['FrButton', 'FrButtonLabel'] as const;
-const cardImports = ['FrCard', 'FrCardContent'] as const;
-const checkboxImports = ['FrCheckbox', 'FrCheckboxField', 'FrCheckboxLabel'] as const;
-const fieldImports = ['FrField', 'FrFieldContent', 'FrFieldLabel'] as const;
-const inputGroupImports = ['FrInputGroup', 'FrInputGroupAddon', 'FrInputGroupInput'] as const;
+const buttonModule = { name: 'FrButtonModule', path: 'button' } as const;
+const cardModule = { name: 'FrCardModule', path: 'card' } as const;
+const checkboxModule = { name: 'FrCheckboxModule', path: 'checkbox' } as const;
+const fieldModule = { name: 'FrFieldModule', path: 'field' } as const;
+const inputModule = { name: 'FrInputModule', path: 'input' } as const;
+const inputOtpModule = { name: 'FrInputOtpModule', path: 'input-otp' } as const;
+const separatorModule = { name: 'FrSeparatorModule', path: 'separator' } as const;
 
 const loginImports = [
-  ...buttonImports,
-  'FrButtonIcon',
-  ...cardImports,
-  ...checkboxImports,
-  ...fieldImports,
-  ...inputGroupImports,
-  'FrSeparator',
-] as const;
+  buttonModule,
+  cardModule,
+  checkboxModule,
+  fieldModule,
+  inputModule,
+  separatorModule,
+] satisfies readonly ComponentCodeModule[];
 
 const signupImports = [
-  ...buttonImports,
-  'FrButtonIcon',
-  ...cardImports,
-  ...checkboxImports,
-  ...fieldImports,
-  'FrInput',
-  'FrSeparator',
-] as const;
+  buttonModule,
+  cardModule,
+  checkboxModule,
+  fieldModule,
+  inputModule,
+  separatorModule,
+] satisfies readonly ComponentCodeModule[];
 
 const simpleFormImports = [
-  ...buttonImports,
-  ...cardImports,
-  ...fieldImports,
-  'FrFieldDescription',
-  'FrInput',
-] as const;
+  buttonModule,
+  cardModule,
+  fieldModule,
+  inputModule,
+] satisfies readonly ComponentCodeModule[];
 
 const twoFactorImports = [
-  ...buttonImports,
-  ...cardImports,
-  'FrInputOtp',
-  'FrInputOtpGroup',
-  'FrInputOtpSeparator',
-  'FrInputOtpSlot',
-] as const;
+  buttonModule,
+  cardModule,
+  inputOtpModule,
+] satisfies readonly ComponentCodeModule[];
 
 const loginCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
   <div frCardContent class="grid gap-6">
     <div class="grid gap-1">
-      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Acme Console</p>
+      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Acme Console</p>
       <h2 class="m-0 text-2xl font-bold leading-tight">Sign in to your workspace</h2>
       <p class="m-0 text-sm leading-6 text-muted-foreground">Use your company account to continue.</p>
     </div>
 
-    <form class="grid gap-4" (submit)="$event.preventDefault()">
+    <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
       <div frField>
         <label frFieldLabel for="login-email">Email</label>
         <div frFieldContent>
@@ -63,7 +59,7 @@ const loginCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surfac
             <span frInputGroupAddon align="inline-start" variant="ghost">
               <ng-icon name="tablerMail" size="16" />
             </span>
-            <input frInputGroupInput id="login-email" type="email" [formControl]="email" />
+            <input frInputGroupInput id="login-email" type="email" formControlName="email" />
           </div>
         </div>
       </div>
@@ -75,17 +71,17 @@ const loginCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surfac
             <span frInputGroupAddon align="inline-start" variant="ghost">
               <ng-icon name="tablerLock" size="16" />
             </span>
-            <input frInputGroupInput id="login-password" type="password" [formControl]="password" />
+            <input frInputGroupInput id="login-password" type="password" formControlName="password" />
           </div>
         </div>
       </div>
 
       <div class="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
         <label frCheckboxField>
-          <input frCheckbox type="checkbox" [formControl]="rememberMe" />
+          <input frCheckbox type="checkbox" formControlName="rememberMe" />
           <span frCheckboxLabel>Remember me</span>
         </label>
-        <a class="font-bold text-primary no-underline hover:underline" href="#">Forgot password?</a>
+        <a class="font-bold text-primary! no-underline hover:underline" href="#">Forgot password?</a>
       </div>
 
       <button frButton type="submit" class="w-full">
@@ -109,12 +105,12 @@ const loginCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surfac
 const signupCode = `<section frCard spacing="xl" class="w-full max-w-xl bg-surface/95">
   <div frCardContent class="grid gap-6">
     <div class="grid gap-1">
-      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Start free</p>
+      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Start free</p>
       <h2 class="m-0 text-2xl font-bold leading-tight">Create your account</h2>
       <p class="m-0 text-sm leading-6 text-muted-foreground">Invite your team after the workspace is ready.</p>
     </div>
 
-    <form class="grid gap-4" (submit)="$event.preventDefault()">
+    <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
       <button frButton appearance="outline" type="button" class="w-full">
         <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
         <span frButtonLabel>Continue with GitHub</span>
@@ -130,14 +126,14 @@ const signupCode = `<section frCard spacing="xl" class="w-full max-w-xl bg-surfa
         <div frField>
           <label frFieldLabel for="first-name">First name</label>
           <div frFieldContent>
-            <input frInput id="first-name" [formControl]="firstName" />
+            <input frInput id="first-name" formControlName="firstName" />
           </div>
         </div>
 
         <div frField>
           <label frFieldLabel for="last-name">Last name</label>
           <div frFieldContent>
-            <input frInput id="last-name" [formControl]="lastName" />
+            <input frInput id="last-name" formControlName="lastName" />
           </div>
         </div>
       </div>
@@ -145,12 +141,12 @@ const signupCode = `<section frCard spacing="xl" class="w-full max-w-xl bg-surfa
       <div frField>
         <label frFieldLabel for="signup-email">Work email</label>
         <div frFieldContent>
-          <input frInput id="signup-email" type="email" [formControl]="signupEmail" />
+          <input frInput id="signup-email" type="email" formControlName="signupEmail" />
         </div>
       </div>
 
       <label frCheckboxField>
-        <input frCheckbox type="checkbox" [formControl]="acceptedTerms" />
+        <input frCheckbox type="checkbox" formControlName="acceptedTerms" />
         <span frCheckboxLabel>I agree to the Terms and Data Processing Addendum.</span>
       </label>
 
@@ -163,19 +159,23 @@ const signupCode = `<section frCard spacing="xl" class="w-full max-w-xl bg-surfa
 
 const resetCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
   <div frCardContent class="grid gap-6">
+    <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
+      <ng-icon name="tablerKey" size="22" />
+    </div>
+
     <div class="grid gap-1">
-      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Password recovery</p>
+      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Password recovery</p>
       <h2 class="m-0 text-2xl font-bold leading-tight">Reset your password</h2>
       <p class="m-0 text-sm leading-6 text-muted-foreground">
         Enter the email linked to your account and we will send recovery steps.
       </p>
     </div>
 
-    <form class="grid gap-4" (submit)="$event.preventDefault()">
+    <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
       <div frField>
         <label frFieldLabel for="reset-email">Email address</label>
         <div frFieldContent>
-          <input frInput id="reset-email" type="email" [formControl]="resetEmail" />
+          <input frInput id="reset-email" type="email" formControlName="email" />
         </div>
         <p frFieldDescription>Check your SSO provider first if your company manages passwords.</p>
       </div>
@@ -184,31 +184,49 @@ const resetCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surfac
         <span frButtonLabel>Send reset link</span>
       </button>
     </form>
+
+    <p class="m-0 text-center text-sm leading-6 text-muted-foreground">
+      Remembered it?
+      <a class="font-bold text-primary! no-underline hover:underline" href="#">Back to sign in</a>
+    </p>
   </div>
 </section>`;
 
 const inviteCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surface/95 md:max-w-3xl">
   <div frCardContent class="grid gap-6 md:grid-cols-2 md:items-center">
     <div class="hidden min-h-full content-center gap-3 border border-border bg-muted p-5 md:grid">
-      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Invite from Linear Systems</p>
+      <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
+        <ng-icon name="tablerUsers" size="22" />
+      </div>
+      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Invite from Linear Systems</p>
       <h2 class="m-0 text-2xl font-bold leading-tight">Join the Product workspace</h2>
       <p class="m-0 text-sm leading-6 text-muted-foreground">
         You were invited by Mira Chen. This invite expires in 48 hours.
       </p>
+      <div class="mt-1 grid gap-2 text-sm font-bold text-muted-foreground">
+        <span class="inline-flex items-center gap-2">
+          <ng-icon name="tablerBuilding" size="16" />
+          Product team
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <ng-icon name="tablerSparkles" size="16" />
+          Admin access pending
+        </span>
+      </div>
     </div>
 
-    <form class="grid gap-4" (submit)="$event.preventDefault()">
+    <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
       <div frField>
         <label frFieldLabel for="invite-name">Display name</label>
         <div frFieldContent>
-          <input frInput id="invite-name" [formControl]="displayName" />
+          <input frInput id="invite-name" formControlName="displayName" />
         </div>
       </div>
 
       <div frField>
         <label frFieldLabel for="invite-password">Password</label>
         <div frFieldContent>
-          <input frInput id="invite-password" type="password" [formControl]="invitePassword" />
+          <input frInput id="invite-password" type="password" formControlName="password" />
         </div>
         <p frFieldDescription>Use at least 12 characters with a number or symbol.</p>
       </div>
@@ -222,18 +240,18 @@ const inviteCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surfa
 
 const twoFactorCode = `<section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
   <div frCardContent class="grid justify-items-center gap-6 text-center">
-    <div class="grid size-11 place-items-center border border-primary bg-primary/10 text-primary">
+    <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
       <ng-icon name="tablerShieldCheck" size="22" />
     </div>
 
     <div class="grid gap-1">
-      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Two-factor authentication</p>
+      <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Two-factor authentication</p>
       <h2 class="m-0 text-2xl font-bold leading-tight">Enter your verification code</h2>
       <p class="m-0 text-sm leading-6 text-muted-foreground">We sent a six-digit code to mika&#64;acme.com.</p>
     </div>
 
-    <form class="grid w-full justify-items-center gap-4" (submit)="$event.preventDefault()">
-      <frame-input-otp [formControl]="verificationCode" [maxLength]="6">
+    <form class="grid w-full justify-items-center gap-4" [formGroup]="form" (ngSubmit)="submit()">
+      <frame-input-otp formControlName="verificationCode" [maxLength]="6">
         <div frInputOtpGroup>
           @for (index of firstThree; track index) {
             <div frInputOtpSlot [index]="index"></div>
@@ -251,6 +269,11 @@ const twoFactorCode = `<section frCard spacing="xl" class="w-full max-w-md bg-su
         <span frButtonLabel>Verify account</span>
       </button>
     </form>
+
+    <p class="m-0 text-center text-sm leading-6 text-muted-foreground">
+      Did not receive a code?
+      <a class="font-bold text-primary! no-underline hover:underline" href="#">Resend</a>
+    </p>
   </div>
 </section>`;
 
@@ -263,12 +286,19 @@ export const AUTHENTICATION_BLOCK_IMPLEMENTATIONS = {
       'Login',
       'app-login',
       loginCode,
-      `  readonly email = new FormControl('mika@acme.com', { nonNullable: true });
-  readonly password = new FormControl('design-system', { nonNullable: true });
-  readonly rememberMe = new FormControl(true, { nonNullable: true });`,
+      `  private readonly formBuilder = inject(NonNullableFormBuilder);
+
+  readonly form = this.formBuilder.group({
+    email: ['mika@acme.com', Validators.required],
+    password: ['design-system', Validators.required],
+    rememberMe: [true],
+  });
+
+  submit(): void {}`,
       {
-        frameImports: loginImports,
+        frameModules: loginImports,
         iconImports: ['tablerBrandGithub', 'tablerLock', 'tablerMail'],
+        usesReactiveForms: true,
       },
     ),
   },
@@ -280,13 +310,20 @@ export const AUTHENTICATION_BLOCK_IMPLEMENTATIONS = {
       'Signup',
       'app-signup',
       signupCode,
-      `  readonly acceptedTerms = new FormControl(true, { nonNullable: true });
-  readonly firstName = new FormControl('Mika', { nonNullable: true });
-  readonly lastName = new FormControl('Stone', { nonNullable: true });
-  readonly signupEmail = new FormControl('mika@acme.com', { nonNullable: true });`,
+      `  private readonly formBuilder = inject(NonNullableFormBuilder);
+
+  readonly form = this.formBuilder.group({
+    acceptedTerms: [true],
+    firstName: ['Mika', Validators.required],
+    lastName: ['Stone', Validators.required],
+    signupEmail: ['mika@acme.com', Validators.required],
+  });
+
+  submit(): void {}`,
       {
-        frameImports: signupImports,
+        frameModules: signupImports,
         iconImports: ['tablerBrandGithub'],
+        usesReactiveForms: true,
       },
     ),
   },
@@ -298,9 +335,17 @@ export const AUTHENTICATION_BLOCK_IMPLEMENTATIONS = {
       'PasswordReset',
       'app-password-reset',
       resetCode,
-      `  readonly resetEmail = new FormControl('mika@acme.com', { nonNullable: true });`,
+      `  private readonly formBuilder = inject(NonNullableFormBuilder);
+
+  readonly form = this.formBuilder.group({
+    email: ['mika@acme.com', Validators.required],
+  });
+
+  submit(): void {}`,
       {
-        frameImports: simpleFormImports,
+        frameModules: simpleFormImports,
+        iconImports: ['tablerKey'],
+        usesReactiveForms: true,
       },
     ),
   },
@@ -312,10 +357,18 @@ export const AUTHENTICATION_BLOCK_IMPLEMENTATIONS = {
       'InviteAccept',
       'app-invite-accept',
       inviteCode,
-      `  readonly displayName = new FormControl('Mika Stone', { nonNullable: true });
-  readonly invitePassword = new FormControl('workspace-access-2026', { nonNullable: true });`,
+      `  private readonly formBuilder = inject(NonNullableFormBuilder);
+
+  readonly form = this.formBuilder.group({
+    displayName: ['Mika Stone', Validators.required],
+    password: ['workspace-access-2026', Validators.required],
+  });
+
+  submit(): void {}`,
       {
-        frameImports: simpleFormImports,
+        frameModules: simpleFormImports,
+        iconImports: ['tablerBuilding', 'tablerSparkles', 'tablerUsers'],
+        usesReactiveForms: true,
       },
     ),
   },
@@ -327,13 +380,20 @@ export const AUTHENTICATION_BLOCK_IMPLEMENTATIONS = {
       'TwoFactor',
       'app-two-factor',
       twoFactorCode,
-      `  readonly verificationCode = new FormControl('248016', { nonNullable: true });
+      `  private readonly formBuilder = inject(NonNullableFormBuilder);
+
+  readonly form = this.formBuilder.group({
+    verificationCode: ['248016', Validators.required],
+  });
 
   protected readonly firstThree = [0, 1, 2];
-  protected readonly lastThree = [3, 4, 5];`,
+  protected readonly lastThree = [3, 4, 5];
+
+  submit(): void {}`,
       {
-        frameImports: twoFactorImports,
+        frameModules: twoFactorImports,
         iconImports: ['tablerShieldCheck'],
+        usesReactiveForms: true,
       },
     ),
   },

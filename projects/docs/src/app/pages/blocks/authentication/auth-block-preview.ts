@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerBrandGithub,
@@ -12,29 +12,13 @@ import {
   tablerSparkles,
   tablerUsers,
 } from '@ng-icons/tabler-icons';
-import {
-  FrButton,
-  FrButtonIcon,
-  FrButtonLabel,
-  FrCard,
-  FrCardContent,
-  FrCheckbox,
-  FrCheckboxField,
-  FrCheckboxLabel,
-  FrField,
-  FrFieldContent,
-  FrFieldDescription,
-  FrFieldLabel,
-  FrInput,
-  FrInputGroup,
-  FrInputGroupAddon,
-  FrInputGroupInput,
-  FrInputOtp,
-  FrInputOtpGroup,
-  FrInputOtpSeparator,
-  FrInputOtpSlot,
-  FrSeparator,
-} from '@frame-ui-ng/components';
+import { FrButtonModule } from '@frame-ui-ng/components/button';
+import { FrCardModule } from '@frame-ui-ng/components/card';
+import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrFieldModule } from '@frame-ui-ng/components/field';
+import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrInputOtpModule } from '@frame-ui-ng/components/input-otp';
+import { FrSeparatorModule } from '@frame-ui-ng/components/separator';
 
 export type AuthBlockVariant = 'invite' | 'login' | 'password-reset' | 'signup' | 'two-factor';
 type AuthBlockPreviewDevice = 'desktop' | 'mobile';
@@ -42,27 +26,13 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
 @Component({
   selector: 'blocks-auth-preview',
   imports: [
-    FrButton,
-    FrButtonIcon,
-    FrButtonLabel,
-    FrCard,
-    FrCardContent,
-    FrCheckbox,
-    FrCheckboxField,
-    FrCheckboxLabel,
-    FrField,
-    FrFieldContent,
-    FrFieldDescription,
-    FrFieldLabel,
-    FrInput,
-    FrInputGroup,
-    FrInputGroupAddon,
-    FrInputGroupInput,
-    FrInputOtp,
-    FrInputOtpGroup,
-    FrInputOtpSeparator,
-    FrInputOtpSlot,
-    FrSeparator,
+    FrButtonModule,
+    FrCardModule,
+    FrCheckboxModule,
+    FrFieldModule,
+    FrInputModule,
+    FrInputOtpModule,
+    FrSeparatorModule,
     NgClass,
     NgIcon,
     ReactiveFormsModule,
@@ -90,12 +60,12 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
           <section frCard spacing="xl" class="w-full max-w-xl bg-surface/95">
             <div frCardContent class="grid gap-6">
               <div class="grid gap-1">
-                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Start free</p>
+                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Start free</p>
                 <h2 class="m-0 text-2xl font-bold leading-tight">Create your account</h2>
                 <p class="m-0 text-sm leading-6 text-muted-foreground">Invite your team after the workspace is ready.</p>
               </div>
 
-              <form class="grid gap-4" (submit)="$event.preventDefault()">
+              <form class="grid gap-4" [formGroup]="signupForm" (ngSubmit)="submit()">
                 <button frButton appearance="outline" type="button" class="w-full">
                   <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
                   <span frButtonLabel>Continue with GitHub</span>
@@ -111,14 +81,14 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                   <div frField>
                     <label frFieldLabel for="first-name">First name</label>
                     <div frFieldContent>
-                      <input frInput id="first-name" autocomplete="given-name" [formControl]="firstName" />
+                    <input frInput id="first-name" autocomplete="given-name" formControlName="firstName" />
                     </div>
                   </div>
 
                   <div frField>
                     <label frFieldLabel for="last-name">Last name</label>
                     <div frFieldContent>
-                      <input frInput id="last-name" autocomplete="family-name" [formControl]="lastName" />
+                    <input frInput id="last-name" autocomplete="family-name" formControlName="lastName" />
                     </div>
                   </div>
                 </div>
@@ -126,12 +96,12 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                 <div frField>
                   <label frFieldLabel for="signup-email">Work email</label>
                   <div frFieldContent>
-                    <input frInput id="signup-email" type="email" autocomplete="email" [formControl]="signupEmail" />
+                    <input frInput id="signup-email" type="email" autocomplete="email" formControlName="signupEmail" />
                   </div>
                 </div>
 
                 <label frCheckboxField>
-                  <input frCheckbox type="checkbox" [formControl]="acceptedTerms" />
+                  <input frCheckbox type="checkbox" formControlName="acceptedTerms" />
                   <span frCheckboxLabel>I agree to the Terms and Data Processing Addendum.</span>
                 </label>
 
@@ -146,23 +116,23 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
         @case ('password-reset') {
           <section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
             <div frCardContent class="grid gap-6">
-              <div class="grid size-11 place-items-center border border-primary bg-primary/10 text-primary">
+              <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
                 <ng-icon name="tablerKey" size="22" />
               </div>
 
               <div class="grid gap-1">
-                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Password recovery</p>
+                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Password recovery</p>
                 <h2 class="m-0 text-2xl font-bold leading-tight">Reset your password</h2>
                 <p class="m-0 text-sm leading-6 text-muted-foreground">
                   Enter the email linked to your account and we will send recovery steps.
                 </p>
               </div>
 
-              <form class="grid gap-4" (submit)="$event.preventDefault()">
+              <form class="grid gap-4" [formGroup]="resetForm" (ngSubmit)="submit()">
                 <div frField>
                   <label frFieldLabel for="reset-email">Email address</label>
                   <div frFieldContent>
-                    <input frInput id="reset-email" type="email" autocomplete="email" [formControl]="resetEmail" />
+                    <input frInput id="reset-email" type="email" autocomplete="email" formControlName="email" />
                   </div>
                   <p frFieldDescription>Check your SSO provider first if your company manages passwords.</p>
                 </div>
@@ -174,7 +144,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
 
               <p class="m-0 text-center text-sm leading-6 text-muted-foreground">
                 Remembered it?
-                <a class="font-bold text-primary no-underline hover:underline" href="#">Back to sign in</a>
+                <a class="font-bold text-primary! no-underline hover:underline" href="#">Back to sign in</a>
               </p>
             </div>
           </section>
@@ -194,10 +164,10 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
             >
               @if (device() !== 'mobile') {
                 <div class="grid min-h-full content-center gap-3 border border-border bg-muted p-5">
-                  <div class="grid size-11 place-items-center border border-primary bg-primary/10 text-primary">
+                  <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
                     <ng-icon name="tablerUsers" size="22" />
                   </div>
-                  <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">
+                  <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">
                     Invite from Linear Systems
                   </p>
                   <h2 class="m-0 text-2xl font-bold leading-tight">Join the Product workspace</h2>
@@ -217,11 +187,11 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                 </div>
               }
 
-              <form class="grid gap-4" (submit)="$event.preventDefault()">
+              <form class="grid gap-4" [formGroup]="inviteForm" (ngSubmit)="submit()">
                 <div frField>
                   <label frFieldLabel for="invite-name">Display name</label>
                   <div frFieldContent>
-                    <input frInput id="invite-name" autocomplete="name" [formControl]="displayName" />
+                    <input frInput id="invite-name" autocomplete="name" formControlName="displayName" />
                   </div>
                 </div>
 
@@ -233,7 +203,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                       id="invite-password"
                       type="password"
                       autocomplete="new-password"
-                      [formControl]="invitePassword"
+                      formControlName="password"
                     />
                   </div>
                   <p frFieldDescription>Use at least 12 characters with a number or symbol.</p>
@@ -250,20 +220,20 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
         @case ('two-factor') {
           <section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
             <div frCardContent class="grid justify-items-center gap-6 text-center">
-              <div class="grid size-11 place-items-center border border-primary bg-primary/10 text-primary">
+              <div class="grid size-11 place-items-center border border-primary! bg-primary/10! text-primary!">
                 <ng-icon name="tablerShieldCheck" size="22" />
               </div>
 
               <div class="grid gap-1">
-                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">
+                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">
                   Two-factor authentication
                 </p>
                 <h2 class="m-0 text-2xl font-bold leading-tight">Enter your verification code</h2>
                 <p class="m-0 text-sm leading-6 text-muted-foreground">We sent a six-digit code to mika&#64;acme.com.</p>
               </div>
 
-              <form class="grid w-full justify-items-center gap-4" (submit)="$event.preventDefault()">
-                <frame-input-otp [formControl]="verificationCode" [maxLength]="6">
+              <form class="grid w-full justify-items-center gap-4" [formGroup]="twoFactorForm" (ngSubmit)="submit()">
+                <frame-input-otp formControlName="verificationCode" [maxLength]="6">
                   <div frInputOtpGroup>
                     @for (index of firstThree; track index) {
                       <div frInputOtpSlot [index]="index"></div>
@@ -284,7 +254,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
 
               <p class="m-0 text-center text-sm leading-6 text-muted-foreground">
                 Did not receive a code?
-                <a class="font-bold text-primary no-underline hover:underline" href="#">Resend</a>
+                <a class="font-bold text-primary! no-underline hover:underline" href="#">Resend</a>
               </p>
             </div>
           </section>
@@ -294,12 +264,12 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
           <section frCard spacing="xl" class="w-full max-w-md bg-surface/95">
             <div frCardContent class="grid gap-6">
               <div class="grid gap-1">
-                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary">Acme Console</p>
+                <p class="font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Acme Console</p>
                 <h2 class="m-0 text-2xl font-bold leading-tight">Sign in to your workspace</h2>
                 <p class="m-0 text-sm leading-6 text-muted-foreground">Use your company account to continue.</p>
               </div>
 
-              <form class="grid gap-4" (submit)="$event.preventDefault()">
+              <form class="grid gap-4" [formGroup]="loginForm" (ngSubmit)="submit()">
                 <div frField>
                   <label frFieldLabel for="login-email">Email</label>
                   <div frFieldContent>
@@ -312,7 +282,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                         id="login-email"
                         type="email"
                         autocomplete="email"
-                        [formControl]="email"
+                        formControlName="email"
                       />
                     </div>
                   </div>
@@ -330,7 +300,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
                         id="login-password"
                         type="password"
                         autocomplete="current-password"
-                        [formControl]="password"
+                        formControlName="password"
                       />
                     </div>
                   </div>
@@ -338,10 +308,10 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
 
                 <div class="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
                   <label frCheckboxField>
-                    <input frCheckbox type="checkbox" [formControl]="rememberMe" />
+                    <input frCheckbox type="checkbox" formControlName="rememberMe" />
                     <span frCheckboxLabel>Remember me</span>
                   </label>
-                  <a class="font-bold text-primary no-underline hover:underline" href="#">Forgot password?</a>
+                  <a class="font-bold text-primary! no-underline hover:underline" href="#">Forgot password?</a>
                 </div>
 
                 <button frButton type="submit" class="w-full">
@@ -362,7 +332,7 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
 
               <p class="m-0 text-center text-sm leading-6 text-muted-foreground">
                 New to Acme?
-                <a class="font-bold text-primary no-underline hover:underline" href="#">Create an account</a>
+                <a class="font-bold text-primary! no-underline hover:underline" href="#">Create an account</a>
               </p>
             </div>
           </section>
@@ -372,21 +342,35 @@ type AuthBlockPreviewDevice = 'desktop' | 'mobile';
   `,
 })
 export class AuthBlockPreview {
+  private readonly formBuilder = inject(NonNullableFormBuilder);
+
   readonly device = input<AuthBlockPreviewDevice>('desktop');
   readonly variant = input<AuthBlockVariant>('login');
 
-  readonly acceptedTerms = new FormControl(true, { nonNullable: true });
-  readonly displayName = new FormControl('Mika Stone', { nonNullable: true });
-  readonly email = new FormControl('mika@acme.com', { nonNullable: true });
-  readonly firstName = new FormControl('Mika', { nonNullable: true });
-  readonly invitePassword = new FormControl('workspace-access-2026', { nonNullable: true });
-  readonly lastName = new FormControl('Stone', { nonNullable: true });
-  readonly password = new FormControl('design-system', { nonNullable: true });
-  readonly rememberMe = new FormControl(true, { nonNullable: true });
-  readonly resetEmail = new FormControl('mika@acme.com', { nonNullable: true });
-  readonly signupEmail = new FormControl('mika@acme.com', { nonNullable: true });
-  readonly verificationCode = new FormControl('248016', { nonNullable: true });
+  readonly inviteForm = this.formBuilder.group({
+    displayName: ['Mika Stone', Validators.required],
+    password: ['workspace-access-2026', Validators.required],
+  });
+  readonly loginForm = this.formBuilder.group({
+    email: ['mika@acme.com', Validators.required],
+    password: ['design-system', Validators.required],
+    rememberMe: [true],
+  });
+  readonly resetForm = this.formBuilder.group({
+    email: ['mika@acme.com', Validators.required],
+  });
+  readonly signupForm = this.formBuilder.group({
+    acceptedTerms: [true],
+    firstName: ['Mika', Validators.required],
+    lastName: ['Stone', Validators.required],
+    signupEmail: ['mika@acme.com', Validators.required],
+  });
+  readonly twoFactorForm = this.formBuilder.group({
+    verificationCode: ['248016', Validators.required],
+  });
 
   protected readonly firstThree = [0, 1, 2];
   protected readonly lastThree = [3, 4, 5];
+
+  submit(): void {}
 }

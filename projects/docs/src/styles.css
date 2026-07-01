@@ -307,6 +307,23 @@ body {
   max-block-size: var(--docs-sidebar-visible-height);
 }
 
+@media (min-width: 64rem) {
+  .blocks-layout-grid {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+
+  .blocks-category-rail {
+    position: sticky;
+    top: var(--docs-sidebar-sticky-top);
+    max-block-size: var(--docs-sidebar-visible-height);
+    overflow: hidden;
+  }
+
+  .blocks-category-sheet {
+    max-block-size: var(--docs-sidebar-visible-height);
+  }
+}
+
 .docs-article > header,
 .docs-article > section {
   position: relative;

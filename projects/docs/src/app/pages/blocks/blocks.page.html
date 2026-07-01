@@ -1,4 +1,4 @@
-<main class="mx-auto max-w-350 px-4 py-8 sm:px-6 xl:px-0">
+<main class="docs-shell mx-auto max-w-350 px-4 py-8 sm:px-6 xl:px-0">
   <article class="min-w-0 space-y-8">
     <header
       frCornerHandles
@@ -16,13 +16,13 @@
       </div>
     </header>
 
-    <section class="grid items-start gap-6 lg:grid-cols-4" aria-label="Block categories">
-      <aside class="self-start lg:col-span-1">
+    <section class="blocks-layout-grid grid items-start gap-6" aria-label="Block categories">
+      <aside class="blocks-category-rail self-start">
         <div
           frCornerHandles
           animate.enter="slide-in-enter"
           style="--docs-enter-delay: 90ms"
-          class="docs-blueprint-sheet grid gap-2 p-3"
+          class="blocks-category-sheet docs-blueprint-sheet grid gap-2 overflow-y-auto overflow-x-hidden p-3 scrollbar-none"
         >
           <p class="docs-blueprint-meta px-2 py-1">Categories</p>
 
@@ -48,7 +48,7 @@
         </div>
       </aside>
 
-      <div class="min-w-0 space-y-6 lg:col-span-3">
+      <div class="min-w-0 space-y-6">
         <section
           frCornerHandles
           animate.enter="slide-in-enter"
@@ -135,7 +135,7 @@
                 </header>
 
                 @if (selectedId() === block.id && viewMode() === 'code') {
-                  <div class="grid gap-0 border-t border-border bg-muted/30">
+                  <div class="grid gap-0 bg-muted/30">
                     <docs-code-block
                       [title]="block.componentName + '.ts'"
                       language="ts"
@@ -143,16 +143,14 @@
                     />
                   </div>
                 } @else {
-                  <div class="bg-muted/30 p-4 sm:p-5">
-                    <div
-                      class="mx-auto overflow-hidden border border-border bg-surface"
-                      [class.max-w-md]="selectedId() === block.id && deviceMode() === 'mobile'"
-                    >
-                      <ng-container
-                        [ngComponentOutlet]="block.previewComponent"
-                        [ngComponentOutletInputs]="previewInputs(block)"
-                      />
-                    </div>
+                  <div
+                    class="mx-auto overflow-hidden bg-surface"
+                    [class.max-w-md]="selectedId() === block.id && deviceMode() === 'mobile'"
+                  >
+                    <ng-container
+                      [ngComponentOutlet]="block.previewComponent"
+                      [ngComponentOutletInputs]="previewInputs(block)"
+                    />
                   </div>
                 }
 
