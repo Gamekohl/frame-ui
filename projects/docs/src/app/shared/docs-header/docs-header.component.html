@@ -22,6 +22,29 @@
       >
         Blocks
       </a>
+      <div frDropdownMenu>
+        <button
+          class="docs-blueprint-meta flex items-center gap-1 text-muted-foreground hover:text-foreground"
+          type="button"
+          [frDropdownMenuTrigger]="templatesMenu"
+        >
+          Templates
+          <ng-icon name="tablerChevronDown" size="14" aria-hidden="true" />
+        </button>
+
+        <ng-template #templatesMenu="frDropdownMenuContent" frDropdownMenuContent side="bottom" align="start">
+          <div frDropdownMenuPanel class="min-w-64">
+            <span frDropdownMenuLabel>Admin templates</span>
+            <a frDropdownMenuItem routerLink="/templates/user-management">
+              <ng-icon name="tablerLayoutDashboard" size="16" aria-hidden="true" />
+              <span class="grid gap-0.5">
+                <span class="font-semibold">User management</span>
+                <span class="text-xs text-muted-foreground">Roles, access, tables, and team operations.</span>
+              </span>
+            </a>
+          </div>
+        </ng-template>
+      </div>
     </nav>
 
     <div class="ml-auto flex items-center gap-2">

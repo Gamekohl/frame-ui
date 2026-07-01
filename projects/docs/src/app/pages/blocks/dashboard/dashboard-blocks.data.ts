@@ -10,6 +10,7 @@ const cardModule = { name: 'FrCardModule', path: 'card' } as const;
 const dropdownMenuModule = { name: 'FrDropdownMenuModule', path: 'dropdown-menu' } as const;
 const itemModule = { name: 'FrItemModule', path: 'item' } as const;
 const progressModule = { name: 'FrProgressModule', path: 'progress' } as const;
+const sidebarModule = { name: 'FrSidebarModule', path: 'sidebar' } as const;
 const tableModule = { name: 'FrTableModule', path: 'table' } as const;
 const tabsModule = { name: 'FrTabsModule', path: 'tabs' } as const;
 
@@ -39,6 +40,11 @@ const orderFulfillmentImports = [
   dropdownMenuModule,
   tableModule,
   tabsModule,
+] satisfies readonly ComponentCodeModule[];
+
+const workspaceShellImports = [
+  badgeModule,
+  sidebarModule,
 ] satisfies readonly ComponentCodeModule[];
 
 const metricsOverviewCode = `<section frCard spacing="xl" class="w-full max-w-5xl bg-surface/95">
@@ -270,7 +276,151 @@ const orderFulfillmentCode = `<section frCard spacing="xl" class="w-full max-w-5
   </div>
 </section>`;
 
+const workspaceShellCode = `<div frSidebarProvider class="h-dvh bg-background" defaultOpen>
+  <aside frSidebar collapsible="offcanvas" [resizable]="false">
+    <div frSidebarHeader>
+      <a frSidebarMenuButton size="lg" href="#">
+        <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+          <ng-icon name="tablerShoppingBag" size="18" />
+        </span>
+        <span>Acme Store</span>
+      </a>
+    </div>
+
+    <div frSidebarContent>
+      <div frSidebarGroup>
+        <div frSidebarGroupLabel>Operations</div>
+        <div frSidebarGroupContent>
+          <ul frSidebarMenu>
+            @for (item of navItems; track item.label) {
+              <li frSidebarMenuItem>
+                <a frSidebarMenuButton [active]="item.active" href="#">
+                  <ng-icon [name]="item.icon" size="17" />
+                  <span>{{ item.label }}</span>
+                </a>
+                @if (item.badge) {
+                  <span frSidebarMenuBadge>{{ item.badge }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div frSidebarFooter>
+      <a frSidebarMenuButton variant="outline" href="#">
+        <ng-icon name="tablerSettings" size="17" />
+        <span>Settings</span>
+      </a>
+    </div>
+
+    <div frSidebarRail></div>
+  </aside>
+
+  <main frSidebarInset class="grid min-h-0 content-start gap-6 overflow-auto bg-muted p-6">
+    <div class="flex items-start gap-3">
+      <button frSidebarTrigger type="button" aria-label="Toggle sidebar">
+        <ng-icon name="tablerLayoutSidebar" size="18" />
+      </button>
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Today</p>
+        <h1 class="m-0 text-3xl font-bold leading-tight">Store command center</h1>
+        <p class="m-0 text-sm leading-6 text-muted-foreground">Orders, returns, and stock alerts in one workspace.</p>
+      </div>
+    </div>
+
+    <div class="grid gap-3 md:grid-cols-3">
+      @for (metric of metrics; track metric.label) {
+        <div class="grid gap-2 border border-border bg-surface p-4">
+          <span class="flex items-center justify-between gap-3">
+            <span class="text-xs font-semibold uppercase text-muted-foreground">{{ metric.label }}</span>
+            <ng-icon [name]="metric.icon" size="17" class="text-primary!" />
+          </span>
+          <strong class="text-2xl font-bold leading-none">{{ metric.value }}</strong>
+          <span class="text-xs text-muted-foreground">{{ metric.detail }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-3">
+      <section class="grid gap-3 border border-border bg-surface p-4 lg:col-span-2">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="m-0 text-base font-semibold">Fulfillment queue</h2>
+          <span frBadge variant="secondary">6 open</span>
+        </div>
+        <div class="grid gap-3">
+          @for (task of tasks; track task.title) {
+            <div class="flex items-start justify-between gap-3 border border-border bg-muted p-3">
+              <span class="grid gap-1">
+                <span class="text-sm font-semibold">{{ task.title }}</span>
+                <span class="text-xs leading-5 text-muted-foreground">{{ task.detail }}</span>
+              </span>
+              <span frBadge [variant]="task.variant">{{ task.status }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <aside class="grid content-start gap-3 border border-border bg-surface p-4">
+        <h2 class="m-0 text-base font-semibold">Alerts</h2>
+        @for (alert of alerts; track alert.title) {
+          <div class="grid gap-1 border border-border bg-muted p-3">
+            <span class="text-sm font-semibold">{{ alert.title }}</span>
+            <span class="text-xs leading-5 text-muted-foreground">{{ alert.detail }}</span>
+          </div>
+        }
+      </aside>
+    </div>
+  </main>
+</div>`;
+
 export const DASHBOARD_BLOCK_IMPLEMENTATIONS = {
+  'workspace-shell': {
+    variant: 'workspace-shell',
+    previewComponent: DashboardBlockPreview,
+    previewInputs: ({ device }) => ({ device, variant: 'workspace-shell' }),
+    componentCode: buildComponentCode(
+      'WorkspaceShell',
+      'app-workspace-shell',
+      workspaceShellCode,
+      `  protected readonly navItems = [
+    { label: 'Overview', icon: 'tablerHome', active: true, badge: null },
+    { label: 'Orders', icon: 'tablerShoppingBag', active: false, badge: '12' },
+    { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
+    { label: 'Alerts', icon: 'tablerBell', active: false, badge: '3' },
+  ] as const;
+
+  protected readonly metrics = [
+    { label: 'Orders', value: '248', detail: '32 ready to ship', icon: 'tablerShoppingBag' },
+    { label: 'Revenue', value: '$18.4k', detail: 'Today so far', icon: 'tablerReceipt' },
+    { label: 'Customers', value: '1,284', detail: '84 active now', icon: 'tablerUsers' },
+  ] as const;
+
+  protected readonly tasks = [
+    { title: 'Pack express orders', detail: 'DHL pickup closes in 42 minutes.', status: 'Soon', variant: 'destructive' },
+    { title: 'Review high-value return', detail: 'Monitor arm refund needs owner approval.', status: 'Review', variant: 'secondary' },
+    { title: 'Restock desk lamps', detail: 'Berlin shelf is below reorder point.', status: 'Stock', variant: 'outline' },
+  ] as const;
+
+  protected readonly alerts = [
+    { title: 'Low stock', detail: 'Desk lamp black has 6 units left.' },
+    { title: 'Carrier delay', detail: 'UPS Ground missed one pickup window.' },
+  ] as const;`,
+      {
+        frameModules: workspaceShellImports,
+        iconImports: [
+          'tablerBell',
+          'tablerHome',
+          'tablerLayoutSidebar',
+          'tablerReceipt',
+          'tablerSettings',
+          'tablerShoppingBag',
+          'tablerUsers',
+        ],
+      },
+    ),
+  },
   'order-fulfillment': {
     variant: 'order-fulfillment',
     previewComponent: DashboardBlockPreview,

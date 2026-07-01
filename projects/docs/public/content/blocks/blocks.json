@@ -75,42 +75,13 @@
         "title": "Order fulfillment",
         "description": "A tabbed shipping desk with order table, delivery status, and row actions.",
         "componentName": "OrderFulfillment"
-      }
-    ]
-  },
-  {
-    "id": "settings",
-    "title": "Settings",
-    "description": "Account, billing, team, security, and preference screens.",
-    "icon": "tablerSettings",
-    "blocks": [
-      {
-        "id": "profile-settings",
-        "category": "Settings",
-        "title": "Profile settings",
-        "description": "Account identity, contact details, role context, and a short profile note.",
-        "componentName": "ProfileSettings"
       },
       {
-        "id": "notification-preferences",
-        "category": "Settings",
-        "title": "Order notifications",
-        "description": "Notification settings for low stock, large orders, and weekly store summaries.",
-        "componentName": "OrderNotifications"
-      },
-      {
-        "id": "team-access",
-        "category": "Settings",
-        "title": "Team access",
-        "description": "Invite teammates, review active roles, and keep security ownership visible.",
-        "componentName": "TeamAccess"
-      },
-      {
-        "id": "login-security",
-        "category": "Settings",
-        "title": "Login security",
-        "description": "A concrete account security screen with alert, session timeout, and grouped login rules.",
-        "componentName": "LoginSecurity"
+        "id": "workspace-shell",
+        "category": "Dashboard",
+        "title": "Workspace shell",
+        "description": "A full-height dashboard shell with sidebar navigation, toolbar, KPI cards, and work queue.",
+        "componentName": "WorkspaceShell"
       }
     ]
   }

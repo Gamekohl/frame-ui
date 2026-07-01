@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/blocks/blocks.routes'),
   },
   {
+    path: 'templates',
+    loadChildren: () => import('./pages/templates/templates.routes'),
+  },
+  {
     path: 'docs',
     loadChildren: () => import('./pages/docs/docs.routes'),
   },

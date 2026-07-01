@@ -9,7 +9,6 @@ import {
   tablerDeviceMobile,
   tablerLayoutDashboard,
   tablerLock,
-  tablerSettings,
 } from '@ng-icons/tabler-icons';
 import { FrCornerHandles } from '@frame-ui-ng/components';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
@@ -39,7 +38,6 @@ type DeviceMode = BlockPreviewDevice;
       tablerDeviceMobile,
       tablerLayoutDashboard,
       tablerLock,
-      tablerSettings,
     }),
   ],
 })

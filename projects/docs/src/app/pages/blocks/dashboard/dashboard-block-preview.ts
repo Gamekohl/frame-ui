@@ -1,9 +1,10 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerAlertTriangle,
   tablerArrowRight,
+  tablerBell,
   tablerChartBar,
   tablerChecklist,
   tablerClock,
@@ -12,8 +13,12 @@ import {
   tablerDots,
   tablerFileInvoice,
   tablerFlag,
+  tablerHome,
+  tablerLayoutSidebar,
   tablerRocket,
   tablerReceipt,
+  tablerSettings,
+  tablerShoppingBag,
   tablerTrendingUp,
   tablerUsers,
 } from '@ng-icons/tabler-icons';
@@ -23,10 +28,16 @@ import { FrCardModule } from '@frame-ui-ng/components/card';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrItemModule } from '@frame-ui-ng/components/item';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
+import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 
-export type DashboardBlockVariant = 'metrics-overview' | 'order-fulfillment' | 'revenue-snapshot' | 'review-queue';
+export type DashboardBlockVariant =
+  | 'metrics-overview'
+  | 'order-fulfillment'
+  | 'revenue-snapshot'
+  | 'review-queue'
+  | 'workspace-shell';
 type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
 
 @Component({
@@ -38,6 +49,7 @@ type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
     FrDropdownMenuModule,
     FrItemModule,
     FrProgressModule,
+    FrSidebarModule,
     FrTableModule,
     FrTabsModule,
     NgClass,
@@ -51,6 +63,7 @@ type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
     provideIcons({
       tablerAlertTriangle,
       tablerArrowRight,
+      tablerBell,
       tablerChartBar,
       tablerChecklist,
       tablerClock,
@@ -59,8 +72,12 @@ type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
       tablerDots,
       tablerFileInvoice,
       tablerFlag,
+      tablerHome,
+      tablerLayoutSidebar,
       tablerRocket,
       tablerReceipt,
+      tablerSettings,
+      tablerShoppingBag,
       tablerTrendingUp,
       tablerUsers,
     }),
@@ -68,6 +85,115 @@ type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
   template: `
     <div class="grid min-h-96 place-items-center bg-muted p-4 md:p-8">
       @switch (variant()) {
+        @case ('workspace-shell') {
+          <section class="w-full max-w-5xl overflow-hidden border border-border bg-background">
+            <div
+              frSidebarProvider
+              class="h-96"
+              [defaultOpen]="device() !== 'mobile'"
+              [open]="device() === 'mobile' ? shellOpen() : null"
+              (openChange)="shellOpen.set($event)"
+            >
+              <aside frSidebar collapsible="offcanvas" [resizable]="false">
+                <div frSidebarHeader>
+                  <a frSidebarMenuButton size="lg" href="#">
+                    <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                      <ng-icon name="tablerShoppingBag" size="18" />
+                    </span>
+                    <span>Acme Store</span>
+                  </a>
+                </div>
+
+                <div frSidebarContent>
+                  <div frSidebarGroup>
+                    <div frSidebarGroupLabel>Operations</div>
+                    <div frSidebarGroupContent>
+                      <ul frSidebarMenu>
+                        @for (item of shellNavItems; track item.label) {
+                          <li frSidebarMenuItem>
+                            <a frSidebarMenuButton [active]="item.active" href="#">
+                              <ng-icon [name]="item.icon" size="17" />
+                              <span>{{ item.label }}</span>
+                            </a>
+                            @if (item.badge) {
+                              <span frSidebarMenuBadge>{{ item.badge }}</span>
+                            }
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div frSidebarFooter>
+                  <a frSidebarMenuButton variant="outline" href="#">
+                    <ng-icon name="tablerSettings" size="17" />
+                    <span>Settings</span>
+                  </a>
+                </div>
+
+                <div frSidebarRail></div>
+              </aside>
+
+              <main frSidebarInset class="grid min-h-0 content-start gap-5 overflow-auto bg-muted p-4">
+                <div class="flex items-start gap-3">
+                  <button frSidebarTrigger type="button" aria-label="Toggle sidebar">
+                    <ng-icon name="tablerLayoutSidebar" size="18" />
+                  </button>
+                  <div class="grid gap-1">
+                    <p class="m-0 font-mono text-xs font-extrabold uppercase tracking-wider text-primary!">Today</p>
+                    <h2 class="m-0 text-2xl font-bold leading-tight">Store command center</h2>
+                    <p class="m-0 text-sm leading-6 text-muted-foreground">Orders, returns, and stock alerts in one workspace.</p>
+                  </div>
+                </div>
+
+                <div class="grid gap-3" [ngClass]="device() === 'mobile' ? '' : 'md:grid-cols-3'">
+                  @for (metric of shellMetrics; track metric.label) {
+                    <div class="grid gap-2 border border-border bg-surface p-4">
+                      <span class="flex items-center justify-between gap-3">
+                        <span class="text-xs font-semibold uppercase text-muted-foreground">{{ metric.label }}</span>
+                        <ng-icon [name]="metric.icon" size="17" class="text-primary!" />
+                      </span>
+                      <strong class="text-2xl font-bold leading-none">{{ metric.value }}</strong>
+                      <span class="text-xs text-muted-foreground">{{ metric.detail }}</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="grid gap-4" [ngClass]="device() === 'mobile' ? '' : 'lg:grid-cols-3'">
+                  <section class="grid gap-3 border border-border bg-surface p-4" [ngClass]="device() === 'mobile' ? '' : 'lg:col-span-2'">
+                    <div class="flex items-center justify-between gap-3">
+                      <h3 class="m-0 text-base font-semibold">Fulfillment queue</h3>
+                      <span frBadge variant="secondary">6 open</span>
+                    </div>
+                    <div class="grid gap-3">
+                      @for (task of shellTasks; track task.title) {
+                        <div class="flex items-start justify-between gap-3 border border-border bg-muted p-3">
+                          <span class="grid gap-1">
+                            <span class="text-sm font-semibold">{{ task.title }}</span>
+                            <span class="text-xs leading-5 text-muted-foreground">{{ task.detail }}</span>
+                          </span>
+                          <span frBadge [variant]="task.variant">{{ task.status }}</span>
+                        </div>
+                      }
+                    </div>
+                  </section>
+
+                  <aside class="grid content-start gap-3 border border-border bg-surface p-4">
+                    <h3 class="m-0 text-base font-semibold">Alerts</h3>
+                    @for (alert of shellAlerts; track alert.title) {
+                      <div class="grid gap-1 border border-border bg-muted p-3">
+                        <span class="text-sm font-semibold">{{ alert.title }}</span>
+                        <span class="text-xs leading-5 text-muted-foreground">{{ alert.detail }}</span>
+                      </div>
+                    }
+                  </aside>
+                </div>
+              </main>
+            </div>
+          </section>
+        }
+
         @case ('order-fulfillment') {
           <section frCard spacing="xl" class="w-full max-w-5xl bg-surface/95">
             <div frCardContent class="grid gap-6">
@@ -318,6 +444,31 @@ type DashboardBlockPreviewDevice = 'desktop' | 'mobile';
 export class DashboardBlockPreview {
   readonly device = input<DashboardBlockPreviewDevice>('desktop');
   readonly variant = input<DashboardBlockVariant>('metrics-overview');
+  protected readonly shellOpen = signal(false);
+
+  protected readonly shellNavItems = [
+    { label: 'Overview', icon: 'tablerHome', active: true, badge: null },
+    { label: 'Orders', icon: 'tablerShoppingBag', active: false, badge: '12' },
+    { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
+    { label: 'Alerts', icon: 'tablerBell', active: false, badge: '3' },
+  ] as const;
+
+  protected readonly shellMetrics = [
+    { label: 'Orders', value: '248', detail: '32 ready to ship', icon: 'tablerShoppingBag' },
+    { label: 'Revenue', value: '$18.4k', detail: 'Today so far', icon: 'tablerReceipt' },
+    { label: 'Customers', value: '1,284', detail: '84 active now', icon: 'tablerUsers' },
+  ] as const;
+
+  protected readonly shellTasks = [
+    { title: 'Pack express orders', detail: 'DHL pickup closes in 42 minutes.', status: 'Soon', variant: 'destructive' },
+    { title: 'Review high-value return', detail: 'Monitor arm refund needs owner approval.', status: 'Review', variant: 'secondary' },
+    { title: 'Restock desk lamps', detail: 'Berlin shelf is below reorder point.', status: 'Stock', variant: 'outline' },
+  ] as const;
+
+  protected readonly shellAlerts = [
+    { title: 'Low stock', detail: 'Desk lamp black has 6 units left.' },
+    { title: 'Carrier delay', detail: 'UPS Ground missed one pickup window.' },
+  ] as const;
 
   protected readonly healthMetrics = [
     { label: 'Orders today', value: '248', delta: '+12%', icon: 'tablerUsers' },
