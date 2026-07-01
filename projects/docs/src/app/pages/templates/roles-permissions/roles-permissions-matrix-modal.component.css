@@ -1,0 +1,5 @@
+:host {
+  --frame-tabs-gap: 0.25rem;
+
+  display: block;
+}

@@ -1,0 +1,450 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Template preview
+        </p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">
+          Roles & permissions
+        </h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          A complete admin surface for role coverage, permission changes, and access reviews.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/roles-permissions"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" href="#">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Console</span>
+                <span class="text-xs text-muted-foreground">Access control</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>General</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton href="#" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Admin</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton href="#" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a frSidebarMenuButton variant="outline" href="#">
+              <span frAvatar size="sm">
+                <span frAvatarFallback>MS</span>
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Owner</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button frSidebarTrigger type="button" aria-label="Toggle navigation">
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink href="#">Acme</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink href="#">Admin</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <span frBreadcrumbPage>Roles & permissions</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+            @if (toastVisible()) {
+              <div
+                class="hidden items-center gap-2 border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200 md:flex"
+              >
+                <ng-icon name="tablerCircleCheck" size="16" />
+                {{ toastMessage() }}
+                <button
+                  type="button"
+                  class="text-emerald-700 hover:text-emerald-950 dark:text-emerald-300 dark:hover:text-white"
+                  (click)="toastVisible.set(false)"
+                >
+                  <ng-icon name="tablerX" size="14" />
+                </button>
+              </div>
+            }
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-3 xl:items-end">
+              <div class="grid gap-2 xl:col-span-2">
+                <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                  Roles & permissions
+                </h2>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Keep day-to-day access visible while sensitive permissions stay explicit and
+                  reviewable.
+                </p>
+              </div>
+
+              <div class="grid gap-2 sm:grid-cols-2">
+                <div class="rounded-lg border border-border bg-muted p-3">
+                  <span class="text-xs uppercase text-muted-foreground">Roles</span>
+                  <strong class="mt-1 block text-xl text-foreground">{{ roles().length }}</strong>
+                </div>
+                <div class="rounded-lg border border-border bg-muted p-3">
+                  <span class="text-xs uppercase text-muted-foreground">Reviews</span>
+                  <strong class="mt-1 block text-xl text-foreground">{{ reviewCount() }}</strong>
+                </div>
+              </div>
+            </header>
+
+            <section class="grid gap-3">
+              <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+                <div class="grid gap-1">
+                  <h3 class="m-0 text-lg font-semibold text-foreground">Role library</h3>
+                  <p class="m-0 text-sm text-muted-foreground">
+                    Select a role to inspect its permissions and active administrators.
+                  </p>
+                </div>
+
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+                  <button
+                    frButton
+                    appearance="outline"
+                    type="button"
+                    (click)="showToast('Permission review report queued')"
+                  >
+                    <ng-icon name="tablerShieldCheck" size="16" frButtonIcon />
+                    <span frButtonLabel>Review changes</span>
+                  </button>
+                  <button
+                    frButton
+                    type="button"
+                    (click)="showToast('Invite prepared for security-admin@acme.com')"
+                  >
+                    <ng-icon name="tablerUserPlus" size="16" frButtonIcon />
+                    <span frButtonLabel>Add member</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="grid gap-4 lg:grid-cols-3">
+                @for (role of roles(); track role.key) {
+                  <article
+                    class="grid gap-4 rounded-lg border bg-surface p-4"
+                    [ngClass]="
+                      selectedRoleKey() === role.key
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border bg-muted'
+                    "
+                  >
+                    <div class="flex items-center justify-between gap-3 border-b pb-3 border-border mb-auto">
+                      <h4 class="m-0 truncate text-base font-semibold text-foreground">
+                        {{ role.name }}
+                      </h4>
+                      @if (role.locked) {
+                        <span frBadge variant="secondary">
+                            <ng-icon name="tablerLock" size="12" />
+                            Locked
+                          </span>
+                      }
+                    </div>
+
+                    <div class="grid gap-3 flex-1">
+                      @for (member of roleMembers(role.key); track member.id) {
+                        @if ($index < 3) {
+                          <div class="flex items-center gap-3">
+                            <span frAvatar size="md" [ngClass]="member.color">
+                              <img
+                                frAvatarImage
+                                [src]="'https://i.pravatar.cc/64?u=' + member.email"
+                                [alt]="member.name"
+                              />
+                              <span frAvatarFallback>{{ member.initials }}</span>
+                            </span>
+                            <span class="grid min-w-0 flex-1 gap-0.5">
+                              <span class="truncate text-sm font-semibold text-foreground">
+                                {{ member.name }}
+                              </span>
+                              <span class="truncate text-xs text-muted-foreground">
+                                {{ member.email }}
+                              </span>
+                            </span>
+                            <span frBadge [variant]="statusVariant(member.status)">
+                              {{ member.status }}
+                            </span>
+                          </div>
+                        }
+                      }
+                    </div>
+
+                    <div
+                      class="mt-auto"
+                      frTooltipOpenDelay="500"
+                      frTooltipArrow
+                      [frTooltip]="role.locked ? 'Policy locked' : ''"
+                    >
+                      <button
+                        frButton
+                        appearance="outline"
+                        type="button"
+                        class="w-full justify-center!"
+                        (click)="manageRole($event, role)"
+                        [disabled]="role.locked"
+                      >
+                        <ng-icon name="tablerUserCog" size="16" frButtonIcon />
+                        <span frButtonLabel>Manage</span>
+                      </button>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+
+            <section class="grid gap-3 rounded-lg border border-border bg-background p-4">
+              <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+                <div class="grid gap-1">
+                  <h3 class="m-0 text-lg font-semibold text-foreground">Administrator accounts</h3>
+                  <p class="m-0 text-sm text-muted-foreground">
+                    Review who currently carries elevated access.
+                  </p>
+                </div>
+
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+                  <div frDropdownMenu>
+                    <button
+                      frButton
+                      appearance="outline"
+                      type="button"
+                      [frDropdownMenuTrigger]="statusMenu"
+                    >
+                      <ng-icon name="tablerAdjustmentsHorizontal" size="16" frButtonIcon />
+                      <span frButtonLabel>{{ statusFilter() }}</span>
+                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                    </button>
+                    <ng-template
+                      #statusMenu="frDropdownMenuContent"
+                      frDropdownMenuContent
+                      side="bottom"
+                      align="end"
+                    >
+                      <div frDropdownMenuPanel>
+                        @for (status of statusOptions; track status) {
+                          <button
+                            frDropdownMenuItem
+                            type="button"
+                            (click)="statusFilter.set(status)"
+                          >
+                            {{ status }}
+                          </button>
+
+                          @if ($index === 0) {
+                            <div frDropdownMenuSeparator></div>
+                          }
+                        }
+                      </div>
+                    </ng-template>
+                  </div>
+
+                  <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                    <span frButtonLabel>Reset</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="min-w-64" frInputGroup>
+                <span frInputGroupAddon align="inline-start" variant="ghost">
+                  <ng-icon name="tablerSearch" size="16" />
+                </span>
+                <input
+                  frInputGroupInput
+                  aria-label="Search admins"
+                  placeholder="Search admins..."
+                  [value]="searchTerm()"
+                  (input)="setSearch($event)"
+                />
+              </div>
+
+              <div frTableContainer class="overflow-x-auto border border-border">
+                <table frTable [dataSource]="filteredAccounts()">
+                  <ng-container frColumnDef="account">
+                    <th frHeaderCell *frHeaderCellDef>Account</th>
+                    <td frCell *frCellDef="let account">
+                      <div class="flex min-w-60 items-center gap-3">
+                        <span frAvatar size="sm" [ngClass]="account.color">
+                          <img
+                            frAvatarImage
+                            [src]="'https://i.pravatar.cc/64?u=' + account.email"
+                            [alt]="account.name"
+                          />
+                          <span frAvatarFallback>{{ account.initials }}</span>
+                        </span>
+                        <span class="grid gap-0.5">
+                          <span class="font-medium text-foreground">{{ account.name }}</span>
+                          <span class="text-xs text-muted-foreground">{{ account.email }}</span>
+                        </span>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="role">
+                    <th frHeaderCell *frHeaderCellDef>Role</th>
+                    <td frCell *frCellDef="let account">{{ roleName(account.role) }}</td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="access">
+                    <th frHeaderCell *frHeaderCellDef>Access</th>
+                    <td frCell *frCellDef="let account" frTableMuted>{{ account.access }}</td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="status">
+                    <th frHeaderCell *frHeaderCellDef>Status</th>
+                    <td frCell *frCellDef="let account">
+                      <span frBadge [variant]="statusVariant(account.status)">
+                        {{ account.status }}
+                      </span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="lastReview">
+                    <th frHeaderCell *frHeaderCellDef>Last review</th>
+                    <td frCell *frCellDef="let account" frTableMuted>{{ account.lastReview }}</td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="actions">
+                    <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                    <td frCell frTableNumeric *frCellDef="let account">
+                      <div frDropdownMenu>
+                        <button
+                          frIconButton
+                          appearance="ghost"
+                          size="sm"
+                          type="button"
+                          aria-label="Open account actions"
+                          [frDropdownMenuTrigger]="accountMenu"
+                        >
+                          <ng-icon name="tablerDots" size="16" frButtonIcon />
+                        </button>
+                        <ng-template
+                          #accountMenu="frDropdownMenuContent"
+                          frDropdownMenuContent
+                          side="bottom"
+                          align="end"
+                        >
+                          <div frDropdownMenuPanel>
+                            <button
+                              frDropdownMenuItem
+                              type="button"
+                              (click)="showToast(account.name + ' access review opened')"
+                            >
+                              <ng-icon name="tablerEdit" size="14" />
+                              Review access
+                            </button>
+                            <button
+                              frDropdownMenuItem
+                              type="button"
+                              (click)="showToast(account.name + ' was sent a role summary')"
+                            >
+                              <ng-icon name="tablerMail" size="14" />
+                              Send summary
+                            </button>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <tr frHeaderRow *frHeaderRowDef="accountColumns; sticky: true"></tr>
+                  <tr frRow *frRowDef="let row; columns: accountColumns"></tr>
+                </table>
+              </div>
+
+              <div
+                class="flex flex-col gap-3 border-t border-border pt-3 md:flex-row md:items-center md:justify-between"
+              >
+                <span class="text-sm text-muted-foreground">
+                  Showing {{ filteredAccounts().length }} of {{ accounts().length }} administrators
+                </span>
+                <nav frPagination aria-label="Administrator account pages">
+                  <ul frPaginationContent>
+                    <li frPaginationItem>
+                      <button frPaginationPrevious type="button"></button>
+                    </li>
+                    <li frPaginationItem>
+                      <button frPaginationLink active type="button">1</button>
+                    </li>
+                    <li frPaginationItem><button frPaginationLink type="button">2</button></li>
+                    <li frPaginationItem><button frPaginationNext type="button"></button></li>
+                  </ul>
+                </nav>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

@@ -40,6 +40,7 @@ import {
   tablerLayoutDashboard,
   tablerSearch,
   tablerShadow,
+  tablerShieldLock,
   tablerSunMoon,
   tablerTools,
 } from '@ng-icons/tabler-icons';
@@ -255,6 +256,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     keywords: ['templates', 'admin', 'user management', 'roles', 'permissions', 'table'],
   },
   {
+    title: 'Roles & permissions',
+    path: '/templates/roles-permissions',
+    section: 'Templates',
+    keywords: ['templates', 'admin', 'roles', 'permissions', 'matrix', 'access control'],
+  },
+  {
     title: 'Theme tokens',
     path: '/docs/theme-tokens',
     section: 'Docs',
@@ -318,6 +325,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerCode,
       tablerCoffee,
       tablerLayoutDashboard,
+      tablerShieldLock,
     }),
   ],
 })
