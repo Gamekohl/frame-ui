@@ -241,6 +241,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     keywords: ['catalog', 'primitives', 'ui'],
   },
   {
+    title: 'Blocks',
+    path: '/blocks/authentication',
+    section: 'Examples',
+    keywords: ['blocks', 'templates', 'authentication', 'dashboard', 'settings', 'examples', 'patterns'],
+  },
+  {
     title: 'Theme tokens',
     path: '/docs/theme-tokens',
     section: 'Docs',
