@@ -1,6 +1,6 @@
 {
   "name": "@frame-ui-ng/charts",
-  "version": "0.3.0-beta.0",
+  "version": "1.0.0",
   "description": "Angular charts for FrameUI.",
   "license": "MIT",
   "repository": {
@@ -24,6 +24,7 @@
   "peerDependencies": {
     "@angular/common": ">=21.0.0 <22.0.0",
     "@angular/core": ">=21.0.0 <22.0.0",
+    "@frame-ui-ng/foundation": "1.0.0",
     "rxjs": "^7.8.0"
   },
   "dependencies": {

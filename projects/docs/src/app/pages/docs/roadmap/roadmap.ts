@@ -81,8 +81,9 @@ export class Roadmap {
       status: 'In progress',
       items: [
         {
-          title: 'Charts',
-          description: 'Adding a versatile Charts component to the library',
+          title: 'Templates and Blocks',
+          description:
+            'Building ready-to-use UI patterns and composed blocks on top of the component primitives.',
           status: 'In progress',
         },
       ],

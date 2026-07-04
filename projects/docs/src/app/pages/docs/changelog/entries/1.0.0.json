@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "label": "First stable release with charts",
+  "highlights": [
+    {
+      "title": "First stable Frame UI release",
+      "kind": "Changed",
+      "description": "Frame UI now has its first full release line. The beta foundation and component work graduates into a stable baseline, and this release adds charts as the next package in the system."
+    },
+    {
+      "title": "Dedicated charts package",
+      "kind": "Added",
+      "description": "Added @frame-ui-ng/charts as a standalone Angular package with its own module, stylesheet export, build target, tests, and publish scripts.",
+      "code": [
+        {
+          "title": "Installation",
+          "language": "bash",
+          "code": "npm install @frame-ui-ng/foundation @frame-ui-ng/charts"
+        },
+        {
+          "title": "styles.css",
+          "language": "css",
+          "code": "@import '@frame-ui-ng/charts/styles.css';"
+        },
+        {
+          "title": "component.ts",
+          "language": "ts",
+          "code": "import { FrChartModule } from '@frame-ui-ng/charts';"
+        }
+      ]
+    },
+    {
+      "title": "Composable chart primitive",
+      "kind": "Added",
+      "description": "The new frame-chart primitive renders area, line, bar, composed, pie, donut, sparkline, heatmap, calendar heatmap, and radial charts from the same data and series model.",
+      "code": [
+        {
+          "title": "traffic-chart.html",
+          "language": "html",
+          "code": "<frame-chart\n  aria-label=\"Traffic by device\"\n  type=\"area\"\n  xKey=\"month\"\n  [data]=\"trafficData\"\n  [series]=\"trafficSeries\"\n/>"
+        }
+      ]
+    },
+    {
+      "title": "Charts documentation",
+      "kind": "Added",
+      "description": "Docs now include a dedicated Charts area with category pages, previews, token inspection, examples, and search entries for the new chart family."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Added the @frame-ui-ng/charts package with FrChartModule, frame-chart, and [frChart] exports.",
+        "Added chart support for area, line, bar, composed, pie, donut, sparkline, heatmap, calendar heatmap, and radial visualizations.",
+        "Added grouped and stacked bar layouts, vertical and horizontal bar orientation, smooth, linear, sharp, and step curves, plus composed series with area, bar, and line marks.",
+        "Added interactive chart affordances including tooltips, legends, optional legend toggling, chartClick events, value formatting, and per-datum or per-series colors.",
+        "Added chart empty states for missing data and chart types where no positive values can be displayed.",
+        "Added chart CSS with design tokens for height, generated palettes, grid lines, axis labels, tooltips, heatmap cells, motion, and legend treatment.",
+        "Added chart unit coverage for all supported chart families, empty states, legend toggling, click events, label shortening, stacked bars, horizontal bars, and sparkline baselines.",
+        "Added a dedicated /charts docs area with pages for area, bar, composed, line, pie, donut, sparkline, heatmap, and radial charts."
+      ]
+    }
+  ]
+}
