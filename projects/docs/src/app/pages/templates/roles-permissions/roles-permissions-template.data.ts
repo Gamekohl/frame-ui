@@ -383,7 +383,7 @@ export const MAIN_NAV: TemplateNavItem[] = [
 export const ADMIN_NAV: TemplateNavItem[] = [
   { label: 'Authentication', icon: 'tablerKey', active: false },
   { label: 'User management', icon: 'tablerUsers', active: false },
-  { label: 'Roles & permissions', icon: 'tablerShieldLock', active: true },
+  { label: 'Roles & Permissions', icon: 'tablerShieldLock', active: true },
   { label: 'Security', icon: 'tablerShield', active: false },
   { label: 'Audit log', icon: 'tablerActivity', active: false },
   { label: 'Data exports', icon: 'tablerDatabase', active: false },

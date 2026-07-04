@@ -16,12 +16,13 @@ import {
   FrButtonIcon,
   FrCommandDialog,
   FrCommandDialogRef,
-  FrCommandService,
+  FrCommandService, FrCornerHandles,
   FrIconButton,
 } from '@frame-ui-ng/components';
 import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrModalService } from '@frame-ui-ng/components/modal';
+import { FrNavigationMenuModule } from '@frame-ui-ng/components/navigation-menu';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { ThemeService } from '@frame-ui-ng/foundation';
@@ -247,7 +248,15 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     title: 'Blocks',
     path: '/blocks/authentication',
     section: 'Examples',
-    keywords: ['blocks', 'templates', 'authentication', 'dashboard', 'settings', 'examples', 'patterns'],
+    keywords: [
+      'blocks',
+      'templates',
+      'authentication',
+      'dashboard',
+      'settings',
+      'examples',
+      'patterns',
+    ],
   },
   {
     title: 'User management',
@@ -256,7 +265,7 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     keywords: ['templates', 'admin', 'user management', 'roles', 'permissions', 'table'],
   },
   {
-    title: 'Roles & permissions',
+    title: 'Roles & Permissions',
     path: '/templates/roles-permissions',
     section: 'Templates',
     keywords: ['templates', 'admin', 'roles', 'permissions', 'matrix', 'access control'],
@@ -300,9 +309,11 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
     NgIcon,
     FrCommandModule,
     FrDropdownMenuModule,
+    FrNavigationMenuModule,
     FrTooltipModule,
     NgOptimizedImage,
     FrSeparator,
+    FrCornerHandles,
   ],
   templateUrl: './docs-header.component.html',
   host: {
@@ -520,7 +531,8 @@ export class DocsHeaderComponent {
 
   private applyRadius(radius: DocsRadiusId): void {
     const root = document.documentElement;
-    const preset = DOCS_RADIUS_PRESETS.find((entry) => entry.id === radius) ?? DOCS_RADIUS_PRESETS[0];
+    const preset =
+      DOCS_RADIUS_PRESETS.find((entry) => entry.id === radius) ?? DOCS_RADIUS_PRESETS[0];
 
     root.setAttribute('data-docs-radius', preset.id);
     root.style.setProperty('--frame-radius-sm', preset.values.sm);
@@ -567,11 +579,17 @@ export class DocsHeaderComponent {
       return '';
     }
 
-    const palette = DOCS_PALETTES.find((entry) => entry.id === this.selectedPalette()) ?? DOCS_PALETTES[0];
-    const radius = DOCS_RADIUS_PRESETS.find((entry) => entry.id === this.selectedRadius()) ?? DOCS_RADIUS_PRESETS[0];
+    const palette =
+      DOCS_PALETTES.find((entry) => entry.id === this.selectedPalette()) ?? DOCS_PALETTES[0];
+    const radius =
+      DOCS_RADIUS_PRESETS.find((entry) => entry.id === this.selectedRadius()) ??
+      DOCS_RADIUS_PRESETS[0];
     const density =
-      DOCS_DENSITY_PRESETS.find((entry) => entry.id === this.selectedDensity()) ?? DOCS_DENSITY_PRESETS[0];
-    const shadow = DOCS_SHADOW_PRESETS.find((entry) => entry.id === this.selectedShadow()) ?? DOCS_SHADOW_PRESETS[1];
+      DOCS_DENSITY_PRESETS.find((entry) => entry.id === this.selectedDensity()) ??
+      DOCS_DENSITY_PRESETS[0];
+    const shadow =
+      DOCS_SHADOW_PRESETS.find((entry) => entry.id === this.selectedShadow()) ??
+      DOCS_SHADOW_PRESETS[1];
     const cornerHandles = this.cornerHandlesEnabled();
 
     return [
@@ -605,8 +623,8 @@ export class DocsHeaderComponent {
       '    provideFrameUI({',
       '      theme: {',
       "        controlledBy: 'app',",
-        "        using: 'class',",
-        '      },',
+      "        using: 'class',",
+      '      },',
       `      density: '${density}',`,
       `      shadow: '${shadow}',`,
       `      disableCornerHandles: ${cornerHandles ? 'false' : 'true'},`,
@@ -621,5 +639,4 @@ export class DocsHeaderComponent {
 
     return value || 'initial';
   }
-
 }
