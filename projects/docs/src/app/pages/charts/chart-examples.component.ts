@@ -93,6 +93,8 @@ import type { ChartCategoryId } from './chart-examples.data';
       <div class="flex flex-wrap gap-8">
         @for (example of compactExamples(); track example.id) {
           <article
+            animate.enter="slide-in-enter"
+            [style]="'--docs-enter-delay: ' + 90 * $index + 'ms'"
             class="docs-chart-card"
             [class.docs-chart-card--sparkline-pair]="isSparklinePair(example)"
           >
@@ -166,7 +168,12 @@ import type { ChartCategoryId } from './chart-examples.data';
       width="min(92vw, 64rem)"
       maxWidth="100vw"
     >
-      <div frSheetPanel side="right" scrollable style="inline-size: min(92vw, 64rem); max-inline-size: 100vw">
+      <div
+        frSheetPanel
+        side="right"
+        scrollable
+        style="inline-size: min(92vw, 64rem); max-inline-size: 100vw"
+      >
         <div frSheetHeader>
           <h2 frSheetTitle>{{ selectedExample()?.title ?? 'Chart code' }}</h2>
           <p frSheetDescription>
@@ -192,9 +199,12 @@ import type { ChartCategoryId } from './chart-examples.data';
             @if (selectedExample()) {
               <section class="flex flex-col gap-4">
                 <div>
-                  <h3 class="docs-mono text-sm font-semibold uppercase text-foreground">Token Inspector</h3>
+                  <h3 class="docs-mono text-sm font-semibold uppercase text-foreground">
+                    Token Inspector
+                  </h3>
                   <p class="mt-1 text-sm leading-6 text-muted-foreground">
-                    Hover or click a chart region to inspect the tokens that shape the selected example.
+                    Hover or click a chart region to inspect the tokens that shape the selected
+                    example.
                   </p>
                 </div>
 
@@ -210,9 +220,12 @@ import type { ChartCategoryId } from './chart-examples.data';
 
             <section class="flex flex-col gap-4">
               <div>
-                <h3 class="docs-mono text-sm font-semibold uppercase text-foreground">Design Tokens</h3>
+                <h3 class="docs-mono text-sm font-semibold uppercase text-foreground">
+                  Design Tokens
+                </h3>
                 <p class="mt-1 text-sm leading-6 text-muted-foreground">
-                  Chart tokens control height, the seed palette, grid and axis treatment, and tooltip presentation.
+                  Chart tokens control height, the seed palette, grid and axis treatment, and
+                  tooltip presentation.
                 </p>
               </div>
 

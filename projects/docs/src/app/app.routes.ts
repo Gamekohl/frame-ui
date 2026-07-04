@@ -16,8 +16,13 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'area',
+        redirectTo: 'introduction',
         pathMatch: 'full',
+      },
+      {
+        path: 'introduction',
+        loadComponent: () =>
+          import('./pages/charts/charts-introduction').then(m => m.ChartsIntroduction),
       },
       {
         path: 'area',
