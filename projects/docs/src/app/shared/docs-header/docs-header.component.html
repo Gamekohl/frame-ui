@@ -16,6 +16,12 @@
       >
         Components
       </a>
+      <a
+        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
+        routerLink="/charts"
+      >
+        Charts
+      </a>
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
@@ -275,6 +281,18 @@
         @for (page of tools; track page.path) {
           <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
             <ng-icon name="tablerTools" size="17" frCommandItemIcon />
+            <span>{{ page.title }}</span>
+            <span frCommandShortcut>{{ page.section }}</span>
+          </button>
+        }
+      </div>
+
+      <div frCommandGroup heading="Charts">
+        <p frCommandGroupHeading>Charts</p>
+
+        @for (page of charts; track page.path) {
+          <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
+            <ng-icon name="tablerChartAreaLine" size="17" frCommandItemIcon />
             <span>{{ page.title }}</span>
             <span frCommandShortcut>{{ page.section }}</span>
           </button>

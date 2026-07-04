@@ -1,0 +1,44 @@
+[frChart],
+frame-chart {
+  --frame-chart-heatmap-empty-bg: color-mix(in srgb, var(--frame-muted, #f4f4f5) 72%, transparent);
+  --frame-chart-heatmap-border: color-mix(in srgb, var(--frame-border) 72%, transparent);
+  --frame-chart-heatmap-radius: 0.35rem;
+  --frame-chart-heatmap-label-color: var(--frame-muted-foreground);
+  --frame-chart-heatmap-active-stroke: var(--frame-foreground);
+}
+
+.frame-chart__heatmap-cell {
+  rx: var(--frame-chart-heatmap-radius);
+  stroke: var(--frame-chart-heatmap-border);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__heatmap-cell[data-active] {
+  stroke: var(--frame-chart-heatmap-active-stroke);
+  stroke-width: 2;
+}
+
+.frame-chart__heatmap-columns,
+.frame-chart__heatmap-rows {
+  fill: var(--frame-chart-heatmap-label-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.frame-chart__heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  margin-block-start: 0.25rem;
+  color: var(--frame-muted-foreground);
+  font-size: 0.75rem;
+}
+
+.frame-chart__heatmap-legend-step {
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 1px solid var(--frame-chart-heatmap-border);
+  border-radius: calc(var(--frame-chart-heatmap-radius) * 0.75);
+}

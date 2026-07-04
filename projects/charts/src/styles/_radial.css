@@ -1,0 +1,47 @@
+.frame-chart__radial-track,
+.frame-chart__radial-segment {
+  fill: none;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame-chart__radial-track {
+  stroke: var(--frame-chart-grid-color);
+}
+
+.frame-chart__radial-segment {
+  stroke-width: var(--frame-chart-radial-stroke-width);
+  transform-box: view-box;
+  transform-origin: center;
+  transition:
+    filter 160ms ease,
+    opacity 160ms ease,
+    stroke 160ms ease,
+    stroke-width 180ms ease,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [frChart][data-type="radial"] .frame-chart__radial-segment:hover,
+  frame-chart[data-type="radial"] .frame-chart__radial-segment:hover {
+    filter: brightness(1.08);
+    stroke-width: calc(var(--frame-chart-radial-stroke-width) + 2px);
+    transform: scale(1.006);
+  }
+}
+
+.frame-chart__radial-value {
+  fill: var(--frame-foreground);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  dominant-baseline: central;
+}
+
+.frame-chart__radial-label {
+  fill: var(--frame-muted-foreground);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  dominant-baseline: central;
+}
