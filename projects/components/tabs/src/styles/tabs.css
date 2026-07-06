@@ -160,6 +160,11 @@ frame-tabs-content {
   padding: var(--frame-tabs-content-padding);
 }
 
+[frTabs][data-orientation='vertical'],
+frame-tabs[data-orientation='vertical'] {
+  --frame-tabs-content-padding: 0;
+}
+
 [frTabsContent][hidden],
 frame-tabs-content[hidden] {
   display: none;

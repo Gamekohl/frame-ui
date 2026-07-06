@@ -84,7 +84,7 @@ frame-navigation-menu-item {
 .frame-navigation-menu__content {
   max-height: 30rem;
   overflow-y: auto;
-  width: min(var(--frame-navigation-menu-content-width), calc(100vw - 2rem));
+  /*width: min(var(--frame-navigation-menu-content-width), calc(100vw - 2rem));*/
 }
 
 [frNavigationMenuGrid],
