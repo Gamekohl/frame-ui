@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
@@ -33,8 +34,11 @@ import {
   tablerLayoutList,
   tablerLayoutSidebar,
   tablerListDetails,
+  tablerMail,
   tablerSearch,
+  tablerSettings,
   tablerShield,
+  tablerShieldLock,
   tablerTrash,
   tablerUserPlus,
   tablerUsers,
@@ -70,6 +74,7 @@ import {
     FrTableModule,
     FrTabsModule,
     FrDragDropModule,
+    RouterLink,
     NgClass,
     NgIcon,
   ],
@@ -96,11 +101,14 @@ import {
       tablerLayoutSidebar,
       tablerListDetails,
       tablerSearch,
+      tablerSettings,
       tablerShield,
+      tablerShieldLock,
       tablerTrash,
       tablerUserPlus,
       tablerUsers,
       tablerX,
+      tablerMail,
     }),
   ],
 })
@@ -111,8 +119,6 @@ export class UserManagementTemplatePage {
   protected readonly searchTerm = signal('');
   protected readonly roleFilter = signal('All roles');
   protected readonly statusFilter = signal('All status');
-  protected readonly toastVisible = signal(true);
-  protected readonly toastMessage = signal('Alexander Wright details updated');
   protected readonly selection = new SelectionModel<number>(true);
 
   protected readonly roleOptions = ROLE_OPTIONS;
@@ -193,8 +199,6 @@ export class UserManagementTemplatePage {
     if (this.selectedUser().id === user.id) {
       this.selectedUser.set(updatedUser);
     }
-
-    this.showToast(`${user.name} moved to ${status}`);
   }
 
   protected setViewMode(value: string | null): void {
@@ -216,7 +220,6 @@ export class UserManagementTemplatePage {
 
   protected selectUser(user: TemplateUser): void {
     this.selectedUser.set(user);
-    this.showToast(`${user.name} details opened`);
   }
 
   protected openUserDetails(user: TemplateUser): void {
@@ -236,11 +239,6 @@ export class UserManagementTemplatePage {
     }
 
     visibleIds.forEach((id) => this.selection.select(id));
-  }
-
-  protected showToast(message: string): void {
-    this.toastMessage.set(message);
-    this.toastVisible.set(true);
   }
 
   protected statusVariant(status: UserStatus): 'destructive' | 'secondary' | 'success' {

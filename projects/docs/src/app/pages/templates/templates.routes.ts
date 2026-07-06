@@ -18,4 +18,9 @@ export default [
         (m) => m.RolesPermissionsTemplatePage,
       ),
   },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./settings/settings-template.page').then((m) => m.SettingsTemplatePage),
+  },
 ] satisfies Routes;

@@ -21,6 +21,7 @@ export type TemplateNavItem = {
   icon: string;
   active: boolean;
   badge?: string | null;
+  path?: string;
 };
 
 export const ROLE_OPTIONS = [
@@ -57,7 +58,14 @@ export const MAIN_NAV: TemplateNavItem[] = [
 
 export const ADMIN_NAV: TemplateNavItem[] = [
   { label: 'Authentication', icon: 'tablerKey', active: false },
-  { label: 'User management', icon: 'tablerUsers', active: true },
+  { label: 'User management', icon: 'tablerUsers', active: true, path: '/templates/user-management' },
+  {
+    label: 'Roles & Permissions',
+    icon: 'tablerShieldLock',
+    active: false,
+    path: '/templates/roles-permissions',
+  },
+  { label: 'Settings', icon: 'tablerSettings', active: false, path: '/templates/settings' },
   { label: 'Security', icon: 'tablerShield', active: false },
   { label: 'Audit log', icon: 'tablerActivity', active: false },
   { label: 'Data exports', icon: 'tablerDatabase', active: false },

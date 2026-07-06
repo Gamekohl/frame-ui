@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
@@ -35,6 +36,7 @@ import {
   tablerLock,
   tablerMail,
   tablerSearch,
+  tablerSettings,
   tablerShield,
   tablerShieldCheck,
   tablerShieldLock,
@@ -72,6 +74,7 @@ import {
     FrSidebarModule,
     FrTableModule,
     FrTabsModule,
+    RouterLink,
     NgClass,
     NgIcon,
     FrTooltipDirective,
@@ -100,6 +103,7 @@ import {
       tablerLock,
       tablerMail,
       tablerSearch,
+      tablerSettings,
       tablerShield,
       tablerShieldCheck,
       tablerShieldLock,
@@ -129,8 +133,6 @@ export class RolesPermissionsTemplatePage {
   protected readonly selectedRoleKey = signal<RoleKey>('admin');
   protected readonly searchTerm = signal('');
   protected readonly statusFilter = signal('All status');
-  protected readonly toastVisible = signal(true);
-  protected readonly toastMessage = signal('Manager role is ready for review');
   protected readonly roles = signal<RoleSummary[]>(ROLES);
   protected readonly accounts = signal<AdminAccount[]>(ADMIN_ACCOUNTS);
 
@@ -177,7 +179,6 @@ export class RolesPermissionsTemplatePage {
   protected showRoleMembers(event: Event, role: RoleSummary): void {
     event.stopPropagation();
     this.selectedRoleKey.set(role.key);
-    this.showToast(`${role.memberCount} ${role.name.toLowerCase()} members shown`);
   }
 
   protected openPermissionMatrix(): void {
@@ -201,7 +202,6 @@ export class RolesPermissionsTemplatePage {
 
   protected togglePermission(role: RoleSummary, permissionId: string): void {
     if (role.locked) {
-      this.showToast('Owner permissions are locked by workspace policy');
       return;
     }
 
@@ -220,18 +220,11 @@ export class RolesPermissionsTemplatePage {
           : entry,
       ),
     );
-
-    this.showToast(`${role.name} permission ${nextValue ? 'enabled' : 'disabled'}`);
   }
 
   protected resetFilters(): void {
     this.searchTerm.set('');
     this.statusFilter.set('All status');
-  }
-
-  protected showToast(message: string): void {
-    this.toastMessage.set(message);
-    this.toastVisible.set(true);
   }
 
   protected roleByKey(roleKey: RoleKey): RoleSummary | undefined {
@@ -247,7 +240,7 @@ export class RolesPermissionsTemplatePage {
   }
 
   protected permissionEnabled(role: RoleSummary, permissionId: string): boolean {
-    return role.permissions[permissionId] === true;
+    return role.permissions[permissionId];
   }
 
   protected statusVariant(status: AccessStatus): 'destructive' | 'secondary' | 'success' {

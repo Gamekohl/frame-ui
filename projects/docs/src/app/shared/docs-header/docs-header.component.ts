@@ -41,6 +41,7 @@ import {
   tablerFileText,
   tablerLayoutDashboard,
   tablerSearch,
+  tablerSettings,
   tablerShadow,
   tablerShieldLock,
   tablerSunMoon,
@@ -272,6 +273,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     keywords: ['templates', 'admin', 'roles', 'permissions', 'matrix', 'access control'],
   },
   {
+    title: 'Settings',
+    path: '/templates/settings',
+    section: 'Templates',
+    keywords: ['templates', 'admin', 'settings', 'workspace', 'billing', 'security'],
+  },
+  {
     title: 'Theme tokens',
     path: '/docs/theme-tokens',
     section: 'Docs',
@@ -362,6 +369,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerChartAreaLine,
       tablerFileText,
       tablerSearch,
+      tablerSettings,
       tablerShadow,
       tablerSunMoon,
       tablerTools,

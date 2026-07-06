@@ -42,6 +42,7 @@ export type TemplateNavItem = {
   icon: string;
   active: boolean;
   badge?: string | null;
+  path?: string;
 };
 
 export const PERMISSION_GROUPS: PermissionGroup[] = [
@@ -382,8 +383,14 @@ export const MAIN_NAV: TemplateNavItem[] = [
 
 export const ADMIN_NAV: TemplateNavItem[] = [
   { label: 'Authentication', icon: 'tablerKey', active: false },
-  { label: 'User management', icon: 'tablerUsers', active: false },
-  { label: 'Roles & Permissions', icon: 'tablerShieldLock', active: true },
+  { label: 'User management', icon: 'tablerUsers', active: false, path: '/templates/user-management' },
+  {
+    label: 'Roles & Permissions',
+    icon: 'tablerShieldLock',
+    active: true,
+    path: '/templates/roles-permissions',
+  },
+  { label: 'Settings', icon: 'tablerSettings', active: false, path: '/templates/settings' },
   { label: 'Security', icon: 'tablerShield', active: false },
   { label: 'Audit log', icon: 'tablerActivity', active: false },
   { label: 'Data exports', icon: 'tablerDatabase', active: false },
