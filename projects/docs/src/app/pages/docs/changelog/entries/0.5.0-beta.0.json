@@ -44,11 +44,13 @@
       "title": "App-wide appearance presets",
       "kind": "Added",
       "description": "Apps can now adjust the broad feel of the interface from provideFrameUI instead of tuning component defaults one by one.",
-      "code": {
-        "title": "app.config.ts",
-        "language": "ts",
-        "code": "import { ApplicationConfig } from '@angular/core';\nimport { provideFrameUI } from '@frame-ui-ng/foundation';\n\nexport const appConfig: ApplicationConfig = {\n  providers: [\n    provideFrameUI({\n      density: 'compact',\n      shadow: 'raised',\n    }),\n  ],\n};"
-      }
+      "code": [
+        {
+          "title": "app.config.ts",
+          "language": "ts",
+          "code": "import { ApplicationConfig } from '@angular/core';\nimport { provideFrameUI } from '@frame-ui-ng/foundation';\n\nexport const appConfig: ApplicationConfig = {\n  providers: [\n    provideFrameUI({\n      density: 'compact',\n      shadow: 'raised',\n    }),\n  ],\n};"
+        }
+      ]
     },
     {
       "title": "Docs preview export",

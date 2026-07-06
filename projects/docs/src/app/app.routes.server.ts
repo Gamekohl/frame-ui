@@ -28,6 +28,13 @@ function loadBlockCategorySlugs(): string[] {
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'charts/:type',
+    renderMode: RenderMode.Prerender,
+    async getPrerenderParams() {
+      return ['area', 'bar', 'composed', 'line', 'pie', 'donut', 'sparkline', 'heatmap', 'radial'].map((type) => ({ type }));
+    },
+  },
+  {
     path: 'blocks/:category',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {

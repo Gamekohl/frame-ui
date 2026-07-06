@@ -18,6 +18,103 @@
   z-index: 2;
 }
 
+.intro-chart-callout__container {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.intro-chart-callout__container:hover {
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--frame-frame-line-muted, var(--frame-border)) 82%, transparent);
+  transform: translate(-1px, -1px);
+}
+
+.intro-chart-callout {
+  --intro-chart-accent: var(--frame-primary);
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--intro-chart-accent) 10%, transparent), transparent 38%),
+    var(--frame-background);
+  color: var(--frame-foreground);
+  padding: 0.75rem 0.875rem;
+  text-decoration: none;
+}
+
+.intro-chart-callout::before,
+.intro-chart-callout::after {
+  position: absolute;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  content: "";
+  pointer-events: none;
+}
+
+.intro-chart-callout__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid color-mix(in srgb, var(--intro-chart-accent) 48%, var(--frame-border));
+  background: color-mix(in srgb, var(--intro-chart-accent) 9%, transparent);
+  color: var(--intro-chart-accent);
+}
+
+.intro-chart-callout__copy {
+  display: grid;
+  min-inline-size: 0;
+  gap: 0.125rem;
+}
+
+.intro-chart-callout__label {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace), serif;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.intro-chart-callout__meta {
+  overflow: hidden;
+  color: var(--frame-muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.intro-chart-callout__spark {
+  display: grid;
+  grid-template-columns: repeat(4, 0.375rem);
+  align-items: end;
+  gap: 0.1875rem;
+  block-size: 1.5rem;
+  padding-inline: 0.25rem;
+}
+
+.intro-chart-callout__spark span {
+  display: block;
+  block-size: var(--bar);
+  background: var(--intro-chart-accent);
+}
+
+.intro-chart-callout__arrow {
+  color: var(--frame-muted-foreground);
+  transition: transform 150ms ease, color 150ms ease;
+}
+
+.intro-chart-callout:hover .intro-chart-callout__arrow,
+.intro-chart-callout:focus-visible .intro-chart-callout__arrow {
+  color: var(--intro-chart-accent);
+}
+
+.intro-chart-callout:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--intro-chart-accent) 70%, transparent);
+  outline-offset: 3px;
+}
+
 .intro-showcase-panel {
   position: absolute;
   z-index: 1;
@@ -44,5 +141,15 @@
     padding-block-start: 5rem;
     padding-inline: 0.5rem;
     max-inline-size: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .intro-chart-callout {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .intro-chart-callout__spark {
+    display: none;
   }
 }

@@ -16,6 +16,11 @@
           </a>
         </li>
         <li frNavigationMenuItem>
+          <a frNavigationMenuLink routerLink="/charts">
+            Charts
+          </a>
+        </li>
+        <li frNavigationMenuItem>
           <a frNavigationMenuLink routerLink="/blocks/authentication">
             Blocks
           </a>
@@ -311,6 +316,18 @@
         @for (page of tools; track page.path) {
           <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
             <ng-icon name="tablerTools" size="17" frCommandItemIcon />
+            <span>{{ page.title }}</span>
+            <span frCommandShortcut>{{ page.section }}</span>
+          </button>
+        }
+      </div>
+
+      <div frCommandGroup heading="Charts">
+        <p frCommandGroupHeading>Charts</p>
+
+        @for (page of charts; track page.path) {
+          <button frCommandItem [value]="page.path" [label]="page.title" [keywords]="page.keywords">
+            <ng-icon name="tablerChartAreaLine" size="17" frCommandItemIcon />
             <span>{{ page.title }}</span>
             <span frCommandShortcut>{{ page.section }}</span>
           </button>

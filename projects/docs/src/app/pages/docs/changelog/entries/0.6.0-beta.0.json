@@ -6,11 +6,13 @@
       "title": "Reusable corner handles",
       "kind": "Added",
       "description": "Corner handles are now rendered from one shared directive and stylesheet instead of being duplicated inside individual component styles. Use frCornerHandles on custom surfaces, or import the dedicated corner-handles stylesheet when only the renderer is needed.",
-      "code": {
-        "title": "custom-surface.html",
-        "language": "html",
-        "code": "<section frCornerHandles class=\"settings-panel\">\n  ...\n</section>"
-      }
+      "code": [
+        {
+          "title": "custom-surface.html",
+          "language": "html",
+          "code": "<section frCornerHandles class=\"settings-panel\">\n  ...\n</section>"
+        }
+      ]
     },
     {
       "title": "Accordion component composition",

@@ -36,6 +36,7 @@ import {
   tablerChevronDown,
   tablerCode,
   tablerCoffee,
+  tablerChartAreaLine,
   tablerComponents,
   tablerFileText,
   tablerLayoutDashboard,
@@ -290,6 +291,39 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
   },
 ];
 
+const DOCS_CHART_PAGES: readonly DocsSearchPage[] = [
+  {
+    title: 'Area',
+    path: '/charts/area',
+    section: 'Charts',
+    keywords: ['charts', 'area chart', 'graph', 'data visualization'],
+  },
+  {
+    title: 'Bar',
+    path: '/charts/bar',
+    section: 'Charts',
+    keywords: ['charts', 'bar chart', 'columns', 'data visualization'],
+  },
+  {
+    title: 'Line',
+    path: '/charts/line',
+    section: 'Charts',
+    keywords: ['charts', 'line chart', 'trend', 'data visualization'],
+  },
+  {
+    title: 'Pie',
+    path: '/charts/pie',
+    section: 'Charts',
+    keywords: ['charts', 'pie chart', 'donut', 'categories', 'data visualization'],
+  },
+  {
+    title: 'Radial',
+    path: '/charts/radial',
+    section: 'Charts',
+    keywords: ['charts', 'radial chart', 'progress ring', 'data visualization'],
+  },
+];
+
 const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
   {
     title: 'MCP',
@@ -325,6 +359,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerBorderCorners,
       tablerBorderRadius,
       tablerComponents,
+      tablerChartAreaLine,
       tablerFileText,
       tablerSearch,
       tablerShadow,
@@ -385,6 +420,7 @@ export class DocsHeaderComponent {
     return this.buildAppearanceExportTsCode();
   });
   readonly pages = DOCS_SEARCH_PAGES;
+  readonly charts = DOCS_CHART_PAGES;
   readonly tools = DOCS_TOOLS_PAGES;
   readonly components = toSignal(this.componentsCatalog.entries$, {
     initialValue: [] as ComponentCatalogEntry[],

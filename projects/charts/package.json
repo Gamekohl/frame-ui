@@ -1,0 +1,42 @@
+{
+  "name": "@frame-ui-ng/charts",
+  "version": "1.0.0",
+  "description": "Angular charts for FrameUI.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamekohl/frame-ui.git"
+  },
+  "homepage": "https://frame-ui.com",
+  "bugs": {
+    "url": "https://github.com/gamekohl/frame-ui/issues"
+  },
+  "keywords": [
+    "angular",
+    "charts",
+    "data-visualization",
+    "design-system",
+    "frame-ui"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=21.0.0 <22.0.0",
+    "@angular/core": ">=21.0.0 <22.0.0",
+    "@frame-ui-ng/foundation": "1.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "exports": {
+    "./styles.css": {
+      "style": "./styles.css",
+      "default": "./styles.css"
+    }
+  },
+  "sideEffects": [
+    "./styles.css"
+  ]
+}

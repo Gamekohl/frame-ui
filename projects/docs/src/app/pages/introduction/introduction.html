@@ -1,7 +1,29 @@
-<main class="intro-page mx-auto grid max-w-350 gap-8 overflow-hidden px-4 py-8 sm:px-6 xl:px-0">
-  <section
+<main class="intro-page mx-auto grid max-w-350 gap-8 px-4 py-8 sm:px-6 xl:px-0">
+  <div
+    class="intro-chart-callout__container"
     animate.enter="slide-in-enter"
     style="--docs-enter-delay: 90ms"
+    frCornerHandles>
+    <a routerLink="/charts" class="intro-chart-callout border border-border group">
+            <span class="intro-chart-callout__icon" aria-hidden="true">
+              <ng-icon name="tablerChartAreaLine" size="18" />
+            </span>
+      <span class="intro-chart-callout__copy">
+              <span class="intro-chart-callout__label">Now with charts</span>
+              <span class="intro-chart-callout__meta">Area, bar, line, pie, heatmap, radial</span>
+            </span>
+      <span class="intro-chart-callout__spark" aria-hidden="true">
+              <span style="--bar: 38%"></span>
+              <span style="--bar: 72%"></span>
+              <span style="--bar: 52%"></span>
+              <span style="--bar: 88%"></span>
+            </span>
+      <ng-icon class="intro-chart-callout__arrow" name="tablerArrowRight" size="17" aria-hidden="true" />
+    </a>
+  </div>
+  <section
+    animate.enter="slide-in-enter"
+    style="--docs-enter-delay: 150ms"
     class="intro-hero docs-blueprint-sheet"
     data-grid="true"
   >
@@ -19,7 +41,7 @@
 
           <p class="mt-5 max-w-2xl text-center text-lg leading-8 text-muted-foreground">
             FrameUI provides Angular components for application screens: forms, overlays, navigation,
-            feedback, data display, and layout. The default theme uses sharp edges, clear borders, and
+            feedback, data display, charts, and layout. The default theme uses sharp edges, clear borders, and
             a restrained red accent so the components have their own visual direction.
           </p>
 
@@ -30,6 +52,10 @@
             <a frButton size="lg" routerLink="/docs/components">
               <span frButtonLabel>Browse components</span>
               <ng-icon name="tablerArrowRight" size="18" frButtonIcon />
+            </a>
+            <a frButton size="lg" appearance="outline" routerLink="/charts">
+              <span frButtonLabel>Explore charts</span>
+              <ng-icon name="tablerChartAreaLine" size="18" frButtonIcon />
             </a>
           </div>
         </div>
@@ -70,7 +96,7 @@
         <span class="docs-blueprint-meta">Angular</span>
       </div>
 
-      <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
         <div class="border border-border bg-background p-4">
           <p class="docs-blueprint-meta">Selectors</p>
           <h3 class="mt-4 font-semibold text-foreground">Explicit templates</h3>
@@ -90,6 +116,13 @@
           <h3 class="mt-4 font-semibold text-foreground">Application UI</h3>
           <p class="mt-2 text-sm leading-6 text-muted-foreground">
             The library focuses on reusable primitives for real applications.
+          </p>
+        </div>
+        <div class="border border-border bg-background p-4">
+          <p class="docs-blueprint-meta">Charts</p>
+          <h3 class="mt-4 font-semibold text-foreground">Data visualization</h3>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            Chart primitives are now available for dashboards, reports, and operational views.
           </p>
         </div>
       </div>

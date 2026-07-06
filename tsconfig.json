@@ -23,6 +23,7 @@
       ,"@frame-ui-ng/components/calendar": [         "./projects/components/calendar/public-api.ts",         "./dist/components/calendar"       ]
       ,"@frame-ui-ng/components/card": [         "./projects/components/card/public-api.ts",         "./dist/components/card"       ]
       ,"@frame-ui-ng/components/carousel": [         "./projects/components/carousel/public-api.ts",         "./dist/components/carousel"       ]
+      ,"@frame-ui-ng/charts": [         "./projects/charts/public-api.ts",         "./dist/charts"       ]
       ,"@frame-ui-ng/components/checkbox": [         "./projects/components/checkbox/public-api.ts",         "./dist/components/checkbox"       ]
       ,"@frame-ui-ng/components/collapsible": [         "./projects/components/collapsible/public-api.ts",         "./dist/components/collapsible"       ]
       ,"@frame-ui-ng/components/combobox": [         "./projects/components/combobox/public-api.ts",         "./dist/components/combobox"       ]
@@ -101,6 +102,12 @@
     },
     {
       "path": "./projects/components/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/charts/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/charts/tsconfig.spec.json"
     },
     {
       "path": "./projects/docs/tsconfig.app.json"
