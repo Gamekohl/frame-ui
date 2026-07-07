@@ -9,7 +9,7 @@
           Roles & Permissions
         </h1>
         <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
-          A complete admin surface for role coverage, permission changes, and access reviews.
+          A complete admin surface for catalog roles, store permissions, and access reviews.
         </p>
       </div>
       <a
@@ -39,14 +39,14 @@
               </span>
               <span class="grid gap-0.5">
                 <span class="text-sm font-semibold text-foreground">Acme Console</span>
-                <span class="text-xs text-muted-foreground">Access control</span>
+                <span class="text-xs text-muted-foreground">Commerce operations</span>
               </span>
             </a>
           </div>
 
           <div frSidebarContent>
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>General</div>
+              <div frSidebarGroupLabel>Store</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
@@ -65,7 +65,7 @@
             </div>
 
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>Admin</div>
+              <div frSidebarGroupLabel>Administration</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
@@ -88,7 +88,7 @@
               </span>
               <span class="grid gap-0.5">
                 <span class="text-sm font-semibold text-foreground">Mika Stone</span>
-                <span class="text-xs text-muted-foreground">Owner</span>
+                <span class="text-xs text-muted-foreground">Store owner</span>
               </span>
             </a>
           </div>
@@ -129,8 +129,8 @@
                   Roles & Permissions
                 </h2>
                 <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
-                  Keep day-to-day access visible while sensitive permissions stay explicit and
-                  reviewable.
+                  Keep catalog, stock, and refund access visible while sensitive permissions stay
+                  explicit and reviewable.
                 </p>
               </div>
 
@@ -151,7 +151,7 @@
                 <div class="grid gap-1">
                   <h3 class="m-0 text-lg font-semibold text-foreground">Role library</h3>
                   <p class="m-0 text-sm text-muted-foreground">
-                    Select a role to inspect its permissions and active administrators.
+                    Select a role to inspect its permissions and active store operators.
                   </p>
                 </div>
 
@@ -250,9 +250,9 @@
             <section class="grid gap-3 rounded-lg border border-border bg-background p-4">
               <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
                 <div class="grid gap-1">
-                  <h3 class="m-0 text-lg font-semibold text-foreground">Administrator accounts</h3>
+                  <h3 class="m-0 text-lg font-semibold text-foreground">Store operators</h3>
                   <p class="m-0 text-sm text-muted-foreground">
-                    Review who currently carries elevated access.
+                    Review who currently carries catalog, inventory, or refund access.
                   </p>
                 </div>
 
@@ -305,7 +305,7 @@
                 <input
                   frInputGroupInput
                   aria-label="Search admins"
-                  placeholder="Search admins..."
+                  placeholder="Search operators..."
                   [value]="searchTerm()"
                   (input)="setSearch($event)"
                 />
@@ -407,9 +407,9 @@
                 class="flex flex-col gap-3 border-t border-border pt-3 md:flex-row md:items-center md:justify-between"
               >
                 <span class="text-sm text-muted-foreground">
-                  Showing {{ filteredAccounts().length }} of {{ accounts().length }} administrators
+                  Showing {{ filteredAccounts().length }} of {{ accounts().length }} operators
                 </span>
-                <nav frPagination aria-label="Administrator account pages">
+                <nav frPagination aria-label="Store operator pages">
                   <ul frPaginationContent>
                     <li frPaginationItem>
                       <button frPaginationPrevious type="button"></button>

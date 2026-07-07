@@ -38,19 +38,26 @@ export type TeamMember = {
   id: string;
   name: string;
   email: string;
-  role: 'Owner' | 'Editor' | 'Viewer';
+  role:
+    | 'Store owner'
+    | 'Catalog manager'
+    | 'Inventory planner'
+    | 'Fulfillment lead'
+    | 'Customer support'
+    | 'Finance admin';
   initials: string;
 };
 
 export const MAIN_NAV: TemplateNavItem[] = [
-  { label: 'Home', icon: 'tablerHome', active: false, badge: null },
-  { label: 'Dashboard', icon: 'tablerLayoutBoard', active: false, badge: null },
-  { label: 'Notifications', icon: 'tablerBell', active: false, badge: '6' },
-  { label: 'Documentation', icon: 'tablerFileText', active: false, badge: null },
+  { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
+  { label: 'Product catalog', icon: 'tablerBuildingStore', active: false, badge: null },
+  { label: 'Inventory', icon: 'tablerDatabase', active: false, badge: '8' },
+  { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
+  { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
+  { label: 'Store docs', icon: 'tablerFileText', active: false, badge: null },
 ];
 
 export const ADMIN_NAV: TemplateNavItem[] = [
-  { label: 'Authentication', icon: 'tablerKey', active: false },
   { label: 'User management', icon: 'tablerUsers', active: false, path: '/templates/user-management' },
   {
     label: 'Roles & Permissions',
@@ -59,6 +66,7 @@ export const ADMIN_NAV: TemplateNavItem[] = [
     path: '/templates/roles-permissions',
   },
   { label: 'Settings', icon: 'tablerSettings', active: true, path: '/templates/settings' },
+  { label: 'Authentication', icon: 'tablerKey', active: false },
   { label: 'Security', icon: 'tablerShield', active: false },
   { label: 'Audit log', icon: 'tablerActivity', active: false },
   { label: 'Data exports', icon: 'tablerDatabase', active: false },
@@ -68,7 +76,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'account',
     label: 'Account',
-    description: 'Operator profile and contact defaults.',
+    description: 'Store operator profile and contact defaults.',
     icon: 'tablerUserCircle',
   },
   {
@@ -80,76 +88,76 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'billing',
     label: 'Plan & Billing',
-    description: 'Seats, invoice details, and payment method.',
+    description: 'Store seats, invoice details, and payment method.',
     icon: 'tablerCreditCard',
   },
   {
     id: 'notifications',
     label: 'Notifications',
-    description: 'Workspace notices and operational events.',
+    description: 'Catalog alerts and operational events.',
     icon: 'tablerBell',
   },
   {
     id: 'team',
     label: 'Team',
-    description: 'Collaborators and access levels.',
+    description: 'Store operators and access roles.',
     icon: 'tablerUsers',
   },
 ];
 
 export const NOTIFICATION_GROUPS: NotificationGroup[] = [
   {
-    id: 'workspace',
-    title: 'Workspace notices',
-    description: 'Choose the updates that should be visible to operators.',
+    id: 'catalog',
+    title: 'Catalog updates',
+    description: 'Choose which product catalog changes should reach operators.',
     settings: [
       {
-        id: 'releaseNotes',
-        label: 'Release notes',
-        description: 'Send a short summary when the admin console changes.',
+        id: 'productPublished',
+        label: 'Product published',
+        description: 'Notify catalog managers when a draft goes live.',
         enabled: true,
       },
       {
-        id: 'accessChanges',
-        label: 'Access changes',
-        description: 'Notify owners when a role, invite, or suspension changes.',
+        id: 'missingDetails',
+        label: 'Missing product details',
+        description: 'Flag products missing category, price, SKU, or description.',
         enabled: true,
       },
       {
-        id: 'maintenance',
-        label: 'Maintenance windows',
-        description: 'Warn the team before scheduled downtime starts.',
+        id: 'priceChanged',
+        label: 'Price changed',
+        description: 'Notify finance owners when a product price is updated.',
         enabled: false,
       },
     ],
   },
   {
     id: 'operations',
-    title: 'Operational events',
-    description: 'Tune the notifications that come from everyday admin work.',
+    title: 'Inventory and order events',
+    description: 'Tune the notifications that come from everyday store operations.',
     settings: [
       {
-        id: 'inviteAccepted',
-        label: 'Invite accepted',
-        description: 'Notify when a new teammate finishes their first sign-in.',
+        id: 'lowStock',
+        label: 'Low stock',
+        description: 'Notify inventory planners when stock drops below threshold.',
         enabled: false,
       },
       {
-        id: 'roleChanged',
-        label: 'Role changed',
-        description: 'Notify when someone is moved between access levels.',
+        id: 'reorderPoint',
+        label: 'Reorder point reached',
+        description: 'Notify fulfillment leads when a product needs supplier follow-up.',
         enabled: true,
       },
       {
-        id: 'exportReady',
-        label: 'Export ready',
-        description: 'Notify when a requested data export can be downloaded.',
+        id: 'returnOpened',
+        label: 'Return opened',
+        description: 'Notify support when a customer return needs review.',
         enabled: true,
       },
       {
-        id: 'invoicePaid',
-        label: 'Invoice paid',
-        description: 'Send a receipt to billing owners after payment clears.',
+        id: 'refundApproved',
+        label: 'Refund approved',
+        description: 'Notify finance admins when a refund is approved.',
         enabled: true,
       },
     ],
@@ -160,73 +168,80 @@ export const PLAN_OPTIONS: PlanOption[] = [
   {
     id: 'starter',
     name: 'Starter',
-    description: 'For small teams setting up access control.',
+    description: 'For small stores keeping one catalog organized.',
     price: '$12',
   },
   {
     id: 'operations',
     name: 'Operations',
-    description: 'For teams running daily admin workflows.',
+    description: 'For teams managing catalog, stock, and returns daily.',
     price: '$24',
   },
   {
     id: 'scale',
     name: 'Scale',
-    description: 'For audit-heavy teams with multiple workspaces.',
+    description: 'For multi-store teams with audit and approval needs.',
     price: '$48',
   },
 ];
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    id: 'dejesus-michael',
-    name: 'Dejesus Michael',
-    email: 'dejesusmichael@mail.org',
-    role: 'Owner',
-    initials: 'DM',
-  },
-  {
-    id: 'mclaughlin-steele',
-    name: 'Mclaughlin Steele',
-    email: 'mclaughlinsteele@mail.me',
-    role: 'Owner',
+    id: 'mika-stone',
+    name: 'Mika Stone',
+    email: 'mika@acme.com',
+    role: 'Store owner',
     initials: 'MS',
   },
   {
-    id: 'laverne-dodson',
-    name: 'Laverne Dodson',
-    email: 'lavernedodson@mail.ca',
-    role: 'Editor',
-    initials: 'LD',
+    id: 'mira-chen',
+    name: 'Mira Chen',
+    email: 'mira@acme.com',
+    role: 'Catalog manager',
+    initials: 'MC',
   },
   {
-    id: 'trudy-berg',
-    name: 'Trudy Berg',
-    email: 'trudyberg@mail.us',
-    role: 'Viewer',
-    initials: 'TB',
+    id: 'noah-patel',
+    name: 'Noah Patel',
+    email: 'noah@acme.com',
+    role: 'Inventory planner',
+    initials: 'NP',
   },
   {
-    id: 'lamb-underwood',
-    name: 'Lamb Underwood',
-    email: 'lambunderwood@mail.me',
-    role: 'Viewer',
-    initials: 'LU',
+    id: 'ava-martinez',
+    name: 'Ava Martinez',
+    email: 'ava@acme.com',
+    role: 'Finance admin',
+    initials: 'AM',
   },
   {
-    id: 'mcleod-wagner',
-    name: 'Mcleod Wagner',
-    email: 'mcleodwagner@mail.biz',
-    role: 'Viewer',
-    initials: 'MW',
+    id: 'jin-park',
+    name: 'Jin Park',
+    email: 'jin@acme.com',
+    role: 'Customer support',
+    initials: 'JP',
   },
   {
-    id: 'shannon-kennedy',
-    name: 'Shannon Kennedy',
-    email: 'shannonkennedy@mail.ca',
-    role: 'Viewer',
-    initials: 'SK',
+    id: 'ethan-brooks',
+    name: 'Ethan Brooks',
+    email: 'ethan@acme.com',
+    role: 'Fulfillment lead',
+    initials: 'EB',
+  },
+  {
+    id: 'lina-gomez',
+    name: 'Lina Gomez',
+    email: 'lina@acme.com',
+    role: 'Inventory planner',
+    initials: 'LG',
   },
 ];
 
-export const TEAM_ROLES: TeamMember['role'][] = ['Owner', 'Editor', 'Viewer'];
+export const TEAM_ROLES: TeamMember['role'][] = [
+  'Store owner',
+  'Catalog manager',
+  'Inventory planner',
+  'Fulfillment lead',
+  'Customer support',
+  'Finance admin',
+];

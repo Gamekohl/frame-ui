@@ -130,7 +130,7 @@ export class RolesPermissionsTemplatePage {
   ];
   protected readonly statusOptions = ['All status', 'Enabled', 'Review', 'Disabled'];
 
-  protected readonly selectedRoleKey = signal<RoleKey>('admin');
+  protected readonly selectedRoleKey = signal<RoleKey>('catalog_manager');
   protected readonly searchTerm = signal('');
   protected readonly statusFilter = signal('All status');
   protected readonly roles = signal<RoleSummary[]>(ROLES);

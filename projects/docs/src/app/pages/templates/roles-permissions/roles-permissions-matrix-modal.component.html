@@ -17,7 +17,7 @@
   </div>
 
   <div frModalBody>
-    <div frTabs defaultValue="workspace">
+    <div frTabs defaultValue="catalog">
       <div frTabsList aria-label="Permission groups">
         @for (group of data.permissionGroups; track group.id) {
           <button frTabsTrigger [value]="group.id" type="button">

@@ -165,7 +165,7 @@ export class SettingsTemplatePage {
 
   protected saveSettings(): void {
     this.toast.success('Settings saved', {
-      description: 'Your workspace settings have been updated.',
+      description: 'Your store settings have been updated.',
     });
   }
 }

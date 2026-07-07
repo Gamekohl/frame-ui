@@ -1,5 +1,11 @@
 export type UserStatus = 'Active' | 'Inactive' | 'Invited';
-export type UserRole = 'Admin' | 'Analyst' | 'Developer' | 'Manager' | 'Owner' | 'Support';
+export type UserRole =
+  | 'Catalog manager'
+  | 'Customer support'
+  | 'Finance admin'
+  | 'Fulfillment lead'
+  | 'Inventory planner'
+  | 'Store owner';
 export type ViewMode = 'table' | 'board' | 'list';
 
 export type TemplateUser = {
@@ -26,12 +32,12 @@ export type TemplateNavItem = {
 
 export const ROLE_OPTIONS = [
   'All roles',
-  'Owner',
-  'Admin',
-  'Manager',
-  'Developer',
-  'Analyst',
-  'Support',
+  'Store owner',
+  'Catalog manager',
+  'Inventory planner',
+  'Fulfillment lead',
+  'Customer support',
+  'Finance admin',
 ];
 
 export const STATUS_OPTIONS = ['All status', 'Active', 'Inactive', 'Invited'];
@@ -50,14 +56,15 @@ export const USER_COLUMNS = [
 ];
 
 export const MAIN_NAV: TemplateNavItem[] = [
-  { label: 'Home', icon: 'tablerHome', active: false, badge: null },
-  { label: 'Dashboard', icon: 'tablerLayoutBoard', active: false, badge: null },
-  { label: 'Notifications', icon: 'tablerBell', active: false, badge: '10' },
-  { label: 'Documentation', icon: 'tablerFileText', active: false, badge: null },
+  { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
+  { label: 'Product catalog', icon: 'tablerBuildingStore', active: false, badge: null },
+  { label: 'Inventory', icon: 'tablerDatabase', active: false, badge: '8' },
+  { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
+  { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
+  { label: 'Store docs', icon: 'tablerFileText', active: false, badge: null },
 ];
 
 export const ADMIN_NAV: TemplateNavItem[] = [
-  { label: 'Authentication', icon: 'tablerKey', active: false },
   { label: 'User management', icon: 'tablerUsers', active: true, path: '/templates/user-management' },
   {
     label: 'Roles & Permissions',
@@ -66,6 +73,7 @@ export const ADMIN_NAV: TemplateNavItem[] = [
     path: '/templates/roles-permissions',
   },
   { label: 'Settings', icon: 'tablerSettings', active: false, path: '/templates/settings' },
+  { label: 'Authentication', icon: 'tablerKey', active: false },
   { label: 'Security', icon: 'tablerShield', active: false },
   { label: 'Audit log', icon: 'tablerActivity', active: false },
   { label: 'Data exports', icon: 'tablerDatabase', active: false },
@@ -78,12 +86,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'liam.smith@acme.com',
     initials: 'LS',
     color: 'bg-sky-600 text-white',
-    role: 'Manager',
+    role: 'Catalog manager',
     status: 'Active',
     joined: '24 Jun 2024',
     lastSeen: '5 minutes ago',
     twoFactor: true,
-    team: 'Product',
+    team: 'Catalog operations',
   },
   {
     id: 2,
@@ -91,12 +99,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'noah.anderson@acme.com',
     initials: 'NA',
     color: 'bg-cyan-600 text-white',
-    role: 'Developer',
+    role: 'Inventory planner',
     status: 'Active',
     joined: '15 Mar 2023',
     lastSeen: '18 minutes ago',
     twoFactor: true,
-    team: 'Design Systems',
+    team: 'Warehouse planning',
   },
   {
     id: 3,
@@ -104,12 +112,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'isabella.garcia@acme.com',
     initials: 'IG',
     color: 'bg-pink-600 text-white',
-    role: 'Developer',
+    role: 'Inventory planner',
     status: 'Inactive',
     joined: '10 Apr 2022',
     lastSeen: '22 days ago',
     twoFactor: true,
-    team: 'Frontend',
+    team: 'Replenishment',
   },
   {
     id: 4,
@@ -117,12 +125,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'william.clark@acme.com',
     initials: 'WC',
     color: 'bg-blue-600 text-white',
-    role: 'Owner',
+    role: 'Store owner',
     status: 'Active',
     joined: '28 Feb 2023',
     lastSeen: '1 hour ago',
     twoFactor: true,
-    team: 'Leadership',
+    team: 'Commerce leadership',
   },
   {
     id: 5,
@@ -130,12 +138,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'james.hall@acme.com',
     initials: 'JH',
     color: 'bg-fuchsia-600 text-white',
-    role: 'Analyst',
+    role: 'Catalog manager',
     status: 'Active',
     joined: '19 May 2024',
     lastSeen: 'Today, 09:41',
     twoFactor: true,
-    team: 'Business Ops',
+    team: 'Pricing',
   },
   {
     id: 6,
@@ -143,12 +151,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'benjamin.lewis@acme.com',
     initials: 'BL',
     color: 'bg-amber-500 text-zinc-950',
-    role: 'Analyst',
+    role: 'Finance admin',
     status: 'Active',
     joined: '03 Jan 2024',
     lastSeen: 'Today, 08:25',
     twoFactor: true,
-    team: 'Revenue',
+    team: 'Payments',
   },
   {
     id: 7,
@@ -156,12 +164,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'amelia.davis@acme.com',
     initials: 'AD',
     color: 'bg-violet-600 text-white',
-    role: 'Developer',
+    role: 'Catalog manager',
     status: 'Inactive',
     joined: '21 Jul 2023',
     lastSeen: '14 days ago',
     twoFactor: true,
-    team: 'Mobile',
+    team: 'Merchandising',
   },
   {
     id: 8,
@@ -169,12 +177,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'emma.johnson@acme.com',
     initials: 'EJ',
     color: 'bg-emerald-600 text-white',
-    role: 'Developer',
+    role: 'Fulfillment lead',
     status: 'Active',
     joined: '16 Sep 2023',
     lastSeen: 'Yesterday',
     twoFactor: true,
-    team: 'Platform',
+    team: 'Fulfillment',
   },
   {
     id: 9,
@@ -182,12 +190,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'olivia.brown@acme.com',
     initials: 'OB',
     color: 'bg-teal-600 text-white',
-    role: 'Support',
+    role: 'Customer support',
     status: 'Active',
     joined: '04 Nov 2022',
     lastSeen: 'Today, 11:12',
     twoFactor: true,
-    team: 'Customer Ops',
+    team: 'Customer care',
   },
   {
     id: 10,
@@ -195,12 +203,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'ava.williams@acme.com',
     initials: 'AW',
     color: 'bg-rose-600 text-white',
-    role: 'Developer',
+    role: 'Inventory planner',
     status: 'Active',
     joined: '30 Dec 2023',
     lastSeen: 'Today, 10:03',
     twoFactor: true,
-    team: 'Infrastructure',
+    team: 'Stock control',
   },
   {
     id: 11,
@@ -208,12 +216,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'mia.miller@acme.com',
     initials: 'MM',
     color: 'bg-purple-600 text-white',
-    role: 'Admin',
+    role: 'Finance admin',
     status: 'Inactive',
     joined: '12 Aug 2022',
     lastSeen: '31 days ago',
     twoFactor: true,
-    team: 'Security',
+    team: 'Billing',
   },
   {
     id: 12,
@@ -221,12 +229,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'lucas.young@acme.com',
     initials: 'LY',
     color: 'bg-cyan-700 text-white',
-    role: 'Developer',
+    role: 'Fulfillment lead',
     status: 'Active',
     joined: '17 Oct 2023',
     lastSeen: '2 hours ago',
     twoFactor: true,
-    team: 'Frontend',
+    team: 'Shipping',
   },
   {
     id: 13,
@@ -234,12 +242,12 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'alexander.wright@acme.com',
     initials: 'AW',
     color: 'bg-blue-500 text-white',
-    role: 'Developer',
+    role: 'Store owner',
     status: 'Active',
     joined: '08 Feb 2023',
     lastSeen: 'Just now',
     twoFactor: true,
-    team: 'DevOps',
+    team: 'Store operations',
   },
   {
     id: 14,
@@ -247,11 +255,11 @@ export const TEMPLATE_USERS: TemplateUser[] = [
     email: 'harper.martinez@acme.com',
     initials: 'HM',
     color: 'bg-indigo-600 text-white',
-    role: 'Admin',
+    role: 'Catalog manager',
     status: 'Invited',
     joined: '27 Jul 2024',
     lastSeen: 'Invite pending',
     twoFactor: false,
-    team: 'Architecture',
+    team: 'Seasonal catalog',
   },
 ];
