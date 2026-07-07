@@ -49,6 +49,10 @@ export const serverRoutes: ServerRoute[] = [
     },
   },
   {
+    path: 'templates/product-catalog',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: 'templates/user-management',
     renderMode: RenderMode.Prerender,
   },

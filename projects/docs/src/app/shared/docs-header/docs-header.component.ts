@@ -32,6 +32,7 @@ import {
   tablerBorderCorners,
   tablerBorderRadius,
   tablerBrandGithub,
+  tablerBuildingStore,
   tablerCheck,
   tablerChevronDown,
   tablerCode,
@@ -261,6 +262,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     ],
   },
   {
+    title: 'Product catalog',
+    path: '/templates/product-catalog',
+    section: 'Templates',
+    keywords: ['templates', 'admin', 'product catalog', 'crud', 'products', 'inventory', 'table'],
+  },
+  {
     title: 'User management',
     path: '/templates/user-management',
     section: 'Templates',
@@ -374,6 +381,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerSunMoon,
       tablerTools,
       tablerBrandGithub,
+      tablerBuildingStore,
       tablerCheck,
       tablerChevronDown,
       tablerCode,

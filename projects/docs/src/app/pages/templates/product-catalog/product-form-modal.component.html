@@ -1,0 +1,168 @@
+<div frModalPanel size="lg" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex items-start justify-between gap-4">
+      <div class="grid gap-1">
+        <div class="flex items-center gap-2">
+          <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+            <ng-icon name="tablerPackage" size="17" />
+          </span>
+          <h2 frModalTitle>{{ title }}</h2>
+        </div>
+        <p frModalDescription>
+          Keep product data clear enough for catalog, inventory, and support teams to trust.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form frModalBody class="grid gap-5" (submit)="$event.preventDefault(); save()">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="grid gap-2 sm:col-span-2">
+        <span class="text-sm font-semibold text-foreground">Product name</span>
+        <input frInput [value]="name()" (input)="setString('name', $event)" />
+      </label>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">SKU</span>
+        <input frInput [value]="sku()" (input)="setString('sku', $event)" />
+      </label>
+
+      <div class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Supplier</span>
+        <button
+          type="button"
+          class="w-full"
+          [frSelect]="supplierMenu"
+          [value]="supplier()"
+          (valueChange)="setSupplier($event)"
+        >
+          <frame-select-value placeholder="Select supplier"></frame-select-value>
+          <span frSelectIcon>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </span>
+        </button>
+        <ng-template #supplierMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              @for (entry of suppliers; track entry) {
+                <button frSelectItem type="button" [value]="entry" [label]="entry">
+                  {{ entry }}
+                </button>
+              }
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+      </div>
+
+      <div class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Category</span>
+        <button
+          type="button"
+          class="w-full"
+          [frSelect]="categoryMenu"
+          [value]="category()"
+          (valueChange)="setCategory($event)"
+        >
+          <frame-select-value placeholder="Select category"></frame-select-value>
+          <span frSelectIcon>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </span>
+        </button>
+        <ng-template #categoryMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              @for (entry of categories; track entry) {
+                <button frSelectItem type="button" [value]="entry" [label]="entry">
+                  {{ entry }}
+                </button>
+              }
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+      </div>
+
+      <div class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Status</span>
+        <button
+          type="button"
+          class="w-full"
+          [frSelect]="statusMenu"
+          [value]="status()"
+          (valueChange)="setStatus($event)"
+        >
+          <frame-select-value placeholder="Select status"></frame-select-value>
+          <span frSelectIcon>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </span>
+        </button>
+        <ng-template #statusMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              @for (entry of statuses; track entry) {
+                <button frSelectItem type="button" [value]="entry" [label]="entry">
+                  {{ entry }}
+                </button>
+              }
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+      </div>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Price</span>
+        <input frInput type="number" min="0" step="1" [value]="price()" (input)="setNumber('price', $event)" />
+      </label>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Stock</span>
+        <input frInput type="number" min="0" step="1" [value]="stock()" (input)="setNumber('stock', $event)" />
+      </label>
+
+      <div class="grid gap-2 sm:col-span-2">
+        <span class="text-sm font-semibold text-foreground">Visibility</span>
+        <button
+          type="button"
+          class="w-full"
+          [frSelect]="visibilityMenu"
+          [value]="visibility()"
+          (valueChange)="setVisibility($event)"
+        >
+          <frame-select-value placeholder="Select visibility"></frame-select-value>
+          <span frSelectIcon>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </span>
+        </button>
+        <ng-template #visibilityMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              @for (entry of visibilities; track entry) {
+                <button frSelectItem type="button" [value]="entry" [label]="entry">
+                  {{ entry }}
+                </button>
+              }
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+      </div>
+
+      <label class="grid gap-2 sm:col-span-2">
+        <span class="text-sm font-semibold text-foreground">Description</span>
+        <textarea
+          frTextarea
+          rows="4"
+          [value]="description()"
+          (input)="setString('description', $event)"
+        ></textarea>
+      </label>
+    </div>
+  </form>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="cancel()">
+      <span frButtonLabel>Cancel</span>
+    </button>
+    <button frButton type="button" (click)="save()">
+      <span frButtonLabel>{{ data.mode === 'edit' ? 'Save changes' : 'Save product' }}</span>
+    </button>
+  </div>
+</div>

@@ -50,7 +50,7 @@ export type TeamMember = {
 
 export const MAIN_NAV: TemplateNavItem[] = [
   { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
-  { label: 'Product catalog', icon: 'tablerBuildingStore', active: false, badge: null },
+  { label: 'Product catalog', icon: 'tablerBuildingStore', active: false, badge: null, path: '/templates/product-catalog' },
   { label: 'Inventory', icon: 'tablerDatabase', active: false, badge: '8' },
   { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
   { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },

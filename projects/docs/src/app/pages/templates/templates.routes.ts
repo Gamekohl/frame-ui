@@ -7,6 +7,13 @@ export default [
     redirectTo: 'user-management',
   },
   {
+    path: 'product-catalog',
+    loadComponent: () =>
+      import('./product-catalog/product-catalog-template.page').then(
+        (m) => m.ProductCatalogTemplatePage,
+      ),
+  },
+  {
     path: 'user-management',
     loadComponent: () =>
       import('./user-management/user-management-template.page').then((m) => m.UserManagementTemplatePage),

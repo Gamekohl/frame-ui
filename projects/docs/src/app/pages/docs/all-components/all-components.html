@@ -10,8 +10,8 @@
       </div>
     </header>
 
-    <section frCornerHandles id="components" class="scroll-mt-24 space-y-5">
-      <div animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" class="grid gap-5 sm:grid-cols-2">
+    <section animate.enter="slide-in-enter" style="--docs-enter-delay: 150ms" frCornerHandles id="components" class="scroll-mt-24 space-y-5">
+      <div class="grid gap-5 sm:grid-cols-2">
         @for (item of components(); track item.name) {
           <a
             animate.enter="slide-in-enter"

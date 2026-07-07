@@ -34,6 +34,15 @@
           <ng-template #templatesMenu="frNavigationMenuContent" frNavigationMenuContent>
             <div frNavigationMenuPanel>
               <div frNavigationMenuGrid>
+                <a frNavigationMenuLink routerLink="/templates/product-catalog" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
+                  <ng-icon name="tablerBuildingStore" size="18" class="mt-0.5" aria-hidden="true" />
+                  <span class="grid gap-1">
+                    <span frNavigationMenuLinkTitle>Product catalog</span>
+                    <span frNavigationMenuLinkDescription>
+                      CRUD table, product form, stock states, and bulk actions.
+                    </span>
+                  </span>
+                </a>
                 <a frNavigationMenuLink routerLink="/templates/user-management" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
                   <ng-icon name="tablerLayoutDashboard" size="18" class="mt-0.5" aria-hidden="true" />
                   <span class="grid gap-1">
