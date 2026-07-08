@@ -62,37 +62,6 @@ const customLinkHtml = `<nav frNavigationMenu>
   </ul>
 </nav>`;
 
-const viewportHtml = `<div class="navigation-menu-demo">
-  <nav frNavigationMenu>
-    <ul frNavigationMenuList>
-      <li frNavigationMenuItem>
-        <button [frNavigationMenuTrigger]="menu" type="button">
-          Getting started
-          <ng-icon name="tablerChevronDown" size="16" />
-        </button>
-
-        <ng-template #menu="frNavigationMenuContent" frNavigationMenuContent>
-          <div frNavigationMenuPanel>
-            <!-- regular overlay content -->
-          </div>
-        </ng-template>
-      </li>
-    </ul>
-    <div frNavigationMenuIndicator></div>
-  </nav>
-
-  <div frNavigationMenuViewport>
-    <div frNavigationMenuGrid [columns]="2">
-      <a frNavigationMenuLink frNavigationMenuFeature href="/docs/overview">
-        <span frNavigationMenuLinkTitle>Viewport preview</span>
-        <span frNavigationMenuLinkDescription>
-          Use the viewport primitive for persistent panel demos or custom layouts.
-        </span>
-      </a>
-    </div>
-  </div>
-</div>`;
-
 const customStylingCss = `.product-navigation {
   --frame-navigation-menu-bg: color-mix(in srgb, var(--frame-primary) 8%, transparent);
   --frame-navigation-menu-trigger-hover-bg: color-mix(in srgb, var(--frame-primary) 14%, transparent);
@@ -416,20 +385,6 @@ export const NAVIGATION_MENU_DOC: ComponentDoc = {
       code: [
         { language: 'ts', code: importsCode },
         { language: 'html', code: `<div frNavigationMenuIndicator></div>` },
-      ],
-    },
-    {
-      id: 'navigation-menu-viewport',
-      title: 'Viewport',
-      description:
-        'Use the viewport primitive for persistent preview panels or custom layouts that should use the same surface tokens.',
-      preview: {
-        component: DocsNavigationMenuPreviewComponent,
-        inputs: { config: { mode: 'viewport' } },
-      },
-      code: [
-        { language: 'ts', code: importsCode },
-        { language: 'html', code: viewportHtml },
       ],
     },
     {

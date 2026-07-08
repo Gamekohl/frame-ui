@@ -15,9 +15,16 @@ export type CatalogProduct = {
   supplier: string;
   description: string;
   updated: string;
+  incomingStock?: number;
+  incomingEta?: string;
+  incomingSupplier?: string;
+  incomingOrder?: string;
 };
 
-export type ProductFormValue = Omit<CatalogProduct, 'id' | 'updated'>;
+export type ProductFormValue = Omit<
+  CatalogProduct,
+  'id' | 'updated' | 'incomingStock' | 'incomingEta' | 'incomingSupplier' | 'incomingOrder'
+>;
 
 export type TemplateNavItem = {
   label: string;

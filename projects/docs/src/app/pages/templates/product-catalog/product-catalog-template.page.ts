@@ -66,6 +66,10 @@ import {
 
 import { ProductFormModalComponent } from './product-form-modal.component';
 import {
+  ProductRestockModalComponent,
+  type ProductRestockValue,
+} from './product-restock-modal.component';
+import {
   ADMIN_NAV,
   CATALOG_PRODUCTS,
   MAIN_NAV,
@@ -171,7 +175,6 @@ export class ProductCatalogTemplatePage {
   protected readonly statusFilter = signal('All status');
   protected readonly stockFilter = signal('All stock');
   protected readonly recentlyChangedProductId = signal<number | null>(null);
-  protected readonly lastAction = signal('Ready to manage catalog products.');
   protected readonly selection = new SelectionModel<number>(true);
 
   protected readonly selectedProduct = computed(
@@ -244,7 +247,6 @@ export class ProductCatalogTemplatePage {
     this.categoryFilter.set('All categories');
     this.statusFilter.set('All status');
     this.stockFilter.set('All stock');
-    this.lastAction.set('Filters reset.');
   }
 
   protected selectProduct(product: CatalogProduct): void {
@@ -331,10 +333,27 @@ export class ProductCatalogTemplatePage {
   }
 
   protected restockProduct(product: CatalogProduct): void {
-    this.updateProduct(product.id, {
-      stock: Math.max(product.stock, 24),
+    this.selectProduct(product);
+
+    const modalRef = this.modal.open(
+      ProductRestockModalComponent,
+      {
+        products: [product],
+      },
+      {
+        ariaLabel: `Schedule restock for ${product.name}`,
+        width: 'min(38rem, calc(100vw - 2rem))',
+        height: '42rem',
+      },
+    );
+
+    modalRef.closed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
+      if (!result || result === 'cancel') {
+        return;
+      }
+
+      this.scheduleRestock(product, result as ProductRestockValue);
     });
-    this.markChanged(product.id, `${product.name} stock was updated.`);
   }
 
   protected bulkPublish(): void {
@@ -410,15 +429,31 @@ export class ProductCatalogTemplatePage {
   }
 
   protected bulkRestock(): void {
-    const selectedIds = this.selectedIds();
-    this.products.update((products) =>
-      products.map((product) =>
-        selectedIds.includes(product.id)
-          ? { ...product, stock: Math.max(product.stock, 24), updated: 'Just now' }
-          : product,
-      ),
+    const selectedProducts = this.selectedProducts();
+
+    if (selectedProducts.length === 0) {
+      return;
+    }
+
+    const modalRef = this.modal.open(
+      ProductRestockModalComponent,
+      {
+        products: selectedProducts,
+      },
+      {
+        ariaLabel: 'Create restock plan for selected products',
+        width: 'min(38rem, calc(100vw - 2rem))',
+        height: '42rem',
+      },
     );
-    this.finishBulkAction(`Restocked ${selectedIds.length} selected products.`);
+
+    modalRef.closed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
+      if (!result || result === 'cancel') {
+        return;
+      }
+
+      this.scheduleBulkRestock(selectedProducts, result as ProductRestockValue);
+    });
   }
 
   protected toggleAllVisible(): void {
@@ -648,12 +683,73 @@ export class ProductCatalogTemplatePage {
     };
   }
 
-  private updateProduct(productId: number, patch: Partial<ProductFormValue>): void {
+  private updateProduct(productId: number, patch: Partial<Omit<CatalogProduct, 'id'>>): void {
     this.products.update((products) =>
       products.map((product) =>
-        product.id === productId ? { ...product, ...patch, updated: 'Just now' } : product,
+        product.id === productId ? { ...product, ...patch, updated: patch.updated ?? 'Just now' } : product,
       ),
     );
+  }
+
+  private scheduleRestock(product: CatalogProduct, value: ProductRestockValue): void {
+    const incomingStock = Math.max(1, Math.round(value.quantity));
+    const incomingSupplier = value.supplier ?? product.supplier;
+    const incomingOrder = this.restockOrderNumber(product, incomingStock);
+
+    this.updateProduct(product.id, {
+      supplier: incomingSupplier,
+      incomingStock,
+      incomingEta: value.eta,
+      incomingSupplier,
+      incomingOrder,
+      updated: 'Restock scheduled',
+    });
+    this.markChanged(
+      product.id,
+      `${incomingOrder}: ${incomingStock} units ordered from ${incomingSupplier}. ETA ${value.eta}.`,
+    );
+  }
+
+  private scheduleBulkRestock(products: CatalogProduct[], value: ProductRestockValue): void {
+    const lineQuantities = new Map(
+      value.lines.map((line) => [line.productId, Math.max(0, Math.round(line.quantity))]),
+    );
+    const plannedProducts = products.filter((product) => (lineQuantities.get(product.id) ?? 0) > 0);
+    const productIds = plannedProducts.map((product) => product.id);
+    const totalIncoming = plannedProducts.reduce(
+      (sum, product) => sum + (lineQuantities.get(product.id) ?? 0),
+      0,
+    );
+
+    this.products.update((currentProducts) =>
+      currentProducts.map((product) => {
+        if (!productIds.includes(product.id)) {
+          return product;
+        }
+
+        const incomingStock = lineQuantities.get(product.id) ?? 0;
+        const incomingSupplier = value.supplier ?? product.supplier;
+
+        return {
+          ...product,
+          supplier: incomingSupplier,
+          incomingStock,
+          incomingEta: value.eta,
+          incomingSupplier,
+          incomingOrder: this.restockOrderNumber(product, incomingStock),
+          updated: 'Restock scheduled',
+        };
+      }),
+    );
+    this.finishBulkAction(
+      `Created restock plan for ${plannedProducts.length} products (${totalIncoming} incoming units).`,
+    );
+  }
+
+  private restockOrderNumber(product: CatalogProduct, quantity: number): string {
+    const skuPrefix = product.sku.split('-').slice(0, 2).join('-');
+
+    return `PO-${skuPrefix}-${product.id}${quantity}`;
   }
 
   private canPublishProduct(product: CatalogProduct): boolean {
@@ -690,14 +786,12 @@ export class ProductCatalogTemplatePage {
   private finishBulkAction(message: string): void {
     this.recentlyChangedProductId.set(this.selection.selected[0] ?? null);
     this.selection.clear();
-    this.lastAction.set(message);
     this.toast.success(message);
   }
 
   private markChanged(productId: number, message: string): void {
     this.selectedProductId.set(productId);
     this.recentlyChangedProductId.set(productId);
-    this.lastAction.set(message);
     this.toast.success(message);
   }
 }

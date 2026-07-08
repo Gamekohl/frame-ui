@@ -44,6 +44,20 @@
             </dt>
             <dd class="m-0 font-semibold text-current">{{ selectedProduct().stock }}</dd>
           </div>
+          @if (selectedProduct().incomingStock) {
+            <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+              <dt class="flex items-center gap-2 text-muted-foreground">
+                <ng-icon name="tablerTruckDelivery" size="16" />
+                Incoming
+              </dt>
+              <dd class="m-0 text-right">
+                <span class="block font-semibold text-current">+{{ selectedProduct().incomingStock }}</span>
+                <span class="block text-xs text-muted-foreground">
+                  {{ selectedProduct().incomingEta }} · {{ selectedProduct().incomingOrder }}
+                </span>
+              </dd>
+            </div>
+          }
           <div class="flex items-center justify-between gap-4">
             <dt class="flex items-center gap-2 text-muted-foreground">
               <ng-icon name="tablerShoppingCart" size="16" />
@@ -301,18 +315,6 @@
               }
             </div>
 
-            <div class="flex flex-col gap-3 rounded-lg border border-border bg-muted p-3 lg:flex-row lg:items-center lg:justify-between">
-              <div class="flex items-start gap-3">
-                <span class="grid size-9 shrink-0 place-items-center border border-border bg-background">
-                  <ng-icon name="tablerCircleCheck" size="17" />
-                </span>
-                <div class="grid gap-1">
-                  <span class="text-sm font-semibold text-foreground">Local state</span>
-                  <span class="text-sm text-muted-foreground">{{ lastAction() }}</span>
-                </div>
-              </div>
-            </div>
-
             <section class="grid gap-4 rounded-lg">
               <div class="flex gap-3 xl:items-center">
                 <div
@@ -357,6 +359,9 @@
                           <button frDropdownMenuItem type="button" (click)="categoryFilter.set(category)">
                             {{ category }}
                           </button>
+                          @if ($first) {
+                            <div frDropdownMenuSeparator></div>
+                          }
                         }
                       </div>
                     </ng-template>
@@ -379,6 +384,9 @@
                           <button frDropdownMenuItem type="button" (click)="statusFilter.set(status)">
                             {{ status }}
                           </button>
+                          @if ($first) {
+                            <div frDropdownMenuSeparator></div>
+                          }
                         }
                       </div>
                     </ng-template>
@@ -401,6 +409,9 @@
                           <button frDropdownMenuItem type="button" (click)="stockFilter.set(stock)">
                             {{ stock }}
                           </button>
+                          @if ($first) {
+                            <div frDropdownMenuSeparator></div>
+                          }
                         }
                       </div>
                     </ng-template>
@@ -435,7 +446,7 @@
                       <span frButtonLabel>Publish</span>
                     </button>
                     <button frButton appearance="outline" type="button" (click)="bulkRestock()">
-                      <span frButtonLabel>Restock</span>
+                      <span frButtonLabel>Create restock plan</span>
                     </button>
                     <button frButton appearance="outline" type="button" (click)="bulkArchive()">
                       <span frButtonLabel>Archive</span>
@@ -507,9 +518,16 @@
                         <ng-container frColumnDef="stock">
                           <th frHeaderCell *frHeaderCellDef>Stock</th>
                           <td frCell *frCellDef="let product">
-                            <span frBadge [variant]="stockVariant(product)">
-                              {{ product.stock }} · {{ stockState(product) }}
-                            </span>
+                            <div class="grid gap-1">
+                              <span frBadge [variant]="stockVariant(product)">
+                                {{ product.stock }} · {{ stockState(product) }}
+                              </span>
+                              @if (product.incomingStock) {
+                                <span class="text-xs text-muted-foreground">
+                                  +{{ product.incomingStock }} incoming · {{ product.incomingEta }}
+                                </span>
+                              }
+                            </div>
                           </td>
                         </ng-container>
 
@@ -568,7 +586,7 @@
                                   </button>
                                   <button frDropdownMenuItem type="button" (click)="restockProduct(product)">
                                     <ng-icon name="tablerTruckDelivery" size="14" />
-                                    Restock to 24
+                                    Schedule restock
                                   </button>
                                   <div frDropdownMenuSeparator></div>
                                   <button frDropdownMenuItem type="button" (click)="archiveProduct(product)">
@@ -614,6 +632,9 @@
                           <div class="grid gap-2 text-sm text-muted-foreground">
                             <span>{{ product.category }} · {{ product.supplier }}</span>
                             <span>{{ currency(product.price) }} · {{ product.stock }} in stock</span>
+                            @if (product.incomingStock) {
+                              <span>+{{ product.incomingStock }} incoming · {{ product.incomingEta }}</span>
+                            }
                           </div>
                           <div class="flex flex-wrap gap-2">
                             <span frBadge [variant]="statusVariant(product.status)">{{ product.status }}</span>
@@ -678,7 +699,7 @@
                             </button>
                             <button frButton appearance="outline" type="button" (click)="restockProduct(product)">
                               <ng-icon name="tablerTruckDelivery" size="16" frButtonIcon />
-                              <span frButtonLabel>Restock</span>
+                              <span frButtonLabel>Schedule restock</span>
                             </button>
                             <button frButton appearance="outline" type="button" (click)="openEditProduct(product)">
                               <ng-icon name="tablerEdit" size="16" frButtonIcon />
