@@ -1,16 +1,21 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FrAccordionModule } from '@frame-ui-ng/components/accordion';
+import { FrAlertModule } from '@frame-ui-ng/components/alert';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
 import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrInputModule } from '@frame-ui-ng/components/input';
+import { FrPopoverModule } from '@frame-ui-ng/components/popover';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTextareaModule } from '@frame-ui-ng/components/textarea';
+import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { FrToastModule, FrToastService } from '@frame-ui-ng/components/toast';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -59,16 +64,21 @@ import {
 @Component({
   selector: 'docs-settings-template-page',
   imports: [
+    FrAccordionModule,
+    FrAlertModule,
     FrAvatarModule,
     FrBreadcrumbModule,
     FrButtonModule,
     FrCheckboxModule,
+    FrCollapsibleModule,
     FrComboboxModule,
     FrDropdownMenuModule,
     FrInputModule,
+    FrPopoverModule,
     FrSidebarModule,
     FrTabsModule,
     FrTextareaModule,
+    FrTooltipModule,
     FrToastModule,
     RouterLink,
     NgClass,

@@ -1,12 +1,14 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FrAlertModule } from '@frame-ui-ng/components/alert';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
@@ -28,6 +30,7 @@ import {
   tablerDatabase,
   tablerDots,
   tablerEdit,
+  tablerExclamationCircle,
   tablerFileText,
   tablerHome,
   tablerKey,
@@ -63,11 +66,13 @@ import {
   selector: 'docs-roles-permissions-template-page',
   imports: [
     FrAvatarModule,
+    FrAlertModule,
     FrBadgeModule,
     FrBreadcrumbModule,
     FrButtonModule,
     FrCheckboxModule,
     FrDropdownMenuModule,
+    FrHoverCardModule,
     FrInputModule,
     FrPaginationModule,
     FrProgressModule,
@@ -95,6 +100,7 @@ import {
       tablerDatabase,
       tablerDots,
       tablerEdit,
+      tablerExclamationCircle,
       tablerFileText,
       tablerHome,
       tablerKey,
@@ -160,6 +166,18 @@ export class RolesPermissionsTemplatePage {
   protected readonly reviewCount = computed(
     () => this.accounts().filter((account) => account.status === 'Review').length,
   );
+  protected readonly criticalPermissionLabels = computed(() => {
+    const role = this.selectedRole();
+    const criticalPermissions = [
+      ['catalog.publish_products', 'publish storefront products'],
+      ['orders.approve_refunds', 'approve customer refunds'],
+      ['store_access.change_roles', 'change teammate roles'],
+    ] as const;
+
+    return criticalPermissions
+      .filter(([permissionId]) => this.permissionEnabled(role, permissionId))
+      .map(([, label]) => label);
+  });
 
   protected setSearch(event: Event): void {
     const input = event.target as HTMLInputElement | null;

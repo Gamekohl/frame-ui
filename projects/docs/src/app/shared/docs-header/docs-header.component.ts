@@ -39,6 +39,7 @@ import {
   tablerCoffee,
   tablerChartAreaLine,
   tablerComponents,
+  tablerDatabase,
   tablerFileText,
   tablerLayoutDashboard,
   tablerSearch,
@@ -268,6 +269,12 @@ const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
     keywords: ['templates', 'admin', 'product catalog', 'crud', 'products', 'inventory', 'table'],
   },
   {
+    title: 'Inventory',
+    path: '/templates/inventory',
+    section: 'Templates',
+    keywords: ['templates', 'admin', 'inventory', 'warehouse', 'stock', 'transfer', 'cycle count'],
+  },
+  {
     title: 'User management',
     path: '/templates/user-management',
     section: 'Templates',
@@ -386,6 +393,7 @@ const DOCS_TOOLS_PAGES: readonly DocsSearchPage[] = [
       tablerChevronDown,
       tablerCode,
       tablerCoffee,
+      tablerDatabase,
       tablerLayoutDashboard,
       tablerShieldLock,
     }),

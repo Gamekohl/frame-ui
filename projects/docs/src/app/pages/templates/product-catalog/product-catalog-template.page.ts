@@ -12,20 +12,26 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { FrAccordionModule } from '@frame-ui-ng/components/accordion';
+import { FrAlertModule } from '@frame-ui-ng/components/alert';
 import { FrAvatarModule } from '@frame-ui-ng/components/avatar';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
 import { FrConfirmModalService } from '@frame-ui-ng/components/confirm-modal';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
+import { FrPopoverModule } from '@frame-ui-ng/components/popover';
 import { FrSheetModule, FrSheetService } from '@frame-ui-ng/components/sheet';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
+import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { FrToastModule, FrToastService } from '@frame-ui-ng/components/toast';
 import { FrChart, type FrChartDatum, type FrChartSeries } from '@frame-ui-ng/charts';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -44,6 +50,7 @@ import {
   tablerDatabase,
   tablerDots,
   tablerEdit,
+  tablerExclamationCircle,
   tablerFileText,
   tablerHome,
   tablerKey,
@@ -87,19 +94,25 @@ import {
 @Component({
   selector: 'docs-product-catalog-template-page',
   imports: [
+    FrAccordionModule,
+    FrAlertModule,
     FrAvatarModule,
     FrBadgeModule,
     FrBreadcrumbModule,
     FrButtonModule,
     FrCheckboxModule,
     FrChart,
+    FrCollapsibleModule,
     FrDropdownMenuModule,
+    FrHoverCardModule,
     FrInputModule,
     FrPaginationModule,
+    FrPopoverModule,
     FrSheetModule,
     FrSidebarModule,
     FrTableModule,
     FrTabsModule,
+    FrTooltipModule,
     FrToastModule,
     RouterLink,
     NgClass,
@@ -124,6 +137,7 @@ import {
       tablerDatabase,
       tablerDots,
       tablerEdit,
+      tablerExclamationCircle,
       tablerFileText,
       tablerHome,
       tablerKey,
@@ -622,6 +636,32 @@ export class ProductCatalogTemplatePage {
     const averageDailySales = Math.max(1, Math.round(this.totalSales(this.salesSeries(product)) / 7));
 
     return Math.max(0, Math.round((product.stock / (averageDailySales * 7)) * 10) / 10);
+  }
+
+  protected supplierLeadTime(product: CatalogProduct): string {
+    const leadTimes: Record<string, string> = {
+      'Northline Goods': '4-6 days',
+      'Linear Systems': '7-10 days',
+      'Kin & Co': '5-8 days',
+      Portsmith: '10-14 days',
+      'Quiet Field': '8-12 days',
+      'Keyline Studio': '6-9 days',
+      Soundyard: '12-16 days',
+    };
+
+    return leadTimes[product.supplier] ?? '7-10 days';
+  }
+
+  protected supplierOpenOrders(product: CatalogProduct): string {
+    if (product.incomingStock) {
+      return `${product.incomingOrder} · ${product.incomingStock} incoming`;
+    }
+
+    if (product.stock <= 10) {
+      return 'No open order';
+    }
+
+    return 'No active replenishment';
   }
 
   private openProductForm(

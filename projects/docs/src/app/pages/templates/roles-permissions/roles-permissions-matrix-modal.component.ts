@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FrBadgeModule } from '@frame-ui-ng/components/badge';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FR_MODAL_DATA, FrModalModule } from '@frame-ui-ng/components/modal';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -22,6 +23,7 @@ export type RolesPermissionsMatrixModalData = {
     FrBadgeModule,
     FrButtonModule,
     FrCheckboxModule,
+    FrHoverCardModule,
     FrModalModule,
     FrTabsModule,
     NgIcon

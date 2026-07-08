@@ -8,9 +8,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
   afterNextRender,
   booleanAttribute,
   computed,
+  inject,
   input,
   output,
   signal,
@@ -59,11 +61,20 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = buildHoverCardPositions({
       (detach)="close()"
       (positionChange)="handlePositionChange($event)"
     >
-      <ng-container [ngTemplateOutlet]="content()?.templateRef ?? null" />
+      <ng-container
+        [ngTemplateOutlet]="content()?.templateRef ?? null"
+        [ngTemplateOutletInjector]="contentInjector"
+      />
     </ng-template>
   `,
 })
 export class FrHoverCardRoot {
+  private readonly injector = inject(Injector);
+  protected readonly contentInjector = Injector.create({
+    providers: [{ provide: FR_HOVER_CARD_CONTROLLER, useValue: this }],
+    parent: this.injector,
+  });
+
   readonly openDelay = input(700);
   readonly closeDelay = input(300);
   readonly defaultOpen = input(false, { transform: booleanAttribute });
@@ -94,7 +105,14 @@ export class FrHoverCardRoot {
   }
 
   setContent(content: unknown | null): void {
-    this.content.set(content instanceof FrHoverCardContent ? content : null);
+    if (content instanceof FrHoverCardContent) {
+      content.setController(this);
+      this.content.set(content);
+      return;
+    }
+
+    this.content()?.setController(null);
+    this.content.set(null);
   }
 
   enterInteractiveArea(): void {

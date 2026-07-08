@@ -35,9 +35,27 @@
                 [attr.aria-label]="data.selectedRole().name + ' ' + permission.label"
               >
                 <span class="grid gap-1">
-                  <span class="text-sm font-medium text-foreground">
-                    {{ permission.label }}
-                  </span>
+                  <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                    <span
+                      class="inline-flex w-fit text-sm font-medium text-foreground underline decoration-border underline-offset-4"
+                      [frHoverCardTrigger]="permissionContext"
+                    >
+                      {{ permission.label }}
+                    </span>
+                    <ng-template
+                      #permissionContext="frHoverCardContent"
+                      frHoverCardContent
+                      side="top"
+                      align="start"
+                    >
+                      <div frHoverCardPanel>
+                        <strong class="text-sm text-foreground">{{ permission.label }}</strong>
+                        <p class="m-0 mt-1 text-xs leading-5 text-muted-foreground">
+                          {{ permission.description }}
+                        </p>
+                      </div>
+                    </ng-template>
+                  </frame-hover-card>
                   <span class="text-xs leading-5 text-muted-foreground">
                     {{ permission.description }}
                   </span>

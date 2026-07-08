@@ -14,6 +14,11 @@ export default [
       ),
   },
   {
+    path: 'inventory',
+    loadComponent: () =>
+      import('./inventory/inventory-template.page').then((m) => m.InventoryTemplatePage),
+  },
+  {
     path: 'user-management',
     loadComponent: () =>
       import('./user-management/user-management-template.page').then((m) => m.UserManagementTemplatePage),

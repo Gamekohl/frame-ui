@@ -9,12 +9,14 @@ import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { type CdkDragDrop, FrDragDropModule } from '@frame-ui-ng/components/drag-drop';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
+import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
+import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerActivity,
@@ -68,11 +70,13 @@ import {
     FrButtonModule,
     FrCheckboxModule,
     FrDropdownMenuModule,
+    FrHoverCardModule,
     FrInputModule,
     FrPaginationModule,
     FrSidebarModule,
     FrTableModule,
     FrTabsModule,
+    FrTooltipModule,
     FrDragDropModule,
     RouterLink,
     NgClass,

@@ -101,7 +101,13 @@
             class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
           >
             <div class="flex min-w-0 items-center gap-3">
-              <button frSidebarTrigger type="button" aria-label="Toggle navigation">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
                 <ng-icon name="tablerLayoutSidebar" size="18" />
               </button>
               <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
@@ -147,6 +153,16 @@
             </header>
 
             <section class="grid gap-3">
+              @if (criticalPermissionLabels().length > 0) {
+                <section frAlert variant="danger">
+                  <ng-icon frAlertIcon name="tablerExclamationCircle" />
+                  <h3 frAlertTitle>{{ selectedRole().name }} has sensitive access</h3>
+                  <p frAlertDescription>
+                    This role can {{ criticalPermissionLabels().join(', ') }}. Keep these permissions reviewed before assigning it broadly.
+                  </p>
+                </section>
+              }
+
               <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
                 <div class="grid gap-1">
                   <h3 class="m-0 text-lg font-semibold text-foreground">Role library</h3>
@@ -185,9 +201,43 @@
                     "
                   >
                     <div class="flex items-center justify-between gap-3 border-b pb-3 border-border mb-auto">
-                      <h4 class="m-0 truncate text-base font-semibold text-foreground">
-                        {{ role.name }}
-                      </h4>
+                      <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                        <button
+                          type="button"
+                          class="min-w-0 truncate text-left text-base font-semibold text-foreground"
+                          [frHoverCardTrigger]="roleContext"
+                          (click)="selectRole(role)"
+                        >
+                          {{ role.name }}
+                        </button>
+                        <ng-template
+                          #roleContext="frHoverCardContent"
+                          frHoverCardContent
+                          side="top"
+                          align="start"
+                        >
+                          <div frHoverCardPanel>
+                            <div class="grid gap-1">
+                              <strong class="text-sm text-foreground">{{ role.name }}</strong>
+                              <span class="text-xs leading-5 text-muted-foreground">{{ role.description }}</span>
+                            </div>
+                            <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+                              <span class="border border-border bg-muted p-2">
+                                <strong class="block text-foreground">{{ role.memberCount }}</strong>
+                                Members
+                              </span>
+                              <span class="border border-border bg-muted p-2">
+                                <strong class="block text-foreground">{{ role.enabledCount }}</strong>
+                                Enabled
+                              </span>
+                              <span class="border border-border bg-muted p-2">
+                                <strong class="block text-foreground">{{ role.reviewCount }}</strong>
+                                Review
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </frame-hover-card>
                       @if (role.locked) {
                         <span frBadge variant="secondary">
                             <ng-icon name="tablerLock" size="12" />

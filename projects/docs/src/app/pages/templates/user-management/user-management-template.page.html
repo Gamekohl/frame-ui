@@ -102,7 +102,13 @@
             class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
           >
             <div class="flex min-w-0 items-center gap-3">
-              <button frSidebarTrigger type="button" aria-label="Toggle navigation">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
                 <ng-icon name="tablerLayoutSidebar" size="18" />
               </button>
               <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
@@ -326,24 +332,45 @@
                     <ng-container frColumnDef="name">
                       <th frHeaderCell *frHeaderCellDef>Full name</th>
                       <td frCell *frCellDef="let user">
-                        <button
-                          type="button"
-                          class="flex min-w-56 items-center gap-3 text-left"
-                          (click)="selectUser(user)"
-                        >
-                          <span frAvatar size="sm" [ngClass]="user.color">
-                            <img
-                              frAvatarImage
-                              [src]="'https://i.pravatar.cc/64?u=' + user.email"
-                              [alt]="user.name"
-                            />
-                            <span frAvatarFallback>{{ user.initials }}</span>
-                          </span>
-                          <span class="grid gap-0.5">
-                            <span class="font-medium text-foreground">{{ user.name }}</span>
-                            <span class="text-xs text-muted-foreground">{{ user.team }}</span>
-                          </span>
-                        </button>
+                        <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                          <button
+                            type="button"
+                            class="flex min-w-56 items-center gap-3 text-left"
+                            [frHoverCardTrigger]="userContext"
+                            (click)="selectUser(user)"
+                          >
+                            <span frAvatar size="sm" [ngClass]="user.color">
+                              <img
+                                frAvatarImage
+                                [src]="'https://i.pravatar.cc/64?u=' + user.email"
+                                [alt]="user.name"
+                              />
+                              <span frAvatarFallback>{{ user.initials }}</span>
+                            </span>
+                            <span class="grid gap-0.5">
+                              <span class="font-medium text-foreground">{{ user.name }}</span>
+                              <span class="text-xs text-muted-foreground">{{ user.team }}</span>
+                            </span>
+                          </button>
+                          <ng-template
+                            #userContext="frHoverCardContent"
+                            frHoverCardContent
+                            side="right"
+                            align="start"
+                          >
+                            <div frHoverCardPanel>
+                              <div class="grid gap-1">
+                                <strong class="text-sm text-foreground">{{ user.name }}</strong>
+                                <span class="text-xs text-muted-foreground">{{ user.role }} · {{ user.team }}</span>
+                              </div>
+                              <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
+                                <span>Last seen: {{ user.lastSeen }}</span>
+                                <span>Joined: {{ user.joined }}</span>
+                                <span>{{ user.twoFactor ? '2FA enabled' : '2FA pending' }} · {{ user.status }}</span>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </frame-hover-card>
                       </td>
                     </ng-container>
 
@@ -397,6 +424,8 @@
                             type="button"
                             [frDropdownMenuTrigger]="rowMenu"
                             aria-label="Open row actions"
+                            frTooltip="User actions"
+                            frTooltipArrow
                           >
                             <ng-icon name="tablerDots" size="16" frButtonIcon />
                           </button>
