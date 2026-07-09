@@ -17,16 +17,24 @@
   --frame-switch-sm-height: 1rem;
   --frame-switch-sm-thumb-size: 0.75rem;
   --frame-switch-radius: var(--frame-radius-sm);
-  --frame-switch-bg: var(--frame-input);
-  --frame-switch-hover-bg: color-mix(in srgb, var(--frame-input) 82%, var(--frame-foreground));
+  --frame-switch-bg: var(--frame-border);
+  --frame-switch-hover-bg: color-mix(in srgb, var(--frame-border) 82%, var(--frame-foreground));
   --frame-switch-checked-bg: var(--frame-primary);
-  --frame-switch-checked-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
+  --frame-switch-checked-hover-bg: color-mix(
+    in srgb,
+    var(--frame-primary) 88%,
+    var(--frame-foreground)
+  );
   --frame-switch-thumb-bg: var(--frame-background);
   --frame-switch-thumb-shadow: none;
   --frame-switch-border-shadow: none;
   --frame-switch-checked-border-shadow: none;
   --frame-switch-focus-shadow: none;
-  --frame-switch-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
+  --frame-switch-invalid-border: color-mix(
+    in srgb,
+    var(--frame-destructive) 65%,
+    var(--frame-border)
+  );
   --frame-switch-invalid-shadow: none;
   --frame-switch-disabled-opacity: 0.5;
   --frame-switch-transition-duration: 160ms;

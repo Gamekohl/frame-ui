@@ -244,12 +244,7 @@
     "summary": "Contextual feedback blocks for status, caution, and system messaging.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrAlert",
-      "FrAlertDescription",
-      "FrAlertIcon",
-      "FrAlertTitle"
-    ],
+    "imports": ["FrAlert", "FrAlertDescription", "FrAlertIcon", "FrAlertTitle"],
     "docsImports": [],
     "selectors": [
       {
@@ -729,12 +724,7 @@
     "summary": "Small metadata labels for state, tags, and secondary status.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrBadge",
-      "FrBadgeIcon",
-      "FrBadgeLabel",
-      "FrBadgeSpinner"
-    ],
+    "imports": ["FrBadge", "FrBadgeIcon", "FrBadgeLabel", "FrBadgeSpinner"],
     "docsImports": [],
     "selectors": [
       {
@@ -963,13 +953,7 @@
     "summary": "Action primitives with variants, loading, icon support, and sizing options.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrButton",
-      "FrButtonIcon",
-      "FrButtonLabel",
-      "FrButtonLoading",
-      "FrIconButton"
-    ],
+    "imports": ["FrButton", "FrButtonIcon", "FrButtonLabel", "FrButtonLoading", "FrIconButton"],
     "docsImports": [],
     "selectors": [
       {
@@ -1247,9 +1231,7 @@
     "summary": "Grouped actions with shared borders and compact horizontal layouts.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrButtonGroup"
-    ],
+    "imports": ["FrButtonGroup"],
     "docsImports": [],
     "selectors": [
       {
@@ -1670,9 +1652,7 @@
     "summary": "Date and range selection with dropdown captions, week numbers, disabled dates, timezone formatting, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrCalendar"
-    ],
+    "imports": ["FrCalendar"],
     "docsImports": [],
     "selectors": [
       {
@@ -2613,11 +2593,7 @@
     "summary": "Native form-compatible boolean input with token-based styling.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrCheckbox",
-      "FrCheckboxField",
-      "FrCheckboxLabel"
-    ],
+    "imports": ["FrCheckbox", "FrCheckboxField", "FrCheckboxLabel"],
     "docsImports": [],
     "selectors": [
       {
@@ -2821,11 +2797,7 @@
     "summary": "Single-panel disclosure primitive for toggling additional content.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrCollapsible",
-      "FrCollapsibleContent",
-      "FrCollapsibleTrigger"
-    ],
+    "imports": ["FrCollapsible", "FrCollapsibleContent", "FrCollapsibleTrigger"],
     "docsImports": [],
     "selectors": [
       {
@@ -4271,10 +4243,7 @@
     "summary": "Typed confirmation dialog built on modal primitives with configurable title, description, and action labels.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrConfirmModalService",
-      "FrConfirmModalTrigger"
-    ],
+    "imports": ["FrConfirmModalService", "FrConfirmModalTrigger"],
     "docsImports": [],
     "selectors": [
       {
@@ -4356,10 +4325,7 @@
     "summary": "Anchored confirmation prompt that can attach to buttons, cards, rows, and custom trigger components.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrConfirmPopover",
-      "FrConfirmPopoverPanel"
-    ],
+    "imports": ["FrConfirmPopover", "FrConfirmPopoverPanel"],
     "docsImports": [],
     "selectors": [
       {
@@ -4524,9 +4490,7 @@
     "summary": "Calendar-backed date and range picker with presets, editable input, time selection, RTL, and reactive forms support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrDatePicker"
-    ],
+    "imports": ["FrDatePicker"],
     "docsImports": [],
     "selectors": [
       {
@@ -5721,12 +5685,7 @@
     "summary": "Delayed hover previews for links and actions with configurable timing, positioning, styling, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrHoverCardContent",
-      "FrHoverCardPanel",
-      "FrHoverCardRoot",
-      "FrHoverCardTrigger"
-    ],
+    "imports": ["FrHoverCardContent", "FrHoverCardPanel", "FrHoverCardRoot", "FrHoverCardTrigger"],
     "docsImports": [],
     "selectors": [
       {
@@ -6470,12 +6429,7 @@
     "summary": "One-time password input with grouped slots, separators, paste support, patterns, and reactive forms compatibility.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrInputOtp",
-      "FrInputOtpGroup",
-      "FrInputOtpSeparator",
-      "FrInputOtpSlot"
-    ],
+    "imports": ["FrInputOtp", "FrInputOtpGroup", "FrInputOtpSeparator", "FrInputOtpSlot"],
     "docsImports": [],
     "selectors": [
       {
@@ -7822,10 +7776,7 @@
     "summary": "Accessible progress indicators with determinate, indeterminate, labeled, controlled, custom styling, and RTL patterns.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrProgress",
-      "FrProgressIndicator"
-    ],
+    "imports": ["FrProgress", "FrProgressIndicator"],
     "docsImports": [],
     "selectors": [
       {
@@ -8128,11 +8079,7 @@
     "summary": "Accessible resizable panel groups with horizontal and vertical layouts, handles, nested groups, constraints, keyboard resizing, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrResizableHandle",
-      "FrResizablePanel",
-      "FrResizablePanelGroup"
-    ],
+    "imports": ["FrResizableHandle", "FrResizablePanel", "FrResizablePanelGroup"],
     "docsImports": [],
     "selectors": [
       {
@@ -8297,9 +8244,7 @@
     "summary": "Visual and semantic dividers with horizontal, vertical, decorative, custom styling, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrSeparator"
-    ],
+    "imports": ["FrSeparator"],
     "docsImports": [],
     "selectors": [
       {
@@ -9051,9 +8996,7 @@
     "summary": "Composable loading placeholders with sizing inputs, shimmer animation, token styling, and RTL-friendly layouts.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrSkeleton"
-    ],
+    "imports": ["FrSkeleton"],
     "docsImports": [],
     "selectors": [
       {
@@ -9155,9 +9098,7 @@
     "summary": "Portable loading indicator primitive with accessible status, decorative mode, size presets, token styling, and composition examples.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrSpinner"
-    ],
+    "imports": ["FrSpinner"],
     "docsImports": [],
     "selectors": [
       {
@@ -9261,9 +9202,7 @@
     "summary": "Range input primitive with single, range, multiple thumb, vertical, controlled, RTL, and reactive forms support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrSlider"
-    ],
+    "imports": ["FrSlider"],
     "docsImports": [],
     "selectors": [
       {
@@ -10301,7 +10240,6 @@
       "--frame-border",
       "--frame-destructive",
       "--frame-foreground",
-      "--frame-input",
       "--frame-muted",
       "--frame-muted-foreground",
       "--frame-primary",
@@ -10723,12 +10661,7 @@
     "summary": "Composable tab panels with list, trigger, content, variants, icons, vertical layout, RTL, and router-link support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrTabs",
-      "FrTabsContent",
-      "FrTabsList",
-      "FrTabsTrigger"
-    ],
+    "imports": ["FrTabs", "FrTabsContent", "FrTabsList", "FrTabsTrigger"],
     "docsImports": [],
     "selectors": [
       {
@@ -10886,9 +10819,7 @@
     "summary": "Native multi-line text input with invalid, disabled, RTL, and Field composition support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrTextarea"
-    ],
+    "imports": ["FrTextarea"],
     "docsImports": [],
     "selectors": [
       {
@@ -11060,11 +10991,7 @@
     "summary": "Two-state button primitive with pressed state, variants, sizing, icons, labels, and reactive forms support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrToggle",
-      "FrToggleIcon",
-      "FrToggleLabel"
-    ],
+    "imports": ["FrToggle", "FrToggleIcon", "FrToggleLabel"],
     "docsImports": [],
     "selectors": [
       {
@@ -11198,10 +11125,7 @@
     "summary": "Hover and focus hints with side, alignment, delay, keyboard dismissal, arrow variants, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrTooltipDirective",
-      "FrTooltipShortcut"
-    ],
+    "imports": ["FrTooltipDirective", "FrTooltipShortcut"],
     "docsImports": [],
     "selectors": [
       {
@@ -11320,9 +11244,7 @@
     "summary": "Stackable notifications with variants, actions, loading states, dismissal controls, positions, and RTL support.",
     "publicExport": null,
     "importPath": "@frame-ui-ng/components",
-    "imports": [
-      "FrToastViewport"
-    ],
+    "imports": ["FrToastViewport"],
     "docsImports": [],
     "selectors": [
       {

@@ -14,6 +14,10 @@
   outline: none;
 }
 
+.frame-modal__overlay-pane[data-closing] {
+  pointer-events: none;
+}
+
 .frame-modal__panel {
   position: relative;
   display: flex;
@@ -28,6 +32,14 @@
   box-shadow: var(--frame-modal-shadow);
   color: var(--frame-modal-color);
   animation: frame-modal-enter 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frame-modal__panel[data-closing] {
+  animation: frame-modal-leave 80ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.cdk-overlay-backdrop.frame-modal__backdrop[data-closing] {
+  animation: frame-modal-backdrop-leave 80ms ease forwards;
 }
 
 .frame-modal__panel[data-size="sm"] {
@@ -179,7 +191,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frame-modal__panel {
+  .frame-modal__panel,
+  .frame-modal__panel[data-closing],
+  .cdk-overlay-backdrop.frame-modal__backdrop[data-closing] {
     animation: none;
   }
 }
@@ -193,5 +207,23 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes frame-modal-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+}
+
+@keyframes frame-modal-backdrop-leave {
+  to {
+    opacity: 0;
   }
 }

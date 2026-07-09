@@ -58,9 +58,17 @@
   animation: frame-sheet-enter-right 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.frame-sheet__panel[data-side="right"][data-closing] {
+  animation: frame-sheet-leave-right 80ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .frame-sheet__panel[data-side="left"] {
   border-inline-start: 0;
   animation: frame-sheet-enter-left 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frame-sheet__panel[data-side="left"][data-closing] {
+  animation: frame-sheet-leave-left 80ms cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 .frame-sheet__panel[data-side="top"] {
@@ -68,9 +76,21 @@
   animation: frame-sheet-enter-top 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.frame-sheet__panel[data-side="top"][data-closing] {
+  animation: frame-sheet-leave-top 80ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .frame-sheet__panel[data-side="bottom"] {
   border-block-end: 0;
   animation: frame-sheet-enter-bottom 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frame-sheet__panel[data-side="bottom"][data-closing] {
+  animation: frame-sheet-leave-bottom 80ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.cdk-overlay-backdrop.frame-sheet__backdrop[data-closing] {
+  animation: frame-sheet-backdrop-leave 160ms ease forwards;
 }
 
 .frame-sheet__header,
@@ -187,7 +207,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frame-sheet__panel {
+  .frame-sheet__panel,
+  .frame-sheet__panel[data-closing],
+  .cdk-overlay-backdrop.frame-sheet__backdrop[data-closing] {
     animation: none;
   }
 }
@@ -219,6 +241,52 @@
 
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes frame-sheet-leave-right {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes frame-sheet-leave-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes frame-sheet-leave-top {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes frame-sheet-leave-bottom {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes frame-sheet-backdrop-leave {
+  to {
+    opacity: 0;
   }
 }
 

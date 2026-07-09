@@ -120,17 +120,18 @@ export type TooltipPreviewConfig = {
 
       @case ('disabled') {
         <div class="docs-tooltip-row">
-          <button
-            frButton
+          <span
+            class="docs-tooltip-disabled-trigger"
             frTooltip="Upgrade permissions before running this action."
             [frTooltipOpenDelay]="150"
             frTooltipArrow
-            disabled
-            type="button"
+            tabindex="0"
           >
-            <ng-icon frButtonIcon name="tablerLock" />
-            <span frButtonLabel>Locked action</span>
-          </button>
+            <button frButton disabled type="button" tabindex="-1">
+              <ng-icon frButtonIcon name="tablerLock" />
+              <span frButtonLabel>Locked action</span>
+            </button>
+          </span>
         </div>
       }
 
@@ -245,6 +246,19 @@ export type TooltipPreviewConfig = {
       --frame-tooltip-content-radius: var(--frame-radius-full);
       --frame-tooltip-content-padding: 0.5rem 0.875rem;
       --frame-tooltip-content-shadow: 0 16px 36px color-mix(in srgb, var(--frame-success) 24%, transparent);
+    }
+
+    .docs-tooltip-disabled-trigger {
+      display: inline-flex;
+    }
+
+    .docs-tooltip-disabled-trigger:focus-visible {
+      outline: 2px solid var(--frame-ring);
+      outline-offset: 2px;
+    }
+
+    .docs-tooltip-disabled-trigger > button:disabled {
+      pointer-events: none;
     }
   `,
 })

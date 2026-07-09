@@ -1,7 +1,12 @@
 <header class="sticky top-0 z-40 border-b border-border bg-background/40 backdrop-blur-xs">
   <div class="mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
-      <img alt="Logo" [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'" width="24" height="24" />
+      <img
+        alt="Logo"
+        [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'"
+        width="24"
+        height="24"
+      />
     </a>
     <nav class="hidden items-center gap-5 text-sm font-semibold md:flex">
       <a
@@ -37,11 +42,13 @@
       >
         <div>
           <span class="flex items-center gap-2">
-          <ng-icon name="tablerSearch" size="16" frButtonIcon />
-          Search docs...
-        </span>
+            <ng-icon name="tablerSearch" size="16" frButtonIcon />
+            Search docs...
+          </span>
         </div>
-        <kbd class="border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
+        <kbd
+          class="border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground"
+        >
           Alt P
         </kbd>
       </button>
@@ -59,31 +66,63 @@
           <ng-icon name="tablerTools" size="18" frButtonIcon />
         </button>
 
-        <ng-template #appearanceMenu="frDropdownMenuContent" frDropdownMenuContent side="bottom" align="end">
+        <ng-template
+          #appearanceMenu="frDropdownMenuContent"
+          frDropdownMenuContent
+          side="bottom"
+          align="end"
+        >
           <div frDropdownMenuPanel class="min-w-70">
             <span frDropdownMenuLabel>Preview Palette</span>
 
             @for (palette of palettes; track palette.id) {
-              <button
-                frDropdownMenuItem
-                type="button"
-                [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
-                (click)="setPalette(palette.id)"
-              >
-                <span
-                  class="inline-block size-3 shrink-0 border border-border"
-                  [style.background]="palette.swatch"
-                ></span>
-                <span class="grid min-w-0 gap-0.5">
-                  <span class="truncate font-semibold">{{ palette.label }}</span>
-                  <span class="truncate text-xs text-muted-foreground">{{ palette.description }}</span>
-                </span>
-                @if (selectedPalette() === palette.id) {
-                  <span frDropdownMenuShortcut>
-                    <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+              @if (palette.id === 'custom') {
+                <button
+                  frDropdownMenuItem
+                  type="button"
+                  [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
+                  (click)="openCustomPaletteSheet($event)"
+                >
+                  <span
+                    class="inline-block size-3 shrink-0"
+                    [style.background]="customPalettePreview()"
+                  ></span>
+                  <span class="grid min-w-0 gap-0.5">
+                    <span class="truncate font-semibold">{{ palette.label }}</span>
+                    <span class="truncate text-xs text-muted-foreground">{{
+                      palette.description
+                    }}</span>
                   </span>
-                }
-              </button>
+                  @if (selectedPalette() === palette.id) {
+                    <span frDropdownMenuShortcut>
+                      <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                    </span>
+                  }
+                </button>
+              } @else {
+                <button
+                  frDropdownMenuItem
+                  type="button"
+                  [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
+                  (click)="setPalette(palette.id)"
+                >
+                  <span
+                    class="inline-block size-3 shrink-0"
+                    [style.background]="palette.swatch"
+                  ></span>
+                  <span class="grid min-w-0 gap-0.5">
+                    <span class="truncate font-semibold">{{ palette.label }}</span>
+                    <span class="truncate text-xs text-muted-foreground">{{
+                      palette.description
+                    }}</span>
+                  </span>
+                  @if (selectedPalette() === palette.id) {
+                    <span frDropdownMenuShortcut>
+                      <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                    </span>
+                  }
+                </button>
+              }
             }
 
             <div frDropdownMenuSeparator></div>
@@ -107,7 +146,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ radius.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ radius.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          radius.description
+                        }}</span>
                       </span>
                       @if (selectedRadius() === radius.id) {
                         <span frDropdownMenuShortcut>
@@ -122,11 +163,20 @@
 
             <div frDropdownMenuSub>
               <button [frDropdownMenuSubTrigger]="densityMenu" type="button">
-                <ng-icon class="shrink-0" name="tablerBaselineDensityMedium" size="16" aria-hidden="true" />
+                <ng-icon
+                  class="shrink-0"
+                  name="tablerBaselineDensityMedium"
+                  size="16"
+                  aria-hidden="true"
+                />
                 <span>Density</span>
               </button>
 
-              <ng-template #densityMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+              <ng-template
+                #densityMenu="frDropdownMenuContent"
+                frDropdownMenuSubContent
+                side="auto"
+              >
                 <div frDropdownMenuPanel class="min-w-56">
                   @for (density of densityPresets; track density.id) {
                     <button
@@ -137,7 +187,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ density.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ density.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          density.description
+                        }}</span>
                       </span>
                       @if (selectedDensity() === density.id) {
                         <span frDropdownMenuShortcut>
@@ -167,7 +219,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ shadow.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ shadow.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          shadow.description
+                        }}</span>
                       </span>
                       @if (selectedShadow() === shadow.id) {
                         <span frDropdownMenuShortcut>
@@ -257,7 +311,12 @@
 </header>
 
 <ng-template #searchDialog="frCommandDialog" frCommandDialog aria-label="Search documentation">
-  <section frCommand closeOnSelect (itemSelected)="navigateTo($event)" aria-label="Search documentation">
+  <section
+    frCommand
+    closeOnSelect
+    (itemSelected)="navigateTo($event)"
+    aria-label="Search documentation"
+  >
     <input frCommandInput placeholder="Search pages and components..." />
 
     <div frCommandList>
@@ -318,13 +377,11 @@
     </div>
 
     <div frCommandFooter>
-
       <span><kbd>↑↓</kbd> to navigate</span>
 
       <span><kbd>↵</kbd> to select</span>
 
       <span><kbd>esc</kbd> to close</span>
-
     </div>
   </section>
 </ng-template>
