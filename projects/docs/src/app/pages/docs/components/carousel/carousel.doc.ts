@@ -40,18 +40,21 @@ export const CAROUSEL_DOC: ComponentDoc = {
     },
     {
       language: 'html',
-      code: `<section frCarousel>
+      code: `<section #carousel="frCarousel" frCarousel>
   <div frCarouselContent>
     <div frCarouselItem>Slide 1</div>
     <div frCarouselItem>Slide 2</div>
     <div frCarouselItem>Slide 3</div>
   </div>
-  <button frCarouselPrevious appearance="outline">
-    <ng-icon name="tablerChevronLeft" size="18" />
-  </button>
-  <button frCarouselNext appearance="outline">
-    <ng-icon name="tablerChevronRight" size="18" />
-  </button>
+  <div frCarouselControls>
+    <button frCarouselPrevious appearance="outline">Previous</button>
+    <button frCarouselNext appearance="outline">Next</button>
+  </div>
+  <div frCarouselDots>
+    @for (index of carousel.snapIndexes(); track index) {
+      <button frCarouselDot [index]="index"></button>
+    }
+  </div>
 </section>`,
     },
   ],
@@ -60,7 +63,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
     id: 'token-inspector',
     title: 'Token inspector',
     description:
-      'Inspect the carousel root, scroll viewport, slide item, and positioned controls.',
+      'Inspect the carousel root, scroll viewport, slide item, dots, and thumbnails.',
     preview: {
       component: DocsCarouselPreviewComponent,
       inputs: {
@@ -74,8 +77,8 @@ export const CAROUSEL_DOC: ComponentDoc = {
           label: 'Carousel',
           selector: '[data-token-target="carousel-root"]',
           description:
-            'The carousel root owns orientation, alignment, direction, and control placement.',
-          tokens: ['--frame-carousel-control-offset', '--frame-carousel-control-size'],
+            'The carousel root owns orientation, alignment, direction, and the shared viewport tokens.',
+          tokens: ['--frame-carousel-gap', '--frame-carousel-item-size'],
         },
         {
           id: 'content',
@@ -93,18 +96,25 @@ export const CAROUSEL_DOC: ComponentDoc = {
           tokens: ['--frame-carousel-item-size', '--frame-carousel-snap-align'],
         },
         {
-          id: 'previous',
-          label: 'Previous',
-          selector: '[data-token-target="carousel-previous"]',
-          description: 'Previous control inherits button tokens plus carousel control sizing.',
-          tokens: ['--frame-carousel-control-size', '--frame-carousel-control-offset'],
+          id: 'dot',
+          label: 'Dot',
+          selector: '[data-token-target="carousel-dot"]',
+          description: 'Dot controls reflect the selected snap point.',
+          tokens: ['--frame-carousel-dot-size', '--frame-carousel-dot-active-size', '--frame-carousel-dot-bg', '--frame-carousel-dot-active-bg'],
         },
         {
-          id: 'next',
-          label: 'Next',
-          selector: '[data-token-target="carousel-next"]',
-          description: 'Next control inherits button tokens plus carousel control sizing.',
-          tokens: ['--frame-carousel-control-size', '--frame-carousel-control-offset'],
+          id: 'control',
+          label: 'Control',
+          selector: '[data-token-target="carousel-control"]',
+          description: 'Optional controls use the button primitive and can be placed anywhere in the carousel layout.',
+          tokens: ['--frame-carousel-control-gap', '--frame-carousel-control-size'],
+        },
+        {
+          id: 'thumb',
+          label: 'Thumb',
+          selector: '[data-token-target="carousel-thumb"]',
+          description: 'Thumbnail controls provide a larger selectable preview target.',
+          tokens: ['--frame-carousel-thumb-size', '--frame-carousel-thumb-gap', '--frame-carousel-thumb-radius', '--frame-carousel-thumb-border', '--frame-carousel-thumb-active-border'],
         },
       ],
     },
@@ -112,11 +122,11 @@ export const CAROUSEL_DOC: ComponentDoc = {
 
   styling: {
     description:
-      'Override carousel tokens locally to tune slide width, gap, viewport radius, and control placement.',
+      'Override carousel tokens locally to tune slide width, gap, viewport radius, dots, and thumbnails.',
     preview: {
       id: 'custom-styling-preview',
       title: 'Custom Styling Preview',
-      description: 'This preview customizes slide sizing, gap, radius, and control position.',
+      description: 'This preview customizes slide sizing, gap, radius, and dot color.',
       preview: {
         component: DocsCarouselPreviewComponent,
         inputs: {
@@ -124,7 +134,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
             style: `--frame-carousel-gap: 1.25rem;
 --frame-carousel-item-size: min(100%, 18rem);
 --frame-carousel-viewport-radius: var(--frame-radius-lg);
---frame-carousel-control-offset: 0.75rem;`,
+--frame-carousel-dot-active-bg: var(--frame-primary);`,
           },
         },
       },
@@ -145,7 +155,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
   --frame-carousel-gap: 1.25rem;
   --frame-carousel-item-size: min(100%, 18rem);
   --frame-carousel-viewport-radius: var(--frame-radius-lg);
-  --frame-carousel-control-offset: 0.75rem;
+  --frame-carousel-dot-active-bg: var(--frame-primary);
 }`,
         },
       ],
@@ -156,7 +166,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
     {
       id: 'basic',
       title: 'Basic',
-      description: 'A basic carousel with a scrollable content viewport, slide items, and controls.',
+      description: 'A basic carousel with a drag-free scroll viewport, slide items, and dots.',
       preview: {
         component: DocsCarouselPreviewComponent,
       },
@@ -167,60 +177,32 @@ export const CAROUSEL_DOC: ComponentDoc = {
         },
         {
           language: 'html',
-          code: `<section frCarousel>
+          code: `<section #carousel="frCarousel" frCarousel>
   <div frCarouselContent>
     <article frCarouselItem>Slide 1</article>
     <article frCarouselItem>Slide 2</article>
     <article frCarouselItem>Slide 3</article>
   </div>
-  <button frCarouselPrevious appearance="outline">
-    <ng-icon name="tablerChevronLeft" size="18" />
-  </button>
-  <button frCarouselNext appearance="outline">
-    <ng-icon name="tablerChevronRight" size="18" />
-  </button>
-</section>`,
-        },
-      ],
-    },
-    {
-      id: 'sizes',
-      title: 'Sizes',
-      description:
-        'Set --frame-carousel-item-size to show multiple slides in the viewport, similar to basis utilities.',
-      preview: {
-        component: DocsCarouselPreviewComponent,
-        inputs: { config: { mode: 'sizes' } },
-      },
-      code: [
-        {
-          language: 'ts',
-          code: carouselImportsCode,
-        },
-        {
-          language: 'html',
-          code: `<section frCarousel class="carousel-sizes">
-  <div frCarouselContent>
-    <article frCarouselItem>...</article>
+  <div frCarouselControls>
+    <button frCarouselPrevious appearance="outline">Previous</button>
+    <button frCarouselNext appearance="outline">Next</button>
+  </div>
+  <div frCarouselDots>
+    @for (index of carousel.snapIndexes(); track index) {
+      <button frCarouselDot [index]="index"></button>
+    }
   </div>
 </section>`,
         },
-        {
-          language: 'css',
-          code: `.carousel-sizes {
-  --frame-carousel-item-size: min(100%, 16rem);
-}`,
-        },
       ],
     },
     {
-      id: 'spacing',
-      title: 'Spacing',
+      id: 'controls',
+      title: 'Controls',
       description:
-        'Set --frame-carousel-gap on the root to control the distance between carousel items.',
+        'Add optional controls wherever they fit the layout. The default examples place them below the viewport, aligned to the left.',
       preview: {
         component: DocsCarouselPreviewComponent,
-        inputs: { config: { mode: 'spacing' } },
       },
       code: [
         {
@@ -229,15 +211,54 @@ export const CAROUSEL_DOC: ComponentDoc = {
         },
         {
           language: 'html',
-          code: `<section frCarousel class="carousel-spacing">
-  ...
+          code: `<section #carousel="frCarousel" frCarousel>
+  <div frCarouselContent>
+    <article frCarouselItem>Slide 1</article>
+    <article frCarouselItem>Slide 2</article>
+    <article frCarouselItem>Slide 3</article>
+  </div>
+  <div frCarouselControls>
+    <button frCarouselPrevious appearance="outline">
+      Previous
+    </button>
+    <button frCarouselNext appearance="outline">
+      Next
+    </button>
+  </div>
 </section>`,
         },
+      ],
+    },
+    {
+      id: 'thumbnails',
+      title: 'Thumbnails',
+      description:
+        'Use thumbnail controls when users need a stronger visual preview than dots provide.',
+      preview: {
+        component: DocsCarouselPreviewComponent,
+        inputs: { config: { mode: 'thumbnails' } },
+      },
+      code: [
         {
-          language: 'css',
-          code: `.carousel-spacing {
-  --frame-carousel-gap: 1.5rem;
-}`,
+          language: 'ts',
+          code: carouselImportsCode,
+        },
+        {
+          language: 'html',
+          code: `<section #carousel="frCarousel" frCarousel>
+  <div frCarouselContent>
+    @for (slide of slides; track slide.title) {
+      <article frCarouselItem>...</article>
+    }
+  </div>
+  <div frCarouselThumbs>
+    @for (slide of slides; track slide.title; let index = $index) {
+      <button frCarouselThumb [index]="index">
+        {{ index + 1 }}
+      </button>
+    }
+  </div>
+</section>`,
         },
       ],
     },
@@ -281,6 +302,7 @@ export const CAROUSEL_DOC: ComponentDoc = {
 
 readonly carouselOptions = {
   align: 'center',
+  mouseDrag: true,
   loop: true,
 } satisfies FrCarouselOptions;`,
         },
@@ -294,9 +316,9 @@ readonly carouselOptions = {
     },
     {
       id: 'api',
-      title: 'API',
+      title: 'Selection state',
       description:
-        'Use apiReady, selectedChange, and the carousel API to react to selection changes or control slides.',
+        'Use selectedChange when the surrounding UI needs to react to the active slide. Navigation buttons can be attached with frCarouselPrevious and frCarouselNext.',
       preview: {
         component: DocsCarouselPreviewComponent,
         inputs: { config: { mode: 'api' } },
@@ -305,24 +327,25 @@ readonly carouselOptions = {
         {
           language: 'ts',
           code: `import { signal } from '@angular/core';
-import { FrCarouselApi, FrCarouselModule } from '@frame-ui-ng/components/carousel';
+import { FrCarouselModule } from '@frame-ui-ng/components/carousel';
 
 readonly selected = signal(0);
-
-handleApiReady(api: FrCarouselApi) {
-  api.on('select', () => {
-    this.selected.set(api.selectedScrollSnap());
-  });
-}`,
+`,
         },
         {
           language: 'html',
           code: `<section
   frCarousel
-  (apiReady)="handleApiReady($event)"
   (selectedChange)="selected.set($event)"
 >
-  ...
+  <div frCarouselContent>
+    <article frCarouselItem>Slide 1</article>
+    <article frCarouselItem>Slide 2</article>
+    <article frCarouselItem>Slide 3</article>
+  </div>
+
+  <button frCarouselPrevious appearance="outline">Previous</button>
+  <button frCarouselNext appearance="outline">Next</button>
 </section>`,
         },
       ],
@@ -353,46 +376,22 @@ readonly autoplayPlugin: FrCarouselPlugin = (api) => {
 </section>`,
         },
       ],
-    },
-    {
-      id: 'rtl',
-      title: 'RTL support',
-      description:
-        'Set direction through opts to render the scroll viewport and controls in right-to-left layouts.',
-      preview: {
-        component: DocsCarouselPreviewComponent,
-        inputs: { config: { mode: 'rtl' } },
-      },
-      code: [
-        {
-          language: 'ts',
-          code: `import { FrCarouselModule, FrCarouselOptions } from '@frame-ui-ng/components/carousel';
-
-readonly rtlOptions = {
-  direction: 'rtl',
-  align: 'start',
-} satisfies FrCarouselOptions;`,
-        },
-        {
-          language: 'html',
-          code: `<section frCarousel [opts]="rtlOptions">
-  ...
-</section>`,
-        },
-      ],
-    },
+    }
   ],
 
   tokensTitle: 'Design Tokens',
   tokensDescription:
-    'Use these CSS custom properties to tune carousel spacing, slide sizing, viewport shape, and control placement.',
+    'Use these CSS custom properties to tune carousel spacing, slide sizing, viewport shape, dots, and thumbnails.',
   tokens: `
   --frame-carousel-gap: 1rem;
   --frame-carousel-item-size: 100%;
-  --frame-carousel-control-offset: -3rem;
-  --frame-carousel-control-size: 2.5rem;
   --frame-carousel-viewport-radius: var(--frame-radius-lg);
   --frame-carousel-vertical-size: 20rem;
+  --frame-carousel-control-gap: 0.625rem;
+  --frame-carousel-control-size: 2.5rem;
+  --frame-carousel-dot-size: 0.5rem;
+  --frame-carousel-dot-active-size: 1.75rem;
+  --frame-carousel-thumb-size: 4.25rem;
   `,
 };
 

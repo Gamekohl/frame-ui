@@ -5,9 +5,9 @@ import {
   DoCheck,
   ElementRef,
   InjectionToken,
-  Renderer2,
   booleanAttribute,
   computed,
+  numberAttribute,
   inject,
   input,
   output,
@@ -30,7 +30,10 @@ export type FrCarouselPlugin = (api: FrCarouselApi) => void | (() => void);
 export type FrCarouselOptions = {
   align?: FrCarouselAlign;
   direction?: FrCarouselDirection;
+  dragFree?: boolean;
+  mouseDrag?: boolean;
   loop?: boolean;
+  slidesToScroll?: number;
 };
 
 export type FrCarouselApi = {
@@ -45,19 +48,22 @@ export type FrCarouselApi = {
 };
 
 const FR_CAROUSEL = new InjectionToken<FrCarousel>('FrCarousel');
+const POINTER_FLICK_VELOCITY = 0.25;
+const POINTER_SETTLE_THRESHOLD_RATIO = 0.12;
 
 /** Carousel root that coordinates scroll state and navigation. */
 @Directive({
   selector: '[frCarousel], frame-carousel',
   exportAs: 'frCarousel',
   host: {
-    class: 'frame-carousel frame-corner-handles',
+    class: 'frame-carousel',
     role: 'region',
     tabindex: '0',
     '[attr.aria-roledescription]': '"carousel"',
     '[attr.data-align]': 'effectiveAlign()',
+    '[attr.data-direction]': 'effectiveDirection()',
+    '[attr.data-drag-free]': 'effectiveDragFree() ? "" : null',
     '[attr.data-orientation]': 'orientation()',
-    '[attr.dir]': 'effectiveDirection()',
     '(keydown)': 'handleKeydown($event)',
   },
   providers: [{ provide: FR_CAROUSEL, useExisting: FrCarousel }],
@@ -70,6 +76,16 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   private loopResetScrollEndCleanup: (() => void) | null = null;
   private scrollSyncTimer: number | null = null;
   private isProgrammaticScroll = false;
+  private isPointerDragging = false;
+  private pointerDragStartOffset = 0;
+  private pointerDragStartPosition = 0;
+  private pointerDragStartIndex = 0;
+  private pointerDragLastPosition = 0;
+  private pointerDragLastTime = 0;
+  private pointerDragVelocity = 0;
+  private pendingPointerDragOffset: number | null = null;
+  private pointerDragFrame: number | null = null;
+  private activePointerId: number | null = null;
   private loopBoundaryClone: HTMLElement | null = null;
   private contentElement: HTMLElement | null = null;
   private itemElements: HTMLElement[] = [];
@@ -77,20 +93,32 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   private lastPlugins: readonly FrCarouselPlugin[] | null = null;
 
   readonly align = input<FrCarouselAlign>('start');
+  readonly dragFree = input(true, { transform: booleanAttribute });
   readonly loop = input(false, { transform: booleanAttribute });
+  readonly mouseDrag = input(true, { transform: booleanAttribute });
   readonly orientation = input<FrCarouselOrientation>('horizontal');
   readonly opts = input<FrCarouselOptions | null>(null);
   readonly plugins = input<readonly FrCarouselPlugin[]>([]);
+  readonly slidesToScroll = input(1, { transform: numberAttribute });
 
   readonly apiReady = output<FrCarouselApi>();
   readonly selectedChange = output<number>();
 
   readonly selectedIndex = signal(0);
+  readonly snapIndexes = computed(() =>
+    Array.from({ length: this.snapCount() }, (_, index) => index),
+  );
   readonly snapCount = signal(0);
 
   protected readonly effectiveAlign = computed(() => this.opts()?.align ?? this.align());
   protected readonly effectiveDirection = computed<FrCarouselDirection>(() => this.opts()?.direction ?? 'ltr');
+  readonly effectiveDragFree = computed(() => this.opts()?.dragFree ?? this.dragFree());
+  private readonly effectiveMouseDrag = computed(() => this.opts()?.mouseDrag ?? this.mouseDrag());
   private readonly effectiveLoop = computed(() => this.opts()?.loop ?? this.loop());
+  private readonly effectiveSlidesToScroll = computed(() => {
+    const value = this.opts()?.slidesToScroll ?? this.slidesToScroll();
+    return Math.max(1, Math.floor(Number.isFinite(value) ? value : 1));
+  });
 
   readonly api: FrCarouselApi = {
     canScrollNext: () => this.canScrollNext(),
@@ -108,6 +136,7 @@ export class FrCarousel implements AfterViewInit, DoCheck {
       this.pluginCleanups.splice(0).forEach((cleanup) => cleanup());
       this.clearLoopResetTimer();
       this.clearScrollSyncTimer();
+      this.clearPointerDragFrame();
     });
   }
 
@@ -134,6 +163,26 @@ export class FrCarousel implements AfterViewInit, DoCheck {
     fromEvent(element, 'scroll')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.syncSelectedFromScroll());
+
+    fromEvent<WheelEvent>(element, 'wheel')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => this.handleWheel(event));
+
+    fromEvent<PointerEvent>(element, 'pointerdown')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => this.handlePointerDown(event));
+
+    fromEvent<PointerEvent>(element, 'pointermove')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => this.handlePointerMove(event));
+
+    fromEvent<PointerEvent>(element, 'pointerup')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => this.handlePointerEnd(event));
+
+    fromEvent<PointerEvent>(element, 'pointercancel')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => this.handlePointerEnd(event));
   }
 
   registerItem(element: HTMLElement): void {
@@ -155,7 +204,7 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   }
 
   scrollPrev(): void {
-    const nextIndex = this.selectedIndex() - 1;
+    const nextIndex = this.selectedIndex() - this.effectiveSlidesToScroll();
     if (this.effectiveLoop() && nextIndex < 0) {
       this.scrollLoopBoundary('previous');
       return;
@@ -165,7 +214,7 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   }
 
   scrollNext(): void {
-    const nextIndex = this.selectedIndex() + 1;
+    const nextIndex = this.selectedIndex() + this.effectiveSlidesToScroll();
     if (this.effectiveLoop() && nextIndex >= this.snapCount()) {
       this.scrollLoopBoundary('next');
       return;
@@ -186,8 +235,9 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   }
 
   handleKeydown(event: KeyboardEvent): void {
-    const nextKey = this.orientation() === 'vertical' ? 'ArrowDown' : 'ArrowRight';
-    const prevKey = this.orientation() === 'vertical' ? 'ArrowUp' : 'ArrowLeft';
+    const isRtl = this.orientation() === 'horizontal' && this.effectiveDirection() === 'rtl';
+    const nextKey = this.orientation() === 'vertical' ? 'ArrowDown' : isRtl ? 'ArrowLeft' : 'ArrowRight';
+    const prevKey = this.orientation() === 'vertical' ? 'ArrowUp' : isRtl ? 'ArrowRight' : 'ArrowLeft';
 
     if (event.key === nextKey) {
       event.preventDefault();
@@ -198,6 +248,21 @@ export class FrCarousel implements AfterViewInit, DoCheck {
       event.preventDefault();
       this.scrollPrev();
     }
+  }
+
+  private handleWheel(event: WheelEvent): void {
+    if (!event.cancelable) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const scrollingElement = document.scrollingElement ?? document.documentElement;
+    scrollingElement.scrollBy({
+      top: event.deltaY,
+      left: event.deltaX,
+      behavior: 'auto',
+    });
   }
 
   private on(event: FrCarouselEvent, callback: () => void): () => void {
@@ -237,22 +302,171 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   }
 
   private syncSelectedFromScroll(): void {
-    if (this.isProgrammaticScroll || !this.contentElement || !this.itemElements.length) {
+    if (
+      this.isProgrammaticScroll ||
+      this.isPointerDragging ||
+      !this.contentElement ||
+      !this.itemElements.length
+    ) {
       return;
     }
 
     // Derive the active item from the nearest snap point during user-driven scrolling.
-    const current = this.getCurrentScrollOffset();
-    const closest = this.itemElements.reduce(
-      (best, item, index) => {
-        const targetOffset = this.getItemScrollOffset(item);
-        const distance = Math.abs(targetOffset - current);
-        return distance < best.distance ? { distance, index } : best;
-      },
-      { distance: Number.POSITIVE_INFINITY, index: this.selectedIndex() },
-    );
+    this.setSelectedIndex(this.getClosestItemIndex());
+  }
 
-    this.setSelectedIndex(closest.index);
+  private handlePointerDown(event: PointerEvent): void {
+    if (!this.effectiveMouseDrag() || !this.contentElement || event.button !== 0) {
+      return;
+    }
+
+    this.isPointerDragging = true;
+    this.activePointerId = event.pointerId;
+    this.pointerDragStartOffset = this.getCurrentScrollOffset();
+    this.pointerDragStartPosition = this.getPointerPosition(event);
+    this.pointerDragStartIndex = this.selectedIndex();
+    this.pointerDragLastPosition = this.pointerDragStartPosition;
+    this.pointerDragLastTime = event.timeStamp;
+    this.pointerDragVelocity = 0;
+    this.clearPointerDragFrame();
+    this.contentElement.setPointerCapture?.(event.pointerId);
+    this.contentElement.setAttribute('data-dragging', '');
+  }
+
+  private handlePointerMove(event: PointerEvent): void {
+    if (
+      !this.isPointerDragging ||
+      this.activePointerId !== event.pointerId ||
+      !this.contentElement
+    ) {
+      return;
+    }
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+
+    const pointerPosition = this.getPointerPosition(event);
+    const elapsed = event.timeStamp - this.pointerDragLastTime;
+    if (elapsed > 0) {
+      this.pointerDragVelocity = (pointerPosition - this.pointerDragLastPosition) / elapsed;
+      this.pointerDragLastPosition = pointerPosition;
+      this.pointerDragLastTime = event.timeStamp;
+    }
+
+    const delta = (pointerPosition - this.pointerDragStartPosition) * this.getDragDirectionMultiplier();
+    this.pendingPointerDragOffset = this.pointerDragStartOffset - delta;
+
+    if (this.pointerDragFrame !== null) {
+      return;
+    }
+
+    this.pointerDragFrame = window.requestAnimationFrame(() => {
+      this.pointerDragFrame = null;
+      this.applyPointerDragOffset();
+    });
+  }
+
+  private handlePointerEnd(event: PointerEvent): void {
+    if (!this.isPointerDragging || this.activePointerId !== event.pointerId) {
+      return;
+    }
+
+    this.isPointerDragging = false;
+    this.activePointerId = null;
+    this.applyPointerDragOffset();
+    this.clearPointerDragFrame();
+    this.contentElement?.releasePointerCapture?.(event.pointerId);
+    this.contentElement?.removeAttribute('data-dragging');
+    this.settlePointerDrag();
+  }
+
+  private applyPointerDragOffset(): void {
+    if (!this.contentElement || this.pendingPointerDragOffset === null) {
+      return;
+    }
+
+    const next = this.pendingPointerDragOffset;
+    this.pendingPointerDragOffset = null;
+
+    if (this.orientation() === 'vertical') {
+      this.contentElement.scrollTop = next;
+      return;
+    }
+
+    this.contentElement.scrollLeft = next;
+  }
+
+  private clearPointerDragFrame(): void {
+    if (this.pointerDragFrame === null) {
+      return;
+    }
+
+    window.cancelAnimationFrame(this.pointerDragFrame);
+    this.pointerDragFrame = null;
+  }
+
+  private getPointerPosition(event: PointerEvent): number {
+    return this.orientation() === 'vertical' ? event.clientY : event.clientX;
+  }
+
+  private settlePointerDrag(): void {
+    if (!this.contentElement || !this.itemElements.length) {
+      return;
+    }
+
+    const closestIndex = this.getClosestItemIndex();
+    const targetIndex = this.getPointerDragSettleIndex(closestIndex);
+    const target = this.itemElements[targetIndex];
+    if (!target) {
+      return;
+    }
+
+    this.pauseScrollSync();
+    this.scrollItemIntoView(target);
+    this.setSelectedIndex(targetIndex);
+  }
+
+  private getPointerDragSettleIndex(closestIndex: number): number {
+    const forwardDistance =
+      -(this.pointerDragLastPosition - this.pointerDragStartPosition) * this.getDragDirectionMultiplier();
+    const forwardVelocity = -this.pointerDragVelocity * this.getDragDirectionMultiplier();
+    const threshold = this.getPointerSettleThreshold();
+
+    if (Math.abs(forwardVelocity) >= POINTER_FLICK_VELOCITY) {
+      return this.getBoundedIndex(this.pointerDragStartIndex + (forwardVelocity > 0 ? 1 : -1));
+    }
+
+    if (Math.abs(forwardDistance) >= threshold) {
+      return this.getBoundedIndex(this.pointerDragStartIndex + (forwardDistance > 0 ? 1 : -1));
+    }
+
+    return closestIndex;
+  }
+
+  private getBoundedIndex(index: number): number {
+    if (this.effectiveLoop()) {
+      return (index + this.snapCount()) % this.snapCount();
+    }
+
+    return Math.max(0, Math.min(index, this.snapCount() - 1));
+  }
+
+  private getPointerSettleThreshold(): number {
+    if (!this.contentElement) {
+      return 48;
+    }
+
+    const size =
+      this.orientation() === 'vertical'
+        ? this.contentElement.clientHeight
+        : this.contentElement.clientWidth;
+
+    return Math.max(32, size * POINTER_SETTLE_THRESHOLD_RATIO);
+  }
+
+  private getDragDirectionMultiplier(): 1 | -1 {
+    return this.orientation() === 'horizontal' && this.effectiveDirection() === 'rtl' ? -1 : 1;
   }
 
   private scrollItemIntoView(target: HTMLElement, behavior: ScrollBehavior = 'smooth'): void {
@@ -318,6 +532,20 @@ export class FrCarousel implements AfterViewInit, DoCheck {
     return this.orientation() === 'vertical'
       ? this.contentElement.scrollTop
       : this.contentElement.scrollLeft;
+  }
+
+  private getClosestItemIndex(): number {
+    const current = this.getCurrentScrollOffset();
+    const closest = this.itemElements.reduce(
+      (best, item, index) => {
+        const targetOffset = this.getItemScrollOffset(item);
+        const distance = Math.abs(targetOffset - current);
+        return distance < best.distance ? { distance, index } : best;
+      },
+      { distance: Number.POSITIVE_INFINITY, index: this.selectedIndex() },
+    );
+
+    return closest.index;
   }
 
   private getMaxScrollOffset(): number {
@@ -448,6 +676,7 @@ export class FrCarousel implements AfterViewInit, DoCheck {
   selector: '[frCarouselContent]',
   host: {
     class: 'frame-carousel__content',
+    '[attr.data-drag-free]': 'carousel.effectiveDragFree() ? "" : null',
     '[attr.data-orientation]': 'carousel.orientation()',
   },
 })
@@ -480,7 +709,57 @@ export class FrCarouselItem implements AfterViewInit {
   }
 }
 
-/** Previous-slide control for carousel. */
+/** Optional control row for carousel navigation buttons. */
+@Directive({
+  selector: '[frCarouselControls], frame-carousel-controls',
+  host: {
+    class: 'frame-carousel__controls',
+  },
+})
+export class FrCarouselControls {}
+
+/** Optional button control for navigating the carousel. */
+@Directive({
+  selector: 'button[frCarouselControl]',
+  hostDirectives: [
+    {
+      directive: FrButton,
+      inputs: ['appearance', 'disabled', 'size'],
+    },
+  ],
+  host: {
+    class: 'frame-carousel__control',
+    '[class.frame-carousel__control--previous]': 'direction() === "previous"',
+    '[class.frame-carousel__control--next]': 'direction() === "next"',
+    '[attr.type]': '"button"',
+    '[attr.aria-label]': 'label()',
+    '[attr.disabled]': 'isDisabled() ? "" : null',
+    '(click)': 'handleClick()',
+  },
+})
+export class FrCarouselControl {
+  protected readonly carousel = inject(FR_CAROUSEL);
+
+  readonly direction = input<'previous' | 'next'>('next', { alias: 'frCarouselControl' });
+  readonly label = input('Navigate carousel');
+
+  protected isDisabled(): boolean {
+    return this.direction() === 'previous'
+      ? !this.carousel.canScrollPrev()
+      : !this.carousel.canScrollNext();
+  }
+
+  protected handleClick(): void {
+    if (this.direction() === 'previous') {
+      this.carousel.scrollPrev();
+      return;
+    }
+
+    this.carousel.scrollNext();
+  }
+}
+
+/** Button control for navigating to the previous carousel slide. */
 @Directive({
   selector: 'button[frCarouselPrevious]',
   hostDirectives: [
@@ -493,16 +772,24 @@ export class FrCarouselItem implements AfterViewInit {
     class: 'frame-carousel__control frame-carousel__control--previous',
     '[attr.type]': '"button"',
     '[attr.aria-label]': 'label()',
-    '[attr.disabled]': 'carousel.canScrollPrev() ? null : ""',
-    '(click)': 'carousel.scrollPrev()',
+    '[attr.disabled]': 'isDisabled() ? "" : null',
+    '(click)': 'handleClick()',
   },
 })
 export class FrCarouselPrevious {
-  protected readonly carousel = inject(FR_CAROUSEL);
+  private readonly carousel = inject(FR_CAROUSEL);
   readonly label = input('Previous slide');
+
+  protected isDisabled(): boolean {
+    return !this.carousel.canScrollPrev();
+  }
+
+  protected handleClick(): void {
+    this.carousel.scrollPrev();
+  }
 }
 
-/** Next-slide control for carousel. */
+/** Button control for navigating to the next carousel slide. */
 @Directive({
   selector: 'button[frCarouselNext]',
   hostDirectives: [
@@ -515,13 +802,81 @@ export class FrCarouselPrevious {
     class: 'frame-carousel__control frame-carousel__control--next',
     '[attr.type]': '"button"',
     '[attr.aria-label]': 'label()',
-    '[attr.disabled]': 'carousel.canScrollNext() ? null : ""',
-    '(click)': 'carousel.scrollNext()',
+    '[attr.disabled]': 'isDisabled() ? "" : null',
+    '(click)': 'handleClick()',
   },
 })
 export class FrCarouselNext {
-  protected readonly carousel = inject(FR_CAROUSEL);
+  private readonly carousel = inject(FR_CAROUSEL);
   readonly label = input('Next slide');
+
+  protected isDisabled(): boolean {
+    return !this.carousel.canScrollNext();
+  }
+
+  protected handleClick(): void {
+    this.carousel.scrollNext();
+  }
 }
 
+/** Dot-list slot for carousel pagination controls. */
+@Directive({
+  selector: '[frCarouselDots], frame-carousel-dots',
+  host: {
+    class: 'frame-carousel__dots',
+    role: 'group',
+    '[attr.aria-label]': 'label()',
+  },
+})
+export class FrCarouselDots {
+  readonly label = input('Carousel pagination');
+}
 
+/** Dot control for selecting a specific slide. */
+@Directive({
+  selector: 'button[frCarouselDot]',
+  host: {
+    class: 'frame-carousel__dot',
+    '[attr.type]': '"button"',
+    '[attr.aria-current]': 'carousel.selectedIndex() === index() ? "true" : null',
+    '[attr.aria-label]': 'label()',
+    '[attr.data-active]': 'carousel.selectedIndex() === index() ? "" : null',
+    '(click)': 'carousel.scrollTo(index())',
+  },
+})
+export class FrCarouselDot {
+  protected readonly carousel = inject(FR_CAROUSEL);
+  readonly index = input(0, { transform: numberAttribute });
+  readonly label = input('Select slide');
+}
+
+/** Thumbnail control for selecting a specific slide. */
+@Directive({
+  selector: 'button[frCarouselThumb]',
+  host: {
+    class: 'frame-carousel__thumb',
+    '[attr.type]': '"button"',
+    '[attr.aria-current]': 'carousel.selectedIndex() === index() ? "true" : null',
+    '[attr.aria-label]': 'label()',
+    '[attr.data-active]': 'carousel.selectedIndex() === index() ? "" : null',
+    '(click)': 'carousel.scrollTo(index())',
+  },
+})
+export class FrCarouselThumb {
+  protected readonly carousel = inject(FR_CAROUSEL);
+  readonly index = input(0, { transform: numberAttribute });
+  readonly label = input('Select slide');
+}
+
+/** Thumbnail-list slot for carousel thumbnail controls. */
+@Directive({
+  selector: '[frCarouselThumbs], frame-carousel-thumbs',
+  host: {
+    class: 'frame-carousel__thumbs',
+    role: 'group',
+    '[attr.aria-label]': 'label()',
+  },
+})
+export class FrCarouselThumbs {
+  readonly label = input('Carousel thumbnails');
+}

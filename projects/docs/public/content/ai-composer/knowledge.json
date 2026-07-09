@@ -2569,7 +2569,7 @@
           },
           {
             "language": "ts",
-            "code": "import { signal } from '@angular/core';\r\nimport { FrCarouselApi, FrCarouselModule } from '@frame-ui-ng/components/carousel';\r\n\r\nreadonly selected = signal(0);\r\n\r\nhandleApiReady(api: FrCarouselApi) {\r\n  api.on('select', () => {\r\n    this.selected.set(api.selectedScrollSnap());\r\n  });\r\n}"
+            "code": "import { signal } from '@angular/core';\r\nimport { FrCarouselModule } from '@frame-ui-ng/components/carousel';\r\n\r\nreadonly selected = signal(0);"
           }
         ]
       }

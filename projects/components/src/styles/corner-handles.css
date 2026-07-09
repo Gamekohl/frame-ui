@@ -71,10 +71,6 @@
     1px var(--frame-corner-handle-active-size);
 }
 
-.frame-button.frame-corner-handles.frame-carousel__control {
-  position: absolute;
-}
-
 :root[data-frame-corner-handles='false'] .frame-button.frame-corner-handles {
   background-image: none;
 }
