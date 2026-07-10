@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-40 border-b border-border bg-background/40 backdrop-blur-xs">
+<header class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-xs">
   <div class="mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
       <img
@@ -9,10 +9,7 @@
       />
     </a>
     <nav class="hidden items-center gap-5 text-sm font-semibold md:flex">
-      <a
-        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
-        routerLink="/docs"
-      >
+      <a class="docs-blueprint-meta text-muted-foreground hover:text-foreground" routerLink="/docs">
         Docs
       </a>
       <a
@@ -32,7 +29,19 @@
     <div class="ml-auto flex items-center gap-2">
       <button
         (click)="openSearch()"
-        class="hidden min-w-54 justify-between! gap-8 text-muted-foreground sm:inline-flex"
+        frIconButton
+        appearance="outline"
+        size="sm"
+        type="button"
+        class="sm:hidden"
+        aria-label="Search documentation"
+      >
+        <ng-icon name="tablerSearch" size="18" frButtonIcon />
+      </button>
+
+      <button
+        (click)="openSearch()"
+        class="hidden! min-w-54 justify-between! gap-8 text-muted-foreground sm:inline-flex!"
         frButton
         appearance="outline"
         size="sm"
@@ -279,7 +288,7 @@
         <ng-icon name="tablerSunMoon" size="18" frButtonIcon />
       </button>
 
-      <div frSeparator orientation="vertical"></div>
+      <div class="hidden sm:block" frSeparator orientation="vertical"></div>
 
       <a
         href="https://github.com/gamekohl/frame-ui"
@@ -287,6 +296,7 @@
         frIconButton
         appearance="outline"
         size="sm"
+        class="hidden sm:inline-flex"
         aria-label="GitHub"
         type="button"
         title="GitHub"
@@ -300,6 +310,7 @@
         frIconButton
         appearance="outline"
         size="sm"
+        class="hidden sm:inline-flex"
         aria-label="BuyMeACoffee"
         type="button"
         title="BuyMeACoffee"
@@ -308,6 +319,15 @@
       </a>
     </div>
   </div>
+
+  <nav
+    class="mx-auto flex max-w-350 gap-6 justify-center overflow-x-auto border-t border-border p-4 text-xs font-semibold sm:px-6 md:hidden xl:px-0"
+    aria-label="Primary mobile navigation"
+  >
+    <a class="docs-blueprint-meta" routerLink="/docs">Docs</a>
+    <a class="docs-blueprint-meta" routerLink="/docs/components">Components</a>
+    <a class="docs-blueprint-meta" routerLink="/charts">Charts</a>
+  </nav>
 </header>
 
 <ng-template #searchDialog="frCommandDialog" frCommandDialog aria-label="Search documentation">

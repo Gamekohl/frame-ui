@@ -24,6 +24,7 @@
 html {
   color-scheme: light;
   min-height: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
 
   --frame-background: var(--color-background);
@@ -212,6 +213,7 @@ html.dark[data-docs-palette='plasma'] {
 body {
   min-height: 100%;
   margin: 0;
+  overflow-x: clip;
   background:
     linear-gradient(var(--docs-blueprint-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--docs-blueprint-grid) 1px, transparent 1px),
@@ -235,6 +237,13 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-inline-size: 100%;
 }
 
 .angular-color-gradient {
@@ -308,6 +317,111 @@ body {
 
 .docs-sidebar-sheet {
   max-block-size: var(--docs-sidebar-visible-height);
+}
+
+.docs-mobile-nav {
+  padding: 0.75rem;
+}
+
+.docs-mobile-nav details + details {
+  border-block-start: 1px solid var(--frame-frame-line-muted);
+}
+
+.docs-mobile-nav__summary {
+  display: flex;
+  min-block-size: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--docs-blueprint-red);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-mobile-nav__summary::-webkit-details-marker {
+  display: none;
+}
+
+.docs-mobile-nav__summary::after {
+  content: '+';
+  color: var(--frame-muted-foreground);
+}
+
+.docs-mobile-nav details[open] > .docs-mobile-nav__summary::after {
+  content: '-';
+}
+
+.docs-mobile-nav__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 0.5rem;
+  padding-block: 0.25rem 0.75rem;
+}
+
+.docs-mobile-nav__row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-block: 0.125rem 0.25rem;
+  scrollbar-width: none;
+}
+
+.docs-mobile-nav__row::-webkit-scrollbar {
+  display: none;
+}
+
+.docs-mobile-nav__link,
+.docs-mobile-nav__pill {
+  display: inline-flex;
+  min-block-size: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--frame-frame-line-muted);
+  border-radius: var(--docs-layout-radius);
+  background: color-mix(in srgb, var(--frame-surface) 76%, transparent);
+  color: var(--frame-muted-foreground);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.docs-mobile-nav__link {
+  padding: 0.6rem 0.75rem;
+}
+
+.docs-mobile-nav__pill {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.85rem;
+  white-space: nowrap;
+}
+
+.docs-mobile-nav__link:hover,
+.docs-mobile-nav__link:focus-visible,
+.docs-mobile-nav__pill:hover,
+.docs-mobile-nav__pill:focus-visible {
+  border-color: var(--docs-blueprint-red);
+  background: var(--frame-muted);
+  color: var(--frame-foreground);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.docs-mobile-nav__link.is-active,
+.docs-mobile-nav__pill.is-active {
+  border-color: color-mix(in srgb, var(--docs-blueprint-red) 55%, var(--frame-frame-line-muted));
+  background: color-mix(in srgb, var(--docs-blueprint-red) 10%, var(--frame-surface));
+  color: var(--frame-foreground);
 }
 
 .docs-article > header,
@@ -444,6 +558,33 @@ body {
 
 :where(pre, docs-code-block, .shiki) {
   border-radius: var(--docs-layout-radius) !important;
+}
+
+@media (max-width: 767px) {
+  html {
+    --docs-header-height: 6.25rem;
+    --docs-page-padding-y: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .docs-article > header,
+  .docs-article > section {
+    padding: 1rem;
+  }
+
+  .docs-article > header h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .docs-article > header p,
+  .docs-article > section p,
+  .docs-blueprint-title,
+  .docs-blueprint-meta {
+    overflow-wrap: anywhere;
+  }
 }
 
 .slide-in-enter {
