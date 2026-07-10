@@ -26,9 +26,16 @@ class ConfirmTriggerHostComponent {
   confirmed = false;
 }
 
+const MODAL_LEAVE_ANIMATION_WAIT_MS = 170;
+
+function waitForModalLeaveAnimation(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, MODAL_LEAVE_ANIMATION_WAIT_MS));
+}
+
 describe('FrConfirmModal', () => {
-  afterEach(() => {
+  afterEach(async () => {
     TestBed.inject(FrModalService).closeAll();
+    await waitForModalLeaveAnimation();
     document.body.querySelector('.cdk-overlay-container')?.remove();
   });
 
@@ -66,7 +73,7 @@ describe('FrConfirmModal', () => {
     expect(actions[1].textContent).toContain('Publish now');
 
     actions[1].click();
-    await new Promise((resolve) => setTimeout(resolve));
+    await waitForModalLeaveAnimation();
 
     expect(closedResults).toEqual(['confirm']);
   });
@@ -98,7 +105,7 @@ describe('FrConfirmModal', () => {
     const confirmButton = Array.from(document.body.querySelectorAll('button.frame-button'))
       .find((button) => button.textContent?.includes('Approve')) as HTMLButtonElement;
     confirmButton.click();
-    await new Promise((resolve) => setTimeout(resolve));
+    await waitForModalLeaveAnimation();
 
     expect(fixture.componentInstance.confirmed).toBe(true);
   });

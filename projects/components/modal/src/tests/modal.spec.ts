@@ -149,9 +149,16 @@ class ProgrammaticTemplateHostComponent {
   readonly modal = inject(FrModalService);
 }
 
+const MODAL_LEAVE_ANIMATION_WAIT_MS = 170;
+
+function waitForModalLeaveAnimation(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, MODAL_LEAVE_ANIMATION_WAIT_MS));
+}
+
 describe('FrModal', () => {
-  afterEach(() => {
+  afterEach(async () => {
     TestBed.inject(FrModalService).closeAll();
+    await waitForModalLeaveAnimation();
     document.body.querySelector('.cdk-overlay-container')?.remove();
   });
 
@@ -174,10 +181,35 @@ describe('FrModal', () => {
     const close = document.body.querySelector('button[frmodalclose]') as HTMLButtonElement;
     close.click();
     fixture.detectChanges();
+    await waitForModalLeaveAnimation();
     await fixture.whenStable();
 
     expect(document.body.querySelector('frame-modal-panel')).toBeNull();
     expect(trigger.getAttribute('data-state')).toBe('closed');
+  });
+
+  it('marks the panel and backdrop as closing before the modal is removed', async () => {
+    const fixture = TestBed.createComponent(TriggerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.debugElement.query(By.directive(FrModalTrigger)).nativeElement as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const close = document.body.querySelector('button[frmodalclose]') as HTMLButtonElement;
+    close.click();
+    fixture.detectChanges();
+
+    const panel = document.body.querySelector('.frame-modal__panel') as HTMLElement;
+    const backdrop = document.body.querySelector('.frame-modal__backdrop') as HTMLElement;
+
+    expect(panel.hasAttribute('data-closing')).toBe(true);
+    expect(backdrop.hasAttribute('data-closing')).toBe(true);
+
+    await waitForModalLeaveAnimation();
+
+    expect(document.body.querySelector('.frame-modal__panel')).toBeNull();
   });
 
   it('can render without the default close button', async () => {
@@ -204,6 +236,7 @@ describe('FrModal', () => {
     const backdrop = document.body.querySelector('.frame-modal__backdrop') as HTMLElement;
     backdrop.click();
     fixture.detectChanges();
+    await waitForModalLeaveAnimation();
     await fixture.whenStable();
 
     expect(document.body.querySelector('frame-modal-panel')).toBeNull();
@@ -230,6 +263,7 @@ describe('FrModal', () => {
     const close = document.body.querySelector('button[frmodalclose]') as HTMLButtonElement;
     close.click();
     fixture.detectChanges();
+    await waitForModalLeaveAnimation();
     await fixture.whenStable();
 
     expect(document.body.querySelector('frame-modal-panel')).toBeNull();
@@ -266,7 +300,7 @@ describe('FrModal', () => {
 
     const close = document.body.querySelector('.programmatic-close') as HTMLButtonElement;
     close.click();
-    await new Promise((resolve) => setTimeout(resolve));
+    await waitForModalLeaveAnimation();
 
     expect(closedResults).toEqual(['done']);
   });
@@ -323,7 +357,7 @@ describe('FrModal', () => {
 
     const actions = Array.from(document.body.querySelectorAll('button.frame-button')) as HTMLButtonElement[];
     actions.at(-1)?.click();
-    await new Promise((resolve) => setTimeout(resolve));
+    await waitForModalLeaveAnimation();
 
     expect(document.body.querySelector('.frame-modal__panel')).toBeNull();
   });

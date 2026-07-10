@@ -38,7 +38,6 @@ The foundation tokens are intentionally semantic and small.
 - `--frame-info`: informational emphasis
 - `--frame-info-foreground`: readable text on `info`
 - `--frame-border`: default border color
-- `--frame-input`: input field chrome
 - `--frame-ring`: focus ring color
 
 ### Shape tokens

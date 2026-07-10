@@ -45,7 +45,6 @@ export class ThemeTokens {
   --color-muted-foreground: oklch(0.45 0 0);
   --color-accent: oklch(0.96 0 0);
   --color-accent-foreground: oklch(0.15 0 0);
-  --color-input: oklch(0.92 0 0);
   --color-ring: oklch(0.7 0 0);
   --shadow-frame-sm: none;
   --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
@@ -74,7 +73,6 @@ export class ThemeTokens {
   --frame-muted-foreground: var(--color-muted-foreground);
   --frame-accent: var(--color-accent);
   --frame-accent-foreground: var(--color-accent-foreground);
-  --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
   --frame-shadow-sm: var(--shadow-frame-sm);
   --frame-shadow-md: var(--shadow-frame-md);

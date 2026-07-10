@@ -1,0 +1,50 @@
+{
+  "version": "1.0.1",
+  "label": "Motion and appearance polish",
+  "highlights": [
+    {
+      "title": "Custom Tokens in Customize Preview",
+      "kind": "Added",
+      "description": "Customize Preview now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
+    },
+    {
+      "title": "Carousel primitive refactor",
+      "kind": "Changed",
+      "description": "Carousel primitives were refactored around a more flexible composition model, with clearer controls, pagination dots, thumbnails, drag-free behavior, and updated docs examples."
+    },
+    {
+      "title": "Modal and sheet exit motion",
+      "kind": "Fixed",
+      "description": "Modal and sheet overlays now keep their panel and backdrop mounted long enough for the leave animation to run instead of disappearing immediately when closed."
+    },
+    {
+      "title": "Switch default surface polish",
+      "kind": "Changed",
+      "description": "Switch now uses the border token for its unchecked surface, giving the control a quieter default state that fits better with the rest of the 1.0 theme."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Customize Preview now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
+      ]
+    },
+    {
+      "title": "Fixed",
+      "items": [
+        "Fixed modal close behavior so the panel and backdrop can play their leave animations before the dialog is disposed.",
+        "Fixed sheet close behavior so side-aware exit animations run for right, left, top, and bottom sheets.",
+        "Kept reduced-motion preferences respected for modal and sheet close transitions."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "Refactored Carousel primitives around a more flexible composition model, including clearer controls, pagination dots, thumbnails, drag-free behavior, and updated docs examples.",
+        "Adjusted the default switch background and hover tokens to use the border color instead of the input color.",
+        "Cleaned up obsolete foundation token references."
+      ]
+    }
+  ]
+}
