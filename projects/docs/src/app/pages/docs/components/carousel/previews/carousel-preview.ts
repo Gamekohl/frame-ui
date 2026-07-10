@@ -62,12 +62,7 @@ export type CarouselPreviewConfig = {
 
             <div class="docs-carousel-footer">
               <div frCarouselControls>
-                <button
-                  frCarouselPrevious
-                  appearance="outline"
-                  size="sm"
-                  label="Previous slide"
-                >
+                <button frCarouselPrevious appearance="outline" size="sm" label="Previous slide">
                   <ng-icon name="tablerChevronLeft" size="18" />
                 </button>
                 <button frCarouselNext appearance="outline" size="sm" label="Next slide">
@@ -125,12 +120,7 @@ export type CarouselPreviewConfig = {
 
             <div class="docs-carousel-footer">
               <div frCarouselControls>
-                <button
-                  frCarouselPrevious
-                  appearance="outline"
-                  size="sm"
-                  label="Previous slide"
-                >
+                <button frCarouselPrevious appearance="outline" size="sm" label="Previous slide">
                   <ng-icon name="tablerChevronLeft" size="18" />
                 </button>
                 <button frCarouselNext appearance="outline" size="sm" label="Next slide">
@@ -229,12 +219,7 @@ export type CarouselPreviewConfig = {
 
             <div class="docs-carousel-footer">
               <div frCarouselControls>
-                <button
-                  frCarouselPrevious
-                  appearance="outline"
-                  size="sm"
-                  label="Previous slide"
-                >
+                <button frCarouselPrevious appearance="outline" size="sm" label="Previous slide">
                   <ng-icon name="tablerChevronLeft" size="18" />
                 </button>
                 <button frCarouselNext appearance="outline" size="sm" label="Next slide">
@@ -305,17 +290,37 @@ export type CarouselPreviewConfig = {
     }
 
     .docs-carousel-actions {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(6.75rem, max-content) minmax(0, 1fr) minmax(
+          6.75rem,
+          max-content
+        );
       align-items: center;
-      justify-content: space-between;
       gap: 0.75rem;
       margin-block-start: 0.875rem;
+    }
+
+    .docs-carousel-actions button {
+      inline-size: 100%;
+      min-inline-size: 0;
     }
 
     .docs-carousel-actions p {
       margin: 0;
       color: var(--frame-muted-foreground);
       text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 520px) {
+      .docs-carousel-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .docs-carousel-actions p {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
     }
   `,
 })
@@ -334,5 +339,4 @@ export class DocsCarouselPreviewComponent {
     const timer = window.setInterval(() => api.scrollNext(), 2600);
     return () => window.clearInterval(timer);
   };
-
 }

@@ -8,6 +8,11 @@
       "description": "Customize Preview now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
     },
     {
+      "title": "Carousel primitive refactor",
+      "kind": "Changed",
+      "description": "Carousel primitives were refactored around a more flexible composition model, with clearer controls, pagination dots, thumbnails, drag-free behavior, and updated docs examples."
+    },
+    {
       "title": "Modal and sheet exit motion",
       "kind": "Fixed",
       "description": "Modal and sheet overlays now keep their panel and backdrop mounted long enough for the leave animation to run instead of disappearing immediately when closed."
@@ -36,6 +41,7 @@
     {
       "title": "Changed",
       "items": [
+        "Refactored Carousel primitives around a more flexible composition model, including clearer controls, pagination dots, thumbnails, drag-free behavior, and updated docs examples.",
         "Adjusted the default switch background and hover tokens to use the border color instead of the input color.",
         "Cleaned up obsolete foundation token references."
       ]
