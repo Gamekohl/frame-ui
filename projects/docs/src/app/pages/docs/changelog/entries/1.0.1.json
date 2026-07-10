@@ -3,9 +3,9 @@
   "label": "Motion and appearance polish",
   "highlights": [
     {
-      "title": "Custom Tokens in the docs header",
+      "title": "Custom Tokens in Customize Preview",
       "kind": "Added",
-      "description": "The docs header now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
+      "description": "Customize Preview now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
     },
     {
       "title": "Modal and sheet exit motion",
@@ -22,7 +22,7 @@
     {
       "title": "Added",
       "items": [
-        "The docs header now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
+        "Customize Preview now includes Custom Tokens, allowing the theme to be adjusted freely in the preview by editing the core color tokens directly."
       ]
     },
     {
