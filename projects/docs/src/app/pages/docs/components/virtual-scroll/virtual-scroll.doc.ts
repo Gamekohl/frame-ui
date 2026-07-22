@@ -422,14 +422,11 @@ results = Array.from({ length: 200 }, (_, index) => ({
   label: \`Search result \${index + 1}\`,
 }));
 
-itemToString = (value: unknown) =>
-  this.results.find((result) => result.value === value)?.label ?? '';
-
 trackResult = (_index: number, result: { value: string }) => result.value;`,
         },
         {
           language: 'html',
-          code: `<div frCombobox [formControl]="resultControl" [itemToStringValue]="itemToString">
+          code: `<div frCombobox [formControl]="resultControl">
   <input frComboboxInput placeholder="Search commands, pages, or frameworks" />
 
   <ng-template frComboboxContent>

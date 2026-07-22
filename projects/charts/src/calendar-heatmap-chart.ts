@@ -1,4 +1,4 @@
-import { FrChartDatum, FrChartHeatmapCellModel, FrChartHeatmapTick, FrChartSeries } from './chart.types';
+import { FrChartDataPoint, FrChartHeatmapCellModel, FrChartHeatmapTick, FrChartSeries } from './chart.types';
 import { coerceNumber } from './chart-utils';
 import { emptyHeatmapModel, HeatmapModel, heatmapCellColor } from './heatmap-chart';
 
@@ -12,7 +12,7 @@ interface CalendarHeatmapSeries {
 }
 
 export interface BuildCalendarHeatmapOptions {
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly plotHeight: number;
   readonly plotWidth: number;
   readonly plotX: number;
@@ -107,7 +107,7 @@ export function buildCalendarHeatmap(options: BuildCalendarHeatmapOptions): Cale
 }
 
 function entryFromDatum(
-  datum: FrChartDatum,
+  datum: FrChartDataPoint,
   xKey: string,
   series: Pick<FrChartSeries, 'key' | 'label'>,
 ): CalendarHeatmapEntry | null {

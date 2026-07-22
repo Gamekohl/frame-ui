@@ -58,7 +58,6 @@ export type ComboboxPreviewConfig = {
             [disabled]="config().disabled ?? false"
             [autoHighlight]="config().autoHighlight ?? true"
             [debugVisible]="config().debugVisible ?? false"
-            [itemToStringValue]="stringifyValue"
             [(value)]="value"
           >
             <div class="relative">
@@ -180,7 +179,6 @@ export type ComboboxPreviewConfig = {
           <div
             frCombobox
             [disabled]="config().disabled ?? false"
-            [itemToStringValue]="stringifyValue"
             [(value)]="value"
           >
             <button frComboboxTrigger type="button">
@@ -232,7 +230,6 @@ export type ComboboxPreviewConfig = {
             [disabled]="config().disabled ?? false"
             [autoHighlight]="config().autoHighlight ?? true"
             [debugVisible]="config().debugVisible ?? false"
-            [itemToStringValue]="stringifyValue"
             [(value)]="value"
           >
             <div frComboboxChips>
@@ -299,7 +296,6 @@ export type ComboboxPreviewConfig = {
               [disabled]="config().disabled ?? false"
               [autoHighlight]="config().autoHighlight ?? true"
               [debugVisible]="config().debugVisible ?? false"
-              [itemToStringValue]="stringifyValue"
             >
               <div class="relative">
                 <input
@@ -362,7 +358,6 @@ export type ComboboxPreviewConfig = {
               [disabled]="config().disabled ?? false"
               [autoHighlight]="config().autoHighlight ?? true"
               [debugVisible]="config().debugVisible ?? false"
-              [itemToStringValue]="stringifyValue"
               [(value)]="value"
             >
               <div class="relative">
@@ -426,7 +421,6 @@ export type ComboboxPreviewConfig = {
 export class DocsComboboxPreviewComponent {
   readonly config = input.required<ComboboxPreviewConfig>();
   protected value = signal<unknown | unknown[] | null>(null);
-  protected readonly stringifyValue = (value: unknown): string => this.itemLabel(value);
   protected readonly invalidDemoControl = new FormControl<string | null>(null, {
     validators: [Validators.required],
     nonNullable: false,

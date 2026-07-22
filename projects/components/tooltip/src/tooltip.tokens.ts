@@ -5,7 +5,6 @@ export const FR_TOOLTIP_TOKEN_NAMES = [
   '--frame-tooltip-content-radius',
   '--frame-tooltip-content-shadow',
   '--frame-tooltip-content-padding',
-  '--frame-tooltip-content-max-width',
   '--frame-tooltip-content-font-size',
   '--frame-tooltip-content-font-weight',
   '--frame-tooltip-content-line-height',

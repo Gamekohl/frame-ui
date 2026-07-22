@@ -2,10 +2,31 @@
 
 [frTableContainer],
 frame-table-container {
+  box-sizing: border-box;
   display: block;
   max-inline-size: 100%;
   overflow: auto;
   border-radius: var(--frame-table-radius);
+}
+
+[frTableContainer]:has(> [frTable][data-variant='outline'], > frame-table[data-variant='outline']),
+frame-table-container:has(> [frTable][data-variant='outline'], > frame-table[data-variant='outline']) {
+  border: 1px solid var(--frame-table-border);
+}
+
+[frTableContainer]:has(> [frTable][data-variant='card'], > frame-table[data-variant='card']),
+frame-table-container:has(> [frTable][data-variant='card'], > frame-table[data-variant='card']) {
+  border: 1px solid var(--frame-table-border);
+  box-shadow: var(--frame-table-shadow);
+}
+
+[frTableContainer] > [frTable][data-variant='outline'],
+[frTableContainer] > [frTable][data-variant='card'],
+frame-table-container > frame-table[data-variant='outline'],
+frame-table-container > frame-table[data-variant='card'] {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 [frTable],

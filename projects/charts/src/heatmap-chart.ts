@@ -1,6 +1,6 @@
 import { chartColor } from './chart-colors';
 import { formatChartLabel } from './chart-format';
-import { FrChartDatum, FrChartHeatmapCellModel, FrChartHeatmapTick, FrChartSeries } from './chart.types';
+import { FrChartDataPoint, FrChartHeatmapCellModel, FrChartHeatmapTick, FrChartSeries } from './chart.types';
 import { coerceNumber } from './chart-utils';
 
 export interface HeatmapSeries {
@@ -16,7 +16,7 @@ export interface HeatmapModel {
 }
 
 export interface BuildHeatmapOptions {
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly plotHeight: number;
   readonly plotWidth: number;
   readonly plotX: number;
@@ -126,7 +126,7 @@ export function emptyHeatmapModel(): HeatmapModel {
 }
 
 function entryFromDatum(
-  datum: FrChartDatum,
+  datum: FrChartDataPoint,
   xKey: string,
   yKey: string,
   series: Pick<FrChartSeries, 'key'>,

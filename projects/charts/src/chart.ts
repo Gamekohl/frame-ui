@@ -46,7 +46,7 @@ import {
   FrChartBarLayout,
   FrChartBarOrientation,
   FrChartClickEvent,
-  FrChartDatum,
+  FrChartDataPoint,
   FrChartModel,
   FrChartSeries,
   FrChartSeriesType,
@@ -59,7 +59,7 @@ export type {
   FrChartBarLayout,
   FrChartBarOrientation,
   FrChartCurve,
-  FrChartDatum,
+  FrChartDataPoint,
   FrChartClickEvent,
   FrChartSeries,
   FrChartSeriesType,
@@ -214,7 +214,7 @@ export class FrChart implements AfterViewInit {
   private resizeObserver: ResizeObserver | null = null;
   protected readonly revealClipId = `frame-chart-reveal-${nextChartId++}`;
 
-  readonly data = input<readonly FrChartDatum[]>([]);
+  readonly data = input<readonly FrChartDataPoint[]>([]);
   readonly series = input<readonly FrChartSeries[]>([]);
   readonly xKey = input('name');
   readonly yKey = input<string | null>(null);
@@ -678,7 +678,7 @@ export class FrChart implements AfterViewInit {
     );
   }
 
-  private valuesForDomain(data: readonly FrChartDatum[], series: readonly FrChartSeries[]): readonly number[] {
+  private valuesForDomain(data: readonly FrChartDataPoint[], series: readonly FrChartSeries[]): readonly number[] {
     if (
       (this.type() !== 'bar' && this.type() !== 'bar-sparkline' && this.type() !== 'column-sparkline') ||
       this.sparklineBarLayout() !== 'stacked'
@@ -773,7 +773,7 @@ export class FrChart implements AfterViewInit {
     return radialIndexFromPoint(model.radials, pointer.x, pointer.y, centerX, centerY);
   }
 
-  private inputSeries(data: readonly FrChartDatum[]): readonly FrChartSeries[] {
+  private inputSeries(data: readonly FrChartDataPoint[]): readonly FrChartSeries[] {
     const series = this.series();
 
     if (series.length) {

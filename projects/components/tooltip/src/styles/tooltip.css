@@ -8,7 +8,6 @@
 
 .frame-tooltip__content {
   position: relative;
-  max-width: min(var(--frame-tooltip-content-max-width), calc(100vw - 1rem));
   border: 1px solid var(--frame-tooltip-content-border);
   border-radius: var(--frame-tooltip-content-radius);
   background: var(--frame-tooltip-content-bg);

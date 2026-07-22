@@ -119,7 +119,7 @@ class LabelRegistrationHostComponent {
   ],
   standalone: true,
   template: `
-    <div frCombobox [(value)]="value" [itemToStringValue]="stringifyValue">
+    <div frCombobox [(value)]="value">
       <input frComboboxInput />
       <ng-template frComboboxContent>
         <div frComboboxPanel>
@@ -131,9 +131,8 @@ class LabelRegistrationHostComponent {
     </div>
   `,
 })
-class StringifierHostComponent {
+class LazyLabelHostComponent {
   readonly value = signal<unknown | unknown[] | null>('angular');
-  readonly stringifyValue = (value: unknown): string => (value === 'angular' ? 'Angular' : String(value ?? ''));
 }
 
 @Component({
@@ -450,10 +449,11 @@ describe('FrCombobox', () => {
     expect(input.value).toBe('Angular');
   });
 
-  it('uses itemToStringValue for initial values before lazy items are rendered', async () => {
-    const fixture = TestBed.createComponent(StringifierHostComponent);
+  it('resolves the initial label from lazy combobox items', async () => {
+    const fixture = TestBed.createComponent(LazyLabelHostComponent);
     fixture.detectChanges();
     await fixture.whenStable();
+    fixture.detectChanges();
 
     const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
 
@@ -467,7 +467,7 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
 
     const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
-    expect(input.value).toBe('angular');
+    expect(input.value).toBe('Angular');
 
     input.dispatchEvent(new FocusEvent('focus'));
     input.value = 'A';

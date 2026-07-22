@@ -33,7 +33,7 @@ import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
 import { FrToastModule, FrToastService } from '@frame-ui-ng/components/toast';
-import { FrChart, type FrChartDatum, type FrChartSeries } from '@frame-ui-ng/charts';
+import { FrChart, type FrChartDataPoint, type FrChartSeries } from '@frame-ui-ng/charts';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   tablerActivity,
@@ -561,14 +561,14 @@ export class ProductCatalogTemplatePage {
     }).format(value);
   }
 
-  protected salesChartData(product: CatalogProduct): readonly FrChartDatum[] {
+  protected salesChartData(product: CatalogProduct): readonly FrChartDataPoint[] {
     return this.salesSeries(product).map((units, index) => ({
       day: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index],
       units,
     }));
   }
 
-  protected inventoryChartData(product: CatalogProduct): readonly FrChartDatum[] {
+  protected inventoryChartData(product: CatalogProduct): readonly FrChartDataPoint[] {
     return this.inventorySeries(product).map((stock, index) => ({
       week: `W${index + 1}`,
       stock,

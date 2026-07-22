@@ -69,7 +69,7 @@ export class FrComboboxItem implements DoCheck {
     this.root.refreshItems();
 
     if (this.root.isSelected(this.value())) {
-      this.root.rememberItemLabel(this.value(), this.label());
+      this.root.rememberItemLabel(this.value(), this.itemLabel() ?? this.label());
     }
   }
 
@@ -93,6 +93,18 @@ export class FrComboboxItem implements DoCheck {
 
   scrollIntoView(): void {
     this.elementRef.nativeElement.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+  }
+
+  captureLabel(): void {
+    const explicitLabel = this.itemLabel();
+
+    if (explicitLabel !== null) {
+      this.root.rememberItemLabel(this.value(), explicitLabel);
+      return;
+    }
+
+    this.refreshResolvedLabel();
+    this.root.rememberItemLabel(this.value(), this.resolvedLabel());
   }
 
   protected highlightSelf(): void {

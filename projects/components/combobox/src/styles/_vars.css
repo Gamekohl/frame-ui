@@ -14,7 +14,7 @@
   --frame-combobox-control-invalid-border: color-mix(in srgb, var(--frame-destructive) 65%, var(--frame-border));
   --frame-combobox-control-invalid-shadow: none;
   --frame-combobox-control-transition-duration: 150ms;
-  --frame-combobox-clear-offset: 0.375rem;
+  --frame-combobox-clear-offset: var(--frame-combobox-control-padding-inline);
   --frame-combobox-clear-radius: var(--frame-radius-sm);
   --frame-combobox-panel-max-height: min(18rem, 50vh);
   --frame-combobox-panel-radius: var(--frame-radius-md);

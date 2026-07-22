@@ -2,7 +2,7 @@ import {
   FrChartBarLayout,
   FrChartBarOrientation,
   FrChartCurve,
-  FrChartDatum,
+  FrChartDataPoint,
   FrChartSeries,
   FrChartType,
 } from '@frame-ui-ng/charts';
@@ -30,7 +30,7 @@ export type ChartExample = {
   readonly legendToggle?: boolean;
   readonly xKey?: string;
   readonly yKey?: string;
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly series: readonly FrChartSeries[];
   readonly code: readonly DocsCodeBlock[];
   readonly barLabel?: string;
