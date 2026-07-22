@@ -98,9 +98,16 @@ class ProgrammaticTemplateHostComponent {
   readonly sheet = inject(FrSheetService);
 }
 
+const SHEET_LEAVE_ANIMATION_WAIT_MS = 190;
+
+function waitForSheetLeaveAnimation(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, SHEET_LEAVE_ANIMATION_WAIT_MS));
+}
+
 describe('FrSheet', () => {
-  afterEach(() => {
+  afterEach(async () => {
     TestBed.inject(FrSheetService).closeAll();
+    await waitForSheetLeaveAnimation();
     document.body.querySelector('.cdk-overlay-container')?.remove();
   });
 
@@ -124,10 +131,35 @@ describe('FrSheet', () => {
     const close = document.body.querySelector('button[frsheetclose]') as HTMLButtonElement;
     close.click();
     fixture.detectChanges();
+    await waitForSheetLeaveAnimation();
     await fixture.whenStable();
 
     expect(document.body.querySelector('[frSheetPanel]')).toBeNull();
     expect(trigger.getAttribute('data-state')).toBe('closed');
+  });
+
+  it('marks the panel and backdrop as closing before the sheet is removed', async () => {
+    const fixture = TestBed.createComponent(TriggerHostComponent);
+    fixture.detectChanges();
+
+    const trigger = fixture.debugElement.query(By.directive(FrSheetTrigger)).nativeElement as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const close = document.body.querySelector('button[frsheetclose]') as HTMLButtonElement;
+    close.click();
+    fixture.detectChanges();
+
+    const panel = document.body.querySelector('.frame-sheet__panel') as HTMLElement;
+    const backdrop = document.body.querySelector('.frame-sheet__backdrop') as HTMLElement;
+
+    expect(panel.hasAttribute('data-closing')).toBe(true);
+    expect(backdrop.hasAttribute('data-closing')).toBe(true);
+
+    await waitForSheetLeaveAnimation();
+
+    expect(document.body.querySelector('.frame-sheet__panel')).toBeNull();
   });
 
   it('closes from the default panel close button', async () => {
@@ -145,6 +177,7 @@ describe('FrSheet', () => {
 
     close.click();
     fixture.detectChanges();
+    await waitForSheetLeaveAnimation();
     await fixture.whenStable();
 
     expect(document.body.querySelector('[frSheetPanel]')).toBeNull();
@@ -231,7 +264,7 @@ describe('FrSheet', () => {
 
     const actions = Array.from(document.body.querySelectorAll('button.frame-button')) as HTMLButtonElement[];
     actions.at(-1)?.click();
-    await new Promise((resolve) => setTimeout(resolve));
+    await waitForSheetLeaveAnimation();
 
     expect(document.body.querySelector('.frame-sheet__panel')).toBeNull();
   });

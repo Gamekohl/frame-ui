@@ -80,7 +80,8 @@ const invalidConfig: SwitchPreviewConfig = {
     {
       id: 'required-approval',
       label: 'I confirm the production rollout checklist is complete',
-      description: 'Turn this off to see the reactive validation state driven by Validators.requiredTrue.',
+      description:
+        'Turn this off to see the reactive validation state driven by Validators.requiredTrue.',
       initialChecked: true,
       reactiveRequiredDemo: true,
       error: 'Confirmation is required before continuing.',
@@ -119,7 +120,8 @@ const customStylingConfig: SwitchPreviewConfig = {
     {
       id: 'custom-switch',
       label: 'Enable guided setup',
-      description: 'This preview applies local spacing, sizing, thumb, and checked-state overrides.',
+      description:
+        'This preview applies local spacing, sizing, thumb, and checked-state overrides.',
       initialChecked: true,
       icon: 'tablerRocket',
     },
@@ -149,7 +151,8 @@ export const SWITCH_DOC: ComponentDoc = {
     manual: {
       steps: [
         {
-          title: 'Import the switch primitives for the control, content stack, and optional helper text.',
+          title:
+            'Import the switch primitives for the control, content stack, and optional helper text.',
           code: {
             language: 'ts',
             code: importsCode,
@@ -196,14 +199,20 @@ notificationsControl = new FormControl(true, { nonNullable: true });`,
           id: 'field',
           label: 'Field wrapper',
           selector: '[data-token-target="switch-field"]',
-          description: 'The field wrapper controls the spacing between the switch and its content stack, plus the disabled text color contract.',
-          tokens: ['--frame-switch-field-gap', '--frame-switch-field-color', '--frame-switch-field-disabled-color'],
+          description:
+            'The field wrapper controls the spacing between the switch and its content stack, plus the disabled text color contract.',
+          tokens: [
+            '--frame-switch-field-gap',
+            '--frame-switch-field-color',
+            '--frame-switch-field-disabled-color',
+          ],
         },
         {
           id: 'control',
           label: 'Switch control',
           selector: '[data-token-target="switch-control"]',
-          description: 'The control tokens define the switch track dimensions, thumb size, checked and hover states, focus ring, and invalid treatment.',
+          description:
+            'The control tokens define the switch track dimensions, thumb size, checked and hover states, focus ring, and invalid treatment.',
           tokens: [
             '--frame-switch-width',
             '--frame-switch-height',
@@ -228,14 +237,16 @@ notificationsControl = new FormControl(true, { nonNullable: true });`,
           id: 'content',
           label: 'Content stack',
           selector: '[data-token-target="switch-content"]',
-          description: 'The content wrapper sets the vertical spacing rhythm between the label, description, and error message.',
+          description:
+            'The content wrapper sets the vertical spacing rhythm between the label, description, and error message.',
           tokens: ['--frame-switch-content-gap'],
         },
         {
           id: 'label',
           label: 'Label',
           selector: '[data-token-target="switch-label"]',
-          description: 'Label tokens control the primary type scale and emphasis for the switch row.',
+          description:
+            'Label tokens control the primary type scale and emphasis for the switch row.',
           tokens: ['--frame-switch-label-font-size', '--frame-switch-label-font-weight'],
         },
         {
@@ -249,7 +260,8 @@ notificationsControl = new FormControl(true, { nonNullable: true });`,
           id: 'error',
           label: 'Error text',
           selector: '[data-token-target="switch-error"]',
-          description: 'Error tokens define the validation color and supporting type scale below the label.',
+          description:
+            'Error tokens define the validation color and supporting type scale below the label.',
           tokens: ['--frame-switch-error-color', '--frame-switch-error-font-size'],
         },
       ],
@@ -466,8 +478,8 @@ confirmationControl = new FormControl(true, {
   --frame-switch-sm-height: 1rem;
   --frame-switch-sm-thumb-size: 0.75rem;
   --frame-switch-radius: var(--frame-radius-sm);
-  --frame-switch-bg: var(--frame-input);
-  --frame-switch-hover-bg: color-mix(in srgb, var(--frame-input) 82%, var(--frame-foreground));
+  --frame-switch-bg: var(--frame-border);
+  --frame-switch-hover-bg: color-mix(in srgb, var(--frame-border) 82%, var(--frame-foreground));
   --frame-switch-checked-bg: var(--frame-primary);
   --frame-switch-checked-hover-bg: color-mix(in srgb, var(--frame-primary) 88%, var(--frame-foreground));
   --frame-switch-thumb-bg: var(--frame-background);
@@ -482,4 +494,3 @@ confirmationControl = new FormControl(true, {
   --frame-switch-transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
   `,
 };
-

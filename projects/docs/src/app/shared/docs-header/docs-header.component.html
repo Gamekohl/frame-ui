@@ -1,7 +1,12 @@
 <header class="sticky top-0 z-40 border-b border-border bg-background/40 backdrop-blur-xs">
   <div class="relative mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
-      <img alt="Logo" [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'" width="24" height="24" />
+      <img
+        alt="Logo"
+        [ngSrc]="themeService.isDark() ? '/logo/1024x1024_dark.webp' : '/logo/1024x1024.webp'"
+        width="24"
+        height="24"
+      />
     </a>
     <nav frNavigationMenu [frCornerHandles]="false" aria-label="Main navigation">
       <ul frNavigationMenuList>
@@ -89,7 +94,19 @@
     <div class="ml-auto flex items-center gap-2">
       <button
         (click)="openSearch()"
-        class="hidden min-w-54 justify-between! gap-8 text-muted-foreground sm:inline-flex"
+        frIconButton
+        appearance="outline"
+        size="sm"
+        type="button"
+        class="sm:hidden!"
+        aria-label="Search documentation"
+      >
+        <ng-icon name="tablerSearch" size="18" frButtonIcon />
+      </button>
+
+      <button
+        (click)="openSearch()"
+        class="hidden! min-w-54 justify-between! gap-8 text-muted-foreground sm:inline-flex!"
         frButton
         appearance="outline"
         size="sm"
@@ -99,11 +116,13 @@
       >
         <div>
           <span class="flex items-center gap-2">
-          <ng-icon name="tablerSearch" size="16" frButtonIcon />
-          Search docs...
-        </span>
+            <ng-icon name="tablerSearch" size="16" frButtonIcon />
+            Search docs...
+          </span>
         </div>
-        <kbd class="border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
+        <kbd
+          class="border border-border bg-muted px-1.5 py-0.5 text-[0.68rem] font-semibold text-muted-foreground"
+        >
           Alt P
         </kbd>
       </button>
@@ -121,31 +140,63 @@
           <ng-icon name="tablerTools" size="18" frButtonIcon />
         </button>
 
-        <ng-template #appearanceMenu="frDropdownMenuContent" frDropdownMenuContent side="bottom" align="end">
+        <ng-template
+          #appearanceMenu="frDropdownMenuContent"
+          frDropdownMenuContent
+          side="bottom"
+          align="end"
+        >
           <div frDropdownMenuPanel class="min-w-70">
             <span frDropdownMenuLabel>Preview Palette</span>
 
             @for (palette of palettes; track palette.id) {
-              <button
-                frDropdownMenuItem
-                type="button"
-                [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
-                (click)="setPalette(palette.id)"
-              >
-                <span
-                  class="inline-block size-3 shrink-0 border border-border"
-                  [style.background]="palette.swatch"
-                ></span>
-                <span class="grid min-w-0 gap-0.5">
-                  <span class="truncate font-semibold">{{ palette.label }}</span>
-                  <span class="truncate text-xs text-muted-foreground">{{ palette.description }}</span>
-                </span>
-                @if (selectedPalette() === palette.id) {
-                  <span frDropdownMenuShortcut>
-                    <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+              @if (palette.id === 'custom') {
+                <button
+                  frDropdownMenuItem
+                  type="button"
+                  [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
+                  (click)="openCustomPaletteSheet($event)"
+                >
+                  <span
+                    class="inline-block size-3 shrink-0"
+                    [style.background]="customPalettePreview()"
+                  ></span>
+                  <span class="grid min-w-0 gap-0.5">
+                    <span class="truncate font-semibold">{{ palette.label }}</span>
+                    <span class="truncate text-xs text-muted-foreground">{{
+                      palette.description
+                    }}</span>
                   </span>
-                }
-              </button>
+                  @if (selectedPalette() === palette.id) {
+                    <span frDropdownMenuShortcut>
+                      <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                    </span>
+                  }
+                </button>
+              } @else {
+                <button
+                  frDropdownMenuItem
+                  type="button"
+                  [attr.aria-current]="selectedPalette() === palette.id ? 'true' : null"
+                  (click)="setPalette(palette.id)"
+                >
+                  <span
+                    class="inline-block size-3 shrink-0"
+                    [style.background]="palette.swatch"
+                  ></span>
+                  <span class="grid min-w-0 gap-0.5">
+                    <span class="truncate font-semibold">{{ palette.label }}</span>
+                    <span class="truncate text-xs text-muted-foreground">{{
+                      palette.description
+                    }}</span>
+                  </span>
+                  @if (selectedPalette() === palette.id) {
+                    <span frDropdownMenuShortcut>
+                      <ng-icon name="tablerCheck" size="16" aria-hidden="true" />
+                    </span>
+                  }
+                </button>
+              }
             }
 
             <div frDropdownMenuSeparator></div>
@@ -169,7 +220,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ radius.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ radius.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          radius.description
+                        }}</span>
                       </span>
                       @if (selectedRadius() === radius.id) {
                         <span frDropdownMenuShortcut>
@@ -184,11 +237,20 @@
 
             <div frDropdownMenuSub>
               <button [frDropdownMenuSubTrigger]="densityMenu" type="button">
-                <ng-icon class="shrink-0" name="tablerBaselineDensityMedium" size="16" aria-hidden="true" />
+                <ng-icon
+                  class="shrink-0"
+                  name="tablerBaselineDensityMedium"
+                  size="16"
+                  aria-hidden="true"
+                />
                 <span>Density</span>
               </button>
 
-              <ng-template #densityMenu="frDropdownMenuContent" frDropdownMenuSubContent side="auto">
+              <ng-template
+                #densityMenu="frDropdownMenuContent"
+                frDropdownMenuSubContent
+                side="auto"
+              >
                 <div frDropdownMenuPanel class="min-w-56">
                   @for (density of densityPresets; track density.id) {
                     <button
@@ -199,7 +261,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ density.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ density.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          density.description
+                        }}</span>
                       </span>
                       @if (selectedDensity() === density.id) {
                         <span frDropdownMenuShortcut>
@@ -229,7 +293,9 @@
                     >
                       <span class="grid min-w-0 gap-0.5">
                         <span class="truncate font-semibold">{{ shadow.label }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ shadow.description }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          shadow.description
+                        }}</span>
                       </span>
                       @if (selectedShadow() === shadow.id) {
                         <span frDropdownMenuShortcut>
@@ -287,7 +353,7 @@
         <ng-icon name="tablerSunMoon" size="18" frButtonIcon />
       </button>
 
-      <div frSeparator orientation="vertical"></div>
+      <div class="hidden sm:block" frSeparator orientation="vertical"></div>
 
       <a
         href="https://github.com/gamekohl/frame-ui"
@@ -295,6 +361,7 @@
         frIconButton
         appearance="outline"
         size="sm"
+        class="hidden sm:inline-flex"
         aria-label="GitHub"
         type="button"
         title="GitHub"
@@ -308,6 +375,7 @@
         frIconButton
         appearance="outline"
         size="sm"
+        class="hidden sm:inline-flex"
         aria-label="BuyMeACoffee"
         type="button"
         title="BuyMeACoffee"
@@ -316,10 +384,24 @@
       </a>
     </div>
   </div>
+
+  <nav
+    class="mx-auto flex max-w-350 gap-6 justify-center overflow-x-auto border-t border-border p-4 text-xs font-semibold sm:px-6 md:hidden xl:px-0"
+    aria-label="Primary mobile navigation"
+  >
+    <a class="docs-blueprint-meta" routerLink="/docs">Docs</a>
+    <a class="docs-blueprint-meta" routerLink="/docs/components">Components</a>
+    <a class="docs-blueprint-meta" routerLink="/charts">Charts</a>
+  </nav>
 </header>
 
 <ng-template #searchDialog="frCommandDialog" frCommandDialog aria-label="Search documentation">
-  <section frCommand closeOnSelect (itemSelected)="navigateTo($event)" aria-label="Search documentation">
+  <section
+    frCommand
+    closeOnSelect
+    (itemSelected)="navigateTo($event)"
+    aria-label="Search documentation"
+  >
     <input frCommandInput placeholder="Search pages and components..." />
 
     <div frCommandList>
@@ -380,13 +462,11 @@
     </div>
 
     <div frCommandFooter>
-
       <span><kbd>↑↓</kbd> to navigate</span>
 
       <span><kbd>↵</kbd> to select</span>
 
       <span><kbd>esc</kbd> to close</span>
-
     </div>
   </section>
 </ng-template>

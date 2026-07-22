@@ -3,6 +3,7 @@
 [frCarousel],
 frame-carousel,
 .frame-carousel {
+  --frame-corner-handle-radius: var(--frame-carousel-viewport-radius);
   position: relative;
   display: block;
   width: 100%;
@@ -11,6 +12,7 @@ frame-carousel,
 
 [frCarouselContent],
 .frame-carousel__content {
+  box-sizing: border-box;
   display: flex;
   gap: var(--frame-carousel-gap);
   overflow: auto;
@@ -18,7 +20,26 @@ frame-carousel,
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  cursor: grab;
+  border: 1px solid var(--frame-carousel-viewport-border);
   border-radius: var(--frame-carousel-viewport-radius);
+  background: var(--frame-carousel-viewport-bg);
+  box-shadow: var(--frame-carousel-viewport-shadow);
+  scroll-padding-inline: var(--frame-carousel-scroll-padding, 0px);
+  scroll-padding-block: var(--frame-carousel-scroll-padding, 0px);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+[frCarouselContent][data-dragging],
+.frame-carousel__content[data-dragging] {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+[frCarouselContent][data-drag-free],
+.frame-carousel__content[data-drag-free] {
+  scroll-snap-type: x proximity;
 }
 
 [frCarouselContent]::-webkit-scrollbar,
@@ -28,9 +49,20 @@ frame-carousel,
 
 [frCarouselContent][data-orientation='vertical'],
 .frame-carousel__content[data-orientation='vertical'] {
-  max-block-size: var(--frame-carousel-vertical-size, 20rem);
+  block-size: var(--frame-carousel-vertical-size, 20rem);
   flex-direction: column;
   scroll-snap-type: y mandatory;
+  touch-action: pan-x;
+}
+
+[frCarouselContent][data-orientation='vertical'][data-drag-free],
+.frame-carousel__content[data-orientation='vertical'][data-drag-free] {
+  scroll-snap-type: y proximity;
+}
+
+[frCarouselContent][data-dragging],
+.frame-carousel__content[data-dragging] {
+  scroll-snap-type: none;
 }
 
 [frCarouselItem],
@@ -40,6 +72,7 @@ frame-carousel,
   min-width: 0;
   min-height: 0;
   scroll-snap-align: var(--frame-carousel-snap-align, start);
+  user-select: none;
 }
 
 [frCarousel][data-align='center'] [frCarouselItem],
@@ -60,44 +93,146 @@ frame-carousel[data-align='end'] [data-frame-carousel-clone],
   --frame-carousel-snap-align: end;
 }
 
+[frCarouselControls],
+frame-carousel-controls,
+.frame-carousel__controls {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: var(--frame-carousel-control-gap, 0.625rem);
+  justify-content: flex-start;
+  margin-block-start: 1rem;
+  min-block-size: var(--frame-carousel-control-size, 2.5rem);
+  min-inline-size: max-content;
+}
+
+[frCarouselControl],
 [frCarouselPrevious],
 [frCarouselNext],
 .frame-carousel__control {
-  position: absolute;
-  z-index: 1;
-  inline-size: var(--frame-carousel-control-size);
-  block-size: var(--frame-carousel-control-size);
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 var(--frame-carousel-control-size, 2.5rem);
+  inline-size: var(--frame-carousel-control-size, 2.5rem);
+  min-inline-size: var(--frame-carousel-control-size, 2.5rem);
+  block-size: var(--frame-carousel-control-size, 2.5rem);
+  min-block-size: var(--frame-carousel-control-size, 2.5rem);
   padding: 0;
 }
 
-[frCarousel][data-orientation='horizontal'] [frCarouselPrevious],
-frame-carousel[data-orientation='horizontal'] [frCarouselPrevious],
-.frame-carousel[data-orientation='horizontal'] .frame-carousel__control--previous {
-  inset-block-start: 50%;
-  inset-inline-start: var(--frame-carousel-control-offset);
-  transform: translateY(-50%);
+.frame-button.frame-carousel__control {
+  width: var(--frame-carousel-control-size, 2.5rem);
+  min-width: var(--frame-carousel-control-size, 2.5rem);
+  height: var(--frame-carousel-control-size, 2.5rem);
+  min-height: var(--frame-carousel-control-size, 2.5rem);
+  padding-inline: 0;
 }
 
-[frCarousel][data-orientation='horizontal'] [frCarouselNext],
-frame-carousel[data-orientation='horizontal'] [frCarouselNext],
-.frame-carousel[data-orientation='horizontal'] .frame-carousel__control--next {
-  inset-block-start: 50%;
-  inset-inline-end: var(--frame-carousel-control-offset);
-  transform: translateY(-50%);
+[frCarouselDots],
+frame-carousel-dots,
+.frame-carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-block-start: 0.875rem;
 }
 
-[frCarousel][data-orientation='vertical'] [frCarouselPrevious],
-frame-carousel[data-orientation='vertical'] [frCarouselPrevious],
-.frame-carousel[data-orientation='vertical'] .frame-carousel__control--previous {
-  inset-block-start: var(--frame-carousel-control-offset);
-  inset-inline-start: 50%;
-  transform: translateX(-50%) rotate(90deg);
+[frCarouselDot],
+.frame-carousel__dot {
+  display: inline-flex;
+  inline-size: var(--frame-carousel-dot-size);
+  block-size: var(--frame-carousel-dot-size);
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--frame-radius-full);
+  background: var(--frame-carousel-dot-bg);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background-color 160ms ease,
+    inline-size 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 
-[frCarousel][data-orientation='vertical'] [frCarouselNext],
-frame-carousel[data-orientation='vertical'] [frCarouselNext],
-.frame-carousel[data-orientation='vertical'] .frame-carousel__control--next {
-  inset-block-end: var(--frame-carousel-control-offset);
-  inset-inline-start: 50%;
-  transform: translateX(-50%) rotate(90deg);
+[frCarouselDot]:hover,
+.frame-carousel__dot:hover {
+  opacity: 0.78;
+  transform: translateY(-1px);
+}
+
+[frCarouselDot][data-active],
+.frame-carousel__dot[data-active] {
+  inline-size: var(--frame-carousel-dot-active-size);
+  background: var(--frame-carousel-dot-active-bg);
+}
+
+[frCarouselThumbs],
+frame-carousel-thumbs,
+.frame-carousel__thumbs {
+  display: flex;
+  gap: var(--frame-carousel-thumb-gap);
+  margin-block-start: 0.875rem;
+  overflow-x: auto;
+  padding-block: 0.125rem;
+  scrollbar-width: none;
+  justify-content: center;
+}
+
+[frCarouselThumbs]::-webkit-scrollbar,
+.frame-carousel__thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+[frCarouselThumb],
+.frame-carousel__thumb {
+  display: inline-grid;
+  min-inline-size: var(--frame-carousel-thumb-size);
+  block-size: var(--frame-carousel-thumb-size);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--frame-carousel-thumb-border);
+  border-radius: var(--frame-carousel-thumb-radius);
+  background: var(--frame-surface);
+  color: var(--frame-muted-foreground);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+[frCarouselThumb]:hover,
+.frame-carousel__thumb:hover {
+  transform: translateY(-1px);
+}
+
+[frCarouselThumb][data-active],
+.frame-carousel__thumb[data-active] {
+  border-color: var(--frame-carousel-thumb-active-border);
+  color: var(--frame-foreground);
+  box-shadow: 0 0 0 1px var(--frame-carousel-thumb-active-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [frCarouselContent],
+  .frame-carousel__content {
+    scroll-behavior: auto;
+  }
+
+  [frCarouselDot],
+  .frame-carousel__dot,
+  [frCarouselControl],
+  [frCarouselPrevious],
+  [frCarouselNext],
+  .frame-carousel__control,
+  [frCarouselThumb],
+  .frame-carousel__thumb {
+    transition: none;
+  }
 }

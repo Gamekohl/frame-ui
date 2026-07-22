@@ -1,0 +1,229 @@
+<div frSheetPanel side="right" scrollable>
+  <div frSheetHeader>
+    <h2 frSheetTitle>Custom colors</h2>
+    <p frSheetDescription>Adjust the colors used by the docs preview.</p>
+  </div>
+
+  <div frSheetBody class="content-start">
+    <section
+      frCollapsible
+      [open]="presetBaseOpen()"
+      (openChange)="presetBaseOpen.set($event)"
+      class="grid border border-border bg-surface rounded-md"
+    >
+      <button
+        frCollapsibleTrigger
+        class="flex justify-between gap-3 w-full border-border bg-muted/35 px-4 py-3 sm:items-center cursor-pointer"
+        [ngClass]="{ 'border-b': presetBaseOpen() }"
+      >
+        <span class="grid min-w-0 gap-1">
+          <span class="docs-mono text-xs font-semibold uppercase text-muted-foreground">
+            Preset base
+          </span>
+        </span>
+        <ng-icon
+          name="tablerChevronDown"
+          size="16"
+          class="text-muted-foreground transition-transform"
+          [ngClass]="{ 'rotate-90': !presetBaseOpen() }"
+          aria-hidden="true"
+        />
+      </button>
+
+      <div frCollapsibleContent>
+        <div class="grid gap-2 p-3 sm:grid-cols-2">
+          @for (preset of customPalettePresets; track preset.id) {
+            <button
+              type="button"
+              class="grid min-h-22 grid-cols-[2.75rem_minmax(0,1fr)_auto] items-center gap-3 rounded-md border border-border bg-background p-3 text-left transition hover:border-primary focus-visible:border-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/35"
+              [attr.aria-label]="'Use ' + preset.label + ' as custom color base'"
+              [attr.aria-pressed]="isPresetActive(preset) ? 'true' : 'false'"
+              [ngClass]="{
+                'border-primary bg-accent/55': isPresetActive(preset),
+              }"
+              (click)="applyPreset(preset.id)"
+            >
+              <span
+                class="h-12 w-11 border border-border"
+                [style.background]="preset.swatch"
+                aria-hidden="true"
+              ></span>
+              <span class="grid min-w-0 gap-1">
+                <span class="truncate text-sm font-semibold">{{ preset.label }}</span>
+                <span class="line-clamp-2 text-xs text-muted-foreground">
+                  {{ preset.description }}
+                </span>
+              </span>
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <div
+      frTabs
+      [value]="activeMode()"
+      (valueChange)="setActiveMode($event)"
+      style="--frame-tabs-gap: 0rem"
+    >
+      <div class="flex">
+        <div frTabsList variant="line" aria-label="Custom color mode">
+          <button frTabsTrigger value="light" type="button">Light</button>
+          <button frTabsTrigger value="dark" type="button">Dark</button>
+        </div>
+        <div class="flex-1"></div>
+        <button frButton size="sm" (click)="generateTheme()">
+          <ng-icon frButtonIcon name="tablerSparkles"></ng-icon>
+          <span frButtonLabel>Generate Theme</span>
+        </button>
+      </div>
+
+      <div frTabsContent value="light">
+        <ng-container
+          [ngTemplateOutlet]="colorFields"
+          [ngTemplateOutletContext]="{ mode: 'light' }"
+        />
+      </div>
+
+      <div frTabsContent value="dark">
+        <ng-container
+          [ngTemplateOutlet]="colorFields"
+          [ngTemplateOutletContext]="{ mode: 'dark' }"
+        />
+      </div>
+
+      <ng-template #colorFields let-mode="mode">
+        <div class="grid gap-5 lg:grid-cols-1">
+          @for (group of customColorGroups; track group.label) {
+            <section class="grid content-start rounded-md border border-border bg-background">
+              <header class="border-b border-border bg-muted/35 px-4 py-3">
+                <h3 class="docs-mono text-xs font-semibold uppercase text-muted-foreground">
+                  {{ group.label }}
+                </h3>
+              </header>
+
+              <div class="grid px-4">
+                @for (field of group.fields; track field.id) {
+                  <div
+                    [ngClass]="{ 'border-b border-b-border': !$last }"
+                    class="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_auto_auto_auto] items-center gap-2 py-3"
+                  >
+                    <span class="grid min-w-0 gap-0.5">
+                      <span class="truncate text-sm font-semibold">{{ field.label }}</span>
+                      <span class="truncate text-xs text-muted-foreground">
+                        {{ field.description }}
+                      </span>
+                    </span>
+                    <label class="docs-color-swatch-picker">
+                      <input
+                        type="color"
+                        class="docs-color-swatch-input"
+                        [attr.aria-label]="mode + ' ' + field.label + ' color'"
+                        [value]="colorsForMode(mode)[field.id]"
+                        (input)="setCustomColor(mode, field.id, $event)"
+                      />
+                      <span
+                        class="docs-color-swatch"
+                        [style.background]="colorsForMode(mode)[field.id]"
+                        aria-hidden="true"
+                      ></span>
+                    </label>
+                    <output class="docs-mono min-w-18 text-right text-xs text-muted-foreground">
+                      {{ colorsForMode(mode)[field.id] }}
+                    </output>
+                    <button
+                      frIconButton
+                      appearance="ghost"
+                      size="sm"
+                      type="button"
+                      [attr.aria-label]="copyColorLabel(mode, field)"
+                      [attr.aria-pressed]="
+                        copiedColor() === colorsForMode(mode)[field.id] ? 'true' : 'false'
+                      "
+                      [frTooltip]="copyColorLabel(mode, field)"
+                      [frTooltipOpenDelay]="450"
+                      frTooltipArrow
+                      (click)="copyColor(mode, field.id)"
+                    >
+                      <ng-icon name="tablerCopy" size="16" frButtonIcon />
+                    </button>
+                    <button
+                      frIconButton
+                      appearance="ghost"
+                      size="sm"
+                      type="button"
+                      [disabled]="!copiedColor()"
+                      [attr.aria-label]="pasteColorLabel(mode, field)"
+                      [frTooltip]="pasteColorLabel(mode, field)"
+                      [frTooltipOpenDelay]="450"
+                      frTooltipArrow
+                      (click)="pasteColor(mode, field.id)"
+                    >
+                      <ng-icon name="tablerClipboard" size="16" frButtonIcon />
+                    </button>
+                    <button
+                      frIconButton
+                      appearance="ghost"
+                      size="sm"
+                      type="button"
+                      [disabled]="isColorDefault(mode, field.id)"
+                      [attr.aria-label]="resetColorLabel(mode, field)"
+                      [frTooltip]="resetColorLabel(mode, field)"
+                      [frTooltipOpenDelay]="450"
+                      frTooltipArrow
+                      (click)="resetColor(mode, field.id)"
+                    >
+                      <ng-icon name="tablerRefresh" size="16" frButtonIcon />
+                    </button>
+                    <button
+                      frIconButton
+                      appearance="ghost"
+                      size="sm"
+                      type="button"
+                      [attr.aria-label]="colorLockLabel(field)"
+                      [attr.aria-pressed]="isColorLocked(field.id) ? 'true' : 'false'"
+                      [frTooltip]="colorLockLabel(field)"
+                      [frTooltipOpenDelay]="450"
+                      frTooltipArrow
+                      (click)="toggleColorLock(mode, field.id)"
+                    >
+                      <ng-icon
+                        [name]="isColorLocked(field.id) ? 'tablerLock' : 'tablerLockOpen'"
+                        size="16"
+                        frButtonIcon
+                      />
+                    </button>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div frSheetFooter>
+    <button frButton appearance="outline" type="button" (click)="exportAppearance()">
+      <ng-icon name="tablerCode" size="16" frButtonIcon />
+      Export...
+    </button>
+    <div class="flex-1"></div>
+    <button
+      frButton
+      appearance="outline"
+      type="button"
+      frConfirmPopoverTitle="Reset all custom colors?"
+      frConfirmPopoverDescription="Light and dark custom values will return to their defaults."
+      frConfirmPopoverCancelLabel="Keep"
+      frConfirmPopoverConfirmLabel="Reset all"
+      frConfirmPopoverSide="top"
+      frConfirmPopoverAlign="end"
+      (frConfirmPopoverConfirmed)="resetCustomPalette()"
+    >
+      <ng-icon name="tablerRefresh" size="16" frButtonIcon />
+      Reset all
+    </button>
+    <button frButton type="button" frSheetClose>Done</button>
+  </div>
+</div>

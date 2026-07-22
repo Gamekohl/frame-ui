@@ -1,7 +1,19 @@
 :where(:root) {
-  --frame-carousel-gap: var(--frame-density-gap-xl);
+  --frame-carousel-gap: var(--frame-density-gap-lg, 0.75rem);
   --frame-carousel-item-size: 100%;
-  --frame-carousel-control-offset: -3rem;
-  --frame-carousel-control-size: var(--frame-density-control-height-lg);
   --frame-carousel-viewport-radius: var(--frame-radius-lg);
+  --frame-carousel-viewport-bg: var(--frame-surface);
+  --frame-carousel-viewport-border: var(--frame-border);
+  --frame-carousel-viewport-shadow: var(--frame-shadow-sm);
+  --frame-carousel-control-gap: 0.625rem;
+  --frame-carousel-control-size: var(--frame-density-control-height-lg, 2.5rem);
+  --frame-carousel-dot-size: 0.5rem;
+  --frame-carousel-dot-active-size: 1.75rem;
+  --frame-carousel-dot-bg: color-mix(in srgb, var(--frame-muted-foreground) 42%, transparent);
+  --frame-carousel-dot-active-bg: var(--frame-primary);
+  --frame-carousel-thumb-size: 4.25rem;
+  --frame-carousel-thumb-gap: 0.625rem;
+  --frame-carousel-thumb-radius: var(--frame-radius-md);
+  --frame-carousel-thumb-border: var(--frame-border);
+  --frame-carousel-thumb-active-border: var(--frame-primary);
 }

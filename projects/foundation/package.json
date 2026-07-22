@@ -1,6 +1,6 @@
 {
   "name": "@frame-ui-ng/foundation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Foundation utilities, tokens, and providers for FrameUI.",
   "license": "MIT",
   "repository": {

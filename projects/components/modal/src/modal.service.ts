@@ -37,6 +37,12 @@ export type FrModalConfig<Data = unknown, Result = unknown, Component = unknown>
 const DEFAULT_PANEL_CLASS = 'frame-modal__overlay-pane';
 const DEFAULT_BACKDROP_CLASS = 'frame-modal__backdrop';
 const DEFAULT_MAX_WIDTH = 'calc(100vw - 2rem)';
+const MODAL_LEAVE_ANIMATION_MS = 140;
+const MODAL_CLOSE_PATCHED = Symbol('frModalClosePatched');
+
+type AnimatedDialogRef<Result, Component> = DialogRef<Result, Component> & {
+  [MODAL_CLOSE_PATCHED]?: boolean;
+};
 
 /** Service for opening modal dialogs. */
 @Injectable({ providedIn: 'root' })
@@ -83,16 +89,20 @@ export class FrModalService {
         },
       };
 
-      return this.dialog.open<Result, FrModalShellOptions, FrModalShell>(
+      const dialogRef = this.dialog.open<Result, FrModalShellOptions, FrModalShell>(
         FrModalShell,
         this.withDefaultClasses(shellConfig),
-      ) as unknown as FrModalRef<ComponentOrContext, Result>;
+      );
+
+      return withModalLeaveAnimation(dialogRef) as unknown as FrModalRef<ComponentOrContext, Result>;
     }
 
-    return this.dialog.open<Result, Data, ComponentOrContext>(
+    const dialogRef = this.dialog.open<Result, Data, ComponentOrContext>(
       content,
       this.withDefaultClasses(resolvedConfig),
     );
+
+    return withModalLeaveAnimation(dialogRef) as unknown as FrModalRef<ComponentOrContext, Result>;
   }
 
   closeAll(): void {
@@ -113,6 +123,54 @@ export class FrModalService {
       providers: withModalProviders(config.providers, modalPanelLayoutFromConfig(config)),
     };
   }
+}
+
+function withModalLeaveAnimation<Result, Component>(
+  dialogRef: DialogRef<Result, Component>,
+): DialogRef<Result, Component> {
+  const animatedRef = dialogRef as AnimatedDialogRef<Result, Component>;
+
+  if (animatedRef[MODAL_CLOSE_PATCHED]) {
+    return dialogRef;
+  }
+
+  animatedRef[MODAL_CLOSE_PATCHED] = true;
+  const originalClose = dialogRef.close.bind(dialogRef) as DialogRef<Result, Component>['close'];
+  let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+  animatedRef.close = ((result?: Result, options?: Parameters<typeof originalClose>[1]) => {
+    if (closeTimer) {
+      return;
+    }
+
+    const overlayElement = dialogRef.overlayRef.overlayElement;
+    const panel = overlayElement.querySelector<HTMLElement>('.frame-modal__panel');
+    const backdrop = dialogRef.overlayRef.backdropElement;
+
+    if (shouldSkipModalLeaveAnimation() || (!panel && !backdrop)) {
+      originalClose(result, options);
+      return;
+    }
+
+    overlayElement.setAttribute('data-closing', '');
+    panel?.setAttribute('data-closing', '');
+    backdrop?.setAttribute('data-closing', '');
+
+    closeTimer = setTimeout(() => {
+      closeTimer = null;
+      originalClose(result, options);
+    }, MODAL_LEAVE_ANIMATION_MS);
+  }) as DialogRef<Result, Component>['close'];
+
+  return dialogRef;
+}
+
+function shouldSkipModalLeaveAnimation(): boolean {
+  if (typeof window === 'undefined' || !window.matchMedia) {
+    return false;
+  }
+
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 function isComponentType(value: unknown): value is ComponentType<unknown> {

@@ -151,7 +151,6 @@ provideFrameUI({
   --color-info-foreground: oklch(0.98 0 0);
   --color-accent: oklch(0.96 0 0);
   --color-accent-foreground: oklch(0.15 0 0);
-  --color-input: oklch(0.92 0 0);
   --color-ring: oklch(0.7 0 0);
   --shadow-frame-sm: none;
   --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
@@ -179,7 +178,6 @@ provideFrameUI({
   --frame-info-foreground: var(--color-info-foreground);
   --frame-accent: var(--color-accent);
   --frame-accent-foreground: var(--color-accent-foreground);
-  --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
   --frame-shadow-sm: var(--shadow-frame-sm);
   --frame-shadow-md: var(--shadow-frame-md);
@@ -207,7 +205,6 @@ provideFrameUI({
   --color-info-foreground: oklch(0.15 0 0);
   --color-accent: oklch(0.27 0 0);
   --color-accent-foreground: oklch(0.98 0 0);
-  --color-input: oklch(1 0 0 / 0.15);
   --color-ring: oklch(0.56 0 0);
   --shadow-frame-md: 0 10px 15px -3px rgb(0 0 0 / 0.35);
   --shadow-frame-lg: 0 24px 80px rgb(0 0 0 / 0.38), 0 8px 24px rgb(0 0 0 / 0.24);

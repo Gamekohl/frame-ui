@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Geist", "Aptos", "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --font-sans: 'Geist', 'Aptos', 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', 'Cascadia Mono', 'SFMono-Regular', Consolas, monospace;
   --color-background: oklch(1 0 0);
   --color-foreground: oklch(0.145 0 0);
   --color-muted: oklch(0.972 0.002 247);
@@ -18,13 +18,13 @@
   --color-accent-foreground: oklch(0.205 0 0);
   --color-destructive: oklch(55.205% 0.18114 25.384);
   --color-destructive-foreground: oklch(100% 0.00011 271.152);
-  --color-input: oklch(0.84 0.008 247);
   --color-ring: var(--color-primary);
 }
 
 html {
   color-scheme: light;
   min-height: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
 
   --frame-background: var(--color-background);
@@ -40,7 +40,6 @@ html {
   --frame-accent-foreground: var(--color-accent-foreground);
   --frame-destructive: var(--color-destructive);
   --frame-destructive-foreground: var(--color-destructive-foreground);
-  --frame-input: var(--color-input);
   --frame-ring: var(--color-ring);
   --frame-border-strong: oklch(0.68 0.012 247);
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 48%, transparent);
@@ -50,16 +49,16 @@ html {
 
   --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 6%, transparent);
   --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 10%, transparent);
-  --docs-blueprint-red: var(--frame-frame-accent);
+  --docs-blueprint-red: var(--frame-primary);
   --docs-blueprint-ink: #111827;
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 98%, transparent);
   --docs-layout-radius: var(--frame-radius-lg, 0px);
   --docs-header-height: 5.25rem;
   --docs-page-padding-y: 2rem;
 
-  --orange-red: oklch(63.32% .24 31.68);
-  --vivid-pink: oklch(69.02% .277 332.77);
-  --electric-violet: oklch(53.18% .28 296.97);
+  --orange-red: oklch(63.32% 0.24 31.68);
+  --vivid-pink: oklch(69.02% 0.277 332.77);
+  --electric-violet: oklch(53.18% 0.28 296.97);
 }
 
 html.dark {
@@ -76,7 +75,6 @@ html.dark {
   --color-accent-foreground: oklch(0.985 0 0);
   --color-destructive: oklch(0.704 0.191 22.216);
   --color-destructive-foreground: oklch(0.985 0 0);
-  --color-input: oklch(1 0 0 / 0.15);
   --frame-border-strong: oklch(1 0 0 / 0.24);
   --frame-frame-line: color-mix(in srgb, var(--frame-border-strong) 54%, transparent);
   --frame-frame-line-muted: color-mix(in srgb, var(--frame-border) 62%, transparent);
@@ -84,12 +82,12 @@ html.dark {
   --frame-frame-accent: var(--frame-ring);
   --docs-blueprint-grid: color-mix(in srgb, var(--frame-border) 8%, transparent);
   --docs-blueprint-grid-strong: color-mix(in srgb, var(--frame-border-strong) 12%, transparent);
-  --docs-blueprint-red: var(--frame-frame-accent);
+  --docs-blueprint-red: var(--frame-primary);
   --docs-blueprint-ink: var(--frame-foreground);
   --docs-blueprint-sheet: color-mix(in srgb, var(--frame-surface) 96%, transparent);
-  --orange-red: color-mix(in srgb, oklch(63.32% .24 31.68), white 60%);
-  --vivid-pink: color-mix(in srgb, oklch(69.02% .277 332.77), white 70%);
-  --electric-violet: color-mix(in srgb, oklch(53.18% .28 296.97), white 70%);
+  --orange-red: color-mix(in srgb, oklch(63.32% 0.24 31.68), white 60%);
+  --vivid-pink: color-mix(in srgb, oklch(69.02% 0.277 332.77), white 70%);
+  --electric-violet: color-mix(in srgb, oklch(53.18% 0.28 296.97), white 70%);
 }
 
 html[data-docs-palette='circuit'] {
@@ -104,7 +102,6 @@ html[data-docs-palette='circuit'] {
   --color-primary-foreground: oklch(0.99 0.01 150);
   --color-accent: oklch(0.95 0.04 153);
   --color-accent-foreground: oklch(0.2 0.06 153);
-  --color-input: oklch(0.8 0.04 158);
   --color-ring: var(--color-primary);
   --frame-border-strong: oklch(0.58 0.055 158);
   --frame-success: oklch(0.58 0.18 153);
@@ -125,7 +122,6 @@ html.dark[data-docs-palette='circuit'] {
   --color-primary-foreground: oklch(0.12 0.03 153);
   --color-accent: oklch(0.25 0.04 153);
   --color-accent-foreground: oklch(0.94 0.02 153);
-  --color-input: oklch(0.95 0.025 158 / 0.16);
   --color-ring: var(--color-primary);
   --frame-border-strong: oklch(0.95 0.035 158 / 0.3);
   --frame-success: oklch(0.76 0.18 153);
@@ -146,7 +142,6 @@ html[data-docs-palette='signal'] {
   --color-primary-foreground: oklch(0.99 0.01 250);
   --color-accent: oklch(0.95 0.04 255);
   --color-accent-foreground: oklch(0.2 0.06 255);
-  --color-input: oklch(0.8 0.04 255);
   --color-ring: var(--color-primary);
   --frame-border-strong: oklch(0.58 0.055 255);
   --frame-success: oklch(0.6 0.16 150);
@@ -167,7 +162,6 @@ html.dark[data-docs-palette='signal'] {
   --color-primary-foreground: oklch(0.12 0.03 255);
   --color-accent: oklch(0.25 0.04 255);
   --color-accent-foreground: oklch(0.94 0.02 255);
-  --color-input: oklch(0.95 0.025 255 / 0.16);
   --color-ring: var(--color-primary);
   --frame-border-strong: oklch(0.95 0.035 255 / 0.3);
   --frame-success: oklch(0.76 0.17 150);
@@ -188,7 +182,6 @@ html[data-docs-palette='plasma'] {
   --color-primary-foreground: oklch(0.99 0.01 318);
   --color-accent: oklch(0.93 0.08 205);
   --color-accent-foreground: oklch(0.2 0.08 205);
-  --color-input: oklch(0.76 0.08 318);
   --color-ring: oklch(0.62 0.22 205);
   --frame-border-strong: oklch(0.5 0.12 318);
   --frame-success: oklch(0.63 0.18 150);
@@ -209,7 +202,6 @@ html.dark[data-docs-palette='plasma'] {
   --color-primary-foreground: oklch(0.12 0.04 302);
   --color-accent: oklch(0.25 0.08 205);
   --color-accent-foreground: oklch(0.95 0.035 205);
-  --color-input: oklch(0.95 0.035 318 / 0.18);
   --color-ring: oklch(0.78 0.18 205);
   --frame-border-strong: oklch(0.95 0.06 318 / 0.34);
   --frame-success: oklch(0.76 0.17 150);
@@ -221,6 +213,7 @@ html.dark[data-docs-palette='plasma'] {
 body {
   min-height: 100%;
   margin: 0;
+  overflow-x: clip;
   background:
     linear-gradient(var(--docs-blueprint-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--docs-blueprint-grid) 1px, transparent 1px),
@@ -246,6 +239,13 @@ body {
   box-sizing: border-box;
 }
 
+img,
+svg,
+canvas,
+video {
+  max-inline-size: 100%;
+}
+
 .angular-color-gradient {
   color: var(--docs-blueprint-red);
 }
@@ -266,10 +266,20 @@ body {
 
 .docs-blueprint-sheet[data-grid='true'] {
   background:
-    linear-gradient(color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--docs-blueprint-grid) 22%, transparent) 1px,
+      transparent 1px
+    ),
     var(--docs-blueprint-sheet);
-  background-size: 32px 32px, 32px 32px, auto;
+  background-size:
+    32px 32px,
+    32px 32px,
+    auto;
 }
 
 .docs-blueprint-sheet::after {
@@ -293,7 +303,9 @@ body {
 
 .docs-shell {
   --docs-sidebar-sticky-top: 5rem;
-  --docs-sidebar-visible-height: calc(100vh - var(--docs-header-height) - (var(--docs-page-padding-y) * 2));
+  --docs-sidebar-visible-height: calc(
+    100vh - var(--docs-header-height) - (var(--docs-page-padding-y) * 2)
+  );
 }
 
 .docs-sidebar-rail {
@@ -305,6 +317,111 @@ body {
 
 .docs-sidebar-sheet {
   max-block-size: var(--docs-sidebar-visible-height);
+}
+
+.docs-mobile-nav {
+  padding: 0.75rem;
+}
+
+.docs-mobile-nav details + details {
+  border-block-start: 1px solid var(--frame-frame-line-muted);
+}
+
+.docs-mobile-nav__summary {
+  display: flex;
+  min-block-size: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--docs-blueprint-red);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docs-mobile-nav__summary::-webkit-details-marker {
+  display: none;
+}
+
+.docs-mobile-nav__summary::after {
+  content: '+';
+  color: var(--frame-muted-foreground);
+}
+
+.docs-mobile-nav details[open] > .docs-mobile-nav__summary::after {
+  content: '-';
+}
+
+.docs-mobile-nav__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 0.5rem;
+  padding-block: 0.25rem 0.75rem;
+}
+
+.docs-mobile-nav__row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-block: 0.125rem 0.25rem;
+  scrollbar-width: none;
+}
+
+.docs-mobile-nav__row::-webkit-scrollbar {
+  display: none;
+}
+
+.docs-mobile-nav__link,
+.docs-mobile-nav__pill {
+  display: inline-flex;
+  min-block-size: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--frame-frame-line-muted);
+  border-radius: var(--docs-layout-radius);
+  background: color-mix(in srgb, var(--frame-surface) 76%, transparent);
+  color: var(--frame-muted-foreground);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.docs-mobile-nav__link {
+  padding: 0.6rem 0.75rem;
+}
+
+.docs-mobile-nav__pill {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.85rem;
+  white-space: nowrap;
+}
+
+.docs-mobile-nav__link:hover,
+.docs-mobile-nav__link:focus-visible,
+.docs-mobile-nav__pill:hover,
+.docs-mobile-nav__pill:focus-visible {
+  border-color: var(--docs-blueprint-red);
+  background: var(--frame-muted);
+  color: var(--frame-foreground);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.docs-mobile-nav__link.is-active,
+.docs-mobile-nav__pill.is-active {
+  border-color: color-mix(in srgb, var(--docs-blueprint-red) 55%, var(--frame-frame-line-muted));
+  background: color-mix(in srgb, var(--docs-blueprint-red) 10%, var(--frame-surface));
+  color: var(--frame-foreground);
 }
 
 @media (min-width: 64rem) {
@@ -415,14 +532,13 @@ body {
   position: relative;
   min-block-size: 1.75rem;
   border: 1px solid var(--frame-frame-line-muted);
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 7px,
-      color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 7px,
-      color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 8px
-    );
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 7px,
+    color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 7px,
+    color-mix(in srgb, var(--frame-border-strong) 24%, transparent) 8px
+  );
 }
 
 .docs-blueprint-measure {
@@ -437,15 +553,7 @@ body {
   inset-inline-end: 0;
 }
 
-:where(
-  .rounded,
-  .rounded-sm,
-  .rounded-md,
-  .rounded-lg,
-  .rounded-xl,
-  .rounded-2xl,
-  .rounded-3xl
-) {
+:where(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl) {
   border-radius: var(--docs-layout-radius) !important;
 }
 
@@ -467,6 +575,33 @@ body {
 
 :where(pre, docs-code-block, .shiki) {
   border-radius: var(--docs-layout-radius) !important;
+}
+
+@media (max-width: 767px) {
+  html {
+    --docs-header-height: 6.25rem;
+    --docs-page-padding-y: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .docs-article > header,
+  .docs-article > section {
+    padding: 1rem;
+  }
+
+  .docs-article > header h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .docs-article > header p,
+  .docs-article > section p,
+  .docs-blueprint-title,
+  .docs-blueprint-meta {
+    overflow-wrap: anywhere;
+  }
 }
 
 .slide-in-enter {

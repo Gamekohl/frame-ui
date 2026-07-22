@@ -29,15 +29,16 @@ const shortcutHtml = `<button frButton appearance="outline" [frTooltip]="tip" fr
   </div>
 </ng-template>`;
 
-const disabledHtml = `<button
-  frButton
+const disabledHtml = `<span
+  class="tooltip-disabled-trigger"
   frTooltip="Upgrade permissions before running this action."
   frTooltipArrow
-  disabled
-  type="button"
+  tabindex="0"
 >
-  Locked action
-</button>`;
+  <button frButton disabled type="button" tabindex="-1">
+    Locked action
+  </button>
+</span>`;
 
 const delayHtml = `<button
   frButton
