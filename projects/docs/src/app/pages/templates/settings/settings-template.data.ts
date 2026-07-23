@@ -1,10 +1,4 @@
-export type TemplateNavItem = {
-  label: string;
-  icon: string;
-  active: boolean;
-  badge?: string | null;
-  path?: string;
-};
+import { createCommerceAdminNavigation } from '../shared/commerce-admin-template.registry';
 
 export type SettingsSection = {
   id: string;
@@ -48,29 +42,7 @@ export type TeamMember = {
   initials: string;
 };
 
-export const MAIN_NAV: TemplateNavItem[] = [
-  { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
-  { label: 'Product catalog', icon: 'tablerBuildingStore', active: false, badge: null, path: '/templates/product-catalog' },
-  { label: 'Inventory', icon: 'tablerDatabase', active: false, badge: '8', path: '/templates/inventory' },
-  { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
-  { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
-  { label: 'Store docs', icon: 'tablerFileText', active: false, badge: null },
-];
-
-export const ADMIN_NAV: TemplateNavItem[] = [
-  { label: 'User management', icon: 'tablerUsers', active: false, path: '/templates/user-management' },
-  {
-    label: 'Roles & Permissions',
-    icon: 'tablerShieldLock',
-    active: false,
-    path: '/templates/roles-permissions',
-  },
-  { label: 'Settings', icon: 'tablerSettings', active: true, path: '/templates/settings' },
-  { label: 'Authentication', icon: 'tablerKey', active: false },
-  { label: 'Security', icon: 'tablerShield', active: false },
-  { label: 'Audit log', icon: 'tablerActivity', active: false },
-  { label: 'Data exports', icon: 'tablerDatabase', active: false },
-];
+export const { mainNav: MAIN_NAV, adminNav: ADMIN_NAV } = createCommerceAdminNavigation('settings');
 
 export const SETTINGS_SECTIONS: SettingsSection[] = [
   {

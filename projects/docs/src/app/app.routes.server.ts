@@ -11,7 +11,15 @@ interface BlockCatalogCategory {
 }
 
 function loadComponentSlugs(): string[] {
-  const filePath = join(process.cwd(), 'projects', 'docs', 'public', 'content', 'components', 'components.json');
+  const filePath = join(
+    process.cwd(),
+    'projects',
+    'docs',
+    'public',
+    'content',
+    'components',
+    'components.json',
+  );
   const fileContents = readFileSync(filePath, 'utf-8');
   const entries = JSON.parse(fileContents) as ComponentCatalogEntry[];
 
@@ -19,7 +27,15 @@ function loadComponentSlugs(): string[] {
 }
 
 function loadBlockCategorySlugs(): string[] {
-  const filePath = join(process.cwd(), 'projects', 'docs', 'public', 'content', 'blocks', 'blocks.json');
+  const filePath = join(
+    process.cwd(),
+    'projects',
+    'docs',
+    'public',
+    'content',
+    'blocks',
+    'blocks.json',
+  );
   const fileContents = readFileSync(filePath, 'utf-8');
   const entries = JSON.parse(fileContents) as BlockCatalogCategory[];
 
@@ -28,10 +44,24 @@ function loadBlockCategorySlugs(): string[] {
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'templates/overview',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: 'charts/:type',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
-      return ['area', 'bar', 'composed', 'line', 'pie', 'donut', 'sparkline', 'heatmap', 'radial'].map((type) => ({ type }));
+      return [
+        'area',
+        'bar',
+        'composed',
+        'line',
+        'pie',
+        'donut',
+        'sparkline',
+        'heatmap',
+        'radial',
+      ].map((type) => ({ type }));
     },
   },
   {
@@ -66,6 +96,18 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'templates/settings',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'templates/orders',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'templates/suppliers',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'templates/audit-log',
     renderMode: RenderMode.Prerender,
   },
   {

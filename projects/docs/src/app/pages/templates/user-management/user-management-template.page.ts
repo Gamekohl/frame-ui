@@ -13,6 +13,7 @@ import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
@@ -48,6 +49,7 @@ import {
 } from '@ng-icons/tabler-icons';
 
 import { UserDetailsModalComponent } from './user-details-modal.component';
+import { CommerceAdminAuditStore } from '../shared/commerce-admin-audit.store';
 import {
   ADMIN_NAV,
   MAIN_NAV,
@@ -73,6 +75,7 @@ import {
     FrHoverCardModule,
     FrInputModule,
     FrPaginationModule,
+    FrSelectModule,
     FrSidebarModule,
     FrTableModule,
     FrTabsModule,
@@ -118,6 +121,7 @@ import {
 })
 export class UserManagementTemplatePage {
   private readonly modal = inject(FrModalService);
+  private readonly audit = inject(CommerceAdminAuditStore);
 
   protected readonly viewMode = signal<ViewMode>('table');
   protected readonly searchTerm = signal('');
@@ -203,6 +207,19 @@ export class UserManagementTemplatePage {
     if (this.selectedUser().id === user.id) {
       this.selectedUser.set(updatedUser);
     }
+
+    this.audit.record({
+      actor: 'Mika Stone',
+      initials: 'MS',
+      action: 'Changed account status',
+      target: user.name,
+      area: 'Access',
+      outcome: status === 'Inactive' ? 'Review' : 'Success',
+      summary: `${user.name} was moved from ${user.status} to ${status}.`,
+      source: 'User management',
+      ipAddress: 'Current session',
+      changes: [{ label: 'Status', before: user.status, after: status }],
+    });
   }
 
   protected setViewMode(value: string | null): void {

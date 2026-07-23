@@ -1,3 +1,5 @@
+import { createCommerceAdminNavigation } from '../shared/commerce-admin-template.registry';
+
 export type ProductStatus = 'Active' | 'Draft' | 'Archived';
 export type ProductVisibility = 'Storefront' | 'Hidden';
 export type StockState = 'In stock' | 'Low stock' | 'Out of stock';
@@ -25,14 +27,6 @@ export type ProductFormValue = Omit<
   CatalogProduct,
   'id' | 'updated' | 'incomingStock' | 'incomingEta' | 'incomingSupplier' | 'incomingOrder'
 >;
-
-export type TemplateNavItem = {
-  label: string;
-  icon: string;
-  active: boolean;
-  badge?: string | null;
-  path?: string;
-};
 
 export const PRODUCT_CATEGORIES = [
   'Desk setup',
@@ -70,29 +64,8 @@ export const PRODUCT_COLUMNS = [
   'actions',
 ];
 
-export const MAIN_NAV: TemplateNavItem[] = [
-  { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
-  { label: 'Product catalog', icon: 'tablerBuildingStore', active: true, badge: null, path: '/templates/product-catalog' },
-  { label: 'Inventory', icon: 'tablerDatabase', active: false, badge: '8', path: '/templates/inventory' },
-  { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
-  { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
-  { label: 'Store docs', icon: 'tablerFileText', active: false, badge: null },
-];
-
-export const ADMIN_NAV: TemplateNavItem[] = [
-  { label: 'User management', icon: 'tablerUsers', active: false, path: '/templates/user-management' },
-  {
-    label: 'Roles & Permissions',
-    icon: 'tablerShieldLock',
-    active: false,
-    path: '/templates/roles-permissions',
-  },
-  { label: 'Settings', icon: 'tablerSettings', active: false, path: '/templates/settings' },
-  { label: 'Authentication', icon: 'tablerKey', active: false },
-  { label: 'Security', icon: 'tablerShield', active: false },
-  { label: 'Audit log', icon: 'tablerActivity', active: false },
-  { label: 'Data exports', icon: 'tablerDatabase', active: false },
-];
+export const { mainNav: MAIN_NAV, adminNav: ADMIN_NAV } =
+  createCommerceAdminNavigation('product-catalog');
 
 export const CATALOG_PRODUCTS: CatalogProduct[] = [
   {

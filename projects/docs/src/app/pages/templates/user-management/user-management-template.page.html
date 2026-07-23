@@ -5,12 +5,10 @@
         <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
           Template preview
         </p>
-        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">
-          User management
-        </h1>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">User management</h1>
         <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
-          Manage catalog operators, store roles, access status, and the people behind daily
-          product operations.
+          Manage catalog operators, store roles, access status, and the people behind daily product
+          operations.
         </p>
       </div>
       <a
@@ -34,7 +32,7 @@
           class="border-border bg-background"
         >
           <div frSidebarHeader class="border-b border-border">
-            <a frSidebarMenuButton size="lg" href="#">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/overview">
               <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
                 <ng-icon name="tablerBuildingStore" size="18" />
               </span>
@@ -52,7 +50,7 @@
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -71,7 +69,7 @@
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -83,7 +81,7 @@
           </div>
 
           <div frSidebarFooter class="border-t border-border">
-            <a frSidebarMenuButton variant="outline" href="#">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/user-management">
               <span frAvatar size="sm">
                 <span frAvatarFallback>MS</span>
               </span>
@@ -114,11 +112,11 @@
               <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
                 <ol frBreadcrumbList>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Acme</a>
+                    <a frBreadcrumbLink routerLink="/templates/overview">Acme</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Admin</a>
+                    <a frBreadcrumbLink routerLink="/templates/settings">Admin</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
@@ -136,27 +134,23 @@
                   User management
                 </h2>
                 <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
-                  Manage employees, contractors, invitations, and security coverage before
-                  access drifts.
+                  Manage employees, contractors, invitations, and security coverage before access
+                  drifts.
                 </p>
               </div>
 
               <div class="grid gap-2 sm:grid-cols-3">
                 @for (metric of metrics(); track metric.label) {
                   <div class="rounded-lg border border-border bg-muted p-3">
-                    <span class="text-xs uppercase text-muted-foreground">{{
-                      metric.label
-                    }}</span>
-                    <strong class="mt-1 block text-xl text-foreground">{{
-                      metric.value
-                    }}</strong>
+                    <span class="text-xs uppercase text-muted-foreground">{{ metric.label }}</span>
+                    <strong class="mt-1 block text-xl text-foreground">{{ metric.value }}</strong>
                   </div>
                 }
               </div>
             </header>
 
             <section class="grid gap-3">
-              <div class="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+              <div class="flex flex-col gap-3 2xl:flex-row 2xl:items-center 2xl:justify-between">
                 <div
                   frTabs
                   [value]="viewMode()"
@@ -179,83 +173,84 @@
                   </div>
                 </div>
 
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-                  <div frDropdownMenu>
+                <div
+                  class="grid w-full min-w-0 gap-2 sm:grid-cols-2 xl:grid-cols-6 2xl:max-w-4xl 2xl:flex-1"
+                >
+                  <div class="min-w-0 xl:col-span-2">
                     <button
-                      frButton
-                      appearance="outline"
                       type="button"
-                      [frDropdownMenuTrigger]="roleMenu"
+                      class="w-full"
+                      [frSelect]="roleMenu"
+                      [value]="roleFilter()"
+                      (valueChange)="roleFilter.set($event ?? 'All roles')"
                     >
-                      <ng-icon name="tablerAdjustmentsHorizontal" size="16" frButtonIcon />
-                      <span frButtonLabel>{{ roleFilter() }}</span>
-                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerAdjustmentsHorizontal" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All roles"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
                     </button>
-                    <ng-template
-                      #roleMenu="frDropdownMenuContent"
-                      frDropdownMenuContent
-                      side="bottom"
-                      align="end"
-                    >
-                      <div frDropdownMenuPanel>
-                        @for (role of roleOptions; track role) {
-                          <button
-                            frDropdownMenuItem
-                            type="button"
-                            (click)="roleFilter.set(role)"
-                          >
-                            {{ role }}
-                          </button>
-
-                          @if ($index === 0) {
-                            <div frDropdownMenuSeparator></div>
+                    <ng-template #roleMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (role of roleOptions; track role) {
+                            <button frSelectItem type="button" [value]="role" [label]="role">
+                              {{ role }}
+                            </button>
                           }
-                        }
-                      </div>
+                        </frame-select-group></frame-select-panel
+                      >
                     </ng-template>
                   </div>
 
-                  <div frDropdownMenu>
+                  <div class="min-w-0 xl:col-span-2">
                     <button
-                      frButton
-                      appearance="outline"
                       type="button"
-                      [frDropdownMenuTrigger]="statusMenu"
+                      class="w-full"
+                      [frSelect]="statusMenu"
+                      [value]="statusFilter()"
+                      (valueChange)="statusFilter.set($event ?? 'All status')"
                     >
-                      <ng-icon name="tablerShield" size="16" frButtonIcon />
-                      <span frButtonLabel>{{ statusFilter() }}</span>
-                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerShield" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All status"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
                     </button>
-                    <ng-template
-                      #statusMenu="frDropdownMenuContent"
-                      frDropdownMenuContent
-                      side="bottom"
-                      align="end"
-                    >
-                      <div frDropdownMenuPanel>
-                        @for (status of statusOptions; track status) {
-                          <button
-                            frDropdownMenuItem
-                            type="button"
-                            (click)="statusFilter.set(status)"
-                          >
-                            {{ status }}
-                          </button>
-
-                          @if ($index === 0) {
-                            <div frDropdownMenuSeparator></div>
+                    <ng-template #statusMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (status of statusOptions; track status) {
+                            <button frSelectItem type="button" [value]="status" [label]="status">
+                              {{ status }}
+                            </button>
                           }
-                        }
-                      </div>
+                        </frame-select-group></frame-select-panel
+                      >
                     </ng-template>
                   </div>
 
-                  <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                  <button
+                    frButton
+                    appearance="outline"
+                    type="button"
+                    class="h-10 w-full whitespace-nowrap"
+                    (click)="resetFilters()"
+                  >
                     <span frButtonLabel>Reset</span>
                   </button>
 
-                  <div frDropdownMenu>
-                    <button frButton type="button" [frDropdownMenuTrigger]="addUserMenu">
+                  <div frDropdownMenu class="min-w-0">
+                    <button
+                      frButton
+                      type="button"
+                      class="h-10 w-full whitespace-nowrap"
+                      [frDropdownMenuTrigger]="addUserMenu"
+                    >
                       <ng-icon name="tablerUserPlus" size="16" frButtonIcon />
                       <span frButtonLabel>Add user</span>
                       <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
@@ -267,18 +262,12 @@
                       align="end"
                     >
                       <div frDropdownMenuPanel>
-                        <button
-                          frDropdownMenuItem
-                          type="button"
-                        >
+                        <button frDropdownMenuItem type="button">
                           <ng-icon name="tablerMail" size="14" />
                           Invite by email
                         </button>
                         <div frDropdownMenuSeparator></div>
-                        <button
-                          frDropdownMenuItem
-                          type="button"
-                        >
+                        <button frDropdownMenuItem type="button">
                           <ng-icon name="tablerDatabase" size="14" />
                           Connect directory
                         </button>
@@ -302,10 +291,7 @@
               </div>
 
               @if (viewMode() === 'table') {
-                <div
-                  frTableContainer
-                  class="max-h-160 w-full overflow-auto border border-border"
-                >
+                <div frTableContainer class="max-h-160 w-full overflow-auto border border-border">
                   <table frTable [dataSource]="filteredUsers()">
                     <ng-container frColumnDef="select">
                       <th frHeaderCell *frHeaderCellDef>
@@ -361,12 +347,17 @@
                             <div frHoverCardPanel>
                               <div class="grid gap-1">
                                 <strong class="text-sm text-foreground">{{ user.name }}</strong>
-                                <span class="text-xs text-muted-foreground">{{ user.role }} · {{ user.team }}</span>
+                                <span class="text-xs text-muted-foreground"
+                                  >{{ user.role }} · {{ user.team }}</span
+                                >
                               </div>
                               <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
                                 <span>Last seen: {{ user.lastSeen }}</span>
                                 <span>Joined: {{ user.joined }}</span>
-                                <span>{{ user.twoFactor ? '2FA enabled' : '2FA pending' }} · {{ user.status }}</span>
+                                <span
+                                  >{{ user.twoFactor ? '2FA enabled' : '2FA pending' }} ·
+                                  {{ user.status }}</span
+                                >
                               </div>
                             </div>
                           </ng-template>
@@ -444,19 +435,12 @@
                                 <ng-icon name="tablerEdit" size="14" />
                                 View details
                               </button>
-                              <button
-                                frDropdownMenuItem
-                                type="button"
-                              >
+                              <button frDropdownMenuItem type="button">
                                 <ng-icon name="tablerKey" size="14" />
                                 Send reset
                               </button>
                               <div frDropdownMenuSeparator></div>
-                              <button
-                                frDropdownMenuItem
-                                variant="destructive"
-                                type="button"
-                              >
+                              <button frDropdownMenuItem variant="destructive" type="button">
                                 <ng-icon name="tablerTrash" size="14" />
                                 Deactivate
                               </button>
@@ -477,7 +461,6 @@
                       <tr>
                         <td frCell colspan="8">No users match the current filters.</td>
                       </tr>
-
                     </ng-template>
                   </table>
                 </div>
@@ -552,9 +535,7 @@
                           <span frAvatarFallback>{{ user.initials }}</span>
                         </span>
                         <span class="grid min-w-0 gap-0.5">
-                          <span class="truncate font-medium text-foreground">{{
-                            user.name
-                          }}</span>
+                          <span class="truncate font-medium text-foreground">{{ user.name }}</span>
                           <span class="truncate text-xs text-muted-foreground">{{
                             user.email
                           }}</span>
@@ -579,8 +560,8 @@
                 class="flex flex-col gap-3 border-t border-border pt-3 md:flex-row md:items-center md:justify-between"
               >
                 <span class="text-sm text-muted-foreground">
-                  {{ selection.selected.length }} selected · Showing
-                  {{ filteredUsers().length }} of {{ users().length }} users
+                  {{ selection.selected.length }} selected · Showing {{ filteredUsers().length }} of
+                  {{ users().length }} users
                 </span>
                 <nav frPagination aria-label="User table pages">
                   <ul frPaginationContent>

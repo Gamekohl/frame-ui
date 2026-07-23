@@ -50,6 +50,7 @@ import {
   tablerX,
 } from '@ng-icons/tabler-icons';
 
+import { CommerceAdminAuditStore } from '../shared/commerce-admin-audit.store';
 import {
   ADMIN_NAV,
   MAIN_NAV,
@@ -117,12 +118,13 @@ import {
       tablerUsers,
       tablerWorld,
       tablerX,
-      tablerAt
+      tablerAt,
     }),
   ],
 })
 export class SettingsTemplatePage {
   private readonly toast = inject(FrToastService);
+  private readonly audit = inject(CommerceAdminAuditStore);
 
   protected readonly mainNav = MAIN_NAV;
   protected readonly adminNav = ADMIN_NAV;
@@ -176,6 +178,19 @@ export class SettingsTemplatePage {
   protected saveSettings(): void {
     this.toast.success('Settings saved', {
       description: 'Your store settings have been updated.',
+    });
+    this.audit.record({
+      actor: 'Mika Stone',
+      initials: 'MS',
+      action: 'Saved store settings',
+      target:
+        this.sections.find((section) => section.id === this.activeSection())?.label ?? 'Settings',
+      area: 'Settings',
+      outcome: 'Success',
+      summary: 'The current store settings section was saved.',
+      source: 'Settings workspace',
+      ipAddress: 'Current session',
+      changes: [],
     });
   }
 }

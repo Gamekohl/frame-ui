@@ -13,6 +13,7 @@ import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrProgressModule } from '@frame-ui-ng/components/progress';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
 import { FrTabsModule } from '@frame-ui-ng/components/tabs';
@@ -50,6 +51,7 @@ import {
 } from '@ng-icons/tabler-icons';
 
 import { RolesPermissionsMatrixModalComponent } from './roles-permissions-matrix-modal.component';
+import { CommerceAdminAuditStore } from '../shared/commerce-admin-audit.store';
 import {
   ADMIN_ACCOUNTS,
   ADMIN_NAV,
@@ -76,6 +78,7 @@ import {
     FrInputModule,
     FrPaginationModule,
     FrProgressModule,
+    FrSelectModule,
     FrSidebarModule,
     FrTableModule,
     FrTabsModule,
@@ -122,6 +125,7 @@ import {
 })
 export class RolesPermissionsTemplatePage {
   private readonly modal = inject(FrModalService);
+  private readonly audit = inject(CommerceAdminAuditStore);
 
   protected readonly permissionGroups = PERMISSION_GROUPS;
   protected readonly mainNav = MAIN_NAV;
@@ -238,6 +242,25 @@ export class RolesPermissionsTemplatePage {
           : entry,
       ),
     );
+
+    this.audit.record({
+      actor: 'Mika Stone',
+      initials: 'MS',
+      action: 'Changed role permission',
+      target: role.name,
+      area: 'Access',
+      outcome: 'Review',
+      summary: `${permissionId} was ${nextValue ? 'enabled' : 'disabled'} for ${role.name}.`,
+      source: 'Roles and permissions',
+      ipAddress: 'Current session',
+      changes: [
+        {
+          label: permissionId,
+          before: nextValue ? 'Disabled' : 'Enabled',
+          after: nextValue ? 'Enabled' : 'Disabled',
+        },
+      ],
+    });
   }
 
   protected resetFilters(): void {

@@ -33,7 +33,7 @@
           class="border-border bg-background"
         >
           <div frSidebarHeader class="border-b border-border">
-            <a frSidebarMenuButton size="lg" href="#">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/overview">
               <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
                 <ng-icon name="tablerBuildingStore" size="18" />
               </span>
@@ -51,7 +51,7 @@
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -70,7 +70,7 @@
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -82,7 +82,7 @@
           </div>
 
           <div frSidebarFooter class="border-t border-border">
-            <a frSidebarMenuButton variant="outline" href="#">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/user-management">
               <span frAvatar size="sm">
                 <span frAvatarFallback>MS</span>
               </span>
@@ -113,11 +113,11 @@
               <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
                 <ol frBreadcrumbList>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Acme</a>
+                    <a frBreadcrumbLink routerLink="/templates/overview">Acme</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Admin</a>
+                    <a frBreadcrumbLink routerLink="/templates/settings">Admin</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
@@ -158,7 +158,8 @@
                   <ng-icon frAlertIcon name="tablerExclamationCircle" />
                   <h3 frAlertTitle>{{ selectedRole().name }} has sensitive access</h3>
                   <p frAlertDescription>
-                    This role can {{ criticalPermissionLabels().join(', ') }}. Keep these permissions reviewed before assigning it broadly.
+                    This role can {{ criticalPermissionLabels().join(', ') }}. Keep these
+                    permissions reviewed before assigning it broadly.
                   </p>
                 </section>
               }
@@ -172,18 +173,11 @@
                 </div>
 
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-                  <button
-                    frButton
-                    appearance="outline"
-                    type="button"
-                  >
+                  <button frButton appearance="outline" type="button">
                     <ng-icon name="tablerShieldCheck" size="16" frButtonIcon />
                     <span frButtonLabel>Review changes</span>
                   </button>
-                  <button
-                    frButton
-                    type="button"
-                  >
+                  <button frButton type="button">
                     <ng-icon name="tablerUserPlus" size="16" frButtonIcon />
                     <span frButtonLabel>Add member</span>
                   </button>
@@ -200,7 +194,9 @@
                         : 'border-border bg-muted'
                     "
                   >
-                    <div class="flex items-center justify-between gap-3 border-b pb-3 border-border mb-auto">
+                    <div
+                      class="flex items-center justify-between gap-3 border-b pb-3 border-border mb-auto"
+                    >
                       <frame-hover-card [openDelay]="120" [closeDelay]="100">
                         <button
                           type="button"
@@ -219,19 +215,27 @@
                           <div frHoverCardPanel>
                             <div class="grid gap-1">
                               <strong class="text-sm text-foreground">{{ role.name }}</strong>
-                              <span class="text-xs leading-5 text-muted-foreground">{{ role.description }}</span>
+                              <span class="text-xs leading-5 text-muted-foreground">{{
+                                role.description
+                              }}</span>
                             </div>
                             <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
                               <span class="border border-border bg-muted p-2">
-                                <strong class="block text-foreground">{{ role.memberCount }}</strong>
+                                <strong class="block text-foreground">{{
+                                  role.memberCount
+                                }}</strong>
                                 Members
                               </span>
                               <span class="border border-border bg-muted p-2">
-                                <strong class="block text-foreground">{{ role.enabledCount }}</strong>
+                                <strong class="block text-foreground">{{
+                                  role.enabledCount
+                                }}</strong>
                                 Enabled
                               </span>
                               <span class="border border-border bg-muted p-2">
-                                <strong class="block text-foreground">{{ role.reviewCount }}</strong>
+                                <strong class="block text-foreground">{{
+                                  role.reviewCount
+                                }}</strong>
                                 Review
                               </span>
                             </div>
@@ -240,9 +244,9 @@
                       </frame-hover-card>
                       @if (role.locked) {
                         <span frBadge variant="secondary">
-                            <ng-icon name="tablerLock" size="12" />
-                            Locked
-                          </span>
+                          <ng-icon name="tablerLock" size="12" />
+                          Locked
+                        </span>
                       }
                     </div>
 
@@ -307,38 +311,32 @@
                 </div>
 
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-                  <div frDropdownMenu>
+                  <div class="w-full sm:w-44">
                     <button
-                      frButton
-                      appearance="outline"
                       type="button"
-                      [frDropdownMenuTrigger]="statusMenu"
+                      class="w-full"
+                      [frSelect]="statusMenu"
+                      [value]="statusFilter()"
+                      (valueChange)="statusFilter.set($event ?? 'All status')"
                     >
-                      <ng-icon name="tablerAdjustmentsHorizontal" size="16" frButtonIcon />
-                      <span frButtonLabel>{{ statusFilter() }}</span>
-                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerAdjustmentsHorizontal" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All status"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
                     </button>
-                    <ng-template
-                      #statusMenu="frDropdownMenuContent"
-                      frDropdownMenuContent
-                      side="bottom"
-                      align="end"
-                    >
-                      <div frDropdownMenuPanel>
-                        @for (status of statusOptions; track status) {
-                          <button
-                            frDropdownMenuItem
-                            type="button"
-                            (click)="statusFilter.set(status)"
-                          >
-                            {{ status }}
-                          </button>
-
-                          @if ($index === 0) {
-                            <div frDropdownMenuSeparator></div>
+                    <ng-template #statusMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (status of statusOptions; track status) {
+                            <button frSelectItem type="button" [value]="status" [label]="status">
+                              {{ status }}
+                            </button>
                           }
-                        }
-                      </div>
+                        </frame-select-group></frame-select-panel
+                      >
                     </ng-template>
                   </div>
 
@@ -428,17 +426,11 @@
                           align="end"
                         >
                           <div frDropdownMenuPanel>
-                            <button
-                              frDropdownMenuItem
-                              type="button"
-                            >
+                            <button frDropdownMenuItem type="button">
                               <ng-icon name="tablerEdit" size="14" />
                               Review access
                             </button>
-                            <button
-                              frDropdownMenuItem
-                              type="button"
-                            >
+                            <button frDropdownMenuItem type="button">
                               <ng-icon name="tablerMail" size="14" />
                               Send summary
                             </button>

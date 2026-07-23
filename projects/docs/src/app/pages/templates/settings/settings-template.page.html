@@ -11,7 +11,8 @@
         </p>
         <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Settings</h1>
         <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
-          A practical store settings surface for operator profiles, login policy, billing, and catalog collaborators.
+          A practical store settings surface for operator profiles, login policy, billing, and
+          catalog collaborators.
         </p>
       </div>
       <a
@@ -35,7 +36,7 @@
           class="border-border bg-background"
         >
           <div frSidebarHeader class="border-b border-border">
-            <a frSidebarMenuButton size="lg" href="#">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/overview">
               <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
                 <ng-icon name="tablerBuildingStore" size="18" />
               </span>
@@ -53,7 +54,7 @@
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -72,7 +73,7 @@
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
                     <li frSidebarMenuItem>
-                      <a frSidebarMenuButton [routerLink]="item.path ?? []" [active]="item.active">
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
                         <ng-icon [name]="item.icon" size="17" />
                         <span>{{ item.label }}</span>
                       </a>
@@ -84,7 +85,7 @@
           </div>
 
           <div frSidebarFooter class="border-t border-border">
-            <a frSidebarMenuButton variant="outline" href="#">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/user-management">
               <span frAvatar size="sm">
                 <span frAvatarFallback>MS</span>
               </span>
@@ -115,11 +116,11 @@
               <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
                 <ol frBreadcrumbList>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Acme</a>
+                    <a frBreadcrumbLink routerLink="/templates/overview">Acme</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
-                    <a frBreadcrumbLink href="#">Admin</a>
+                    <a frBreadcrumbLink routerLink="/templates/settings">Admin</a>
                   </li>
                   <li frBreadcrumbSeparator></li>
                   <li frBreadcrumbItem>
@@ -145,10 +146,7 @@
               (valueChange)="selectSection($event)"
               class="grid gap-6 xl:grid-cols-[17rem_1fr]"
             >
-              <div
-                frTabsList
-                aria-label="Settings sections"
-              >
+              <div frTabsList aria-label="Settings sections">
                 @for (section of sections; track section.id) {
                   <button
                     frTabsTrigger
@@ -167,7 +165,8 @@
                   <div class="border-b border-border pb-5">
                     <h3 class="m-0 text-2xl font-semibold">Account</h3>
                     <p class="m-0 mt-1 text-sm text-muted-foreground">
-                      Keep your operator profile accurate for catalog approvals, exports, and teammate handoffs.
+                      Keep your operator profile accurate for catalog approvals, exports, and
+                      teammate handoffs.
                     </p>
                   </div>
 
@@ -180,9 +179,9 @@
                     <label class="grid gap-2">
                       <span class="text-sm font-semibold">Username</span>
                       <div frInputGroup>
-                          <span frInputGroupAddon>
-                            <ng-icon name="tablerAt" size="16" />
-                          </span>
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerAt" size="16" />
+                        </span>
                         <input frInputGroupInput value="mika" />
                       </div>
                     </label>
@@ -200,7 +199,9 @@
 
                     <label class="grid gap-2">
                       <span class="text-sm font-semibold">About</span>
-                      <textarea frTextarea rows="4">I lead catalog operations at Acme Store and keep product, inventory, and support workflows organized for the team.</textarea>
+                      <textarea frTextarea rows="4">
+I lead catalog operations at Acme Store and keep product, inventory, and support workflows organized for the team.</textarea
+                      >
                     </label>
 
                     <section frCollapsible class="mt-6 border-t border-border pt-6">
@@ -212,7 +213,8 @@
                         <span class="grid gap-1">
                           <span class="text-xl font-semibold">Private contact</span>
                           <span class="text-sm text-muted-foreground">
-                            Private defaults used for catalog exports, receipts, and security notices.
+                            Private defaults used for catalog exports, receipts, and security
+                            notices.
                           </span>
                         </span>
                         <ng-icon name="tablerChevronDown" size="18" />
@@ -243,16 +245,36 @@
                               <ng-template frComboboxContent>
                                 <div frComboboxPanel>
                                   <div frComboboxList>
-                                    <button frComboboxItem value="Germany" label="Germany" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Germany"
+                                      label="Germany"
+                                      type="button"
+                                    >
                                       Germany
                                     </button>
-                                    <button frComboboxItem value="Sweden" label="Sweden" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Sweden"
+                                      label="Sweden"
+                                      type="button"
+                                    >
                                       Sweden
                                     </button>
-                                    <button frComboboxItem value="Canada" label="Canada" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Canada"
+                                      label="Canada"
+                                      type="button"
+                                    >
                                       Canada
                                     </button>
-                                    <button frComboboxItem value="Japan" label="Japan" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Japan"
+                                      label="Japan"
+                                      type="button"
+                                    >
                                       Japan
                                     </button>
                                   </div>
@@ -267,16 +289,36 @@
                               <ng-template frComboboxContent>
                                 <div frComboboxPanel>
                                   <div frComboboxList>
-                                    <button frComboboxItem value="English" label="English" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="English"
+                                      label="English"
+                                      type="button"
+                                    >
                                       English
                                     </button>
-                                    <button frComboboxItem value="Deutsch" label="Deutsch" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Deutsch"
+                                      label="Deutsch"
+                                      type="button"
+                                    >
                                       Deutsch
                                     </button>
-                                    <button frComboboxItem value="Svenska" label="Svenska" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Svenska"
+                                      label="Svenska"
+                                      type="button"
+                                    >
                                       Svenska
                                     </button>
-                                    <button frComboboxItem value="Japanese" label="Japanese" type="button">
+                                    <button
+                                      frComboboxItem
+                                      value="Japanese"
+                                      label="Japanese"
+                                      type="button"
+                                    >
                                       Japanese
                                     </button>
                                   </div>
@@ -310,7 +352,8 @@
                     <ng-icon frAlertIcon name="tablerInfoCircle" />
                     <h3 frAlertTitle>Owner sessions are watched closely</h3>
                     <p frAlertDescription>
-                      Store owners receive sign-in alerts when catalog or billing settings change from a new device.
+                      Store owners receive sign-in alerts when catalog or billing settings change
+                      from a new device.
                     </p>
                   </section>
 
@@ -318,68 +361,82 @@
                     <label class="grid gap-2">
                       <span class="text-sm font-semibold">New password</span>
                       <div frInputGroup>
-                          <span frInputGroupAddon>
-                            <ng-icon name="tablerLock" size="16" />
-                          </span>
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerLock" size="16" />
+                        </span>
                         <input frInputGroupInput type="password" placeholder="Enter new password" />
                         <span frInputGroupAddon>
-                            <ng-icon name="tablerEyeOff" size="16" />
-                          </span>
+                          <ng-icon name="tablerEyeOff" size="16" />
+                        </span>
                       </div>
                     </label>
 
                     <label class="grid gap-2">
                       <span class="text-sm font-semibold">Confirm new password</span>
                       <div frInputGroup>
-                          <span frInputGroupAddon>
-                            <ng-icon name="tablerLock" size="16" />
-                          </span>
-                        <input frInputGroupInput type="password" placeholder="Repeat new password" />
                         <span frInputGroupAddon>
-                            <ng-icon name="tablerEyeOff" size="16" />
-                          </span>
+                          <ng-icon name="tablerLock" size="16" />
+                        </span>
+                        <input
+                          frInputGroupInput
+                          type="password"
+                          placeholder="Repeat new password"
+                        />
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerEyeOff" size="16" />
+                        </span>
                       </div>
                       <span class="text-sm text-muted-foreground">
-                          Use at least 12 characters and avoid anything tied to the workspace name.
-                        </span>
+                        Use at least 12 characters and avoid anything tied to the workspace name.
+                      </span>
                     </label>
 
                     <div class="mt-6 grid gap-4 border-t border-border pt-6">
                       <div>
-                      <h4 class="m-0 text-xl font-semibold">Security preferences</h4>
-                      <p class="m-0 mt-1 text-sm text-muted-foreground">
+                        <h4 class="m-0 text-xl font-semibold">Security preferences</h4>
+                        <p class="m-0 mt-1 text-sm text-muted-foreground">
                           Add checks around risky sign-ins and long-lived store access.
                         </p>
                       </div>
 
-                      <label class="flex items-start justify-between gap-5 border-b border-border py-4">
-                          <span class="flex min-w-0 gap-3">
-                            <ng-icon name="tablerShieldLock" size="20" class="mt-1 shrink-0" />
-                            <span class="grid gap-1">
-                              <span class="font-semibold">Verify new devices</span>
-                              <span class="text-sm leading-6 text-muted-foreground">
-                                Ask for a second check when someone signs in from an unrecognized browser.
-                              </span>
+                      <label
+                        class="flex items-start justify-between gap-5 border-b border-border py-4"
+                      >
+                        <span class="flex min-w-0 gap-3">
+                          <ng-icon name="tablerShieldLock" size="20" class="mt-1 shrink-0" />
+                          <span class="grid gap-1">
+                            <span class="font-semibold">Verify new devices</span>
+                            <span class="text-sm leading-6 text-muted-foreground">
+                              Ask for a second check when someone signs in from an unrecognized
+                              browser.
                             </span>
                           </span>
+                        </span>
                         <input frCheckbox type="checkbox" checked />
                       </label>
 
-                      <label class="flex items-start justify-between gap-5 border-b border-border py-4">
-                          <span class="flex min-w-0 gap-3">
-                            <ng-icon name="tablerBell" size="20" class="mt-1 shrink-0" />
-                            <span class="grid gap-1">
-                              <span class="font-semibold">Rotate recovery codes quarterly</span>
-                              <span class="text-sm leading-6 text-muted-foreground">
-                                Remind owners to regenerate recovery codes before they get stale.
-                              </span>
+                      <label
+                        class="flex items-start justify-between gap-5 border-b border-border py-4"
+                      >
+                        <span class="flex min-w-0 gap-3">
+                          <ng-icon name="tablerBell" size="20" class="mt-1 shrink-0" />
+                          <span class="grid gap-1">
+                            <span class="font-semibold">Rotate recovery codes quarterly</span>
+                            <span class="text-sm leading-6 text-muted-foreground">
+                              Remind owners to regenerate recovery codes before they get stale.
                             </span>
                           </span>
+                        </span>
                         <input frCheckbox type="checkbox" />
                       </label>
                     </div>
 
-                    <frame-accordion type="single" collapsible [defaultValue]="'session-policy'" border>
+                    <frame-accordion
+                      type="single"
+                      collapsible
+                      [defaultValue]="'session-policy'"
+                      border
+                    >
                       <frame-accordion-item value="session-policy">
                         <button frameAccordionTrigger type="button">
                           <span>Session policy</span>
@@ -387,8 +444,12 @@
                         </button>
                         <ng-template frameAccordionContent>
                           <div class="grid gap-2 text-sm text-muted-foreground">
-                            <p class="m-0">Operator sessions expire after 12 hours of inactivity.</p>
-                            <p class="m-0">High-risk changes ask for a fresh password confirmation.</p>
+                            <p class="m-0">
+                              Operator sessions expire after 12 hours of inactivity.
+                            </p>
+                            <p class="m-0">
+                              High-risk changes ask for a fresh password confirmation.
+                            </p>
                           </div>
                         </ng-template>
                       </frame-accordion-item>
@@ -400,7 +461,10 @@
                         </button>
                         <ng-template frameAccordionContent>
                           <div class="grid gap-2 text-sm text-muted-foreground">
-                            <p class="m-0">Disabling owner access pauses publishing and billing changes until another owner approves it.</p>
+                            <p class="m-0">
+                              Disabling owner access pauses publishing and billing changes until
+                              another owner approves it.
+                            </p>
                             <button frButton appearance="outline" type="button" class="w-fit">
                               <span frButtonLabel>Review owner access</span>
                             </button>
@@ -431,7 +495,8 @@
                     <ng-icon frAlertIcon name="tablerInfoCircle" />
                     <h3 frAlertTitle>Billing cycle notice</h3>
                     <p frAlertDescription>
-                      Plan changes apply to the current billing cycle. Store seat limits update as soon as the change is saved.
+                      Plan changes apply to the current billing cycle. Store seat limits update as
+                      soon as the change is saved.
                     </p>
                   </section>
 
@@ -445,18 +510,21 @@
                       >
                         <ng-icon name="tablerCreditCard" size="20" />
                         <span class="grid gap-2">
-                            <span class="text-base font-bold uppercase">{{ plan.name }}</span>
-                            <span class="text-sm text-muted-foreground">{{ plan.description }}</span>
-                            <span class="text-xl font-semibold">
-                              {{ plan.price }}
-                              <span class="text-sm font-normal text-muted-foreground">/ month</span>
-                            </span>
+                          <span class="text-base font-bold uppercase">{{ plan.name }}</span>
+                          <span class="text-sm text-muted-foreground">{{ plan.description }}</span>
+                          <span class="text-xl font-semibold">
+                            {{ plan.price }}
+                            <span class="text-sm font-normal text-muted-foreground">/ month</span>
                           </span>
+                        </span>
                       </button>
                     }
                   </div>
 
-                  <form class="grid gap-5 border-t border-border pt-6" (submit)="$event.preventDefault(); saveSettings()">
+                  <form
+                    class="grid gap-5 border-t border-border pt-6"
+                    (submit)="$event.preventDefault(); saveSettings()"
+                  >
                     <div>
                       <h4 class="m-0 text-xl font-semibold">Billing details</h4>
                       <p class="m-0 mt-1 text-sm text-muted-foreground">
@@ -466,9 +534,13 @@
 
                     <div class="grid gap-2">
                       <span class="text-sm font-semibold">Payment method</span>
-                      <div class="grid rounded-md gap-4 border border-border bg-muted p-4 sm:grid-cols-[1fr_auto] sm:items-center">
+                      <div
+                        class="grid rounded-md gap-4 border border-border bg-muted p-4 sm:grid-cols-[1fr_auto] sm:items-center"
+                      >
                         <div class="flex min-w-0 items-center gap-3">
-                          <span class="grid size-10 shrink-0 place-items-center border border-border bg-background">
+                          <span
+                            class="grid size-10 shrink-0 place-items-center border border-border bg-background"
+                          >
                             <ng-icon name="tablerCreditCard" size="18" />
                           </span>
                           <span class="grid min-w-0 gap-1">
@@ -478,12 +550,7 @@
                             </span>
                           </span>
                         </div>
-                        <button
-                          frButton
-                          appearance="outline"
-                          type="button"
-                          class="justify-center"
-                        >
+                        <button frButton appearance="outline" type="button" class="justify-center">
                           <span frButtonLabel>Replace card</span>
                         </button>
                       </div>
@@ -497,7 +564,12 @@
                           <ng-template frComboboxContent>
                             <div frComboboxPanel>
                               <div frComboboxList>
-                                <button frComboboxItem value="Germany" label="Germany" type="button">
+                                <button
+                                  frComboboxItem
+                                  value="Germany"
+                                  label="Germany"
+                                  type="button"
+                                >
                                   Germany
                                 </button>
                                 <button frComboboxItem value="Sweden" label="Sweden" type="button">
@@ -517,9 +589,9 @@
                       <label class="grid gap-2">
                         <span class="text-sm font-semibold">ZIP / Postal code</span>
                         <div frInputGroup>
-                            <span frInputGroupAddon>
-                              <ng-icon name="tablerHash" size="16" />
-                            </span>
+                          <span frInputGroupAddon>
+                            <ng-icon name="tablerHash" size="16" />
+                          </span>
                           <input frInputGroupInput value="10115" />
                         </div>
                       </label>
@@ -536,7 +608,9 @@
 
               <section frTabsContent value="notifications">
                 <div class="mx-auto grid max-w-5xl gap-6">
-                  <div class="flex flex-col gap-3 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between">
+                  <div
+                    class="flex flex-col gap-3 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between"
+                  >
                     <div class="grid gap-1">
                       <h3 class="m-0 text-2xl font-semibold">Notifications</h3>
                       <p class="m-0 text-sm text-muted-foreground">
@@ -591,16 +665,20 @@
                     <section class="grid gap-4 border-b border-border pb-5">
                       <div>
                         <h4 class="m-0 text-xl font-semibold">{{ group.title }}</h4>
-                        <p class="m-0 mt-1 text-sm text-muted-foreground">{{ group.description }}</p>
+                        <p class="m-0 mt-1 text-sm text-muted-foreground">
+                          {{ group.description }}
+                        </p>
                       </div>
 
                       <div class="grid gap-1">
                         @for (setting of group.settings; track setting.id) {
                           <label class="flex items-start justify-between gap-5 py-3">
-                              <span class="grid gap-1">
-                                <span class="font-semibold">{{ setting.label }}</span>
-                                <span class="text-sm leading-6 text-muted-foreground">{{ setting.description }}</span>
-                              </span>
+                            <span class="grid gap-1">
+                              <span class="font-semibold">{{ setting.label }}</span>
+                              <span class="text-sm leading-6 text-muted-foreground">{{
+                                setting.description
+                              }}</span>
+                            </span>
                             <input
                               frCheckbox
                               type="checkbox"
@@ -632,9 +710,9 @@
 
                   <div class="flex items-center gap-3 border-b border-border pb-5">
                     <div frInputGroup class="flex-1">
-                        <span frInputGroupAddon>
-                          <ng-icon name="tablerMail" size="16" />
-                        </span>
+                      <span frInputGroupAddon>
+                        <ng-icon name="tablerMail" size="16" />
+                      </span>
                       <input frInputGroupInput placeholder="Email address" value="nora@acme.com" />
                     </div>
 
@@ -646,13 +724,10 @@
                         class="w-full justify-between"
                         [frDropdownMenuTrigger]="inviteRoleMenu"
                       >
-                          <span frButtonLabel>Catalog manager</span>
+                        <span frButtonLabel>Catalog manager</span>
                         <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
                       </button>
-                      <ng-template
-                        #inviteRoleMenu="frDropdownMenuContent"
-                        frDropdownMenuContent
-                      >
+                      <ng-template #inviteRoleMenu="frDropdownMenuContent" frDropdownMenuContent>
                         <div frDropdownMenuPanel>
                           @for (role of roles; track role) {
                             <button frDropdownMenuItem type="button">{{ role }}</button>
@@ -670,13 +745,15 @@
                     @for (member of teamMembers(); track member.id) {
                       <div class="grid gap-4 py-4 sm:grid-cols-[1fr_auto_auto] sm:items-center">
                         <div class="flex min-w-0 items-center gap-3">
-                            <span frAvatar>
-                              <span frAvatarFallback>{{ member.initials }}</span>
-                            </span>
+                          <span frAvatar>
+                            <span frAvatarFallback>{{ member.initials }}</span>
+                          </span>
                           <span class="min-w-0">
-                              <span class="block truncate font-semibold">{{ member.name }}</span>
-                              <span class="block truncate text-sm text-muted-foreground">{{ member.email }}</span>
-                            </span>
+                            <span class="block truncate font-semibold">{{ member.name }}</span>
+                            <span class="block truncate text-sm text-muted-foreground">{{
+                              member.email
+                            }}</span>
+                          </span>
                         </div>
 
                         <div frDropdownMenu>

@@ -11,24 +11,16 @@
     <nav frNavigationMenu [frCornerHandles]="false" aria-label="Main navigation">
       <ul frNavigationMenuList>
         <li frNavigationMenuItem>
-          <a frNavigationMenuLink routerLink="/docs">
-            Docs
-          </a>
+          <a frNavigationMenuLink routerLink="/docs"> Docs </a>
         </li>
         <li frNavigationMenuItem>
-          <a frNavigationMenuLink routerLink="/docs/components">
-            Components
-          </a>
+          <a frNavigationMenuLink routerLink="/docs/components"> Components </a>
         </li>
         <li frNavigationMenuItem>
-          <a frNavigationMenuLink routerLink="/charts">
-            Charts
-          </a>
+          <a frNavigationMenuLink routerLink="/charts"> Charts </a>
         </li>
         <li frNavigationMenuItem>
-          <a frNavigationMenuLink routerLink="/blocks/authentication">
-            Blocks
-          </a>
+          <a frNavigationMenuLink routerLink="/blocks/authentication"> Blocks </a>
         </li>
         <li frNavigationMenuItem>
           <button [frNavigationMenuTrigger]="templatesMenu" type="button">
@@ -39,51 +31,43 @@
           <ng-template #templatesMenu="frNavigationMenuContent" frNavigationMenuContent>
             <div frNavigationMenuPanel>
               <div frNavigationMenuGrid>
-                <a frNavigationMenuLink routerLink="/templates/product-catalog" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
-                  <ng-icon name="tablerBuildingStore" size="18" class="mt-0.5" aria-hidden="true" />
-                  <span class="grid gap-1">
-                    <span frNavigationMenuLinkTitle>Product catalog</span>
-                    <span frNavigationMenuLinkDescription>
-                      CRUD table, product form, stock states, and bulk actions.
-                    </span>
+                <section class="grid content-start gap-2">
+                  <span class="px-3 font-mono text-xs font-bold uppercase text-primary">
+                    Commerce operations
                   </span>
-                </a>
-                <a frNavigationMenuLink routerLink="/templates/inventory" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
-                  <ng-icon name="tablerDatabase" size="18" class="mt-0.5" aria-hidden="true" />
-                  <span class="grid gap-1">
-                    <span frNavigationMenuLinkTitle>Inventory</span>
-                    <span frNavigationMenuLinkDescription>
-                      Locations, transfers, cycle counts, and stock holds.
-                    </span>
+                  @for (page of templateOperationPages; track page.id) {
+                    <a
+                      frNavigationMenuLink
+                      [routerLink]="page.path"
+                      class="grid! grid-cols-[auto_1fr] items-start gap-3!"
+                    >
+                      <ng-icon [name]="page.icon" size="18" class="mt-0.5" aria-hidden="true" />
+                      <span class="grid gap-1">
+                        <span frNavigationMenuLinkTitle>{{ page.label }}</span>
+                        <span frNavigationMenuLinkDescription>{{ page.description }}</span>
+                      </span>
+                    </a>
+                  }
+                </section>
+
+                <section class="grid content-start gap-2">
+                  <span class="px-3 font-mono text-xs font-bold uppercase text-primary">
+                    Administration
                   </span>
-                </a>
-                <a frNavigationMenuLink routerLink="/templates/user-management" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
-                  <ng-icon name="tablerLayoutDashboard" size="18" class="mt-0.5" aria-hidden="true" />
-                  <span class="grid gap-1">
-                    <span frNavigationMenuLinkTitle>User management</span>
-                    <span frNavigationMenuLinkDescription>
-                      Roles, access, tables, and team operations.
-                    </span>
-                  </span>
-                </a>
-                <a frNavigationMenuLink routerLink="/templates/roles-permissions" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
-                  <ng-icon name="tablerShieldLock" size="18" class="mt-0.5" aria-hidden="true" />
-                  <span class="grid gap-1">
-                    <span frNavigationMenuLinkTitle>Roles & permissions</span>
-                    <span frNavigationMenuLinkDescription>
-                      Permission matrix, role cards, and admin reviews.
-                    </span>
-                  </span>
-                </a>
-                <a frNavigationMenuLink routerLink="/templates/settings" class="grid! grid-cols-[auto_1fr] items-start gap-3!">
-                  <ng-icon name="tablerSettings" size="18" class="mt-0.5" aria-hidden="true" />
-                  <span class="grid gap-1">
-                    <span frNavigationMenuLinkTitle>Settings</span>
-                    <span frNavigationMenuLinkDescription>
-                      Workspace defaults, notifications, security, and billing.
-                    </span>
-                  </span>
-                </a>
+                  @for (page of templateAdministrationPages; track page.id) {
+                    <a
+                      frNavigationMenuLink
+                      [routerLink]="page.path"
+                      class="grid! grid-cols-[auto_1fr] items-start gap-3!"
+                    >
+                      <ng-icon [name]="page.icon" size="18" class="mt-0.5" aria-hidden="true" />
+                      <span class="grid gap-1">
+                        <span frNavigationMenuLinkTitle>{{ page.label }}</span>
+                        <span frNavigationMenuLinkDescription>{{ page.description }}</span>
+                      </span>
+                    </a>
+                  }
+                </section>
               </div>
             </div>
           </ng-template>

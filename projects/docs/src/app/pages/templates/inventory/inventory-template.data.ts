@@ -1,3 +1,5 @@
+import { createCommerceAdminNavigation } from '../shared/commerce-admin-template.registry';
+
 export type InventoryLocationKey = 'main' | 'retail' | 'returns' | 'qa';
 export type InventoryStatus = 'Healthy' | 'Low' | 'Critical' | 'On hold';
 export type InventoryActionMode = 'transfer' | 'count' | 'hold';
@@ -32,14 +34,6 @@ export type InventoryMovement = {
   time: string;
 };
 
-export type TemplateNavItem = {
-  label: string;
-  icon: string;
-  active: boolean;
-  badge?: string | null;
-  path?: string;
-};
-
 export const INVENTORY_LOCATIONS: InventoryLocation[] = [
   { key: 'main', label: 'Main warehouse', code: 'MW', capacity: 420 },
   { key: 'retail', label: 'Retail floor', code: 'RF', capacity: 96 },
@@ -61,41 +55,8 @@ export const INVENTORY_COLUMNS = [
   'actions',
 ];
 
-export const MAIN_NAV: TemplateNavItem[] = [
-  { label: 'Overview', icon: 'tablerHome', active: false, badge: null },
-  {
-    label: 'Product catalog',
-    icon: 'tablerBuildingStore',
-    active: false,
-    badge: null,
-    path: '/templates/product-catalog',
-  },
-  {
-    label: 'Inventory',
-    icon: 'tablerDatabase',
-    active: true,
-    badge: '8',
-    path: '/templates/inventory',
-  },
-  { label: 'Orders', icon: 'tablerLayoutBoard', active: false, badge: null },
-  { label: 'Customers', icon: 'tablerUsers', active: false, badge: null },
-  { label: 'Store docs', icon: 'tablerFileText', active: false, badge: null },
-];
-
-export const ADMIN_NAV: TemplateNavItem[] = [
-  { label: 'User management', icon: 'tablerUsers', active: false, path: '/templates/user-management' },
-  {
-    label: 'Roles & Permissions',
-    icon: 'tablerShieldLock',
-    active: false,
-    path: '/templates/roles-permissions',
-  },
-  { label: 'Settings', icon: 'tablerSettings', active: false, path: '/templates/settings' },
-  { label: 'Authentication', icon: 'tablerKey', active: false },
-  { label: 'Security', icon: 'tablerShield', active: false },
-  { label: 'Audit log', icon: 'tablerActivity', active: false },
-  { label: 'Data exports', icon: 'tablerDatabase', active: false },
-];
+export const { mainNav: MAIN_NAV, adminNav: ADMIN_NAV } =
+  createCommerceAdminNavigation('inventory');
 
 export const INVENTORY_ITEMS: InventoryItem[] = [
   {

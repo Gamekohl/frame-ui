@@ -27,6 +27,7 @@ import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
 import { FrPopoverModule } from '@frame-ui-ng/components/popover';
+import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSheetModule, FrSheetService } from '@frame-ui-ng/components/sheet';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
 import { FrTableModule } from '@frame-ui-ng/components/table';
@@ -71,6 +72,7 @@ import {
   tablerX,
 } from '@ng-icons/tabler-icons';
 
+import { CommerceAdminAuditStore } from '../shared/commerce-admin-audit.store';
 import { ProductFormModalComponent } from './product-form-modal.component';
 import {
   ProductRestockModalComponent,
@@ -108,6 +110,7 @@ import {
     FrInputModule,
     FrPaginationModule,
     FrPopoverModule,
+    FrSelectModule,
     FrSheetModule,
     FrSidebarModule,
     FrTableModule,
@@ -164,6 +167,7 @@ export class ProductCatalogTemplatePage {
   private readonly confirmModal = inject(FrConfirmModalService);
   private readonly sheet = inject(FrSheetService);
   private readonly toast = inject(FrToastService);
+  private readonly audit = inject(CommerceAdminAuditStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly productDetailsSheet =
     viewChild.required<TemplateRef<unknown>>('productDetailsSheet');
@@ -192,7 +196,9 @@ export class ProductCatalogTemplatePage {
   protected readonly selection = new SelectionModel<number>(true);
 
   protected readonly selectedProduct = computed(
-    () => this.products().find((product) => product.id === this.selectedProductId()) ?? this.products()[0],
+    () =>
+      this.products().find((product) => product.id === this.selectedProductId()) ??
+      this.products()[0],
   );
 
   protected readonly filteredProducts = computed(() => {
@@ -233,7 +239,9 @@ export class ProductCatalogTemplatePage {
       },
       {
         label: 'Low stock',
-        value: products.filter((product) => this.stockState(product) === 'Low stock').length.toString(),
+        value: products
+          .filter((product) => this.stockState(product) === 'Low stock')
+          .length.toString(),
       },
       {
         label: 'Drafts',
@@ -241,7 +249,9 @@ export class ProductCatalogTemplatePage {
       },
       {
         label: 'Catalog value',
-        value: this.currency(products.reduce((sum, product) => sum + product.price * product.stock, 0)),
+        value: this.currency(
+          products.reduce((sum, product) => sum + product.price * product.stock, 0),
+        ),
       },
     ];
   });
@@ -310,6 +320,18 @@ export class ProductCatalogTemplatePage {
   protected publishProduct(product: CatalogProduct): void {
     if (!this.canPublishProduct(product)) {
       this.toast.warning(`${product.name} cannot be published while it is out of stock.`);
+      this.audit.record({
+        actor: 'Mika Stone',
+        initials: 'MS',
+        action: 'Blocked product publish',
+        target: product.name,
+        area: 'Catalog',
+        outcome: 'Blocked',
+        summary: 'Publishing was prevented because the product has no available stock.',
+        source: 'Catalog workspace',
+        ipAddress: 'Current session',
+        changes: [{ label: 'Stock', before: '0', after: 'Publish blocked' }],
+      });
       return;
     }
 
@@ -372,7 +394,9 @@ export class ProductCatalogTemplatePage {
 
   protected bulkPublish(): void {
     const selectedProducts = this.selectedProducts();
-    const publishableProducts = selectedProducts.filter((product) => this.canPublishProduct(product));
+    const publishableProducts = selectedProducts.filter((product) =>
+      this.canPublishProduct(product),
+    );
     const blockedCount = selectedProducts.length - publishableProducts.length;
 
     if (publishableProducts.length === 0) {
@@ -527,7 +551,9 @@ export class ProductCatalogTemplatePage {
     return issues;
   }
 
-  protected statusVariant(status: ProductStatus): 'destructive' | 'outline' | 'secondary' | 'success' {
+  protected statusVariant(
+    status: ProductStatus,
+  ): 'destructive' | 'outline' | 'secondary' | 'success' {
     if (status === 'Active') {
       return 'success';
     }
@@ -626,14 +652,18 @@ export class ProductCatalogTemplatePage {
       return 0;
     }
 
-    const categoryBaseline = product.category === 'Furniture' ? 6 : product.category === 'Accessories' ? 4 : 3;
+    const categoryBaseline =
+      product.category === 'Furniture' ? 6 : product.category === 'Accessories' ? 4 : 3;
     const stockAdjustment = product.stock === 0 ? 2 : product.stock <= 10 ? 1 : 0;
 
     return Math.min(12, categoryBaseline + stockAdjustment + (product.id % 3));
   }
 
   protected stockCoverage(product: CatalogProduct): number {
-    const averageDailySales = Math.max(1, Math.round(this.totalSales(this.salesSeries(product)) / 7));
+    const averageDailySales = Math.max(
+      1,
+      Math.round(this.totalSales(this.salesSeries(product)) / 7),
+    );
 
     return Math.max(0, Math.round((product.stock / (averageDailySales * 7)) * 10) / 10);
   }
@@ -702,13 +732,14 @@ export class ProductCatalogTemplatePage {
           mode === 'duplicate'
             ? `${createdProduct.name} was saved as a copy.`
             : `${createdProduct.name} was added to the catalog.`,
+          mode === 'duplicate' ? 'Duplicated product' : 'Created product',
         );
         return;
       }
 
       if (productId) {
         this.updateProduct(productId, formValue);
-        this.markChanged(productId, `${formValue.name} was updated.`);
+        this.markChanged(productId, `${formValue.name} was updated.`, 'Updated product');
       }
     });
   }
@@ -726,7 +757,9 @@ export class ProductCatalogTemplatePage {
   private updateProduct(productId: number, patch: Partial<Omit<CatalogProduct, 'id'>>): void {
     this.products.update((products) =>
       products.map((product) =>
-        product.id === productId ? { ...product, ...patch, updated: patch.updated ?? 'Just now' } : product,
+        product.id === productId
+          ? { ...product, ...patch, updated: patch.updated ?? 'Just now' }
+          : product,
       ),
     );
   }
@@ -747,6 +780,7 @@ export class ProductCatalogTemplatePage {
     this.markChanged(
       product.id,
       `${incomingOrder}: ${incomingStock} units ordered from ${incomingSupplier}. ETA ${value.eta}.`,
+      'Scheduled product restock',
     );
   }
 
@@ -783,6 +817,7 @@ export class ProductCatalogTemplatePage {
     );
     this.finishBulkAction(
       `Created restock plan for ${plannedProducts.length} products (${totalIncoming} incoming units).`,
+      'Created bulk restock plan',
     );
   }
 
@@ -801,7 +836,11 @@ export class ProductCatalogTemplatePage {
       status: 'Active',
       visibility: 'Storefront',
     });
-    this.markChanged(product.id, `${product.name} is now active on the storefront.`);
+    this.markChanged(
+      product.id,
+      `${product.name} is now active on the storefront.`,
+      'Published product',
+    );
   }
 
   private archiveProductNow(product: CatalogProduct): void {
@@ -810,7 +849,7 @@ export class ProductCatalogTemplatePage {
       visibility: 'Hidden',
     });
     this.selection.deselect(product.id);
-    this.markChanged(product.id, `${product.name} was archived.`);
+    this.markChanged(product.id, `${product.name} was archived.`, 'Archived product');
   }
 
   private selectedIds(): number[] {
@@ -823,13 +862,44 @@ export class ProductCatalogTemplatePage {
     return this.products().filter((product) => selectedIds.includes(product.id));
   }
 
-  private finishBulkAction(message: string): void {
+  private finishBulkAction(message: string, action = 'Updated selected products'): void {
+    const selectedProducts = this.selectedProducts();
+
+    this.audit.record({
+      actor: 'Mika Stone',
+      initials: 'MS',
+      action,
+      target:
+        selectedProducts.length === 1
+          ? selectedProducts[0].name
+          : `${selectedProducts.length} catalog products`,
+      area: 'Catalog',
+      outcome: 'Success',
+      summary: message,
+      source: 'Catalog workspace',
+      ipAddress: 'Current session',
+      changes: [],
+    });
     this.recentlyChangedProductId.set(this.selection.selected[0] ?? null);
     this.selection.clear();
     this.toast.success(message);
   }
 
-  private markChanged(productId: number, message: string): void {
+  private markChanged(productId: number, message: string, action = 'Updated product'): void {
+    const product = this.products().find((entry) => entry.id === productId);
+
+    this.audit.record({
+      actor: 'Mika Stone',
+      initials: 'MS',
+      action,
+      target: product?.name ?? `Product ${productId}`,
+      area: 'Catalog',
+      outcome: 'Success',
+      summary: message,
+      source: 'Catalog workspace',
+      ipAddress: 'Current session',
+      changes: [],
+    });
     this.selectedProductId.set(productId);
     this.recentlyChangedProductId.set(productId);
     this.toast.success(message);
