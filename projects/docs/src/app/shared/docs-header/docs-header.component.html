@@ -33,9 +33,9 @@
               <div frNavigationMenuGrid>
                 <section class="grid content-start gap-2">
                   <span class="px-3 font-mono text-xs font-bold uppercase text-primary">
-                    Commerce operations
+                    Store
                   </span>
-                  @for (page of templateOperationPages; track page.id) {
+                  @for (page of templateStorePages; track page.id) {
                     <a
                       frNavigationMenuLink
                       [routerLink]="page.path"

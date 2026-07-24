@@ -1,0 +1,815 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon>
+    <ng-icon name="tablerX" size="16" />
+  </ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Template preview
+        </p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Settings</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          A practical store settings surface for operator profiles, login policy, billing, and
+          catalog collaborators.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/administration"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/administration/user-management">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Admin</span>
+                <span class="text-xs text-muted-foreground">Access control</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Access</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Governance</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a
+              frSidebarMenuButton
+              variant="outline"
+              routerLink="/templates/administration/user-management"
+            >
+              <span frAvatar size="sm">
+                <span frAvatarFallback>MS</span>
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Catalog administrator</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/user-management"
+                      >Acme</a
+                    >
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/settings">Admin</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <span frBreadcrumbPage>Settings</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-6 p-4 lg:p-6">
+            <header class="grid gap-1">
+              <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">Settings</h2>
+              <p class="m-0 text-sm leading-6 text-muted-foreground">
+                Configure the store defaults your catalog team touches every week.
+              </p>
+            </header>
+
+            <div
+              frTabs
+              orientation="vertical"
+              [value]="activeSection()"
+              (valueChange)="selectSection($event)"
+              class="grid gap-6 xl:grid-cols-[17rem_1fr]"
+            >
+              <div frTabsList aria-label="Settings sections">
+                @for (section of sections; track section.id) {
+                  <button
+                    frTabsTrigger
+                    [value]="section.id"
+                    type="button"
+                    class="h-10! justify-start! gap-2! px-3! text-left!"
+                  >
+                    <ng-icon [name]="section.icon" size="18" />
+                    <span>{{ section.label }}</span>
+                  </button>
+                }
+              </div>
+
+              <section frTabsContent value="account">
+                <div class="mx-auto grid max-w-5xl gap-6">
+                  <div class="border-b border-border pb-5">
+                    <h3 class="m-0 text-2xl font-semibold">Account</h3>
+                    <p class="m-0 mt-1 text-sm text-muted-foreground">
+                      Keep your operator profile accurate for catalog approvals, exports, and
+                      teammate handoffs.
+                    </p>
+                  </div>
+
+                  <form class="grid gap-5" (submit)="$event.preventDefault(); saveSettings()">
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold">Name</span>
+                      <input frInput value="Mika Stone" />
+                    </label>
+
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold">Username</span>
+                      <div frInputGroup>
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerAt" size="16" />
+                        </span>
+                        <input frInputGroupInput value="mika" />
+                      </div>
+                    </label>
+
+                    <div class="grid gap-5 lg:grid-cols-2">
+                      <label class="grid gap-2">
+                        <span class="text-sm font-semibold">Title</span>
+                        <input frInput value="Catalog operations lead" />
+                      </label>
+                      <label class="grid gap-2">
+                        <span class="text-sm font-semibold">Company</span>
+                        <input frInput value="Acme Store" />
+                      </label>
+                    </div>
+
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold">About</span>
+                      <textarea frTextarea rows="4">
+I lead catalog operations at Acme Store and keep product, inventory, and support workflows organized for the team.</textarea
+                      >
+                    </label>
+
+                    <section frCollapsible class="mt-6 border-t border-border pt-6">
+                      <button
+                        frCollapsibleTrigger
+                        type="button"
+                        class="flex w-full items-center justify-between gap-4 text-left"
+                      >
+                        <span class="grid gap-1">
+                          <span class="text-xl font-semibold">Private contact</span>
+                          <span class="text-sm text-muted-foreground">
+                            Private defaults used for catalog exports, receipts, and security
+                            notices.
+                          </span>
+                        </span>
+                        <ng-icon name="tablerChevronDown" size="18" />
+                      </button>
+
+                      <div frCollapsibleContent>
+                        <div class="grid gap-5 pt-5 lg:grid-cols-2">
+                          <label class="grid gap-2">
+                            <span class="text-sm font-semibold">Email</span>
+                            <div frInputGroup>
+                              <span frInputGroupAddon>
+                                <ng-icon name="tablerMail" size="16" />
+                              </span>
+                              <input frInputGroupInput value="mika@acme.com" />
+                            </div>
+                          </label>
+                          <label class="grid gap-2">
+                            <span class="text-sm font-semibold">Phone</span>
+                            <div frInputGroup>
+                              <span frInputGroupAddon>+49</span>
+                              <input frInputGroupInput value="302104883" />
+                            </div>
+                          </label>
+                          <label class="grid gap-2">
+                            <span class="text-sm font-semibold">Country</span>
+                            <div frCombobox [(value)]="accountCountry" autoHighlight>
+                              <input frComboboxInput placeholder="Select country" />
+                              <ng-template frComboboxContent>
+                                <div frComboboxPanel>
+                                  <div frComboboxList>
+                                    <button
+                                      frComboboxItem
+                                      value="Germany"
+                                      label="Germany"
+                                      type="button"
+                                    >
+                                      Germany
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Sweden"
+                                      label="Sweden"
+                                      type="button"
+                                    >
+                                      Sweden
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Canada"
+                                      label="Canada"
+                                      type="button"
+                                    >
+                                      Canada
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Japan"
+                                      label="Japan"
+                                      type="button"
+                                    >
+                                      Japan
+                                    </button>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </label>
+                          <label class="grid gap-2">
+                            <span class="text-sm font-semibold">Language</span>
+                            <div frCombobox [(value)]="accountLanguage" autoHighlight>
+                              <input frComboboxInput placeholder="Select language" />
+                              <ng-template frComboboxContent>
+                                <div frComboboxPanel>
+                                  <div frComboboxList>
+                                    <button
+                                      frComboboxItem
+                                      value="English"
+                                      label="English"
+                                      type="button"
+                                    >
+                                      English
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Deutsch"
+                                      label="Deutsch"
+                                      type="button"
+                                    >
+                                      Deutsch
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Svenska"
+                                      label="Svenska"
+                                      type="button"
+                                    >
+                                      Svenska
+                                    </button>
+                                    <button
+                                      frComboboxItem
+                                      value="Japanese"
+                                      label="Japanese"
+                                      type="button"
+                                    >
+                                      Japanese
+                                    </button>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+
+                    <div class="border-t border-border pt-5 text-right">
+                      <button frButton type="submit">
+                        <span frButtonLabel>Save</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <section frTabsContent value="security">
+                <div class="mx-auto grid max-w-5xl gap-6">
+                  <div class="border-b border-border pb-5">
+                    <h3 class="m-0 text-2xl font-semibold">Security</h3>
+                    <p class="m-0 mt-1 text-sm text-muted-foreground">
+                      Set the password rules and sign-in checks used by store operators.
+                    </p>
+                  </div>
+
+                  <section frAlert>
+                    <ng-icon frAlertIcon name="tablerInfoCircle" />
+                    <h3 frAlertTitle>Owner sessions are watched closely</h3>
+                    <p frAlertDescription>
+                      Store owners receive sign-in alerts when catalog or billing settings change
+                      from a new device.
+                    </p>
+                  </section>
+
+                  <form class="grid gap-5" (submit)="$event.preventDefault(); saveSettings()">
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold">New password</span>
+                      <div frInputGroup>
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerLock" size="16" />
+                        </span>
+                        <input frInputGroupInput type="password" placeholder="Enter new password" />
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerEyeOff" size="16" />
+                        </span>
+                      </div>
+                    </label>
+
+                    <label class="grid gap-2">
+                      <span class="text-sm font-semibold">Confirm new password</span>
+                      <div frInputGroup>
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerLock" size="16" />
+                        </span>
+                        <input
+                          frInputGroupInput
+                          type="password"
+                          placeholder="Repeat new password"
+                        />
+                        <span frInputGroupAddon>
+                          <ng-icon name="tablerEyeOff" size="16" />
+                        </span>
+                      </div>
+                      <span class="text-sm text-muted-foreground">
+                        Use at least 12 characters and avoid anything tied to the workspace name.
+                      </span>
+                    </label>
+
+                    <div class="mt-6 grid gap-4 border-t border-border pt-6">
+                      <div>
+                        <h4 class="m-0 text-xl font-semibold">Security preferences</h4>
+                        <p class="m-0 mt-1 text-sm text-muted-foreground">
+                          Add checks around risky sign-ins and long-lived store access.
+                        </p>
+                      </div>
+
+                      <label
+                        class="flex items-start justify-between gap-5 border-b border-border py-4"
+                      >
+                        <span class="flex min-w-0 gap-3">
+                          <ng-icon name="tablerShieldLock" size="20" class="mt-1 shrink-0" />
+                          <span class="grid gap-1">
+                            <span class="font-semibold">Verify new devices</span>
+                            <span class="text-sm leading-6 text-muted-foreground">
+                              Ask for a second check when someone signs in from an unrecognized
+                              browser.
+                            </span>
+                          </span>
+                        </span>
+                        <input frCheckbox type="checkbox" checked />
+                      </label>
+
+                      <label
+                        class="flex items-start justify-between gap-5 border-b border-border py-4"
+                      >
+                        <span class="flex min-w-0 gap-3">
+                          <ng-icon name="tablerBell" size="20" class="mt-1 shrink-0" />
+                          <span class="grid gap-1">
+                            <span class="font-semibold">Rotate recovery codes quarterly</span>
+                            <span class="text-sm leading-6 text-muted-foreground">
+                              Remind owners to regenerate recovery codes before they get stale.
+                            </span>
+                          </span>
+                        </span>
+                        <input frCheckbox type="checkbox" />
+                      </label>
+                    </div>
+
+                    <frame-accordion
+                      type="single"
+                      collapsible
+                      [defaultValue]="'session-policy'"
+                      border
+                    >
+                      <frame-accordion-item value="session-policy">
+                        <button frameAccordionTrigger type="button">
+                          <span>Session policy</span>
+                          <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+                        </button>
+                        <ng-template frameAccordionContent>
+                          <div class="grid gap-2 text-sm text-muted-foreground">
+                            <p class="m-0">
+                              Operator sessions expire after 12 hours of inactivity.
+                            </p>
+                            <p class="m-0">
+                              High-risk changes ask for a fresh password confirmation.
+                            </p>
+                          </div>
+                        </ng-template>
+                      </frame-accordion-item>
+
+                      <frame-accordion-item value="danger-zone">
+                        <button frameAccordionTrigger type="button">
+                          <span>Danger zone</span>
+                          <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+                        </button>
+                        <ng-template frameAccordionContent>
+                          <div class="grid gap-2 text-sm text-muted-foreground">
+                            <p class="m-0">
+                              Disabling owner access pauses publishing and billing changes until
+                              another owner approves it.
+                            </p>
+                            <button frButton appearance="outline" type="button" class="w-fit">
+                              <span frButtonLabel>Review owner access</span>
+                            </button>
+                          </div>
+                        </ng-template>
+                      </frame-accordion-item>
+                    </frame-accordion>
+
+                    <div class="text-right">
+                      <button frButton type="submit">
+                        <span frButtonLabel>Save</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <section frTabsContent value="billing">
+                <div class="mx-auto grid max-w-5xl gap-6">
+                  <div class="border-b border-border pb-5">
+                    <h3 class="m-0 text-2xl font-semibold">Plan & Billing</h3>
+                    <p class="m-0 mt-1 text-sm text-muted-foreground">
+                      Review store seat capacity, invoice details, and the card used for renewals.
+                    </p>
+                  </div>
+
+                  <section frAlert>
+                    <ng-icon frAlertIcon name="tablerInfoCircle" />
+                    <h3 frAlertTitle>Billing cycle notice</h3>
+                    <p frAlertDescription>
+                      Plan changes apply to the current billing cycle. Store seat limits update as
+                      soon as the change is saved.
+                    </p>
+                  </section>
+
+                  <div class="grid gap-4 lg:grid-cols-3">
+                    @for (plan of plans; track plan.id) {
+                      <button
+                        type="button"
+                        class="grid cursor-pointer min-h-36 place-items-center rounded-md gap-3 border border-border bg-background p-6 text-center transition hover:border-primary"
+                        [ngClass]="selectedPlan() === plan.id ? 'border-foreground shadow-sm' : ''"
+                        (click)="selectPlan(plan.id)"
+                      >
+                        <ng-icon name="tablerCreditCard" size="20" />
+                        <span class="grid gap-2">
+                          <span class="text-base font-bold uppercase">{{ plan.name }}</span>
+                          <span class="text-sm text-muted-foreground">{{ plan.description }}</span>
+                          <span class="text-xl font-semibold">
+                            {{ plan.price }}
+                            <span class="text-sm font-normal text-muted-foreground">/ month</span>
+                          </span>
+                        </span>
+                      </button>
+                    }
+                  </div>
+
+                  <form
+                    class="grid gap-5 border-t border-border pt-6"
+                    (submit)="$event.preventDefault(); saveSettings()"
+                  >
+                    <div>
+                      <h4 class="m-0 text-xl font-semibold">Billing details</h4>
+                      <p class="m-0 mt-1 text-sm text-muted-foreground">
+                        Keep invoice ownership and tax location current for store finance.
+                      </p>
+                    </div>
+
+                    <div class="grid gap-2">
+                      <span class="text-sm font-semibold">Payment method</span>
+                      <div
+                        class="grid rounded-md gap-4 border border-border bg-muted p-4 sm:grid-cols-[1fr_auto] sm:items-center"
+                      >
+                        <div class="flex min-w-0 items-center gap-3">
+                          <span
+                            class="grid size-10 shrink-0 place-items-center border border-border bg-background"
+                          >
+                            <ng-icon name="tablerCreditCard" size="18" />
+                          </span>
+                          <span class="grid min-w-0 gap-1">
+                            <span class="truncate font-semibold">Visa •••• 4242</span>
+                            <span class="truncate text-sm text-muted-foreground">
+                              Expires 09/28 · Invoice contact Mika Stone
+                            </span>
+                          </span>
+                        </div>
+                        <button frButton appearance="outline" type="button" class="justify-center">
+                          <span frButtonLabel>Replace card</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="grid gap-5 lg:grid-cols-2">
+                      <label class="grid gap-2">
+                        <span class="text-sm font-semibold">Country</span>
+                        <div frCombobox [(value)]="billingCountry" autoHighlight>
+                          <input frComboboxInput placeholder="Select country" />
+                          <ng-template frComboboxContent>
+                            <div frComboboxPanel>
+                              <div frComboboxList>
+                                <button
+                                  frComboboxItem
+                                  value="Germany"
+                                  label="Germany"
+                                  type="button"
+                                >
+                                  Germany
+                                </button>
+                                <button frComboboxItem value="Sweden" label="Sweden" type="button">
+                                  Sweden
+                                </button>
+                                <button frComboboxItem value="Canada" label="Canada" type="button">
+                                  Canada
+                                </button>
+                                <button frComboboxItem value="Japan" label="Japan" type="button">
+                                  Japan
+                                </button>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </label>
+                      <label class="grid gap-2">
+                        <span class="text-sm font-semibold">ZIP / Postal code</span>
+                        <div frInputGroup>
+                          <span frInputGroupAddon>
+                            <ng-icon name="tablerHash" size="16" />
+                          </span>
+                          <input frInputGroupInput value="10115" />
+                        </div>
+                      </label>
+                    </div>
+
+                    <div class="border-t border-border pt-5 text-right">
+                      <button frButton type="submit">
+                        <span frButtonLabel>Save</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <section frTabsContent value="notifications">
+                <div class="mx-auto grid max-w-5xl gap-6">
+                  <div
+                    class="flex flex-col gap-3 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between"
+                  >
+                    <div class="grid gap-1">
+                      <h3 class="m-0 text-2xl font-semibold">Notifications</h3>
+                      <p class="m-0 text-sm text-muted-foreground">
+                        Decide which catalog and inventory events should reach store operators.
+                      </p>
+                    </div>
+                    <frame-popover>
+                      <button
+                        frButton
+                        appearance="outline"
+                        type="button"
+                        [frPopoverTrigger]="quietHours"
+                      >
+                        <ng-icon name="tablerBell" size="16" frButtonIcon />
+                        <span frButtonLabel>Quiet hours</span>
+                      </button>
+                      <ng-template
+                        #quietHours="frPopoverContent"
+                        frPopoverContent
+                        side="bottom"
+                        align="end"
+                      >
+                        <div frPopoverPanel>
+                          <div frPopoverHeader>
+                            <h3 frPopoverTitle>Quiet hours</h3>
+                            <p frPopoverDescription>
+                              Non-critical catalog notifications wait until the next work window.
+                            </p>
+                          </div>
+                          <div frPopoverBody>
+                            <div class="grid gap-3 text-sm">
+                              <label class="flex items-center justify-between gap-4">
+                                <span>Weeknights</span>
+                                <input frCheckbox type="checkbox" checked />
+                              </label>
+                              <label class="flex items-center justify-between gap-4">
+                                <span>Weekend summaries</span>
+                                <input frCheckbox type="checkbox" />
+                              </label>
+                              <div class="grid grid-cols-2 gap-2">
+                                <input frInput aria-label="Quiet hours start" value="18:00" />
+                                <input frInput aria-label="Quiet hours end" value="08:00" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </frame-popover>
+                  </div>
+
+                  @for (group of notificationGroups(); track group.id) {
+                    <section class="grid gap-4 border-b border-border pb-5">
+                      <div>
+                        <h4 class="m-0 text-xl font-semibold">{{ group.title }}</h4>
+                        <p class="m-0 mt-1 text-sm text-muted-foreground">
+                          {{ group.description }}
+                        </p>
+                      </div>
+
+                      <div class="grid gap-1">
+                        @for (setting of group.settings; track setting.id) {
+                          <label class="flex items-start justify-between gap-5 py-3">
+                            <span class="grid gap-1">
+                              <span class="font-semibold">{{ setting.label }}</span>
+                              <span class="text-sm leading-6 text-muted-foreground">{{
+                                setting.description
+                              }}</span>
+                            </span>
+                            <input
+                              frCheckbox
+                              type="checkbox"
+                              [checked]="setting.enabled"
+                              (change)="toggleNotification(group.id, setting.id)"
+                            />
+                          </label>
+                        }
+                      </div>
+                    </section>
+                  }
+
+                  <div class="text-right">
+                    <button frButton type="button" (click)="saveSettings()">
+                      <span frButtonLabel>Save</span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section frTabsContent value="team">
+                <div class="mx-auto grid max-w-5xl gap-6">
+                  <div class="border-b border-border pb-5">
+                    <h3 class="m-0 text-2xl font-semibold">Team</h3>
+                    <p class="m-0 mt-1 text-sm text-muted-foreground">
+                      Invite store operators and adjust their day-to-day catalog access.
+                    </p>
+                  </div>
+
+                  <div class="flex items-center gap-3 border-b border-border pb-5">
+                    <div frInputGroup class="flex-1">
+                      <span frInputGroupAddon>
+                        <ng-icon name="tablerMail" size="16" />
+                      </span>
+                      <input frInputGroupInput placeholder="Email address" value="nora@acme.com" />
+                    </div>
+
+                    <div frDropdownMenu>
+                      <button
+                        frButton
+                        appearance="outline"
+                        type="button"
+                        class="w-full justify-between"
+                        [frDropdownMenuTrigger]="inviteRoleMenu"
+                      >
+                        <span frButtonLabel>Catalog manager</span>
+                        <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                      </button>
+                      <ng-template #inviteRoleMenu="frDropdownMenuContent" frDropdownMenuContent>
+                        <div frDropdownMenuPanel>
+                          @for (role of roles; track role) {
+                            <button frDropdownMenuItem type="button">{{ role }}</button>
+                          }
+                        </div>
+                      </ng-template>
+                    </div>
+
+                    <button frButton type="button" class="justify-center">
+                      <span frButtonLabel>Send invite</span>
+                    </button>
+                  </div>
+
+                  <div class="grid divide-y divide-border border-b border-border">
+                    @for (member of teamMembers(); track member.id) {
+                      <div class="grid gap-4 py-4 sm:grid-cols-[1fr_auto_auto] sm:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <span frAvatar>
+                            <span frAvatarFallback>{{ member.initials }}</span>
+                          </span>
+                          <span class="min-w-0">
+                            <span class="block truncate font-semibold">{{ member.name }}</span>
+                            <span class="block truncate text-sm text-muted-foreground">{{
+                              member.email
+                            }}</span>
+                          </span>
+                        </div>
+
+                        <div frDropdownMenu>
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            class="w-full justify-between sm:w-28"
+                            [frDropdownMenuTrigger]="memberRoleMenu"
+                          >
+                            <span frButtonLabel>{{ member.role }}</span>
+                            <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                          </button>
+                          <ng-template
+                            #memberRoleMenu="frDropdownMenuContent"
+                            frDropdownMenuContent
+                          >
+                            <div frDropdownMenuPanel>
+                              @for (role of roles; track role) {
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="setTeamRole(member.id, role)"
+                                >
+                                  {{ role }}
+                                </button>
+                              }
+                            </div>
+                          </ng-template>
+                        </div>
+
+                        <button
+                          frButton
+                          appearance="ghost"
+                          type="button"
+                          class="justify-center"
+                          (click)="removeTeamMember(member.id)"
+                          aria-label="Remove team member"
+                        >
+                          <ng-icon name="tablerTrash" size="17" frButtonIcon />
+                        </button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

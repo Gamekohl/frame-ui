@@ -18,6 +18,9 @@ export type FrChartBarOrientation = 'horizontal' | 'vertical';
 export type FrChartSeriesType = 'area' | 'bar' | 'line';
 export type FrChartDataPoint = Record<string, Date | number | string | null | undefined>;
 
+/** @deprecated Use FrChartDataPoint instead. */
+export type FrChartDatum = FrChartDataPoint;
+
 export interface FrChartSeries {
   readonly key: string;
   readonly label?: string;

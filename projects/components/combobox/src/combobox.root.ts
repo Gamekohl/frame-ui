@@ -28,6 +28,19 @@ import { FrComboboxContent, FrComboboxRootLookup } from './combobox.content';
 import { FrComboboxItem } from './combobox.items';
 
 export type FrComboboxValue = unknown;
+export type FrComboboxStringifier = (item: FrComboboxValue) => string;
+
+const defaultComboboxStringifier: FrComboboxStringifier = (item) => {
+  if (typeof item === 'object' && item !== null && 'label' in item) {
+    const label = (item as { readonly label?: unknown }).label;
+
+    if (typeof label === 'string') {
+      return label;
+    }
+  }
+
+  return String(item ?? '');
+};
 
 const POSITIONS: ConnectedPosition[] = [
   {
@@ -89,7 +102,8 @@ const POSITIONS: ConnectedPosition[] = [
 })
 export class FrCombobox
   extends FrControlValueAccessor<FrComboboxValue | FrComboboxValue[] | null>
-  implements AfterViewInit, DoCheck {
+  implements AfterViewInit, DoCheck
+{
   private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly viewContainerRef = inject(ViewContainerRef);
@@ -110,6 +124,8 @@ export class FrCombobox
   readonly debugVisible = input(false, { transform: booleanAttribute });
   readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
   readonly invalidInput = input(false, { alias: 'invalid', transform: booleanAttribute });
+  /** @deprecated Item labels are resolved automatically. */
+  readonly itemToStringValue = input<FrComboboxStringifier>(defaultComboboxStringifier);
   readonly multiple = input(false, { transform: booleanAttribute });
   readonly showClear = input(false, { transform: booleanAttribute });
   readonly value = model<FrComboboxValue | FrComboboxValue[] | null>(null);
@@ -151,7 +167,9 @@ export class FrCombobox
 
     effect(() => {
       const content = this.content();
-      const unresolvedValue = this.selectedValues().some((value) => !this.selectedLabels.has(value));
+      const unresolvedValue = this.selectedValues().some(
+        (value) => !this.selectedLabels.has(value),
+      );
 
       if (content && unresolvedValue && !this.isOpen()) {
         queueMicrotask(() => this.primeSelectedLabels());
@@ -357,15 +375,7 @@ export class FrCombobox
   }
 
   private labelFromValue(value: FrComboboxValue): string {
-    if (typeof value === 'object' && value !== null && 'label' in value) {
-      const label = (value as { readonly label?: unknown }).label;
-
-      if (typeof label === 'string') {
-        return label;
-      }
-    }
-
-    return String(value ?? '');
+    return this.itemToStringValue()(value);
   }
 
   private primeSelectedLabels(): void {
@@ -374,7 +384,9 @@ export class FrCombobox
     }
 
     const content = this.content();
-    const unresolvedValues = this.selectedValues().filter((value) => !this.selectedLabels.has(value));
+    const unresolvedValues = this.selectedValues().filter(
+      (value) => !this.selectedLabels.has(value),
+    );
 
     if (!content || unresolvedValues.length === 0) {
       return;
@@ -433,5 +445,3 @@ export class FrCombobox
     this.resizeObserver.observe(element);
   }
 }
-
-

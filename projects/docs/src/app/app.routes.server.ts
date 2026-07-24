@@ -10,6 +10,21 @@ interface BlockCatalogCategory {
   readonly id: string;
 }
 
+const STORE_TEMPLATE_PAGES = [
+  'overview',
+  'product-catalog',
+  'inventory',
+  'orders',
+  'suppliers',
+] as const;
+
+const ADMINISTRATION_TEMPLATE_PAGES = [
+  'user-management',
+  'roles-permissions',
+  'audit-log',
+  'settings',
+] as const;
+
 function loadComponentSlugs(): string[] {
   const filePath = join(
     process.cwd(),
@@ -44,10 +59,6 @@ function loadBlockCategorySlugs(): string[] {
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: 'templates/overview',
-    renderMode: RenderMode.Prerender,
-  },
-  {
     path: 'charts/:type',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
@@ -79,36 +90,18 @@ export const serverRoutes: ServerRoute[] = [
     },
   },
   {
-    path: 'templates/product-catalog',
+    path: 'templates/store/:page',
     renderMode: RenderMode.Prerender,
+    async getPrerenderParams() {
+      return STORE_TEMPLATE_PAGES.map((page) => ({ page }));
+    },
   },
   {
-    path: 'templates/inventory',
+    path: 'templates/administration/:page',
     renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/user-management',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/roles-permissions',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/settings',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/orders',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/suppliers',
-    renderMode: RenderMode.Prerender,
-  },
-  {
-    path: 'templates/audit-log',
-    renderMode: RenderMode.Prerender,
+    async getPrerenderParams() {
+      return ADMINISTRATION_TEMPLATE_PAGES.map((page) => ({ page }));
+    },
   },
   {
     path: '**',

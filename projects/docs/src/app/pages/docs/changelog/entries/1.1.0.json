@@ -1,0 +1,50 @@
+{
+  "version": "1.1.0",
+  "label": "Blocks and commerce templates",
+  "highlights": [
+    {
+      "title": "Store and administration templates",
+      "kind": "Added",
+      "description": "Two interactive template applications now cover store operations and administration without coupling their downloadable source."
+    },
+    {
+      "title": "Application blocks",
+      "kind": "Added",
+      "description": "Authentication and dashboard blocks provide focused previews alongside complete Angular component code."
+    },
+    {
+      "title": "Stable public APIs",
+      "kind": "Fixed",
+      "description": "Renamed or refined chart, combobox, and tooltip APIs retain compatibility aliases and tokens for existing applications."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Added",
+      "items": [
+        "Added store templates for overview, product catalog, inventory, orders, suppliers, and procurement workflows.",
+        "Added administration templates for user management, roles and permissions, audit history, and settings.",
+        "Added separate downloadable Angular applications under projects/templates/store and projects/templates/administration, each with its own dependencies, routes, start command, and build configuration.",
+        "Added authentication and dashboard blocks with responsive previews and complete Angular component source.",
+        "Added an opt-out for decorative corner handles through [frCornerHandles]=\"false\"."
+      ]
+    },
+    {
+      "title": "Fixed",
+      "items": [
+        "Comboboxes now resolve initial labels from lazy item content while retaining the itemToStringValue compatibility input.",
+        "Hover card and popover projected content now keeps access to its overlay controller.",
+        "Restored the tooltip maximum-width token so existing theme overrides continue to work.",
+        "Improved table borders, template navigation, responsive filtering, and overlay layout details."
+      ]
+    },
+    {
+      "title": "Changed",
+      "items": [
+        "FrChartDataPoint is now the preferred chart datum type; FrChartDatum remains available as a deprecated alias.",
+        "Template source now lives in two independent projects under projects/templates and is lazy-loaded by the docs application through separate route trees.",
+        "The docs header now provides direct navigation to blocks and complete templates."
+      ]
+    }
+  ]
+}

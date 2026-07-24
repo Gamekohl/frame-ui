@@ -31,7 +31,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 
 import { ComponentCatalogEntry } from '../../pages/docs/shared/models/component-catalog-entry.model';
 import { ComponentsCatalogService } from '../../pages/docs/shared/services/components-catalog.service';
-import { COMMERCE_ADMIN_PAGES } from '../../pages/templates/shared/commerce-admin-template.registry';
+import { ADMINISTRATION_TEMPLATE_PAGES } from '../../../../../templates/administration/shared/commerce-admin-template.registry';
+import { STORE_TEMPLATE_PAGES } from '../../../../../templates/store/shared/commerce-admin-template.registry';
 import { DocsAppearanceExportModalComponent } from '../docs-appearance-export-modal/docs-appearance-export-modal.component';
 import { DocsCustomPaletteSheetComponent } from '../docs-custom-palette-sheet/docs-custom-palette-sheet.component';
 import { DocsHeaderAppearanceState } from './docs-header-appearance-state';
@@ -102,12 +103,8 @@ export class DocsHeaderComponent {
   readonly pages = DOCS_SEARCH_PAGES;
   readonly charts = DOCS_CHART_PAGES;
   readonly tools = DOCS_TOOLS_PAGES;
-  readonly templateOperationPages = COMMERCE_ADMIN_PAGES.filter(
-    (page) => page.group === 'operations',
-  );
-  readonly templateAdministrationPages = COMMERCE_ADMIN_PAGES.filter(
-    (page) => page.group === 'administration',
-  );
+  readonly templateStorePages = STORE_TEMPLATE_PAGES;
+  readonly templateAdministrationPages = ADMINISTRATION_TEMPLATE_PAGES;
   readonly components = toSignal(this.componentsCatalog.entries$, {
     initialValue: [] as ComponentCatalogEntry[],
   });

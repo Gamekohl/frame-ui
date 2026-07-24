@@ -1,4 +1,5 @@
-import { COMMERCE_ADMIN_PAGES } from '../../pages/templates/shared/commerce-admin-template.registry';
+import { ADMINISTRATION_TEMPLATE_PAGES } from '../../../../../templates/administration/shared/commerce-admin-template.registry';
+import { STORE_TEMPLATE_PAGES } from '../../../../../templates/store/shared/commerce-admin-template.registry';
 
 export type DocsSearchPage = {
   readonly title: string;
@@ -193,11 +194,17 @@ export const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
       'patterns',
     ],
   },
-  ...COMMERCE_ADMIN_PAGES.map((page) => ({
+  ...STORE_TEMPLATE_PAGES.map((page) => ({
     title: page.label,
     path: page.path,
-    section: 'Commerce admin',
-    keywords: ['templates', 'admin', 'commerce', ...page.keywords],
+    section: 'Store template',
+    keywords: ['templates', 'store', 'commerce', ...page.keywords],
+  })),
+  ...ADMINISTRATION_TEMPLATE_PAGES.map((page) => ({
+    title: page.label,
+    path: page.path,
+    section: 'Administration template',
+    keywords: ['templates', 'admin', 'access', ...page.keywords],
   })),
   {
     title: 'Theme tokens',

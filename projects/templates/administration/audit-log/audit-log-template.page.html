@@ -1,0 +1,444 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon>
+    <ng-icon name="tablerX" size="16" />
+  </ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+
+  <ng-template #eventDetailsSheet frSheetContent width="28rem" aria-label="Audit event details">
+    <div frSheetPanel scrollable>
+      <div frSheetHeader>
+        <span class="font-mono text-xs font-bold uppercase text-primary">Recorded event</span>
+        <h2 frSheetTitle class="text-current">{{ selectedEvent().action }}</h2>
+        <p frSheetDescription>{{ selectedEvent().target }}</p>
+      </div>
+
+      <div frSheetBody class="content-start">
+        <section frAlert class="mb-5">
+          <ng-icon frAlertIcon name="tablerShieldCheck" />
+          <h3 frAlertTitle>Immutable record</h3>
+          <p frAlertDescription>
+            Audit entries can be reviewed and exported, but they cannot be edited or removed.
+          </p>
+        </section>
+
+        <p class="m-0 text-sm leading-6 text-muted-foreground">
+          {{ selectedEvent().summary }}
+        </p>
+
+        <dl class="mt-5 grid content-start gap-3 text-sm">
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="text-muted-foreground">Actor</dt>
+            <dd class="m-0 font-semibold text-current">{{ selectedEvent().actor }}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="text-muted-foreground">Area</dt>
+            <dd class="m-0">
+              <span frBadge variant="outline">{{ selectedEvent().area }}</span>
+            </dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="text-muted-foreground">Outcome</dt>
+            <dd class="m-0">
+              <span frBadge [variant]="outcomeVariant(selectedEvent().outcome)">
+                {{ selectedEvent().outcome }}
+              </span>
+            </dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="text-muted-foreground">Recorded</dt>
+            <dd class="m-0 font-semibold text-current">{{ selectedEvent().displayTime }}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="text-muted-foreground">Source</dt>
+            <dd class="m-0 text-right font-semibold text-current">{{ selectedEvent().source }}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <dt class="text-muted-foreground">IP address</dt>
+            <dd class="m-0 font-mono text-xs font-semibold text-current">
+              {{ selectedEvent().ipAddress }}
+            </dd>
+          </div>
+        </dl>
+
+        <section class="mt-6 border-t border-border pt-5">
+          <div class="grid gap-1">
+            <h3 class="m-0 text-base font-semibold text-current">Recorded changes</h3>
+            <p class="m-0 text-sm text-muted-foreground">
+              Values captured when the action completed.
+            </p>
+          </div>
+
+          <div class="mt-4 grid gap-3">
+            @for (change of selectedEvent().changes; track change.label) {
+              <article class="grid gap-3 border border-border bg-muted p-3">
+                <strong class="text-sm text-current">{{ change.label }}</strong>
+                <div class="grid items-center gap-2 sm:grid-cols-[1fr_auto_1fr]">
+                  <span
+                    class="min-w-0 break-words border border-border bg-background p-2 text-sm text-muted-foreground"
+                  >
+                    {{ change.before }}
+                  </span>
+                  <ng-icon name="tablerArrowRight" size="16" class="text-muted-foreground" />
+                  <span
+                    class="min-w-0 break-words border border-primary bg-background p-2 text-sm font-semibold text-current"
+                  >
+                    {{ change.after }}
+                  </span>
+                </div>
+              </article>
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-template>
+
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase text-primary">Template preview</p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Audit log</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Review immutable catalog, inventory, order, access, and settings changes from one place.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/administration"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/administration/user-management">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Admin</span>
+                <span class="text-xs text-muted-foreground">Access control</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Access</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Governance</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a
+              frSidebarMenuButton
+              variant="outline"
+              routerLink="/templates/administration/user-management"
+            >
+              <span frAvatar size="sm"><span frAvatarFallback>MS</span></span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Catalog administrator</span>
+              </span>
+            </a>
+          </div>
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/user-management"
+                      >Acme</a
+                    >
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/settings">Admin</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem><span frBreadcrumbPage>Audit log</span></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-2 xl:items-end">
+              <div class="grid gap-2">
+                <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">Audit log</h2>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Trace who changed store data, what changed, and whether a policy intervened.
+                </p>
+              </div>
+
+              <div class="grid items-stretch gap-2 sm:grid-cols-3">
+                @for (metric of metrics(); track metric.label) {
+                  <div class="flex min-h-36 flex-col rounded-lg border border-border bg-muted p-4">
+                    <span class="text-xs uppercase leading-5 text-muted-foreground">{{
+                      metric.label
+                    }}</span>
+                    <strong class="block text-xl text-foreground">{{ metric.value }}</strong>
+                    <span class="block pt-2 text-xs leading-5 text-muted-foreground">{{
+                      metric.detail
+                    }}</span>
+                  </div>
+                }
+              </div>
+            </header>
+
+            <section class="grid gap-3">
+              <div class="grid gap-2 lg:grid-cols-2 xl:grid-cols-5">
+                <div class="xl:col-span-2" frInputGroup>
+                  <span frInputGroupAddon align="inline-start" variant="ghost">
+                    <ng-icon name="tablerSearch" size="16" />
+                  </span>
+                  <input
+                    frInputGroupInput
+                    aria-label="Search audit events"
+                    placeholder="Search actor, action, or target..."
+                    [value]="searchTerm()"
+                    (input)="setSearch($event)"
+                  />
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    class="w-full"
+                    [frSelect]="areaMenu"
+                    [value]="areaFilter()"
+                    (valueChange)="areaFilter.set($event ?? 'All areas')"
+                  >
+                    <frame-select-value placeholder="All areas"></frame-select-value>
+                    <span frSelectIcon>
+                      <ng-icon name="tablerChevronDown" size="16" />
+                    </span>
+                  </button>
+                  <ng-template #areaMenu="frSelectContent" frSelectContent>
+                    <frame-select-panel
+                      ><frame-select-group>
+                        @for (area of areaOptions; track area) {
+                          <button frSelectItem type="button" [value]="area" [label]="area">
+                            {{ area }}
+                          </button>
+                        }
+                      </frame-select-group></frame-select-panel
+                    >
+                  </ng-template>
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    class="w-full"
+                    [frSelect]="outcomeMenu"
+                    [value]="outcomeFilter()"
+                    (valueChange)="outcomeFilter.set($event ?? 'All outcomes')"
+                  >
+                    <frame-select-value placeholder="All outcomes"></frame-select-value>
+                    <span frSelectIcon>
+                      <ng-icon name="tablerChevronDown" size="16" />
+                    </span>
+                  </button>
+                  <ng-template #outcomeMenu="frSelectContent" frSelectContent>
+                    <frame-select-panel
+                      ><frame-select-group>
+                        @for (outcome of outcomeOptions; track outcome) {
+                          <button frSelectItem type="button" [value]="outcome" [label]="outcome">
+                            {{ outcome }}
+                          </button>
+                        }
+                      </frame-select-group></frame-select-panel
+                    >
+                  </ng-template>
+                </div>
+
+                <frame-date-picker
+                  mode="range"
+                  [numberOfMonths]="1"
+                  [formControl]="dateRangeControl"
+                  aria-label="Filter audit events by date"
+                />
+              </div>
+
+              <div
+                class="flex flex-col gap-2 border-t border-border pt-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <p class="m-0 text-sm text-muted-foreground">
+                  {{ filteredEvents().length }} events match the current filters.
+                </p>
+                <div class="flex gap-2">
+                  <button frButton appearance="ghost" type="button" (click)="resetFilters()">
+                    Reset filters
+                  </button>
+                  <button frButton appearance="outline" type="button" (click)="exportEvents()">
+                    <ng-icon name="tablerDownload" size="16" frButtonIcon />
+                    <span frButtonLabel>Export CSV</span>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            @if (filteredEvents().length > 0) {
+              <div frTableContainer class="overflow-x-auto border border-border">
+                <table frTable [dataSource]="filteredEvents()">
+                  <ng-container frColumnDef="event">
+                    <th frHeaderCell *frHeaderCellDef>Event</th>
+                    <td frCell *frCellDef="let event">
+                      <button
+                        type="button"
+                        class="grid min-w-64 gap-0.5 text-left"
+                        (click)="openEventDetails(event)"
+                      >
+                        <span class="font-semibold text-foreground">{{ event.action }}</span>
+                        <span class="truncate text-xs text-muted-foreground">{{
+                          event.target
+                        }}</span>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="actor">
+                    <th frHeaderCell *frHeaderCellDef>Actor</th>
+                    <td frCell *frCellDef="let event">
+                      <div class="flex min-w-44 items-center gap-2">
+                        <span frAvatar size="sm"
+                          ><span frAvatarFallback>{{ event.initials }}</span></span
+                        >
+                        <span class="truncate text-sm font-medium text-foreground">{{
+                          event.actor
+                        }}</span>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="area">
+                    <th frHeaderCell *frHeaderCellDef>Area</th>
+                    <td frCell *frCellDef="let event">
+                      <span frBadge variant="outline">{{ event.area }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="outcome">
+                    <th frHeaderCell *frHeaderCellDef>Outcome</th>
+                    <td frCell *frCellDef="let event">
+                      <span frBadge [variant]="outcomeVariant(event.outcome)">{{
+                        event.outcome
+                      }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="time">
+                    <th frHeaderCell *frHeaderCellDef>Recorded</th>
+                    <td frCell *frCellDef="let event" frTableMuted>
+                      <span class="flex min-w-36 items-center gap-2">
+                        <ng-icon name="tablerClock" size="15" />
+                        {{ event.displayTime }}
+                      </span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container frColumnDef="actions">
+                    <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                    <td frCell frTableNumeric *frCellDef="let event">
+                      <button
+                        frIconButton
+                        appearance="ghost"
+                        size="sm"
+                        type="button"
+                        aria-label="View audit event"
+                        frTooltip="View event"
+                        frTooltipArrow
+                        (click)="openEventDetails(event)"
+                      >
+                        <ng-icon name="tablerDots" size="16" frButtonIcon />
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr frHeaderRow *frHeaderRowDef="columns; sticky: true"></tr>
+                  <tr frRow *frRowDef="let row; columns: columns"></tr>
+                </table>
+              </div>
+            } @else {
+              <div frEmpty variant="outline">
+                <div frEmptyHeader>
+                  <div frEmptyMedia variant="icon"><ng-icon name="tablerActivity" size="22" /></div>
+                  <h3 frEmptyTitle>No matching events</h3>
+                  <p frEmptyDescription>
+                    Change the date range or remove a filter to see more activity.
+                  </p>
+                </div>
+                <div frEmptyContent>
+                  <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                    Reset filters
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

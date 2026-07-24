@@ -5,7 +5,8 @@ import {
   FrCard,
   FrCardContent,
   FrCardHeader,
-  FrCardTitle, FrCornerHandles,
+  FrCardTitle,
+  FrCornerHandles,
 } from '@frame-ui-ng/components';
 
 import { DocsCodeBlockComponent } from '../shared/components/docs-code-block/docs-code-block';
@@ -20,6 +21,7 @@ import changelog050 from './entries/0.5.0-beta.0.json';
 import changelog060 from './entries/0.6.0-beta.0.json';
 import changelog100 from './entries/1.0.0.json';
 import changelog101 from './entries/1.0.1.json';
+import changelog110 from './entries/1.1.0.json';
 
 type ChangelogSection = {
   readonly title: string;
@@ -73,6 +75,7 @@ type ChangelogEntry = {
 })
 export class Changelog {
   protected readonly entries: readonly ChangelogEntry[] = [
+    changelog110 as ChangelogEntry,
     changelog101 as ChangelogEntry,
     changelog100 as ChangelogEntry,
     changelog060 as ChangelogEntry,

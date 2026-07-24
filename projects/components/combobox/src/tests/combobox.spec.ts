@@ -136,6 +136,21 @@ class LazyLabelHostComponent {
 }
 
 @Component({
+  imports: [FrCombobox, FrComboboxInput],
+  standalone: true,
+  template: `
+    <div frCombobox [(value)]="value" [itemToStringValue]="stringifyValue">
+      <input frComboboxInput />
+    </div>
+  `,
+})
+class LegacyStringifierHostComponent {
+  readonly value = signal<unknown | unknown[] | null>('angular');
+  readonly stringifyValue = (value: unknown) =>
+    value === 'angular' ? 'Angular legacy' : String(value ?? '');
+}
+
+@Component({
   imports: [
     FrCombobox,
     FrComboboxContent,
@@ -273,14 +288,17 @@ describe('FrCombobox', () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     input.value = 'svelte';
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const items = Array.from(document.body.querySelectorAll('button[frcomboboxitem]')) as HTMLElement[];
+    const items = Array.from(
+      document.body.querySelectorAll('button[frcomboboxitem]'),
+    ) as HTMLElement[];
 
     expect(items.length).toBe(4);
     expect(items[0].getAttribute('data-hidden')).toBe('');
@@ -293,20 +311,22 @@ describe('FrCombobox', () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
     await fixture.whenStable();
 
-      const panel = document.body.querySelector('.frame-combobox__panel') as HTMLElement;
-      expect(panel.classList.contains('frame-corner-handles')).toBe(false);
-    });
+    const panel = document.body.querySelector('.frame-combobox__panel') as HTMLElement;
+    expect(panel.classList.contains('frame-corner-handles')).toBe(false);
+  });
 
   it('hides grouped sections without visible filter matches', async () => {
     const fixture = TestBed.createComponent(GroupedComboboxHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     input.value = 'rem';
     input.dispatchEvent(new Event('input'));
@@ -314,8 +334,12 @@ describe('FrCombobox', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const frontendGroup = document.body.querySelector('[data-testid="frontend-group"]') as HTMLElement;
-    const fullstackGroup = document.body.querySelector('[data-testid="fullstack-group"]') as HTMLElement;
+    const frontendGroup = document.body.querySelector(
+      '[data-testid="frontend-group"]',
+    ) as HTMLElement;
+    const fullstackGroup = document.body.querySelector(
+      '[data-testid="fullstack-group"]',
+    ) as HTMLElement;
 
     expect(frontendGroup.hasAttribute('hidden')).toBe(true);
     expect(fullstackGroup.hasAttribute('hidden')).toBe(false);
@@ -325,7 +349,8 @@ describe('FrCombobox', () => {
     const fixture = TestBed.createComponent(GroupedComboboxHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     input.value = 'sxx';
     input.dispatchEvent(new Event('input'));
@@ -334,28 +359,37 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
 
     const empty = document.body.querySelector('.frame-combobox__empty') as HTMLElement;
-    const labels = Array.from(document.body.querySelectorAll('.frame-combobox__label')) as HTMLElement[];
+    const labels = Array.from(
+      document.body.querySelectorAll('.frame-combobox__label'),
+    ) as HTMLElement[];
 
     expect(empty.hasAttribute('hidden')).toBe(false);
-    expect(labels.every((label) => label.closest('.frame-combobox__group')?.hasAttribute('hidden'))).toBe(true);
+    expect(
+      labels.every((label) => label.closest('.frame-combobox__group')?.hasAttribute('hidden')),
+    ).toBe(true);
   });
 
   it('keeps every matching item visible while filtering', async () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     input.value = 'e';
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const visibleItems = Array.from(document.body.querySelectorAll('button[frcomboboxitem]')).filter(
-      (item) => !item.hasAttribute('data-hidden'),
-    );
+    const visibleItems = Array.from(
+      document.body.querySelectorAll('button[frcomboboxitem]'),
+    ).filter((item) => !item.hasAttribute('data-hidden'));
 
-    expect(visibleItems.map((item) => item.textContent?.trim())).toEqual(['Next.js', 'SvelteKit', 'Remix']);
+    expect(visibleItems.map((item) => item.textContent?.trim())).toEqual([
+      'Next.js',
+      'SvelteKit',
+      'Remix',
+    ]);
   });
 
   it('scrolls the highlighted item into view during keyboard navigation', async () => {
@@ -367,7 +401,8 @@ describe('FrCombobox', () => {
       const fixture = TestBed.createComponent(TestHostComponent);
       fixture.detectChanges();
 
-      const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+      const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+        .nativeElement as HTMLInputElement;
       input.dispatchEvent(new FocusEvent('focus'));
       fixture.detectChanges();
       await fixture.whenStable();
@@ -387,7 +422,8 @@ describe('FrCombobox', () => {
     const fixture = TestBed.createComponent(ChipsNavigationHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxChipsInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxChipsInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
     await fixture.whenStable();
@@ -396,14 +432,18 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    let highlighted = document.body.querySelector('.frame-combobox__item[data-highlighted]') as HTMLElement;
+    let highlighted = document.body.querySelector(
+      '.frame-combobox__item[data-highlighted]',
+    ) as HTMLElement;
     expect(highlighted.textContent?.trim()).toBe('SvelteKit');
 
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
     fixture.detectChanges();
     await fixture.whenStable();
 
-    highlighted = document.body.querySelector('.frame-combobox__item[data-highlighted]') as HTMLElement;
+    highlighted = document.body.querySelector(
+      '.frame-combobox__item[data-highlighted]',
+    ) as HTMLElement;
     expect(highlighted.textContent?.trim()).toBe('Next.js');
   });
 
@@ -411,7 +451,8 @@ describe('FrCombobox', () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     input.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
     await fixture.whenStable();
@@ -428,7 +469,8 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
 
     expect(fixture.componentInstance.control.value).toBe('next');
 
@@ -444,7 +486,8 @@ describe('FrCombobox', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
 
     expect(input.value).toBe('Angular');
   });
@@ -455,9 +498,22 @@ describe('FrCombobox', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
 
     expect(input.value).toBe('Angular');
+  });
+
+  it('supports the deprecated item stringifier input', async () => {
+    const fixture = TestBed.createComponent(LegacyStringifierHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('Angular legacy');
   });
 
   it('keeps the input empty when the user deletes the last query character from a selected value', async () => {
@@ -466,7 +522,8 @@ describe('FrCombobox', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput))
+      .nativeElement as HTMLInputElement;
     expect(input.value).toBe('Angular');
 
     input.dispatchEvent(new FocusEvent('focus'));
@@ -486,7 +543,9 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const remove = fixture.nativeElement.querySelector('.frame-combobox__chip-remove') as HTMLButtonElement;
+    const remove = fixture.nativeElement.querySelector(
+      '.frame-combobox__chip-remove',
+    ) as HTMLButtonElement;
     expect(remove).not.toBeNull();
 
     remove.click();

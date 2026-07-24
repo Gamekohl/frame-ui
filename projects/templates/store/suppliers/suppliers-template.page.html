@@ -1,0 +1,577 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon><ng-icon name="tablerX" size="16" /></ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+
+  <ng-template #purchaseOrderSheet frSheetContent width="30rem" aria-label="Purchase order details">
+    <div frSheetPanel scrollable>
+      <div frSheetHeader>
+        <span class="font-mono text-xs font-bold uppercase text-primary">Purchase order</span>
+        <h2 frSheetTitle class="text-current">{{ selectedOrder().id }}</h2>
+        <p frSheetDescription>
+          {{ supplierById(selectedOrder().supplierId)?.name }} · Expected
+          {{ selectedOrder().expected }}
+        </p>
+      </div>
+
+      <div frSheetBody class="content-start">
+        @if (selectedOrder().status === 'Overdue') {
+          <section frAlert variant="danger" class="mb-5">
+            <ng-icon frAlertIcon name="tablerAlertTriangle" />
+            <h3 frAlertTitle>Delivery is overdue</h3>
+            <p frAlertDescription>
+              Contact the supplier before promising these units to open orders.
+            </p>
+          </section>
+        }
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span frBadge [variant]="statusVariant(selectedOrder().status)">{{
+            selectedOrder().status
+          }}</span>
+          <span frBadge variant="outline">{{ orderedUnits(selectedOrder()) }} units</span>
+          <strong class="ml-auto text-lg text-current">{{
+            currency(orderTotalValue(selectedOrder()))
+          }}</strong>
+        </div>
+
+        <section class="mt-5 grid gap-3">
+          <div class="flex items-end justify-between gap-4">
+            <div class="grid gap-1">
+              <h3 class="m-0 text-base font-semibold text-current">Receiving progress</h3>
+              <span class="text-xs text-muted-foreground">
+                {{ receivedUnits(selectedOrder()) }} of {{ orderedUnits(selectedOrder()) }} units
+                received
+              </span>
+            </div>
+            <strong class="text-sm text-current">{{ receiptProgress(selectedOrder()) }}%</strong>
+          </div>
+          <div
+            frProgress
+            aria-label="Purchase order receiving progress"
+            [value]="receiptProgress(selectedOrder())"
+          >
+            <div frProgressIndicator></div>
+          </div>
+        </section>
+
+        <section class="mt-6 grid gap-3 border-t border-border pt-5">
+          <h3 class="m-0 text-base font-semibold text-current">Product lines</h3>
+          @for (line of selectedOrder().lines; track line.sku) {
+            <article class="grid gap-3 border border-border p-3">
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <strong class="block truncate text-sm text-current">{{ line.product }}</strong>
+                  <span class="mt-1 block font-mono text-xs text-muted-foreground">{{
+                    line.sku
+                  }}</span>
+                </div>
+                <strong class="shrink-0 text-sm text-current"
+                  >{{ currency(line.unitCost) }} / unit</strong
+                >
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <span class="border border-border bg-muted p-2">
+                  <strong class="block text-sm text-current">{{ line.ordered }}</strong
+                  >Ordered
+                </span>
+                <span class="border border-border bg-muted p-2">
+                  <strong class="block text-sm text-current">{{ line.received }}</strong
+                  >Received
+                </span>
+                <span class="border border-border bg-muted p-2">
+                  <strong class="block text-sm text-current">{{
+                    line.ordered - line.received
+                  }}</strong
+                  >Open
+                </span>
+              </div>
+            </article>
+          }
+        </section>
+
+        <section class="mt-6 grid gap-3 border-t border-border pt-5">
+          <h3 class="m-0 text-base font-semibold text-current">Supplier</h3>
+          <div class="grid gap-1 text-sm">
+            <strong class="text-current">{{
+              supplierById(selectedOrder().supplierId)?.name
+            }}</strong>
+            <span class="text-muted-foreground">{{
+              supplierById(selectedOrder().supplierId)?.contact
+            }}</span>
+            <span class="text-muted-foreground">{{
+              supplierById(selectedOrder().supplierId)?.email
+            }}</span>
+          </div>
+          <p class="m-0 text-sm leading-6 text-muted-foreground">{{ selectedOrder().note }}</p>
+        </section>
+      </div>
+
+      <div frSheetFooter class="flex-wrap">
+        @if (selectedOrder().status === 'Draft') {
+          <button frButton type="button" (click)="sendOrder(selectedOrder())">
+            <ng-icon name="tablerSend" size="16" frButtonIcon />
+            <span frButtonLabel>Send order</span>
+          </button>
+        } @else if (selectedOrder().status !== 'Received') {
+          <button frButton type="button" (click)="receiveOrder(selectedOrder())">
+            <ng-icon name="tablerPackageImport" size="16" frButtonIcon />
+            <span frButtonLabel>Receive goods</span>
+          </button>
+        }
+        <a
+          frButton
+          appearance="outline"
+          [href]="'mailto:' + supplierById(selectedOrder().supplierId)?.email"
+        >
+          <ng-icon name="tablerMail" size="16" frButtonIcon />
+          <span frButtonLabel>Contact supplier</span>
+        </a>
+      </div>
+    </div>
+  </ng-template>
+
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase text-primary">Template preview</p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">
+          Suppliers & purchase orders
+        </h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Plan replenishment, compare supplier reliability, and record partial goods receipts.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/store"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/store/overview">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Store</span>
+                <span class="text-xs text-muted-foreground">Store operations</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Store</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" /><span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Fulfillment</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" /><span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/store/overview">
+              <span frAvatar size="sm"><span frAvatarFallback>MS</span></span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Store owner</span>
+              </span>
+            </a>
+          </div>
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/overview">Acme</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/inventory">Operations</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem><span frBreadcrumbPage>Procurement</span></li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-2 xl:items-end">
+              <div class="grid gap-2">
+                <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                  Procurement
+                </h2>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Keep expected stock, supplier commitments, and receiving variances in one
+                  workflow.
+                </p>
+              </div>
+              <div class="grid items-stretch gap-2 sm:grid-cols-3">
+                @for (metric of metrics(); track metric.label) {
+                  <div class="flex min-h-36 flex-col rounded-lg border border-border bg-muted p-4">
+                    <span class="min-h-10 text-xs uppercase leading-5 text-muted-foreground">{{
+                      metric.label
+                    }}</span>
+                    <strong class="mt-2 block text-xl text-foreground">{{ metric.value }}</strong>
+                    <span class="mt-auto block pt-2 text-xs leading-5 text-muted-foreground">{{
+                      metric.detail
+                    }}</span>
+                  </div>
+                }
+              </div>
+            </header>
+
+            <div
+              class="flex flex-col gap-3 border-y border-border py-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div frTabs [value]="viewMode()" (valueChange)="setViewMode($event)">
+                <div frTabsList aria-label="Procurement views">
+                  <button frTabsTrigger value="orders" type="button">Purchase orders</button>
+                  <button frTabsTrigger value="suppliers" type="button">Suppliers</button>
+                </div>
+              </div>
+              <button frButton type="button" (click)="createPurchaseOrder()">
+                <ng-icon name="tablerFilePlus" size="16" frButtonIcon />
+                <span frButtonLabel>New purchase order</span>
+              </button>
+            </div>
+
+            @if (viewMode() === 'orders') {
+              <section class="grid gap-3">
+                <div class="grid gap-2 lg:grid-cols-[1fr_14rem_auto]">
+                  <div frInputGroup>
+                    <span frInputGroupAddon align="inline-start" variant="ghost">
+                      <ng-icon name="tablerSearch" size="16" />
+                    </span>
+                    <input
+                      frInputGroupInput
+                      aria-label="Search purchase orders"
+                      placeholder="Search PO, supplier, or product..."
+                      [value]="searchTerm()"
+                      (input)="setSearch($event)"
+                    />
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      class="w-full"
+                      [frSelect]="statusMenu"
+                      [value]="statusFilter()"
+                      (valueChange)="setStatus($event)"
+                    >
+                      <frame-select-value placeholder="All status"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
+                    </button>
+                    <ng-template #statusMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (status of statusOptions; track status) {
+                            <button frSelectItem type="button" [value]="status" [label]="status">
+                              {{ status }}
+                            </button>
+                          }
+                        </frame-select-group></frame-select-panel
+                      >
+                    </ng-template>
+                  </div>
+
+                  <button frButton appearance="ghost" type="button" (click)="resetFilters()">
+                    Reset
+                  </button>
+                </div>
+
+                @if (filteredOrders().length > 0) {
+                  <div frTableContainer class="overflow-x-auto border border-border">
+                    <table frTable [dataSource]="filteredOrders()">
+                      <ng-container frColumnDef="order">
+                        <th frHeaderCell *frHeaderCellDef>Purchase order</th>
+                        <td frCell *frCellDef="let order">
+                          <button
+                            type="button"
+                            class="grid min-w-36 gap-0.5 text-left"
+                            (click)="openOrderDetails(order)"
+                          >
+                            <span class="font-semibold text-foreground">{{ order.id }}</span>
+                            <span class="text-xs text-muted-foreground"
+                              >Placed {{ order.placed }}</span
+                            >
+                          </button>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="supplier">
+                        <th frHeaderCell *frHeaderCellDef>Supplier</th>
+                        <td frCell *frCellDef="let order">
+                          <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                            <button
+                              type="button"
+                              class="min-w-48 text-left"
+                              [frHoverCardTrigger]="supplierCard"
+                            >
+                              <span class="block text-sm font-semibold text-foreground">{{
+                                supplierById(order.supplierId)?.name
+                              }}</span>
+                              <span class="block text-xs text-muted-foreground">{{
+                                supplierById(order.supplierId)?.code
+                              }}</span>
+                            </button>
+                            <ng-template
+                              #supplierCard="frHoverCardContent"
+                              frHoverCardContent
+                              side="right"
+                              align="start"
+                            >
+                              <div frHoverCardPanel>
+                                <strong class="text-sm text-foreground">{{
+                                  supplierById(order.supplierId)?.name
+                                }}</strong>
+                                <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
+                                  <span>{{ supplierById(order.supplierId)?.contact }}</span>
+                                  <span
+                                    >Lead time:
+                                    {{ supplierById(order.supplierId)?.leadTime }} days</span
+                                  >
+                                  <span
+                                    >Fill rate:
+                                    {{ supplierById(order.supplierId)?.fillRate }}%</span
+                                  >
+                                </div>
+                              </div>
+                            </ng-template>
+                          </frame-hover-card>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="status">
+                        <th frHeaderCell *frHeaderCellDef>Status</th>
+                        <td frCell *frCellDef="let order">
+                          <span frBadge [variant]="statusVariant(order.status)">{{
+                            order.status
+                          }}</span>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="expected">
+                        <th frHeaderCell *frHeaderCellDef>Expected</th>
+                        <td frCell *frCellDef="let order" frTableMuted>
+                          <span class="flex min-w-36 items-center gap-2"
+                            ><ng-icon name="tablerClock" size="15" />{{ order.expected }}</span
+                          >
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="received">
+                        <th frHeaderCell *frHeaderCellDef>Received</th>
+                        <td frCell *frCellDef="let order">
+                          <div class="grid min-w-36 gap-1.5">
+                            <div class="flex justify-between text-xs text-muted-foreground">
+                              <span>{{ receivedUnits(order) }} / {{ orderedUnits(order) }}</span>
+                              <span>{{ receiptProgress(order) }}%</span>
+                            </div>
+                            <div
+                              frProgress
+                              aria-label="Receiving progress"
+                              [value]="receiptProgress(order)"
+                            >
+                              <div frProgressIndicator></div>
+                            </div>
+                          </div>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="total">
+                        <th frHeaderCell frTableNumeric *frHeaderCellDef>Total</th>
+                        <td frCell frTableNumeric *frCellDef="let order">
+                          <strong>{{ currency(orderTotalValue(order)) }}</strong>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="actions">
+                        <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                        <td frCell frTableNumeric *frCellDef="let order">
+                          <div frDropdownMenu>
+                            <button
+                              frIconButton
+                              appearance="ghost"
+                              size="sm"
+                              type="button"
+                              aria-label="Purchase order actions"
+                              [frDropdownMenuTrigger]="orderMenu"
+                            >
+                              <ng-icon name="tablerDots" size="16" frButtonIcon />
+                            </button>
+                            <ng-template #orderMenu="frDropdownMenuContent" frDropdownMenuContent>
+                              <div frDropdownMenuPanel>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openOrderDetails(order)"
+                                >
+                                  <ng-icon name="tablerEye" size="16" />View details
+                                </button>
+                                @if (order.status === 'Draft') {
+                                  <button
+                                    frDropdownMenuItem
+                                    type="button"
+                                    (click)="sendOrder(order)"
+                                  >
+                                    <ng-icon name="tablerSend" size="16" />Send order
+                                  </button>
+                                } @else if (order.status !== 'Received') {
+                                  <button
+                                    frDropdownMenuItem
+                                    type="button"
+                                    (click)="receiveOrder(order)"
+                                  >
+                                    <ng-icon name="tablerPackageImport" size="16" />Receive goods
+                                  </button>
+                                }
+                              </div>
+                            </ng-template>
+                          </div>
+                        </td>
+                      </ng-container>
+
+                      <tr frHeaderRow *frHeaderRowDef="columns; sticky: true"></tr>
+                      <tr frRow *frRowDef="let row; columns: columns"></tr>
+                    </table>
+                  </div>
+                } @else {
+                  <div frEmpty variant="outline">
+                    <div frEmptyHeader>
+                      <div frEmptyMedia variant="icon">
+                        <ng-icon name="tablerFileText" size="22" />
+                      </div>
+                      <h3 frEmptyTitle>No matching purchase orders</h3>
+                      <p frEmptyDescription>Remove a filter or search for a different supplier.</p>
+                    </div>
+                    <div frEmptyContent>
+                      <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                        Reset filters
+                      </button>
+                    </div>
+                  </div>
+                }
+              </section>
+            } @else {
+              <section class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                @for (supplier of suppliers; track supplier.id) {
+                  <article
+                    class="grid content-start gap-4 rounded-lg border border-border bg-muted p-4"
+                  >
+                    <div class="flex items-start justify-between gap-3">
+                      <span
+                        class="grid size-10 place-items-center border border-border bg-background font-mono text-sm font-bold text-primary"
+                        >{{ supplier.code }}</span
+                      >
+                      <span frBadge [variant]="supplierStatusVariant(supplier.status)">{{
+                        supplier.status
+                      }}</span>
+                    </div>
+                    <div class="grid gap-1">
+                      <h3 class="m-0 text-base font-semibold text-foreground">
+                        {{ supplier.name }}
+                      </h3>
+                      <span class="text-xs text-muted-foreground">{{ supplier.location }}</span>
+                    </div>
+                    <dl class="grid grid-cols-3 gap-2 text-center text-xs">
+                      <div class="border border-border bg-background p-2">
+                        <dt class="text-muted-foreground">Lead time</dt>
+                        <dd class="m-0 mt-1 font-semibold text-foreground">
+                          {{ supplier.leadTime }}d
+                        </dd>
+                      </div>
+                      <div class="border border-border bg-background p-2">
+                        <dt class="text-muted-foreground">Fill rate</dt>
+                        <dd class="m-0 mt-1 font-semibold text-foreground">
+                          {{ supplier.fillRate }}%
+                        </dd>
+                      </div>
+                      <div class="border border-border bg-background p-2">
+                        <dt class="text-muted-foreground">Open POs</dt>
+                        <dd class="m-0 mt-1 font-semibold text-foreground">
+                          {{ supplier.openOrders }}
+                        </dd>
+                      </div>
+                    </dl>
+                    <div
+                      class="mt-auto grid gap-1 border-t border-border pt-3 text-xs text-muted-foreground"
+                    >
+                      <strong class="text-sm text-foreground">{{ supplier.contact }}</strong>
+                      <a
+                        class="truncate underline underline-offset-4"
+                        [href]="'mailto:' + supplier.email"
+                        >{{ supplier.email }}</a
+                      >
+                    </div>
+                  </article>
+                }
+              </section>
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

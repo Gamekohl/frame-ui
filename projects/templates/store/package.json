@@ -1,0 +1,34 @@
+{
+  "name": "frame-ui-store-template",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "ng serve frame-ui-store",
+    "build": "ng build frame-ui-store"
+  },
+  "dependencies": {
+    "@angular/cdk": "^21.2.14",
+    "@angular/common": "^21.2.16",
+    "@angular/compiler": "^21.2.16",
+    "@angular/core": "^21.2.16",
+    "@angular/forms": "^21.2.16",
+    "@angular/platform-browser": "^21.2.16",
+    "@angular/router": "^21.2.16",
+    "@frame-ui-ng/charts": "1.1.0",
+    "@frame-ui-ng/components": "1.1.0",
+    "@frame-ui-ng/foundation": "1.1.0",
+    "@ng-icons/core": "^33.2.3",
+    "@ng-icons/tabler-icons": "^33.2.3",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.14",
+    "@angular/cli": "^21.2.14",
+    "@angular/compiler-cli": "^21.2.16",
+    "@tailwindcss/postcss": "^4.3.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~5.9.2"
+  }
+}

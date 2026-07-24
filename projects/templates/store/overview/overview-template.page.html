@@ -1,0 +1,341 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon><ng-icon name="tablerX" size="16" /></ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase text-primary">Template preview</p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Commerce overview</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          A decision-first home for catalog, fulfillment, inventory, and procurement teams.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/store"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/store/overview">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Store</span>
+                <span class="text-xs text-muted-foreground">Store operations</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Store</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" /><span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Fulfillment</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" /><span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/store/overview">
+              <span frAvatar size="sm"><span frAvatarFallback>MS</span></span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Store owner</span>
+              </span>
+            </a>
+          </div>
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between gap-3 border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/overview">Acme</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem><span frBreadcrumbPage>Operations overview</span></li>
+                </ol>
+              </nav>
+            </div>
+            <span class="hidden text-xs text-muted-foreground sm:inline">Wednesday, July 22</span>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-2">
+              <p class="m-0 font-mono text-xs font-bold uppercase text-primary">Today</p>
+              <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                Store operations
+              </h2>
+              <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                Start with exceptions that can block revenue, fulfillment, or incoming stock.
+              </p>
+            </header>
+
+            <section class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              @for (metric of metrics(); track metric.label) {
+                <article
+                  class="flex min-h-32 flex-col rounded-lg border border-border bg-muted p-4"
+                >
+                  <span class="min-h-5 text-xs uppercase leading-5 text-muted-foreground">{{
+                    metric.label
+                  }}</span>
+                  <strong class="mt-2 block text-2xl text-foreground">{{ metric.value }}</strong>
+                  <span class="mt-auto block pt-2 text-xs leading-5 text-muted-foreground">{{
+                    metric.detail
+                  }}</span>
+                </article>
+              }
+            </section>
+
+            <section frAlert variant="danger">
+              <ng-icon frAlertIcon name="tablerAlertTriangle" />
+              <h3 frAlertTitle>Two decisions should be made before the noon carrier cutoff</h3>
+              <p frAlertDescription>
+                Payment review blocks ORD-2071 and the overdue Corklab shipment has no confirmed
+                arrival date.
+              </p>
+            </section>
+
+            <div class="grid items-start gap-5 xl:grid-cols-3">
+              <section class="grid gap-3 xl:col-span-2">
+                <div class="flex items-end justify-between gap-4">
+                  <div class="grid gap-1">
+                    <h3 class="m-0 text-lg font-semibold text-foreground">Needs a decision</h3>
+                    <p class="m-0 text-sm text-muted-foreground">
+                      Cross-functional exceptions, ordered by operational impact.
+                    </p>
+                  </div>
+                  <span frBadge variant="outline">{{ openTasks().length }} open</span>
+                </div>
+
+                <div class="grid gap-2">
+                  @for (task of openTasks(); track task.id) {
+                    <article
+                      class="grid gap-4 rounded-lg border border-border bg-background p-4 lg:grid-cols-[1fr_auto] lg:items-center"
+                    >
+                      <div class="flex min-w-0 items-start gap-3">
+                        <span
+                          class="mt-0.5 grid size-9 shrink-0 place-items-center border border-border bg-muted"
+                        >
+                          @switch (task.area) {
+                            @case ('Orders') {
+                              <ng-icon name="tablerTruckDelivery" size="18" />
+                            }
+                            @case ('Inventory') {
+                              <ng-icon name="tablerDatabase" size="18" />
+                            }
+                            @case ('Catalog') {
+                              <ng-icon name="tablerPackage" size="18" />
+                            }
+                            @default {
+                              <ng-icon name="tablerFileText" size="18" />
+                            }
+                          }
+                        </span>
+                        <div class="min-w-0">
+                          <div class="flex flex-wrap items-center gap-2">
+                            <h4 class="m-0 text-sm font-semibold text-foreground">
+                              {{ task.title }}
+                            </h4>
+                            <span frBadge [variant]="severityVariant(task.severity)">{{
+                              task.severity
+                            }}</span>
+                          </div>
+                          <p class="m-0 mt-1 text-sm leading-6 text-muted-foreground">
+                            {{ task.description }}
+                          </p>
+                          <div
+                            class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground"
+                          >
+                            <span>{{ task.area }}</span
+                            ><span>{{ task.metric }}</span
+                            ><span>Owner: {{ task.owner }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap gap-2 lg:justify-end">
+                        <button
+                          frButton
+                          appearance="ghost"
+                          size="sm"
+                          type="button"
+                          (click)="markReviewed(task)"
+                        >
+                          <ng-icon name="tablerCircleCheck" size="16" frButtonIcon />
+                          <span frButtonLabel>Reviewed</span>
+                        </button>
+                        <a frButton appearance="outline" size="sm" [routerLink]="task.path">
+                          <span frButtonLabel>Open</span>
+                          <ng-icon name="tablerArrowRight" size="16" frButtonIcon />
+                        </a>
+                      </div>
+                    </article>
+                  } @empty {
+                    <div
+                      class="grid place-items-center gap-2 border border-border bg-muted p-8 text-center"
+                    >
+                      <ng-icon name="tablerCircleCheck" size="24" class="text-primary" />
+                      <strong class="text-foreground">Review queue cleared</strong>
+                      <span class="text-sm text-muted-foreground"
+                        >New operational exceptions will appear here.</span
+                      >
+                    </div>
+                  }
+                </div>
+              </section>
+
+              <aside class="grid gap-5">
+                <section class="grid gap-4 rounded-lg border border-border bg-muted p-4">
+                  <div class="flex items-center justify-between gap-3">
+                    <div>
+                      <h3 class="m-0 text-base font-semibold text-foreground">Order volume</h3>
+                      <p class="m-0 mt-1 text-xs text-muted-foreground">Last 7 days</p>
+                    </div>
+                    <span class="grid size-9 place-items-center border border-border bg-background">
+                      <ng-icon name="tablerChartBar" size="18" />
+                    </span>
+                  </div>
+                  <div class="grid gap-2 border border-border bg-background p-3">
+                    <div class="flex justify-between text-xs text-muted-foreground">
+                      <span>Orders</span><span>Day</span>
+                    </div>
+                    <frame-chart
+                      type="bar"
+                      xKey="day"
+                      aria-label="Order volume over the last 7 days"
+                      [data]="orderVolume"
+                      [height]="170"
+                      [series]="orderSeries"
+                      [showLegend]="false"
+                    />
+                  </div>
+                </section>
+
+                <section class="grid gap-3 rounded-lg border border-border bg-muted p-4">
+                  <div class="flex items-end justify-between gap-3">
+                    <div>
+                      <h3 class="m-0 text-base font-semibold text-foreground">
+                        Fulfillment target
+                      </h3>
+                      <p class="m-0 mt-1 text-xs text-muted-foreground">
+                        Orders shipped within one business day
+                      </p>
+                    </div>
+                    <strong class="text-lg text-foreground">94%</strong>
+                  </div>
+                  <div frProgress aria-label="Fulfillment service level" [value]="94">
+                    <div frProgressIndicator></div>
+                  </div>
+                  <p class="m-0 text-xs leading-5 text-muted-foreground">
+                    Two more on-time shipments today would reach the 96% target.
+                  </p>
+                </section>
+              </aside>
+            </div>
+
+            <section class="grid gap-3 border-t border-border pt-5">
+              <div class="flex items-end justify-between gap-4">
+                <div>
+                  <h3 class="m-0 text-lg font-semibold text-foreground">Recent changes</h3>
+                  <p class="m-0 mt-1 text-sm text-muted-foreground">
+                    Latest activity across the commerce workspace.
+                  </p>
+                </div>
+                <a frButton appearance="ghost" size="sm" routerLink="/templates/store/orders">
+                  <span frButtonLabel>Open order queue</span
+                  ><ng-icon name="tablerArrowRight" size="16" frButtonIcon />
+                </a>
+              </div>
+
+              <div class="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
+                @for (event of recentActivity(); track event.id) {
+                  <article class="grid content-start gap-3 border border-border bg-muted p-3">
+                    <div class="flex items-start justify-between gap-2">
+                      <span frAvatar size="sm"
+                        ><span frAvatarFallback>{{ event.initials }}</span></span
+                      >
+                      <span frBadge [variant]="eventVariant(event.outcome)">{{
+                        event.outcome
+                      }}</span>
+                    </div>
+                    <div class="min-w-0">
+                      <strong class="block truncate text-sm text-foreground">{{
+                        event.action
+                      }}</strong>
+                      <span class="mt-1 block truncate text-xs text-muted-foreground">{{
+                        event.target
+                      }}</span>
+                    </div>
+                    <span class="mt-auto text-xs text-muted-foreground"
+                      >{{ event.actor }} · {{ event.displayTime }}</span
+                    >
+                  </article>
+                }
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

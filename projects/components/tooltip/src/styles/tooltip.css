@@ -8,6 +8,7 @@
 
 .frame-tooltip__content {
   position: relative;
+  max-width: min(var(--frame-tooltip-content-max-width), calc(100vw - 1rem));
   border: 1px solid var(--frame-tooltip-content-border);
   border-radius: var(--frame-tooltip-content-radius);
   background: var(--frame-tooltip-content-bg);
@@ -18,7 +19,8 @@
   line-height: var(--frame-tooltip-content-line-height);
   padding: var(--frame-tooltip-content-padding);
   transform-origin: var(--frame-tooltip-transform-origin, center);
-  animation: frame-tooltip-in var(--frame-tooltip-motion-duration) var(--frame-tooltip-motion-easing);
+  animation: frame-tooltip-in var(--frame-tooltip-motion-duration)
+    var(--frame-tooltip-motion-easing);
 }
 
 .frame-tooltip-overlay--top .frame-tooltip__content {
@@ -90,7 +92,8 @@
 @keyframes frame-tooltip-in {
   from {
     opacity: 0;
-    transform: translateY(var(--frame-tooltip-motion-distance)) scale(var(--frame-tooltip-motion-scale));
+    transform: translateY(var(--frame-tooltip-motion-distance))
+      scale(var(--frame-tooltip-motion-scale));
   }
 
   to {

@@ -1,0 +1,83 @@
+<div frModalPanel size="lg" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div class="grid gap-1">
+        <div class="flex items-center gap-2">
+          <h2 frModalTitle>{{ data.selectedRole().name }} permissions</h2>
+          <span frBadge variant="secondary">
+            <ng-icon name="tablerShieldLock" size="14" />
+            {{ data.selectedRole().locked ? 'Policy locked' : 'Editable role' }}
+          </span>
+        </div>
+        <p frModalDescription>
+          Toggle one permission at a time so role changes remain easy to audit.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div frModalBody>
+    <div frTabs defaultValue="catalog">
+      <div frTabsList aria-label="Permission groups">
+        @for (group of data.permissionGroups; track group.id) {
+          <button frTabsTrigger [value]="group.id" type="button">
+            {{ group.label }}
+          </button>
+        }
+      </div>
+
+      @for (group of data.permissionGroups; track group.id) {
+        <section frTabsContent [value]="group.id" class="grid gap-3">
+          <div class="grid bg-background">
+            @for (permission of group.permissions; track permission.id) {
+              <label
+                class="flex items-start justify-between gap-4 border-b py-3 border-border last:border-b-0"
+                [attr.aria-label]="data.selectedRole().name + ' ' + permission.label"
+              >
+                <span class="grid gap-1">
+                  <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                    <span
+                      class="inline-flex w-fit text-sm font-medium text-foreground underline decoration-border underline-offset-4"
+                      [frHoverCardTrigger]="permissionContext"
+                    >
+                      {{ permission.label }}
+                    </span>
+                    <ng-template
+                      #permissionContext="frHoverCardContent"
+                      frHoverCardContent
+                      side="top"
+                      align="start"
+                    >
+                      <div frHoverCardPanel>
+                        <strong class="text-sm text-foreground">{{ permission.label }}</strong>
+                        <p class="m-0 mt-1 text-xs leading-5 text-muted-foreground">
+                          {{ permission.description }}
+                        </p>
+                      </div>
+                    </ng-template>
+                  </frame-hover-card>
+                  <span class="text-xs leading-5 text-muted-foreground">
+                    {{ permission.description }}
+                  </span>
+                </span>
+                <input
+                  frCheckbox
+                  type="checkbox"
+                  [checked]="data.permissionEnabled(permission.id)"
+                  [disabled]="data.selectedRole().locked"
+                  (change)="data.togglePermission(permission.id)"
+                />
+              </label>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </div>
+
+  <div frModalFooter>
+    <button frButton type="button" frModalClose>
+      <span frButtonLabel>Done</span>
+    </button>
+  </div>
+</div>

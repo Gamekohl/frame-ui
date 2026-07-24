@@ -1,0 +1,718 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon>
+    <ng-icon name="tablerX" size="16" />
+  </ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+
+  <ng-template
+    #operationsLogSheet
+    frSheetContent
+    width="24rem"
+    aria-label="Inventory operations log"
+  >
+    <div frSheetPanel scrollable>
+      <div frSheetHeader>
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Operations
+        </span>
+        <h2 frSheetTitle class="text-current">Latest movements</h2>
+        <p frSheetDescription>
+          Recent transfers, counts, and stock holds recorded by the warehouse team.
+        </p>
+      </div>
+
+      <div frSheetBody class="content-start">
+        <frame-accordion type="multiple" border>
+          <frame-accordion-item value="today">
+            <button frameAccordionTrigger type="button">
+              <span>Today</span>
+              <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+            </button>
+            <ng-template frameAccordionContent>
+              <div class="grid gap-3">
+                @for (movement of movements(); track movement.id) {
+                  @if ($index < 3) {
+                    <article class="grid gap-2 border border-border bg-muted p-3">
+                      <div class="flex items-center justify-between gap-3">
+                        <span frBadge [variant]="movementVariant(movement.type)">{{
+                          movement.type
+                        }}</span>
+                        <span class="text-xs text-muted-foreground">{{ movement.time }}</span>
+                      </div>
+                      <div class="grid gap-1">
+                        <strong class="text-sm text-foreground">{{ movement.item }}</strong>
+                        <span class="text-xs text-muted-foreground">{{ movement.sku }}</span>
+                      </div>
+                      <p class="m-0 text-sm leading-5 text-muted-foreground">
+                        {{ movement.detail }}
+                      </p>
+                      <div
+                        class="flex items-center justify-between gap-3 text-xs text-muted-foreground"
+                      >
+                        <span>{{ movement.user }}</span>
+                        <span frBadge [variant]="movement.quantity > 0 ? 'success' : 'destructive'"
+                          >{{ movement.quantity > 0 ? '+' : '' }}{{ movement.quantity }}</span
+                        >
+                      </div>
+                    </article>
+                  }
+                }
+              </div>
+            </ng-template>
+          </frame-accordion-item>
+
+          <frame-accordion-item value="yesterday">
+            <button frameAccordionTrigger type="button">
+              <span>Yesterday</span>
+              <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+            </button>
+            <ng-template frameAccordionContent>
+              <div class="grid gap-3">
+                @for (movement of movements(); track movement.id) {
+                  @if ($index >= 3 && $index < 6) {
+                    <article class="grid gap-2 border border-border bg-muted p-3">
+                      <div class="flex items-center justify-between gap-3">
+                        <span frBadge [variant]="movementVariant(movement.type)">{{
+                          movement.type
+                        }}</span>
+                        <span class="text-xs text-muted-foreground">{{ movement.time }}</span>
+                      </div>
+                      <div class="grid gap-1">
+                        <strong class="text-sm text-foreground">{{ movement.item }}</strong>
+                        <span class="text-xs text-muted-foreground">{{ movement.sku }}</span>
+                      </div>
+                      <p class="m-0 text-sm leading-5 text-muted-foreground">
+                        {{ movement.detail }}
+                      </p>
+                      <div
+                        class="flex items-center justify-between gap-3 text-xs text-muted-foreground"
+                      >
+                        <span>{{ movement.user }}</span>
+                        <span frBadge [variant]="movement.quantity > 0 ? 'success' : 'destructive'"
+                          >{{ movement.quantity > 0 ? '+' : '' }}{{ movement.quantity }}</span
+                        >
+                      </div>
+                    </article>
+                  }
+                }
+              </div>
+            </ng-template>
+          </frame-accordion-item>
+
+          <frame-accordion-item value="week">
+            <button frameAccordionTrigger type="button">
+              <span>This week</span>
+              <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+            </button>
+            <ng-template frameAccordionContent>
+              <div class="grid gap-3">
+                @for (movement of movements(); track movement.id) {
+                  @if ($index >= 6) {
+                    <article class="grid gap-2 border border-border bg-muted p-3">
+                      <div class="flex items-center justify-between gap-3">
+                        <span frBadge [variant]="movementVariant(movement.type)">{{
+                          movement.type
+                        }}</span>
+                        <span class="text-xs text-muted-foreground">{{ movement.time }}</span>
+                      </div>
+                      <div class="grid gap-1">
+                        <strong class="text-sm text-foreground">{{ movement.item }}</strong>
+                        <span class="text-xs text-muted-foreground">{{ movement.sku }}</span>
+                      </div>
+                      <p class="m-0 text-sm leading-5 text-muted-foreground">
+                        {{ movement.detail }}
+                      </p>
+                      <div
+                        class="flex items-center justify-between gap-3 text-xs text-muted-foreground"
+                      >
+                        <span>{{ movement.user }}</span>
+                        <span frBadge [variant]="movement.quantity > 0 ? 'success' : 'destructive'"
+                          >{{ movement.quantity > 0 ? '+' : '' }}{{ movement.quantity }}</span
+                        >
+                      </div>
+                    </article>
+                  }
+                }
+              </div>
+            </ng-template>
+          </frame-accordion-item>
+        </frame-accordion>
+
+        <section frCollapsible defaultOpen class="mt-4 border-t border-border pt-4">
+          <button
+            frCollapsibleTrigger
+            type="button"
+            class="flex w-full items-center justify-between gap-3 text-left"
+          >
+            <span class="grid gap-1">
+              <span class="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+                Today
+              </span>
+              <span class="text-base font-semibold text-foreground">Warehouse focus</span>
+            </span>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </button>
+          <div frCollapsibleContent>
+            <div class="grid gap-3 text-sm">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 size-2 shrink-0 bg-primary"></span>
+                <span class="text-muted-foreground">
+                  Count low stock SKUs before the afternoon pick wave.
+                </span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 size-2 shrink-0 bg-primary"></span>
+                <span class="text-muted-foreground">
+                  Move retail floor overflow back to main warehouse before closing.
+                </span>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 size-2 shrink-0 bg-primary"></span>
+                <span class="text-muted-foreground">
+                  Review QA holds for products with open customer claims.
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-template>
+
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Template preview
+        </p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Inventory</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Track available stock, reservations, location transfers, cycle counts, and warehouse
+          holds.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/store"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/store/overview">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Store</span>
+                <span class="text-xs text-muted-foreground">Store operations</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Store</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Fulfillment</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/store/overview">
+              <span
+                class="grid size-8 place-items-center border border-border bg-muted text-xs font-semibold"
+              >
+                MS
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Store owner</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Inventory path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/overview">Acme</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/product-catalog">Store</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <span frBreadcrumbPage>Inventory</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-end">
+              <div class="grid gap-2">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                    Inventory
+                  </h2>
+                  <span frBadge variant="secondary">{{ items().length }} tracked SKUs</span>
+                </div>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Watch where stock is physically sitting, what is promised to orders, and what
+                  needs a warehouse action.
+                </p>
+              </div>
+
+              <div class="flex flex-col gap-2 sm:flex-row sm:justify-end">
+                <button frButton appearance="outline" type="button" (click)="openOperationsLog()">
+                  <ng-icon name="tablerActivity" size="16" frButtonIcon />
+                  <span frButtonLabel>Operations log</span>
+                </button>
+                <button
+                  frButton
+                  type="button"
+                  (click)="openAction(items()[0], 'transfer')"
+                  frTooltip="Starts with the first SKU so the transfer flow is visible immediately."
+                  frTooltipArrow
+                >
+                  <ng-icon name="tablerTruckDelivery" size="16" frButtonIcon />
+                  <span frButtonLabel>New transfer</span>
+                </button>
+              </div>
+            </header>
+
+            <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              @for (metric of metrics(); track metric.label) {
+                <div class="rounded-lg border border-border bg-muted p-4">
+                  <span class="text-xs uppercase text-muted-foreground">{{ metric.label }}</span>
+                  <strong class="mt-2 block text-2xl text-foreground">{{ metric.value }}</strong>
+                  <span class="mt-1 block text-xs text-muted-foreground">{{ metric.detail }}</span>
+                </div>
+              }
+            </div>
+
+            @if (exceptionItems().length > 0) {
+              <section frAlert variant="danger">
+                <ng-icon frAlertIcon name="tablerExclamationCircle" />
+                <h3 frAlertTitle>{{ exceptionItems().length }} inventory exceptions need review</h3>
+                <p frAlertDescription>
+                  Low stock, critical availability, and QA holds stay visible here so warehouse work
+                  stays tied to the table below.
+                </p>
+              </section>
+            }
+
+            <section class="grid gap-3">
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div class="grid gap-1">
+                  <h3 class="m-0 text-base font-semibold text-foreground">Stock by location</h3>
+                  <p class="m-0 text-sm text-muted-foreground">
+                    Utilization is based on operational shelf capacity, not product publish state.
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                @for (location of locationSummaries(); track location.key) {
+                  <article class="grid gap-3 border rounded-md border-border bg-background p-4">
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="grid gap-1">
+                        <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                          <button
+                            type="button"
+                            class="w-fit font-mono text-xs font-bold uppercase tracking-wider text-primary"
+                            [frHoverCardTrigger]="locationCard"
+                          >
+                            {{ location.code }}
+                          </button>
+
+                          <ng-template
+                            #locationCard="frHoverCardContent"
+                            frHoverCardContent
+                            side="top"
+                            align="start"
+                          >
+                            <div frHoverCardPanel>
+                              <p class="frame-hover-card__title">{{ location.label }}</p>
+                              <p class="frame-hover-card__description">
+                                {{ location.units }} units currently use {{ location.utilization }}%
+                                of this location.
+                              </p>
+                              <p class="frame-hover-card__meta">
+                                Capacity {{ location.capacity }} · Code {{ location.code }}
+                              </p>
+                            </div>
+                          </ng-template>
+                        </frame-hover-card>
+                        <strong class="text-foreground">{{ location.label }}</strong>
+                      </div>
+                      <span class="text-2xl font-semibold text-foreground">{{
+                        location.units
+                      }}</span>
+                    </div>
+                    <div class="h-2 overflow-hidden border border-border bg-muted">
+                      <span
+                        class="block h-full bg-primary"
+                        [style.width]="utilizationWidth(location.utilization)"
+                      ></span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>{{ location.utilization }}% used</span>
+                      <span>{{ location.capacity }} capacity</span>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+
+            <section class="grid gap-4">
+              <div class="grid min-w-0 gap-3">
+                <div class="grid gap-3 lg:grid-cols-[minmax(14rem,1fr)_auto] lg:items-center">
+                  <div class="min-w-0" frInputGroup>
+                    <span frInputGroupAddon align="inline-start" variant="ghost">
+                      <ng-icon name="tablerSearch" size="16" />
+                    </span>
+                    <input
+                      frInputGroupInput
+                      aria-label="Search inventory"
+                      placeholder="Search SKU, item, or category..."
+                      [value]="searchTerm()"
+                      (input)="setSearch($event)"
+                    />
+                  </div>
+
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+                    <div class="w-full sm:w-44">
+                      <button
+                        type="button"
+                        class="w-full"
+                        [frSelect]="locationMenu"
+                        [value]="locationFilter()"
+                        (valueChange)="locationFilter.set($event ?? 'All locations')"
+                      >
+                        <span frSelectIcon position="leading">
+                          <ng-icon name="tablerDatabase" size="16" />
+                        </span>
+                        <frame-select-value placeholder="All locations"></frame-select-value>
+                        <span frSelectIcon>
+                          <ng-icon name="tablerChevronDown" size="16" />
+                        </span>
+                      </button>
+                      <ng-template #locationMenu="frSelectContent" frSelectContent>
+                        <frame-select-panel
+                          ><frame-select-group>
+                            @for (location of locationOptions; track location) {
+                              <button
+                                frSelectItem
+                                type="button"
+                                [value]="location"
+                                [label]="location"
+                              >
+                                {{ location }}
+                              </button>
+                            }
+                          </frame-select-group></frame-select-panel
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="w-full sm:w-44">
+                      <button
+                        type="button"
+                        class="w-full"
+                        [frSelect]="statusMenu"
+                        [value]="statusFilter()"
+                        (valueChange)="statusFilter.set($event ?? 'All status')"
+                      >
+                        <span frSelectIcon position="leading">
+                          <ng-icon name="tablerAdjustmentsHorizontal" size="16" />
+                        </span>
+                        <frame-select-value placeholder="All status"></frame-select-value>
+                        <span frSelectIcon>
+                          <ng-icon name="tablerChevronDown" size="16" />
+                        </span>
+                      </button>
+                      <ng-template #statusMenu="frSelectContent" frSelectContent>
+                        <frame-select-panel
+                          ><frame-select-group>
+                            @for (status of statusOptions; track status) {
+                              <button frSelectItem type="button" [value]="status" [label]="status">
+                                {{ status }}
+                              </button>
+                            }
+                          </frame-select-group></frame-select-panel
+                        >
+                      </ng-template>
+                    </div>
+
+                    <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                      <span frButtonLabel>Reset</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div frTableContainer class="overflow-x-auto border border-border">
+                  <table frTable [dataSource]="filteredItems()">
+                    <ng-container frColumnDef="item">
+                      <th frHeaderCell *frHeaderCellDef>Item</th>
+                      <td frCell *frCellDef="let item">
+                        <div class="flex min-w-64 items-center gap-3">
+                          <span
+                            class="grid size-9 shrink-0 place-items-center border border-border bg-muted"
+                          >
+                            <ng-icon name="tablerPackage" size="17" />
+                          </span>
+                          <span class="grid min-w-0 gap-0.5">
+                            <span class="truncate font-semibold text-foreground">{{
+                              item.name
+                            }}</span>
+                            <span class="truncate text-xs text-muted-foreground"
+                              >{{ item.sku }} · {{ item.category }}</span
+                            >
+                          </span>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="available">
+                      <th frHeaderCell frTableNumeric *frHeaderCellDef>Available</th>
+                      <td frCell frTableNumeric *frCellDef="let item">
+                        <strong>{{ available(item) }}</strong>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="reserved">
+                      <th frHeaderCell frTableNumeric *frHeaderCellDef>Reserved</th>
+                      <td frCell frTableNumeric *frCellDef="let item" frTableMuted>
+                        {{ item.reserved }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="hold">
+                      <th frHeaderCell frTableNumeric *frHeaderCellDef>Hold</th>
+                      <td frCell frTableNumeric *frCellDef="let item" frTableMuted>
+                        {{ item.hold }}
+                      </td>
+                    </ng-container>
+
+                    @for (location of locations; track location.key) {
+                      <ng-container [frColumnDef]="location.key">
+                        <th frHeaderCell frTableNumeric *frHeaderCellDef>{{ location.code }}</th>
+                        <td frCell frTableNumeric *frCellDef="let item">
+                          {{ stockAt(item, location.key) }}
+                        </td>
+                      </ng-container>
+                    }
+
+                    <ng-container frColumnDef="status">
+                      <th frHeaderCell *frHeaderCellDef>Status</th>
+                      <td frCell *frCellDef="let item">
+                        <span frBadge [variant]="statusVariant(status(item))">{{
+                          status(item)
+                        }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="updated">
+                      <th frHeaderCell *frHeaderCellDef>Updated</th>
+                      <td frCell *frCellDef="let item" frTableMuted>{{ item.updated }}</td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="actions">
+                      <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                      <td frCell frTableNumeric *frCellDef="let item">
+                        <div class="flex items-center justify-end gap-1">
+                          <frame-popover>
+                            <button
+                              frIconButton
+                              appearance="ghost"
+                              size="sm"
+                              type="button"
+                              aria-label="Adjust reorder point"
+                              [frPopoverTrigger]="reorderPointPanel"
+                              frTooltip="Adjust reorder point"
+                              frTooltipArrow
+                            >
+                              <ng-icon name="tablerAdjustmentsHorizontal" size="16" frButtonIcon />
+                            </button>
+                            <ng-template
+                              #reorderPointPanel="frPopoverContent"
+                              frPopoverContent
+                              side="left"
+                              align="center"
+                            >
+                              <div frPopoverPanel>
+                                <div frPopoverHeader>
+                                  <h3 frPopoverTitle>Reorder point</h3>
+                                  <p frPopoverDescription>
+                                    Set when {{ item.name }} starts showing as low stock.
+                                  </p>
+                                </div>
+                                <div frPopoverBody>
+                                  <label class="grid gap-2">
+                                    <span class="text-sm font-semibold text-foreground">Units</span>
+                                    <input
+                                      #reorderPointInput
+                                      frInput
+                                      type="number"
+                                      min="0"
+                                      step="1"
+                                      [value]="item.reorderPoint"
+                                    />
+                                    <span class="text-xs text-muted-foreground">
+                                      Available now: {{ available(item) }}
+                                    </span>
+                                  </label>
+                                </div>
+                                <div frPopoverFooter>
+                                  <button
+                                    frButton
+                                    appearance="outline"
+                                    frPopoverClose
+                                    type="button"
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button
+                                    frButton
+                                    frPopoverClose
+                                    type="button"
+                                    (click)="updateReorderPoint(item, reorderPointInput)"
+                                  >
+                                    Save
+                                  </button>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </frame-popover>
+
+                          <div frDropdownMenu>
+                            <button
+                              frIconButton
+                              appearance="ghost"
+                              size="sm"
+                              type="button"
+                              aria-label="Open inventory actions"
+                              [frDropdownMenuTrigger]="itemMenu"
+                              frTooltip="Inventory actions"
+                              frTooltipArrow
+                            >
+                              <ng-icon name="tablerDots" size="16" frButtonIcon />
+                            </button>
+                            <ng-template
+                              #itemMenu="frDropdownMenuContent"
+                              frDropdownMenuContent
+                              side="bottom"
+                              align="end"
+                            >
+                              <div frDropdownMenuPanel>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openAction(item, 'transfer')"
+                                >
+                                  <ng-icon name="tablerTruckDelivery" size="14" />
+                                  Transfer stock
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openAction(item, 'count')"
+                                >
+                                  <ng-icon name="tablerClipboardCheck" size="14" />
+                                  Cycle count
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openAction(item, 'hold')"
+                                >
+                                  <ng-icon name="tablerDatabase" size="14" />
+                                  Place hold
+                                </button>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <tr frHeaderRow *frHeaderRowDef="columns; sticky: true"></tr>
+                    <tr
+                      frRow
+                      *frRowDef="let row; columns: columns"
+                      [ngClass]="{
+                        'bg-primary/5': recentlyChangedItemId() === row.id,
+                      }"
+                    ></tr>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
