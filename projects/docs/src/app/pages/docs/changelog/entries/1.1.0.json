@@ -5,7 +5,7 @@
     {
       "title": "Store and administration templates",
       "kind": "Added",
-      "description": "Two interactive template applications now cover store operations and administration without coupling their downloadable source."
+      "description": "Two interactive template applications now cover store operations and administration."
     },
     {
       "title": "Application blocks",
@@ -34,16 +34,13 @@
       "items": [
         "Comboboxes now resolve initial labels from lazy item content while retaining the itemToStringValue compatibility input.",
         "Hover card and popover projected content now keeps access to its overlay controller.",
-        "Restored the tooltip maximum-width token so existing theme overrides continue to work.",
         "Improved table borders, template navigation, responsive filtering, and overlay layout details."
       ]
     },
     {
       "title": "Changed",
       "items": [
-        "FrChartDataPoint is now the preferred chart datum type; FrChartDatum remains available as a deprecated alias.",
-        "Template source now lives in two independent projects under projects/templates and is lazy-loaded by the docs application through separate route trees.",
-        "The docs header now provides direct navigation to blocks and complete templates."
+        "FrChartDataPoint is now the preferred chart datum type; FrChartDatum remains available as a deprecated alias."
       ]
     }
   ]
