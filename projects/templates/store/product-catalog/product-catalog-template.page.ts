@@ -20,13 +20,13 @@ import { FrBreadcrumbModule } from '@frame-ui-ng/components/breadcrumb';
 import { FrButtonModule } from '@frame-ui-ng/components/button';
 import { FrCheckboxModule } from '@frame-ui-ng/components/checkbox';
 import { FrCollapsibleModule } from '@frame-ui-ng/components/collapsible';
+import { FrComboboxModule } from '@frame-ui-ng/components/combobox';
 import { FrConfirmModalService } from '@frame-ui-ng/components/confirm-modal';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrHoverCardModule } from '@frame-ui-ng/components/hover-card';
 import { FrInputModule } from '@frame-ui-ng/components/input';
 import { FrModalService } from '@frame-ui-ng/components/modal';
 import { FrPaginationModule } from '@frame-ui-ng/components/pagination';
-import { FrPopoverModule } from '@frame-ui-ng/components/popover';
 import { FrSelectModule } from '@frame-ui-ng/components/select';
 import { FrSheetModule, FrSheetService } from '@frame-ui-ng/components/sheet';
 import { FrSidebarModule } from '@frame-ui-ng/components/sidebar';
@@ -105,11 +105,11 @@ import {
     FrCheckboxModule,
     FrChart,
     FrCollapsibleModule,
+    FrComboboxModule,
     FrDropdownMenuModule,
     FrHoverCardModule,
     FrInputModule,
     FrPaginationModule,
-    FrPopoverModule,
     FrSelectModule,
     FrSheetModule,
     FrSidebarModule,

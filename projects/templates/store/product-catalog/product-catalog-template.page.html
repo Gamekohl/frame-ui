@@ -301,7 +301,7 @@
 
           <div frSidebarContent>
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>Store</div>
+              <div frSidebarGroupLabel>Operations</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
@@ -320,7 +320,7 @@
             </div>
 
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>Fulfillment</div>
+              <div frSidebarGroupLabel>Administration</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
@@ -420,7 +420,7 @@
             </div>
 
             <section class="grid gap-4 rounded-lg">
-              <div class="flex gap-3 xl:items-center">
+              <div class="flex flex-col gap-3 2xl:flex-row 2xl:items-center">
                 <div
                   frTabs
                   [value]="viewMode()"
@@ -443,10 +443,12 @@
                   </div>
                 </div>
 
-                <div class="flex-1"></div>
+                <div class="hidden flex-1 2xl:block"></div>
 
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-                  <div class="w-full sm:w-44">
+                <div
+                  class="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center 2xl:w-auto 2xl:justify-end"
+                >
+                  <div class="w-full shrink-0 sm:w-52">
                     <button
                       type="button"
                       class="w-full"
@@ -480,7 +482,7 @@
                     </ng-template>
                   </div>
 
-                  <div class="w-full sm:w-44">
+                  <div class="w-full shrink-0 sm:w-52">
                     <button
                       type="button"
                       class="w-full"
@@ -509,63 +511,36 @@
                     </ng-template>
                   </div>
 
-                  <frame-popover>
-                    <button
-                      frButton
-                      appearance="outline"
-                      type="button"
-                      [frPopoverTrigger]="stockFilterPanel"
-                    >
-                      <ng-icon name="tablerBox" size="16" frButtonIcon />
-                      <span frButtonLabel>{{ stockFilter() }}</span>
-                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
-                    </button>
-                    <ng-template
-                      #stockFilterPanel="frPopoverContent"
-                      frPopoverContent
-                      side="bottom"
-                      align="end"
-                    >
-                      <div frPopoverPanel>
-                        <div frPopoverHeader>
-                          <h3 frPopoverTitle>Stock state</h3>
-                          <p frPopoverDescription>
-                            Focus the catalog by available inventory before publishing or
-                            restocking.
-                          </p>
-                        </div>
-                        <div frPopoverBody>
-                          <div class="grid gap-2">
+                  <div class="w-full shrink-0 sm:w-52">
+                    <div frCombobox [(value)]="stockFilter" autoHighlight>
+                      <button frComboboxTrigger type="button">
+                        <span class="flex min-w-0 items-center gap-2">
+                          <ng-icon name="tablerBox" size="16" />
+                          <span class="truncate">{{ stockFilter() }}</span>
+                        </span>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </button>
+                      <ng-template frComboboxContent>
+                        <div frComboboxPanel>
+                          <div frComboboxList>
                             @for (stock of stockOptions; track stock) {
-                              <button
-                                frButton
-                                appearance="outline"
-                                type="button"
-                                class="justify-start"
-                                [ngClass]="
-                                  stockFilter() === stock
-                                    ? 'border-primary bg-primary text-primary-foreground'
-                                    : ''
-                                "
-                                (click)="stockFilter.set(stock)"
-                              >
-                                <span frButtonLabel>{{ stock }}</span>
+                              <button frComboboxItem type="button" [value]="stock" [label]="stock">
+                                {{ stock }}
                               </button>
                             }
                           </div>
                         </div>
-                        @if (stockFilter() === 'Out of stock') {
-                          <div frPopoverFooter>
-                            <p class="m-0 text-xs leading-5 text-muted-foreground">
-                              Out-of-stock products cannot be published until inventory is added.
-                            </p>
-                          </div>
-                        }
-                      </div>
-                    </ng-template>
-                  </frame-popover>
+                      </ng-template>
+                    </div>
+                  </div>
 
-                  <button frButton appearance="outline" type="button" (click)="resetFilters()">
+                  <button
+                    frButton
+                    appearance="outline"
+                    type="button"
+                    class="w-full sm:w-auto"
+                    (click)="resetFilters()"
+                  >
                     <span frButtonLabel>Reset</span>
                   </button>
                 </div>

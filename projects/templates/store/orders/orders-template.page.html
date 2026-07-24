@@ -164,7 +164,7 @@
 
           <div frSidebarContent>
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>Store</div>
+              <div frSidebarGroupLabel>Operations</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of mainNav; track item.label) {
@@ -183,7 +183,7 @@
             </div>
 
             <div frSidebarGroup>
-              <div frSidebarGroupLabel>Fulfillment</div>
+              <div frSidebarGroupLabel>Administration</div>
               <div frSidebarGroupContent>
                 <ul frSidebarMenu>
                   @for (item of adminNav; track item.label) {
@@ -255,12 +255,12 @@
 
               <div class="grid items-stretch gap-2 sm:grid-cols-3">
                 @for (metric of queueMetrics(); track metric.label) {
-                  <div class="flex min-h-36 flex-col rounded-lg border border-border bg-muted p-4">
-                    <span class="min-h-10 text-xs uppercase leading-5 text-muted-foreground">{{
+                  <div class="flex flex-col rounded-lg border border-border bg-muted p-4">
+                    <span class="text-xs uppercase leading-5 text-muted-foreground">{{
                       metric.label
                     }}</span>
-                    <strong class="mt-2 block text-xl text-foreground">{{ metric.value }}</strong>
-                    <span class="mt-auto block pt-2 text-xs leading-5 text-muted-foreground">{{
+                    <strong class="block text-xl text-foreground">{{ metric.value }}</strong>
+                    <span class="block pt-2 text-xs leading-5 text-muted-foreground">{{
                       metric.detail
                     }}</span>
                   </div>
