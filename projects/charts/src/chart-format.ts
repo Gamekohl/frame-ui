@@ -1,4 +1,4 @@
-import { FrChartDatum, FrChartSeries } from './chart.types';
+import { FrChartDataPoint, FrChartSeries } from './chart.types';
 
 export function formatChartLabel(value: Date | number | string): string {
   if (value instanceof Date) {
@@ -16,7 +16,7 @@ export function toChartLabel(value: string): string {
 }
 
 export function inferChartSeries(
-  data: readonly FrChartDatum[],
+  data: readonly FrChartDataPoint[],
   xKey: string,
   excludedKeys: readonly string[] = [],
 ): readonly FrChartSeries[] {

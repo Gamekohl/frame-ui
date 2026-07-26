@@ -1,0 +1,972 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <ng-template #toastCloseIcon>
+    <ng-icon name="tablerX" size="16" />
+  </ng-template>
+  <frame-toast-viewport [closeIcon]="toastCloseIcon" />
+
+  <ng-template #productDetailsSheet frSheetContent width="24rem" aria-label="Product details">
+    <div frSheetPanel scrollable>
+      <div frSheetHeader>
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Selection
+        </span>
+        <h2 frSheetTitle class="text-current">{{ selectedProduct().name }}</h2>
+        <p frSheetDescription>
+          {{ selectedProduct().description || 'No product description has been added yet.' }}
+        </p>
+      </div>
+
+      <div frSheetBody class="content-start">
+        @if (selectedProduct().stock === 0) {
+          <section frAlert variant="danger" class="mb-4">
+            <ng-icon frAlertIcon name="tablerExclamationCircle" />
+            <h3 frAlertTitle>Publishing is blocked</h3>
+            <p frAlertDescription>
+              This product has no available stock. Add inventory before making it visible on the
+              storefront.
+            </p>
+          </section>
+        }
+
+        <dl class="grid content-start gap-3 text-sm">
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="flex items-center gap-2 text-muted-foreground">
+              <ng-icon name="tablerTags" size="16" />
+              Category
+            </dt>
+            <dd class="m-0 font-semibold text-current">{{ selectedProduct().category }}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="flex items-center gap-2 text-muted-foreground">
+              <ng-icon name="tablerCurrencyDollar" size="16" />
+              Price
+            </dt>
+            <dd class="m-0 font-semibold text-current">{{ currency(selectedProduct().price) }}</dd>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+            <dt class="flex items-center gap-2 text-muted-foreground">
+              <ng-icon name="tablerBox" size="16" />
+              Stock
+            </dt>
+            <dd class="m-0 font-semibold text-current">{{ selectedProduct().stock }}</dd>
+          </div>
+          @if (selectedProduct().incomingStock) {
+            <div class="flex items-center justify-between gap-4 border-b border-border pb-3">
+              <dt class="flex items-center gap-2 text-muted-foreground">
+                <ng-icon name="tablerTruckDelivery" size="16" />
+                Incoming
+              </dt>
+              <dd class="m-0 text-right">
+                <span class="block font-semibold text-current"
+                  >+{{ selectedProduct().incomingStock }}</span
+                >
+                <span class="block text-xs text-muted-foreground">
+                  {{ selectedProduct().incomingEta }} · {{ selectedProduct().incomingOrder }}
+                </span>
+              </dd>
+            </div>
+          }
+          <div class="flex items-center justify-between gap-4">
+            <dt class="flex items-center gap-2 text-muted-foreground">
+              <ng-icon name="tablerShoppingCart" size="16" />
+              Visibility
+            </dt>
+            <dd class="m-0 font-semibold text-current">{{ selectedProduct().visibility }}</dd>
+          </div>
+        </dl>
+
+        <div class="mt-4 flex flex-wrap items-start gap-2">
+          @for (issue of productIssues(selectedProduct()); track issue) {
+            <span frBadge variant="outline">{{ issue }}</span>
+          } @empty {
+            <span frBadge variant="success">Ready for daily operations</span>
+          }
+        </div>
+
+        <frame-accordion
+          type="single"
+          collapsible
+          [defaultValue]="'supplier'"
+          border
+          class="mt-5 block"
+        >
+          <frame-accordion-item value="supplier">
+            <button frameAccordionTrigger type="button">
+              <span>Supplier and reorder context</span>
+              <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+            </button>
+
+            <ng-template frameAccordionContent>
+              <div class="grid gap-2 text-sm">
+                <div class="flex items-center justify-between gap-3">
+                  <span>Supplier</span>
+                  <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                    <strong
+                      class="text-foreground underline decoration-border underline-offset-4"
+                      [frHoverCardTrigger]="supplierContext"
+                    >
+                      {{ selectedProduct().supplier }}
+                    </strong>
+                    <ng-template
+                      #supplierContext="frHoverCardContent"
+                      frHoverCardContent
+                      side="left"
+                      align="center"
+                    >
+                      <div frHoverCardPanel>
+                        <strong class="text-sm text-foreground">{{
+                          selectedProduct().supplier
+                        }}</strong>
+                        <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
+                          <span>Lead time: {{ supplierLeadTime(selectedProduct()) }}</span>
+                          <span>Purchase order: {{ supplierOpenOrders(selectedProduct()) }}</span>
+                          <span>Category focus: {{ selectedProduct().category }}</span>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </frame-hover-card>
+                </div>
+                <p class="m-0 text-muted-foreground">
+                  Use this section when buyers need supplier context without opening a full product
+                  form.
+                </p>
+              </div>
+            </ng-template>
+          </frame-accordion-item>
+
+          <frame-accordion-item value="publishing">
+            <button frameAccordionTrigger type="button">
+              <span>Publishing checklist</span>
+              <ng-icon frameAccordionIcon name="tablerChevronDown" size="18"></ng-icon>
+            </button>
+
+            <ng-template frameAccordionContent>
+              <ul class="m-0 grid gap-2 p-0 text-sm">
+                <li class="flex items-center justify-between gap-3">
+                  <span>Description</span>
+                  <span frBadge [variant]="selectedProduct().description ? 'success' : 'outline'">
+                    {{ selectedProduct().description ? 'Ready' : 'Missing' }}
+                  </span>
+                </li>
+                <li class="flex items-center justify-between gap-3">
+                  <span>Stock</span>
+                  <span frBadge [variant]="selectedProduct().stock > 0 ? 'success' : 'destructive'">
+                    {{ selectedProduct().stock > 0 ? 'Available' : 'Out of stock' }}
+                  </span>
+                </li>
+                <li class="flex items-center justify-between gap-3">
+                  <span>Visibility</span>
+                  <span frBadge variant="outline">{{ selectedProduct().visibility }}</span>
+                </li>
+              </ul>
+            </ng-template>
+          </frame-accordion-item>
+        </frame-accordion>
+
+        <section class="mt-5 grid gap-4 border-t border-border pt-4">
+          @let sales = salesSeries(selectedProduct());
+
+          <div class="grid gap-2">
+            <div class="flex items-end justify-between gap-3">
+              <div class="grid gap-1">
+                <h3 class="m-0 text-sm font-semibold text-current">Last 7 days</h3>
+                <p class="m-0 text-xs text-muted-foreground">Units sold by day</p>
+              </div>
+              <strong class="text-lg text-current">{{ totalSales(sales) }}</strong>
+            </div>
+
+            <div class="grid gap-2 border border-border bg-muted p-3">
+              <div class="flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                <span>Units sold</span>
+                <span>Day</span>
+              </div>
+              <frame-chart
+                type="bar"
+                xKey="day"
+                aria-label="Units sold over the last 7 days"
+                [data]="salesChartData(selectedProduct())"
+                [height]="160"
+                [series]="salesChartSeries"
+                [showLegend]="false"
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div class="border border-border bg-muted p-3">
+              <span class="text-xs uppercase text-muted-foreground">Sell-through</span>
+              <strong class="mt-1 block text-xl text-current"
+                >{{ sellThroughRate(selectedProduct()) }}%</strong
+              >
+            </div>
+            <div class="border border-border bg-muted p-3">
+              <span class="text-xs uppercase text-muted-foreground">Return rate</span>
+              <strong class="mt-1 block text-xl text-current"
+                >{{ returnRate(selectedProduct()) }}%</strong
+              >
+            </div>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="flex items-end justify-between gap-3">
+              <div class="grid gap-1">
+                <h3 class="m-0 text-sm font-semibold text-current">Stock trend</h3>
+                <p class="m-0 text-xs text-muted-foreground">Available units by week</p>
+              </div>
+              <strong class="text-sm text-current"
+                >{{ stockCoverage(selectedProduct()) }} weeks</strong
+              >
+            </div>
+
+            <div class="grid gap-2 border border-border bg-muted p-3">
+              <div class="flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                <span>Units in stock</span>
+                <span>Week</span>
+              </div>
+              <frame-chart
+                type="line"
+                xKey="week"
+                curve="sharp"
+                aria-label="Projected stock on hand by week"
+                [data]="inventoryChartData(selectedProduct())"
+                [height]="150"
+                [series]="inventoryChartSeries"
+                [showLegend]="false"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div frSheetFooter>
+        <button frButton type="button" (click)="openEditProduct(selectedProduct())">
+          <ng-icon name="tablerEdit" size="16" frButtonIcon />
+          <span frButtonLabel>Edit product</span>
+        </button>
+        <button
+          frButton
+          appearance="outline"
+          type="button"
+          (click)="duplicateProduct(selectedProduct())"
+        >
+          <ng-icon name="tablerCopy" size="16" frButtonIcon />
+          <span frButtonLabel>Duplicate product</span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Template preview
+        </p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">Product catalog</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Manage SKUs, pricing, stock, visibility, and the product records support teams rely on.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/store"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/store/overview">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Store</span>
+                <span class="text-xs text-muted-foreground">Store operations</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Operations</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Administration</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a frSidebarMenuButton variant="outline" routerLink="/templates/store/overview">
+              <span frAvatar size="sm">
+                <span frAvatarFallback>MS</span>
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Store owner</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Catalog path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/overview">Acme</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/store/product-catalog">Store</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <span frBreadcrumbPage>Product catalog</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-end">
+              <div class="grid gap-2">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                    Product catalog
+                  </h2>
+                  <span frBadge variant="secondary">{{ products().length }} SKUs</span>
+                </div>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Keep product records, storefront state, and inventory signals in one working
+                  surface.
+                </p>
+              </div>
+
+              <div class="flex flex-col gap-2 sm:flex-row sm:justify-end">
+                <button frButton appearance="outline" type="button">
+                  <ng-icon name="tablerArchive" size="16" frButtonIcon />
+                  <span frButtonLabel>Import CSV</span>
+                </button>
+                <button frButton type="button" (click)="openCreateProduct()">
+                  <ng-icon name="tablerPlus" size="16" frButtonIcon />
+                  <span frButtonLabel>Add product</span>
+                </button>
+              </div>
+            </header>
+
+            <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              @for (metric of metrics(); track metric.label) {
+                <div class="rounded-lg border border-border bg-muted p-4">
+                  <span class="text-xs uppercase text-muted-foreground">{{ metric.label }}</span>
+                  <strong class="mt-2 block text-2xl text-foreground">{{ metric.value }}</strong>
+                </div>
+              }
+            </div>
+
+            <section class="grid gap-4 rounded-lg">
+              <div class="flex flex-col gap-3 2xl:flex-row 2xl:items-center">
+                <div
+                  frTabs
+                  [value]="viewMode()"
+                  (valueChange)="setViewMode($event)"
+                  class="min-w-0"
+                >
+                  <div frTabsList aria-label="Catalog views">
+                    <button frTabsTrigger value="table" type="button">
+                      <ng-icon name="tablerLayoutList" size="16" />
+                      Table
+                    </button>
+                    <button frTabsTrigger value="grid" type="button">
+                      <ng-icon name="tablerLayoutGrid" size="16" />
+                      Grid
+                    </button>
+                    <button frTabsTrigger value="attention" type="button">
+                      <ng-icon name="tablerBox" size="16" />
+                      Needs attention
+                    </button>
+                  </div>
+                </div>
+
+                <div class="hidden flex-1 2xl:block"></div>
+
+                <div
+                  class="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center 2xl:w-auto 2xl:justify-end"
+                >
+                  <div class="w-full shrink-0 sm:w-52">
+                    <button
+                      type="button"
+                      class="w-full"
+                      [frSelect]="categoryMenu"
+                      [value]="categoryFilter()"
+                      (valueChange)="categoryFilter.set($event ?? 'All categories')"
+                    >
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerTags" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All categories"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
+                    </button>
+                    <ng-template #categoryMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (category of categoryOptions; track category) {
+                            <button
+                              frSelectItem
+                              type="button"
+                              [value]="category"
+                              [label]="category"
+                            >
+                              {{ category }}
+                            </button>
+                          }
+                        </frame-select-group></frame-select-panel
+                      >
+                    </ng-template>
+                  </div>
+
+                  <div class="w-full shrink-0 sm:w-52">
+                    <button
+                      type="button"
+                      class="w-full"
+                      [frSelect]="statusMenu"
+                      [value]="statusFilter()"
+                      (valueChange)="statusFilter.set($event ?? 'All status')"
+                    >
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerAdjustmentsHorizontal" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All status"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
+                    </button>
+                    <ng-template #statusMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (status of statusOptions; track status) {
+                            <button frSelectItem type="button" [value]="status" [label]="status">
+                              {{ status }}
+                            </button>
+                          }
+                        </frame-select-group></frame-select-panel
+                      >
+                    </ng-template>
+                  </div>
+
+                  <div class="w-full shrink-0 sm:w-52">
+                    <div frCombobox [(value)]="stockFilter" autoHighlight>
+                      <button frComboboxTrigger type="button">
+                        <span class="flex min-w-0 items-center gap-2">
+                          <ng-icon name="tablerBox" size="16" />
+                          <span class="truncate">{{ stockFilter() }}</span>
+                        </span>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </button>
+                      <ng-template frComboboxContent>
+                        <div frComboboxPanel>
+                          <div frComboboxList>
+                            @for (stock of stockOptions; track stock) {
+                              <button frComboboxItem type="button" [value]="stock" [label]="stock">
+                                {{ stock }}
+                              </button>
+                            }
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+
+                  <button
+                    frButton
+                    appearance="outline"
+                    type="button"
+                    class="w-full sm:w-auto"
+                    (click)="resetFilters()"
+                  >
+                    <span frButtonLabel>Reset</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="min-w-64" frInputGroup>
+                <span frInputGroupAddon align="inline-start" variant="ghost">
+                  <ng-icon name="tablerSearch" size="16" />
+                </span>
+                <input
+                  frInputGroupInput
+                  aria-label="Search products"
+                  placeholder="Search products..."
+                  [value]="searchTerm()"
+                  (input)="setSearch($event)"
+                />
+              </div>
+
+              @if (selection.hasValue()) {
+                <section frCollapsible class="border border-border bg-muted p-3">
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <button
+                      frCollapsibleTrigger
+                      type="button"
+                      class="flex items-center gap-2 text-left text-sm font-semibold text-foreground"
+                    >
+                      <span>{{ selection.selected.length }} selected</span>
+                      <ng-icon name="tablerChevronDown" size="16" />
+                    </button>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      <button frButton appearance="outline" type="button" (click)="bulkPublish()">
+                        <span frButtonLabel>Publish</span>
+                      </button>
+                      <button frButton appearance="outline" type="button" (click)="bulkRestock()">
+                        <span frButtonLabel>Create restock plan</span>
+                      </button>
+                      <button frButton appearance="outline" type="button" (click)="bulkArchive()">
+                        <span frButtonLabel>Archive</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div frCollapsibleContent>
+                    <p class="m-0 pt-3 text-xs leading-5 text-muted-foreground">
+                      Publishing skips selected products with zero stock. Restock plans keep each
+                      product quantity editable before saving.
+                    </p>
+                  </div>
+                </section>
+              }
+
+              <div class="min-w-0">
+                @if (viewMode() === 'table') {
+                  <div frTableContainer class="overflow-x-auto border border-border">
+                    <table frTable [dataSource]="displayedProducts()">
+                      <ng-container frColumnDef="select">
+                        <th frHeaderCell *frHeaderCellDef class="w-10">
+                          <input
+                            frCheckbox
+                            type="checkbox"
+                            aria-label="Select visible products"
+                            [checked]="allVisibleSelected()"
+                            [indeterminate]="headerSelectionIndeterminate()"
+                            (change)="toggleAllVisible()"
+                          />
+                        </th>
+                        <td frCell *frCellDef="let product" class="w-10">
+                          <input
+                            frCheckbox
+                            type="checkbox"
+                            aria-label="Select product"
+                            [checked]="selection.isSelected(product.id)"
+                            (change)="selection.toggle(product.id)"
+                          />
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="product">
+                        <th frHeaderCell *frHeaderCellDef>Product</th>
+                        <td frCell *frCellDef="let product">
+                          <button
+                            type="button"
+                            class="flex min-w-64 items-center gap-3 text-left"
+                            (click)="openProductDetails(product)"
+                          >
+                            <span
+                              class="grid size-9 shrink-0 place-items-center border border-border bg-muted"
+                            >
+                              <ng-icon name="tablerPackage" size="17" />
+                            </span>
+                            <span class="grid min-w-0 gap-0.5">
+                              <span class="truncate font-semibold text-foreground">{{
+                                product.name
+                              }}</span>
+                              <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                                <span
+                                  class="truncate text-xs text-muted-foreground underline decoration-border underline-offset-4"
+                                  [frHoverCardTrigger]="tableSupplierContext"
+                                >
+                                  {{ product.supplier }}
+                                </span>
+                                <ng-template
+                                  #tableSupplierContext="frHoverCardContent"
+                                  frHoverCardContent
+                                  side="right"
+                                  align="start"
+                                >
+                                  <div frHoverCardPanel>
+                                    <strong class="text-sm text-foreground">{{
+                                      product.supplier
+                                    }}</strong>
+                                    <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
+                                      <span>Lead time: {{ supplierLeadTime(product) }}</span>
+                                      <span>Purchase order: {{ supplierOpenOrders(product) }}</span>
+                                    </div>
+                                  </div>
+                                </ng-template>
+                              </frame-hover-card>
+                            </span>
+                          </button>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="sku">
+                        <th frHeaderCell *frHeaderCellDef>SKU</th>
+                        <td frCell *frCellDef="let product" frTableMuted>{{ product.sku }}</td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="category">
+                        <th frHeaderCell *frHeaderCellDef>Category</th>
+                        <td frCell *frCellDef="let product">{{ product.category }}</td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="price">
+                        <th frHeaderCell *frHeaderCellDef>Price</th>
+                        <td frCell *frCellDef="let product">{{ currency(product.price) }}</td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="stock">
+                        <th frHeaderCell *frHeaderCellDef>Stock</th>
+                        <td frCell *frCellDef="let product">
+                          <div class="grid gap-1">
+                            <span frBadge [variant]="stockVariant(product)">
+                              {{ product.stock }} · {{ stockState(product) }}
+                            </span>
+                            @if (product.incomingStock) {
+                              <span class="text-xs text-muted-foreground">
+                                +{{ product.incomingStock }} incoming · {{ product.incomingEta }}
+                              </span>
+                            }
+                          </div>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="status">
+                        <th frHeaderCell *frHeaderCellDef>Status</th>
+                        <td frCell *frCellDef="let product">
+                          <span frBadge [variant]="statusVariant(product.status)">{{
+                            product.status
+                          }}</span>
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="visibility">
+                        <th frHeaderCell *frHeaderCellDef>Visibility</th>
+                        <td frCell *frCellDef="let product" frTableMuted>
+                          {{ product.visibility }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="updated">
+                        <th frHeaderCell *frHeaderCellDef>Updated</th>
+                        <td frCell *frCellDef="let product" frTableMuted>{{ product.updated }}</td>
+                      </ng-container>
+
+                      <ng-container frColumnDef="actions">
+                        <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                        <td frCell frTableNumeric *frCellDef="let product">
+                          <div frDropdownMenu>
+                            <button
+                              frIconButton
+                              appearance="ghost"
+                              size="sm"
+                              type="button"
+                              aria-label="Open product actions"
+                              [frDropdownMenuTrigger]="productMenu"
+                              frTooltip="Product actions"
+                              frTooltipArrow
+                            >
+                              <ng-icon name="tablerDots" size="16" frButtonIcon />
+                            </button>
+                            <ng-template
+                              #productMenu="frDropdownMenuContent"
+                              frDropdownMenuContent
+                              side="bottom"
+                              align="end"
+                            >
+                              <div frDropdownMenuPanel>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openProductDetails(product)"
+                                >
+                                  <ng-icon name="tablerFileText" size="14" />
+                                  View details
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="openEditProduct(product)"
+                                >
+                                  <ng-icon name="tablerEdit" size="14" />
+                                  Edit product
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="duplicateProduct(product)"
+                                >
+                                  <ng-icon name="tablerCopy" size="14" />
+                                  Duplicate
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="publishProduct(product)"
+                                >
+                                  <ng-icon name="tablerCircleCheck" size="14" />
+                                  Publish
+                                </button>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="restockProduct(product)"
+                                >
+                                  <ng-icon name="tablerTruckDelivery" size="14" />
+                                  Schedule restock
+                                </button>
+                                <div frDropdownMenuSeparator></div>
+                                <button
+                                  frDropdownMenuItem
+                                  type="button"
+                                  (click)="archiveProduct(product)"
+                                >
+                                  <ng-icon name="tablerArchive" size="14" />
+                                  Archive
+                                </button>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </td>
+                      </ng-container>
+
+                      <tr frHeaderRow *frHeaderRowDef="productColumns; sticky: true"></tr>
+                      <tr
+                        frRow
+                        *frRowDef="let row; columns: productColumns"
+                        [ngClass]="{
+                          'bg-primary/5': recentlyChangedProductId() === row.id,
+                        }"
+                      ></tr>
+                    </table>
+                  </div>
+                } @else if (viewMode() === 'grid') {
+                  <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    @for (product of displayedProducts(); track product.id) {
+                      <article
+                        class="grid gap-4 border border-border bg-background p-4"
+                        [ngClass]="recentlyChangedProductId() === product.id ? 'bg-primary/5' : ''"
+                      >
+                        <div class="flex items-start justify-between gap-3">
+                          <button
+                            type="button"
+                            class="grid gap-1 text-left"
+                            (click)="selectProduct(product)"
+                          >
+                            <span class="text-sm font-semibold text-foreground">{{
+                              product.name
+                            }}</span>
+                            <span class="text-xs text-muted-foreground">{{ product.sku }}</span>
+                          </button>
+                          <input
+                            frCheckbox
+                            type="checkbox"
+                            aria-label="Select product"
+                            [checked]="selection.isSelected(product.id)"
+                            (change)="selection.toggle(product.id)"
+                          />
+                        </div>
+                        <div class="grid gap-2 text-sm text-muted-foreground">
+                          <span>{{ product.category }} · {{ product.supplier }}</span>
+                          <span>{{ currency(product.price) }} · {{ product.stock }} in stock</span>
+                          @if (product.incomingStock) {
+                            <span
+                              >+{{ product.incomingStock }} incoming ·
+                              {{ product.incomingEta }}</span
+                            >
+                          }
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                          <span frBadge [variant]="statusVariant(product.status)">{{
+                            product.status
+                          }}</span>
+                          <span frBadge [variant]="stockVariant(product)">{{
+                            stockState(product)
+                          }}</span>
+                          <span frBadge variant="outline">{{ product.visibility }}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="openProductDetails(product)"
+                          >
+                            <ng-icon name="tablerFileText" size="15" frButtonIcon />
+                            <span frButtonLabel>Details</span>
+                          </button>
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="openEditProduct(product)"
+                          >
+                            <ng-icon name="tablerEdit" size="15" frButtonIcon />
+                            <span frButtonLabel>Edit</span>
+                          </button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="publishProduct(product)"
+                          >
+                            <span frButtonLabel>Publish</span>
+                          </button>
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="duplicateProduct(product)"
+                          >
+                            <ng-icon name="tablerCopy" size="15" frButtonIcon />
+                            <span frButtonLabel>Copy</span>
+                          </button>
+                        </div>
+                      </article>
+                    }
+                  </div>
+                } @else {
+                  <div class="grid gap-3">
+                    @for (product of displayedProducts(); track product.id) {
+                      <article
+                        class="grid gap-4 border border-border bg-muted p-4 lg:grid-cols-[1fr_auto] lg:items-center"
+                      >
+                        <div class="grid gap-2">
+                          <div class="flex flex-wrap items-center gap-2">
+                            <strong class="text-foreground">{{ product.name }}</strong>
+                            <span frBadge [variant]="stockVariant(product)">{{
+                              stockState(product)
+                            }}</span>
+                            <span frBadge [variant]="statusVariant(product.status)">{{
+                              product.status
+                            }}</span>
+                          </div>
+                          <p class="m-0 text-sm text-muted-foreground">
+                            {{ product.sku }} · {{ product.category }} · {{ product.supplier }}
+                          </p>
+                          <div class="flex flex-wrap gap-2">
+                            @for (issue of productIssues(product); track issue) {
+                              <span frBadge variant="outline">{{ issue }}</span>
+                            }
+                          </div>
+                        </div>
+                        <div class="flex flex-col gap-2 sm:flex-row lg:justify-end">
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="openProductDetails(product)"
+                          >
+                            <ng-icon name="tablerFileText" size="16" frButtonIcon />
+                            <span frButtonLabel>Details</span>
+                          </button>
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="restockProduct(product)"
+                          >
+                            <ng-icon name="tablerTruckDelivery" size="16" frButtonIcon />
+                            <span frButtonLabel>Schedule restock</span>
+                          </button>
+                          <button
+                            frButton
+                            appearance="outline"
+                            type="button"
+                            (click)="openEditProduct(product)"
+                          >
+                            <ng-icon name="tablerEdit" size="16" frButtonIcon />
+                            <span frButtonLabel>Edit</span>
+                          </button>
+                          <button frButton type="button" (click)="publishProduct(product)">
+                            <span frButtonLabel>Publish</span>
+                          </button>
+                        </div>
+                      </article>
+                    } @empty {
+                      <div
+                        class="grid place-items-center border border-border bg-muted p-10 text-center"
+                      >
+                        <div class="grid max-w-sm gap-2">
+                          <strong class="text-foreground">No product needs attention</strong>
+                          <span class="text-sm text-muted-foreground">
+                            Filtered products have stock, copy, and storefront state under control.
+                          </span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

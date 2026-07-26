@@ -1,11 +1,11 @@
 import { chartColor, chartDatumColor } from './chart-colors';
 import { formatChartLabel } from './chart-format';
 import { normalizedAngleFromPoint, polarToCartesian, ringSectorPath, sectorPath } from './chart-geometry';
-import { FrChartDatum, FrChartPieSliceModel, FrChartSeries } from './chart.types';
+import { FrChartDataPoint, FrChartPieSliceModel, FrChartSeries } from './chart.types';
 import { coerceNumber } from './chart-utils';
 
 type BuildPieSlicesOptions = {
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly innerRadius?: number;
   readonly plotHeight: number;
   readonly plotWidth: number;

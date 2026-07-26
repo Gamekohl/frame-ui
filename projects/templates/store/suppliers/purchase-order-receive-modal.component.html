@@ -1,0 +1,67 @@
+<div frModalPanel size="lg" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex items-start gap-3">
+      <span class="grid size-9 shrink-0 place-items-center bg-primary text-primary-foreground">
+        <ng-icon name="tablerPackageImport" size="18" />
+      </span>
+      <div class="grid gap-1">
+        <h2 frModalTitle>Receive {{ order.id }}</h2>
+        <p frModalDescription>
+          Record the physical count. The order remains open when fewer units arrive.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form frModalBody class="grid content-start gap-4" (submit)="$event.preventDefault(); save()">
+    @for (line of order.lines; track line.sku) {
+      <article class="grid gap-3 border border-border p-3 sm:grid-cols-[1fr_9rem] sm:items-end">
+        <div class="min-w-0">
+          <strong class="block truncate text-sm text-foreground">{{ line.product }}</strong>
+          <span class="mt-1 block font-mono text-xs text-muted-foreground">{{ line.sku }}</span>
+          <span class="mt-2 block text-xs text-muted-foreground">
+            {{ line.received }} received · {{ remaining(line) }} remaining
+          </span>
+        </div>
+        <label class="grid gap-2">
+          <span class="text-xs font-semibold text-foreground">Arrived now</span>
+          <input
+            frInput
+            type="number"
+            min="0"
+            [max]="remaining(line)"
+            [value]="quantities()[line.sku]"
+            (input)="setQuantity(line.sku, remaining(line), $event)"
+          />
+        </label>
+      </article>
+    }
+
+    @if (hasVariance()) {
+      <section frAlert>
+        <ng-icon frAlertIcon name="tablerAlertTriangle" />
+        <h3 frAlertTitle>Partial receipt</h3>
+        <p frAlertDescription>Unreceived quantities will stay open on this purchase order.</p>
+      </section>
+    }
+
+    <label class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Receiving note</span>
+      <textarea
+        frTextarea
+        rows="3"
+        placeholder="Damage, missing cartons, or carrier reference..."
+        [value]="note()"
+        (input)="setNote($event)"
+      ></textarea>
+    </label>
+  </form>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="cancel()">Cancel</button>
+    <button frButton type="button" (click)="save()">
+      <ng-icon name="tablerPackageImport" size="16" frButtonIcon />
+      <span frButtonLabel>Record receipt</span>
+    </button>
+  </div>
+</div>

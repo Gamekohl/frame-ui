@@ -50,10 +50,7 @@
                 "input": "projects/playground/public"
               }
             ],
-            "styles": [
-              "projects/frame-ui-local.css",
-              "projects/playground/src/styles.css"
-            ]
+            "styles": ["projects/frame-ui-local.css", "projects/playground/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -148,6 +145,113 @@
         }
       }
     },
+    "template-store": {
+      "projectType": "application",
+      "root": "projects/templates/store",
+      "sourceRoot": "projects/templates/store",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/templates/store/main.ts",
+            "index": "projects/templates/store/index.html",
+            "tsConfig": "projects/templates/store/tsconfig.monorepo.json",
+            "styles": ["projects/frame-ui-local.css", "projects/templates/store/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "750kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "template-store:build:production"
+            },
+            "development": {
+              "buildTarget": "template-store:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "template-administration": {
+      "projectType": "application",
+      "root": "projects/templates/administration",
+      "sourceRoot": "projects/templates/administration",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/templates/administration/main.ts",
+            "index": "projects/templates/administration/index.html",
+            "tsConfig": "projects/templates/administration/tsconfig.monorepo.json",
+            "styles": [
+              "projects/frame-ui-local.css",
+              "projects/templates/administration/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "750kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "template-administration:build:production"
+            },
+            "development": {
+              "buildTarget": "template-administration:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
     "docs": {
       "projectType": "application",
       "schematics": {
@@ -171,10 +275,7 @@
                 "input": "projects/docs/public"
               }
             ],
-            "styles": [
-              "projects/frame-ui-local.css",
-              "projects/docs/src/styles.css"
-            ],
+            "styles": ["projects/frame-ui-local.css", "projects/docs/src/styles.css"],
             "server": "projects/docs/src/main.server.ts",
             "outputMode": "server",
             "security": {
@@ -268,10 +369,7 @@
                 "input": "projects/ai-composer-eval/public"
               }
             ],
-            "styles": [
-              "projects/frame-ui-local.css",
-              "projects/ai-composer-eval/src/styles.css"
-            ]
+            "styles": ["projects/frame-ui-local.css", "projects/ai-composer-eval/src/styles.css"]
           },
           "configurations": {
             "production": {

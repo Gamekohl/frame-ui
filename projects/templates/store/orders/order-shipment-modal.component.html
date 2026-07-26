@@ -1,0 +1,76 @@
+<div frModalPanel size="md" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex items-start gap-3">
+      <span class="grid size-9 shrink-0 place-items-center bg-primary text-primary-foreground">
+        <ng-icon name="tablerPackageExport" size="18" />
+      </span>
+      <div class="grid gap-1">
+        <h2 frModalTitle>Ship {{ order.id }}</h2>
+        <p frModalDescription>
+          Add the carrier handoff so support and the customer can follow this parcel.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form frModalBody class="grid content-start gap-5" (submit)="$event.preventDefault(); save()">
+    <div class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Carrier</span>
+      <button
+        type="button"
+        class="w-full"
+        [frSelect]="carrierMenu"
+        [value]="carrier()"
+        (valueChange)="setCarrier($event)"
+      >
+        <frame-select-value placeholder="Select carrier"></frame-select-value>
+        <span frSelectIcon><ng-icon name="tablerChevronDown" size="16" /></span>
+      </button>
+      <ng-template #carrierMenu="frSelectContent" frSelectContent>
+        <frame-select-panel>
+          <frame-select-group>
+            @for (entry of carriers; track entry) {
+              <button frSelectItem type="button" [value]="entry" [label]="entry">
+                {{ entry }}
+              </button>
+            }
+          </frame-select-group>
+        </frame-select-panel>
+      </ng-template>
+    </div>
+
+    <label class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Tracking number</span>
+      <input
+        frInput
+        autocomplete="off"
+        placeholder="Scan or enter tracking number"
+        [value]="tracking()"
+        (input)="setTracking($event)"
+      />
+    </label>
+
+    <label class="flex items-start gap-3 border border-border bg-muted p-3">
+      <input
+        frCheckbox
+        type="checkbox"
+        [checked]="notifyCustomer()"
+        (change)="notifyCustomer.set(!notifyCustomer())"
+      />
+      <span class="grid gap-1">
+        <span class="text-sm font-semibold text-foreground">Send shipping confirmation</span>
+        <span class="text-xs leading-5 text-muted-foreground">
+          Email {{ order.customer }} with the carrier and tracking link.
+        </span>
+      </span>
+    </label>
+  </form>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="cancel()">Cancel</button>
+    <button frButton type="button" (click)="save()">
+      <ng-icon name="tablerPackageExport" size="16" frButtonIcon />
+      <span frButtonLabel>Mark as shipped</span>
+    </button>
+  </div>
+</div>

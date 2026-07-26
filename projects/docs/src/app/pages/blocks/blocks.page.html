@@ -1,0 +1,172 @@
+<main class="docs-shell mx-auto max-w-350 px-4 py-8 sm:px-6 xl:px-0">
+  <article class="min-w-0 space-y-8">
+    <header
+      frCornerHandles
+      animate.enter="slide-in-enter"
+      style="--docs-enter-delay: 90ms"
+      class="docs-blueprint-sheet space-y-4 p-6"
+    >
+      <p class="docs-blueprint-title">FrameUI Blocks</p>
+      <div class="space-y-3">
+        <h1 class="font-mono text-4xl font-semibold uppercase text-foreground">Application templates</h1>
+        <p class="max-w-3xl text-base leading-8 text-foreground">
+          Production-shaped Angular screens composed from FrameUI primitives. Browse by workflow,
+          inspect the live preview, then copy the component structure when you need a faster start.
+        </p>
+      </div>
+    </header>
+
+    <section class="blocks-layout-grid grid items-start gap-6" aria-label="Block categories">
+      <aside class="blocks-category-rail self-start">
+        <div
+          frCornerHandles
+          animate.enter="slide-in-enter"
+          style="--docs-enter-delay: 90ms"
+          class="blocks-category-sheet docs-blueprint-sheet grid gap-2 overflow-y-auto overflow-x-hidden p-3 scrollbar-none"
+        >
+          <p class="docs-blueprint-meta px-2 py-1">Categories</p>
+
+          @for (category of categories; track category.id) {
+            <a
+              class="grid gap-3 rounded-md border border-transparent p-3 text-left text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
+              [routerLink]="['/blocks', category.id]"
+              [class.border-primary]="selectedCategory().id === category.id"
+              [class.bg-muted]="selectedCategory().id === category.id"
+              [class.text-foreground]="selectedCategory().id === category.id"
+            >
+              <div class="flex items-start gap-2">
+                <span class="grid size-8 shrink-0 place-items-center border border-border bg-surface">
+                  <ng-icon [name]="category.icon" size="17" />
+                </span>
+                <div class="min-w-0">
+                  <span class="block truncate text-sm font-semibold dark:text-primary-foreground">{{ category.title }}</span>
+                  <span class="text-xs text-muted-foreground">{{ category.description }}</span>
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+      </aside>
+
+      <div class="min-w-0 space-y-6">
+        <section
+          frCornerHandles
+          animate.enter="slide-in-enter"
+          style="--docs-enter-delay: 150ms"
+          class="docs-blueprint-sheet grid gap-4 p-4 sm:p-5"
+          aria-label="Selected block category"
+        >
+          <div class="min-w-0">
+            <p class="docs-blueprint-meta">Selection</p>
+            <h2 class="mt-2 text-2xl font-semibold tracking-tight">{{ selectedCategory().title }}</h2>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">{{ selectedCategory().description }}</p>
+          </div>
+
+          @if (selectedCategory().blocks.length > 0) {
+            <nav class="flex gap-2 overflow-x-auto pt-1 scrollbar-none" aria-label="Block examples">
+              @for (block of selectedCategory().blocks; track block.id) {
+                <a
+                  class="shrink-0 rounded-md border border-transparent px-3 py-2 text-sm font-medium text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
+                  [routerLink]="['/blocks', selectedCategory().id]"
+                  [fragment]="block.id"
+                  (click)="selectBlock(block)"
+                >
+                  {{ block.title }}
+                </a>
+              }
+            </nav>
+          } @else {
+            <div class="border border-dashed border-border bg-muted/30 p-6">
+              <p class="docs-blueprint-meta">Empty category</p>
+              <h3 class="mt-2 text-xl font-semibold text-foreground">No {{ selectedCategory().title }} blocks yet.</h3>
+              <p class="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                This category stays empty until there are complete screens worth previewing and copying.
+              </p>
+            </div>
+          }
+        </section>
+
+        @if (selectedCategory().blocks.length > 0) {
+          <section class="grid gap-8" aria-label="Block previews">
+            @for (block of selectedCategory().blocks; track block.id) {
+              <article
+                frCornerHandles
+                animate.enter="slide-in-enter"
+                style="--docs-enter-delay: 220ms"
+                class="docs-blueprint-sheet overflow-hidden"
+                [attr.id]="block.id"
+              >
+                <header class="grid gap-4 border-b border-border px-4 py-4 lg:grid-cols-3 lg:items-center">
+                  <div class="min-w-0 lg:col-span-2">
+                    <p class="docs-blueprint-meta">{{ block.category }}</p>
+                    <h3 class="mt-2 text-2xl font-semibold tracking-tight">{{ block.title }}</h3>
+                    <p class="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{{ block.description }}</p>
+                  </div>
+
+                  <div class="flex flex-col gap-2 sm:flex-row sm:items-stretch lg:justify-self-end">
+                    <div
+                      frTabs
+                      [value]="selectedId() === block.id ? viewMode() : 'preview'"
+                      (valueChange)="setViewMode(block, $event)"
+                      aria-label="View mode"
+                    >
+                      <div frTabsList>
+                        <button frTabsTrigger value="preview" type="button">Preview</button>
+                        <button frTabsTrigger value="code" type="button">Code</button>
+                      </div>
+                    </div>
+
+                    <div
+                      frTabs
+                      [value]="selectedId() === block.id ? deviceMode() : 'desktop'"
+                      (valueChange)="setDeviceMode(block, $event)"
+                      aria-label="Preview width"
+                    >
+                      <div frTabsList>
+                        <button frTabsTrigger value="desktop" type="button" aria-label="Desktop preview" title="Desktop preview">
+                          <ng-icon name="tablerDeviceDesktop" size="17" />
+                        </button>
+                        <button frTabsTrigger value="mobile" type="button" aria-label="Mobile preview" title="Mobile preview">
+                          <ng-icon name="tablerDeviceMobile" size="17" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </header>
+
+                @if (selectedId() === block.id && viewMode() === 'code') {
+                  <div class="grid gap-0 bg-muted/30">
+                    <docs-code-block
+                      [title]="block.componentName + '.ts'"
+                      language="ts"
+                      [code]="block.componentCode"
+                    />
+                  </div>
+                } @else {
+                  <div
+                    class="mx-auto overflow-hidden bg-surface"
+                    [class.max-w-md]="selectedId() === block.id && deviceMode() === 'mobile'"
+                  >
+                    <ng-container
+                      [ngComponentOutlet]="block.previewComponent"
+                      [ngComponentOutletInputs]="previewInputs(block)"
+                    />
+                  </div>
+                }
+
+                <div
+                  aria-hidden="true"
+                  class="grid grid-cols-3 items-center gap-3 border-t border-border px-4 py-3"
+                >
+                  <span class="docs-blueprint-measure"></span>
+                  <span class="docs-blueprint-meta justify-self-center">Template Preview</span>
+                  <span class="docs-blueprint-measure"></span>
+                </div>
+              </article>
+            }
+          </section>
+        }
+      </div>
+    </section>
+  </article>
+</main>

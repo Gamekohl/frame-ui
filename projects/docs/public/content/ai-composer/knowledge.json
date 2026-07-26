@@ -3487,10 +3487,6 @@
             "type": null
           },
           {
-            "name": "itemToStringValue",
-            "type": "FrComboboxStringifier"
-          },
-          {
             "name": "multiple",
             "type": null
           },
@@ -11222,7 +11218,6 @@
       "--frame-tooltip-content-font-size",
       "--frame-tooltip-content-font-weight",
       "--frame-tooltip-content-line-height",
-      "--frame-tooltip-content-max-width",
       "--frame-tooltip-content-padding",
       "--frame-tooltip-content-radius",
       "--frame-tooltip-content-shadow",
@@ -11616,7 +11611,7 @@
           },
           {
             "language": "html",
-            "code": "<div frCombobox [formControl]=\"resultControl\" [itemToStringValue]=\"itemToString\">\r\n  <input frComboboxInput placeholder=\"Search commands, pages, or frameworks\" />\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxLabel>Results</div>\r\n\r\n      <div frVirtualViewport [height]=\"'16rem'\" [itemSize]=\"44\" [overscan]=\"6\">\r\n        <div frVirtualContent>\r\n          <div frComboboxList>\r\n            <button\r\n              frComboboxItem\r\n              *frVirtualFor=\"let result of results; trackBy: trackResult\"\r\n              [value]=\"result.value\"\r\n              [label]=\"result.label\"\r\n            >\r\n              <span>{{ result.label }}</span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frCombobox [formControl]=\"resultControl\">\r\n  <input frComboboxInput placeholder=\"Search commands, pages, or frameworks\" />\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxLabel>Results</div>\r\n\r\n      <div frVirtualViewport [height]=\"'16rem'\" [itemSize]=\"44\" [overscan]=\"6\">\r\n        <div frVirtualContent>\r\n          <div frComboboxList>\r\n            <button\r\n              frComboboxItem\r\n              *frVirtualFor=\"let result of results; trackBy: trackResult\"\r\n              [value]=\"result.value\"\r\n              [label]=\"result.label\"\r\n            >\r\n              <span>{{ result.label }}</span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       },
@@ -11626,7 +11621,7 @@
         "code": [
           {
             "language": "html",
-            "code": "<div frCombobox [formControl]=\"resultControl\" [itemToStringValue]=\"itemToString\">\r\n  <input frComboboxInput placeholder=\"Search commands, pages, or frameworks\" />\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxLabel>Results</div>\r\n\r\n      <div frVirtualViewport [height]=\"'16rem'\" [itemSize]=\"44\" [overscan]=\"6\">\r\n        <div frVirtualContent>\r\n          <div frComboboxList>\r\n            <button\r\n              frComboboxItem\r\n              *frVirtualFor=\"let result of results; trackBy: trackResult\"\r\n              [value]=\"result.value\"\r\n              [label]=\"result.label\"\r\n            >\r\n              <span>{{ result.label }}</span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
+            "code": "<div frCombobox [formControl]=\"resultControl\">\r\n  <input frComboboxInput placeholder=\"Search commands, pages, or frameworks\" />\r\n\r\n  <ng-template frComboboxContent>\r\n    <div frComboboxPanel>\r\n      <div frComboboxLabel>Results</div>\r\n\r\n      <div frVirtualViewport [height]=\"'16rem'\" [itemSize]=\"44\" [overscan]=\"6\">\r\n        <div frVirtualContent>\r\n          <div frComboboxList>\r\n            <button\r\n              frComboboxItem\r\n              *frVirtualFor=\"let result of results; trackBy: trackResult\"\r\n              [value]=\"result.value\"\r\n              [label]=\"result.label\"\r\n            >\r\n              <span>{{ result.label }}</span>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</div>"
           }
         ]
       }

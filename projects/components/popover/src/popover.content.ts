@@ -5,6 +5,10 @@ import { buildPopoverPositions } from './popover.position';
 import { FR_POPOVER_CONTROLLER } from './popover.tokens';
 import { FrPopoverAlignment, FrPopoverSide } from './popover.types';
 
+type FrPopoverContentController = {
+  close(): void;
+};
+
 /** Content slot for popover. */
 @Directive({
   selector: 'ng-template[frPopoverContent]',
@@ -12,6 +16,7 @@ import { FrPopoverAlignment, FrPopoverSide } from './popover.types';
 })
 export class FrPopoverContent {
   readonly templateRef = inject(TemplateRef<unknown>);
+  private controller: FrPopoverContentController | null = null;
 
   readonly align = input<FrPopoverAlignment>('center');
   readonly alignOffset = input(0);
@@ -26,6 +31,14 @@ export class FrPopoverContent {
       side: this.side(),
       sideOffset: this.sideOffset(),
     });
+  }
+
+  setController(controller: FrPopoverContentController | null): void {
+    this.controller = controller;
+  }
+
+  close(): void {
+    this.controller?.close();
   }
 }
 
@@ -97,10 +110,11 @@ export class FrPopoverFooter {}
   },
 })
 export class FrPopoverClose {
-  private readonly root = inject(FR_POPOVER_CONTROLLER);
+  private readonly root = inject(FR_POPOVER_CONTROLLER, { optional: true });
+  private readonly content = inject(FrPopoverContent, { optional: true });
 
   protected handleClick(event: Event): void {
     event.preventDefault();
-    this.root.close();
+    (this.root ?? this.content)?.close();
   }
 }

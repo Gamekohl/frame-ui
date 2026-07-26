@@ -22,6 +22,7 @@ import {
 import { FrCommandModule } from '@frame-ui-ng/components/command';
 import { FrDropdownMenuModule } from '@frame-ui-ng/components/dropdown-menu';
 import { FrModalService } from '@frame-ui-ng/components/modal';
+import { FrNavigationMenuModule } from '@frame-ui-ng/components/navigation-menu';
 import { FrSeparator } from '@frame-ui-ng/components/separator';
 import { FrSheetService } from '@frame-ui-ng/components/sheet';
 import { FrTooltipModule } from '@frame-ui-ng/components/tooltip';
@@ -30,6 +31,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 
 import { ComponentCatalogEntry } from '../../pages/docs/shared/models/component-catalog-entry.model';
 import { ComponentsCatalogService } from '../../pages/docs/shared/services/components-catalog.service';
+import { ADMINISTRATION_TEMPLATE_PAGES } from '../../../../../templates/administration/shared/commerce-admin-template.registry';
+import { STORE_TEMPLATE_PAGES } from '../../../../../templates/store/shared/commerce-admin-template.registry';
 import { DocsAppearanceExportModalComponent } from '../docs-appearance-export-modal/docs-appearance-export-modal.component';
 import { DocsCustomPaletteSheetComponent } from '../docs-custom-palette-sheet/docs-custom-palette-sheet.component';
 import { DocsHeaderAppearanceState } from './docs-header-appearance-state';
@@ -55,9 +58,11 @@ import {
     NgIcon,
     FrCommandModule,
     FrDropdownMenuModule,
+    FrNavigationMenuModule,
     FrTooltipModule,
     NgOptimizedImage,
     FrSeparator,
+    FrCornerHandles,
   ],
   templateUrl: './docs-header.component.html',
   host: {
@@ -98,6 +103,8 @@ export class DocsHeaderComponent {
   readonly pages = DOCS_SEARCH_PAGES;
   readonly charts = DOCS_CHART_PAGES;
   readonly tools = DOCS_TOOLS_PAGES;
+  readonly templateStorePages = STORE_TEMPLATE_PAGES;
+  readonly templateAdministrationPages = ADMINISTRATION_TEMPLATE_PAGES;
   readonly components = toSignal(this.componentsCatalog.entries$, {
     initialValue: [] as ComponentCatalogEntry[],
   });
@@ -211,7 +218,8 @@ export class DocsHeaderComponent {
 
   private applyRadius(radius: DocsRadiusId): void {
     const root = document.documentElement;
-    const preset = DOCS_RADIUS_PRESETS.find((entry) => entry.id === radius) ?? DOCS_RADIUS_PRESETS[0];
+    const preset =
+      DOCS_RADIUS_PRESETS.find((entry) => entry.id === radius) ?? DOCS_RADIUS_PRESETS[0];
 
     root.setAttribute('data-docs-radius', preset.id);
     root.style.setProperty('--frame-radius-sm', preset.values.sm);

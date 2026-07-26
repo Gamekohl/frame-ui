@@ -19,7 +19,8 @@
   line-height: var(--frame-tooltip-content-line-height);
   padding: var(--frame-tooltip-content-padding);
   transform-origin: var(--frame-tooltip-transform-origin, center);
-  animation: frame-tooltip-in var(--frame-tooltip-motion-duration) var(--frame-tooltip-motion-easing);
+  animation: frame-tooltip-in var(--frame-tooltip-motion-duration)
+    var(--frame-tooltip-motion-easing);
 }
 
 .frame-tooltip-overlay--top .frame-tooltip__content {
@@ -91,7 +92,8 @@
 @keyframes frame-tooltip-in {
   from {
     opacity: 0;
-    transform: translateY(var(--frame-tooltip-motion-distance)) scale(var(--frame-tooltip-motion-scale));
+    transform: translateY(var(--frame-tooltip-motion-distance))
+      scale(var(--frame-tooltip-motion-scale));
   }
 
   to {

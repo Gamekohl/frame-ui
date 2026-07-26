@@ -1,0 +1,593 @@
+<main class="template-shell min-h-dvh bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
+  <section class="mx-auto grid max-w-350 gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-1">
+        <p class="m-0 font-mono text-xs font-bold uppercase tracking-wider text-primary">
+          Template preview
+        </p>
+        <h1 class="m-0 text-2xl font-semibold leading-tight text-foreground">User management</h1>
+        <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Manage catalog operators, store roles, access status, and the people behind daily product
+          operations.
+        </p>
+      </div>
+      <a
+        frButton
+        appearance="outline"
+        href="https://github.com/gamekohl/frame-ui/tree/main/projects/templates/administration"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <ng-icon name="tablerBrandGithub" size="16" frButtonIcon />
+        <span frButtonLabel>View template source</span>
+      </a>
+    </div>
+
+    <div class="overflow-hidden border border-border bg-background shadow-2xl">
+      <div frSidebarProvider class="h-dvh max-h-256 min-h-160" [defaultOpen]="true">
+        <aside
+          frSidebar
+          collapsible="offcanvas"
+          [resizable]="false"
+          class="border-border bg-background"
+        >
+          <div frSidebarHeader class="border-b border-border">
+            <a frSidebarMenuButton size="lg" routerLink="/templates/administration/user-management">
+              <span class="grid size-8 place-items-center bg-primary text-primary-foreground">
+                <ng-icon name="tablerBuildingStore" size="18" />
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Acme Admin</span>
+                <span class="text-xs text-muted-foreground">Access control</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarContent>
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Operations</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of mainNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                      @if (item.badge) {
+                        <span frSidebarMenuBadge>{{ item.badge }}</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+
+            <div frSidebarGroup>
+              <div frSidebarGroupLabel>Administration</div>
+              <div frSidebarGroupContent>
+                <ul frSidebarMenu>
+                  @for (item of adminNav; track item.label) {
+                    <li frSidebarMenuItem>
+                      <a frSidebarMenuButton [routerLink]="item.path" [active]="item.active">
+                        <ng-icon [name]="item.icon" size="17" />
+                        <span>{{ item.label }}</span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div frSidebarFooter class="border-t border-border">
+            <a
+              frSidebarMenuButton
+              variant="outline"
+              routerLink="/templates/administration/user-management"
+            >
+              <span frAvatar size="sm">
+                <span frAvatarFallback>MS</span>
+              </span>
+              <span class="grid gap-0.5">
+                <span class="text-sm font-semibold text-foreground">Mika Stone</span>
+                <span class="text-xs text-muted-foreground">Catalog administrator</span>
+              </span>
+            </a>
+          </div>
+
+          <div frSidebarRail></div>
+        </aside>
+
+        <section frSidebarInset class="min-w-0 overflow-auto bg-background">
+          <div
+            class="sticky top-0 z-10 flex min-h-12 items-center justify-between border-b border-border bg-background px-4"
+          >
+            <div class="flex min-w-0 items-center gap-3">
+              <button
+                frSidebarTrigger
+                type="button"
+                aria-label="Toggle navigation"
+                frTooltip="Toggle navigation"
+                frTooltipArrow
+              >
+                <ng-icon name="tablerLayoutSidebar" size="18" />
+              </button>
+              <nav frBreadcrumb aria-label="Admin path" class="min-w-0">
+                <ol frBreadcrumbList>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/user-management"
+                      >Acme</a
+                    >
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <a frBreadcrumbLink routerLink="/templates/administration/settings">Admin</a>
+                  </li>
+                  <li frBreadcrumbSeparator></li>
+                  <li frBreadcrumbItem>
+                    <span frBreadcrumbPage>User management</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
+          <div class="grid gap-5 p-4 lg:p-6">
+            <header class="grid gap-4 xl:grid-cols-3 xl:items-end">
+              <div class="grid gap-2 xl:col-span-2">
+                <h2 class="m-0 text-3xl font-semibold tracking-tight text-foreground">
+                  User management
+                </h2>
+                <p class="m-0 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  Manage employees, contractors, invitations, and security coverage before access
+                  drifts.
+                </p>
+              </div>
+
+              <div class="grid gap-2 sm:grid-cols-3">
+                @for (metric of metrics(); track metric.label) {
+                  <div class="rounded-lg border border-border bg-muted p-3">
+                    <span class="text-xs uppercase text-muted-foreground">{{ metric.label }}</span>
+                    <strong class="mt-1 block text-xl text-foreground">{{ metric.value }}</strong>
+                  </div>
+                }
+              </div>
+            </header>
+
+            <section class="grid gap-3">
+              <div class="flex flex-col gap-3 2xl:flex-row 2xl:items-center 2xl:justify-between">
+                <div
+                  frTabs
+                  [value]="viewMode()"
+                  (valueChange)="setViewMode($event)"
+                  class="min-w-0"
+                >
+                  <div frTabsList aria-label="User view">
+                    <button frTabsTrigger value="table" type="button">
+                      <ng-icon name="tablerListDetails" size="16" />
+                      Table
+                    </button>
+                    <button frTabsTrigger value="board" type="button">
+                      <ng-icon name="tablerLayoutBoard" size="16" />
+                      Board
+                    </button>
+                    <button frTabsTrigger value="list" type="button">
+                      <ng-icon name="tablerLayoutList" size="16" />
+                      List
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="grid w-full min-w-0 gap-2 sm:grid-cols-2 xl:grid-cols-6 2xl:max-w-4xl 2xl:flex-1"
+                >
+                  <div class="min-w-0 xl:col-span-2">
+                    <button
+                      type="button"
+                      class="w-full"
+                      [frSelect]="roleMenu"
+                      [value]="roleFilter()"
+                      (valueChange)="roleFilter.set($event ?? 'All roles')"
+                    >
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerAdjustmentsHorizontal" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All roles"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
+                    </button>
+                    <ng-template #roleMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (role of roleOptions; track role) {
+                            <button frSelectItem type="button" [value]="role" [label]="role">
+                              {{ role }}
+                            </button>
+                          }
+                        </frame-select-group></frame-select-panel
+                      >
+                    </ng-template>
+                  </div>
+
+                  <div class="min-w-0 xl:col-span-2">
+                    <button
+                      type="button"
+                      class="w-full"
+                      [frSelect]="statusMenu"
+                      [value]="statusFilter()"
+                      (valueChange)="statusFilter.set($event ?? 'All status')"
+                    >
+                      <span frSelectIcon position="leading">
+                        <ng-icon name="tablerShield" size="16" />
+                      </span>
+                      <frame-select-value placeholder="All status"></frame-select-value>
+                      <span frSelectIcon>
+                        <ng-icon name="tablerChevronDown" size="16" />
+                      </span>
+                    </button>
+                    <ng-template #statusMenu="frSelectContent" frSelectContent>
+                      <frame-select-panel
+                        ><frame-select-group>
+                          @for (status of statusOptions; track status) {
+                            <button frSelectItem type="button" [value]="status" [label]="status">
+                              {{ status }}
+                            </button>
+                          }
+                        </frame-select-group></frame-select-panel
+                      >
+                    </ng-template>
+                  </div>
+
+                  <button
+                    frButton
+                    appearance="outline"
+                    type="button"
+                    class="h-10 w-full whitespace-nowrap"
+                    (click)="resetFilters()"
+                  >
+                    <span frButtonLabel>Reset</span>
+                  </button>
+
+                  <div frDropdownMenu class="min-w-0">
+                    <button
+                      frButton
+                      type="button"
+                      class="h-10 w-full whitespace-nowrap"
+                      [frDropdownMenuTrigger]="addUserMenu"
+                    >
+                      <ng-icon name="tablerUserPlus" size="16" frButtonIcon />
+                      <span frButtonLabel>Add user</span>
+                      <ng-icon name="tablerChevronDown" size="16" frButtonIcon />
+                    </button>
+                    <ng-template
+                      #addUserMenu="frDropdownMenuContent"
+                      frDropdownMenuContent
+                      side="bottom"
+                      align="end"
+                    >
+                      <div frDropdownMenuPanel>
+                        <button frDropdownMenuItem type="button">
+                          <ng-icon name="tablerMail" size="14" />
+                          Invite by email
+                        </button>
+                        <div frDropdownMenuSeparator></div>
+                        <button frDropdownMenuItem type="button">
+                          <ng-icon name="tablerDatabase" size="14" />
+                          Connect directory
+                        </button>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+
+              <div class="min-w-64" frInputGroup>
+                <span frInputGroupAddon align="inline-start" variant="ghost">
+                  <ng-icon name="tablerSearch" size="16" />
+                </span>
+                <input
+                  frInputGroupInput
+                  aria-label="Search users"
+                  placeholder="Search users..."
+                  [value]="searchTerm()"
+                  (input)="setSearch($event)"
+                />
+              </div>
+
+              @if (viewMode() === 'table') {
+                <div frTableContainer class="max-h-160 w-full overflow-auto border border-border">
+                  <table frTable [dataSource]="filteredUsers()">
+                    <ng-container frColumnDef="select">
+                      <th frHeaderCell *frHeaderCellDef>
+                        <input
+                          frCheckbox
+                          type="checkbox"
+                          aria-label="Select all"
+                          [checked]="allVisibleSelected()"
+                          [indeterminate]="headerSelectionIndeterminate()"
+                          (change)="toggleAllVisible()"
+                        />
+                      </th>
+                      <td frCell *frCellDef="let user">
+                        <input
+                          frCheckbox
+                          type="checkbox"
+                          [checked]="selection.isSelected(user.id)"
+                          (change)="selection.toggle(user.id)"
+                          [attr.aria-label]="'Select ' + user.name"
+                        />
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="name">
+                      <th frHeaderCell *frHeaderCellDef>Full name</th>
+                      <td frCell *frCellDef="let user">
+                        <frame-hover-card [openDelay]="120" [closeDelay]="100">
+                          <button
+                            type="button"
+                            class="flex min-w-56 items-center gap-3 text-left"
+                            [frHoverCardTrigger]="userContext"
+                            (click)="selectUser(user)"
+                          >
+                            <span frAvatar size="sm" [ngClass]="user.color">
+                              <img
+                                frAvatarImage
+                                [src]="'https://i.pravatar.cc/64?u=' + user.email"
+                                [alt]="user.name"
+                              />
+                              <span frAvatarFallback>{{ user.initials }}</span>
+                            </span>
+                            <span class="grid gap-0.5">
+                              <span class="font-medium text-foreground">{{ user.name }}</span>
+                              <span class="text-xs text-muted-foreground">{{ user.team }}</span>
+                            </span>
+                          </button>
+                          <ng-template
+                            #userContext="frHoverCardContent"
+                            frHoverCardContent
+                            side="right"
+                            align="start"
+                          >
+                            <div frHoverCardPanel>
+                              <div class="grid gap-1">
+                                <strong class="text-sm text-foreground">{{ user.name }}</strong>
+                                <span class="text-xs text-muted-foreground"
+                                  >{{ user.role }} · {{ user.team }}</span
+                                >
+                              </div>
+                              <div class="mt-3 grid gap-2 text-xs text-muted-foreground">
+                                <span>Last seen: {{ user.lastSeen }}</span>
+                                <span>Joined: {{ user.joined }}</span>
+                                <span
+                                  >{{ user.twoFactor ? '2FA enabled' : '2FA pending' }} ·
+                                  {{ user.status }}</span
+                                >
+                              </div>
+                            </div>
+                          </ng-template>
+                        </frame-hover-card>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="email">
+                      <th frHeaderCell *frHeaderCellDef>Email</th>
+                      <td frCell *frCellDef="let user">
+                        <a
+                          class="text-foreground underline decoration-border underline-offset-4 hover:text-primary"
+                          [href]="'mailto:' + user.email"
+                          >{{ user.email }}</a
+                        >
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="role">
+                      <th frHeaderCell *frHeaderCellDef>Role</th>
+                      <td frCell *frCellDef="let user">{{ user.role }}</td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="status">
+                      <th frHeaderCell *frHeaderCellDef>Status</th>
+                      <td frCell *frCellDef="let user">
+                        <span frBadge [variant]="statusVariant(user.status)">{{
+                          user.status
+                        }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="joined">
+                      <th frHeaderCell *frHeaderCellDef>Joined</th>
+                      <td frCell *frCellDef="let user" frTableMuted>{{ user.joined }}</td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="twoFactor">
+                      <th frHeaderCell *frHeaderCellDef>2F Auth</th>
+                      <td frCell *frCellDef="let user">
+                        <span frBadge [variant]="user.twoFactor ? 'success' : 'secondary'">
+                          {{ user.twoFactor ? 'Enabled' : 'Pending' }}
+                        </span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container frColumnDef="actions">
+                      <th frHeaderCell frTableNumeric *frHeaderCellDef>Actions</th>
+                      <td frCell frTableNumeric *frCellDef="let user">
+                        <div frDropdownMenu>
+                          <button
+                            frButton
+                            appearance="ghost"
+                            size="sm"
+                            type="button"
+                            [frDropdownMenuTrigger]="rowMenu"
+                            aria-label="Open row actions"
+                            frTooltip="User actions"
+                            frTooltipArrow
+                          >
+                            <ng-icon name="tablerDots" size="16" frButtonIcon />
+                          </button>
+                          <ng-template
+                            #rowMenu="frDropdownMenuContent"
+                            frDropdownMenuContent
+                            side="bottom"
+                            align="end"
+                          >
+                            <div frDropdownMenuPanel>
+                              <button
+                                frDropdownMenuItem
+                                type="button"
+                                (click)="openUserDetails(user)"
+                              >
+                                <ng-icon name="tablerEdit" size="14" />
+                                View details
+                              </button>
+                              <button frDropdownMenuItem type="button">
+                                <ng-icon name="tablerKey" size="14" />
+                                Send reset
+                              </button>
+                              <div frDropdownMenuSeparator></div>
+                              <button frDropdownMenuItem variant="destructive" type="button">
+                                <ng-icon name="tablerTrash" size="14" />
+                                Deactivate
+                              </button>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <tr frHeaderRow *frHeaderRowDef="userColumns; sticky: true"></tr>
+                    <tr
+                      frRow
+                      *frRowDef="let row; columns: userColumns"
+                      [class.bg-muted]="selectedUser().id === row.id"
+                    ></tr>
+
+                    <ng-template frNoDataRow>
+                      <tr>
+                        <td frCell colspan="8">No users match the current filters.</td>
+                      </tr>
+                    </ng-template>
+                  </table>
+                </div>
+              } @else if (viewMode() === 'board') {
+                <div frDragDropGroup class="grid! w-full grid-cols-1 gap-3 lg:grid-cols-3">
+                  @for (group of statusGroups(); track group.status) {
+                    <section
+                      frDropList
+                      class="grid min-h-48 content-start gap-3 border border-border bg-muted p-3"
+                      [frDropListId]="dropListId(group.status)"
+                      [frDropListData]="group.users"
+                      [frDropListConnectedTo]="statusDropListIds"
+                      (frDropListDropped)="dropUser($event, group.status)"
+                    >
+                      <div class="flex items-center justify-between">
+                        <h3 class="m-0 text-sm font-semibold text-foreground">
+                          {{ group.status }}
+                        </h3>
+                        <span frBadge variant="secondary">{{ group.users.length }}</span>
+                      </div>
+                      @for (user of group.users; track user.id) {
+                        <button
+                          frDrag
+                          [frDragData]="user"
+                          type="button"
+                          class="grid cursor-grab gap-3 border border-border bg-background p-3 text-left hover:border-primary/60 active:cursor-grabbing"
+                          (click)="selectUser(user)"
+                        >
+                          <span class="flex items-center gap-3 flex-1">
+                            <span frAvatar size="sm" [ngClass]="user.color">
+                              <img
+                                frAvatarImage
+                                [src]="'https://i.pravatar.cc/64?u=' + user.email"
+                                [alt]="user.name"
+                              />
+                              <span frAvatarFallback>{{ user.initials }}</span>
+                            </span>
+                            <span class="grid gap-0.5">
+                              <span class="font-medium text-foreground">{{ user.name }}</span>
+                              <span class="text-xs text-muted-foreground">{{ user.role }}</span>
+                            </span>
+                          </span>
+                          <span class="text-xs leading-5 text-muted-foreground">{{
+                            user.email
+                          }}</span>
+                        </button>
+                      } @empty {
+                        <div
+                          class="border border-dashed border-border bg-background p-3 text-sm text-muted-foreground"
+                        >
+                          Drop users here to mark them {{ group.status.toLowerCase() }}.
+                        </div>
+                      }
+                    </section>
+                  }
+                </div>
+              } @else {
+                <div class="grid gap-2">
+                  @for (user of filteredUsers(); track user.id) {
+                    <button
+                      type="button"
+                      class="grid items-center gap-4 border border-border bg-muted p-3 text-left hover:border-primary/60 sm:grid-cols-12"
+                      (click)="selectUser(user)"
+                    >
+                      <span class="flex min-w-0 items-center gap-3 sm:col-span-7">
+                        <span frAvatar size="sm" [ngClass]="user.color">
+                          <img
+                            frAvatarImage
+                            [src]="'https://i.pravatar.cc/64?u=' + user.email"
+                            [alt]="user.name"
+                          />
+                          <span frAvatarFallback>{{ user.initials }}</span>
+                        </span>
+                        <span class="grid min-w-0 gap-0.5">
+                          <span class="truncate font-medium text-foreground">{{ user.name }}</span>
+                          <span class="truncate text-xs text-muted-foreground">{{
+                            user.email
+                          }}</span>
+                        </span>
+                      </span>
+                      <span
+                        class="hidden justify-self-start text-sm text-muted-foreground sm:col-span-3 sm:block"
+                        >{{ user.role }}</span
+                      >
+                      <span
+                        frBadge
+                        class="sm:col-span-2 sm:justify-self-end"
+                        [variant]="statusVariant(user.status)"
+                        >{{ user.status }}</span
+                      >
+                    </button>
+                  }
+                </div>
+              }
+
+              <div
+                class="flex flex-col gap-3 border-t border-border pt-3 md:flex-row md:items-center md:justify-between"
+              >
+                <span class="text-sm text-muted-foreground">
+                  {{ selection.selected.length }} selected · Showing {{ filteredUsers().length }} of
+                  {{ users().length }} users
+                </span>
+                <nav frPagination aria-label="User table pages">
+                  <ul frPaginationContent>
+                    <li frPaginationItem>
+                      <button frPaginationPrevious type="button"></button>
+                    </li>
+                    <li frPaginationItem>
+                      <button frPaginationLink active type="button">1</button>
+                    </li>
+                    <li frPaginationItem><button frPaginationLink type="button">2</button></li>
+                    <li frPaginationItem><span frPaginationEllipsis></span></li>
+                    <li frPaginationItem><button frPaginationLink type="button">8</button></li>
+                    <li frPaginationItem><button frPaginationNext type="button"></button></li>
+                  </ul>
+                </nav>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>

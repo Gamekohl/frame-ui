@@ -1,5 +1,5 @@
 import { DEFAULT_COLORS } from './chart.constants';
-import { FrChartDatum } from './chart.types';
+import { FrChartDataPoint } from './chart.types';
 
 const MIX_STEPS = [0, 18, 32, 46, 60, 72] as const;
 
@@ -17,7 +17,7 @@ export function chartColor(index: number): string {
   return `color-mix(in oklch, ${baseColor} ${100 - mixStep}%, ${mixColor} ${mixStep}%)`;
 }
 
-export function chartDatumColor(datum: FrChartDatum): string | null {
+export function chartDatumColor(datum: FrChartDataPoint): string | null {
   const color = datum['color'];
 
   return typeof color === 'string' && color.trim().length ? color : null;

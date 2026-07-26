@@ -3,7 +3,16 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/introduction/introduction').then((m) => m.IntroductionComponent),
+    loadComponent: () =>
+      import('./pages/introduction/introduction').then((m) => m.IntroductionComponent),
+  },
+  {
+    path: 'blocks',
+    loadChildren: () => import('./pages/blocks/blocks.routes'),
+  },
+  {
+    path: 'templates',
+    loadChildren: () => import('../../../templates/templates.routes'),
   },
   {
     path: 'docs',
@@ -11,8 +20,7 @@ export const routes: Routes = [
   },
   {
     path: 'charts',
-    loadComponent: () =>
-      import('./pages/charts/chart.page').then((m) => m.ChartPageComponent),
+    loadComponent: () => import('./pages/charts/chart.page').then((m) => m.ChartPageComponent),
     children: [
       {
         path: '',
@@ -22,7 +30,7 @@ export const routes: Routes = [
       {
         path: 'introduction',
         loadComponent: () =>
-          import('./pages/charts/charts-introduction').then(m => m.ChartsIntroduction),
+          import('./pages/charts/charts-introduction').then((m) => m.ChartsIntroduction),
       },
       {
         path: 'area',
@@ -37,7 +45,9 @@ export const routes: Routes = [
       {
         path: 'composed',
         loadComponent: () =>
-          import('./pages/charts/pages/composed-chart.page').then((m) => m.ComposedChartPageComponent),
+          import('./pages/charts/pages/composed-chart.page').then(
+            (m) => m.ComposedChartPageComponent,
+          ),
       },
       {
         path: 'line',
@@ -57,12 +67,16 @@ export const routes: Routes = [
       {
         path: 'sparkline',
         loadComponent: () =>
-          import('./pages/charts/pages/sparkline-chart.page').then((m) => m.SparklineChartPageComponent),
+          import('./pages/charts/pages/sparkline-chart.page').then(
+            (m) => m.SparklineChartPageComponent,
+          ),
       },
       {
         path: 'heatmap',
         loadComponent: () =>
-          import('./pages/charts/pages/heatmap-chart.page').then((m) => m.HeatmapChartPageComponent),
+          import('./pages/charts/pages/heatmap-chart.page').then(
+            (m) => m.HeatmapChartPageComponent,
+          ),
       },
       {
         path: 'radial',

@@ -51,6 +51,11 @@ frame-combobox[data-disabled] .frame-combobox__chips {
   padding-inline: var(--frame-combobox-control-padding-inline);
 }
 
+[frCombobox][data-show-clear] .frame-combobox__input,
+frame-combobox[data-show-clear] .frame-combobox__input {
+  padding-inline-end: calc(var(--frame-combobox-control-padding-inline) + 1.25rem);
+}
+
 .frame-combobox__input:focus-visible,
 .frame-combobox__trigger:focus-visible,
 .frame-combobox__chips:focus-within {
@@ -81,12 +86,25 @@ frame-combobox[data-disabled] .frame-combobox__chips {
   text-align: start;
 }
 
+.frame-combobox__trigger > ng-icon:last-child,
+.frame-combobox__trigger > svg:last-child {
+  display: inline-flex;
+  flex: 0 0 auto;
+  transition: transform var(--frame-combobox-control-transition-duration) ease;
+}
+
+.frame-combobox__trigger[aria-expanded='true'] > ng-icon:last-child,
+.frame-combobox__trigger[aria-expanded='true'] > svg:last-child {
+  transform: rotate(180deg);
+}
+
 .frame-combobox__clear {
   position: absolute;
-  right: var(--frame-combobox-clear-offset);
-  top: 50%;
-  transform: translateY(-50%);
+  inset-block-start: 50%;
+  inset-inline-end: var(--frame-combobox-clear-offset);
   display: inline-flex;
+  inline-size: 1rem;
+  block-size: 1rem;
   align-items: center;
   justify-content: center;
   border: 0;
@@ -95,6 +113,16 @@ frame-combobox[data-disabled] .frame-combobox__chips {
   color: var(--frame-muted-foreground);
   cursor: pointer;
   font: inherit;
+  line-height: 1;
+  padding: 0;
+  transform: translateY(-50%);
+}
+
+.frame-combobox__clear > ng-icon,
+.frame-combobox__clear > svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 [frComboboxInput][data-has-value='false'] ~ .frame-combobox__clear {

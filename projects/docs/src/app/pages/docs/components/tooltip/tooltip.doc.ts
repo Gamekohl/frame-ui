@@ -75,7 +75,6 @@ const tokens = `--frame-tooltip-content-bg: var(--frame-foreground);
 --frame-tooltip-content-radius: var(--frame-radius-md);
 --frame-tooltip-content-shadow: 0 12px 32px rgb(0 0 0 / 0.18);
 --frame-tooltip-content-padding: 0.375rem 0.625rem;
---frame-tooltip-content-max-width: 18rem;
 --frame-tooltip-content-font-size: 0.8125rem;
 --frame-tooltip-content-font-weight: 500;
 --frame-tooltip-content-line-height: 1.35;
@@ -146,7 +145,7 @@ export const TOOLTIP_DOC: ComponentDoc = {
           id: 'panel',
           label: 'Tooltip panel',
           selector: '[data-token-target="tooltip-panel"]',
-          description: 'The floating panel controls surface, border, radius, shadow, padding, and max width.',
+          description: 'The floating panel controls surface, border, radius, shadow, and padding.',
           tokens: [
             '--frame-tooltip-content-bg',
             '--frame-tooltip-content-color',
@@ -154,7 +153,6 @@ export const TOOLTIP_DOC: ComponentDoc = {
             '--frame-tooltip-content-radius',
             '--frame-tooltip-content-shadow',
             '--frame-tooltip-content-padding',
-            '--frame-tooltip-content-max-width',
           ],
         },
         {

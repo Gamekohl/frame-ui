@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, booleanAttribute, input } from '@angular/core';
 
 /**
  * Enables Frame UI corner handles on any normal box element.
@@ -9,7 +9,10 @@ import { Directive } from '@angular/core';
 @Directive({
   selector: '[frCornerHandles]',
   host: {
-    class: 'frame-corner-handles',
+    '[class.frame-corner-handles]': 'enabled()',
+    '[attr.data-frame-corner-handles]': 'enabled() ? null : "false"',
   },
 })
-export class FrCornerHandles {}
+export class FrCornerHandles {
+  readonly enabled = input(true, { alias: 'frCornerHandles', transform: booleanAttribute });
+}

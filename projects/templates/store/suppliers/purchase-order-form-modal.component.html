@@ -1,0 +1,86 @@
+<div frModalPanel size="md" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex items-start gap-3">
+      <span class="grid size-9 shrink-0 place-items-center bg-primary text-primary-foreground">
+        <ng-icon name="tablerFilePlus" size="18" />
+      </span>
+      <div class="grid gap-1">
+        <h2 frModalTitle>Create purchase order</h2>
+        <p frModalDescription>
+          Start with one product line. Additional lines can be added after the draft is saved.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form frModalBody class="grid content-start gap-5" (submit)="$event.preventDefault(); save()">
+    <div class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Supplier</span>
+      <button
+        type="button"
+        class="w-full"
+        [frSelect]="supplierMenu"
+        [value]="supplierId()"
+        (valueChange)="setSupplier($event)"
+      >
+        <frame-select-value placeholder="Select supplier"></frame-select-value>
+        <span frSelectIcon><ng-icon name="tablerChevronDown" size="16" /></span>
+      </button>
+      <ng-template #supplierMenu="frSelectContent" frSelectContent>
+        <frame-select-panel
+          ><frame-select-group>
+            @for (supplier of suppliers; track supplier.id) {
+              <button frSelectItem type="button" [value]="supplier.id" [label]="supplier.name">
+                {{ supplier.name }}
+              </button>
+            }
+          </frame-select-group></frame-select-panel
+        >
+      </ng-template>
+    </div>
+
+    <div class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Product</span>
+      <button
+        type="button"
+        class="w-full"
+        [frSelect]="productMenu"
+        [value]="productSku()"
+        (valueChange)="setProduct($event)"
+      >
+        <frame-select-value placeholder="Select product"></frame-select-value>
+        <span frSelectIcon><ng-icon name="tablerChevronDown" size="16" /></span>
+      </button>
+      <ng-template #productMenu="frSelectContent" frSelectContent>
+        <frame-select-panel
+          ><frame-select-group>
+            @for (product of products; track product.sku) {
+              <button frSelectItem type="button" [value]="product.sku" [label]="product.name">
+                {{ product.name }}
+              </button>
+            }
+          </frame-select-group></frame-select-panel
+        >
+      </ng-template>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Quantity</span>
+        <input frInput type="number" min="1" [value]="quantity()" (input)="setQuantity($event)" />
+      </label>
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Expected date</span>
+        <input frInput type="date" [value]="expected()" (input)="setExpected($event)" />
+      </label>
+    </div>
+  </form>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="cancel()">Cancel</button>
+    <button frButton type="button" (click)="save()">
+      <ng-icon name="tablerFilePlus" size="16" frButtonIcon />
+      <span frButtonLabel>Save draft</span>
+    </button>
+  </div>
+</div>

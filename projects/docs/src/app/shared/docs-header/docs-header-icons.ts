@@ -1,4 +1,5 @@
 import {
+  tablerActivity,
   tablerBaselineDensityMedium,
   tablerBorderCorners,
   tablerBorderRadius,
@@ -12,6 +13,8 @@ import {
   tablerComponents,
   tablerDatabase,
   tablerFileText,
+  tablerHome,
+  tablerLayoutBoard,
   tablerLayoutDashboard,
   tablerPalette,
   tablerSearch,
@@ -20,9 +23,11 @@ import {
   tablerShieldLock,
   tablerSunMoon,
   tablerTools,
+  tablerUsers,
 } from '@ng-icons/tabler-icons';
 
 export const DOCS_HEADER_ICONS = {
+  tablerActivity,
   tablerBaselineDensityMedium,
   tablerBorderCorners,
   tablerBorderRadius,
@@ -36,6 +41,8 @@ export const DOCS_HEADER_ICONS = {
   tablerChartAreaLine,
   tablerDatabase,
   tablerFileText,
+  tablerHome,
+  tablerLayoutBoard,
   tablerLayoutDashboard,
   tablerPalette,
   tablerSearch,
@@ -44,4 +51,5 @@ export const DOCS_HEADER_ICONS = {
   tablerShieldLock,
   tablerSunMoon,
   tablerTools,
+  tablerUsers,
 };

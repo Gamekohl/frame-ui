@@ -1,5 +1,5 @@
-<header class="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-xs">
-  <div class="mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
+<header class="sticky top-0 z-40 border-b border-border bg-background/40 backdrop-blur-xs">
+  <div class="relative mx-auto flex h-14 max-w-350 items-center gap-4 px-4 sm:px-6 xl:px-0">
     <a routerLink="/" class="cursor-pointer">
       <img
         alt="Logo"
@@ -8,22 +8,71 @@
         height="24"
       />
     </a>
-    <nav class="hidden items-center gap-5 text-sm font-semibold md:flex">
-      <a class="docs-blueprint-meta text-muted-foreground hover:text-foreground" routerLink="/docs">
-        Docs
-      </a>
-      <a
-        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
-        routerLink="/docs/components"
-      >
-        Components
-      </a>
-      <a
-        class="docs-blueprint-meta text-muted-foreground hover:text-foreground"
-        routerLink="/charts"
-      >
-        Charts
-      </a>
+    <nav frNavigationMenu [frCornerHandles]="false" aria-label="Main navigation">
+      <ul frNavigationMenuList>
+        <li frNavigationMenuItem>
+          <a frNavigationMenuLink routerLink="/docs"> Docs </a>
+        </li>
+        <li frNavigationMenuItem>
+          <a frNavigationMenuLink routerLink="/docs/components"> Components </a>
+        </li>
+        <li frNavigationMenuItem>
+          <a frNavigationMenuLink routerLink="/charts"> Charts </a>
+        </li>
+        <li frNavigationMenuItem>
+          <a frNavigationMenuLink routerLink="/blocks/authentication"> Blocks </a>
+        </li>
+        <li frNavigationMenuItem>
+          <button [frNavigationMenuTrigger]="templatesMenu" type="button">
+            Templates
+            <ng-icon name="tablerChevronDown" size="14" aria-hidden="true" />
+          </button>
+
+          <ng-template #templatesMenu="frNavigationMenuContent" frNavigationMenuContent>
+            <div frNavigationMenuPanel>
+              <div frNavigationMenuGrid>
+                <section class="grid content-start gap-2">
+                  <span class="px-3 font-mono text-xs font-bold uppercase text-primary">
+                    Store
+                  </span>
+                  @for (page of templateStorePages; track page.id) {
+                    <a
+                      frNavigationMenuLink
+                      [routerLink]="page.path"
+                      class="grid! grid-cols-[auto_1fr] items-start gap-3!"
+                    >
+                      <ng-icon [name]="page.icon" size="18" class="mt-0.5" aria-hidden="true" />
+                      <span class="grid gap-1">
+                        <span frNavigationMenuLinkTitle>{{ page.label }}</span>
+                        <span frNavigationMenuLinkDescription>{{ page.description }}</span>
+                      </span>
+                    </a>
+                  }
+                </section>
+
+                <section class="grid content-start gap-2">
+                  <span class="px-3 font-mono text-xs font-bold uppercase text-primary">
+                    Administration
+                  </span>
+                  @for (page of templateAdministrationPages; track page.id) {
+                    <a
+                      frNavigationMenuLink
+                      [routerLink]="page.path"
+                      class="grid! grid-cols-[auto_1fr] items-start gap-3!"
+                    >
+                      <ng-icon [name]="page.icon" size="18" class="mt-0.5" aria-hidden="true" />
+                      <span class="grid gap-1">
+                        <span frNavigationMenuLinkTitle>{{ page.label }}</span>
+                        <span frNavigationMenuLinkDescription>{{ page.description }}</span>
+                      </span>
+                    </a>
+                  }
+                </section>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
     </nav>
 
     <div class="ml-auto flex items-center gap-2">

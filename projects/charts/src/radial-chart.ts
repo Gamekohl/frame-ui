@@ -1,11 +1,11 @@
 import { chartColor, chartDatumColor } from './chart-colors';
 import { formatChartLabel } from './chart-format';
 import { circularArcPath, polarToCartesian } from './chart-geometry';
-import { FrChartDatum, FrChartRadialSegmentModel, FrChartSeries } from './chart.types';
+import { FrChartDataPoint, FrChartRadialSegmentModel, FrChartSeries } from './chart.types';
 import { clampNumber, coerceNumber } from './chart-utils';
 
 type BuildRadialSegmentsOptions = {
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly plotHeight: number;
   readonly plotWidth: number;
   readonly plotX: number;

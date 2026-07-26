@@ -1,0 +1,236 @@
+<div frModalPanel size="lg" scrollable stickyFooter>
+  <div frModalHeader>
+    <div class="flex items-start gap-3">
+      <span class="grid size-8 shrink-0 place-items-center bg-primary text-primary-foreground">
+        <ng-icon [name]="icon()" size="17" />
+      </span>
+      <div class="grid gap-1">
+        <h2 frModalTitle>{{ title() }}</h2>
+        <p frModalDescription>{{ description() }}</p>
+      </div>
+    </div>
+  </div>
+
+  <form frModalBody class="grid gap-5" (submit)="$event.preventDefault(); save()">
+    <div class="flex flex-wrap items-center gap-2">
+      <span frBadge variant="outline">{{ data.item.sku }}</span>
+      <span frBadge variant="secondary">{{ data.item.category }}</span>
+    </div>
+
+    @if (data.mode === 'transfer') {
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="grid gap-2">
+          <span class="text-sm font-semibold text-foreground">From</span>
+          <button
+            type="button"
+            class="w-full"
+            [frSelect]="fromMenu"
+            [value]="from()"
+            (valueChange)="setFrom($event)"
+          >
+            <frame-select-value placeholder="Select source"></frame-select-value>
+            <span frSelectIcon>
+              <ng-icon name="tablerChevronDown" size="16" />
+            </span>
+          </button>
+          <ng-template #fromMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+                @for (location of data.locations; track location.key) {
+                  <button
+                    frSelectItem
+                    type="button"
+                    [value]="location.key"
+                    [label]="location.label"
+                  >
+                    {{ location.label }} · {{ data.item.locations[location.key] }} units
+                  </button>
+                }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
+        </div>
+
+        <div class="grid gap-2">
+          <span class="text-sm font-semibold text-foreground">To</span>
+          <button
+            type="button"
+            class="w-full"
+            [frSelect]="toMenu"
+            [value]="to()"
+            (valueChange)="setTo($event)"
+          >
+            <frame-select-value placeholder="Select destination"></frame-select-value>
+            <span frSelectIcon>
+              <ng-icon name="tablerChevronDown" size="16" />
+            </span>
+          </button>
+          <ng-template #toMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+                @for (location of data.locations; track location.key) {
+                  <button
+                    frSelectItem
+                    type="button"
+                    [value]="location.key"
+                    [label]="location.label"
+                  >
+                    {{ location.label }}
+                  </button>
+                }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
+        </div>
+      </div>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Quantity</span>
+        <input
+          frInput
+          type="number"
+          min="1"
+          [max]="fromStock()"
+          [value]="quantity()"
+          (input)="setNumber('quantity', $event)"
+        />
+        <span class="text-xs text-muted-foreground"
+          >{{ fromStock() }} units available at source.</span
+        >
+      </label>
+    } @else if (data.mode === 'count') {
+      <div class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Location</span>
+        <button
+          type="button"
+          class="w-full"
+          [frSelect]="countLocationMenu"
+          [value]="location()"
+          (valueChange)="setLocation($event)"
+        >
+          <frame-select-value placeholder="Select location"></frame-select-value>
+          <span frSelectIcon>
+            <ng-icon name="tablerChevronDown" size="16" />
+          </span>
+        </button>
+        <ng-template #countLocationMenu="frSelectContent" frSelectContent>
+          <frame-select-panel>
+            <frame-select-group>
+              @for (entry of data.locations; track entry.key) {
+                <button frSelectItem type="button" [value]="entry.key" [label]="entry.label">
+                  {{ entry.label }}
+                </button>
+              }
+            </frame-select-group>
+          </frame-select-panel>
+        </ng-template>
+      </div>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Counted quantity</span>
+        <input
+          frInput
+          type="number"
+          min="0"
+          [value]="counted()"
+          (input)="setNumber('counted', $event)"
+        />
+        <span class="text-xs text-muted-foreground">
+          System quantity is {{ currentLocationStock() }}. Difference:
+          {{ countDelta() > 0 ? '+' : '' }}{{ countDelta() }}.
+        </span>
+      </label>
+    } @else {
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="grid gap-2">
+          <span class="text-sm font-semibold text-foreground">Location</span>
+          <button
+            type="button"
+            class="w-full"
+            [frSelect]="holdLocationMenu"
+            [value]="location()"
+            (valueChange)="setLocation($event)"
+          >
+            <frame-select-value placeholder="Select location"></frame-select-value>
+            <span frSelectIcon>
+              <ng-icon name="tablerChevronDown" size="16" />
+            </span>
+          </button>
+          <ng-template #holdLocationMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+                @for (entry of data.locations; track entry.key) {
+                  <button frSelectItem type="button" [value]="entry.key" [label]="entry.label">
+                    {{ entry.label }} · {{ data.item.locations[entry.key] }} units
+                  </button>
+                }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
+        </div>
+
+        <div class="grid gap-2">
+          <span class="text-sm font-semibold text-foreground">Reason</span>
+          <button
+            type="button"
+            class="w-full"
+            [frSelect]="reasonMenu"
+            [value]="reason()"
+            (valueChange)="setReason($event)"
+          >
+            <frame-select-value placeholder="Select reason"></frame-select-value>
+            <span frSelectIcon>
+              <ng-icon name="tablerChevronDown" size="16" />
+            </span>
+          </button>
+          <ng-template #reasonMenu="frSelectContent" frSelectContent>
+            <frame-select-panel>
+              <frame-select-group>
+                @for (entry of holdReasons; track entry) {
+                  <button frSelectItem type="button" [value]="entry" [label]="entry">
+                    {{ entry }}
+                  </button>
+                }
+              </frame-select-group>
+            </frame-select-panel>
+          </ng-template>
+        </div>
+      </div>
+
+      <label class="grid gap-2">
+        <span class="text-sm font-semibold text-foreground">Quantity</span>
+        <input
+          frInput
+          type="number"
+          min="1"
+          [max]="currentLocationStock()"
+          [value]="quantity()"
+          (input)="setNumber('quantity', $event)"
+        />
+        <span class="text-xs text-muted-foreground"
+          >{{ currentLocationStock() }} units are recorded at this location.</span
+        >
+      </label>
+    }
+
+    <label class="grid gap-2">
+      <span class="text-sm font-semibold text-foreground">Internal note</span>
+      <textarea
+        frTextarea
+        rows="4"
+        placeholder="Optional context for the inventory log"
+        [value]="note()"
+        (input)="setNote($event)"
+      ></textarea>
+    </label>
+  </form>
+
+  <div frModalFooter>
+    <button frButton appearance="outline" type="button" (click)="cancel()">
+      <span frButtonLabel>Cancel</span>
+    </button>
+    <button frButton type="button" [disabled]="!canSave()" (click)="save()">
+      <span frButtonLabel>Save adjustment</span>
+    </button>
+  </div>
+</div>

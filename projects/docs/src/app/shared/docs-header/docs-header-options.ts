@@ -1,3 +1,6 @@
+import { ADMINISTRATION_TEMPLATE_PAGES } from '../../../../../templates/administration/shared/commerce-admin-template.registry';
+import { STORE_TEMPLATE_PAGES } from '../../../../../templates/store/shared/commerce-admin-template.registry';
+
 export type DocsSearchPage = {
   readonly title: string;
   readonly path: string;
@@ -191,36 +194,18 @@ export const DOCS_SEARCH_PAGES: readonly DocsSearchPage[] = [
       'patterns',
     ],
   },
-  {
-    title: 'Product catalog',
-    path: '/templates/product-catalog',
-    section: 'Templates',
-    keywords: ['templates', 'admin', 'product catalog', 'crud', 'products', 'inventory', 'table'],
-  },
-  {
-    title: 'Inventory',
-    path: '/templates/inventory',
-    section: 'Templates',
-    keywords: ['templates', 'admin', 'inventory', 'warehouse', 'stock', 'transfer', 'cycle count'],
-  },
-  {
-    title: 'User management',
-    path: '/templates/user-management',
-    section: 'Templates',
-    keywords: ['templates', 'admin', 'user management', 'roles', 'permissions', 'table'],
-  },
-  {
-    title: 'Roles & Permissions',
-    path: '/templates/roles-permissions',
-    section: 'Templates',
-    keywords: ['templates', 'admin', 'roles', 'permissions', 'matrix', 'access control'],
-  },
-  {
-    title: 'Settings',
-    path: '/templates/settings',
-    section: 'Templates',
-    keywords: ['templates', 'admin', 'settings', 'workspace', 'billing', 'security'],
-  },
+  ...STORE_TEMPLATE_PAGES.map((page) => ({
+    title: page.label,
+    path: page.path,
+    section: 'Store template',
+    keywords: ['templates', 'store', 'commerce', ...page.keywords],
+  })),
+  ...ADMINISTRATION_TEMPLATE_PAGES.map((page) => ({
+    title: page.label,
+    path: page.path,
+    section: 'Administration template',
+    keywords: ['templates', 'admin', 'access', ...page.keywords],
+  })),
   {
     title: 'Theme tokens',
     path: '/docs/theme-tokens',

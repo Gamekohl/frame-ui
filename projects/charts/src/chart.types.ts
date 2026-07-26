@@ -16,7 +16,10 @@ export type FrChartCurve = 'linear' | 'sharp' | 'smooth' | 'step';
 export type FrChartBarLayout = 'grouped' | 'stacked';
 export type FrChartBarOrientation = 'horizontal' | 'vertical';
 export type FrChartSeriesType = 'area' | 'bar' | 'line';
-export type FrChartDatum = Record<string, Date | number | string | null | undefined>;
+export type FrChartDataPoint = Record<string, Date | number | string | null | undefined>;
+
+/** @deprecated Use FrChartDataPoint instead. */
+export type FrChartDatum = FrChartDataPoint;
 
 export interface FrChartSeries {
   readonly key: string;
@@ -152,7 +155,7 @@ export interface FrChartTooltip {
 }
 
 export interface FrChartClickEvent {
-  readonly datum?: FrChartDatum;
+  readonly datum?: FrChartDataPoint;
   readonly index: number;
   readonly label: string;
   readonly type: FrChartType;

@@ -8,9 +8,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
   afterNextRender,
   booleanAttribute,
   computed,
+  inject,
   input,
   model,
   signal,
@@ -63,11 +65,20 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = buildPopoverPositions({
       (overlayKeydown)="handleOverlayKeydown($event)"
       (positionChange)="handlePositionChange($event)"
     >
-      <ng-container [ngTemplateOutlet]="content()?.templateRef ?? null" />
+      <ng-container
+        [ngTemplateOutlet]="content()?.templateRef ?? null"
+        [ngTemplateOutletInjector]="contentInjector"
+      />
     </ng-template>
   `,
 })
 export class FrPopoverRoot {
+  private readonly injector = inject(Injector);
+  protected readonly contentInjector = Injector.create({
+    providers: [{ provide: FR_POPOVER_CONTROLLER, useValue: this }],
+    parent: this.injector,
+  });
+
   readonly defaultOpen = input(false, { transform: booleanAttribute });
   readonly debugVisible = input(false, { transform: booleanAttribute });
   readonly open = model(false);
@@ -93,7 +104,14 @@ export class FrPopoverRoot {
   }
 
   setContent(content: unknown | null): void {
-    this.content.set(content instanceof FrPopoverContent ? content : null);
+    if (content instanceof FrPopoverContent) {
+      content.setController(this);
+      this.content.set(content);
+      return;
+    }
+
+    this.content()?.setController(null);
+    this.content.set(null);
   }
 
   toggle(): void {

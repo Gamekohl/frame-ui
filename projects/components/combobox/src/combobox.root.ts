@@ -14,10 +14,12 @@ import {
   booleanAttribute,
   computed,
   contentChild,
+  effect,
   inject,
   input,
   model,
   signal,
+  ViewContainerRef,
   viewChild,
 } from '@angular/core';
 
@@ -27,6 +29,18 @@ import { FrComboboxItem } from './combobox.items';
 
 export type FrComboboxValue = unknown;
 export type FrComboboxStringifier = (item: FrComboboxValue) => string;
+
+const defaultComboboxStringifier: FrComboboxStringifier = (item) => {
+  if (typeof item === 'object' && item !== null && 'label' in item) {
+    const label = (item as { readonly label?: unknown }).label;
+
+    if (typeof label === 'string') {
+      return label;
+    }
+  }
+
+  return String(item ?? '');
+};
 
 const POSITIONS: ConnectedPosition[] = [
   {
@@ -60,7 +74,8 @@ const POSITIONS: ConnectedPosition[] = [
   host: {
     class: 'frame-combobox',
     '[attr.data-disabled]': 'disabled() ? "" : null',
-    '[attr.data-invalid]': 'invalid() ? "" : null'
+    '[attr.data-invalid]': 'invalid() ? "" : null',
+    '[attr.data-show-clear]': 'showClear() ? "" : null',
   },
   template: `
     <span cdkOverlayOrigin #origin="cdkOverlayOrigin" class="frame-combobox__anchor">
@@ -87,9 +102,11 @@ const POSITIONS: ConnectedPosition[] = [
 })
 export class FrCombobox
   extends FrControlValueAccessor<FrComboboxValue | FrComboboxValue[] | null>
-  implements AfterViewInit, DoCheck {
+  implements AfterViewInit, DoCheck
+{
   private readonly destroyRef = inject(DestroyRef);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly items = new Set<FrComboboxItem>();
   private readonly itemsVersion = signal(0);
   private readonly selectedLabels = new Map<FrComboboxValue, string>();
@@ -97,6 +114,7 @@ export class FrCombobox
   private lastAutoHighlight = false;
   private lastItemsVersion = -1;
   private lastQuery = '';
+  private primingLabels = false;
   private resizeObserver: ResizeObserver | null = null;
 
   private readonly origin = viewChild(CdkOverlayOrigin);
@@ -106,7 +124,8 @@ export class FrCombobox
   readonly debugVisible = input(false, { transform: booleanAttribute });
   readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
   readonly invalidInput = input(false, { alias: 'invalid', transform: booleanAttribute });
-  readonly itemToStringValue = input<FrComboboxStringifier>((item) => String(item ?? ''));
+  /** @deprecated Item labels are resolved automatically. */
+  readonly itemToStringValue = input<FrComboboxStringifier>(defaultComboboxStringifier);
   readonly multiple = input(false, { transform: booleanAttribute });
   readonly showClear = input(false, { transform: booleanAttribute });
   readonly value = model<FrComboboxValue | FrComboboxValue[] | null>(null);
@@ -138,13 +157,24 @@ export class FrCombobox
       return this.query();
     }
 
-    return this.query() || this.selectedLabels.get(value) || this.itemToStringValue()(value);
+    return this.query() || this.selectedLabels.get(value) || this.labelFromValue(value);
   });
 
   readonly hasValue = computed(() => this.selectedValues().length > 0 || this.query().length > 0);
 
   constructor() {
     super();
+
+    effect(() => {
+      const content = this.content();
+      const unresolvedValue = this.selectedValues().some(
+        (value) => !this.selectedLabels.has(value),
+      );
+
+      if (content && unresolvedValue && !this.isOpen()) {
+        queueMicrotask(() => this.primeSelectedLabels());
+      }
+    });
 
     queueMicrotask(() => {
       this.measureAnchor();
@@ -344,6 +374,44 @@ export class FrCombobox
     this.itemsVersion.update((value) => value + 1);
   }
 
+  private labelFromValue(value: FrComboboxValue): string {
+    return this.itemToStringValue()(value);
+  }
+
+  private primeSelectedLabels(): void {
+    if (this.primingLabels || this.isOpen()) {
+      return;
+    }
+
+    const content = this.content();
+    const unresolvedValues = this.selectedValues().filter(
+      (value) => !this.selectedLabels.has(value),
+    );
+
+    if (!content || unresolvedValues.length === 0) {
+      return;
+    }
+
+    this.primingLabels = true;
+    const view = this.viewContainerRef.createEmbeddedView(content.templateRef);
+
+    try {
+      view.detectChanges();
+      for (const item of this.items) {
+        if (unresolvedValues.some((value) => Object.is(value, item.value()))) {
+          item.captureLabel();
+        }
+      }
+    } finally {
+      const viewIndex = this.viewContainerRef.indexOf(view);
+
+      if (viewIndex >= 0) {
+        this.viewContainerRef.remove(viewIndex);
+      }
+      this.primingLabels = false;
+    }
+  }
+
   private scrollHighlightedItemIntoView(): void {
     queueMicrotask(() => {
       this.visibleItems()[this.highlightedIndex()]?.scrollIntoView();
@@ -377,5 +445,3 @@ export class FrCombobox
     this.resizeObserver.observe(element);
   }
 }
-
-

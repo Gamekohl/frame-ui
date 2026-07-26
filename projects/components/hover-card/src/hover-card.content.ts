@@ -5,6 +5,11 @@ import { buildHoverCardPositions } from './hover-card.position';
 import { FR_HOVER_CARD_CONTROLLER } from './hover-card.tokens';
 import { FrHoverCardAlignment, FrHoverCardSide } from './hover-card.types';
 
+type FrHoverCardContentController = {
+  enterInteractiveArea(): void;
+  leaveInteractiveArea(): void;
+};
+
 /** Content slot for hover card. */
 @Directive({
   selector: 'ng-template[frHoverCardContent]',
@@ -12,6 +17,7 @@ import { FrHoverCardAlignment, FrHoverCardSide } from './hover-card.types';
 })
 export class FrHoverCardContent {
   readonly templateRef = inject(TemplateRef<unknown>);
+  private controller: FrHoverCardContentController | null = null;
 
   readonly align = input<FrHoverCardAlignment>('center');
   readonly alignOffset = input(0);
@@ -27,6 +33,18 @@ export class FrHoverCardContent {
       sideOffset: this.sideOffset(),
     });
   }
+
+  setController(controller: FrHoverCardContentController | null): void {
+    this.controller = controller;
+  }
+
+  enterInteractiveArea(): void {
+    this.controller?.enterInteractiveArea();
+  }
+
+  leaveInteractiveArea(): void {
+    this.controller?.leaveInteractiveArea();
+  }
 }
 
 /** Panel slot for hover card. */
@@ -41,13 +59,13 @@ export class FrHoverCardContent {
 })
 export class FrHoverCardPanel {
   protected readonly content = inject(FrHoverCardContent);
-  private readonly root = inject(FR_HOVER_CARD_CONTROLLER);
+  private readonly root = inject(FR_HOVER_CARD_CONTROLLER, { optional: true });
 
   protected handleMouseEnter(): void {
-    this.root.enterInteractiveArea();
+    (this.root ?? this.content).enterInteractiveArea();
   }
 
   protected handleMouseLeave(): void {
-    this.root.leaveInteractiveArea();
+    (this.root ?? this.content).leaveInteractiveArea();
   }
 }

@@ -42,6 +42,10 @@
   content: none;
 }
 
+.frame-corner-handles[data-frame-corner-handles='false']::before {
+  content: none;
+}
+
 .frame-button.frame-corner-handles::before {
   content: none;
 }
@@ -72,6 +76,10 @@
 }
 
 :root[data-frame-corner-handles='false'] .frame-button.frame-corner-handles {
+  background-image: none;
+}
+
+.frame-button.frame-corner-handles[data-frame-corner-handles='false'] {
   background-image: none;
 }
 
@@ -176,6 +184,17 @@ frame-input-control.frame-corner-handles {
     .frame-combobox__panel,
     .frame-navigation-menu__viewport
   ) {
+  background-image: none;
+}
+
+.frame-corner-handles:where(
+  .frame-table-container,
+  .frame-table-virtual,
+  .frame-virtual-scroll__viewport,
+  .frame-virtual-scroll__list,
+  .frame-combobox__panel,
+  .frame-navigation-menu__viewport
+)[data-frame-corner-handles='false'] {
   background-image: none;
 }
 

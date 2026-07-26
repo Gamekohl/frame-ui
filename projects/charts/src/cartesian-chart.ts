@@ -2,7 +2,7 @@ import { chartColor } from './chart-colors';
 import { formatChartLabel, toChartLabel } from './chart-format';
 import {
   FrChartCurve,
-  FrChartDatum,
+  FrChartDataPoint,
   FrChartPoint,
   FrChartSeries,
   FrChartSeriesModel,
@@ -14,7 +14,7 @@ import { coerceNumber } from './chart-utils';
 type BuildCartesianSeriesOptions = {
   readonly baselineY: number;
   readonly curve: FrChartCurve;
-  readonly data: readonly FrChartDatum[];
+  readonly data: readonly FrChartDataPoint[];
   readonly defaultType?: FrChartSeriesType;
   readonly series: readonly FrChartSeries[];
   readonly seriesSpacing?: number;
@@ -170,7 +170,7 @@ function closeAreaPath(
 }
 
 export function buildXTicks(
-  data: readonly FrChartDatum[],
+  data: readonly FrChartDataPoint[],
   xKey: string,
   xForIndex: (index: number) => number,
 ): readonly FrChartTick[] {
@@ -227,7 +227,7 @@ export function buildValueTicks(
 }
 
 export function buildCategoryTicks(
-  data: readonly FrChartDatum[],
+  data: readonly FrChartDataPoint[],
   xKey: string,
   yForIndex: (index: number) => number,
 ): readonly FrChartTick[] {

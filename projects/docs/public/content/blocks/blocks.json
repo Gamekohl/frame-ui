@@ -1,0 +1,88 @@
+[
+  {
+    "id": "authentication",
+    "title": "Authentication",
+    "description": "Login, signup, recovery, invitation, and verification flows.",
+    "icon": "tablerLock",
+    "blocks": [
+      {
+        "id": "login",
+        "category": "Authentication",
+        "title": "Login",
+        "description": "Sign-in with email, password, remember-me, recovery, and SSO fallback.",
+        "componentName": "Login"
+      },
+      {
+        "id": "signup",
+        "category": "Authentication",
+        "title": "Signup",
+        "description": "A workspace creation form with work email, name fields, and terms acceptance.",
+        "componentName": "Signup"
+      },
+      {
+        "id": "password-reset",
+        "category": "Authentication",
+        "title": "Password reset",
+        "description": "Focused recovery flow with enough operational guidance for SSO teams.",
+        "componentName": "PasswordReset"
+      },
+      {
+        "id": "invite",
+        "category": "Authentication",
+        "title": "Invite accept",
+        "description": "Invite acceptance with team context and first password setup.",
+        "componentName": "InviteAccept"
+      },
+      {
+        "id": "two-factor",
+        "category": "Authentication",
+        "title": "Two-factor",
+        "description": "Verification flow powered by the FrameUI OTP primitive.",
+        "componentName": "TwoFactor"
+      }
+    ]
+  },
+  {
+    "id": "dashboard",
+    "title": "Dashboard",
+    "description": "Operational shells, KPI panels, tables, and command surfaces.",
+    "icon": "tablerLayoutDashboard",
+    "blocks": [
+      {
+        "id": "metrics-overview",
+        "category": "Dashboard",
+        "title": "Store overview",
+        "description": "A shop dashboard for orders, conversion, inventory sync, and support issues.",
+        "componentName": "StoreOverview"
+      },
+      {
+        "id": "revenue-snapshot",
+        "category": "Dashboard",
+        "title": "Invoice tracker",
+        "description": "Billing cards and progress lines for paid, overdue, and due invoices.",
+        "componentName": "InvoiceTracker"
+      },
+      {
+        "id": "review-queue",
+        "category": "Dashboard",
+        "title": "Refund queue",
+        "description": "A customer support queue for refunds, returns, and damaged order reviews.",
+        "componentName": "RefundQueue"
+      },
+      {
+        "id": "order-fulfillment",
+        "category": "Dashboard",
+        "title": "Order fulfillment",
+        "description": "A tabbed shipping desk with order table, delivery status, and row actions.",
+        "componentName": "OrderFulfillment"
+      },
+      {
+        "id": "workspace-shell",
+        "category": "Dashboard",
+        "title": "Workspace shell",
+        "description": "A full-height dashboard shell with sidebar navigation, toolbar, KPI cards, and work queue.",
+        "componentName": "WorkspaceShell"
+      }
+    ]
+  }
+]

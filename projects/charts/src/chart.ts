@@ -17,7 +17,13 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 
 import { buildBars } from './bar-chart';
-import { buildCartesianSeries, buildCategoryTicks, buildValueTicks, buildXTicks, buildYTicks } from './cartesian-chart';
+import {
+  buildCartesianSeries,
+  buildCategoryTicks,
+  buildValueTicks,
+  buildXTicks,
+  buildYTicks,
+} from './cartesian-chart';
 import { buildChartDomain } from './chart-domain';
 import {
   PLOT_BOTTOM,
@@ -46,7 +52,7 @@ import {
   FrChartBarLayout,
   FrChartBarOrientation,
   FrChartClickEvent,
-  FrChartDatum,
+  FrChartDataPoint,
   FrChartModel,
   FrChartSeries,
   FrChartSeriesType,
@@ -60,6 +66,7 @@ export type {
   FrChartBarOrientation,
   FrChartCurve,
   FrChartDatum,
+  FrChartDataPoint,
   FrChartClickEvent,
   FrChartSeries,
   FrChartSeriesType,
@@ -98,7 +105,9 @@ type ResolvedChartSeries = FrChartSeries & {
       role="img"
       [attr.aria-label]="ariaLabel()"
       [attr.viewBox]="'0 0 ' + viewBoxWidth() + ' ' + viewBoxHeight()"
-      [attr.preserveAspectRatio]="isCircularChart() || type() === 'radial' ? 'xMidYMid meet' : 'none'"
+      [attr.preserveAspectRatio]="
+        isCircularChart() || type() === 'radial' ? 'xMidYMid meet' : 'none'
+      "
       (pointermove)="handlePointerMove($event)"
       (pointerup)="handleChartClick($event)"
       (focusout)="clearActiveIndex()"
@@ -214,7 +223,7 @@ export class FrChart implements AfterViewInit {
   private resizeObserver: ResizeObserver | null = null;
   protected readonly revealClipId = `frame-chart-reveal-${nextChartId++}`;
 
-  readonly data = input<readonly FrChartDatum[]>([]);
+  readonly data = input<readonly FrChartDataPoint[]>([]);
   readonly series = input<readonly FrChartSeries[]>([]);
   readonly xKey = input('name');
   readonly yKey = input<string | null>(null);
@@ -236,18 +245,22 @@ export class FrChart implements AfterViewInit {
   readonly hiddenSeriesKeys = model<readonly string[]>([]);
   readonly chartClick = output<FrChartClickEvent>();
 
-  private readonly pointerTooltipPosition = signal<{ xPercent: number; yPercent: number } | null>(null);
+  private readonly pointerTooltipPosition = signal<{ xPercent: number; yPercent: number } | null>(
+    null,
+  );
   protected readonly viewBoxWidth = signal(VIEWBOX_WIDTH);
   protected readonly chartHeight = computed(() =>
     this.isSparklineChart() && this.height() === 320 ? 80 : this.height(),
   );
-  protected readonly viewBoxHeight = computed(() => Math.max(this.chartHeight(), this.isSparklineChart() ? 48 : 160));
+  protected readonly viewBoxHeight = computed(() =>
+    Math.max(this.chartHeight(), this.isSparklineChart() ? 48 : 160),
+  );
   protected readonly model = computed(() => this.buildModel());
   protected readonly cursorX = computed(() => {
     const activeIndex = this.activeIndex();
     const firstSeries = this.model().series[0];
 
-    return activeIndex === null ? 0 : firstSeries?.points[activeIndex]?.x ?? 0;
+    return activeIndex === null ? 0 : (firstSeries?.points[activeIndex]?.x ?? 0);
   });
   protected readonly isEmptyChart = computed(() => {
     const model = this.model();
@@ -335,7 +348,8 @@ export class FrChart implements AfterViewInit {
       return null;
     }
 
-    const pointerPosition = this.isHorizontalBarChart() || this.isSparklineChart() ? this.pointerTooltipPosition() : null;
+    const pointerPosition =
+      this.isHorizontalBarChart() || this.isSparklineChart() ? this.pointerTooltipPosition() : null;
 
     return {
       xPercent: pointerPosition?.xPercent ?? (firstPoint.x / this.viewBoxWidth()) * 100,
@@ -431,15 +445,23 @@ export class FrChart implements AfterViewInit {
   }
 
   protected formatValue(value: number): string {
-    return this.valueFormatter()?.(value) ?? new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(value);
+    return (
+      this.valueFormatter()?.(value) ??
+      new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(value)
+    );
   }
 
   protected isHorizontalBarChart(): boolean {
-    return this.type() === 'bar-sparkline' || (this.type() === 'bar' && this.barOrientation() === 'horizontal');
+    return (
+      this.type() === 'bar-sparkline' ||
+      (this.type() === 'bar' && this.barOrientation() === 'horizontal')
+    );
   }
 
   protected isBarOnlyChart(): boolean {
-    return this.type() === 'bar' || this.type() === 'bar-sparkline' || this.type() === 'column-sparkline';
+    return (
+      this.type() === 'bar' || this.type() === 'bar-sparkline' || this.type() === 'column-sparkline'
+    );
   }
 
   protected isComposedChart(): boolean {
@@ -475,7 +497,8 @@ export class FrChart implements AfterViewInit {
     const color = this.resolveSeries(this.inputSeries(this.data()))[0]?.color ?? chartColor(0);
 
     return [20, 40, 60, 80, 100].map(
-      (strength) => `color-mix(in srgb, ${color} ${strength}%, var(--frame-chart-heatmap-empty-bg))`,
+      (strength) =>
+        `color-mix(in srgb, ${color} ${strength}%, var(--frame-chart-heatmap-empty-bg))`,
     );
   }
 
@@ -507,27 +530,36 @@ export class FrChart implements AfterViewInit {
     const minValue = domain.min;
     const maxValue = domain.max;
     const range = maxValue - minValue || 1;
-    const plotX = this.sparklineInset('left') ?? (this.isHorizontalBarChart() ? 96 : this.showYAxis() ? PLOT_LEFT : PLOT_LEFT_COMPACT);
+    const plotX =
+      this.sparklineInset('left') ??
+      (this.isHorizontalBarChart() ? 96 : this.showYAxis() ? PLOT_LEFT : PLOT_LEFT_COMPACT);
     const plotY = this.sparklineInset('top') ?? PLOT_TOP;
     const plotBottom =
       this.sparklineInset('bottom') ??
-      (this.type() === 'bar' ? PLOT_BOTTOM_BARS : this.isCircularChart() ? PLOT_BOTTOM_PIE : PLOT_BOTTOM);
+      (this.type() === 'bar'
+        ? PLOT_BOTTOM_BARS
+        : this.isCircularChart()
+          ? PLOT_BOTTOM_PIE
+          : PLOT_BOTTOM);
     const plotRight = this.sparklineInset('right') ?? PLOT_RIGHT;
     const plotWidth = Math.max(this.viewBoxWidth() - plotX - plotRight, 1);
     const plotHeight = Math.max(this.viewBoxHeight() - plotY - plotBottom, 1);
-    const categorySize = data.length <= 1 ? plotHeight * 0.55 : plotHeight / Math.max(data.length, 1);
+    const categorySize =
+      data.length <= 1 ? plotHeight * 0.55 : plotHeight / Math.max(data.length, 1);
     const usesCategoryBands =
       this.type() === 'bar' ||
       this.type() === 'bar-sparkline' ||
       this.type() === 'column-sparkline' ||
       (this.type() === 'composed' && hasVisibleBars);
-    const xForIndex =
-      usesCategoryBands
-        ? (index: number) => plotX + (plotWidth / Math.max(data.length, 1)) * (index + 0.5)
-        : (index: number) => plotX + (data.length <= 1 ? plotWidth / 2 : (index / (data.length - 1)) * plotWidth);
-    const yForValue = (value: number) => plotY + plotHeight - ((value - minValue) / range) * plotHeight;
+    const xForIndex = usesCategoryBands
+      ? (index: number) => plotX + (plotWidth / Math.max(data.length, 1)) * (index + 0.5)
+      : (index: number) =>
+          plotX + (data.length <= 1 ? plotWidth / 2 : (index / (data.length - 1)) * plotWidth);
+    const yForValue = (value: number) =>
+      plotY + plotHeight - ((value - minValue) / range) * plotHeight;
     const xForValue = (value: number) => plotX + ((value - minValue) / range) * plotWidth;
-    const yForIndex = (index: number) => plotY + (data.length <= 1 ? plotHeight / 2 : (plotHeight / data.length) * (index + 0.5));
+    const yForIndex = (index: number) =>
+      plotY + (data.length <= 1 ? plotHeight / 2 : (plotHeight / data.length) * (index + 0.5));
     const baselineY = yForValue(0);
     const baselineX = xForValue(0);
     const seriesModels = buildCartesianSeries({
@@ -617,42 +649,41 @@ export class FrChart implements AfterViewInit {
       heatmapCells: heatmap.cells,
       heatmapColumnTicks: heatmap.columnTicks,
       heatmapRowTicks: heatmap.rowTicks,
-      legendItems:
-        this.isCircularChart()
-          ? slices.map((slice) => ({
-              key: slice.key,
-              label: slice.label,
-              color: slice.color,
+      legendItems: this.isCircularChart()
+        ? slices.map((slice) => ({
+            key: slice.key,
+            label: slice.label,
+            color: slice.color,
+          }))
+        : this.type() === 'radial'
+          ? radials.map((radial) => ({
+              key: radial.key,
+              label: radial.label,
+              color: radial.color,
             }))
-          : this.type() === 'radial'
-            ? radials.map((radial) => ({
-                key: radial.key,
-                label: radial.label,
-                color: radial.color,
-              }))
           : this.isHeatmapChart()
             ? visibleSeries.slice(0, 1).map((item) => ({
                 key: item.key,
                 label: item.label,
                 color: item.color,
               }))
-          : series.map((item) => ({
-              key: item.key,
-              label: item.label,
-              color: item.color,
-              hidden: item.hidden,
-              type: item.type,
-            })),
+            : series.map((item) => ({
+                key: item.key,
+                label: item.label,
+                color: item.color,
+                hidden: item.hidden,
+                type: item.type,
+              })),
       xTicks: this.isHeatmapChart()
         ? []
         : this.isHorizontalBarChart()
-        ? buildValueTicks(minValue, maxValue, xForValue, (value) => this.formatValue(value), 'x')
-        : buildXTicks(data, this.xKey(), xForIndex),
+          ? buildValueTicks(minValue, maxValue, xForValue, (value) => this.formatValue(value), 'x')
+          : buildXTicks(data, this.xKey(), xForIndex),
       yTicks: this.isHeatmapChart()
         ? []
         : this.isHorizontalBarChart()
-        ? buildCategoryTicks(data, this.xKey(), yForIndex)
-        : buildYTicks(minValue, maxValue, yForValue, (value) => this.formatValue(value)),
+          ? buildCategoryTicks(data, this.xKey(), yForIndex)
+          : buildYTicks(minValue, maxValue, yForValue, (value) => this.formatValue(value)),
     };
   }
 
@@ -678,9 +709,14 @@ export class FrChart implements AfterViewInit {
     );
   }
 
-  private valuesForDomain(data: readonly FrChartDatum[], series: readonly FrChartSeries[]): readonly number[] {
+  private valuesForDomain(
+    data: readonly FrChartDataPoint[],
+    series: readonly FrChartSeries[],
+  ): readonly number[] {
     if (
-      (this.type() !== 'bar' && this.type() !== 'bar-sparkline' && this.type() !== 'column-sparkline') ||
+      (this.type() !== 'bar' &&
+        this.type() !== 'bar-sparkline' &&
+        this.type() !== 'column-sparkline') ||
       this.sparklineBarLayout() !== 'stacked'
     ) {
       return data.flatMap((datum) => series.map((item) => coerceNumber(datum[item.key], 0)));
@@ -723,7 +759,11 @@ export class FrChart implements AfterViewInit {
       return 'area';
     }
 
-    if (this.type() === 'bar' || this.type() === 'bar-sparkline' || this.type() === 'column-sparkline') {
+    if (
+      this.type() === 'bar' ||
+      this.type() === 'bar-sparkline' ||
+      this.type() === 'column-sparkline'
+    ) {
       return 'bar';
     }
 
@@ -773,7 +813,7 @@ export class FrChart implements AfterViewInit {
     return radialIndexFromPoint(model.radials, pointer.x, pointer.y, centerX, centerY);
   }
 
-  private inputSeries(data: readonly FrChartDatum[]): readonly FrChartSeries[] {
+  private inputSeries(data: readonly FrChartDataPoint[]): readonly FrChartSeries[] {
     const series = this.series();
 
     if (series.length) {
@@ -902,7 +942,10 @@ export class FrChart implements AfterViewInit {
     };
   }
 
-  private tooltipPositionFromPointer(event: PointerEvent, rect: DOMRect): { xPercent: number; yPercent: number } {
+  private tooltipPositionFromPointer(
+    event: PointerEvent,
+    rect: DOMRect,
+  ): { xPercent: number; yPercent: number } {
     return {
       xPercent: clampNumber(((event.clientX - rect.left) / rect.width) * 100, 0, 100),
       yPercent: clampNumber(((event.clientY - rect.top) / rect.height) * 100, 0, 100),
