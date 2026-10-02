@@ -13,6 +13,16 @@ export type FrButtonAppearance = (typeof FR_BUTTON_APPEARANCES)[number];
 export type FrButtonLoadingDisplay = (typeof FR_BUTTON_LOADING_DISPLAYS)[number];
 export type FrButtonSize = (typeof FR_BUTTON_SIZES)[number];
 
+/** Loading indicator slot for button. */
+@Directive({
+  selector: '[frButtonLoading]',
+  host: {
+    class: 'frame-button__loading',
+    'aria-hidden': 'true',
+  },
+})
+export class FrButtonLoading {}
+
 /** Button host with FrameUI size and appearance variants. */
 @Directive({
   selector: 'a[frButton], button[frButton]',
@@ -83,14 +93,3 @@ export class FrButtonIcon {}
   },
 })
 export class FrButtonLabel {}
-
-/** Loading indicator slot for button. */
-@Directive({
-  selector: '[frButtonLoading]',
-  host: {
-    class: 'frame-button__loading',
-    'aria-hidden': 'true',
-  },
-})
-export class FrButtonLoading {}
-
