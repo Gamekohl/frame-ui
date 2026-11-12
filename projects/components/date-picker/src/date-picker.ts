@@ -192,7 +192,7 @@ const POSITIONS: ConnectedPosition[] = [
         @if (presets().length) {
           <div class="frame-date-picker__presets" aria-label="Date presets">
             @for (preset of presets(); track preset.label) {
-              <button class="frame-date-picker__preset" type="button" (click)="selectPreset(preset)">
+              <button class="frame-date-picker__preset" type="button" [disabled]="disabled()" (click)="selectPreset(preset)">
                 {{ preset.label }}
               </button>
             }
@@ -306,6 +306,10 @@ export class FrDatePicker extends FrControlValueAccessor<FrDatePickerValue> {
   }
 
   selectPreset(preset: FrDatePickerPreset): void {
+    if (this.disabled()) {
+      return;
+    }
+
     const next = typeof preset.value === 'function' ? preset.value() : preset.value;
     this.commitValue(normalizeValue(next, this.mode()));
 
