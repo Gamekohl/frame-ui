@@ -176,6 +176,26 @@ describe('FrDatePicker', () => {
     expect(fixture.componentInstance.control.value).toEqual(new Date(2026, 5, 12));
   });
 
+  it('ignores an open preset after the form control is disabled', async () => {
+    const fixture = TestBed.createComponent(PresetsDatePickerHostComponent);
+    fixture.detectChanges();
+    const trigger = fixture.nativeElement.querySelector('.frame-date-picker__trigger') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const picker = fixture.debugElement.children[0].componentInstance as FrDatePicker;
+    picker.setDisabledState(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.frame-date-picker__preset');
+    buttons[1].click();
+
+    expect(fixture.componentInstance.control.value).toEqual(new Date(2026, 5, 10));
+    expect(buttons[1].disabled).toBe(true);
+  });
+
   it('renders presets as footer actions after the calendar', async () => {
     const fixture = TestBed.createComponent(PresetsDatePickerHostComponent);
     fixture.detectChanges();
