@@ -193,6 +193,28 @@ describe('FrSelect', () => {
     expect(trigger.disabled).toBe(true);
   });
 
+  it('closes an open menu when its form control becomes disabled', async () => {
+    const fixture = TestBed.createComponent(ReactiveFormsHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const trigger = fixture.debugElement.query(By.directive(FrSelect)).nativeElement as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const item = document.body.querySelector<HTMLButtonElement>('button[frselectitem][value="banana"]')!;
+    expect(item).toBeTruthy();
+
+    fixture.componentInstance.control.disable();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    item.click();
+
+    expect(document.body.querySelector('button[frselectitem][value="banana"]')).toBeNull();
+    expect(fixture.componentInstance.control.value).toBe('apple');
+  });
+
   it('provides a built-in error message helper', async () => {
     @Component({
       imports: [FrSelectError],
