@@ -166,6 +166,12 @@ export class FrCombobox
     super();
 
     effect(() => {
+      if (this.disabled() && this.isOpen()) {
+        this.close();
+      }
+    });
+
+    effect(() => {
       const content = this.content();
       const unresolvedValue = this.selectedValues().some(
         (value) => !this.selectedLabels.has(value),
@@ -303,6 +309,10 @@ export class FrCombobox
   }
 
   selectItem(value: FrComboboxValue, label: string): void {
+    if (this.disabled()) {
+      return;
+    }
+
     this.rememberItemLabel(value, label);
 
     if (this.multiple()) {
