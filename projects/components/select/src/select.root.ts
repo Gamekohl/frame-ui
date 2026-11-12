@@ -7,6 +7,7 @@ import {
   afterNextRender,
   booleanAttribute,
   computed,
+  effect,
   inject,
   input,
   model,
@@ -81,6 +82,12 @@ export class FrSelect extends FrControlValueAccessor<string | null> implements A
   constructor() {
     super();
 
+    effect(() => {
+      if (this.disabled()) {
+        this.dropdownTrigger.close();
+      }
+    });
+
     afterNextRender(() => this.syncContent());
 
     queueMicrotask(() => {
@@ -110,6 +117,10 @@ export class FrSelect extends FrControlValueAccessor<string | null> implements A
   }
 
   selectValue(value: string | null, label: string): void {
+    if (this.disabled()) {
+      return;
+    }
+
     this.labels.set(value, label);
     this.selectedLabel.set(label);
     this.value.set(value);
