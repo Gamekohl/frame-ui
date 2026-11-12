@@ -32,7 +32,7 @@ import {
   ],
   standalone: true,
   template: `
-    <div frCombobox [(value)]="value" autoHighlight showClear>
+    <div frCombobox [(value)]="value" [disabled]="disabled()" autoHighlight showClear>
       <input frComboboxInput placeholder="Select framework" />
 
       <ng-template frComboboxContent>
@@ -50,6 +50,7 @@ import {
   `,
 })
 class TestHostComponent {
+  readonly disabled = signal(false);
   readonly value = signal<unknown | unknown[] | null>(null);
 }
 
@@ -478,6 +479,28 @@ describe('FrCombobox', () => {
     fixture.detectChanges();
 
     expect(input.disabled).toBe(true);
+  });
+
+  it('closes an open list when the combobox becomes disabled', async () => {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input = fixture.debugElement.query(By.directive(FrComboboxInput)).nativeElement as HTMLInputElement;
+    input.focus();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const item = document.body.querySelector<HTMLButtonElement>('button[frcomboboxitem][value="svelte"]')!;
+    expect(item).toBeTruthy();
+
+    fixture.componentInstance.disabled.set(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    item.click();
+
+    expect(document.body.querySelector('button[frcomboboxitem][value="svelte"]')).toBeNull();
+    expect(fixture.componentInstance.value()).toBeNull();
   });
 
   it('updates the displayed value when a selected item label is registered', async () => {
